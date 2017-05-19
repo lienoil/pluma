@@ -11,11 +11,18 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.6.4"
+        "php": ">=5.6.4",
+        "illuminate/database": "^5.4",
+        "illuminate/routing": "^5.4",
+        "illuminate/events": "^5.4",
+        "illuminate/support": "^5.4"
     },
     "autoload": {
+        "classmap": [
+            "core"
+        ],
         "psr-4": {
-            "Pluma\\": "src/"
+            "Pluma\\": "core/"
         }
     }
 }

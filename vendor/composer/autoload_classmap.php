@@ -6,4 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Kernel' => $baseDir . '/core/Http/Kernel.php',
+    'Pluma\\Application' => $baseDir . '/core/Application.php',
+    'Pluma\\Models\\Task' => $baseDir . '/core/Models/Task.php',
+    'Pluma\\Provider\\PlumaServiceProvider' => $baseDir . '/core/Providers/PlumaServiceProvider.php',
+    'Pluma\\Providers\\ModuleServiceProvider' => $baseDir . '/core/Providers/ModuleServiceProvider.php',
 );
