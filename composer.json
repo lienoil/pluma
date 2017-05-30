@@ -1,6 +1,7 @@
 {
     "name": "pluma/cms",
     "description": "Pluma - A Web CMS",
+    "version": "0.1.0",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -16,7 +17,11 @@
         "illuminate/routing": "^5.4",
         "illuminate/events": "^5.4",
         "illuminate/support": "^5.4",
-        "robmorgan/phinx": "0.5.*"
+        "robmorgan/phinx": "^0.8.0",
+        "vlucas/phpdotenv": "^2.4",
+        "filp/whoops": "^2.1",
+        "illuminate/contracts": "^5.4",
+        "illuminate/container": "^5.4"
     },
     "autoload": {
         "classmap": [

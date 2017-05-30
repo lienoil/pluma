@@ -1,5 +1,5 @@
 <?php
 
-$app['router']->get('/', function () {
-    return "Hello world";
-});
+// $app['router']->get('/', function () {
+//     return "Hello world";
+// });

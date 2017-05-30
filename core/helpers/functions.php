@@ -1,7 +1,7 @@
 <?php
 
 if (! function_exists('config')) {
-    function config($path = '')
+    function config($path = '', $default = null)
     {
         if (file_exists(__DIR__.'/../../config/'.$path)) {
             require_once __DIR__.'/../../config/'.$path;

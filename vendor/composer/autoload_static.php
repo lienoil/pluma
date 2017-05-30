@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7
+class ComposerStaticInitc4c244b2a11eb05fd2c82e712368ab7d
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -12,6 +12,10 @@ class ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Whoops\\' => 7,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -46,6 +50,10 @@ class ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
         'C' => 
         array (
             'Carbon\\' => 7,
@@ -53,6 +61,10 @@ class ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7
     );
 
     public static $prefixDirsPsr4 = array (
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -153,6 +165,10 @@ class ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -172,18 +188,27 @@ class ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7
     public static $classMap = array (
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Http/Kernel.php',
         'Pluma\\Application' => __DIR__ . '/../..' . '/core/Application.php',
+        'Pluma\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Exceptions/Handler.php',
         'Pluma\\Models\\Task' => __DIR__ . '/../..' . '/core/Models/Task.php',
         'Pluma\\Provider\\PlumaServiceProvider' => __DIR__ . '/../..' . '/core/Providers/PlumaServiceProvider.php',
         'Pluma\\Providers\\ModuleServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ModuleServiceProvider.php',
+        'Pluma\\Support\\Database\\Traits\\Database' => __DIR__ . '/../..' . '/core/Support/Database/Traits/Database.php',
+        'Pluma\\Support\\Env\\Traits\\Env' => __DIR__ . '/../..' . '/core/Support/Env/Traits/Env.php',
+        'Pluma\\Support\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Support/Exceptions/Handler.php',
+        'Pluma\\Support\\Facades\\AliasLoader' => __DIR__ . '/../..' . '/core/Support/Facades/AliasLoader.php',
+        'Pluma\\Support\\Facades\\Route' => __DIR__ . '/../..' . '/core/Support/Facades/Route.php',
+        'Pluma\\Support\\Handlers\\ExceptionHandler' => __DIR__ . '/../..' . '/core/Support/Handlers/ExceptionHandler.php',
+        'Pluma\\Support\\Migration\\Migration' => __DIR__ . '/../..' . '/core/Support/Migration/Migration.php',
+        'Pluma\\Support\\Routes\\Traits\\Router' => __DIR__ . '/../..' . '/core/Support/Routes/Traits/Router.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit41a2ea1ad72bff7c93dc9ea2c95403d7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc4c244b2a11eb05fd2c82e712368ab7d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc4c244b2a11eb05fd2c82e712368ab7d::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc4c244b2a11eb05fd2c82e712368ab7d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc4c244b2a11eb05fd2c82e712368ab7d::$classMap;
 
         }, null, ClassLoader::class);
     }

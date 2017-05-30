@@ -1,33 +1,29 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new Laravel application instance
-| which serves as the "glue" for all the components of Laravel, and is
-| the IoC container for the system binding all of the various parts.
-|
-*/
+/**
+ *---------------------------------------------------------------------------
+ * Start your Engines
+ *---------------------------------------------------------------------------
+ *
+ */
 
+// Create the app instance
 $app = new Pluma\Application(
     realpath(__DIR__.'/../')
 );
 
-// Tell facade about the application instance
-Illuminate\Support\Facades\Facade::setFacadeApplication($app);
+// $app->singleton('app', Pluma\Application::class);
 
-// register application instance with container
+// Register application instance with container
 $app['app'] = $app;
 
-// set environment
-$app['env'] = 'production';
+// Set environment
+$app['env'] = env('APP_ENV', 'development');
 
 with(new Illuminate\Events\EventServiceProvider($app))->register();
 with(new Illuminate\Routing\RoutingServiceProvider($app))->register();
 
-require __DIR__.'/../core/Routes/routes.php';
+$app->routes();
 
 // Instantiate the request
 $request = Illuminate\Http\Request::createFromGlobals();
