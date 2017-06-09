@@ -10,5 +10,6 @@
  */
 return [
     'App' => \Illuminate\Contracts\Container\Container::class,
-    // 'Route' => \Illuminate\Support\Facades\Route::class,
+    'Route' => \Illuminate\Support\Facades\Route::class,
+    'File' => \Illuminate\Http\File::class,
 ];

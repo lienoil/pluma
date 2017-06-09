@@ -8,8 +8,8 @@ class ModuleServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        echo "<pre>";
-            var_dump( "yes" ); die();
-        echo "</pre>";
+        // echo "<pre>";
+        //     var_dump( "yes" ); die();
+        // echo "</pre>";
     }
 }

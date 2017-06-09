@@ -12,12 +12,13 @@ class PlumaServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->capsule();
-        $this->routes();
+        // $this->routes();
     }
 
     public function register()
     {
-        $this->app->register("Pluma\Providers\ModuleServiceProvider");
+        $this->app->register(Pluma\Providers\ModuleServiceProvider::class);
+        $this->app->register(Pluma\Providers\FilesystemServiceProvider::class);
     }
 
     private function capsule()

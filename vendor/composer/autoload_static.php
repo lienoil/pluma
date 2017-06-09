@@ -186,11 +186,14 @@ class ComposerStaticInitc4c244b2a11eb05fd2c82e712368ab7d
     );
 
     public static $classMap = array (
-        'App\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Http/Kernel.php',
-        'Pluma\\Application' => __DIR__ . '/../..' . '/core/Application.php',
+        'Frontier\\API\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/Submodules/Frontier/API/Controllers/PublicController.php',
+        'Frontier\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/Submodules/Frontier/Controllers/PublicController.php',
+        'Pluma\\Application\\Application' => __DIR__ . '/../..' . '/core/Application/Application.php',
         'Pluma\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Exceptions/Handler.php',
+        'Pluma\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Http/Kernel.php',
         'Pluma\\Models\\Task' => __DIR__ . '/../..' . '/core/Models/Task.php',
         'Pluma\\Provider\\PlumaServiceProvider' => __DIR__ . '/../..' . '/core/Providers/PlumaServiceProvider.php',
+        'Pluma\\Providers\\FilesystemServiceProvider' => __DIR__ . '/../..' . '/core/Providers/FilesystemServiceProvider.php',
         'Pluma\\Providers\\ModuleServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ModuleServiceProvider.php',
         'Pluma\\Support\\Database\\Traits\\Database' => __DIR__ . '/../..' . '/core/Support/Database/Traits/Database.php',
         'Pluma\\Support\\Env\\Traits\\Env' => __DIR__ . '/../..' . '/core/Support/Env/Traits/Env.php',
@@ -199,7 +202,7 @@ class ComposerStaticInitc4c244b2a11eb05fd2c82e712368ab7d
         'Pluma\\Support\\Facades\\Route' => __DIR__ . '/../..' . '/core/Support/Facades/Route.php',
         'Pluma\\Support\\Handlers\\ExceptionHandler' => __DIR__ . '/../..' . '/core/Support/Handlers/ExceptionHandler.php',
         'Pluma\\Support\\Migration\\Migration' => __DIR__ . '/../..' . '/core/Support/Migration/Migration.php',
-        'Pluma\\Support\\Routes\\Traits\\Router' => __DIR__ . '/../..' . '/core/Support/Routes/Traits/Router.php',
+        'Pluma\\Support\\Routes\\Traits\\Routing' => __DIR__ . '/../..' . '/core/Support/Routes/Traits/Routing.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

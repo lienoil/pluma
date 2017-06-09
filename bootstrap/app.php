@@ -8,21 +8,22 @@
  */
 
 // Create the app instance
-$app = new Pluma\Application(
-    realpath(__DIR__.'/../')
+$app = new Pluma\Application\Application(
+    __DIR__.'/../../'
 );
 
-// $app->singleton('app', Pluma\Application::class);
+$app->singleton(
+    Illuminate\Contracts\Http\Kernel::class,
+    Pluma\Http\Kernel::class
+);
 
-// Register application instance with container
-$app['app'] = $app;
-
-// Set environment
-$app['env'] = env('APP_ENV', 'development');
-
+// Handle Events
 with(new Illuminate\Events\EventServiceProvider($app))->register();
+
+// Handle Routing
 with(new Illuminate\Routing\RoutingServiceProvider($app))->register();
 
+// Load routes
 $app->routes();
 
 // Instantiate the request
