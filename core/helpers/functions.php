@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\File;
-
 if (! function_exists('core_path')) {
     function core_path($path = '')
     {
-        $corePath = "core/"; // config("settings.core.path", 'core/');
+        $corePath = "core"; // config("settings.core.path", 'core/');
         return app()->basePath().$corePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
@@ -21,9 +19,9 @@ if (! function_exists('submodules')) {
     function submodules($moduleName = "Pluma", $lookInCore = false)
     {
         $submodulePath = $lookInCore ? core_path("Submodules") : base_path("modules/$moduleName/Submodules");
-        $submodules = File::exists($submodulePath) ? File::directories($submodulePath) : '';
-        dd($submodules);
-        return app()->basePath().$corePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
+        $submodules = file_exists($submodulePath) ? glob("$submodulePath/*", GLOB_ONLYDIR) : [];
+
+        return $submodules;
     }
 }
 
@@ -59,5 +57,47 @@ if (! function_exists('env')) {
         }
 
         return $value;
+    }
+}
+
+if (! function_exists("include_files")) {
+    /**
+     * Include the file specified foreach item
+     * in array.
+     *
+     * @param  array $filePaths Array of file paths
+     * @param  string $file      File to include
+     * @return void
+     */
+    function include_files($filePaths, $file = "")
+    {
+        foreach ($filePaths as $filePath) {
+            if (file_exists("$filePath/$file")) {
+                include_once "$filePath/$file";
+            }
+        }
+    }
+}
+
+if (! function_exists("include_file")) {
+    /**
+     * Include the file specified
+     *
+     * @param  string $filePaths file path
+     * @param  string $file      File to include
+     * @return void
+     */
+    function include_file($filePath, $file = "")
+    {
+        if (file_exists("$filePath/$file")) {
+            include_once "$filePath/$file";
+        }
+    }
+}
+
+if (! function_exists("settings")) {
+    function settings($key = null, $default = null)
+    {
+        return config("settings.$key", $default);
     }
 }

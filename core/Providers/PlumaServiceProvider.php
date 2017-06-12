@@ -1,24 +1,27 @@
 <?php
 
-namespace Pluma\Provider;
+namespace Pluma\Providers;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Support\ServiceProvider;
+use Pluma\Support\Handlers\ExceptionHandler;
 
 class PlumaServiceProvider extends ServiceProvider
 {
+    use ExceptionHandler;
+
     protected $capsule;
 
     public function boot()
     {
         $this->capsule();
-        // $this->routes();
     }
 
     public function register()
     {
-        $this->app->register(Pluma\Providers\ModuleServiceProvider::class);
-        $this->app->register(Pluma\Providers\FilesystemServiceProvider::class);
+        // $this->app->register(Pluma\Providers\ModuleServiceProvider::class);
+        // $this->app->register(Pluma\Providers\FilesystemServiceProvider::class);
+        $this->bindings();
     }
 
     private function capsule()
@@ -39,11 +42,10 @@ class PlumaServiceProvider extends ServiceProvider
         $this->capsule->bootEloquent();
     }
 
-    private function routes()
+    public function bindings()
     {
-        // Pluma's own routes
-        if (file_exists($this->app->getRealPath().'/core/routes/admin.php')) {
-            require_once $this->app->getRealPath().'/core/routes/admin.php';
-        }
+        $this->registerExceptionHandlers();
+        // $this->app->bind(Illuminate\Contracts\Debug\ExceptionHandler::class, Pluma\Exceptions\Handler::class);
     }
+
 }

@@ -49,6 +49,7 @@ class Handler extends BaseHandler
         // }
 
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            dd("404");
             return response()->view("Pluma::errors.404", [
                 'error' => [
                     'code' => 'NOT_FOUND',

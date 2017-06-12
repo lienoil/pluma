@@ -1,6 +1,10 @@
 <?php
 
+// Get array of submodules, if any.
 $submodules = submodules("Pluma", true);
-// loop submodules {...}
-include_once core_path("routes/admin.php");
-include_once core_path("routes/public.php");
+
+include_files($submodules, "routes/routes.php");
+
+// Load Admin and Public routes
+include_file(__DIR__,'/admin.php');
+include_file(__DIR__,'/public.php');

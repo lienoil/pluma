@@ -5,16 +5,15 @@ namespace Pluma\Application;
 use Illuminate\Container\Container;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Facade;
-use Pluma\Provider\PlumaServiceProvider;
+use Pluma\Providers\PlumaServiceProvider;
 use Pluma\Support\Database\Traits\Database;
 use Pluma\Support\Env\Traits\Env;
 use Pluma\Support\Facades\AliasLoader;
-use Pluma\Support\Handlers\ExceptionHandler;
 use Pluma\Support\Routes\Traits\Routing;
 
 class Application extends Container
 {
-    use Env, ExceptionHandler, Routing, Database;
+    use Env, Routing, Database;
 
     /**
      * Indicates if the application has "booted".
@@ -30,13 +29,9 @@ class Application extends Container
     {
         $this->includeHelperFunctions();
 
-        $this->registerBaseBindings();
-
-        // $this->services();
-
         $this->registerClassAliases();
 
-        $this->registerExceptionHandlers();
+        $this->registerBaseBindings();
 
         $this->setRealPath($realPath);
         $this->setCorePath("$realPath/core");
@@ -46,7 +41,7 @@ class Application extends Container
 
     public function start()
     {
-        //
+        $this->services();
     }
 
     public function register($provider, $options = [], $force = false)
@@ -168,6 +163,11 @@ class Application extends Container
         return $this->getRealPath();
     }
 
+    public function corePath()
+    {
+        return $this->getCorePath();
+    }
+
     private function services()
     {
         $this->booted = true;
@@ -175,9 +175,6 @@ class Application extends Container
         $provider = new PlumaServiceProvider($this);
         $provider->boot();
         $provider->register();
-        // $this->app->singleton('files', function () {
-        //     return new \Illuminate\Filesystem\Filesystem;
-        // });
     }
 
     private function includeHelperFunctions()

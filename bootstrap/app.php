@@ -9,13 +9,18 @@
 
 // Create the app instance
 $app = new Pluma\Application\Application(
-    __DIR__.'/../../'
+    __DIR__.'/../'
 );
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     Pluma\Http\Kernel::class
 );
+
+// $app->singleton(
+//     Illuminate\Contracts\Debug\ExceptionHandler::class,
+//     Pluma\Exceptions\Handler::class
+// );
 
 // Handle Events
 with(new Illuminate\Events\EventServiceProvider($app))->register();
