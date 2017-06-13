@@ -5,6 +5,6 @@ $submodules = submodules("Pluma", true);
 
 include_files($submodules, "routes/routes.php");
 
-// Load Admin and Public routes
+// Load local admin and public routes, if any.
 include_file(__DIR__,'/admin.php');
 include_file(__DIR__,'/public.php');

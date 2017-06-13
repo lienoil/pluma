@@ -10,6 +10,7 @@ use Pluma\Support\Database\Traits\Database;
 use Pluma\Support\Env\Traits\Env;
 use Pluma\Support\Facades\AliasLoader;
 use Pluma\Support\Routes\Traits\Routing;
+use View;
 
 class Application extends Container
 {
@@ -125,6 +126,8 @@ class Application extends Container
         Facade::setFacadeApplication($this);
 
         $this->instance(Illuminate\Container\Container::class, $this);
+
+        $this->app->bind(\Illuminate\Contracts\View\Factory::class, View::class);
     }
 
     /**

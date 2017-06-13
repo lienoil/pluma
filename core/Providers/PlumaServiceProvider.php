@@ -45,7 +45,6 @@ class PlumaServiceProvider extends ServiceProvider
     public function bindings()
     {
         $this->registerExceptionHandlers();
-        // $this->app->bind(Illuminate\Contracts\Debug\ExceptionHandler::class, Pluma\Exceptions\Handler::class);
     }
 
 }

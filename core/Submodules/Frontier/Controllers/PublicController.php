@@ -30,7 +30,7 @@ class PublicController
             $slug = "Welcome"; // settings("site.urls.home", "/");
         }
 
-        return $slug;
-        // return view("$slug");
+        // return $slug;
+        return view("$slug");
     }
 }
