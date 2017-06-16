@@ -3,6 +3,7 @@
 namespace Frontier\Controllers;
 
 use Illuminate\Http\Request;
+use Pluma\Models\Task;
 
 class PublicController
 {
@@ -26,11 +27,16 @@ class PublicController
      */
     public function show(Request $request, $slug = null)
     {
+        $view  = "Frontier::$slug.show";
+
         if (is_null($slug)) {
-            $slug = "Welcome"; // settings("site.urls.home", "/");
+            $view = "Frontier::welcome.welcome"; // settings("site.urls.home", "/");
         }
 
+        // $tasks = Task::all();
+        // dd($tasks);
+
         // return $slug;
-        return view("$slug");
+        return "$slug";//view("$view");
     }
 }

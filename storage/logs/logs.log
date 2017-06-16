@@ -1,0 +1,27 @@
+[2017-06-16 11:16:26] production.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'Pluma\Application\ProviderRepository' not found in /home/lioneil/Projects/pluma/core/Application/Application.php:582
+Stack trace:
+#0 /home/lioneil/Projects/pluma/core/Support/Bootstrap/RegisterProviders.php(17): Pluma\Application\Application->registerConfiguredProviders()
+#1 /home/lioneil/Projects/pluma/core/Application/Application.php(235): Pluma\Support\Bootstrap\RegisterProviders->bootstrap(Object(Pluma\Application\Application))
+#2 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(254): Pluma\Application\Application->bootstrapWith(Array)
+#3 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(145): Pluma\Support\Http\Kernel->bootstrap()
+#4 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(117): Pluma\Support\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#5 /home/lioneil/Projects/pluma/public/index.php(48): Pluma\Support\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#6 {main}  
+[2017-06-16 11:16:27] production.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'Pluma\Application\ProviderRepository' not found in /home/lioneil/Projects/pluma/core/Application/Application.php:582
+Stack trace:
+#0 /home/lioneil/Projects/pluma/core/Support/Bootstrap/RegisterProviders.php(17): Pluma\Application\Application->registerConfiguredProviders()
+#1 /home/lioneil/Projects/pluma/core/Application/Application.php(235): Pluma\Support\Bootstrap\RegisterProviders->bootstrap(Object(Pluma\Application\Application))
+#2 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(254): Pluma\Application\Application->bootstrapWith(Array)
+#3 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(145): Pluma\Support\Http\Kernel->bootstrap()
+#4 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(117): Pluma\Support\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#5 /home/lioneil/Projects/pluma/public/index.php(48): Pluma\Support\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#6 {main}  
+[2017-06-16 11:16:30] production.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'Pluma\Application\ProviderRepository' not found in /home/lioneil/Projects/pluma/core/Application/Application.php:582
+Stack trace:
+#0 /home/lioneil/Projects/pluma/core/Support/Bootstrap/RegisterProviders.php(17): Pluma\Application\Application->registerConfiguredProviders()
+#1 /home/lioneil/Projects/pluma/core/Application/Application.php(235): Pluma\Support\Bootstrap\RegisterProviders->bootstrap(Object(Pluma\Application\Application))
+#2 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(254): Pluma\Application\Application->bootstrapWith(Array)
+#3 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(145): Pluma\Support\Http\Kernel->bootstrap()
+#4 /home/lioneil/Projects/pluma/core/Support/Http/Kernel.php(117): Pluma\Support\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#5 /home/lioneil/Projects/pluma/public/index.php(48): Pluma\Support\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#6 {main}  

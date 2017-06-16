@@ -28,15 +28,15 @@ class PlumaServiceProvider extends ServiceProvider
     {
         $this->capsule = new Capsule();
         $this->capsule->addConnection([
-            'driver'    => env('DB_CONNECTION', 'mysql'),
-            'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_NAME', 'pluma_db'),
-            'username'  => env('DB_USER', 'root'),
-            'password'  => env('DB_PASSWORD', 'root'),
-            'charset'   => 'utf8',
+            'driver' => env('DB_CONNECTION', 'mysql'),
+            'host' => env('DB_HOST', 'localhost'),
+            'database' => env('DB_NAME', 'pluma_db'),
+            'username' => env('DB_USER', 'root'),
+            'password' => env('DB_PASSWORD', 'root'),
+            'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
+            'prefix' => '',
+            'strict' => false,
         ]);
         $this->capsule->setAsGlobal();
         $this->capsule->bootEloquent();
@@ -46,5 +46,4 @@ class PlumaServiceProvider extends ServiceProvider
     {
         $this->registerExceptionHandlers();
     }
-
 }

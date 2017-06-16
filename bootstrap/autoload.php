@@ -15,4 +15,12 @@ define('PLUMA_START', microtime(true));
 */
 
 require __DIR__.'/../vendor/autoload.php';
-// require __DIR__.'/../vendor/illuminate/support/helpers.php';
+
+require __DIR__.'/../core/helpers/helpers.php'; // pansamantala
+require __DIR__.'/../core/helpers/functions.php';
+
+$compiledPath = __DIR__.'/cache/compiled.php';
+
+if (file_exists($compiledPath)) {
+    require $compiledPath;
+}

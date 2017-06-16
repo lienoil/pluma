@@ -21,7 +21,15 @@
         "vlucas/phpdotenv": "^2.4",
         "filp/whoops": "^2.1",
         "illuminate/contracts": "^5.4",
-        "illuminate/container": "^5.4"
+        "illuminate/container": "^5.4",
+        "illuminate/view": "^5.4",
+        "illuminate/config": "^5.4",
+        "illuminate/log": "^5.4",
+        "illuminate/auth": "^5.4",
+        "illuminate/cookie": "^5.4",
+        "illuminate/hashing": "^5.4",
+        "illuminate/mail": "^5.4",
+        "illuminate/encryption": "^5.4"
     },
     "autoload": {
         "classmap": [

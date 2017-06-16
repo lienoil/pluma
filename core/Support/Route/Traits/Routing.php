@@ -5,6 +5,7 @@ namespace Pluma\Support\Routes\Traits;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Pluma\Providers\InstallationServiceProvider;
 
 trait Routing
 {
@@ -18,9 +19,6 @@ trait Routing
         $this->createDispatcher();
         $this->createRouterInstance();
         $this->loadRoutes();
-        // $this['router']->get('/', function () {
-        //     return view("Pluma::tres");
-        // });
     }
 
     public function bindRouter()
@@ -31,8 +29,12 @@ trait Routing
 
     public function loadRoutes()
     {
-        if (file_exists(core_path("routes/routes.php"))) {
-            include_once core_path("routes/routes.php");
+        if (is_installed()) {
+            include_file(core_path("routes"), "routes.php");
+        } else {
+            $provider = new InstallationServiceProvider($this);
+            $provider->boot();
+            $provider->register();
         }
     }
 

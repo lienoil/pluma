@@ -48,46 +48,46 @@ class Handler extends BaseHandler
         //  return redirect()->route('pluma.installation');
         // }
 
-        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-            dd("404");
-            return response()->view("Pluma::errors.404", [
-                'error' => [
-                    'code' => 'NOT_FOUND',
-                    'message' => $exception->getMessage(),
-                    'description' => 'The page you requested was not found.',
-                ]
-            ], 404);
-        }
+        // if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+        //     dd("404");
+        //     return response()->view("Pluma::errors.404", [
+        //         'error' => [
+        //             'code' => 'NOT_FOUND',
+        //             'message' => $exception->getMessage(),
+        //             'description' => 'The page you requested was not found.',
+        //         ]
+        //     ], 404);
+        // }
 
-        if (($exception instanceof \ReflectionException) && (auth()->user() && ! auth()->user()->isRoot())) {
-            return response()->view('Pluma::errors.exceptions', [
-                'error' => [
-                    'code' => $exception->getCode(),
-                    'message' => $exception->getMessage(),
-                    'description' => "An application error occured, log in as /dev/ to view the error.",
-                ]
-            ]);
-        }
+        // if (($exception instanceof \ReflectionException) && (auth()->user() && ! auth()->user()->isRoot())) {
+        //     return response()->view('Pluma::errors.exceptions', [
+        //         'error' => [
+        //             'code' => $exception->getCode(),
+        //             'message' => $exception->getMessage(),
+        //             'description' => "An application error occured, log in as /dev/ to view the error.",
+        //         ]
+        //     ]);
+        // }
 
-        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-            return response()->view('Pluma::errors.404', [
-                'error' => [
-                    'code' => 'NOT_FOUND',
-                    'message' => $exception->getMessage(),
-                    'description' => 'The page you requested was not found.',
-                ]
-            ], 404);
-        }
+        // if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+        //     return response()->view('Pluma::errors.404', [
+        //         'error' => [
+        //             'code' => 'NOT_FOUND',
+        //             'message' => $exception->getMessage(),
+        //             'description' => 'The page you requested was not found.',
+        //         ]
+        //     ], 404);
+        // }
 
-        if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
-            return response()->view('Pluma::errors.403', [
-                'error' => [
-                    'code' => 'NOT_AUTHORIZED',
-                    'message' => $exception->getMessage(),
-                    'description' => 'Unauthorized request.',
-                ]
-            ], 403);
-        }
+        // if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
+        //     return response()->view('Pluma::errors.403', [
+        //         'error' => [
+        //             'code' => 'NOT_AUTHORIZED',
+        //             'message' => $exception->getMessage(),
+        //             'description' => 'Unauthorized request.',
+        //         ]
+        //     ], 403);
+        // }
 
         return parent::render($request, $exception);
     }

@@ -29,7 +29,7 @@ require __DIR__.'/../bootstrap/autoload.php';
 require __DIR__.'/../bootstrap/reporting.php';
 require __DIR__.'/../bootstrap/pretty-errors.php';
 
-/*
+/**
  *---------------------------------------------------------------------------
  * App
  *---------------------------------------------------------------------------
@@ -40,4 +40,14 @@ require __DIR__.'/../bootstrap/pretty-errors.php';
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 // Vroom vrooom...
-$app->start();
+// $app->start();
+
+$kernel = $app->make(\Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = \Illuminate\Http\Request::capture()
+);
+
+$response->send();
+
+$kernel->terminate($request, $response);

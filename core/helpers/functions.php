@@ -4,13 +4,27 @@ if (! function_exists('core_path')) {
     function core_path($path = '')
     {
         $corePath = "core"; // config("settings.core.path", 'core/');
-        return app()->basePath().$corePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->basePath().DIRECTORY_SEPARATOR.$corePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+}
+
+if (! function_exists('modules_path')) {
+    /**
+     * Gets the path of modules.
+     *
+     * @param  string  $path
+     * @return array
+     */
+    function modules_path($path = '')
+    {
+        $modulePath = config('path.modules') ? config('path.modules') : base_path("modules");
+        return app()->basePath().DIRECTORY_SEPARATOR.$modulePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
 
 if (! function_exists('submodules')) {
     /**
-     * Gets an array of Submodules for a given module.
+     * Gets an array of submodules for a given module.
      *
      * @param  string  $moduleName The module
      * @param  boolean $lookInCore If we are looking inside the core folder
@@ -18,7 +32,7 @@ if (! function_exists('submodules')) {
      */
     function submodules($moduleName = "Pluma", $lookInCore = false)
     {
-        $submodulePath = $lookInCore ? core_path("Submodules") : base_path("modules/$moduleName/Submodules");
+        $submodulePath = $lookInCore ? core_path("submodules") : base_path("modules/$moduleName/submodules");
         $submodules = file_exists($submodulePath) ? glob("$submodulePath/*", GLOB_ONLYDIR) : [];
 
         return $submodules;
@@ -99,5 +113,12 @@ if (! function_exists("settings")) {
     function settings($key = null, $default = null)
     {
         return config("settings.$key", $default);
+    }
+}
+
+if (! function_exists('is_installed')) {
+    function is_installed()
+    {
+        return file_exists(base_path('.installed')) && ! file_exists(base_path('.install'));
     }
 }

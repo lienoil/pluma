@@ -17,28 +17,28 @@ $app->singleton(
     Pluma\Http\Kernel::class
 );
 
-// $app->singleton(
-//     Illuminate\Contracts\Debug\ExceptionHandler::class,
-//     Pluma\Exceptions\Handler::class
-// );
+$app->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    Pluma\Exceptions\Handler::class
+);
 
 // Handle Events
-with(new Illuminate\Events\EventServiceProvider($app))->register();
+// with(new Illuminate\Events\EventServiceProvider($app))->register();
 
 // Handle Routing
-with(new Illuminate\Routing\RoutingServiceProvider($app))->register();
+// with(new Illuminate\Routing\RoutingServiceProvider($app))->register();
 
-// Load routes
-$app->routes();
+// Include the main route
+// require_once core_path('routes/routes.php');
 
 // Instantiate the request
-$request = Illuminate\Http\Request::createFromGlobals();
+// $request = \Illuminate\Http\Request::createFromGlobals();
 
-// Dispatch the router
-$response = $app['router']->dispatch($request);
+// // Dispatch the router
+// $response = $app['router']->dispatch($request);
 
 // Send the response
-$response->send();
+// $response->send();
 
 
 /*

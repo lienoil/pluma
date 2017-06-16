@@ -10,6 +10,11 @@ return [
      *
      */
     'enabled' => [
+        'Track',
+        'Quest' => [
+            'Items',
+            'Sidequest'
+        ],
         // Modules here...
     ],
 
