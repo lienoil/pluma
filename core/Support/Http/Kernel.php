@@ -36,7 +36,7 @@ class Kernel implements KernelContract
     protected $bootstrappers = [
         'Pluma\Support\Bootstrap\DetectEnvironment',
         'Pluma\Support\Bootstrap\LoadConfiguration',
-        'Pluma\Support\Bootstrap\ConfigureLogging',
+        // 'Pluma\Support\Bootstrap\ConfigureLogging',
         // 'Pluma\Support\Bootstrap\HandleExceptions',
         'Pluma\Support\Bootstrap\RegisterFacades',
         'Pluma\Support\Bootstrap\RegisterProviders',
@@ -314,7 +314,7 @@ class Kernel implements KernelContract
     }
 
     /**
-     * Get the Laravel application instance.
+     * Get the application instance.
      *
      * @return \Illuminate\Contracts\Foundation\Application
      */

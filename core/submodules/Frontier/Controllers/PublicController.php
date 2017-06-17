@@ -36,7 +36,6 @@ class PublicController
         // $tasks = Task::all();
         // dd($tasks);
 
-        // return $slug;
-        return "$slug";//view("$view");
+        return view("$view")->with(['message' => 'Hello World!']);
     }
 }

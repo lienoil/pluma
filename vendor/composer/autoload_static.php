@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
+class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -266,6 +266,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/core/Middleware/VerifyCsrfToken.php',
         'Pluma\\Models\\Task' => __DIR__ . '/../..' . '/core/Models/Task.php',
         'Pluma\\Providers\\DatabaseServiceProvider' => __DIR__ . '/../..' . '/core/Providers/DatabaseServiceProvider.php',
+        'Pluma\\Providers\\EncryptionServiceProvider' => __DIR__ . '/../..' . '/core/Providers/EncryptionServiceProvider.php',
         'Pluma\\Providers\\FilesystemServiceProvider' => __DIR__ . '/../..' . '/core/Providers/FilesystemServiceProvider.php',
         'Pluma\\Providers\\InstallationServiceProvider' => __DIR__ . '/../..' . '/core/Providers/InstallationServiceController.php',
         'Pluma\\Providers\\ModuleServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ModuleServiceProvider.php',
@@ -287,6 +288,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Support\\Facades\\Route' => __DIR__ . '/../..' . '/core/Support/Facades/Route.php',
         'Pluma\\Support\\Handlers\\ExceptionHandler' => __DIR__ . '/../..' . '/core/Support/Handlers/ExceptionHandler.php',
         'Pluma\\Support\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Support/Http/Kernel.php',
+        'Pluma\\Support\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/core/Support/Http/Middleware/VerifyCsrfToken.php',
         'Pluma\\Support\\Installation\\Controllers\\InstallController' => __DIR__ . '/../..' . '/core/Support/Installation/Controllers/InstallController.php',
         'Pluma\\Support\\Installation\\Traits\\Installation' => __DIR__ . '/../..' . '/core/Support/Installation/Traits/Installation.php',
         'Pluma\\Support\\Migration\\Migration' => __DIR__ . '/../..' . '/core/Support/Migration/Migration.php',
@@ -297,10 +299,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$classMap;
 
         }, null, ClassLoader::class);
     }

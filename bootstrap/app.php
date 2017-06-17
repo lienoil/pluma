@@ -21,7 +21,6 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     Pluma\Exceptions\Handler::class
 );
-
 // Handle Events
 // with(new Illuminate\Events\EventServiceProvider($app))->register();
 
