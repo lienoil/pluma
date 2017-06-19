@@ -13,6 +13,13 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected $modules = [];
 
+    /**
+     * The hint path of all static pages.
+     *
+     * @var string
+     */
+    protected $staticBasename = "Static";
+
     public function __construct($app)
     {
         parent::__construct($app);
@@ -45,6 +52,7 @@ class ModuleServiceProvider extends ServiceProvider
     protected function registerCoreModules()
     {
         $this->loadCoreViews();
+        $this->loadStaticViews();
     }
 
     /**
@@ -63,6 +71,22 @@ class ModuleServiceProvider extends ServiceProvider
             if (is_dir("$submodule/views")) {
                 $this->loadViewsFrom("$submodule/views", $basename);
             }
+        }
+
+        if (is_dir(core_path("views"))) {
+            $this->loadViewsFrom(core_path("views"), "Pluma");
+        }
+    }
+
+    /**
+     * Load views from static folder.
+     *
+     * @return void
+     */
+    protected function loadStaticViews()
+    {
+        if (is_dir(config("view.static"))) {
+            $this->loadViewsFrom(config("view.static"), $this->staticBasename);
         }
     }
 
@@ -96,7 +120,7 @@ class ModuleServiceProvider extends ServiceProvider
                 // }
                 // $this->loadViews($module);
             } else {
-            dd("TEST", modules_path($module) );
+                dd("TEST", modules_path($module) );
                 if (is_dir(__DIR__."/$module/views")) {
                     $this->loadViewsFrom(__DIR__."/$module/views", $module);
                 }

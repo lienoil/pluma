@@ -48,16 +48,15 @@ class Handler extends BaseHandler
         //  return redirect()->route('pluma.installation');
         // }
 
-        // if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-        //     dd("404");
-        //     return response()->view("Pluma::errors.404", [
-        //         'error' => [
-        //             'code' => 'NOT_FOUND',
-        //             'message' => $exception->getMessage(),
-        //             'description' => 'The page you requested was not found.',
-        //         ]
-        //     ], 404);
-        // }
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            return response()->view("Pluma::errors.404", [
+                'error' => [
+                    'code' => 'NOT_FOUND',
+                    'message' => $exception->getMessage(),
+                    'description' => 'The page you requested was not found.',
+                ]
+            ], 404);
+        }
 
         // if (($exception instanceof \ReflectionException) && (auth()->user() && ! auth()->user()->isRoot())) {
         //     return response()->view('Pluma::errors.exceptions', [
@@ -69,15 +68,15 @@ class Handler extends BaseHandler
         //     ]);
         // }
 
-        // if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-        //     return response()->view('Pluma::errors.404', [
-        //         'error' => [
-        //             'code' => 'NOT_FOUND',
-        //             'message' => $exception->getMessage(),
-        //             'description' => 'The page you requested was not found.',
-        //         ]
-        //     ], 404);
-        // }
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            return response()->view('Pluma::errors.404', [
+                'error' => [
+                    'code' => 'NOT_FOUND',
+                    'message' => $exception->getMessage(),
+                    'description' => config('messages.404'),
+                ]
+            ], 404);
+        }
 
         // if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
         //     return response()->view('Pluma::errors.403', [

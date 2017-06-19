@@ -3,10 +3,13 @@
 namespace Frontier\Controllers;
 
 use Illuminate\Http\Request;
+use Pluma\Frontier\Support\View\CheckView;
 use Pluma\Models\Task;
 
 class PublicController
 {
+    use CheckView;
+
     /**
      * Show list of resources.
      *
@@ -27,15 +30,10 @@ class PublicController
      */
     public function show(Request $request, $slug = null)
     {
-        $view  = "Frontier::$slug.show";
+        // if (Task::whereSlug($slug)->exists()) {
+        //     dd("s");
+        // }
 
-        if (is_null($slug)) {
-            $view = "Frontier::welcome.welcome"; // settings("site.urls.home", "/");
-        }
-
-        // $tasks = Task::all();
-        // dd($tasks);
-
-        return view("$view")->with(['message' => 'Hello World!']);
+        return $this->view($slug, "Frontier::welcome.")->with(['description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis dignissimos reiciendis dicta iusto cumque. Officiis, fugit cupiditate. Tenetur rerum iure ducimus. Enim, est, aliquid. Iusto nobis suscipit voluptatem voluptas reprehenderit?']);
     }
 }

@@ -29,7 +29,8 @@
         "illuminate/cookie": "^5.4",
         "illuminate/hashing": "^5.4",
         "illuminate/mail": "^5.4",
-        "illuminate/encryption": "^5.4"
+        "illuminate/encryption": "^5.4",
+        "nesbot/carbon": "^1.22"
     },
     "autoload": {
         "classmap": [

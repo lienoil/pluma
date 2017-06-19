@@ -13,13 +13,8 @@ $app = new Pluma\Application\Application(
 );
 
 $app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    Pluma\Http\Kernel::class
-);
-
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Pluma\Exceptions\Handler::class
+    \Illuminate\Contracts\Debug\ExceptionHandler::class,
+    \Pluma\Exceptions\Handler::class
 );
 // Handle Events
 // with(new Illuminate\Events\EventServiceProvider($app))->register();
@@ -28,7 +23,7 @@ $app->singleton(
 // with(new Illuminate\Routing\RoutingServiceProvider($app))->register();
 
 // Include the main route
-// require_once core_path('routes/routes.php');
+// require_once core_path('routes/web.php');
 
 // Instantiate the request
 // $request = \Illuminate\Http\Request::createFromGlobals();

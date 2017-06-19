@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
+class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -257,12 +257,15 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
     public static $classMap = array (
         'Frontier\\API\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PublicController.php',
         'Frontier\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/PublicController.php',
+        'Pluma\\API\\Controllers\\APIController' => __DIR__ . '/../..' . '/core/API/Controllers/APIController.php',
         'Pluma\\Application\\Application' => __DIR__ . '/../..' . '/core/Application/Application.php',
         'Pluma\\Application\\EnvironmentDetector' => __DIR__ . '/../..' . '/core/Application/EnvironmentDetector.php',
         'Pluma\\Application\\ProviderRepository' => __DIR__ . '/../..' . '/core/Application/ProviderRepository.php',
         'Pluma\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Exceptions/Handler.php',
+        'Pluma\\Frontier\\Support\\View\\CheckView' => __DIR__ . '/../..' . '/core/submodules/Frontier/Support/View/CheckView.php',
         'Pluma\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Http/Kernel.php',
         'Pluma\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/core/Middleware/EncryptCookies.php',
+        'Pluma\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/core/Middleware/RedirectIfAuthenticated.php',
         'Pluma\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/core/Middleware/VerifyCsrfToken.php',
         'Pluma\\Models\\Task' => __DIR__ . '/../..' . '/core/Models/Task.php',
         'Pluma\\Providers\\DatabaseServiceProvider' => __DIR__ . '/../..' . '/core/Providers/DatabaseServiceProvider.php',
@@ -288,7 +291,9 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         'Pluma\\Support\\Facades\\Route' => __DIR__ . '/../..' . '/core/Support/Facades/Route.php',
         'Pluma\\Support\\Handlers\\ExceptionHandler' => __DIR__ . '/../..' . '/core/Support/Handlers/ExceptionHandler.php',
         'Pluma\\Support\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Support/Http/Kernel.php',
+        'Pluma\\Support\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/core/Support/Http/Middleware/CheckForMaintenanceMode.php',
         'Pluma\\Support\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/core/Support/Http/Middleware/VerifyCsrfToken.php',
+        'Pluma\\Support\\Http\\Middleware\\VerifyPostSize' => __DIR__ . '/../..' . '/core/Support/Http/Middleware/VerifyPostSize.php',
         'Pluma\\Support\\Installation\\Controllers\\InstallController' => __DIR__ . '/../..' . '/core/Support/Installation/Controllers/InstallController.php',
         'Pluma\\Support\\Installation\\Traits\\Installation' => __DIR__ . '/../..' . '/core/Support/Installation/Traits/Installation.php',
         'Pluma\\Support\\Migration\\Migration' => __DIR__ . '/../..' . '/core/Support/Migration/Migration.php',
@@ -299,10 +304,10 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
 
         }, null, ClassLoader::class);
     }

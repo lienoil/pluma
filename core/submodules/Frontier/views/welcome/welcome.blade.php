@@ -1,2 +1,10 @@
+@extends("Frontier::layouts.public")
 
-{{ $message }}
+@section("content")
+    <h1>Lo</h1>
+    <div class="panel">
+        <div class="panel-body">
+            {{ $description }}
+        </div>
+    </div>
+@endsection

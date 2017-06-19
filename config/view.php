@@ -30,4 +30,7 @@ return [
 
     'compiled' => realpath(storage_path('compiled/views')),
 
+
+    'static' => realpath(resource_path('views/static')),
+
 ];

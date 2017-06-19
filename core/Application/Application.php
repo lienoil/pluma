@@ -197,7 +197,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->register(new EventServiceProvider($this));
 
-        // $this->register(new ModuleServiceProvider($this));
+        // $this->register(new \Pluma\Providers\ViewServiceProvider($this));
 
         $this->register(new RoutingServiceProvider($this));
 

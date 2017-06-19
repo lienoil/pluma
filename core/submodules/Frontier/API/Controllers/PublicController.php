@@ -2,11 +2,13 @@
 
 namespace Frontier\API\Controllers;
 
-class PublicController
+use Pluma\API\Controllers\APIController;
+
+class PublicController extends APIController
 {
     public function show($slug = null)
     {
-        $response = [];
+        $response = ['test' => 'asd'];
 
         return response()->json($response);
     }
