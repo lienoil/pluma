@@ -29,7 +29,7 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function prepareModules()
     {
-        $this->modules = require __DIR__.'/../../config/modules.php';//$this->app['config']['modules.enabled'];
+        $this->modules = config('modules');
     }
 
     /**
@@ -41,7 +41,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->registerCoreModules();
 
-        // $this->registerModules();
+        $this->registerModules();
     }
 
     /**
@@ -51,8 +51,9 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerCoreModules()
     {
-        $this->loadCoreViews();
-        $this->loadStaticViews();
+        // $this->loadCoreViews();
+
+        // $this->loadStaticViews();
     }
 
     /**
@@ -60,7 +61,7 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function loadCoreViews()
+    protected function loadCoreViews($modules)
     {
         $lookInCore = true;
         $submodules = submodules("Pluma", $lookInCore);
@@ -98,6 +99,8 @@ class ModuleServiceProvider extends ServiceProvider
     public function registerModules()
     {
         $this->loadViews();
+
+        $this->loadServiceProviders();
     }
 
     /**
@@ -113,18 +116,29 @@ class ModuleServiceProvider extends ServiceProvider
         }
 
         foreach ($modules as $key => $module) {
-
             if (is_array($module)) {
-                // if (is_dir(__DIR__."/$key/views")) {
-                //     $this->loadViewsFrom(__DIR__."/$key/views", $key);
-                // }
-                // $this->loadViews($module);
+                if (is_dir(modules_path("$key/views"))) {
+                    $this->loadViewsFrom(modules_path("$key/views"), basename($key));
+                }
+
+                $this->loadViews($module);
             } else {
-                dd("TEST", modules_path($module) );
-                if (is_dir(__DIR__."/$module/views")) {
-                    $this->loadViewsFrom(__DIR__."/$module/views", $module);
+                if (is_dir(modules_path("$module/views"))) {
+                    $this->loadViewsFrom(modules_path("$module/views"), basename($module));
                 }
             }
+        }
+    }
+
+    /**
+     * Load service providers from the specified modules.
+     *
+     * @return void
+     */
+    public function loadServiceProviders()
+    {
+        foreach ($this->modules as $module) {
+
         }
     }
 }

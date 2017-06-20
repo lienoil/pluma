@@ -109,6 +109,13 @@ if (! function_exists("include_file")) {
     }
 }
 
+if (! function_exists('require_config')) {
+    function require_config($file, $path = __DIR__.'/../config')
+    {
+        return require $path . '/' . $file;
+    }
+}
+
 if (! function_exists("settings")) {
     function settings($key = null, $default = null)
     {

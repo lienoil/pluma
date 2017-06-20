@@ -256,7 +256,9 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
 
     public static $classMap = array (
         'Frontier\\API\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PublicController.php',
+        'Frontier\\Composers\\PageViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/PageViewComposer.php',
         'Frontier\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/PublicController.php',
+        'Frontier\\Providers\\FrontierServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/Providers/FrontierServiceProvider.php',
         'Pluma\\API\\Controllers\\APIController' => __DIR__ . '/../..' . '/core/API/Controllers/APIController.php',
         'Pluma\\Application\\Application' => __DIR__ . '/../..' . '/core/Application/Application.php',
         'Pluma\\Application\\EnvironmentDetector' => __DIR__ . '/../..' . '/core/Application/EnvironmentDetector.php',

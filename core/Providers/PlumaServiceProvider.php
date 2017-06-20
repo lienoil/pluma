@@ -65,7 +65,7 @@ class PlumaServiceProvider extends ServiceProvider
 
     private function composers()
     {
-        view()->composer(['*'], \Pluma\Composers\ApplicationViewComposer::class);
+        //
     }
 
     public function bindings()
