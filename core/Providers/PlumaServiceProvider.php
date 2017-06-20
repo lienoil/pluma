@@ -10,17 +10,38 @@ class PlumaServiceProvider extends ServiceProvider
 {
     use ExceptionHandler;
 
+    /**
+     * Eloquent instance.
+     *
+     * @var Illuminate\Database\Capsule\Manager
+     */
     protected $capsule;
 
+    /**
+     * The array of view composers.
+     *
+     * @var array
+     */
+    protected $composers;
+
+    /**
+     * Boot the service.
+     *
+     * @return void
+     */
     public function boot()
     {
         $this->capsule();
+        $this->composers();
     }
 
+    /**
+     * Register the services.
+     *
+     * @return void
+     */
     public function register()
     {
-        // $this->app->register(Pluma\Providers\ModuleServiceProvider::class);
-        // $this->app->register(Pluma\Providers\FilesystemServiceProvider::class);
         $this->bindings();
     }
 
@@ -40,6 +61,11 @@ class PlumaServiceProvider extends ServiceProvider
         ]);
         $this->capsule->setAsGlobal();
         $this->capsule->bootEloquent();
+    }
+
+    private function composers()
+    {
+        view()->composer(['*'], \Pluma\Composers\ApplicationViewComposer::class);
     }
 
     public function bindings()

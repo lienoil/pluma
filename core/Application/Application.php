@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 use Pluma\Application\EnvironmentDetector;
 use Pluma\Application\ProviderRepository;
 use Pluma\Providers\DatabaseServiceProvider;
-use Pluma\Providers\ModuleServiceProvider;
+use Pluma\Providers\PlumaServiceProvider;
 use Pluma\Support\Facades\AliasLoader;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -197,7 +197,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->register(new EventServiceProvider($this));
 
-        // $this->register(new \Pluma\Providers\ViewServiceProvider($this));
+        $this->register(new PlumaServiceProvider($this));
 
         $this->register(new RoutingServiceProvider($this));
 
