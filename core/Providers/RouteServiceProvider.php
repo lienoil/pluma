@@ -51,7 +51,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'web',
-            // 'namespace' => $this->namespace,
+            'namespace' => $this->namespace,
         ], function ($router) {
             include_file(core_path('routes'), 'web.php');
         });

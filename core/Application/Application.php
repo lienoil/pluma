@@ -185,7 +185,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 
         $this->instance('app', $this);
 
-        $this->instance(\Illuminate\Container\Container::class, $this);
+        $this->instance(Illuminate\Container\Container::class, $this);
     }
 
     /**
@@ -197,9 +197,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->register(new EventServiceProvider($this));
 
-        $this->register(new PlumaServiceProvider($this));
-
         $this->register(new RoutingServiceProvider($this));
+
+        $this->register(new PlumaServiceProvider($this));
 
         $this->register(new DatabaseServiceProvider($this));
     }
@@ -296,7 +296,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         $this->instance('path.base', $this->basePath());
         $this->instance('path.lang', $this->langPath());
         $this->instance('path.config', $this->configPath());
-        // $this->instance('path.public', $this->publicPath());
+        $this->instance('path.public', $this->publicPath());
         $this->instance('path.storage', $this->storagePath());
         $this->instance('path.database', $this->databasePath());
         $this->instance('path.resources', $this->resourcePath());
@@ -395,8 +395,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      */
     public function publicPath()
     {
-        $publicPath = config('path.public', 'public');
-        return $this->basePath.DIRECTORY_SEPARATOR.$publicPath;
+        // $publicPath = config('path.public', 'public');
+        return $this->basePath.DIRECTORY_SEPARATOR.'public';
     }
 
     /**
@@ -1100,7 +1100,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function registerCoreContainerAliases()
     {
         $aliases = [
-            'app'                  => ['Illuminate\Contracts\Container\Container', 'Illuminate\Contracts\Foundation\Application'],
+            'app'                  => ['Pluma\Application\Application', 'Illuminate\Contracts\Container\Container', 'Illuminate\Contracts\Foundation\Application'],
             'auth'                 => ['Illuminate\Auth\AuthManager', 'Illuminate\Contracts\Auth\Factory'],
             'auth.driver'          => ['Illuminate\Contracts\Auth\Guard'],
             'blade.compiler'       => ['Illuminate\View\Compilers\BladeCompiler'],

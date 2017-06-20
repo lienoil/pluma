@@ -14,7 +14,7 @@ class VerifyCsrfToken
     /**
      * The application instance.
      *
-     * @var \Illuminate\Foundation\Application
+     * @var \Pluma\Application\Application
      */
     protected $app;
 
@@ -35,7 +35,7 @@ class VerifyCsrfToken
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  \Pluma\Application\Application  $app
      * @param  \Illuminate\Contracts\Encryption\Encrypter  $encrypter
      * @return void
      */
