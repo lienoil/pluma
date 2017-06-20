@@ -1,7 +1,7 @@
-@include("Pluma::partials.header")
+@include("Frontier::partials.header")
 
 @yield("pre-content")
 @yield("content")
 @yield("post-content")
 
-@include("Pluma::partials.footer")
+@include("Frontier::partials.footer")

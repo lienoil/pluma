@@ -49,7 +49,7 @@ class Handler extends BaseHandler
         // }
 
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-            return response()->view("Pluma::errors.404", [
+            return response()->view("Frontier::errors.404", [
                 'error' => [
                     'code' => 'NOT_FOUND',
                     'message' => $exception->getMessage(),
@@ -59,7 +59,7 @@ class Handler extends BaseHandler
         }
 
         // if (($exception instanceof \ReflectionException) && (auth()->user() && ! auth()->user()->isRoot())) {
-        //     return response()->view('Pluma::errors.exceptions', [
+        //     return response()->view('Frontier::errors.exceptions', [
         //         'error' => [
         //             'code' => $exception->getCode(),
         //             'message' => $exception->getMessage(),
@@ -69,7 +69,7 @@ class Handler extends BaseHandler
         // }
 
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-            return response()->view('Pluma::errors.404', [
+            return response()->view('Frontier::errors.404', [
                 'error' => [
                     'code' => 'NOT_FOUND',
                     'message' => $exception->getMessage(),
@@ -79,7 +79,7 @@ class Handler extends BaseHandler
         }
 
         // if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
-        //     return response()->view('Pluma::errors.403', [
+        //     return response()->view('Frontier::errors.403', [
         //         'error' => [
         //             'code' => 'NOT_AUTHORIZED',
         //             'message' => $exception->getMessage(),
