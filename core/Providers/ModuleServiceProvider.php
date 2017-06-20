@@ -51,9 +51,9 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerCoreModules()
     {
-        // $this->loadCoreViews();
+        $this->loadCoreViews();
 
-        // $this->loadStaticViews();
+        $this->loadStaticViews();
     }
 
     /**
@@ -61,7 +61,7 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function loadCoreViews($modules)
+    protected function loadCoreViews()
     {
         $lookInCore = true;
         $submodules = submodules("Pluma", $lookInCore);
@@ -137,8 +137,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function loadServiceProviders()
     {
-        foreach ($this->modules as $module) {
-
-        }
+        // TODO: DELET THIS TEST
+        view()->composer(['*'], \Frontier\Composers\PageViewComposer::class);
     }
 }

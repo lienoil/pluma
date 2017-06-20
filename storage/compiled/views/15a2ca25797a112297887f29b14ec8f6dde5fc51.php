@@ -4,7 +4,11 @@
     <?php echo $__env->yieldPushContent("pre-meta"); ?>
     <?php echo $__env->yieldPushContent("meta"); ?>
     <meta charset="UTF-8">
-    <title><?php echo e(isset($application) && isset($application->title) ? $application->title : ''); ?></title>
+    <title>
+        <?php $__env->startSection("head.title"); ?><?php echo e(isset($application) && isset($application->head->title) ? $application->head->title : ''); ?><?php echo $__env->yieldSection(); ?>
+        <?php $__env->startSection("head.subtitle"); ?><?php echo e(isset($application) && isset($application->page->subtitle) ? $application->page->subtitle : ''); ?><?php echo $__env->yieldSection(); ?>
+    </title>
+    <meta name="description" content="<?php echo e(@$application->head->description); ?>">
     <?php echo $__env->yieldPushContent("post-meta"); ?>
 
     <?php echo $__env->yieldPushContent("pre-css"); ?>

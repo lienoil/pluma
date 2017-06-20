@@ -4,7 +4,11 @@
     @stack("pre-meta")
     @stack("meta")
     <meta charset="UTF-8">
-    <title>{{ isset($application) && isset($application->title) ? $application->title : '' }}</title>
+    <title>
+        @section("head.title"){{ isset($application) && isset($application->head->title) ? $application->head->title : '' }}@show
+        @section("head.subtitle"){{ isset($application) && isset($application->page->subtitle) ? $application->page->subtitle : '' }}@show
+    </title>
+    <meta name="description" content="{{ @$application->head->description }}">
     @stack("post-meta")
 
     @stack("pre-css")

@@ -2,6 +2,7 @@
 
 namespace Frontier\Composers;
 
+use Frontier\Models\Page;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 
@@ -48,21 +49,20 @@ class PageViewComposer
 
     private function handle()
     {
-        $r = json_decode(json_encode([
+        return json_decode(json_encode([
             'head' => $this->head(),
             'body' => $this->body(),
             'page' => $this->page(),
             'footer' => $this->footer(),
         ]));
-
-        dd($r->head->name);
     }
 
     private function head()
     {
         return json_decode(json_encode([
             'title' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
-            'subtitle' => config("settings.site.subtitle", env("APP_TAGLINE")),
+            'subtitle' => $this->guessSubtitle($this->currentUrl),
+            'description' => $this->guessDescription(),
             'name' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
             'tagline' => config("settings.site.subtitle", env("APP_TAGLINE")),
         ]));
@@ -76,8 +76,8 @@ class PageViewComposer
     private function page()
     {
         return json_decode(json_encode([
-            'title' => $this->guessPageTitle($this->currentUrl),
-            'subtitle' => "",
+            'title' => $this->guessTitle($this->currentUrl),
+            'subtitle' => $this->guessSubtitle($this->currentUrl),
         ]));
     }
 
@@ -86,20 +86,71 @@ class PageViewComposer
         return json_decode(json_encode([]));
     }
 
-    public function guessPageTitle($url)
+    /**
+     * Guesses the page title.
+     * Looks in the database first,
+     * if nothing found, then it will try to
+     * construct words based from url.
+     *
+     * @param  string $url
+     * @return void
+     */
+    public function guessTitle($url)
     {
-        $page = Page::whereSlug($url)->get();
+        // $page = Page::whereSlug($url)->get();
 
-        if ($page->exists()) {
-            return $page->title;
-        }
+        // if ($page->exists()) {
+        //     return $page->title;
+        // }
 
         $segments = collect(explode("/", $url));
 
-        if (empty($url->first())) {
-            // $url->first()"Home";
+        if (empty($segments->first())) {
+            return config("settings.pages.default_name", "Home");
         }
 
-        dd($url);
+        return ucwords("{$segments->last()} {$segments->first()}");
+    }
+
+    /**
+     * Guesses the page subtitle.
+     * Looks in the database first,
+     * if nothing found, then it will try to
+     * construct words based from url.
+     *
+     * @param  string $url
+     * @return void
+     */
+    public function guessSubtitle($url)
+    {
+        $segments = collect(explode("/", $url));
+
+        if (empty($segments->first())) {
+            return "| " . config("settings.site.subtitle", env("APP_TAGLINE"));
+        }
+
+        return '| ' . config("settings.site.title", env("APP_NAME"));
+    }
+
+    /**
+     * Guesses the page description.
+     * Looks in the database first,
+     * if nothing found, then it will try to
+     * construct words based from url.
+     *
+     * @return void
+     */
+    public function guessDescription()
+    {
+        $description = "";
+        // else check database....
+        // ....
+
+        if (empty($this->currentUrl) || empty($description)) {
+            $description = env("APP_TAGLINE");
+        }
+
+        // else
+        return $description;
     }
 }
