@@ -59,18 +59,29 @@ class ModuleServiceProvider extends ServiceProvider
     /**
      * Load views from core.
      *
+     * @var  mixed|array $modules
      * @return void
      */
-    protected function loadCoreViews()
+    protected function loadCoreViews($modules = null)
     {
-        $lookInCore = true;
-        $submodules = submodules("Pluma", $lookInCore);
+        if (is_null($modules)) {
+            $lookInCore = true;
+            $modules = submodules("Pluma", $lookInCore);
+        }
 
-        foreach ($submodules as $submodule) {
-            $basename = basename($submodule);
+        foreach ($modules as $module) {
+            $basename = basename($module);
 
-            if (is_dir("$submodule/views")) {
-                $this->loadViewsFrom("$submodule/views", $basename);
+            if (is_array($module)) {
+                if (is_dir(modules_path("$key/views"))) {
+                    $this->loadViewsFrom(modules_path("$key/views"), basename($key));
+                }
+
+                $this->loadCoreViews($module);
+            } else {
+                if (is_dir("$module/views")) {
+                    $this->loadViewsFrom("$module/views", $basename);
+                }
             }
         }
 

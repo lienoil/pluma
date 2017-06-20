@@ -1,8 +1,6 @@
 <?php
 
-namespace Pluma\Frontier\Support\View;
-
-use Symfony\Component\Config\Definition\Exception\Exception;
+namespace Frontier\Support\View;
 
 trait CheckView
 {
