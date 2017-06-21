@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <style>
         body {
-            background-color: #f1f2f3;
+            background-color: #f1f1f1;
         }
     </style>
 @endpush
@@ -13,7 +13,7 @@
     <div class="container">
         <div class="col-sm-8 offset-sm-2">
             <header class="header">
-                <h2 class="header-title mt-5">Pluma&trade; | <span class="text-muted">Welcome, brave traveller</span></h2>
+                <h2 class="header-title mt-5">Pluma&trade; | <span class="text-muted">Welcome</span></h2>
                 <p class="lead">Thank you for using <strong>Pluma&trade;</strong> CMS. This page will guide you through the installation process.</p>
             </header>
 
@@ -22,7 +22,7 @@
 
                 <ul>
                     <li>Database name (can be non-existent)</li>
-                    <li>Hostname (usually localhost)</li>
+                    <li>Hostname</li>
                     <li>User</li>
                     <li>Password</li>
                 </ul>
@@ -31,12 +31,14 @@
 
                 <p>If you don't have the information above, you may have to contact your Web Host to supply them for you.</p>
 
+                <hr>
                 <a href="{{ route('installation.next') }}" class="btn btn-primary">Proceed</a>
                 <p><small><em><strong>By clicking the button</strong>, you agree to <strong>Pluma&trade;</strong>'s <a href="#">Terms and Conditions</a>.</em></small></p>
+                <hr>
 
             </main>
 
-            <aside class="footnote">
+            <aside class="footnote mb-3">
                 <small>&copy; Pluma&trade; 2017. Licensed under the MIT.</small>
             </aside>
 

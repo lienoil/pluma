@@ -54,6 +54,7 @@
                     <div class="form-block p-b-3">
                         <legend>Database</legend>
                         <p class="text-muted">Make sure you have correctly specified your database, database username, and database password below. If no existing database is found, the installer will create it for you.</p>
+                        <p><small class="text-muted mb-3">Note to succesfully create a database, you must give a user that has the appropriate permissions.</small></p>
 
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label"><strong>Database Name</strong></label>
@@ -82,7 +83,7 @@
 
                     <div class="form-block p-b-3">
                         <legend>Mail</legend>
-                        <p class="text-muted m-b-2">Below, you may specify your server's default mail configurations. Leave blank if unsure or configure later.</p>
+                        <p class="text-muted m-b-2">Below, you may specify your server's default mail configurations. Leave blank if unsure or want to configure later.</p>
 
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label"><strong>Mail Driver</strong></label>
@@ -128,13 +129,18 @@
 
                     </div>
 
+                    <hr>
                     <div class="form-block">
                         <div class="form-group row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <small class="text-muted">Installing will also migrate and seed the database. It may take several minutes.</small>
+                            </div>
+                            <div class="col-md-6">
                                 <button role="button" type="submit" class="btn btn-primary float-right">Install</button>
                             </div>
                         </div>
                     </div>
+                    <hr>
                 </form>
 
             </main>
