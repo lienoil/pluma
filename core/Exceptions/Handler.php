@@ -45,7 +45,7 @@ class Handler extends BaseHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof \PDOException || $exception instanceof \Illuminate\Database\QueryException) {
-            return redirect()->route('pluma.installation');
+            return redirect()->route('installation.welcome');
         }
 
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
+class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -27,6 +27,7 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Routing\\' => 26,
+            'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
@@ -53,6 +54,7 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Session\\' => 19,
             'Illuminate\\Routing\\' => 19,
+            'Illuminate\\Queue\\' => 17,
             'Illuminate\\Pipeline\\' => 20,
             'Illuminate\\Mail\\' => 16,
             'Illuminate\\Log\\' => 15,
@@ -65,12 +67,14 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
             'Illuminate\\Cookie\\' => 18,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
+            'Illuminate\\Console\\' => 19,
             'Illuminate\\Config\\' => 18,
             'Illuminate\\Auth\\' => 16,
         ),
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Doctrine\\Common\\Inflector\\' => 26,
         ),
         'C' => 
         array (
@@ -102,6 +106,10 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         'Symfony\\Component\\Routing\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
+        ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'Symfony\\Component\\HttpKernel\\' => 
         array (
@@ -171,6 +179,10 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         array (
             0 => __DIR__ . '/..' . '/illuminate/routing',
         ),
+        'Illuminate\\Queue\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/queue',
+        ),
         'Illuminate\\Pipeline\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/pipeline',
@@ -219,6 +231,10 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
+        'Illuminate\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/console',
+        ),
         'Illuminate\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/config',
@@ -230,6 +246,10 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
         'Carbon\\' => 
         array (
@@ -243,13 +263,6 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
             'Parsedown' => 
             array (
                 0 => __DIR__ . '/..' . '/erusev/parsedown',
-            ),
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Common\\Inflector\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
             ),
         ),
     );
@@ -274,7 +287,6 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         'Pluma\\Providers\\DatabaseServiceProvider' => __DIR__ . '/../..' . '/core/Providers/DatabaseServiceProvider.php',
         'Pluma\\Providers\\EncryptionServiceProvider' => __DIR__ . '/../..' . '/core/Providers/EncryptionServiceProvider.php',
         'Pluma\\Providers\\FilesystemServiceProvider' => __DIR__ . '/../..' . '/core/Providers/FilesystemServiceProvider.php',
-        'Pluma\\Providers\\InstallationServiceProvider' => __DIR__ . '/../..' . '/core/Providers/InstallationServiceController.php',
         'Pluma\\Providers\\ModuleServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ModuleServiceProvider.php',
         'Pluma\\Providers\\PlumaServiceProvider' => __DIR__ . '/../..' . '/core/Providers/PlumaServiceProvider.php',
         'Pluma\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/core/Providers/RouteServiceProvider.php',
@@ -287,6 +299,7 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         'Pluma\\Support\\Bootstrap\\RegisterFacades' => __DIR__ . '/../..' . '/core/Support/Bootstrap/RegisterFacades.php',
         'Pluma\\Support\\Bootstrap\\RegisterProviders' => __DIR__ . '/../..' . '/core/Support/Bootstrap/RegisterProviders.php',
         'Pluma\\Support\\Bootstrap\\SetRequestForConsole' => __DIR__ . '/../..' . '/core/Support/Bootstrap/SetRequestForConsole.php',
+        'Pluma\\Support\\Database\\Traits\\CreateDatabase' => __DIR__ . '/../..' . '/core/Support/Database/Traits/CreateDatabase.php',
         'Pluma\\Support\\Database\\Traits\\Database' => __DIR__ . '/../..' . '/core/Support/Database/Traits/Database.php',
         'Pluma\\Support\\Env\\Traits\\Env' => __DIR__ . '/../..' . '/core/Support/Env/Traits/Env.php',
         'Pluma\\Support\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Support/Exceptions/Handler.php',
@@ -298,7 +311,7 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
         'Pluma\\Support\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/core/Support/Http/Middleware/VerifyCsrfToken.php',
         'Pluma\\Support\\Http\\Middleware\\VerifyPostSize' => __DIR__ . '/../..' . '/core/Support/Http/Middleware/VerifyPostSize.php',
         'Pluma\\Support\\Installation\\Controllers\\InstallController' => __DIR__ . '/../..' . '/core/Support/Installation/Controllers/InstallController.php',
-        'Pluma\\Support\\Installation\\Traits\\Installation' => __DIR__ . '/../..' . '/core/Support/Installation/Traits/Installation.php',
+        'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider' => __DIR__ . '/../..' . '/core/Support/Installation/Providers/InstallationServiceProvider.php',
         'Pluma\\Support\\Migration\\Migration' => __DIR__ . '/../..' . '/core/Support/Migration/Migration.php',
         'Pluma\\Support\\Route\\RouteServiceProvider' => __DIR__ . '/../..' . '/core/Support/Route/RouteServiceProvider.php',
         'Pluma\\Support\\Routes\\Traits\\Routing' => __DIR__ . '/../..' . '/core/Support/Route/Traits/Routing.php',
@@ -307,10 +320,10 @@ class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
 
         }, null, ClassLoader::class);
     }

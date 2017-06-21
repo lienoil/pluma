@@ -12,11 +12,13 @@ return [
     'providers' => [
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
+        Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\RouteServiceProvider::class,

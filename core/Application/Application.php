@@ -18,6 +18,7 @@ use Pluma\Application\ProviderRepository;
 use Pluma\Providers\DatabaseServiceProvider;
 use Pluma\Providers\PlumaServiceProvider;
 use Pluma\Support\Facades\AliasLoader;
+use Pluma\Support\Installation\Providers\InstallationServiceProvider;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -197,11 +198,11 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->register(new EventServiceProvider($this));
 
+        $this->register(new DatabaseServiceProvider($this));
+
         $this->register(new RoutingServiceProvider($this));
 
         $this->register(new PlumaServiceProvider($this));
-
-        $this->register(new DatabaseServiceProvider($this));
     }
 
     /**
@@ -1180,4 +1181,11 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 
         throw new RuntimeException('Unable to detect application namespace.');
     }
+
+    /**
+     * Get the path to the cached packages.php file.
+     *
+     * @return string
+     */
+    public function getCachedPackagesPath() {}
 }

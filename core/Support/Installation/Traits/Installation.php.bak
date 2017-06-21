@@ -14,7 +14,7 @@ trait Installation
 
     public function loadInstallViews()
     {
-        $this->loadViewsFrom( __DIR__ . "/../views", $this->installHintPath);
+        $this->loadViewsFrom(__DIR__."/../views", $this->installHintPath);
     }
 
     public function loadInstallRoutes()
