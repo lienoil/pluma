@@ -62,6 +62,7 @@ class PageViewComposer
         return json_decode(json_encode([
             'title' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
             'subtitle' => $this->guessSubtitle($this->currentUrl),
+            'separator' => config("settings.site.title_separator", '|'),
             'description' => $this->guessDescription(),
             'name' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
             'tagline' => config("settings.site.subtitle", env("APP_TAGLINE")),

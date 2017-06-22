@@ -198,8 +198,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     {
         $this->register(new EventServiceProvider($this));
 
-        $this->register(new DatabaseServiceProvider($this));
-
         $this->register(new RoutingServiceProvider($this));
 
         $this->register(new PlumaServiceProvider($this));

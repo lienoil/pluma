@@ -24,6 +24,7 @@
                 </ul>
 
                 <a href="<?php echo e(url('admin')); ?>" class="btn btn-primary">Take me there</a>
+                <a href="<?php echo e(url('home')); ?>" class="btn btn-secondary">Take me home</a>
 
             </main>
 

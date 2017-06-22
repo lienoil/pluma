@@ -26,6 +26,7 @@
                 </ul>
 
                 <a href="{{ url('admin') }}" class="btn btn-primary">Take me there</a>
+                <a href="{{ url('home') }}" class="btn btn-secondary">Take me home</a>
 
             </main>
 

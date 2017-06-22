@@ -13,6 +13,8 @@ class InstallController extends Controller
 {
     use CreateDatabase, MigrateDatabase;
 
+    protected $installed = false;
+
     public function welcome(Request $request)
     {
         return view("Install::welcome.welcome");
@@ -20,41 +22,43 @@ class InstallController extends Controller
 
     public function next(Request $request)
     {
+        if (! File::exists(base_path('.env'))) {
+            File::copy(base_path('.env.example'), base_path('.env'));
+        }
+
         return view("Install::welcome.next");
     }
 
     public function install(Request $request)
     {
-        try {
-            config($request->all());
-            DB::connection()->getPdo();
-        } catch (\InvalidArgumentException $e) {
-            $db = $this->db(config('DB_NAME'))->drop()->make();
-        }
+        write_to_env($request->all());
 
-        if (isset($db) && $db) {
+        // config()->set('env', $request->all());
 
-            $this->migrate();
-            // $this->seed();
+        $db = $this->db(env('DB_DATABASE'))->drop()->make();
 
-            session()->flash('type', "success");
-            session()->flash('message', "Database successfully created");
+        $this->migrate();
+        // $this->seed();
 
-            return redirect()->route('installation.last');
-        }
+        $this->installed = true;
 
-        return abort(500);
+        return redirect()->route('installation.last');
     }
 
     public function last(Request $request)
     {
+        if ($this->installed) {
+            return redirect()->route('installation.next');
+        }
+
         $this->clean();
 
-        return view("Install::welcome.last")->with(['config' => config()]);
+        return view("Install::welcome.last")->with(['config' => config('env')]);
     }
 
     public function clean()
     {
-        return File::delete(base_path('.install'));
+        File::delete(base_path('bootstrap/cache/services.php'));
+        File::delete(base_path('.install'));
     }
 }

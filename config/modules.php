@@ -12,8 +12,8 @@ return [
     'enabled' => [
         'Track',
         'Quest' => [
-            'Items',
-            'Sidequest'
+            'Item',
+            'Sidequest',
         ],
         // Modules here...
     ],

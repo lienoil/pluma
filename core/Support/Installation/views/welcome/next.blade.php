@@ -61,14 +61,14 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label"><strong>Database Name</strong></label>
                             <div class="col-md-9">
-                                <input type="text" name="DB_NAME" class="form-control" value="{{ env('DB_NAME') }}">
+                                <input type="text" name="DB_DATABASE" class="form-control" value="{{ env('DB_DATABASE') }}">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label"><strong>Username</strong></label>
                             <div class="col-md-9">
-                                <input type="text" name="DB_USER" class="form-control" value="{{ env('DB_USER') }}">
+                                <input type="text" name="DB_USERNAME" class="form-control" value="{{ env('DB_USERNAME') }}">
                             </div>
                         </div>
 

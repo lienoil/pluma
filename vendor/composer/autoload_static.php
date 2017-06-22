@@ -268,6 +268,8 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     );
 
     public static $classMap = array (
+        'Admin\\Auth\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Controllers/LoginController.php',
+        'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
         'Frontier\\API\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PublicController.php',
         'Frontier\\Composers\\PageViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/PageViewComposer.php',
         'Frontier\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/PublicController.php',
@@ -301,6 +303,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Support\\Bootstrap\\SetRequestForConsole' => __DIR__ . '/../..' . '/core/Support/Bootstrap/SetRequestForConsole.php',
         'Pluma\\Support\\Database\\Traits\\CreateDatabase' => __DIR__ . '/../..' . '/core/Support/Database/Traits/CreateDatabase.php',
         'Pluma\\Support\\Database\\Traits\\Database' => __DIR__ . '/../..' . '/core/Support/Database/Traits/Database.php',
+        'Pluma\\Support\\Database\\Traits\\MigrateDatabase' => __DIR__ . '/../..' . '/core/Support/Database/Traits/MigrateDatabase.php',
         'Pluma\\Support\\Env\\Traits\\Env' => __DIR__ . '/../..' . '/core/Support/Env/Traits/Env.php',
         'Pluma\\Support\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Support/Exceptions/Handler.php',
         'Pluma\\Support\\Facades\\AliasLoader' => __DIR__ . '/../..' . '/core/Support/Facades/AliasLoader.php',

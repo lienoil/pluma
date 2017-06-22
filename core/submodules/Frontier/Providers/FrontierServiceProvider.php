@@ -35,7 +35,10 @@ class FrontierServiceProvider extends ServiceProvider
 
     private function composers()
     {
-        $composers = require_config('composers.php');
-        view()->composer(['*'], \Pluma\Composers\ApplicationViewComposer::class);
+        $composers = require __DIR__.'/../config/composers.php';
+
+        foreach ($composers as $composer) {
+            view()->composer($composer['appears'], $composer['class']);
+        }
     }
 }

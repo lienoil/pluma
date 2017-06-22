@@ -22,12 +22,29 @@ if (! function_exists('modules_path')) {
     }
 }
 
+if (! function_exists('migrations_path')) {
+    /**
+     * Gets an array of migrations_path for a given module.
+     *
+     * @param  string  $moduleName The module
+     * @return array
+     */
+    function migrations_path($moduleName = "Pluma")
+    {
+        $modules = array_merge(app('config')->get('modules.enabled'), submodules("Pluma", true, true));
+        // $modu
+
+        return ;
+    }
+}
+
 if (! function_exists('submodules')) {
     /**
      * Gets an array of submodules for a given module.
      *
      * @param  string  $moduleName The module
      * @param  boolean $lookInCore If we are looking inside the core folder
+     * @param  boolean $basenameOnly omits the realpath.
      * @return array
      */
     function submodules($moduleName = "Pluma", $lookInCore = false)
@@ -36,6 +53,37 @@ if (! function_exists('submodules')) {
         $submodules = file_exists($submodulePath) ? glob("$submodulePath/*", GLOB_ONLYDIR) : [];
 
         return $submodules;
+    }
+}
+
+if (! function_exists('modules')) {
+    /**
+     * Gets an array of recursive modules for a given module.
+     * This is the code equivalent of manually writing to config/modules.php
+     *
+     * @param  boolean $includeCoreModules includes the core modules and submodules.
+     * @param  string  $modulesPath The module
+     * @return array
+     */
+    function modules($includeCoreModules = false, $modulesPath = null, $basenameOnly = true)
+    {
+        $modules = is_null($modulesPath) ? glob(modules_path()."/*", GLOB_ONLYDIR) : glob("$modulesPath/*", GLOB_ONLYDIR);
+
+        if ($includeCoreModules) {
+            $coreModules = is_null($modulesPath) ? glob(core_path()."/submodules/*", GLOB_ONLYDIR) : glob("$modulesPath/*", GLOB_ONLYDIR);
+            $modules = array_merge($modules, $coreModules);
+        }
+
+        $m = [];
+        foreach ($modules as $k => $module) {
+            if (is_dir("$module/submodules")) {
+                $m[($basenameOnly ? basename($module) : $module)] = modules(false, "$module/submodules", $basenameOnly);
+            } else {
+                $m[$k] = ($basenameOnly ? basename($module) : $module);
+            }
+        }
+
+        return $m;
     }
 }
 
@@ -126,6 +174,46 @@ if (! function_exists("settings")) {
 if (! function_exists('is_installed')) {
     function is_installed()
     {
-        return file_exists(base_path('.installed')) && ! file_exists(base_path('.install'));
+        return ! file_exists(base_path('.install'));
     }
 }
+
+if (! function_exists('write_to_env')) {
+    function write_to_env($data)
+    {
+        if (!count($data)) {
+            return;
+        }
+
+        $pattern = '/([^\=]*)\=[^\n]*/';
+
+        $envFile = base_path('.env');
+
+        $lines = file($envFile);
+        $newLines = [];
+        foreach ($lines as $line) {
+            preg_match($pattern, $line, $matches);
+
+            if (! count($matches)) {
+                $newLines[] = $line;
+                continue;
+            }
+
+            if (! key_exists(trim($matches[1]), $data)) {
+                $newLines[] = $line;
+                continue;
+            }
+
+            if (strpos(trim($matches[1]), ' ') !== false) {
+                $line = trim($matches[1]) . "={$data[trim($matches[1])]}\n";
+            } else {
+                $line = trim($matches[1]) . "=\"{$data[trim($matches[1])]}\"\n";
+            }
+            $newLines[] = $line;
+        }
+
+        $newContent = implode('', $newLines);
+        file_put_contents($envFile, $newContent);
+    }
+}
+

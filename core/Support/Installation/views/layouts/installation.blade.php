@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>
         @section("head.title"){{ isset($application) && isset($application->head->title) ? $application->head->title : '' }}@show
-        @section("head.subtitle"){{ isset($application) && isset($application->page->subtitle) ? $application->page->subtitle : '' }}@show
+        @section("head.subtitle"){{ $application->head->separator }} {{ isset($application) && isset($application->head->tagline) ? $application->head->tagline : '' }}@show
     </title>
     <meta name="description" content="{{ @$application->head->description }}">
     @stack("post-meta")

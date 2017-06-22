@@ -2,6 +2,7 @@
 
 namespace Pluma\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
@@ -29,7 +30,7 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function prepareModules()
     {
-        $this->modules = config('modules');
+        $this->modules = modules(true, null, false);
     }
 
     /**
@@ -111,7 +112,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->loadViews();
 
-        $this->loadServiceProviders();
+        $this->loadModules();
     }
 
     /**
@@ -120,10 +121,10 @@ class ModuleServiceProvider extends ServiceProvider
      * @var array $modules
      * @return void
      */
-    public function loadViews($modules = null)
+    public function loadViewsXX($modules = null)
     {
         if (is_null($modules)) {
-            $modules = $this->modules['enabled'];
+            $modules = $this->modules;
         }
 
         foreach ($modules as $key => $module) {
@@ -146,9 +147,75 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function loadServiceProviders()
+    public function loadModules($modules = null)
     {
-        // TODO: DELET THIS TEST
-        view()->composer(['*'], \Frontier\Composers\PageViewComposer::class);
+        if (is_null($modules)) {
+            $modules = $this->modules;
+        }
+
+        foreach ($modules as $module) {
+            if (is_array($module)) {
+                $this->loadModules($module);
+            } else {
+                // Load Service
+                $this->loadServiceProviders($module);
+
+                // Load Views
+                $this->loadViews($module);
+
+                // Load Routes
+                $this->loadRoutes($module);
+            }
+        }
+    }
+
+    public function loadServiceProviders($module = null)
+    {
+        $basename = basename($module);
+        if (file_exists("$module/Providers/{$basename}ServiceProvider.php")) {
+            $serviceProvider = "$basename\\Providers\\{$basename}ServiceProvider";
+            $this->app->register($serviceProvider);
+        }
+    }
+
+    /**
+     * Load views from specified modules.
+     *
+     * @var array $modules
+     * @return void
+     */
+    public function loadViews($module = null)
+    {
+        $basename = basename($module);
+        if (is_dir("$module/views")) {
+            $this->loadViewsFrom("$module/views", $basename);
+        }
+    }
+
+    /**
+     * Load routes.
+     *
+     * @param  array $module
+     * @return void
+     */
+    public function loadRoutes($module = null)
+    {
+        $basename = basename($module);
+
+        if (file_exists("$module/routes/admin.php")) {
+            Route::group([
+                'prefix' => config('admin.slug', 'admin')
+            ], function () use ($module) {
+                include_file("$module/routes", "admin.php");
+            });
+        }
+
+        if (file_exists("$module/routes/api.php")) {
+            Route::group([
+                'prefix' => config('api.slug', 'api')
+            ], function () use ($module) {
+                include_file("$module/routes", "api.php");
+            });
+        }
     }
 }

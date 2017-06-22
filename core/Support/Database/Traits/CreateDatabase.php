@@ -17,7 +17,7 @@ trait CreateDatabase
 
         $connection = config('DB_CONNECTION', env('DB_CONNECTION'));
         $host = config('DB_HOST', env('DB_HOST'));
-        $user = config('DB_USER', env('DB_USER'));
+        $user = config('DB_USERNAME', env('DB_USERNAME'));
         $password = config('DB_PASSWORD', env('DB_PASSWORD'));
         $this->db = new PDO("{$connection}:host={$host}", $user, $password);
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

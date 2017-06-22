@@ -2,8 +2,7 @@
     <h1>Lo</h1>
     <div class="panel">
         <div class="panel-body">
-            <?php echo e($description); ?>
-
+            welcome.
         </div>
     </div>
 <?php $__env->stopSection(); ?>

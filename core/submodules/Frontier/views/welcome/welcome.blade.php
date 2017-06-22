@@ -4,7 +4,7 @@
     <h1>Lo</h1>
     <div class="panel">
         <div class="panel-body">
-            {{ $description }}
+            welcome.
         </div>
     </div>
 @endsection
