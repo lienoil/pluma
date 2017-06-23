@@ -30,7 +30,9 @@
         "illuminate/hashing": "^5.4",
         "illuminate/mail": "^5.4",
         "illuminate/encryption": "^5.4",
-        "nesbot/carbon": "^1.22"
+        "nesbot/carbon": "^1.22",
+        "illuminate/validation": "^5.4",
+        "illuminate/cache": "^5.4"
     },
     "autoload": {
         "classmap": [

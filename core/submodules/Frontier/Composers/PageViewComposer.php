@@ -50,10 +50,21 @@ class PageViewComposer
     private function handle()
     {
         return json_decode(json_encode([
+            'site' => $this->site(),
             'head' => $this->head(),
             'body' => $this->body(),
             'page' => $this->page(),
             'footer' => $this->footer(),
+        ]));
+    }
+
+    private function site()
+    {
+        return json_decode(json_encode([
+            'title' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
+            'tagline' => config("settings.site.tagline", env("APP_TAGLINE")),
+            'author' => config("settings.site.author", env("APP_AUTHOR")),
+            'copyright' => $this->guessCopyright(),
         ]));
     }
 
@@ -98,12 +109,6 @@ class PageViewComposer
      */
     public function guessTitle($url)
     {
-        // $page = Page::whereSlug($url)->get();
-
-        // if ($page->exists()) {
-        //     return $page->title;
-        // }
-
         $segments = collect(explode("/", $url));
 
         if (empty($segments->first())) {
@@ -130,7 +135,7 @@ class PageViewComposer
             return "| " . config("settings.site.subtitle", env("APP_TAGLINE"));
         }
 
-        return '| ' . config("settings.site.title", env("APP_NAME"));
+        return '| ' . config("settings.site.title", env("APP_TAGLINE"));
     }
 
     /**
@@ -153,5 +158,34 @@ class PageViewComposer
 
         // else
         return $description;
+    }
+
+    /**
+     * Guesses the page copyright.
+     * Looks in the database first,
+     * if nothing found, then it will try to
+     * construct words based from url.
+     *
+     * @return void
+     */
+    public function guessCopyright()
+    {
+        $blurb = config("settings.site.copyright", env("APP_COPYRIGHT"));
+
+        $blurb = preg_replace("/\{APP_NAME\}/", env("APP_NAME"), $blurb);
+        $blurb = preg_replace("/\{APP_TAGLINE\}/", env("APP_TAGLINE"), $blurb);
+        $blurb = preg_replace("/\{APP_YEAR\}/", env("APP_YEAR"), $blurb);
+        $blurb = preg_replace("/\{APP_AUTHOR\}/", env("APP_AUTHOR"), $blurb);
+        $blurb = preg_replace("/\{CURRENT_YEAR\}/", date('Y'), $blurb);
+
+        $copy = preg_replace(
+                "/\{APP_YEAR_TO_CURRENT_YEAR\}/",
+                (env("APP_YEAR", date('Y')) < date('Y')
+                    ? env("APP_YEAR") . " - " . date('Y')
+                    : date('Y')),
+                $blurb
+            );
+
+        return $copy;
     }
 }

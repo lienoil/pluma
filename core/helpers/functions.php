@@ -17,7 +17,13 @@ if (! function_exists('modules_path')) {
      */
     function modules_path($path = '')
     {
-        $modulePath = config('path.modules') ? config('path.modules') : base_path("modules");
+        if (! function_exists('config')) {
+            $modulePath = json_decode(json_encode(require __DIR__.'/../../config/path.php'));
+            $modulePath = $modulePath->modules;
+        } else {
+            $modulePath = config('path.modules') ? config('path.modules') : base_path("modules");
+        }
+
         return app()->basePath().DIRECTORY_SEPARATOR.$modulePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
@@ -84,6 +90,28 @@ if (! function_exists('modules')) {
         }
 
         return $m;
+    }
+}
+
+if (! function_exists('get_migrations')) {
+    /**
+     * Gets the all migrations path.
+     *
+     * @param  array  $modules
+     * @param  string $path
+     * @return array
+     */
+    function get_migrations($modules = [], $path = "")
+    {
+        $migrationsPath = [];
+
+        foreach ($modules as $module) {
+            if (is_dir("$modules/$path")) {
+                $migrationsPath[] = "$modules/$path";
+            }
+        }
+
+        return $migrationsPath;
     }
 }
 

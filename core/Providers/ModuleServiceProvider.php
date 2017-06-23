@@ -21,6 +21,11 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected $staticBasename = "Static";
 
+    /**
+     * Create a new service provider instance.
+     *
+     * @return void
+     */
     public function __construct($app)
     {
         parent::__construct($app);
@@ -40,55 +45,9 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerCoreModules();
-
         $this->registerModules();
-    }
-
-    /**
-     * Register the core modules.
-     *
-     * @return void
-     */
-    protected function registerCoreModules()
-    {
-        $this->loadCoreViews();
 
         $this->loadStaticViews();
-    }
-
-    /**
-     * Load views from core.
-     *
-     * @var  mixed|array $modules
-     * @return void
-     */
-    protected function loadCoreViews($modules = null)
-    {
-        if (is_null($modules)) {
-            $lookInCore = true;
-            $modules = submodules("Pluma", $lookInCore);
-        }
-
-        foreach ($modules as $module) {
-            $basename = basename($module);
-
-            if (is_array($module)) {
-                if (is_dir(modules_path("$key/views"))) {
-                    $this->loadViewsFrom(modules_path("$key/views"), basename($key));
-                }
-
-                $this->loadCoreViews($module);
-            } else {
-                if (is_dir("$module/views")) {
-                    $this->loadViewsFrom("$module/views", $basename);
-                }
-            }
-        }
-
-        if (is_dir(core_path("views"))) {
-            $this->loadViewsFrom(core_path("views"), "Pluma");
-        }
     }
 
     /**
@@ -98,8 +57,10 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadStaticViews()
     {
-        if (is_dir(config("view.static"))) {
-            $this->loadViewsFrom(config("view.static"), $this->staticBasename);
+        if (is_dir(config("view.static", 'resources/views/static'))) {
+            $this->staticBasename = config("view.static_basename", $this->staticBasename);
+
+            $this->loadViewsFrom(config("view.static", 'resources/views/static'), $this->staticBasename);
         }
     }
 
@@ -110,36 +71,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function registerModules()
     {
-        $this->loadViews();
-
-        $this->loadModules();
-    }
-
-    /**
-     * Load views from specified modules.
-     *
-     * @var array $modules
-     * @return void
-     */
-    public function loadViewsXX($modules = null)
-    {
-        if (is_null($modules)) {
-            $modules = $this->modules;
-        }
-
-        foreach ($modules as $key => $module) {
-            if (is_array($module)) {
-                if (is_dir(modules_path("$key/views"))) {
-                    $this->loadViewsFrom(modules_path("$key/views"), basename($key));
-                }
-
-                $this->loadViews($module);
-            } else {
-                if (is_dir(modules_path("$module/views"))) {
-                    $this->loadViewsFrom(modules_path("$module/views"), basename($module));
-                }
-            }
-        }
+        $this->loadModules($this->modules);
     }
 
     /**
@@ -149,23 +81,23 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function loadModules($modules = null)
     {
-        if (is_null($modules)) {
-            $modules = $this->modules;
-        }
-
-        foreach ($modules as $module) {
+        foreach ($modules as $key => $module) {
             if (is_array($module)) {
+                // Load Modules again
                 $this->loadModules($module);
-            } else {
-                // Load Service
-                $this->loadServiceProviders($module);
 
-                // Load Views
-                $this->loadViews($module);
-
-                // Load Routes
-                $this->loadRoutes($module);
+                // Swap parent module
+                $module = $key;
             }
+
+            // Load Services
+            $this->loadServiceProviders($module);
+
+            // Load Views
+            $this->loadViews($module);
+
+            // Load Routes
+            $this->loadRoutes($module);
         }
     }
 
@@ -204,7 +136,8 @@ class ModuleServiceProvider extends ServiceProvider
 
         if (file_exists("$module/routes/admin.php")) {
             Route::group([
-                'prefix' => config('admin.slug', 'admin')
+                'middleware' => ['web'],
+                'prefix' => config('routes.admin.slug', 'admin')
             ], function () use ($module) {
                 include_file("$module/routes", "admin.php");
             });
@@ -212,7 +145,8 @@ class ModuleServiceProvider extends ServiceProvider
 
         if (file_exists("$module/routes/api.php")) {
             Route::group([
-                'prefix' => config('api.slug', 'api')
+                'middleware' => ['api'],
+                'prefix' => config('routes.api.slug', 'api')
             ], function () use ($module) {
                 include_file("$module/routes", "api.php");
             });

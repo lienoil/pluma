@@ -20,7 +20,7 @@ class FrontierServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->composers();
+        $this->bootViewComposers();
     }
 
     /**
@@ -33,7 +33,7 @@ class FrontierServiceProvider extends ServiceProvider
         //
     }
 
-    private function composers()
+    private function bootViewComposers()
     {
         $composers = require __DIR__.'/../config/composers.php';
 

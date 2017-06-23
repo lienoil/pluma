@@ -69,7 +69,7 @@ class ConfigureLogging
     protected function configureSingleHandler(Application $app, Writer $log)
     {
         $log->useFiles(
-            $app->storagePath().'/logs/laravel.log',
+            $app->storagePath().'/logs/logs.log',
             $app->make('config')->get('logging.log_level', 'debug')
         );
     }

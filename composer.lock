@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60b6de819bddd2adc56633daefb3c16f",
-    "content-hash": "b95614470d4b1d71d5b1b1ff20a471f8",
+    "hash": "adbcd9003610c7ca8d264e4713bf03bb",
+    "content-hash": "f9d004f16599d32a12e169ce8e5923b1",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -228,6 +228,56 @@
             "description": "The Illuminate Auth package.",
             "homepage": "https://laravel.com",
             "time": "2017-06-17 01:40:37"
+        },
+        {
+            "name": "illuminate/cache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/cache.git",
+                "reference": "7768ede3eca6a915e7bf94d7c5a60148ad5b77f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/cache/zipball/7768ede3eca6a915e7bf94d7c5a60148ad5b77f7",
+                "reference": "7768ede3eca6a915e7bf94d7c5a60148ad5b77f7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.5.*",
+                "illuminate/support": "5.5.*",
+                "nesbot/carbon": "~1.20",
+                "php": ">=7.0"
+            },
+            "suggest": {
+                "illuminate/database": "Required to use the database cache driver (5.5.*).",
+                "illuminate/filesystem": "Required to use the file cache driver (5.5.*).",
+                "illuminate/redis": "Required to use the redis cache driver (5.5.*)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Cache\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Cache package.",
+            "homepage": "https://laravel.com",
+            "time": "2017-06-19 13:31:23"
         },
         {
             "name": "illuminate/config",
@@ -1105,6 +1155,101 @@
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
             "time": "2017-06-20 15:01:31"
+        },
+        {
+            "name": "illuminate/translation",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/translation.git",
+                "reference": "258d05814cb612e383d523733d7fadb7792bd3fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/258d05814cb612e383d523733d7fadb7792bd3fc",
+                "reference": "258d05814cb612e383d523733d7fadb7792bd3fc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.5.*",
+                "illuminate/filesystem": "5.5.*",
+                "illuminate/support": "5.5.*",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Translation\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Translation package.",
+            "homepage": "https://laravel.com",
+            "time": "2017-06-13 19:00:13"
+        },
+        {
+            "name": "illuminate/validation",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/validation.git",
+                "reference": "cb5f2a4de314efef8fbf14e339bc500e817e8c3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/validation/zipball/cb5f2a4de314efef8fbf14e339bc500e817e8c3a",
+                "reference": "cb5f2a4de314efef8fbf14e339bc500e817e8c3a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "5.5.*",
+                "illuminate/contracts": "5.5.*",
+                "illuminate/support": "5.5.*",
+                "illuminate/translation": "5.5.*",
+                "php": ">=7.0",
+                "symfony/http-foundation": "~3.3"
+            },
+            "suggest": {
+                "illuminate/database": "Required to use the database presence verifier (5.5.*)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Validation\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Validation package.",
+            "homepage": "https://laravel.com",
+            "time": "2017-06-17 01:40:37"
         },
         {
             "name": "illuminate/view",

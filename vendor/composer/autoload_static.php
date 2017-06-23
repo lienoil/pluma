@@ -51,6 +51,8 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'I' => 
         array (
             'Illuminate\\View\\' => 16,
+            'Illuminate\\Validation\\' => 22,
+            'Illuminate\\Translation\\' => 23,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Session\\' => 19,
             'Illuminate\\Routing\\' => 19,
@@ -69,6 +71,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
             'Illuminate\\Container\\' => 21,
             'Illuminate\\Console\\' => 19,
             'Illuminate\\Config\\' => 18,
+            'Illuminate\\Cache\\' => 17,
             'Illuminate\\Auth\\' => 16,
         ),
         'D' => 
@@ -167,6 +170,14 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         array (
             0 => __DIR__ . '/..' . '/illuminate/view',
         ),
+        'Illuminate\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/validation',
+        ),
+        'Illuminate\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/translation',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
@@ -239,6 +250,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         array (
             0 => __DIR__ . '/..' . '/illuminate/config',
         ),
+        'Illuminate\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/cache',
+        ),
         'Illuminate\\Auth\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/auth',
@@ -268,8 +283,13 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     );
 
     public static $classMap = array (
-        'Admin\\Auth\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Controllers/LoginController.php',
+        'Auth\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Controllers/LoginController.php',
+        'Auth\\Middleware\\RedirectToDashboardIfAuthenticated' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Middleware/RedirectToDashboardIfAuthenticated.php',
+        'Auth\\Models\\User' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Models/User.php',
+        'Auth\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Providers/AuthServiceProvider.php',
         'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
+        'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/database/migrations/20170623035860_create_password_resets_table.php',
+        'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/database/migrations/20170623035859_create_users_table.php',
         'Frontier\\API\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PublicController.php',
         'Frontier\\Composers\\PageViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/PageViewComposer.php',
         'Frontier\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/PublicController.php',
@@ -280,8 +300,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Application\\Application' => __DIR__ . '/../..' . '/core/Application/Application.php',
         'Pluma\\Application\\EnvironmentDetector' => __DIR__ . '/../..' . '/core/Application/EnvironmentDetector.php',
         'Pluma\\Application\\ProviderRepository' => __DIR__ . '/../..' . '/core/Application/ProviderRepository.php',
+        'Pluma\\Controllers\\Controller' => __DIR__ . '/../..' . '/core/Controllers/Controller.php',
         'Pluma\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Exceptions/Handler.php',
         'Pluma\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Http/Kernel.php',
+        'Pluma\\Middleware\\CheckIfInstalled' => __DIR__ . '/../..' . '/core/Middleware/CheckIfInstalled.php',
         'Pluma\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/core/Middleware/EncryptCookies.php',
         'Pluma\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/core/Middleware/RedirectIfAuthenticated.php',
         'Pluma\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/core/Middleware/VerifyCsrfToken.php',
@@ -293,6 +315,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Providers\\PlumaServiceProvider' => __DIR__ . '/../..' . '/core/Providers/PlumaServiceProvider.php',
         'Pluma\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/core/Providers/RouteServiceProvider.php',
         'Pluma\\Providers\\ViewServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ViewServiceProvider.php',
+        'Pluma\\Support\\Auth\\Access\\Traits\\AuthorizesRequests' => __DIR__ . '/../..' . '/core/Support/Auth/Access/Traits/AuthorizesRequests.php',
+        'Pluma\\Support\\Auth\\Traits\\AuthenticatesUsers' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/AuthenticatesUsers.php',
+        'Pluma\\Support\\Auth\\Traits\\RedirectsUsers' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/RedirectsUsers.php',
+        'Pluma\\Support\\Auth\\Traits\\ThrottlesLogins' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/ThrottlesLogins.php',
         'Pluma\\Support\\Bootstrap\\BootProviders' => __DIR__ . '/../..' . '/core/Support/Bootstrap/BootProviders.php',
         'Pluma\\Support\\Bootstrap\\ConfigureLogging' => __DIR__ . '/../..' . '/core/Support/Bootstrap/ConfigureLogging.php',
         'Pluma\\Support\\Bootstrap\\DetectEnvironment' => __DIR__ . '/../..' . '/core/Support/Bootstrap/DetectEnvironment.php',
@@ -301,6 +327,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Support\\Bootstrap\\RegisterFacades' => __DIR__ . '/../..' . '/core/Support/Bootstrap/RegisterFacades.php',
         'Pluma\\Support\\Bootstrap\\RegisterProviders' => __DIR__ . '/../..' . '/core/Support/Bootstrap/RegisterProviders.php',
         'Pluma\\Support\\Bootstrap\\SetRequestForConsole' => __DIR__ . '/../..' . '/core/Support/Bootstrap/SetRequestForConsole.php',
+        'Pluma\\Support\\Bus\\Traits\\DispatchesJobs' => __DIR__ . '/../..' . '/core/Support/Bus/Traits/DispatchesJobs.php',
         'Pluma\\Support\\Database\\Traits\\CreateDatabase' => __DIR__ . '/../..' . '/core/Support/Database/Traits/CreateDatabase.php',
         'Pluma\\Support\\Database\\Traits\\Database' => __DIR__ . '/../..' . '/core/Support/Database/Traits/Database.php',
         'Pluma\\Support\\Database\\Traits\\MigrateDatabase' => __DIR__ . '/../..' . '/core/Support/Database/Traits/MigrateDatabase.php',
@@ -318,6 +345,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Support\\Migration\\Migration' => __DIR__ . '/../..' . '/core/Support/Migration/Migration.php',
         'Pluma\\Support\\Route\\RouteServiceProvider' => __DIR__ . '/../..' . '/core/Support/Route/RouteServiceProvider.php',
         'Pluma\\Support\\Routes\\Traits\\Routing' => __DIR__ . '/../..' . '/core/Support/Route/Traits/Routing.php',
+        'Pluma\\Support\\Validation\\Traits\\ValidatesRequests' => __DIR__ . '/../..' . '/core/Support/Validation/Traits/ValidatesRequests.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -1,8 +1,10 @@
 <?php
 
+$defaultMigrationsPaths = ['database/migrations', 'resources/migrations'];
+
 return [
     'paths' => [
-        'migrations' => ['database/migrations', 'core/submodules/Frontier/database/migrations']
+        'migrations' => $defaultMigrationsPaths,
     ],
     'migration_base_class' => '\Pluma\Support\Migration\Migration',
     'environments' => [

@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
+use \Pluma\Support\Migration\Migration;
 
-class CreatePagesTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Change Method.
@@ -33,7 +31,7 @@ class CreatePagesTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'pages';
+    protected $tablename = 'users';
 
     /**
      * Run the migrations.
@@ -44,14 +42,13 @@ class CreatePagesTable extends Migration
     {
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('body')->nullable();
-
-            // $table->integer('parent_id')->unsigned()->nullable();
-            // $table->integer('lft')->unsigned()->nullable();
-            // $table->integer('rgt')->unsigned()->nullable();
-
+            $table->string('prefixname');
+            $table->string('firstname');
+            $table->string('middlename')->nullable();
+            $table->string('lastname');
+            $table->string('email')->unique();
+            $table->text('password');
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

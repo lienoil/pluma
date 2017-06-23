@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
+use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Change Method.
@@ -33,8 +32,7 @@ class CreatePagesTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'pages';
-
+    protected $tablename = 'password_resets';
     /**
      * Run the migrations.
      *
@@ -42,18 +40,10 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        $this->schema->create($this->tablename, function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('body')->nullable();
-
-            // $table->integer('parent_id')->unsigned()->nullable();
-            // $table->integer('lft')->unsigned()->nullable();
-            // $table->integer('rgt')->unsigned()->nullable();
-
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::create($this->tablename, function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token')->index();
+            $table->timestamp('created_at');
         });
     }
 
@@ -64,6 +54,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        Schema::drop($this->tablename);
     }
 }

@@ -27,7 +27,7 @@ class InstallationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (! $this->checkIfDBCanConnect()) {
+        if (! $this->checkIfAppIsProperlyInstalled()) {
             // Routes
             include_file(core_path('Support/Installation/routes'), 'install.routes.php');
 
@@ -36,10 +36,16 @@ class InstallationServiceProvider extends ServiceProvider
         }
     }
 
-    public function checkIfDBCanConnect()
+    public function checkIfAppIsProperlyInstalled()
     {
         try {
+            // First, check if can connect to database
             DB::connection()->getPdo();
+
+            // Then, check if .install is deleted
+            if (file_exists(base_path('.install'))) {
+                return false;
+            }
         } catch (\PDOException $e) {
             return false;
         } catch (\InvalidArgumentException $e) {

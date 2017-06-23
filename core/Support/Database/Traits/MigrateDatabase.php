@@ -21,19 +21,21 @@ trait MigrateDatabase
         foreach ($this->modules as $name => $module) {
             if (is_array($module)) {
                 $this->migrate($module);
-            } else {
-                if (is_dir("$module/".config('path.migrations')) && $migrations_path = "$module/".config('path.migrations')) {
-                    $this->execute($migrations_path);
-                }
+
+                $module = $name;
+            }
+
+            foreach (get_migrations() as $migrationPath) {
+                $this->execute($migrationPath);
             }
         }
 
         return $this;
     }
 
-    public function execute($migrations_path)
+    public function execute($migrationsPath)
     {
-        config()->set('migrations.paths.migrations', [$migrations_path]);
+        config()->set('migrations.paths.migrations', [$migrationsPath]);
         config()->set('migrations.environments.'.env('APP_ENV'), $this->getConfig());
 
         $migration = new PhinxApplication();
