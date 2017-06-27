@@ -1,3 +1,4 @@
 @if ($errors->has($field))
-    <span class="mdl-textfield__error error help-block">{{ $errors->first($field) }}</span>
+    {{-- mdl-textfield__error --}}
+    <span class="error help-block">{{ $errors->first($field) }}</span>
 @endif

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
+class ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -287,6 +287,8 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Auth\\Middleware\\RedirectToDashboardIfAuthenticated' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Middleware/RedirectToDashboardIfAuthenticated.php',
         'Auth\\Models\\User' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Models/User.php',
         'Auth\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/Providers/AuthServiceProvider.php',
+        'Calendar\\Models\\Calendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Models/Calendar.php',
+        'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/20170624132509_create_calendars_table.php',
         'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/database/migrations/20170623035860_create_password_resets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Auth/database/migrations/20170623035859_create_users_table.php',
@@ -314,11 +316,14 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Providers\\ModuleServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ModuleServiceProvider.php',
         'Pluma\\Providers\\PlumaServiceProvider' => __DIR__ . '/../..' . '/core/Providers/PlumaServiceProvider.php',
         'Pluma\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/core/Providers/RouteServiceProvider.php',
+        'Pluma\\Providers\\TranslationServiceProvider' => __DIR__ . '/../..' . '/core/Providers/TranslationServiceProvider.php',
         'Pluma\\Providers\\ViewServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ViewServiceProvider.php',
         'Pluma\\Support\\Auth\\Access\\Traits\\AuthorizesRequests' => __DIR__ . '/../..' . '/core/Support/Auth/Access/Traits/AuthorizesRequests.php',
         'Pluma\\Support\\Auth\\Traits\\AuthenticatesUsers' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/AuthenticatesUsers.php',
+        'Pluma\\Support\\Auth\\Traits\\Authorizable' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/Authorizable.php',
         'Pluma\\Support\\Auth\\Traits\\RedirectsUsers' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/RedirectsUsers.php',
         'Pluma\\Support\\Auth\\Traits\\ThrottlesLogins' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/ThrottlesLogins.php',
+        'Pluma\\Support\\Auth\\User' => __DIR__ . '/../..' . '/core/Support/Auth/User.php',
         'Pluma\\Support\\Bootstrap\\BootProviders' => __DIR__ . '/../..' . '/core/Support/Bootstrap/BootProviders.php',
         'Pluma\\Support\\Bootstrap\\ConfigureLogging' => __DIR__ . '/../..' . '/core/Support/Bootstrap/ConfigureLogging.php',
         'Pluma\\Support\\Bootstrap\\DetectEnvironment' => __DIR__ . '/../..' . '/core/Support/Bootstrap/DetectEnvironment.php',
@@ -351,10 +356,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitbdf6eda94000e3b5ec8baf8747b97c31::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -9,7 +9,7 @@
                         <?php echo e(csrf_field()); ?>
 
                         <header class="mdl-card__title">
-                            <h3 class="mdl-card__title-text"><strong><?php echo e($application->site->title); ?></strong></h3>
+                            <h3 class="mdl-card__title-text"><?php echo e($application->site->title); ?></h3>
                         </header>
 
                         <div class="mdl-card__supporting-text">
@@ -17,14 +17,15 @@
                                 
                                 <input id="username" name="username" type="text" class="mdl-textfield__input" value="<?php echo e(old('username')); ?>">
                                 <label for="username" class="mdl-textfield__label">Email or username</label>
-                                <?php echo $__env->make('Frontier::errors.span', ['field' => 'username'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                 
                             </div>
+                            <?php echo $__env->make('Frontier::errors.span', ['field' => 'username'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input id="password" name="password" type="password" class="mdl-textfield__input" value="<?php echo e(old('password')); ?>">
                                 <label for="password" class="mdl-textfield__label">Enter Password</label>
-                                <?php echo $__env->make('Frontier::errors.span', ['field' => 'password'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                             </div>
+                            <?php echo $__env->make('Frontier::errors.span', ['field' => 'password'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember">
                                 <input id="remember" type="checkbox" name="remember" class="mdl-checkbox__input">
@@ -32,7 +33,7 @@
                             </label>
                         </div>
 
-                        <div class="mdl-card__actions">
+                        <div class="mdl-card__supporting-text">
                             <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Login</button>
                         </div>
                         <div class="mdl-card__actions mdl-card--border">

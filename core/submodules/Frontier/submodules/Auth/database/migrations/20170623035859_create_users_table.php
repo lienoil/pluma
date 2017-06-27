@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use \Pluma\Support\Migration\Migration;
 
 class CreateUsersTable extends Migration
@@ -46,6 +47,7 @@ class CreateUsersTable extends Migration
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->text('password');
             $table->rememberToken();

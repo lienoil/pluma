@@ -3,8 +3,8 @@
 namespace Auth\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Pluma\Support\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {

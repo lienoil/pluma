@@ -17,14 +17,14 @@ return [
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
         Pluma\Providers\DatabaseServiceProvider::class,
-        Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\RouteServiceProvider::class,
+        Pluma\Providers\TranslationServiceProvider::class,
+        Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
     ],
 
     'aliases' => [

@@ -103,11 +103,18 @@ if (! function_exists('get_migrations')) {
      */
     function get_migrations($modules = [], $path = "")
     {
+        if (empty($modules)) $modules = modules();
         $migrationsPath = [];
 
-        foreach ($modules as $module) {
-            if (is_dir("$modules/$path")) {
-                $migrationsPath[] = "$modules/$path";
+        foreach ($modules as $key => $module) {
+            if (is_array($module)) {
+                if (is_dir("$key/$path")) {
+                    $migrationsPath["$key/$path"] = get_migrations($module, $path);
+                }
+            } else {
+                if (is_dir("$module/$path")) {
+                    $migrationsPath[] = "$module/$path";
+                }
             }
         }
 
@@ -242,6 +249,21 @@ if (! function_exists('write_to_env')) {
 
         $newContent = implode('', $newLines);
         file_put_contents($envFile, $newContent);
+
+        return true;
     }
 }
 
+if (! function_exists('generate_random_key')) {
+    /**
+     * Generate random key.
+     *
+     * @return string
+     */
+    function generate_random_key()
+    {
+        return 'base64:'.base64_encode(random_bytes(
+            config('encryption.cipher') == 'AES-128-CBC' ? 16 : 32
+        ));
+    }
+}

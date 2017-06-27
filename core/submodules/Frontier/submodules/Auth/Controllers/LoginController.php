@@ -113,10 +113,6 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        dd($this->guard()->attempt(
-            $this->credentials($request), $request->has('remember')
-        ));
-
         if ($this->guard()->attempt(
             ['username' => $request->account, 'password' => $request->password], $request->has('remember')
         )) {

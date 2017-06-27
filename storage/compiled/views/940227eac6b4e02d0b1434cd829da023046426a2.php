@@ -11,8 +11,8 @@
     <div class="container">
         <div class="col-sm-8 offset-sm-2">
             <header class="header">
-                <h2 class="header-title mt-5">Pluma&trade; | <span class="text-muted">Hoo ha!</span></h2>
-                <p class="lead">Done!</p>
+                <h2 class="header-title mt-5">Pluma&trade; | <span class="text-muted">Finish</span></h2>
+                <p class="lead">Done! you may still edit additional configurations in settings.</p>
             </header>
 
             <main class="content">
@@ -23,8 +23,8 @@
                     <li><strong>Password: </strong></li>
                 </ul>
 
-                <a href="<?php echo e(url('admin')); ?>" class="btn btn-primary">Take me there</a>
-                <a href="<?php echo e(url('home')); ?>" class="btn btn-secondary">Take me home</a>
+                <a href="<?php echo e(route('login.show')); ?>" class="btn btn-primary">Login</a>
+                <a href="<?php echo e(url('home')); ?>" class="btn btn-secondary">Home</a>
 
             </main>
 

@@ -2,6 +2,7 @@
 
 namespace Pluma\Support\Installation\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -29,7 +30,11 @@ class InstallationServiceProvider extends ServiceProvider
     {
         if (! $this->checkIfAppIsProperlyInstalled()) {
             // Routes
-            include_file(core_path('Support/Installation/routes'), 'install.routes.php');
+            Route::group([
+                // 'middleware' => ['web'],
+            ], function () {
+                include_file(core_path('Support/Installation/routes'), 'install.routes.php');
+            });
 
             // Views
             $this->loadViewsFrom(core_path('Support/Installation/views'), "Install");

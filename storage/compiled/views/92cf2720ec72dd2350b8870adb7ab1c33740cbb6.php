@@ -19,7 +19,7 @@
             <main class="content">
                 <?php echo $__env->make("Install::partials.banner", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-                <form action="<?php echo e(route('installation.install')); ?>" class="form" method="POST">
+                <form action="<?php echo e(route('installation.write')); ?>" class="form" method="POST">
                     <hr>
 
                     <div class="form-block p-b-3">

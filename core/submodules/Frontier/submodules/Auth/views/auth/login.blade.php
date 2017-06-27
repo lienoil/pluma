@@ -10,7 +10,7 @@
                     <form action="{{ route('login.login') }}" method="POST" class="mdl-card mdl-shadow--2dp">
                         {{ csrf_field() }}
                         <header class="mdl-card__title">
-                            <h3 class="mdl-card__title-text"><strong>{{ $application->site->title }}</strong></h3>
+                            <h3 class="mdl-card__title-text">{{ $application->site->title }}</h3>
                         </header>
 
                         <div class="mdl-card__supporting-text">
@@ -18,14 +18,15 @@
                                 {{-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" --}}
                                 <input id="username" name="username" type="text" class="mdl-textfield__input" value="{{ old('username') }}">
                                 <label for="username" class="mdl-textfield__label">Email or username</label>
-                                @include('Frontier::errors.span', ['field' => 'username'])
                                 {{-- <span class="mdl-textfield__error">The email is invalid</span> --}}
                             </div>
+                            @include('Frontier::errors.span', ['field' => 'username'])
+
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input id="password" name="password" type="password" class="mdl-textfield__input" value="{{ old('password') }}">
                                 <label for="password" class="mdl-textfield__label">Enter Password</label>
-                                @include('Frontier::errors.span', ['field' => 'password'])
                             </div>
+                            @include('Frontier::errors.span', ['field' => 'password'])
 
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember">
                                 <input id="remember" type="checkbox" name="remember" class="mdl-checkbox__input">
@@ -33,7 +34,7 @@
                             </label>
                         </div>
 
-                        <div class="mdl-card__actions">
+                        <div class="mdl-card__supporting-text">
                             <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Login</button>
                         </div>
                         <div class="mdl-card__actions mdl-card--border">

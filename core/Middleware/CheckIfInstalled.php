@@ -27,9 +27,12 @@ class CheckIfInstalled
                 return redirect('/');
             }
         } catch (\PDOException $e) {
-            return redirect('/');
+            return redirect()->route('installation.welcome');
+            // dd($e->getMessage());
+            // return redirect('/');
         } catch (\InvalidArgumentException $e) {
-            return redirect('/');
+            return;
+            // return redirect('/');
         }
 
         return $next($request);

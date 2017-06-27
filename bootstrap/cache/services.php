@@ -8,14 +8,14 @@
     4 => 'Illuminate\\Hashing\\HashServiceProvider',
     5 => 'Illuminate\\Mail\\MailServiceProvider',
     6 => 'Illuminate\\Session\\SessionServiceProvider',
-    7 => 'Illuminate\\Translation\\TranslationServiceProvider',
-    8 => 'Illuminate\\Validation\\ValidationServiceProvider',
-    9 => 'Pluma\\Providers\\ViewServiceProvider',
-    10 => 'Pluma\\Providers\\DatabaseServiceProvider',
-    11 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
-    12 => 'Pluma\\Providers\\EncryptionServiceProvider',
-    13 => 'Pluma\\Providers\\ModuleServiceProvider',
-    14 => 'Pluma\\Providers\\RouteServiceProvider',
+    7 => 'Illuminate\\Validation\\ValidationServiceProvider',
+    8 => 'Pluma\\Providers\\ViewServiceProvider',
+    9 => 'Pluma\\Providers\\DatabaseServiceProvider',
+    10 => 'Pluma\\Providers\\EncryptionServiceProvider',
+    11 => 'Pluma\\Providers\\ModuleServiceProvider',
+    12 => 'Pluma\\Providers\\RouteServiceProvider',
+    13 => 'Pluma\\Providers\\TranslationServiceProvider',
+    14 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
   ),
   'eager' => 
   array (
@@ -25,10 +25,10 @@
     3 => 'Illuminate\\Session\\SessionServiceProvider',
     4 => 'Pluma\\Providers\\ViewServiceProvider',
     5 => 'Pluma\\Providers\\DatabaseServiceProvider',
-    6 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
-    7 => 'Pluma\\Providers\\EncryptionServiceProvider',
-    8 => 'Pluma\\Providers\\ModuleServiceProvider',
-    9 => 'Pluma\\Providers\\RouteServiceProvider',
+    6 => 'Pluma\\Providers\\EncryptionServiceProvider',
+    7 => 'Pluma\\Providers\\ModuleServiceProvider',
+    8 => 'Pluma\\Providers\\RouteServiceProvider',
+    9 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
   ),
   'deferred' => 
   array (
@@ -40,10 +40,10 @@
     'swift.mailer' => 'Illuminate\\Mail\\MailServiceProvider',
     'swift.transport' => 'Illuminate\\Mail\\MailServiceProvider',
     'Illuminate\\Mail\\Markdown' => 'Illuminate\\Mail\\MailServiceProvider',
-    'translator' => 'Illuminate\\Translation\\TranslationServiceProvider',
-    'translation.loader' => 'Illuminate\\Translation\\TranslationServiceProvider',
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
+    'translator' => 'Pluma\\Providers\\TranslationServiceProvider',
+    'translation.loader' => 'Pluma\\Providers\\TranslationServiceProvider',
   ),
   'when' => 
   array (
@@ -56,10 +56,10 @@
     'Illuminate\\Mail\\MailServiceProvider' => 
     array (
     ),
-    'Illuminate\\Translation\\TranslationServiceProvider' => 
+    'Illuminate\\Validation\\ValidationServiceProvider' => 
     array (
     ),
-    'Illuminate\\Validation\\ValidationServiceProvider' => 
+    'Pluma\\Providers\\TranslationServiceProvider' => 
     array (
     ),
   ),

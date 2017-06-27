@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use Pluma\Support\Migration\Migration;
 
 class CreatePasswordResetsTable extends Migration
 {

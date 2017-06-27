@@ -12,31 +12,29 @@ use Phinx\Wrapper\TextWrapper;
 
 trait MigrateDatabase
 {
-    protected $modules;
+    protected $migrations;
 
-    public function migrate($modules = null)
+    public function migrate($migrations = null, $request = null)
     {
-        $this->modules = is_null($modules) ? modules(true, null, false) : $modules;
+        $this->migrations = is_null($migrations) ? get_migrations(modules(true, null, false), config('path.migrations')) : $modules;
 
-        foreach ($this->modules as $name => $module) {
-            if (is_array($module)) {
-                $this->migrate($module);
-
-                $module = $name;
+        foreach ($this->migrations as $name => $migration) {
+            if (is_array($migration)) {
+                $this->execute($migration, $request);
+                $this->execute([$name], $request);
+            } else {
+                $this->execute([$migration], $request);
             }
 
-            foreach (get_migrations() as $migrationPath) {
-                $this->execute($migrationPath);
-            }
         }
 
         return $this;
     }
 
-    public function execute($migrationsPath)
+    public function execute($migrationsPath, $request)
     {
-        config()->set('migrations.paths.migrations', [$migrationsPath]);
-        config()->set('migrations.environments.'.env('APP_ENV'), $this->getConfig());
+        config()->set('migrations.paths.migrations', $migrationsPath);
+        config()->set('migrations.environments.'.env('APP_ENV'), $this->getConfig($request));
 
         $migration = new PhinxApplication();
         $wrapper = new TextWrapper($migration);
@@ -53,14 +51,14 @@ trait MigrateDatabase
         File::deleteDirectory(base_path('tmp'));
     }
 
-    public function getConfig()
+    public function getConfig($request)
     {
         return [
             'adapter' => config('DB_CONNECTION', env('DB_CONNECTION', 'mysql')),
             'host' => config('DB_HOST', env('DB_HOST', 'localhost')),
-            'name' => config('DB_DATABASE', env('DB_DATABASE', 'pluma_db')),
-            'user' => config('DB_USERNAME', env('DB_USERNAME', 'root')),
-            'pass' => config('DB_PASSWORD', env('DB_PASSWORD', '')),
+            'name' => config('DB_DATABASE', env('DB_DATABASE', $request->input('DB_DATABASE'))),
+            'user' => config('DB_USERNAME', env('DB_USERNAME', $request->input('DB_USERNAME'))),
+            'pass' => config('DB_PASSWORD', env('DB_PASSWORD', $request->input('DB_PASSWORD'))),
             'port' => config('DB_PORT', env('DB_PORT')),
         ];
     }

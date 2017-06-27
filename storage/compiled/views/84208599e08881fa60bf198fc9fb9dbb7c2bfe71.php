@@ -30,7 +30,7 @@
                 <p>If you don't have the information above, you may have to contact your Web Host to supply them for you.</p>
 
                 <hr>
-                <p class="text-muted"><small>If you think there is a mistake, and you've already installed the app, then check if the <code>.install</code> file is on the root of the folder. If it exists, simply delete it. If problem persist, refer to <a href="/soon">documenation</a>.</small></p>
+                <p class="text-muted"><small>If you think there is a mistake, and you've already installed the app, then check if the <code>.install</code> file is on the root of the folder. If it exists, simply delete it. If problem persist, refer to <a href="/soon">documentation</a>.</small></p>
 
                 <hr>
                 <a href="<?php echo e(route('installation.next')); ?>" class="btn btn-primary">Proceed</a>
