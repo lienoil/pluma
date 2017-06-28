@@ -1,11 +1,21 @@
 @include("Frontier::partials.header")
 
-@yield("pre-content")
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
 
-<main id="main" class="main">
-    @yield("content")
-</main>
+    @yield("pre-content")
 
-@yield("post-content")
+    @include("Frontier::partials.utilitybar")
+
+    @include("Frontier::partials.sidebar")
+
+    <main id="main" class="mdl-layout__content">
+        <div class="page-content">
+            @yield("content")
+        </div>
+    </main>
+
+    @yield("post-content")
+
+</div>
 
 @include("Frontier::partials.footer")

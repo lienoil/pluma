@@ -23,6 +23,21 @@ class PageViewComposer
     protected $currentUrl;
 
     /**
+     * Array of banned words.
+     * Banned words will help filter out
+     * unwanted words when guessing the title
+     * for the page.
+     * E.g. a url with "/admin/login" will
+     * generate a "Login Admin" title.
+     * Registering the "admin" word as banned
+     * will generate a much intuitive "Login"
+     * for the title.
+     *
+     * @var array
+     */
+    protected $bannedFirstWords = ['admin', 'administration'];
+
+    /**
      * The view's variable.
      *
      * @var
@@ -71,8 +86,8 @@ class PageViewComposer
     private function head()
     {
         return json_decode(json_encode([
-            'title' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
-            'subtitle' => $this->guessSubtitle($this->currentUrl),
+            'title' => $this->guessTitle(),
+            'subtitle' => $this->guessSubtitle(),
             'separator' => config("settings.site.title_separator", '|'),
             'description' => $this->guessDescription(),
             'name' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
@@ -104,18 +119,23 @@ class PageViewComposer
      * if nothing found, then it will try to
      * construct words based from url.
      *
-     * @param  string $url
      * @return void
      */
-    public function guessTitle($url)
+    public function guessTitle()
     {
-        $segments = collect(explode("/", $url));
+        $segments = collect(explode("/", $this->currentUrl));
 
         if (empty($segments->first())) {
             return config("settings.pages.default_name", "Home");
         }
 
-        return ucwords("{$segments->last()} {$segments->first()}");
+        if (in_array($segments->first(), $this->bannedFirstWords)) {
+            return ucwords("{$segments->last()}");
+        }
+
+        return $segments->last() != $segments->first()
+                ? ucwords("{$segments->last()} {$segments->first()}")
+                : ucwords("{$segments->first()}");
     }
 
     /**
@@ -124,12 +144,11 @@ class PageViewComposer
      * if nothing found, then it will try to
      * construct words based from url.
      *
-     * @param  string $url
      * @return void
      */
-    public function guessSubtitle($url)
+    public function guessSubtitle()
     {
-        $segments = collect(explode("/", $url));
+        $segments = collect(explode("/", $this->currentUrl));
 
         if (empty($segments->first())) {
             return "| " . config("settings.site.subtitle", env("APP_TAGLINE"));
@@ -150,13 +169,12 @@ class PageViewComposer
     {
         $description = "";
         // else check database....
-        // ....
+        // TODO: perform a try > $description = Page::whereSlug($this->currentUrl)->first()->description...
 
         if (empty($this->currentUrl) || empty($description)) {
             $description = env("APP_TAGLINE");
         }
 
-        // else
         return $description;
     }
 

@@ -7,12 +7,13 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Pluma\Support\Auth\Traits\CreateUser;
 use Pluma\Support\Database\Traits\CreateDatabase;
 use Pluma\Support\Database\Traits\MigrateDatabase;
 
 class InstallController extends Controller
 {
-    use CreateDatabase, MigrateDatabase;
+    use CreateDatabase, MigrateDatabase, CreateUser;
 
     protected $installed = false;
 
@@ -48,6 +49,10 @@ class InstallController extends Controller
         $this->db(env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'))->drop()->make();
 
         $this->migrate(null, $request);
+
+        // $this->seed();
+
+        $this->createRootUser($request);
 
         return redirect()->route('installation.last');
     }

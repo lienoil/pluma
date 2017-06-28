@@ -1,18 +1,18 @@
 <?php $__env->startPush('css'); ?>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <style>
-        body {
-            background-color: #f1f1f1;
-        }
-    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection("content"); ?>
-    <div class="container">
-        <div class="col-sm-8 offset-sm-2">
+    <div class="mdl-layout mdl-js-layout">
+        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
             <header class="header">
-                <h2 class="header-title mt-5">Pluma&trade; | <span class="text-muted">Welcome</span></h2>
-                <p class="lead">Thank you for using <strong>Pluma&trade;</strong> CMS. This page will guide you through the installation process.</p>
+                <div class="header-row">
+                    <h2 class="display-3">Pluma&trade; | <span class="text-muted">Welcome</span></h2>
+                    <p class="lead">Thank you for using <strong>Pluma&trade;</strong> CMS. This page will guide you through the installation process.</p>
+                </div>
             </header>
 
             <main class="content">
@@ -33,7 +33,7 @@
                 <p class="text-muted"><small>If you think there is a mistake, and you've already installed the app, then check if the <code>.install</code> file is on the root of the folder. If it exists, simply delete it. If problem persist, refer to <a href="/soon">documentation</a>.</small></p>
 
                 <hr>
-                <a href="<?php echo e(route('installation.next')); ?>" class="btn btn-primary">Proceed</a>
+                <a href="<?php echo e(route('installation.next')); ?>" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Start</a>
                 <p><small><em><strong>By clicking the button</strong>, you agree to <strong>Pluma&trade;</strong>'s <a href="#">Terms and Conditions</a>.</em></small></p>
                 <hr>
 

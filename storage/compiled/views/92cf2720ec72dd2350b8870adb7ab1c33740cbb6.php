@@ -136,7 +136,7 @@
                                 <small class="text-muted">Installing will also migrate and seed the database. It may take several minutes.</small>
                             </div>
                             <div class="col-md-6">
-                                <button role="button" type="submit" class="btn btn-primary float-right">Install</button>
+                                <button role="button" type="submit" class="btn btn-primary float-right">Proceed</button>
                             </div>
                         </div>
                     </div>

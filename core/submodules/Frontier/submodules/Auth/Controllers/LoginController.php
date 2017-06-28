@@ -22,25 +22,25 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Redirect path.
+     * Redirect path upon successful login.
      *
      * @var string
      */
-    protected $redirectPath = '/admin/login';
+    protected $redirectPath = '/admin/dashboard';
 
     /**
-     * Where to redirect users after login.
+     * Where to redirect users on failed login.
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dashboard';
+    protected $redirectTo = '/admin/login';
 
     /**
-     * Logout path.
+     * Redirect path upon successful logout.
      *
      * @var string
      */
-    protected $logoutPath = '/admin/logout';
+    protected $logoutPath = '/admin/login';
 
     /**
      * Create a new controller instance.
@@ -53,9 +53,9 @@ class LoginController extends Controller
 
         $this->logoutPath = config('admin.slug.logout', $this->logoutPath);
 
-        $this->redirectPath = config('admin.slug.login', $this->redirectPath);
+        $this->redirectPath = config('admin.slug.dashboard', $this->redirectPath);
 
-        $this->redirectTo = config('admin.slug.dashboard', $this->redirectTo);
+        $this->redirectTo = config('admin.slug.login', $this->redirectTo);
     }
 
     /**
@@ -114,13 +114,19 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         if ($this->guard()->attempt(
-            ['username' => $request->account, 'password' => $request->password], $request->has('remember')
+            [$this->username() => $request->username, 'password' => $request->password], $request->has('remember')
         )) {
             return true;
         }
 
         if ($this->guard()->attempt(
-            ['email' => $request->account, 'password' => $request->password], $request->has('remember')
+            ['username' => $request->username, 'password' => $request->password], $request->has('remember')
+        )) {
+            return true;
+        }
+
+        if ($this->guard()->attempt(
+            ['email' => $request->username, 'password' => $request->password], $request->has('remember')
         )) {
             return true;
         }

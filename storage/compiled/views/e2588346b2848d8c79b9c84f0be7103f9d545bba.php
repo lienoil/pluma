@@ -23,7 +23,23 @@
 
                     <div class="form-block p-b-3">
                         <legend>All right, Sparky!</legend>
-                        <p class="text-muted">Time to get this on.</p>
+                        <p class="text-muted">Choose your email and password, then install.</p>
+                    </div>
+
+                    <div class="form-block">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label"><strong>Email</strong></label>
+                            <div class="col-md-9">
+                                <input type="email" name="email" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label"><strong>Password</strong></label>
+                            <div class="col-md-9">
+                                <input type="password" name="password" class="form-control">
+                            </div>
+                        </div>
                     </div>
 
                     <hr>

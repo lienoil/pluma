@@ -14,8 +14,8 @@ return [
         'production' => [
             'adapter' => env('DB_CONNECTION'),
             'host' => env('DB_HOST'),
-            'name' => env('DB_NAME'),
-            'user' => env('DB_USER'),
+            'name' => env('DB_DATABASE'),
+            'user' => env('DB_USERNAME'),
             'pass' => env('DB_PASSWORD'),
             'port' => env('DB_PORT'),
         ],
@@ -23,8 +23,8 @@ return [
         'local' => [
             'adapter' => env('DB_CONNECTION'),
             'host' => env('DB_HOST'),
-            'name' => env('DB_NAME'),
-            'user' => env('DB_USER'),
+            'name' => env('DB_DATABASE'),
+            'user' => env('DB_USERNAME'),
             'pass' => env('DB_PASSWORD'),
             'port' => env('DB_PORT'),
         ],
