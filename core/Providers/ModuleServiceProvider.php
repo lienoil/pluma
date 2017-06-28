@@ -134,6 +134,15 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $basename = basename($module);
 
+        if (file_exists("$module/routes/api.php")) {
+            Route::group([
+                'middleware' => ['api'],
+                'prefix' => config('routes.api.slug', 'api')
+            ], function () use ($module) {
+                include_file("$module/routes", "api.php");
+            });
+        }
+
         if (file_exists("$module/routes/admin.php")) {
             Route::group([
                 'middleware' => ['web'],
@@ -143,12 +152,12 @@ class ModuleServiceProvider extends ServiceProvider
             });
         }
 
-        if (file_exists("$module/routes/api.php")) {
+        if (file_exists("$module/routes/web.php")) {
             Route::group([
-                'middleware' => ['api'],
-                'prefix' => config('routes.api.slug', 'api')
+                'middleware' => ['web'],
+                'prefix' => config('routes.web.slug', '')
             ], function () use ($module) {
-                include_file("$module/routes", "api.php");
+                include_file("$module/routes", "web.php");
             });
         }
     }

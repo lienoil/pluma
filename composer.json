@@ -36,7 +36,8 @@
     },
     "autoload": {
         "classmap": [
-            "core"
+            "core",
+            "modules"
         ],
         "psr-4": {
             "Pluma\\": "core/"

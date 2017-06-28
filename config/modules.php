@@ -15,6 +15,7 @@ return [
             'Item',
             'Sidequest',
         ],
+        'Angular',
         // Modules here...
     ],
 

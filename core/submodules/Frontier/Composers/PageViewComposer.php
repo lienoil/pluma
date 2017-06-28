@@ -135,7 +135,7 @@ class PageViewComposer
             return "| " . config("settings.site.subtitle", env("APP_TAGLINE"));
         }
 
-        return '| ' . config("settings.site.title", env("APP_TAGLINE"));
+        return '| ' . config("settings.site.title", env("APP_NAME"));
     }
 
     /**
