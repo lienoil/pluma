@@ -1,6 +1,6 @@
 <?php
 
-namespace Auth\Models;
+namespace User\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;

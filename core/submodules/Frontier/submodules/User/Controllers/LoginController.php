@@ -1,6 +1,6 @@
 <?php
 
-namespace Auth\Controllers;
+namespace User\Controllers;
 
 use Pluma\Controllers\Controller;
 use Pluma\Support\Auth\Traits\AuthenticatesUsers;
@@ -65,7 +65,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('Auth::auth.login');
+        return view('User::auth.login');
     }
 
     /**

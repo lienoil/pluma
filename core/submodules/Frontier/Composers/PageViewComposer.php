@@ -5,6 +5,7 @@ namespace Frontier\Composers;
 use Frontier\Models\Page;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
+use Pluma\Support\Composers\BaseViewComposer;
 
 /**
  * Page View Composer
@@ -13,15 +14,8 @@ use Illuminate\View\View;
  * subheading, and other content on page.
  *
  */
-class PageViewComposer
+class PageViewComposer extends BaseViewComposer
 {
-    /**
-     * The page's current url.
-     *
-     * @var string
-     */
-    protected $currentUrl;
-
     /**
      * Array of banned words.
      * Banned words will help filter out
@@ -38,13 +32,6 @@ class PageViewComposer
     protected $bannedFirstWords = ['admin', 'administration'];
 
     /**
-     * The view's variable.
-     *
-     * @var
-     */
-    protected $variablename = "application";
-
-    /**
      * Main function to tie everything together.
      *
      * @param  Illuminate\View\View   $view
@@ -52,14 +39,11 @@ class PageViewComposer
      */
     public function compose(View $view)
     {
-        $this->setCurrentUrl(Request::path());
+        parent::compose($view);
 
-        $view->with($this->variablename, $this->handle());
-    }
+        $this->setVariablename("application");
 
-    private function setCurrentUrl($urlPath)
-    {
-        $this->currentUrl = rtrim($urlPath, '/');
+        $view->with($this->getVariablename(), $this->handle());
     }
 
     private function handle()
@@ -103,8 +87,8 @@ class PageViewComposer
     private function page()
     {
         return json_decode(json_encode([
-            'title' => $this->guessTitle($this->currentUrl),
-            'subtitle' => $this->guessSubtitle($this->currentUrl),
+            'title' => $this->guessTitle($this->getCurrentUrl()),
+            'subtitle' => $this->guessSubtitle($this->getCurrentUrl()),
         ]));
     }
 
@@ -123,7 +107,7 @@ class PageViewComposer
      */
     public function guessTitle()
     {
-        $segments = collect(explode("/", $this->currentUrl));
+        $segments = collect(explode("/", $this->getCurrentUrl()));
 
         if (empty($segments->first())) {
             return config("settings.pages.default_name", "Home");
@@ -148,7 +132,7 @@ class PageViewComposer
      */
     public function guessSubtitle()
     {
-        $segments = collect(explode("/", $this->currentUrl));
+        $segments = collect(explode("/", $this->getCurrentUrl()));
 
         if (empty($segments->first())) {
             return "| " . config("settings.site.subtitle", env("APP_TAGLINE"));
@@ -169,9 +153,9 @@ class PageViewComposer
     {
         $description = "";
         // else check database....
-        // TODO: perform a try > $description = Page::whereSlug($this->currentUrl)->first()->description...
+        // TODO: perform a try > $description = Page::whereSlug($this->getCurrentUrl())->first()->description...
 
-        if (empty($this->currentUrl) || empty($description)) {
+        if (empty($this->getCurrentUrl()) || empty($description)) {
             $description = env("APP_TAGLINE");
         }
 

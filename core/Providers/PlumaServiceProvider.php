@@ -31,8 +31,8 @@ class PlumaServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->capsule();
-        $this->composers();
+        $this->bootCapsule();
+        $this->bootComposers();
     }
 
     /**
@@ -42,10 +42,10 @@ class PlumaServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->bindings();
+        $this->registerBindings();
     }
 
-    private function capsule()
+    private function bootCapsule()
     {
         $this->capsule = new Capsule();
         $this->capsule->addConnection([
@@ -63,12 +63,12 @@ class PlumaServiceProvider extends ServiceProvider
         $this->capsule->bootEloquent();
     }
 
-    private function composers()
+    private function bootComposers()
     {
         //
     }
 
-    public function bindings()
+    public function registerBindings()
     {
         $this->registerExceptionHandlers();
     }

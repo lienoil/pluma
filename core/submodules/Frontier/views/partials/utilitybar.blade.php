@@ -11,5 +11,7 @@
             <a class="mdl-navigation__link" href="">Links</a>
             <a class="mdl-navigation__link" href="">Profile</a>
         </nav>
+
+        @include("Frontier::partials.search")
     </div>
 </header>

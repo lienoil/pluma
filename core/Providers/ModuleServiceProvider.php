@@ -47,7 +47,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->registerModules();
 
-        $this->loadStaticViews();
+        $this->registerStaticViews();
     }
 
     /**
@@ -55,7 +55,7 @@ class ModuleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function loadStaticViews()
+    protected function registerStaticViews()
     {
         if (is_dir(config("view.static", 'resources/views/static'))) {
             $this->staticBasename = config("view.static_basename", $this->staticBasename);

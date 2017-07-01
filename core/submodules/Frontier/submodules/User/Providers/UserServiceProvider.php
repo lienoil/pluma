@@ -1,11 +1,11 @@
 <?php
 
-namespace Auth\Providers;
+namespace User\Providers;
 
-use Auth\Middleware\RedirectToDashboardIfAuthenticated;
+use User\Middleware\RedirectToDashboardIfAuthenticated;
 use Illuminate\Support\ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
+class UserServiceProvider extends ServiceProvider
 {
     /**
      * The app's router instance.
