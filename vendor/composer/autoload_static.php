@@ -283,12 +283,13 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     );
 
     public static $classMap = array (
-        'Angular\\Controllers\\PageController' => __DIR__ . '/../..' . '/modules/Angular/Controllers/PageController.php',
         'Calendar\\Models\\Calendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Models/Calendar.php',
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/20170624132509_create_calendars_table.php',
         'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035860_create_password_resets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035859_create_users_table.php',
+        'Crowfeather\\Contracts\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Contracts/Traverser.php',
+        'Crowfeather\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Traverser.php',
         'Dashboard\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Dashboard/Controllers/DashboardController.php',
         'Frontier\\API\\Controllers\\PageController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PageController.php',
         'Frontier\\API\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PublicController.php',
@@ -358,6 +359,8 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Support\\Routes\\Traits\\Routing' => __DIR__ . '/../..' . '/core/Support/Route/Traits/Routing.php',
         'Pluma\\Support\\Validation\\Traits\\ValidatesRequests' => __DIR__ . '/../..' . '/core/Support/Validation/Traits/ValidatesRequests.php',
         'Role\\Providers\\RoleServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Providers/RoleServiceProvider.php',
+        'Single\\Controllers\\PageController' => __DIR__ . '/../..' . '/modules/Single/Controllers/PageController.php',
+        'Single\\Providers\\SingleServiceProvider' => __DIR__ . '/../..' . '/modules/Single/Providers/SingleServiceProvider.php',
         'User\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/LoginController.php',
         'User\\Controllers\\RoleController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/RoleController.php',
         'User\\Middleware\\RedirectToDashboardIfAuthenticated' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Middleware/RedirectToDashboardIfAuthenticated.php',

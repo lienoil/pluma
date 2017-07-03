@@ -7,7 +7,7 @@ return [
         'order' => 2,
         'slug' => 'pages',
         'always_viewable' => false,
-        'icon' => '<span class="material-icon">insert drive file</span>',
+        'icon' => 'insert_drive_file',
         // 'icon' => [
         //     'class' => 'fa fa-file',
         //     'tag' => 'i',
@@ -24,7 +24,7 @@ return [
         'order' => 2,
         'slug' => 'all',
         'always_viewable' => false,
-        'icon' => '<span class="material-icon">insert drive file</span>',
+        // 'icon' => 'web',
         'labels' => [
             'title' => 'All Pages',
         ],
@@ -36,7 +36,7 @@ return [
         'order' => 2,
         'slug' => 'all',
         'always_viewable' => false,
-        'icon' => '<span class="material-icon">insert drive file</span>',
+        // 'icon' => '<span class="material-icon">insert drive file</span>',
         'labels' => [
             'title' => 'Create Page',
         ],

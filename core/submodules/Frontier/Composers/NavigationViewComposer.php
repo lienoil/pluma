@@ -13,6 +13,13 @@ class NavigationViewComposer extends BaseViewComposer
     use Traverser, Module;
 
     /**
+     * Starting depth of the traversables.
+     *
+     * @var integer
+     */
+    protected $depth = 1;
+
+    /**
      * Main function to tie everything together.
      *
      * @param  Illuminate\View\View   $view
@@ -24,7 +31,7 @@ class NavigationViewComposer extends BaseViewComposer
 
         $this->setVariablename("navigation");
 
-        // $view->with($this->getVariablename(), $this->handle());
+        $view->with($this->getVariablename(), $this->handle());
     }
 
     /**
@@ -48,9 +55,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function menu()
     {
-        // return json_decode(json_encode([
-        //     'make' => $make;
-        // ]));
+        //
     }
 
     /**
@@ -67,14 +72,22 @@ class NavigationViewComposer extends BaseViewComposer
         $this->prepareTraverables('root', 1);
         $menus = $this->rechildTraversables($this->getTraversables(), 'root');
 
-        $return = json_decode(json_encode([
-            'generate' => $this->generateSidebar($menus),
+        return json_decode(json_encode([
+            'generate' => $this->generateSidebar(collect(json_decode(json_encode($menus)))),
+            'collect' => collect(json_decode(json_encode($menus))),
         ]));
     }
 
+    /**
+     * Generate sidebar.
+     *
+     * @param  object $menus
+     * @return html|string
+     */
     private function generateSidebar($menus)
     {
-        // dd($menus);
-    }
+        $depth = $this->depth;
 
+        return view("Frontier::templates.navigations.sidebar")->with(compact('menus', 'depth'))->render();
+    }
 }

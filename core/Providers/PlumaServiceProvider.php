@@ -3,6 +3,7 @@
 namespace Pluma\Providers;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Support\Handlers\ExceptionHandler;
 
@@ -33,6 +34,7 @@ class PlumaServiceProvider extends ServiceProvider
     {
         $this->bootCapsule();
         $this->bootComposers();
+        $this->bootViewsExtensions();
     }
 
     /**
@@ -66,6 +68,16 @@ class PlumaServiceProvider extends ServiceProvider
     private function bootComposers()
     {
         //
+    }
+
+    /**
+     * Boots blade extensions
+     *
+     * @return void
+     */
+    private function bootViewsExtensions()
+    {
+        View::addExtension('template.php', 'blade');
     }
 
     public function registerBindings()

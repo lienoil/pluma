@@ -1,21 +1,26 @@
 <?php
 
 return [
+    'content' => [
+        'name' => 'content',
+        'is_header' => true,
+        'order' => 0,
+        'slug' => '#',
+        'always_viewable' => true,
+        'labels' => [
+            'title' => 'Content',
+        ],
+    ],
+
     'dashboard' => [
         'name' => 'dashboard',
-        'slug' => 'dashboard',
         'is_parent' => true,
-        'always_viewable' => true,
         'order' => 1,
-        'icon' => '<span class="material-icon">dashboard</span>',
-        // 'icon' => [
-        //     'class' => 'fa fa-file',
-        //     'tag' => 'i',
-        //     'content' => '&nbsp;',
-        // ], // or can be a html string e.g. <span class="fa fa-edit">&nbsp;</span>
+        'slug' => 'dashboard',
+        'always_viewable' => true,
+        'icon' => 'widgets',
         'labels' => [
-            'singular' => 'Page',
-            'plural' => 'Pages',
+            'title' => 'Dashboard',
         ],
     ],
 ];

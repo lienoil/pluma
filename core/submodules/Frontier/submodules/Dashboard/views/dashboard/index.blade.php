@@ -1,7 +1,5 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
-    <div class="mdl-cell mdl-cell--12-col">
-
-    </div>
+    <h1>Dashboard</h1>
 @endsection

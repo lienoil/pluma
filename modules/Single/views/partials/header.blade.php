@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php echo $__env->yieldPushContent("pre-meta"); ?>
-    <?php echo $__env->yieldPushContent("meta"); ?>
+    @stack("pre-meta")
+    @stack("meta")
     <meta charset="UTF-8">
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -25,20 +25,24 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
     <title>
-        <?php $__env->startSection("head.title"); ?><?php echo e(isset($application) && isset($application->head->title) ? $application->head->title : ''); ?><?php echo $__env->yieldSection(); ?>
-        <?php $__env->startSection("head.subtitle"); ?><?php echo e(isset($application) && isset($application->head->subtitle) ? $application->head->subtitle : ''); ?><?php echo $__env->yieldSection(); ?>
+        @section("head.title"){{ isset($application) && isset($application->head->title) ? $application->head->title : '' }}@show
+        @section("head.subtitle"){{ isset($application) && isset($application->head->subtitle) ? $application->head->subtitle : '' }}@show
     </title>
-    <meta name="description" content="<?php echo e(@$application->head->description); ?>">
-    <?php echo $__env->yieldPushContent("post-meta"); ?>
+    <meta name="description" content="{{ @$application->head->description }}">
+    @stack("post-meta")
 
-    <?php echo $__env->yieldPushContent("pre-css"); ?>
-    
+    @stack("pre-css")
+    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> --}}
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    {{-- <script src="https://unpkg.com/vue/dist/vue.js"></script> --}}
+    <script src="https://unpkg.com/vue"></script>
     <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
-    <?php echo $__env->yieldPushContent("css"); ?>
-    <?php echo $__env->yieldPushContent("post-css"); ?>
+    @stack("css")
+    @stack("post-css")
 </head>
 <body>

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php echo $__env->yieldPushContent("pre-meta"); ?>
-    <?php echo $__env->yieldPushContent("meta"); ?>
     <meta charset="UTF-8">
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -24,21 +22,34 @@
     <!--
     <link rel="canonical" href="http://www.example.com/">
     -->
-    <title>
-        <?php $__env->startSection("head.title"); ?><?php echo e(isset($application) && isset($application->head->title) ? $application->head->title : ''); ?><?php echo $__env->yieldSection(); ?>
-        <?php $__env->startSection("head.subtitle"); ?><?php echo e(isset($application) && isset($application->head->subtitle) ? $application->head->subtitle : ''); ?><?php echo $__env->yieldSection(); ?>
-    </title>
-    <meta name="description" content="<?php echo e(@$application->head->description); ?>">
-    <?php echo $__env->yieldPushContent("post-meta"); ?>
-
-    <?php echo $__env->yieldPushContent("pre-css"); ?>
-    
-
+    <title>S</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
-    <?php echo $__env->yieldPushContent("css"); ?>
-    <?php echo $__env->yieldPushContent("post-css"); ?>
 </head>
 <body>
+
+    <div data-root-app>
+        @include("Single::partials.sidebar")
+        <v-toolbar></v-toolbar>
+        <main>
+            <v-container fluid>
+
+            </v-container>
+        </main>
+        @include("Single::partials.footer")
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '[data-root-app]',
+            data: {
+                message: 'Hello Vue!',
+                application: JSON.parse('{!! json_encode($application) !!}'),
+                sidebar: JSON.parse('{!! json_encode($navigation->sidebar->collect) !!}'),
+            }
+        });
+    </script>
+</body>
+</html>
