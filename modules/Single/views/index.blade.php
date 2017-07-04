@@ -27,6 +27,8 @@
     <script src="https://unpkg.com/vue"></script>
     <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
+
+    @stack('css')
 </head>
 <body>
 
@@ -45,11 +47,12 @@
         var app = new Vue({
             el: '[data-root-app]',
             data: {
-                message: 'Hello Vue!',
                 application: JSON.parse('{!! json_encode($application) !!}'),
                 sidebar: JSON.parse('{!! json_encode($navigation->sidebar->collect) !!}'),
             }
         });
     </script>
+
+    @stack('js')
 </body>
 </html>

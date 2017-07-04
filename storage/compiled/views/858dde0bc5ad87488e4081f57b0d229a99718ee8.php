@@ -1,1 +1,3 @@
-<v-footer></v-footer>
+    <?php echo $__env->yieldPushContent('js'); ?>
+</body>
+</html>

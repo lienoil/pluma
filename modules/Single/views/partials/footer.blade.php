@@ -1,1 +1,3 @@
-<v-footer></v-footer>
+    @stack('js')
+</body>
+</html>

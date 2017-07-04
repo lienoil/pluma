@@ -41,4 +41,16 @@ return [
             'title' => 'Create Page',
         ],
     ],
+
+    'trash-page' => [
+        'name' => 'trash-page',
+        'parent' => 'page',
+        'order' => 3,
+        'slug' => 'all',
+        'always_viewable' => false,
+        'icon' => 'delete',
+        'labels' => [
+            'title' => 'Trash',
+        ],
+    ],
 ];
