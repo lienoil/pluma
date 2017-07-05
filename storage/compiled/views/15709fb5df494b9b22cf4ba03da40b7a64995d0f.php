@@ -1,9 +1,10 @@
 <?php $__env->startSection("content"); ?>
-
     <div class="mdl-layout mdl-js-layout mdl-color--grey-100 mdl-color--grey-100">
         <div class="mdl-layout__content">
             <main class="mdl-grid" role="presentation">
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+
+                    <?php echo $__env->make("Frontier::partials.alert", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                     <form action="<?php echo e(route('login.login')); ?>" method="POST" class="mdl-card mdl-shadow--2dp">
                         <?php echo e(csrf_field()); ?>
@@ -28,7 +29,7 @@
                             <?php echo $__env->make('Frontier::errors.span', ['field' => 'password'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember">
-                                <input id="remember" type="checkbox" name="remember" class="mdl-checkbox__input">
+                                <input id="remember" type="checkbox" name="remember" checked="checked" class="mdl-checkbox__input">
                                 <span class="mdl-checkbox__label">Remember Me</span>
                             </label>
                         </div>
@@ -54,4 +55,12 @@
     </div>
 
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('js'); ?>
+    <script>
+        let dialog = document.querySelector('dialog');
+        dialog.showDialog();
+    </script>
+<?php $__env->stopPush(); ?>
+
 <?php echo $__env->make("Frontier::layouts.auth", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

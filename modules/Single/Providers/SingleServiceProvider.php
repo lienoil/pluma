@@ -54,6 +54,8 @@ class SingleServiceProvider extends ServiceProvider
     private function bootViewsExtensions()
     {
         View::addExtension('html', 'php');
+        View::addExtension('template.php', 'blade');
+        View::addExtension('component.php', 'blade');
         // View::addExtension('template.php', 'blade');
     }
 

@@ -1,26 +1,32 @@
 @include("Single::partials.header")
 
-    <div data-root-app>
-        @include("Single::partials.sidebar")
-        @include("Single::partials.toolbar")
-        <main>
-            <v-container fluid></v-container>
-        </main>
-        @include("Single::partials.endnote")
-    </div>
+<v-app>
+    @include("Single::components.navigation-drawer")
+    @include("Single::components.toolbar")
 
-    <script>
-        var app = new Vue({
-            el: '[data-root-app]',
-            data: {
-                message: 'Hello Vue!',
-                application: JSON.parse('{!! json_encode($application) !!}'),
-                sidebar: JSON.parse('{!! json_encode($navigation->sidebar->collect) !!}'),
-                drawer: true,
-                mini: false,
-                dark: true,
-            }
-        });
-    </script>
+    <main>
+        <v-container fluid>
+            @yield("content")
+            {{-- <router-view></router-view> --}}
+        </v-container>
+    </main>
+    @include("Single::components.endnote")
+</v-app>
+
+<script>
+    var app = new Vue({
+        el: 'v-app',
+        data: {
+            application: JSON.parse('{!! json_encode($application) !!}'),
+            user: JSON.parse('{!! json_encode(auth()->user()) !!}'),
+            sidebar: JSON.parse('{!! json_encode($navigation->sidebar->collect) !!}'),
+            drawer: true,
+            mini: false,
+            theme: 'dark',
+            dark: true,
+            light: false,
+        }
+    });
+</script>
 
 @include("Single::partials.footer")

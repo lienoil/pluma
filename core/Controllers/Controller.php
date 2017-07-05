@@ -27,7 +27,7 @@ class Controller extends BaseController
     {
         $this->setPaginationCount(config('settings.pagination_count', $this->paginationCount));
 
-        $this->middleware(['web']);
+        $this->middleware('web');
     }
 
     /**
@@ -38,5 +38,25 @@ class Controller extends BaseController
     private function setPaginationCount($count)
     {
         $this->paginationCount = $count;
+    }
+
+    /**
+     * Gets the global pagination count.
+     *
+     * @return integer
+     */
+    public function getPaginationCount()
+    {
+        return $this->paginationCount;
+    }
+
+    /**
+     * Alias of `getPaginationCount`.
+     *
+     * @return integer
+     */
+    public function paginationCount()
+    {
+        return $this->paginationCount;
     }
 }

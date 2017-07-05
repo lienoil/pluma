@@ -82,10 +82,12 @@ if (! function_exists('modules')) {
 
         $m = [];
         foreach ($modules as $k => $module) {
-            if (is_dir("$module/submodules")) {
-                $m[($basenameOnly ? basename($module) : $module)] = modules(false, "$module/submodules", $basenameOnly);
-            } else {
-                $m[$k] = ($basenameOnly ? basename($module) : $module);
+            if (! in_array(basename($module), config('modules.disabled'))) {
+                if (is_dir("$module/submodules")) {
+                    $m[($basenameOnly ? basename($module) : $module)] = modules(false, "$module/submodules", $basenameOnly);
+                } else {
+                    $m[$k] = ($basenameOnly ? basename($module) : $module);
+                }
             }
         }
 
@@ -195,7 +197,7 @@ if (! function_exists("include_file")) {
 if (! function_exists('require_config')) {
     function require_config($file, $path = __DIR__.'/../config')
     {
-        return require $path . '/' . $file;
+        return require "$path/$file";
     }
 }
 

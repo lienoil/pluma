@@ -33,6 +33,10 @@ class ModuleServiceProvider extends ServiceProvider
         $this->prepareModules();
     }
 
+    /**
+     * Prepares the modules.
+     *
+     */
     public function prepareModules()
     {
         $this->modules = modules(true, null, false);

@@ -35,6 +35,12 @@ class PlumaServiceProvider extends ServiceProvider
         $this->bootCapsule();
         $this->bootComposers();
         $this->bootViewsExtensions();
+
+        $router = $this->app['router'];
+        // $router->middleware('auth.admin', \Frontier\Middleware\AuthenticateAdmin::class);
+        echo "<pre>";
+            dd( $router->getMiddleware() ); die();
+        echo "</pre>";
     }
 
     /**

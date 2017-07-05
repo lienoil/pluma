@@ -1,11 +1,12 @@
 @extends("Frontier::layouts.auth")
 
 @section("content")
-
     <div class="mdl-layout mdl-js-layout mdl-color--grey-100 mdl-color--grey-100">
         <div class="mdl-layout__content">
             <main class="mdl-grid" role="presentation">
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+
+                    @include("Frontier::partials.alert")
 
                     <form action="{{ route('login.login') }}" method="POST" class="mdl-card mdl-shadow--2dp">
                         {{ csrf_field() }}
@@ -29,7 +30,7 @@
                             @include('Frontier::errors.span', ['field' => 'password'])
 
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember">
-                                <input id="remember" type="checkbox" name="remember" class="mdl-checkbox__input">
+                                <input id="remember" type="checkbox" name="remember" checked="checked" class="mdl-checkbox__input">
                                 <span class="mdl-checkbox__label">Remember Me</span>
                             </label>
                         </div>
@@ -55,3 +56,10 @@
     </div>
 
 @endsection
+
+@push('js')
+    <script>
+        let dialog = document.querySelector('dialog');
+        dialog.showDialog();
+    </script>
+@endpush

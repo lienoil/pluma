@@ -16,7 +16,7 @@ class PageController extends Controller
      */
     public function getRootPage(Request $request)
     {
-        return view("Single::layouts.admin");
+        return view("Single::layouts.page");
     }
 
     /**

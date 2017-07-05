@@ -54,6 +54,7 @@ class PageViewComposer extends BaseViewComposer
             'body' => $this->body(),
             'page' => $this->page(),
             'footer' => $this->footer(),
+            'version' => "v" . app()->version(),
         ]));
     }
 

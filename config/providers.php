@@ -10,25 +10,29 @@
  */
 return [
     'providers' => [
+        Pluma\Providers\RouteServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Pagination\PaginationServiceProvider::class,
+        Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
         Pluma\Providers\DatabaseServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
-        Pluma\Providers\RouteServiceProvider::class,
+        // RouteServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
     ],
 
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,
+        'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,

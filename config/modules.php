@@ -10,12 +10,11 @@ return [
      *
      */
     'enabled' => [
-        'Track',
         'Quest' => [
             'Item',
             'Sidequest',
         ],
-        // 'Angular',
+        // 'Single',
         // Modules here...
     ],
 
@@ -27,5 +26,7 @@ return [
      * disabled.
      *
      */
-    'disabled' => [],
+    'disabled' => [
+        'Single',
+    ],
 ];

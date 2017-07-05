@@ -16,11 +16,15 @@ trait MigrateDatabase
 
     public function migrate($migrations = null, $request = null)
     {
-        $this->migrations = is_null($migrations) ? get_migrations(modules(true, null, false), config('path.migrations')) : $modules;
+        $this->migrations = is_null($migrations) ? get_migrations(modules(true, null, false), config('path.migrations')) : $migrations;
 
         foreach ($this->migrations as $name => $migration) {
             if (is_array($migration)) {
-                $this->execute($migration, $request);
+                if (! empty($migration)) {
+                    $this->migrate($migration, $request);
+                    // $this->execute($migration, $request);
+                }
+
                 $this->execute([$name], $request);
             } else {
                 $this->execute([$migration], $request);

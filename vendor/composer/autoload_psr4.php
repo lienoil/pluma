@@ -34,6 +34,7 @@ return array(
     'Illuminate\\Routing\\' => array($vendorDir . '/illuminate/routing'),
     'Illuminate\\Queue\\' => array($vendorDir . '/illuminate/queue'),
     'Illuminate\\Pipeline\\' => array($vendorDir . '/illuminate/pipeline'),
+    'Illuminate\\Pagination\\' => array($vendorDir . '/illuminate/pagination'),
     'Illuminate\\Mail\\' => array($vendorDir . '/illuminate/mail'),
     'Illuminate\\Log\\' => array($vendorDir . '/illuminate/log'),
     'Illuminate\\Http\\' => array($vendorDir . '/illuminate/http'),

@@ -58,18 +58,18 @@ class Handler extends BaseHandler
             ], 404);
         }
 
-        // if (($exception instanceof \ReflectionException) && (auth()->user() && ! auth()->user()->isRoot())) {
-        //     return response()->view('Frontier::errors.exceptions', [
-        //         'error' => [
-        //             'code' => $exception->getCode(),
-        //             'message' => $exception->getMessage(),
-        //             'description' => "An application error occured, log in as /dev/ to view the error.",
-        //         ]
-        //     ]);
-        // }
+        if (($exception instanceof \ReflectionException) && (auth()->user() && ! auth()->user()->isRoot())) {
+            return response()->view('Frontier::errors.exceptions', [
+                'error' => [
+                    'code' => $exception->getCode(),
+                    'message' => $exception->getMessage(),
+                    'description' => "An application error occured, log in as /dev/ to view the error.",
+                ]
+            ]);
+        }
 
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-            return response()->view('Frontier::errors.404', [
+            return response()->view(config('settings.pages.404', 'Frontier::errors.404'), [
                 'error' => [
                     'code' => 'NOT_FOUND',
                     'message' => $exception->getMessage(),
@@ -78,15 +78,15 @@ class Handler extends BaseHandler
             ], 404);
         }
 
-        // if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
-        //     return response()->view('Frontier::errors.403', [
-        //         'error' => [
-        //             'code' => 'NOT_AUTHORIZED',
-        //             'message' => $exception->getMessage(),
-        //             'description' => 'Unauthorized request.',
-        //         ]
-        //     ], 403);
-        // }
+        if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
+            return response()->view('Frontier::errors.403', [
+                'error' => [
+                    'code' => 'NOT_AUTHORIZED',
+                    'message' => $exception->getMessage(),
+                    'description' => 'Unauthorized request.',
+                ]
+            ], 403);
+        }
 
         return parent::render($request, $exception);
     }

@@ -3,7 +3,6 @@
 namespace Pluma\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CheckIfInstalled
@@ -29,9 +28,6 @@ class CheckIfInstalled
         } catch (\PDOException $e) {
             return redirect()->route('installation.welcome');
             // dd($e->getMessage());
-            // return redirect('/');
-        } catch (\InvalidArgumentException $e) {
-            return;
             // return redirect('/');
         }
 

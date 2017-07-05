@@ -39,11 +39,6 @@ require __DIR__.'/../bootstrap/pretty-errors.php';
  */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-$app->singleton(
-    \Illuminate\Contracts\Http\Kernel::class,
-    \Pluma\Http\Kernel::class
-);
-
 $kernel = $app->make(\Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(

@@ -2,9 +2,10 @@
 
 namespace Dashboard\Controllers;
 
+use Frontier\Controllers\AdminController as Controller;
 use Illuminate\Http\Request;
 
-class DashboardController
+class DashboardController extends Controller
 {
     /**
      * Show list of resources.

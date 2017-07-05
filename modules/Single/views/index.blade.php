@@ -34,6 +34,7 @@
 
     <div data-root-app>
         @include("Single::partials.sidebar")
+
         <v-toolbar></v-toolbar>
         <main>
             <v-container fluid>

@@ -16,8 +16,8 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\VerifyPostSize::class,
-        // \App\Http\Middleware\TrimStrings::class,
-        // \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Pluma\Middleware\TrimStrings::class,
+        \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
     /**
@@ -27,20 +27,24 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            \Pluma\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Pluma\Middleware\CheckIfInstalled::class,
-            \Pluma\Middleware\EncryptCookies::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Pluma\Middleware\CheckIfInstalled::class,
         ],
 
         'api' => [
             'throttle:60,1',
             'bindings',
         ],
+
+        // 'auth.admin' => [
+        //     \Frontier\Middleware\AuthenticateAdmin::class,
+        // ],
     ];
 
     /**

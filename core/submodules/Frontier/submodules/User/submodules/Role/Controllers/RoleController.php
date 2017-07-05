@@ -1,10 +1,20 @@
 <?php
 
-namespace User\Controllers;
+namespace Role\Controllers;
 
-use Frontier\Controllers\AdminController;
+use Frontier\Controllers\AdminController as Controller;
+use Illuminate\Http\Request;
 
-class RoleController extends AdminController
+class RoleController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return view("Role::roles.index");
+    }
 }

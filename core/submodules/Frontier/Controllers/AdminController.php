@@ -2,8 +2,6 @@
 
 namespace Frontier\Controllers;
 
-// use Pluma\Models\Permission;
-// use Pluma\Support\Traits\Roleable;
 use Illuminate\Http\Request;
 use Pluma\Controllers\Controller as BaseController;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +11,7 @@ use Pluma\Support\Validation\Traits\ValidatesRequests;
 
 class AdminController extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Roleable;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;//, Roleable;
 
     /**
      * Create a new controller instance.
@@ -22,7 +20,8 @@ class AdminController extends BaseController
      */
     public function __construct()
     {
-        $this->middleware(['web']);
-        $this->middleware(['auth.admin']);
+        parent::__construct();
+
+        $this->middleware('auth.admin');
     }
 }

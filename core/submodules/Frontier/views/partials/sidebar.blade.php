@@ -1,5 +1,5 @@
 <aside class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-    <header class="XXXX-drawer-header">
+    {{-- <header class="XXXX-drawer-header">
         <img src="images/user.jpg" class="XXXX-avatar">
         <div class="XXXX-avatar-dropdown">
             <span>hello@example.com</span>
@@ -14,7 +14,7 @@
                 <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
             </ul>
         </div>
-    </header>
+    </header> --}}
     <span class="mdl-layout-title">{{ $application->site->title }}</span>
 
     {{-- {!! $navigation->sidebar->generate !!} --}}

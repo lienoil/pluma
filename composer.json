@@ -32,7 +32,8 @@
         "illuminate/encryption": "^5.4",
         "nesbot/carbon": "^1.22",
         "illuminate/validation": "^5.4",
-        "illuminate/cache": "^5.4"
+        "illuminate/cache": "^5.4",
+        "illuminate/pagination": "^5.4"
     },
     "autoload": {
         "classmap": [

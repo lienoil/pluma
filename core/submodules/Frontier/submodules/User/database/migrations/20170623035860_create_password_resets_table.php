@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Migration\Migration;
 
 class CreatePasswordResetsTable extends Migration
@@ -40,6 +41,10 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
+        if ($this->schema->hasTable($this->tablename)) {
+            return;
+        }
+
         Schema::create($this->tablename, function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
