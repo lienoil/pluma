@@ -15,7 +15,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $resources = Permission::all();
+        $resources = Permission::paginate();
 
         return view("Role::permissions.index")->with(compact('resources'));
     }

@@ -16,6 +16,13 @@ class PermissionRefreshController extends Controller
      */
     protected $permissions;
 
+    public function index(Request $request)
+    {
+        $resources = Permission::paginate();
+
+        return view("Role::permissions-refresh.index")->with(compact('resources'));
+    }
+
     /**
      * Update the specified resource in storage.
      *

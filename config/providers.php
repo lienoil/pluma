@@ -10,7 +10,6 @@
  */
 return [
     'providers' => [
-        Pluma\Providers\RouteServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
@@ -22,10 +21,10 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
+        Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
-        Pluma\Providers\ModuleServiceProvider::class,
-        // RouteServiceProvider::class,
+        Pluma\Providers\RouteServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
     ],

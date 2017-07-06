@@ -99,7 +99,7 @@ class Kernel implements KernelContract
         }
 
         foreach ($this->routeMiddleware as $key => $middleware) {
-            $router->middleware($key, $middleware);
+            $router->aliasMiddleware($key, $middleware);
         }
     }
 
@@ -125,7 +125,7 @@ class Kernel implements KernelContract
             $response = $this->renderException($request, $e);
         }
 
-        $this->app['events']->fire('kernel.handled', [$request, $response]);
+        event(new Events\RequestHandled($request, $response));
 
         return $response;
     }
@@ -159,6 +159,20 @@ class Kernel implements KernelContract
      */
     public function terminate($request, $response)
     {
+        $this->terminateMiddleware($request, $response);
+
+        $this->app->terminate();
+    }
+
+    /**
+     * Call the terminate method on any terminable middleware.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Response  $response
+     * @return void
+     */
+    protected function terminateMiddleware($request, $response)
+    {
         $middlewares = $this->app->shouldSkipMiddleware() ? [] : array_merge(
             $this->gatherRouteMiddleware($request),
             $this->middleware
@@ -177,8 +191,6 @@ class Kernel implements KernelContract
                 $instance->terminate($request, $response);
             }
         }
-
-        $this->app->terminate();
     }
 
     /**

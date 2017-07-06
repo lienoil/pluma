@@ -1,4 +1,5 @@
 <?php
+include_file(__DIR__,'/test.php');
 
 // Get array of submodules, if any.
 $submodules = submodules("Pluma", true);

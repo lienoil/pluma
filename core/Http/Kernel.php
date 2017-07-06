@@ -14,10 +14,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
-        \Pluma\Support\Http\Middleware\VerifyPostSize::class,
+        \Pluma\Middleware\Localization::class,
         \Pluma\Middleware\TrimStrings::class,
+        \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Pluma\Support\Http\Middleware\VerifyPostSize::class,
     ];
 
     /**
@@ -33,7 +34,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Pluma\Middleware\CheckIfInstalled::class,
         ],
 
@@ -41,10 +42,6 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
-
-        // 'auth.admin' => [
-        //     \Frontier\Middleware\AuthenticateAdmin::class,
-        // ],
     ];
 
     /**

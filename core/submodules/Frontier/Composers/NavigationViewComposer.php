@@ -20,6 +20,13 @@ class NavigationViewComposer extends BaseViewComposer
     protected $depth = 1;
 
     /**
+     * Prefix for url.
+     *
+     * @var string
+     */
+    protected $urlPrefix;
+
+    /**
      * Main function to tie everything together.
      *
      * @param  Illuminate\View\View   $view

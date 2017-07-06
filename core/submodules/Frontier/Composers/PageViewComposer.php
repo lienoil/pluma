@@ -114,6 +114,11 @@ class PageViewComposer extends BaseViewComposer
             return config("settings.pages.default_name", "Home");
         }
 
+        // e.g. admin/users/@name/reset-password
+        if (count($segments) >= 3) {
+            return $title = ucwords("{$segments[2]} {$segments[1]}");
+        }
+
         if (in_array($segments->first(), $this->bannedFirstWords)) {
             return ucwords("{$segments->last()}");
         }
