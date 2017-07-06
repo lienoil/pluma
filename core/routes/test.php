@@ -1,5 +1,5 @@
 <?php
 
-Route::get('language-test/{lang}/{locale}', function ($lang, $locale) {
+Route::get('lt/{lang}/{locale}', function ($lang, $locale) {
     echo "<strong>".App::getLocale()."</strong>:" . " " . __($lang);
 });

@@ -1,5 +1,34 @@
 {
+    "All Pages": "Lahat ng Pahina",
+    "Create Page": "Lumikha ng Pahina",
+    "Page": "Pahina",
+    "Pages": "Mga Pahina",
+    "Edit Page": "Pamatnugutan ang Pahina",
+
+    "Copyright": "Karapatang-sipi",
+    "copyright": "karapatang-sipi",
+
+    "Forgot Password": "Nakaligtaan ang Kontrasenyas",
+    "Forgot password": "Nakaligtaan ang kontrasenyas",
+    "Password": "Kontrasenyas",
+    "password": "kontrasenyas",
+    "Confirm Password": "Tiyakin ang Kontrasenyas",
+    "Confirm password": "Tiyakin ang kontrasenyas",
+
+    "Login": "Lumagda",
+    "login": "lumagda",
+
+    "Register": "Magpatala",
+    "register": "magpatala",
+
+    "Remember me": "Tandaan ako",
+    "Remember Me": "Tandaan Ako",
+
+    "Trash": "Basurahan",
+    "Trashed Pages": "Mga Ibinasurang Pahina",
+
+    "welcome": "maligayang pagdating",
     "hello": "kamusta",
     "what": "ano",
-    "welcome": "maligayang pagdating"
+    "or": "o"
 }

@@ -14,11 +14,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Pluma\Middleware\Localization::class,
         \Pluma\Middleware\TrimStrings::class,
         \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Pluma\Support\Http\Middleware\VerifyPostSize::class,
+        \Pluma\Middleware\Localization::class,
     ];
 
     /**

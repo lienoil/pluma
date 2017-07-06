@@ -114,9 +114,21 @@ class PageViewComposer extends BaseViewComposer
             return config("settings.pages.default_name", "Home");
         }
 
-        // e.g. admin/users/@name/reset-password
         if (count($segments) >= 3) {
-            return $title = ucwords("{$segments[2]} {$segments[1]}");
+            $end = $segments[sizeof($segments) - 1];
+
+            if (! in_array($end, config('language.supported', []))) {
+                return $title = ucwords("{$segments[2]} {$segments[1]}");
+            } else {
+                $i = $segments[sizeof($segments) - 2];
+                $j = $segments[sizeof($segments) - 3];
+
+                if (in_array($segments->first(), $this->bannedFirstWords)) {
+                    return ucwords("$i");
+                } else {
+                    return ucwords("$i $j");
+                }
+            }
         }
 
         if (in_array($segments->first(), $this->bannedFirstWords)) {
@@ -194,6 +206,11 @@ class PageViewComposer extends BaseViewComposer
                 $blurb
             );
 
-        return $copy;
+        // Translate
+        foreach ($copy = explode(' ', $copy) as $i => $string) {
+            $copy[$i] = __($string);
+        }
+
+        return implode(' ', $copy);
     }
 }

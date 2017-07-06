@@ -150,7 +150,8 @@ class ModuleServiceProvider extends ServiceProvider
         if (file_exists("$module/routes/admin.php")) {
             Route::group([
                 'middleware' => ['web'],
-                'prefix' => config('routes.admin.slug', 'admin')
+                'prefix' => config('routes.admin.slug', 'admin'),
+                'suffix' => '{locale?}',
             ], function () use ($module) {
                 include_file("$module/routes", "admin.php");
             });

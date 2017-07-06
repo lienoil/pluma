@@ -14,7 +14,7 @@ return [
         //     'content' => '&nbsp;',
         // ], // or can be a html string e.g. <span class="fa fa-edit">&nbsp;</span>
         'labels' => [
-            'title' => 'Pages',
+            'title' => __('Pages'),
         ],
     ],
 
@@ -26,7 +26,7 @@ return [
         'always_viewable' => false,
         // 'icon' => 'web',
         'labels' => [
-            'title' => 'All Pages',
+            'title' => __('All Pages'),
         ],
     ],
 
@@ -38,7 +38,7 @@ return [
         'always_viewable' => false,
         // 'icon' => '<span class="material-icon">insert drive file</span>',
         'labels' => [
-            'title' => 'Create Page',
+            'title' => __('Create Page'),
         ],
     ],
 
@@ -50,7 +50,7 @@ return [
         'always_viewable' => false,
         'icon' => 'delete',
         'labels' => [
-            'title' => 'Trash',
+            'title' => __('Trashed Pages'),
         ],
     ],
 ];
