@@ -1,4 +1,8 @@
 {
     "hello": "hola",
-    "welcome": "bienvenido"
+    "Welcome": "Bienvenido",
+    "Login": "Iniciar Sesión",
+    "Register": "Registro",
+    "Forgot Password": "Se te olvidó tu contraseña",
+    "Remember Me": "Recuérdame"
 }

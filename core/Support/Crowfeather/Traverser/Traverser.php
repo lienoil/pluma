@@ -2,7 +2,7 @@
 
 namespace Crowfeather\Traverser;
 
-use Crowfeather\Contracts\Traverser\TraverserContract;
+use Crowfeather\Traverser\Contracts\Traverser as TraverserContract;
 
 class Traverser implements TraverserContract
 {
@@ -41,12 +41,19 @@ class Traverser implements TraverserContract
      */
     protected $root = ['root' => ['name' => 'root', 'parent' => '', 'left' => '0', 'right' => '0']];
 
+    public function __construct(array $traversables = [], $root = [])
+    {
+        $this->root = array_merge($this->root, $root);
+
+        $this->set($traversables);
+    }
+
     /**
      * Sets the traversables.
      *
      * @param array $traversables
      */
-    protected function set($traversables)
+    public function set($traversables)
     {
         $this->traversables = $traversables;
         $this->traversables += $this->root;
@@ -72,6 +79,28 @@ class Traverser implements TraverserContract
         return $this->traversables;
     }
 
+    public function flatten($key = 'children', $traversables = null)
+    {
+        $traversables = is_null($traversables) ? $this->traversables : $traversables;
+
+        foreach ($traversables as $parent => &$traversable) {
+            if (isset($traversable[$key]) && $children = $traversable[$key]) {
+                foreach ($children as &$child) {
+                    $child['parent'] = $parent;
+                    if (isset($child[$key])) {
+                        $this->flatten($key, $child[$key]);
+                    }
+                }
+                $traversables = array_merge($traversables, $children);
+                unset($traversables[$parent][$key]);
+            }
+        }
+
+        $this->traversables = $traversables;
+
+        return $this;
+    }
+
     /**
      * Sorts the traversable tree,
      * adding parent-child relationship to the
@@ -82,8 +111,9 @@ class Traverser implements TraverserContract
      * @param  array  $options
      * @return array
      */
-    public function rechild($traversables, $parent = '', $options = [])
+    public function rechild($parent = 'root', $traversables = null, $options = [])
     {
+        $traversables = is_null($traversables) ? $this->traversables : $traversables;
         $options = array_merge($this->options, $options);
 
         $tree = [];
@@ -92,16 +122,17 @@ class Traverser implements TraverserContract
                 $tree[$name] = $traversable;
                 if (! isset($tree[$name]['children'])) {
                     $tree[$name]['children'] = [];
+                    $tree[$name]['is_parent'] = true;
                 }
 
-                $tree[$name]['children'] += $this->rechild($traversables, $traversable[$options['name']], $options);
+                $tree[$name]['children'] += $this->rechild($traversable[$options['name']], $traversables, $options);
             }
         }
 
         return $tree;
     }
 
-    public function prepareTraverables($parent = 'root', $left = 1, $options = [])
+    public function prepare($parent = 'root', $left = 1, $options = [])
     {
         $right = $left + 1;
         $options = array_merge($this->options, $options);
@@ -118,10 +149,22 @@ class Traverser implements TraverserContract
             // $traversable['is_child'] = false;
             if ($parent === $traversable[$options['parent']]) {
                 $traversable['is_child'] = true;
-                $right = $this->prepareTraverables($traversable[$options['name']], $right, $options);
+                $right = $this->prepare($traversable[$options['name']], $right, $options);
             }
         }
 
+        $this->order($parent, $left, $right, $options);
+
+        return $right + 1;
+    }
+
+    /**
+     * Left right
+     *
+     * @param array $traversables
+     */
+    public function order($parent, $left, $right, $options = [])
+    {
         foreach ($this->traversables as $key => &$traversable) {
             if ($parent === $traversable[$options['name']]) {
                 $traversable[$options['left']] = $left;
@@ -136,8 +179,29 @@ class Traverser implements TraverserContract
                 }
             }
         }
+    }
 
-        return $right + 1;
+    public function reorder(&$traversables = null, $key = 'order')
+    {
+        foreach ($traversables as &$traversable) {
+            if (isset($traversable['children'])) {
+                $traversable['children'] = $this->reorder($traversable['children'], $key);
+            }
+        }
+
+        uasort($traversables, function ($item1, $item2) use ($key) {
+            if (isset($item1[$key]) && isset($item2[$key])) {
+                return $item1[$key] <=> $item2[$key];
+            }
+
+            return -1;
+        });
+
+        // echo "<pre>";
+        //     var_dump( $traversables ); die();
+        // echo "</pre>";
+
+        return $traversables;
     }
 
     public function add($traversable, $parent = 'root', $left = 1)
@@ -210,21 +274,33 @@ class Traverser implements TraverserContract
         return null;
     }
 
+    public function dd($traversables, $depth = 1)
+    {
+        $depth += $depth;
+        foreach ($traversables as $traversable) {
+            echo str_repeat('------| ', $depth) . " - {$traversable['order']} {$traversable['name']} \n<br/>";
+            if (isset($traversable['children'])) {
+                $this->dd($traversable['children'], $depth);
+            }
+        }
+    }
 
-    public function dump( $startAt = 'root' )
+    public function dump($traversables = null, $key = null)
     {
         $right = [];
+        $traversables = is_null($traversables) ? $this->get() : $traversables;
 
-        $traversables = $this->get();
-        foreach ( $traversables as $traversable ) {
-            if ( count( $right ) > 0 ) {
-                while ( $right[ count($right) - 1 ] < $traversable['right'] ) {
-                    array_pop( $right );
+        foreach ($traversables as $traversable) {
+            if (count($right) > 0) {
+                while ($right[count($right) - 1] < $traversable['right']) {
+                    array_pop($right);
                 }
             }
+
             $l = str_pad($traversable['left'], 2, '0', STR_PAD_LEFT);
             $r = str_pad($traversable['right'], 2, '0', STR_PAD_LEFT);
-            echo str_repeat('------| ', count($right)) . $l . " - " . $traversable['name'] . " - " . $r . "\n<br/>";
+            $value = ! isset($traversable[$key]) ? '-/-' : $traversable[$key];
+            echo str_repeat('------| ', count($right)) . $l . " - " . $traversable['name'] . " [$value] - " . $r . "\n<br/>";
 
             $right[] = $traversable['right'];
         }

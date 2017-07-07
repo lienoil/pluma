@@ -5,22 +5,28 @@ return [
         'name' => 'content',
         'is_header' => true,
         'order' => 0,
-        'slug' => '#',
-        'always_viewable' => true,
-        'labels' => [
-            'title' => 'Content',
-        ],
+        'class' => 'separator',
+        'markup' => 'span',
+        'text' => __('Content'),
     ],
 
     'dashboard' => [
         'name' => 'dashboard',
         'is_parent' => true,
         'order' => 1,
-        'slug' => 'dashboard',
+        'slug' => url(config('path.admin').'/dashboard'),
         'always_viewable' => true,
         'icon' => 'widgets',
         'labels' => [
-            'title' => 'Dashboard',
+            'title' => __('Dashboard'),
         ],
     ],
+
+    /*'sample-separator' => [
+        'name' => 'sample-separator',
+        'is_separator' => true,
+        'order' => 3,
+        'class' => 'mdl--separator',
+        'markup' => 'hr',
+    ],*/
 ];

@@ -8,9 +8,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="images/android-desktop.png">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -28,17 +25,19 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
     <title>
-        <?php $__env->startSection("head.title"); ?><?php echo e(isset($application) && isset($application->head->title) ? __($application->head->title ): ''); ?><?php echo $__env->yieldSection(); ?>
-        <?php $__env->startSection("head.subtitle"); ?><?php echo e(isset($application) && isset($application->head->subtitle) ? __($application->head->subtitle) : ''); ?><?php echo $__env->yieldSection(); ?>
+        <?php $__env->startSection("head.title"); ?><?php echo e(isset($application) && isset($application->head->title) ? $application->head->title : ''); ?><?php echo $__env->yieldSection(); ?>
+        <?php $__env->startSection("head.subtitle"); ?><?php echo e(isset($application) && isset($application->head->subtitle) ? $application->head->subtitle : ''); ?><?php echo $__env->yieldSection(); ?>
     </title>
-    <meta name="description" content="<?php echo e(__(@$application->head->description)); ?>">
+    <meta name="description" content="<?php echo e(@$application->head->description); ?>">
     <?php echo $__env->yieldPushContent("post-meta"); ?>
 
     <?php echo $__env->yieldPushContent("pre-css"); ?>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/vue"></script>
+    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
     <?php echo $__env->yieldPushContent("css"); ?>
     <?php echo $__env->yieldPushContent("post-css"); ?>
 </head>

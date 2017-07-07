@@ -294,7 +294,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035860_create_password_resets_table.php',
         'CreatePermissionsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035860_create_permissions_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035859_create_users_table.php',
-        'Crowfeather\\Contracts\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Contracts/Traverser.php',
+        'Crowfeather\\Traverser\\Contracts\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Contracts/Traverser.php',
         'Crowfeather\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Traverser.php',
         'Dashboard\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Dashboard/Controllers/DashboardController.php',
         'Dashboard\\Providers\\DashboardServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Dashboard/Providers/DashboardServiceProvider.php',

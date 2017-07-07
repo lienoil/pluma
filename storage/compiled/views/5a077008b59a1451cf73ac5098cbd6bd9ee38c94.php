@@ -6,7 +6,7 @@
                     <img src="http://deepaelectronics.co.in/images/00205-3D-art-logo-design-free-logos-online-011.png">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                    <v-list-tile-title>@{{ application.site.title }}</v-list-tile-title>
+                    <v-list-tile-title>{{ application.site.title }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                     <v-btn icon @click.native.stop="mini = !mini" :dark.sync="dark" :light.sync="light">
@@ -27,8 +27,8 @@
                         <img src="https://randomuser.me/api/portraits/men/99.jpg">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                        <v-list-tile-title>@{{ user.displayname }}</v-list-tile-title>
-                        <span><small>@{{ user.roles }}</small></span>
+                        <v-list-tile-title>{{ user.displayname }}</v-list-tile-title>
+                        <span><small>{{ user.roles }}</small></span>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list-item>
@@ -46,7 +46,7 @@
     </v-list>
 
     <v-list dense>
-        @include("Single::templates.sidebar")
+        <?php echo $__env->make("Single::templates.sidebar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </v-list>
 
     <v-divider :dark.sync="dark" :light.sync="light"></v-divider>

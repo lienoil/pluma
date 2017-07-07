@@ -15,7 +15,7 @@
             </ul>
         </div>
     </header> --}}
-    <span class="mdl-layout-title">{{ $application->site->title }}</span>
+    <span class="mdl-layout-title">{{ __($application->site->title) }}</span>
 
     {{-- {!! $navigation->sidebar->generate !!} --}}
     @include("Frontier::templates.navigations.sidebar", ['menus' => collect($navigation->sidebar->collect)])

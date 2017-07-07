@@ -3,7 +3,7 @@
     <v-layout row v-if="item.is_header" align-center :key="i">
         <v-flex xs6>
             <v-subheader v-if="item.is_header" :dark.sync="light" :light.sync="dark">
-                @{{ item.text }}
+                {{ item.text }}
             </v-subheader>
         </v-flex>
         <v-flex xs6 class="text-xs-center" :dark.sync="dark" :light.sync="light">
@@ -19,15 +19,15 @@
         <v-list-item slot="item">
             <v-list-tile>
                 <v-list-tile-action v-if="item.icon">
-                    <v-icon :dark.sync="dark" :light.sync="light">@{{ item.icon }}</v-icon>
+                    <v-icon :dark.sync="dark" :light.sync="light">{{ item.icon }}</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>
-                        @{{ item.labels.title }}
+                        {{ item.labels.title }}
                     </v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action v-if="item.children">
-                    <v-icon :dark.sync="dark" :light.sync="light">@{{ item.children ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                    <v-icon :dark.sync="dark" :light.sync="light">{{ item.children ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
         </v-list-item>
@@ -37,11 +37,11 @@
             <v-list-item v-for="(child, i) in item.children" :item="child" :key="i">
                 <v-list-tile>
                     <v-list-tile-action>
-                        <v-icon v-if="child.icon" :dark.sync="dark" :light.sync="light">@{{ child.icon }}</v-icon>
+                        <v-icon v-if="child.icon" :dark.sync="dark" :light.sync="light">{{ child.icon }}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title>
-                            @{{ child.labels.title }}
+                            {{ child.labels.title }}
                         </v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>

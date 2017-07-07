@@ -45,7 +45,7 @@
                     </form>
 
                     <div class="copy">
-                        <small class="mdl-color-text--blue-grey-400"><?php echo e($application->site->copyright); ?></small>
+                        <small class="mdl-color-text--blue-grey-400"><?php echo e(__($application->site->copyright)); ?></small>
                     </div>
 
                 </div>

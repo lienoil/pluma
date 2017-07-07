@@ -28,10 +28,10 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
     <title>
-        @section("head.title"){{ isset($application) && isset($application->head->title) ? $application->head->title : '' }}@show
-        @section("head.subtitle"){{ isset($application) && isset($application->head->subtitle) ? $application->head->subtitle : '' }}@show
+        @section("head.title"){{ isset($application) && isset($application->head->title) ? __($application->head->title ): '' }}@show
+        @section("head.subtitle"){{ isset($application) && isset($application->head->subtitle) ? __($application->head->subtitle) : '' }}@show
     </title>
-    <meta name="description" content="{{ @$application->head->description }}">
+    <meta name="description" content="{{ __(@$application->head->description) }}">
     @stack("post-meta")
 
     @stack("pre-css")

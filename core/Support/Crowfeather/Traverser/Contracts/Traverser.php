@@ -1,50 +1,15 @@
 <?php
 
-namespace Crowfeather\Contracts\Traverser;
+namespace Crowfeather\Traverser\Contracts;
 
 interface Traverser
 {
-    /**
-     * Array of traversable items.
-     *
-     * @var array
-     */
-    protected $traversables;
-
-    /**
-     * Single traversable item.
-     *
-     * @var mixed
-     */
-    protected $traversable;
-
-    /**
-     * Left/Right value.
-     *
-     * @var integer
-     */
-    protected $left;
-
-    /**
-     * The traversable attributes.
-     *
-     * @var array
-     */
-    protected $options;
-
-    /**
-     * The Root parent of all traversables.
-     *
-     * @var array
-     */
-    protected $root;
-
     /**
      * Sets the traversables.
      *
      * @param array $traversables
      */
-    protected function set($traversables);
+    public function set($traversables);
 
     /**
      * Gets the traversables.

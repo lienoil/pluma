@@ -46,7 +46,7 @@
                     </form>
 
                     <div class="copy">
-                        <small class="mdl-color-text--blue-grey-400">{{ $application->site->copyright }}</small>
+                        <small class="mdl-color-text--blue-grey-400">{{ __($application->site->copyright) }}</small>
                     </div>
 
                 </div>

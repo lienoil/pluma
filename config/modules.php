@@ -10,11 +10,7 @@ return [
      *
      */
     'enabled' => [
-        'Quest' => [
-            'Item',
-            'Sidequest',
-        ],
-        // 'Single',
+        'Single',
         // Modules here...
     ],
 
@@ -27,6 +23,6 @@ return [
      *
      */
     'disabled' => [
-        'Single',
+        // 'Single',
     ],
 ];

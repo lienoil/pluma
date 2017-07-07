@@ -1,19 +1,30 @@
 {
-    "All Pages": "Lahat ng Pahina",
+    "All Pages": "Lahat ng mga Pahina",
     "Create Page": "Lumikha ng Pahina",
     "Page": "Pahina",
     "Pages": "Mga Pahina",
     "Edit Page": "Pamatnugutan ang Pahina",
 
+    "Users": "Mga Tagagamit",
+    "users": "Mga tagagamit",
+    "User": "Tagagamit",
+    "user": "tagagamit",
+    "All Users": "Lahat ng mga Tagagamit",
+    "Create User": "Lumikha ng Tagagamit",
+    "Edit User": "Pamatnugutan ang Tagagamit",
+
+    "Content": "Nilalaman",
+    "content": "nilalaman",
+
     "Copyright": "Karapatang-sipi",
     "copyright": "karapatang-sipi",
 
-    "Forgot Password": "Nakaligtaan ang Kontrasenyas",
-    "Forgot password": "Nakaligtaan ang kontrasenyas",
-    "Password": "Kontrasenyas",
-    "password": "kontrasenyas",
-    "Confirm Password": "Tiyakin ang Kontrasenyas",
-    "Confirm password": "Tiyakin ang kontrasenyas",
+    "Forgot Password": "Nakaligtaan ang Kontraseñas",
+    "Forgot password": "Nakaligtaan ang kontraseñas",
+    "Password": "Kontraseñas",
+    "password": "kontraseñas",
+    "Confirm Password": "Tiyakin ang Kontraseñas",
+    "Confirm password": "Tiyakin ang kontraseñas",
 
     "Login": "Lumagda",
     "login": "lumagda",

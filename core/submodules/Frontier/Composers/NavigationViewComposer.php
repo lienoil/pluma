@@ -2,7 +2,7 @@
 
 namespace Frontier\Composers;
 
-use Frontier\Support\Traverser\Traverser;
+use Crowfeather\Traverser\Traverser;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 use Pluma\Support\Composers\BaseViewComposer;
@@ -10,7 +10,7 @@ use Pluma\Support\Modules\Traits\Module;
 
 class NavigationViewComposer extends BaseViewComposer
 {
-    use Traverser, Module;
+    use Module;
 
     /**
      * Starting depth of the traversables.
@@ -18,6 +18,13 @@ class NavigationViewComposer extends BaseViewComposer
      * @var integer
      */
     protected $depth = 1;
+
+    /**
+     * The navigational menu.
+     *
+     * @var array|object|mixed
+     */
+    protected $menus;
 
     /**
      * Prefix for url.
@@ -36,9 +43,29 @@ class NavigationViewComposer extends BaseViewComposer
     {
         parent::compose($view);
 
+        $this->setMenus($this->requireFileFromModules('config/menus.php', modules(true, null, false)));
+
         $this->setVariablename("navigation");
 
         $view->with($this->getVariablename(), $this->handle());
+    }
+
+    /**
+     * Sets the menus.
+     *
+     * @param array|object|mixed $menus
+     */
+    public function setMenus($menus)
+    {
+        $traverser = new Traverser();
+        $traverser->set($menus)
+                ->flatten()
+                ->prepare();
+
+        $this->menus = $traverser->rechild('root');
+        $this->menus = $traverser->reorder($this->menus);
+
+        return $this;
     }
 
     /**
@@ -72,16 +99,9 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function sidebar()
     {
-        $modules = modules(true, null, false);
-        $menus = $this->requireFileFromModules('config/menus.php', $modules);
-
-        $this->setTraversables($menus);
-        $this->prepareTraverables('root', 1);
-        $menus = $this->rechildTraversables($this->getTraversables(), 'root');
-
         return json_decode(json_encode([
-            'generate' => $this->generateSidebar(collect(json_decode(json_encode($menus)))),
-            'collect' => collect(json_decode(json_encode($menus))),
+            'generate' => $this->generateSidebar(collect(json_decode(json_encode($this->menus)))),
+            'collect' => collect(json_decode(json_encode($this->menus))),
         ]));
     }
 

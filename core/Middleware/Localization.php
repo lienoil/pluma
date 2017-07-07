@@ -39,7 +39,7 @@ class Localization
         $url = explode('.', parse_url($request->url(), PHP_URL_HOST));
         $this->subdomain = $url[0];
 
-        if ($this->subdomain && in_array($this->subdomain, $this->languages)) {
+        if ($this->subdomain) {
             app()->setLocale($this->subdomain);
         }
 
