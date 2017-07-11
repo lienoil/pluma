@@ -27,5 +27,5 @@ return [
 
     'fallback_locale' => 'en',
 
-    // 'supported' => ['en', 'fil'],
+    'supported' => ['en', 'fil'],
 ];

@@ -32,6 +32,15 @@ class PageViewComposer extends BaseViewComposer
     protected $bannedFirstWords = ['admin', 'administration'];
 
     /**
+     * List fo single words to determin the correct
+     * grammar. E.g. a url of "pages/create" will
+     * yield "Create Page" instead of "Create Pages".
+     *
+     * @var array
+     */
+    protected $singles = ['create', 'edit', 'destroy', 'trash'];
+
+    /**
      * Main function to tie everything together.
      *
      * @param  Illuminate\View\View   $view
@@ -64,6 +73,7 @@ class PageViewComposer extends BaseViewComposer
             'title' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
             'tagline' => config("settings.site.tagline", env("APP_TAGLINE")),
             'author' => config("settings.site.author", env("APP_AUTHOR")),
+            'logo' => config("settings.site.logo", $this->getBrandLogoUrl()),
             'copyright' => $this->guessCopyright(),
         ]));
     }
@@ -118,6 +128,9 @@ class PageViewComposer extends BaseViewComposer
             $end = $segments[sizeof($segments) - 1];
 
             if (! in_array($end, config('language.supported', []))) {
+                if (in_array($segments[2], $this->singles)) {
+                    $segments[1] = str_singular($segments[1]);
+                }
                 return $title = ucwords("{$segments[2]} {$segments[1]}");
             } else {
                 $i = $segments[sizeof($segments) - 2];
@@ -212,5 +225,25 @@ class PageViewComposer extends BaseViewComposer
         }
 
         return implode(' ', $copy);
+    }
+
+    /**
+     * Gets the Logo of the application
+     *
+     * @return string
+     */
+    public function getBrandLogoUrl()
+    {
+        $version = app()->version();
+
+        if (file_exists(public_path('img/logos/main.png'))) {
+            return url("img/logos/main.png?v=$version");
+        }
+
+        if (file_exists(public_path('logo.png'))) {
+            return url("logo.png?v=$version");
+        }
+
+        return url("core/fallback/logos/main.png?v=$version");
     }
 }

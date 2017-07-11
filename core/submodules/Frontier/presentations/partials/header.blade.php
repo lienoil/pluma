@@ -8,6 +8,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="images/android-desktop.png">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -25,24 +28,22 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
     <title>
-        @section("head.title"){{ isset($application) && isset($application->head->title) ? $application->head->title : '' }}@show
-        @section("head.subtitle"){{ isset($application) && isset($application->head->subtitle) ? $application->head->subtitle : '' }}@show
+        @section("head.title"){{ isset($application) && isset($application->head->title) ? __($application->head->title ): '' }}@show
+        @section("head.subtitle"){{ isset($application) && isset($application->head->subtitle) ? __($application->head->subtitle) : '' }}@show
     </title>
-    <meta name="description" content="{{ @$application->head->description }}">
+    <meta name="description" content="{{ __(@$application->head->description) }}">
     @stack("post-meta")
 
     @stack("pre-css")
-    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> --}}
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/vue"></script>
     <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
-    <link rel="stylesheet" href="{{ assets('single/css/app.css') }}">
-    <script src="{{ assets('single/js/app.js') }}"></script>
+
+    {{-- <link rel="stylesheet" href="{{ assets('frontier/css/app.css') }}"> --}}
+    {{-- <script src="{{ assets('frontier/js/app.js') }}"></script> --}}
+
     @stack("css")
     @stack("post-css")
 </head>

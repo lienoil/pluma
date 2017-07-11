@@ -123,6 +123,11 @@ class ModuleServiceProvider extends ServiceProvider
     public function loadViews($module = null)
     {
         $basename = basename($module);
+
+        if (config('view.single-page-app', false) && is_dir("$module/presentations")) {
+            $this->loadViewsFrom("$module/presentations", $basename);
+        }
+
         if (is_dir("$module/views")) {
             $this->loadViewsFrom("$module/views", $basename);
         }

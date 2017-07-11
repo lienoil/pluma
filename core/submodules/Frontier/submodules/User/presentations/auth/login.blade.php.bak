@@ -1,0 +1,61 @@
+@extends("Frontier::layouts.auth")
+
+@section("content")
+    <template>
+        <v-card class="grey lighten-5" flat>
+            <v-toolbar dark class="primary elevation-0" extended></v-toolbar>
+            <v-layout row>
+                <v-flex xs4 offset-xs4>
+                    <v-card class="card--flex-toolbar card--flex-toolbar--stylized">
+                        <v-toolbar card class="white" prominent>
+                            <v-toolbar-title>{{ __('Login') }} | {{ $application->site->title }}</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-layout row>
+                                <v-flex>
+                                    <v-text-field
+                                        name="username"
+                                        label="Email or username"
+                                        class="input-group"
+                                    ></v-text-field>
+                                    <v-text-field
+                                        name="password"
+                                        label="Password"
+                                        hint="At least 6 characters"
+                                        min="6"
+                                        :append-icon="visible ? 'visibility' : 'visibility_off'"
+                                        :append-icon-cb="() => (visible = !visible)"
+                                        :type="visible ? 'text': 'password'"
+                                        class="input-group"
+                                    ></v-text-field>
+                                </v-flex>
+                            </v-layout>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-card>
+    </template>
+@endsection
+
+@push('css')
+    <style>
+        .card--flex-toolbar--stylized {
+            margin-top: -64px;
+        }
+    </style>
+@endpush
+
+@push('js')
+    <script>
+        export default {
+            data () {
+                return {
+                    visible: false
+                }
+            }
+        }
+    </script>
+@endpush

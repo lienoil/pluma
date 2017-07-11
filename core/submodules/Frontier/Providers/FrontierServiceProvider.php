@@ -7,6 +7,13 @@ use Illuminate\Support\ServiceProvider;
 class FrontierServiceProvider extends ServiceProvider
 {
     /**
+     * Basename for the modules.
+     *
+     * @var string
+     */
+    protected $basename = 'Frontier';
+
+    /**
      * The array of view composers.
      *
      * @var array

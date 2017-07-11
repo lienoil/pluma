@@ -95,6 +95,32 @@ if (! function_exists('modules')) {
     }
 }
 
+if (! function_exists('get_module')) {
+    /**
+     * Gets the pathname of the module specified
+     *
+     * @param  string $retrieve
+     * @return string|null|mixed
+     */
+    function get_module($retrieve)
+    {
+        $modules = modules(true, null, false);
+        foreach ($modules as $name => $module) {
+            if (! is_array($module)) {
+                if (basename($module) == $retrieve) {
+                    return $module;
+                }
+            } else {
+                if (basename($name) == $retrieve) {
+                    return $name;
+                }
+            }
+        }
+
+        return null;
+    }
+}
+
 if (! function_exists('get_migrations')) {
     /**
      * Gets the all migrations path.
@@ -267,5 +293,18 @@ if (! function_exists('generate_random_key')) {
         return 'base64:'.base64_encode(random_bytes(
             config('encryption.cipher') == 'AES-128-CBC' ? 16 : 32
         ));
+    }
+}
+
+if (! function_exists('assets')) {
+    /**
+     * Gets assets files from specified path
+     *
+     * @param  string $file
+     * @return Illuminate\Http\Response
+     */
+    function assets($file)
+    {
+        return url("assets/$file");
     }
 }

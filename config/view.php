@@ -33,4 +33,5 @@ return [
 
     'static' => realpath(resource_path('views/static')),
 
+    'single-page-app' => true,
 ];

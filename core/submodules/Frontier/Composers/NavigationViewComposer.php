@@ -115,6 +115,6 @@ class NavigationViewComposer extends BaseViewComposer
     {
         $depth = $this->depth;
 
-        return view("Frontier::templates.navigations.sidebar")->with(compact('menus', 'depth'))->render();
+        return view("Frontier::templates.sidebar")->with(compact('menus', 'depth'))->render();
     }
 }

@@ -2,7 +2,7 @@
     <v-list class="pa-0">
         <v-list-item>
             <v-list-tile tag="div">
-                @include("Single::partials.brand")
+                <!-- @include("Frontier::partials.brand") -->
             </v-list-tile>
         </v-list-item>
     </v-list>
@@ -36,7 +36,7 @@
     </v-list>
 
     <v-list dense>
-        @include("Single::templates.sidebar")
+        @include("Frontier::templates.sidebar")
     </v-list>
 
     <v-divider :dark.sync="dark" :light.sync="light"></v-divider>

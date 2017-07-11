@@ -1,6 +1,6 @@
 <?php
-include_file(__DIR__,'/test.php');
 
+include_file(__DIR__,'/fuzzy.php');
 // Get array of submodules, if any.
 $submodules = submodules("Pluma", true);
 
