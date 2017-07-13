@@ -2,18 +2,23 @@
 
 namespace Frontier\API\Controllers;
 
+use Illuminate\Http\Request;
 use Pluma\API\Controllers\APIController;
 
 class PageController extends APIController
 {
     /**
+     * Get all pages.
      *
-     * @param  [type] $slug [description]
-     * @return [type]       [description]
+     * @param  Illuminate\Http\Request $request [description]
+     * @return Illuminate\Http\Response
      */
-    public function show($slug = null)
+    public function getAll(Request $request)
     {
-        $response = ['test' => 'asd'];
+        $response = [
+            'test' => 'asd',
+            'page' => 'page-s',
+        ];
 
         return response()->json($response);
     }

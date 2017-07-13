@@ -102,22 +102,25 @@ if (! function_exists('get_module')) {
      * @param  string $retrieve
      * @return string|null|mixed
      */
-    function get_module($retrieve)
+    function get_module($retrieve, $modules = null)
     {
-        $modules = modules(true, null, false);
+        $mm = null;
+        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+
         foreach ($modules as $name => $module) {
             if (! is_array($module)) {
                 if (basename($module) == $retrieve) {
                     return $module;
                 }
             } else {
+                $mm = get_module($retrieve, $module);
                 if (basename($name) == $retrieve) {
                     return $name;
                 }
             }
         }
 
-        return null;
+        return $mm;
     }
 }
 
@@ -305,6 +308,19 @@ if (! function_exists('assets')) {
      */
     function assets($file)
     {
-        return url("assets/$file");
+        return url("~assets/$file");
+    }
+}
+
+if (! function_exists('present')) {
+    /**
+     * Gets presentations files from specified path
+     *
+     * @param  string $file
+     * @return Illuminate\Http\Response
+     */
+    function present($file)
+    {
+        return url("~p/$file");
     }
 }

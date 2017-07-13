@@ -1,3 +1,3 @@
-    <?php echo $__env->yieldPushContent('js'); ?>
+    <?php echo $__env->yieldPushContent('footer'); ?>
 </body>
 </html>

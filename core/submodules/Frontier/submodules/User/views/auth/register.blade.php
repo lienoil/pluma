@@ -55,10 +55,3 @@
     </div>
 
 @endsection
-
-@push('js')
-    <script>
-        let dialog = document.querySelector('dialog');
-        dialog.showDialog();
-    </script>
-@endpush

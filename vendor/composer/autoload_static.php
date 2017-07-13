@@ -304,6 +304,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Frontier\\Composers\\PageViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/PageViewComposer.php',
         'Frontier\\Controllers\\AdminController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/AdminController.php',
         'Frontier\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/PublicController.php',
+        'Frontier\\Controllers\\SingleController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/SingleController.php',
         'Frontier\\Middleware\\AuthenticateAdmin' => __DIR__ . '/../..' . '/core/submodules/Frontier/Middleware/AuthenticateAdmin.php',
         'Frontier\\Middleware\\RedirectToDashboardIfAuthenticated' => __DIR__ . '/../..' . '/core/submodules/Frontier/Middleware/RedirectToDashboardIfAuthenticated.php',
         'Frontier\\Models\\Page' => __DIR__ . '/../..' . '/core/submodules/Frontier/Models/Page.php',

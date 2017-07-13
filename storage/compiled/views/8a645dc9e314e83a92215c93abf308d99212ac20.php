@@ -9,11 +9,11 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('css'); ?>
-    <link rel="stylesheet" href="<?php echo e(present("user/{$application->token}/auth/dist/login.css")); ?>">
+    <link rel="stylesheet" href="<?php echo e(present("user/{$application->token}/login/dist/login.css")); ?>">
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startPush('pre-js'); ?>
-    <script src="<?php echo e(present("user/{$application->token}/auth/dist/login.js")); ?>"></script>
+    <script src="<?php echo e(present("user/{$application->token}/login/dist/login.js")); ?>"></script>
     <script>
         Vue.component('login', login);
     </script>

@@ -148,7 +148,7 @@ class ModuleServiceProvider extends ServiceProvider
                 'middleware' => ['api'],
                 'prefix' => config('routes.api.slug', 'api')
             ], function () use ($module) {
-                include_file("$module/routes", "api.php");
+                include_file("$module/API/routes", "api.php");
             });
         }
 

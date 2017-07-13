@@ -1,3 +1,3 @@
-    @stack('js')
+    @stack('footer')
 </body>
 </html>

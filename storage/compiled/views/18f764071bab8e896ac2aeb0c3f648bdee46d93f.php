@@ -35,15 +35,13 @@
     <?php echo $__env->yieldPushContent("post-meta"); ?>
 
     <?php echo $__env->yieldPushContent("pre-css"); ?>
-
+    <script>let csrfToken = "<?php echo e(csrf_token()); ?>";</script>
+    
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
-    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue@2.3.4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.0.1/vue-router.js"></script>
     <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
-
-    
-    
-
     <?php echo $__env->yieldPushContent("css"); ?>
     <?php echo $__env->yieldPushContent("post-css"); ?>
 </head>

@@ -64,6 +64,7 @@ class PageViewComposer extends BaseViewComposer
             'page' => $this->page(),
             'footer' => $this->footer(),
             'version' => "v" . app()->version(),
+            'token' => csrf_token(),
         ]));
     }
 
@@ -75,6 +76,7 @@ class PageViewComposer extends BaseViewComposer
             'author' => config("settings.site.author", env("APP_AUTHOR")),
             'logo' => config("settings.site.logo", $this->getBrandLogoUrl()),
             'copyright' => $this->guessCopyright(),
+            'fulltitle' => $this->guessTitle() . " " . $this->guessSubtitle(),
         ]));
     }
 
@@ -87,6 +89,7 @@ class PageViewComposer extends BaseViewComposer
             'description' => $this->guessDescription(),
             'name' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
             'tagline' => config("settings.site.subtitle", env("APP_TAGLINE")),
+            'fulltitle' => $this->guessTitle() . " " . $this->guessSubtitle(),
         ]));
     }
 
