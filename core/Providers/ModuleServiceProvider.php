@@ -143,9 +143,10 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $basename = basename($module);
 
-        if (file_exists("$module/routes/api.php")) {
+        if (file_exists("$module/API/routes/api.php")) {
             Route::group([
                 'middleware' => ['api'],
+                'as' => 'api.',
                 'prefix' => config('routes.api.slug', 'api')
             ], function () use ($module) {
                 include_file("$module/API/routes", "api.php");

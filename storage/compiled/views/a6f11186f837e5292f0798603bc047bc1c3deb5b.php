@@ -7,15 +7,16 @@
                     name="login"
                     class="view"
                     transition="slide-x-transition"
+                    :url="'<?php echo e(route('api.auth.login')); ?>'"
                     :meta="<?php echo e(json_encode([
                         'title' => __('Login'),
                         'subtitle' => ' | ' . __($application->site->title),
-                        'social' => true
+                        'social' => false
                     ])); ?>"
                     >
                     <v-flex slot>
-                        <router-link class="mr-3" to="/admin/register">Register</router-link>
-                        <router-link class="mr-3" to="/recovery/password">Forgot password?</router-link>
+                        <router-link class="mr-3" to="/admin/register">Create Account</router-link>
+                        <router-link class="mr-3" to="/recovery/password">Lost password?</router-link>
                     </v-flex>
                 </router-view>
 
@@ -47,6 +48,9 @@
     <script src="<?php echo e(present("user/{$application->token}/auth/login/dist/login.js")); ?>"></script>
     <script src="<?php echo e(present("user/{$application->token}/auth/register/dist/register.js")); ?>"></script>
     <script>
+        Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+        Vue.use(VeeValidate);
+
         Vue.component('login', login);
         Vue.component('register', register);
 
@@ -69,7 +73,8 @@
                 },
                 {
                     path: '/admin/register',
-                    components: {register}},
+                    components: {register},
+                },
             ],
         });
 

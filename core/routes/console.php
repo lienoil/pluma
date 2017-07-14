@@ -25,7 +25,8 @@ Artisan::command('route:list', function () {
         echo "+-----------------------------------------+------+\n";
     foreach ($routeCollection as $value) {
         $uri = $value->uri() . str_repeat(" ", (40-strlen($value->uri())));
-        echo "| $uri|      |\n";
+        $name = $value->getName();
+        echo "| $uri| $name  |\n";
     }
 // admin---------------------------------------
 });

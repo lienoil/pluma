@@ -35,13 +35,18 @@
     @stack("post-meta")
 
     @stack("pre-css")
-    <script>let csrfToken = "{{ csrf_token() }}";</script>
+    <script>window.csrfToken = "{{ csrf_token() }}";</script>
     {{-- vuejs --}}
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    {{-- compile this --}}
     <script src="https://unpkg.com/vue@2.3.4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.0.1/vue-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.0.0-rc.7/vee-validate.min.js"></script>
     <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
+    {{-- ^complile this --}}
     @stack("css")
     @stack("post-css")
 </head>
