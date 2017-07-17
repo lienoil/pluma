@@ -1,7 +1,7 @@
 <?php
 
 Route::any(config('routes.admin.slug', 'admin').'/{catchall?}', function ($catchall = null) {
-    return view("Frontier::layouts.auth");
+    return view("User::auth.login.login");
 })->where('catchall', '.*');
 
 Route::any('{catchall?}', function ($catchall = null) {

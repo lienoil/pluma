@@ -11,29 +11,28 @@
                     <input type="hidden" name="_token" :value="csrfToken">
                     <v-flex>
                         <v-text-field
-                            :class="{'input': true, 'input-group--error': errors.has('username')}"
+                            :hint="errors.has('username')?errors.first('username'):''"
                             class="input-group"
                             label="Email or username"
                             name="username"
                             persistent-hint
-                            v-bind:hint="errors.has('username')?errors.first('username'):''"
+                            type="text"
                             v-model="username"
+                            data-vv-name="username"
                             v-validate="'required'"
                         ></v-text-field>
                         <v-text-field
                             :append-icon-cb="() => (visible = !visible)"
                             :append-icon="visible ? 'visibility' : 'visibility_off'"
-                            :class="{'input': true, 'input-group--error': errors.has('password')}"
+                            :hint="errors.has('password')?errors.first('password'):''"
                             :type="visible ? 'text': 'password'"
-                            @keydown.ctrl="() => (visible = !visible)"
                             class="input-group"
-                            hint="At least 6 characters"
                             label="Password"
                             min="6"
                             name="password"
                             persistent-hint
-                            v-bind:hint="errors.has('password')?errors.first('password'):''"
                             v-model="password"
+                            data-vv-name="password"
                             v-validate="'required'"
                         ></v-text-field>
                         <v-checkbox
@@ -46,15 +45,16 @@
                     </v-flex>
                 </v-layout>
                 <v-layout>
-                    <v-btn primary type="submit" dark>
+                    <v-btn
+                        primary
+                        type="submit"
+                    >
                         <v-progress-circular
                             v-if="submitting"
                             class="white--text"
                             indeterminate
                         ></v-progress-circular>
-                        <span v-else>
-                            Login
-                        </span>
+                        <span v-else>Login</span>
                     </v-btn>
                 </v-layout>
 
@@ -97,6 +97,8 @@
         data () {
             return {
                 _token: window.csrfToken,
+                username: '',
+                password: '',
                 remember: true,
                 submitting: false,
                 visible: false,
@@ -106,7 +108,7 @@
         watch: {
             username() {
                 return true;
-            }
+            },
         },
         methods: {
             submit: function (e) {
@@ -123,13 +125,14 @@
                     axios.post(this.url, requestBag)
                         .then(response => {
                             if (response.data && ! response.data.success) {
-                                (response.data.username);
+                                this.errors = this.response.data;
                             } else {
                                 window.location = response.data.redirect;
                             }
 
                             this.submitting = false;
-                        }).catch(error => {
+                        })
+                        .catch(error => {
                             if (error.response) {
                                 console.log(error.response.data);
                             }

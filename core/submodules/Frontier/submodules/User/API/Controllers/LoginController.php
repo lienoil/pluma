@@ -50,7 +50,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth.guest', ['except' => 'logout']);
+        $this->middleware('web');
+        $this->middleware('auth.guest', ['except' => 'logout']);
 
         $this->logoutPath = config('admin.slug.logout', $this->logoutPath);
 
@@ -89,15 +90,15 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            // $this->sendLoginResponse($request);
+            return $this->sendLoginResponse($request);
 
-            return response()->json([
-                'status' => true,
-                'success' => true,
-                'message' => 'Login successful',
-                'type' => 'success',
-                'redirect' => url('admin/dashboard'),
-            ]);
+            // return response()->json([
+            //     'status' => true,
+            //     'success' => true,
+            //     'message' => 'Login successful',
+            //     'type' => 'success',
+            //     'redirect' => url('admin/dashboard'),
+            // ]);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -105,7 +106,8 @@ class LoginController extends Controller
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
 
-        return response()->json(['success' => false, $this->username() => Lang::get('auth.failed')]);
+        return $this->sendFailedLoginResponse($request);
+        // return response()->json(['success' => false, $this->username() => Lang::get('auth.failed')]);
     }
 
     /**

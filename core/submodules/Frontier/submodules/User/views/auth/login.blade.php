@@ -1,65 +1,122 @@
 @extends("Frontier::layouts.auth")
 
 @section("content")
-    <div class="mdl-layout mdl-js-layout mdl-color--grey-100 mdl-color--grey-100">
-        <div class="mdl-layout__content">
-            <main class="mdl-grid" role="presentation">
-                <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+    <v-card class="grey lighten-5" flat>
+        <v-toolbar dark class="primary elevation-0" extended></v-toolbar>
+        <v-layout>
+            <v-flex sm4 md5 offset-sm2>
 
-                    @include("Frontier::partials.alert")
+                @include("Frontier::partials.alert")
 
-                    <form action="{{ route('login.login') }}" method="POST" class="mdl-card mdl-shadow--2dp">
-                        {{ csrf_field() }}
-                        <header class="mdl-card__title">
-                            <h3 class="mdl-card__title-text">{{ __('Login') }}&nbsp;<span class="mdl-color-text--grey-500">| {{ $application->site->title }}</span></h3>
-                        </header>
+                <form method="POST" action="{{ route('login.login') }}">
+                    <v-card class="card--flex-toolbar card--flex-toolbar--stylized" transition="slide-x-transition">
+                        <v-toolbar card class="white" prominent>
+                            <v-toolbar-title>{{ __($application->head->title) }} <span class="grey--text">{{ __($application->site->title) }}</span></v-toolbar-title>
+                            <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-layout row>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <v-flex>
+                                    <v-text-field
+                                        :hint="'{{ $errors->has('username')?$errors->first('username'):'' }}'"
+                                        class="input-group"
+                                        label="Email or username"
+                                        name="username"
+                                        persistent-hint
+                                        type="text"
+                                        v-model="username"
+                                        data-vv-name="username"
+                                        v-validate="'required'"
+                                    ></v-text-field>
+                                    <v-text-field
+                                        :append-icon-cb="() => (visible = !visible)"
+                                        :append-icon="visible ? 'visibility' : 'visibility_off'"
+                                        :hint="'{{ $errors->has('password')?$errors->first('password'):'' }}'"
+                                        :type="visible ? 'text': 'password'"
+                                        class="input-group"
+                                        label="Password"
+                                        min="6"
+                                        name="password"
+                                        persistent-hint
+                                        v-model="password"
+                                        data-vv-name="password"
+                                        v-validate="'required'"
+                                    ></v-text-field>
+                                    <v-checkbox
+                                        :checked="remember"
+                                        @click="() => {remember = !remember}"
+                                        label="Remember Me"
+                                        light
+                                        v-model="remember"
+                                    ></v-checkbox>
+                                </v-flex>
+                            </v-layout>
+                            <v-layout>
+                                <v-btn
+                                    primary
+                                    type="submit"
+                                >
+                                    <span>Login</span>
+                                </v-btn>
+                            </v-layout>
 
-                        <div class="mdl-card__supporting-text">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                {{-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" --}}
-                                <input id="username" name="username" type="text" class="mdl-textfield__input" value="{{ old('username') }}">
-                                <label for="username" class="mdl-textfield__label">{{ __('Email') }} {{ __('or') }} {{ __('username') }}</label>
-                                {{-- <span class="mdl-textfield__error">The email is invalid</span> --}}
-                            </div>
-                            @include('Frontier::errors.span', ['field' => 'username'])
 
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input id="password" name="password" type="password" class="mdl-textfield__input" value="{{ old('password') }}">
-                                <label for="password" class="mdl-textfield__label">{{ __('Password') }}</label>
-                            </div>
-                            @include('Frontier::errors.span', ['field' => 'password'])
+                            <template inline-template>
+                                <div class="hr">
+                                    <strong class="hr-text grey--text text--lighten-2">or</strong>
+                                </div>
+                                <v-layout>
+                                    <v-flex md6 class="text-xs-center">
+                                        <v-btn block class="grey--text elevation-0">
+                                            <i class="fa fa-google">&nbsp;</i>
+                                            Google
+                                        </v-btn>
+                                    </v-flex>
+                                    <v-flex md6 class="text-xs-center">
+                                        <v-spacer></v-spacer>
+                                        <v-btn block class="grey--text elevation-0">
+                                            <i class="fa fa-facebook">&nbsp;</i>
+                                            Facebook
+                                        </v-btn>
+                                    </v-flex>
+                                </v-layout>
+                            </template>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-layout row>
+                                <v-flex>
+                                    <a href="{{ route('register.register') }}" class="mr-3">Create Account</a>
+                                    <a href="{{ route('register.register') }}" class="mr-3">Lost password?</a>
+                                </v-flex>
+                            </v-layout>
+                        </v-card-text>
+                    </v-card>
+                </form>
 
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember">
-                                <input id="remember" type="checkbox" name="remember" checked="checked" class="mdl-checkbox__input">
-                                <span class="mdl-checkbox__label">{{ __('Remember Me') }}</span>
-                            </label>
-                        </div>
-
-                        <div class="mdl-card__supporting-text">
-                            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">{{ __('Login') }}</button>
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ route('register.show') }}"><small>{{ __('Register') }}</small></a>
-                            <span class="mdl-layout-spacer"></span>
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#"><small>{{ __('Forgot Password') }}?</small></a>
-                        </div>
-                    </form>
-
-                    <div class="copy">
-                        <small class="mdl-color-text--blue-grey-400">{{ __($application->site->copyright) }}</small>
-                    </div>
-
+                <div class="copy">
+                    <small class="grey--text">{{ __($application->site->copyright) }}</small>
                 </div>
-                <div class="mdl-layout-spacer"></div>
-            </main>
-        </div>
-    </div>
+
+            </v-flex>
+        </v-layout>
+    </v-card>
 
 @endsection
 
+@push('css')
+    <style>
+        @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);.card--flex-toolbar--stylized{margin-top:-64px}.hr{text-align:center;position:relative}.hr:after,.hr:before{content:"";display:block;width:40%;height:1px;margin:2px 1rem;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);background-color:rgba(0,0,0,.15)}.hr:after{text-align:left;position:absolute;left:0}.hr:before{position:absolute;text-align:right;right:0}[class*=application-] .color--google:hover{background-color:#db3236;color:#fff}[class*=application-] .color--facebook:hover{background-color:#3a589e;color:#fff}
+        /*# sourceMappingURL=login.css.map*/
+    </style>
+@endpush
+
 @push('js')
     <script>
-        let dialog = document.querySelector('dialog');
-        dialog.showDialog();
+        let app = new Vue({
+            el: 'v-app'
+        });
     </script>
 @endpush
