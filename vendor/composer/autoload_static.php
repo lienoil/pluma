@@ -288,11 +288,16 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     );
 
     public static $classMap = array (
+        'Calendar\\Controllers\\CalendarController' => __DIR__ . '/../..' . '/core/submodules/Calendar/Controllers/CalendarController.php',
         'Calendar\\Models\\Calendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Models/Calendar.php',
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/20170624132509_create_calendars_table.php',
+        'CreateGrantPermissionTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035862_create_grant_permission_table.php',
+        'CreateGrantRoleTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035864_create_grant_role_table.php',
+        'CreateGrantsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035861_create_grants_table.php',
         'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035860_create_password_resets_table.php',
         'CreatePermissionsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035860_create_permissions_table.php',
+        'CreateRolesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035863_create_roles_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035859_create_users_table.php',
         'Crowfeather\\Traverser\\Contracts\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Contracts/Traverser.php',
         'Crowfeather\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Traverser.php',

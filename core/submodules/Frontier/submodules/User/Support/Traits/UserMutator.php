@@ -50,12 +50,14 @@ trait UserMutator
         // $displayname = preg_replace('/%lastinitial%/', Strings::acronym($this->lastname, $this->lastname?true:false), $displayname);
         $displayname = preg_replace('/%fullname%/', $this->fullname, $displayname);
         $displayname = preg_replace('/%propername%/', $this->propername, $displayname);
-        dd($displayname);
+
         return ! empty($displayname) ? $displayname : $this->username;
     }
 
     public function getRolesListAttribute()
     {
+        if (is_null($this->roles)) return false;
+
         $roles = [];
         foreach ($this->roles as $role) {
             $roles[] = $role->name;

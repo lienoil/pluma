@@ -29,7 +29,7 @@ class PageViewComposer extends BaseViewComposer
      *
      * @var array
      */
-    protected $bannedFirstWords = ['admin', 'administration'];
+    protected $bannedFirstWords = ['admin', 'administration', 'home'];
 
     /**
      * List fo single words to determin the correct
@@ -38,7 +38,7 @@ class PageViewComposer extends BaseViewComposer
      *
      * @var array
      */
-    protected $singles = ['create', 'edit', 'destroy', 'trash'];
+    protected $singles = ['create', 'new', 'edit', 'destroy', 'trash'];
 
     /**
      * Main function to tie everything together.
@@ -122,6 +122,10 @@ class PageViewComposer extends BaseViewComposer
     public function guessTitle()
     {
         $segments = collect(explode("/", $this->getCurrentUrl()));
+
+        foreach ($segments as $id => $segment) {
+            $segments[$id] = $this->swapWord($segment);
+        }
 
         if (empty($segments->first())) {
             return config("settings.pages.default_name", "Home");

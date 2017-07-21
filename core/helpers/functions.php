@@ -324,3 +324,16 @@ if (! function_exists('present')) {
         return url("~p/$file");
     }
 }
+
+if (! function_exists('user')) {
+    /**
+     * Shorthand for auth()->user().
+     *
+     * @return User\Models\User
+     */
+    function user()
+    {
+        return auth()->user();
+    }
+}
+

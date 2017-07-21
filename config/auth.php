@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Pluma\Models\User::class,
+            'model' => User\Models\User::class,
         ],
 
         // 'users' => [

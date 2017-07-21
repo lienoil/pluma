@@ -77,6 +77,6 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('User::auth.register.register');
+        return view('User::auth.register');
     }
 }

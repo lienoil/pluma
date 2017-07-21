@@ -215,23 +215,24 @@ class Traverser implements TraverserContract
         return $this;
     }
 
-    public function update($parent, $traversables = null)
+    /**
+     * Callback update.
+     *
+     * @param  array $traversables
+     * @param  func $callback
+     * @return void
+     */
+    public function update(&$traversables, $callback, &$oldTraversable = null)
     {
-        foreach ($traversables as &$traversable) {
-            if (isset($traversable['left']) && $traversable['left'] > ($this->left - 1)) {
-                $traversable['left'] = $traversable['left'] + 2;
-            }
+        foreach ($traversables as $key => &$traversable) {
+            $callback($key, $traversable, $oldTraversable);
 
-            if (isset($traversable['right']) && $traversable['right'] > ($this->left - 1)) {
-                $traversable['right'] = $traversable['right'] + 2;
-            }
-
-            if ($this->traversable['name'] == $traversable['name']) {
-                $traversable['left'] = $this->left;
-                $traversable['right'] = $this->right;
+            if (isset($traversable['has_children']) && $traversable['has_children']) {
+                $this->update($traversable['children'], $callback, $traversable);
             }
         }
-        return $this;
+
+        return $traversables;
     }
 
     public function ancestors($left, $right)
@@ -263,15 +264,11 @@ class Traverser implements TraverserContract
         return ($right - $left - 1) / 2;
     }
 
-    public function parent($parent = 'root')
+    public function parent($left, $right)
     {
-        foreach ($this->get() as $traversable) {
-            if (isset($traversable[$parent])) {
-                return $traversable[$parent];
-            }
-        }
+        $ancestors = $this->ancestors($left, $right);
 
-        return null;
+        return end($ancestors);
     }
 
     public function dd($traversables, $depth = 1)

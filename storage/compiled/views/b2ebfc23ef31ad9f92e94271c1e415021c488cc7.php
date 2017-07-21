@@ -35,14 +35,16 @@
     <?php echo $__env->yieldPushContent("post-meta"); ?>
 
     <?php echo $__env->yieldPushContent("pre-css"); ?>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.0.0-rc.7/vee-validate.min.js"></script>
-    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
-    <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
-    
-    <?php echo $__env->yieldPushContent("css"); ?>
+
+    <?php $__env->startSection("css"); ?>
+        
+        <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+        <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vuetify@0.13.1/dist/vuetify.min.js"></script>
+        
+    <?php echo $__env->yieldSection(); ?>
+
     <?php echo $__env->yieldPushContent("post-css"); ?>
 </head>
 <body>

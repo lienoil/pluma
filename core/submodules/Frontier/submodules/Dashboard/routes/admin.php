@@ -4,3 +4,5 @@ Route::get('/', function () {
 });
 
 Route::get('dashboard', 'Dashboard\Controllers\DashboardController@index')->name('dashboard');
+Route::get('pages', 'Dashboard\Controllers\DashboardController@index')->name('page');
+Route::get('pages/create', 'Dashboard\Controllers\DashboardController@index')->name('cre');

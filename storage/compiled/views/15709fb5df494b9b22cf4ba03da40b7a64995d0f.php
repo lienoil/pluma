@@ -24,9 +24,6 @@
                                         name="username"
                                         persistent-hint
                                         type="text"
-                                        v-model="username"
-                                        data-vv-name="username"
-                                        v-validate="'required'"
                                     ></v-text-field>
                                     <v-text-field
                                         :append-icon-cb="() => (visible = !visible)"
@@ -38,9 +35,6 @@
                                         min="6"
                                         name="password"
                                         persistent-hint
-                                        v-model="password"
-                                        data-vv-name="password"
-                                        v-validate="'required'"
                                     ></v-text-field>
                                     <v-checkbox
                                         :checked="remember"
@@ -86,8 +80,8 @@
                         <v-card-text>
                             <v-layout row>
                                 <v-flex>
-                                    <a href="<?php echo e(route('register.register')); ?>" class="mr-3">Create Account</a>
-                                    <a href="<?php echo e(route('register.register')); ?>" class="mr-3">Lost password?</a>
+                                    <a href="<?php echo e(route('register.show')); ?>" class="mr-3">Create Account</a>
+                                    <a href="<?php echo e(route('register.show')); ?>" class="mr-3">Lost password?</a>
                                 </v-flex>
                             </v-layout>
                         </v-card-text>
@@ -104,7 +98,7 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startPush('css'); ?>
+<?php $__env->startPush('post-css'); ?>
     <style>
         @import  url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);.card--flex-toolbar--stylized{margin-top:-64px}.hr{text-align:center;position:relative}.hr:after,.hr:before{content:"";display:block;width:40%;height:1px;margin:2px 1rem;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);background-color:rgba(0,0,0,.15)}.hr:after{text-align:left;position:absolute;left:0}.hr:before{position:absolute;text-align:right;right:0}[class*=application-] .color--google:hover{background-color:#db3236;color:#fff}[class*=application-] .color--facebook:hover{background-color:#3a589e;color:#fff}
         /*# sourceMappingURL=login.css.map*/
@@ -114,7 +108,11 @@
 <?php $__env->startPush('js'); ?>
     <script>
         let app = new Vue({
-            el: 'v-app'
+            el: 'v-app',
+            data: {
+                visible: false,
+                remember: true,
+            },
         });
     </script>
 <?php $__env->stopPush(); ?>

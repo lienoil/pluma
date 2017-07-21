@@ -5,7 +5,7 @@
     <v-list-tile-content>
         <v-list-tile-title>@{{ application.site.title }}</v-list-tile-title>
     </v-list-tile-content>
-    <v-list-tile-action>
+    <v-list-tile-action right>
         <v-btn icon @click.native.stop="mini = !mini" :dark.sync="dark" :light.sync="light">
             <v-icon>chevron_left</v-icon>
         </v-btn>

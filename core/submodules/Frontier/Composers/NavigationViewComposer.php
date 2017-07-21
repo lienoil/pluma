@@ -27,6 +27,13 @@ class NavigationViewComposer extends BaseViewComposer
     protected $menus;
 
     /**
+     * The breadcrumbs menu.
+     *
+     * @var array|object|mixed
+     */
+    protected $breadcrumbs;
+
+    /**
      * Prefix for url.
      *
      * @var string
@@ -44,12 +51,12 @@ class NavigationViewComposer extends BaseViewComposer
         parent::compose($view);
 
         $this->setMenus($this->requireFileFromModules('config/menus.php', modules(true, null, false)));
-
+        $this->setBreadcrumbs($this->getCurrentUrl());
         $this->setVariablename("navigation");
 
         $view->with($this->getVariablename(), $this->handle());
     }
-
+//
     /**
      * Sets the menus.
      *
@@ -58,14 +65,47 @@ class NavigationViewComposer extends BaseViewComposer
     public function setMenus($menus)
     {
         $traverser = new Traverser();
-        $traverser->set($menus)
-                ->flatten()
-                ->prepare();
+        $traverser->set($menus)->flatten();
+        $traverser->prepare();
 
         $this->menus = $traverser->rechild('root');
         $this->menus = $traverser->reorder($this->menus);
 
+        $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent) use ($traverser) {
+            $menu['active'] = isset($menu['slug']) ? (url($this->getCurrentUrl()) === $menu['slug']) : false;
+
+            if ($menu['active']) {
+                $parent['active'] = $menu['active'];
+            }
+
+        });
+
         return $this;
+    }
+
+    /**
+     * Sets the breadcrumbs.
+     *
+     * @param string $currentUrl
+     */
+    public function setBreadcrumbs($currentUrl)
+    {
+        $url = explode('/', $currentUrl);
+        $old = "";
+        foreach ($url as &$segment) {
+            $old .= "/$segment";
+            $segment = $this->swapWord($segment);
+
+            $segment = [
+                'active' => end($url) === $segment,
+                'label' => ucfirst($segment),
+                'name' => $segment,
+                'slug' => $old,
+                'url' => url($old),
+            ];
+        }
+
+        $this->breadcrumbs = $url;
     }
 
     /**
@@ -78,6 +118,7 @@ class NavigationViewComposer extends BaseViewComposer
         return json_decode(json_encode([
             'menu' => $this->menu(),
             'sidebar' => $this->sidebar(),
+            'breadcrumbs' => $this->breadcrumbs(),
             // 'utilitybar' => $this->utilitybar(),
         ]));
     }
@@ -93,6 +134,18 @@ class NavigationViewComposer extends BaseViewComposer
     }
 
     /**
+     * Generates breadcrumbs.
+     *
+     * @return array
+     */
+    private function breadcrumbs()
+    {
+        return json_decode(json_encode([
+            'collect' => collect(json_decode(json_encode($this->breadcrumbs)))
+        ]));
+    }
+
+    /**
      * Generates sidebar menus.
      *
      * @return array
@@ -100,7 +153,7 @@ class NavigationViewComposer extends BaseViewComposer
     private function sidebar()
     {
         return json_decode(json_encode([
-            'generate' => $this->generateSidebar(collect(json_decode(json_encode($this->menus)))),
+            // 'generate' => $this->generateSidebar(collect(json_decode(json_encode($this->menus)))),
             'collect' => collect(json_decode(json_encode($this->menus))),
         ]));
     }
@@ -115,6 +168,6 @@ class NavigationViewComposer extends BaseViewComposer
     {
         $depth = $this->depth;
 
-        return view("Frontier::templates.sidebar")->with(compact('menus', 'depth'))->render();
+        return view("Frontier::templates.navigations.sidebar")->with(compact('menus', 'depth'))->render();
     }
 }

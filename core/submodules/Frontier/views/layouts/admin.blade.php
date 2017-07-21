@@ -1,21 +1,23 @@
-@include("Frontier::partials.header")
+@extends("Frontier::layouts.master")
 
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
-
-    @yield("pre-content")
-
-    @include("Frontier::partials.utilitybar")
-
+@section("pre-content")
     @include("Frontier::partials.sidebar")
+    @include("Frontier::partials.utilitybar")
+@endsection
 
-    <main id="main" class="mdl-layout__content">
-        <div class="page-content">
-            @yield("content")
-        </div>
-    </main>
+@section("root")
+    @yield("content")
+@endsection
 
-    @yield("post-content")
-
-</div>
-
-@include("Frontier::partials.footer")
+@section("endnote")
+    <v-container fluid class="pa-0">
+        <v-layout row wrap>
+            <v-flex xs6>
+                <small class="blue--text">{{ $application->site->copyright }}</small>
+            </v-flex>
+            <v-flex xs6 class="text-xs-right">
+                <small class="blue--text">{{ $application->version }}</small>
+            </v-flex>
+        </v-layout>
+    </v-container>
+@endsection

@@ -78,4 +78,21 @@ class BaseViewComposer
     {
         return $this->variablename;
     }
+
+    /**
+     * Swap words from config/swappables.php
+     *
+     * @param  string $segment
+     * @return string
+     */
+    public function swapWord($segment)
+    {
+        foreach (config("swappables", []) as $name => $swap) {
+            if (strtolower($name) === strtolower($segment)) {
+                return $swap;
+            }
+        }
+
+        return $segment;
+    }
 }

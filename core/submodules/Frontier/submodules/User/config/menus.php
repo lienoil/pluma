@@ -9,7 +9,7 @@ return [
      */
     'user' => [
         'name' => 'user',
-        'order' => 100,
+        'order' => 99,
         'slug' => url(config('path.admin').'/users'),
         'always_viewable' => false,
         'icon' => 'account_box',

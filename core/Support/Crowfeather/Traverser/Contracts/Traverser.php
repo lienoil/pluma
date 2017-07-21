@@ -64,8 +64,9 @@ interface Traverser
     /**
      * Gets the immediate parent of a given traversable.
      *
-     * @param  string $child
+     * @param  int $left
+     * @param  int $right
      * @return array|mixed|null
      */
-    public function parent($child = 'root');
+    public function parent($left, $right);
 }
