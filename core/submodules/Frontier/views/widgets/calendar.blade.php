@@ -23,6 +23,7 @@
         class="ba-0 elevation-0 w-100"
         v-model="calendar.model"
         v-show="calendar.show"
+        value="calendar.model"
     ></v-date-picker>
     <v-time-picker
         :landscape="clock.landscape"
@@ -51,7 +52,7 @@
                 },
                 calendar: {
                     landscape: true,
-                    model: null,
+                    model: new Date(),
                     show: true,
                 },
                 clock: {

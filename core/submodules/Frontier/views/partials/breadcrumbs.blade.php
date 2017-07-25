@@ -1,4 +1,4 @@
-<v-breadcrumbs icons divider="chevron_right" class="grey lighten-4">
+<v-breadcrumbs icons divider="chevron_right" class="grey lighten-4" style="justify-content: flex-start;">
     <v-breadcrumbs-item
         :disable="breadcrumb.active"
         :href="breadcrumb.url"

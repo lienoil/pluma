@@ -7,7 +7,7 @@
 
         <main data-main>
             <?php echo $__env->make("Frontier::partials.breadcrumbs", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-            <v-container fluid>
+            <v-container fluid :style="`font-size:${settings.fontsize.model}px`">
 
                 <?php echo $__env->yieldContent("root"); ?>
 
@@ -23,27 +23,32 @@
 
 <?php $__env->startSection("scripts"); ?>
     <script>
-        let mixins = [];
-    </script>
-    <?php echo $__env->yieldPushContent("pre-scripts"); ?>
-    <script>
-
-        const app = new Vue({
-            el: '#application-root',
-            mixins : mixins,
+        let mixins = [{
             data: {
-                dark: true, light: false,
-                mini: false, drawer: true,
-                menu: {
-                    open: false,
-                },
-                theme: {
-                    avatar: 'red',
-                    utilitybar: 'white',
+                page: {
+                    model: false,
                 },
             },
-        });
-
+        }];
+    </script>
+    <?php echo $__env->yieldPushContent("pre-scripts"); ?>
+    <script src='<?php echo e(present("frontier/$application->token/app/dist/app.js")); ?>'></script>
+    <script>
+        // const app = new Vue({
+        //     el: '#application-root',
+        //     mixins : mixins,
+        //     data: {
+        //         dark: true, light: false,
+        //         mini: false, drawer: true,
+        //         menu: {
+        //             open: false,
+        //         },
+        //         theme: {
+        //             avatar: 'red',
+        //             utilitybar: 'white',
+        //         },
+        //     },
+        // });
     </script>
     <?php echo $__env->yieldPushContent("post-scripts"); ?>
 <?php echo $__env->yieldSection(); ?>

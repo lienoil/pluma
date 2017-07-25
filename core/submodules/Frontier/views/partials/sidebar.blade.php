@@ -1,12 +1,14 @@
 <v-navigation-drawer
-    persistent
-    :mini-variant.sync="mini"
-    v-model="drawer"
-    overflow
     :dark.sync="dark"
+    :floating="sidebar.floating"
     :light.sync="light"
-    booted="true"
+    :mini-variant.sync="sidebar.mini"
+    @click.native.stop="setStorage('sidebar.mini', sidebar.mini)"
     class="navigation-drawer--is-booted elevation-0"
+    enable-resize-watcher
+    overflow
+    persistent
+    v-model="sidebar.drawer"
 >
     <v-toolbar flat class="transparent">
         <v-list class="pa-0">
@@ -18,7 +20,10 @@
                     <v-list-tile-title>{{ $application->site->title }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                    <v-btn icon @click.native.stop="mini = !mini">
+                    <v-btn
+                        icon
+                        @click.native.stop="setStorage('sidebar.mini', (sidebar.mini = !sidebar.mini))"
+                    >
                         <v-icon>chevron_left</v-icon>
                     </v-btn>
                 </v-list-tile-action>

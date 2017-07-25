@@ -7,7 +7,7 @@
 
         <main data-main>
             @include("Frontier::partials.breadcrumbs")
-            <v-container fluid>
+            <v-container fluid :style="`font-size:${settings.fontsize.model}px`">
 
                 @yield("root")
 
@@ -23,27 +23,32 @@
 
 @section("scripts")
     <script>
-        let mixins = [];
-    </script>
-    @stack("pre-scripts")
-    <script>
-
-        const app = new Vue({
-            el: '#application-root',
-            mixins : mixins,
+        let mixins = [{
             data: {
-                dark: true, light: false,
-                mini: false, drawer: true,
-                menu: {
-                    open: false,
-                },
-                theme: {
-                    avatar: 'red',
-                    utilitybar: 'white',
+                page: {
+                    model: false,
                 },
             },
-        });
-
+        }];
+    </script>
+    @stack("pre-scripts")
+    <script src='{{ present("frontier/$application->token/app/dist/app.js") }}'></script>
+    <script>
+        // const app = new Vue({
+        //     el: '#application-root',
+        //     mixins : mixins,
+        //     data: {
+        //         dark: true, light: false,
+        //         mini: false, drawer: true,
+        //         menu: {
+        //             open: false,
+        //         },
+        //         theme: {
+        //             avatar: 'red',
+        //             utilitybar: 'white',
+        //         },
+        //     },
+        // });
     </script>
     @stack("post-scripts")
 @show

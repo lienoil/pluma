@@ -37,7 +37,7 @@ Route::get('~p/{module?}/{csrf?}/{file?}', function ($module = null, $csrf = nul
     }
 
     $module = ucfirst($module);
-    $path = get_module($module)."/presentations/$file";
+    $path = get_module($module)."/views/$file";
 
     $fileArray = explode('/', $file);
     $lastFile = end($fileArray);

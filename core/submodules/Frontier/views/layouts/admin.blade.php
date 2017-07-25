@@ -9,6 +9,11 @@
     @yield("content")
 @endsection
 
+@section("post-content")
+    @include("Frontier::partials.rightsidebar")
+    @include("Frontier::partials.dialog")
+@endsection
+
 @section("endnote")
     <v-container fluid class="pa-0">
         <v-layout row wrap>
