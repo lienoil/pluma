@@ -1,5 +1,5 @@
 <?php $__env->startPush('utilitybar'); ?>
-    <v-btn to="<?php echo e(route('pages.create')); ?>" white primary>Create</v-btn>
+    <a class="btn btn--raised primary white--text" href="<?php echo e(route('pages.create')); ?>">Create</a>
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection("content"); ?>
@@ -18,17 +18,16 @@
                     ></v-text-field>
                 </v-card-title>
                 <v-data-table
-                        v-bind:headers="headers"
-                        v-bind:items="items"
-                        v-bind:search="search"
-                    >
+                    v-bind:headers="headers"
+                    v-bind:items="items"
+                    v-bind:search="search"
+                >
                     <template slot="items" scope="page">
                         <td><strong>{{ page.item.title }}</strong></td>
                         <td>{{ page.item.slug }}</td>
                         <td>{{ page.item.excerpt }}</td>
                         <td>{{ page.item.created }}</td>
                     </template>
-
                 </v-data-table>
             </v-card>
         </v-flex>
@@ -38,35 +37,34 @@
 <?php $__env->startPush('pre-scripts'); ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
     <script>
-    Vue.use(VueResource);
-    mixins.push({
-        data () {
-            return {
-                search: '',
-                pagination: {},
-                headers: [
-                    { text: 'Title', align: 'left', value: 'title' },
-                    { text: 'Slug', value: 'slug' },
-                    { text: 'Excerpt', value: 'excerpt' },
-                    { text: 'Last Modified', value: 'updated_at' },
-                ],
-                items: [],
-                body: null,
-            };
-        },
-        methods: {
-            allPages: function () {
-                this.$http.get('/api/pages/all?paginate=15&next=1').then((response) => {
-                    console.log(response);
-                    this.items = response.data.data;
-                    this.body = response.body;
-                });
+        Vue.use(VueResource);
+
+        mixins.push({
+            data () {
+                return {
+                    search: '',
+                    pagination: {},
+                    headers: [
+                        { text: 'Title', align: 'left', value: 'title' },
+                        { text: 'Slug', align: 'center', value: 'slug' },
+                        { text: 'Excerpt', align: 'center', value: 'excerpt' },
+                        { text: 'Last Modified', align: 'center', value: 'modified' },
+                    ],
+                    items: [],
+                    pages: null,
+                };
             },
-        },
-        mounted () {
-            this.allPages();
-        }
-    });
+            methods: {
+                getAllPages: function () {
+                    this.$http.get('/api/pages/all?paginate=15&next=1').then((response) => {
+                        this.items = response.data.data;
+                    });
+                },
+            },
+            mounted () {
+                this.getAllPages();
+            }
+        });
     </script>
 
 <?php $__env->stopPush(); ?>
