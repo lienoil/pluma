@@ -337,3 +337,26 @@ if (! function_exists('user')) {
     }
 }
 
+if (! function_exists('loop_modules')) {
+    /**
+     * DB Migrate function.
+     *
+     * @param  function $callback
+     * @param  array $modules
+     * @return void
+     */
+    function loop_modules($callback = null, $modules = null)
+    {
+        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+
+        foreach ($modules as $name => $module) {
+            if (is_array($module)) {
+                loop_modules($module, $callback);
+
+                $module = $name;
+            }
+
+            $callback($name, $module);
+        }
+    }
+}

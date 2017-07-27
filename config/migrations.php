@@ -1,8 +1,10 @@
 <?php
+// Reinitialize another instance of app.
+(new Dotenv\Dotenv(__DIR__.'/../'))->load();
 
 return [
     'paths' => [
-        'migrations' => ['database/migrations', 'resources/migrations'],
+        'migrations' => ['database/migrations'],
     ],
     'migration_base_class' => '\Pluma\Support\Migration\Migration',
     'environments' => [
@@ -10,11 +12,11 @@ return [
         'default_database' => 'production',
 
         'production' => [
-            'adapter' => 'mysql', // env('DB_CONNECTION'),
-            'host' => 'localhost', // env('DB_HOST'),
-            'name' => 'adeleteme_db', // env('DB_DATABASE'),
-            'user' => 'root', // env('DB_USERNAME', 'root'),
-            'pass' => 'root', // env('DB_PASSWORD', 'root'),
+            'adapter' => env('DB_CONNECTION'),
+            'host' => env('DB_HOST'),
+            'name' => env('DB_DATABASE'),
+            'user' => env('DB_USERNAME', 'root'),
+            'pass' => env('DB_PASSWORD', 'root'),
             'port' => env('DB_PORT'),
         ],
 
