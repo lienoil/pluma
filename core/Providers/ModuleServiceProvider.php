@@ -49,9 +49,24 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerFuzzyRoutes();
+
         $this->registerModules();
 
         $this->registerStaticViews();
+    }
+
+    /**
+     * Define the "fuzzy" routes for the application.
+     *
+     * These routes are typically for assets fetching.
+     *
+     * @return void
+     */
+    protected function registerFuzzyRoutes()
+    {
+        Route::middleware('web')
+            ->group(core_path('routes/fuzzy.php'));
     }
 
     /**
@@ -169,6 +184,14 @@ class ModuleServiceProvider extends ServiceProvider
                 'prefix' => config('routes.web.slug', '')
             ], function () use ($module) {
                 include_file("$module/routes", "web.php");
+            });
+        }
+
+        if (file_exists("$module/routes/public.php")) {
+            Route::group([
+                'middleware' => ['web'],
+            ], function () use ($module) {
+                include_file("$module/routes", "public.php");
             });
         }
     }

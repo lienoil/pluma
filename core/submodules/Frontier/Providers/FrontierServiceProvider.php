@@ -28,6 +28,15 @@ class FrontierServiceProvider extends ServiceProvider
     protected $router;
 
     /**
+     * Array of Service Providers.
+     *
+     * @var array
+     */
+    protected $services = [
+        '\Frontier\Providers\ThemeServiceProvider',
+    ];
+
+    /**
      * Boot the service.
      *
      * @return void
@@ -46,7 +55,7 @@ class FrontierServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerServiceProviders();
     }
 
     /**
@@ -75,5 +84,17 @@ class FrontierServiceProvider extends ServiceProvider
         $this->router->aliasMiddleware('auth.admin', \Frontier\Middleware\AuthenticateAdmin::class);
         $this->router->aliasMiddleware('auth.guest', \Frontier\Middleware\RedirectToDashboardIfAuthenticated::class);
         // $this->router->aliasMiddleware('auth.roles', AuthenticateRole::class);
+    }
+
+    /**
+     * Register other providers for this module.
+     *
+     * @return void
+     */
+    public function registerServiceProviders()
+    {
+        foreach ($this->services as $service) {
+            $this->app->register($service);
+        }
     }
 }

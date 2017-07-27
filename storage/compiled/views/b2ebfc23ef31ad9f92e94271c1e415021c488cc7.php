@@ -28,8 +28,8 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
     <title>
-        <?php $__env->startSection("head.title"); ?><?php echo e(isset($application) && isset($application->head->title) ? __($application->head->title ): ''); ?><?php echo $__env->yieldSection(); ?>
-        <?php $__env->startSection("head.subtitle"); ?><?php echo e(isset($application) && isset($application->head->subtitle) ? __($application->head->subtitle) : ''); ?><?php echo $__env->yieldSection(); ?>
+        <?php $__env->startSection("head-title"); ?><?php echo e(isset($application) && isset($application->head->title) ? __($application->head->title ): ''); ?><?php echo $__env->yieldSection(); ?>
+        <?php $__env->startSection("head-subtitle"); ?><?php echo e(isset($application) && isset($application->head->subtitle) ? __($application->head->subtitle) : ''); ?><?php echo $__env->yieldSection(); ?>
     </title>
     <meta name="description" content="<?php echo e(__(@$application->head->description)); ?>">
     <?php echo $__env->yieldPushContent("post-meta"); ?>

@@ -48,9 +48,9 @@ class CreatePagesTable extends Migration
             $table->string('slug')->unique();
             $table->text('body')->nullable();
 
-            // $table->integer('parent_id')->unsigned()->nullable();
-            // $table->integer('lft')->unsigned()->nullable();
-            // $table->integer('rgt')->unsigned()->nullable();
+            $table->integer('parent_id')->unsigned()->nullable();
+            $table->integer('lft')->unsigned()->nullable();
+            $table->integer('rgt')->unsigned()->nullable();
 
             $table->timestamps();
             $table->softDeletes();

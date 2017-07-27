@@ -18,6 +18,9 @@ const app = new Vue({
                 },
                 states: ['Floating', 'Mini', 'Default'],
             },
+            alert: {
+                model: true,
+            },
             dialog: {
                 icon: null,
                 model: false,
@@ -38,7 +41,7 @@ const app = new Vue({
                 open: false,
             },
             theme: {
-                avatar: 'red',
+                avatar: 'transparent',
                 utilitybar: 'white',
             },
         };

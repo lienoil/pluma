@@ -4,7 +4,7 @@
     :light.sync="light"
     :mini-variant.sync="sidebar.mini"
     @click.native.stop="setStorage('sidebar.mini', sidebar.mini)"
-    class="navigation-drawer--is-booted elevation-0"
+    class="navigation-drawer--is-booted elevation-1"
     enable-resize-watcher
     overflow
     persistent
@@ -22,6 +22,8 @@
                 <v-list-tile-action>
                     <v-btn
                         icon
+                        :dark.sync="dark"
+                        :light.sync="light"
                         @click.native.stop="setStorage('sidebar.mini', (sidebar.mini = !sidebar.mini))"
                     >
                         <v-icon>chevron_left</v-icon>
@@ -37,11 +39,11 @@
         <v-list class="pa-0">
             <v-list-tile tag="div" :class="theme.avatar" class="lighten-1">
                 <v-list-tile-avatar>
-                    <img src="<?php echo e(is_null(user()->avatar) ? '//placeimg.com/100/100/people' : user()->avatar); ?>">
+                    <img src="<?php echo e(user()->avatar); ?>" alt="<?php echo e(user()->handlename); ?>">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                     <v-list-tile-title><?php echo e(user()->displayname); ?></v-list-tile-title>
-                    <small><?php echo e(is_null(user()->displayrole) ? __('Guest') : user()->displayrole); ?></small>
+                    <small><?php echo e(user()->displayrole); ?></small>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
@@ -51,7 +53,6 @@
 
     <v-toolbar flat class="transparent">
         <v-list dense>
-            
 
             <template v-for="(menu, i) in navigation.sidebar">
                 
@@ -66,14 +67,16 @@
                 
                 <v-list-group
                     v-else-if="menu.has_children"
-                    :class="menu.active?i:'XXXXXXXXXXXXnot-active'"
                     v-model="menu.active"
                     no-action
                 >
                     
                     <v-list-tile slot="item" :title="menu.labels.description">
                         <v-list-tile-action v-if="menu.icon">
-                            <v-icon>{{ menu.icon }}</v-icon>
+                            <v-icon
+                                :dark.sync="dark"
+                                :light.sync="light"
+                            >{{ menu.icon }}</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>
@@ -81,7 +84,10 @@
                             </v-list-tile-title>
                         </v-list-tile-content>
                         <v-list-tile-action>
-                            <v-icon>{{ menu.name ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                            <v-icon
+                                :dark.sync="dark"
+                                :light.sync="light"
+                            >{{ menu.name ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                         </v-list-tile-action>
                     </v-list-tile>
 
@@ -94,7 +100,10 @@
                         
                     >
                         <v-list-tile-action>
-                            <v-icon>{{ child.icon }}</v-icon>
+                            <v-icon
+                                :dark.sync="dark"
+                                :light.sync="light"
+                            >{{ child.icon }}</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>
@@ -113,7 +122,10 @@
                     v-model="menu.active"
                 >
                     <v-list-tile-action v-if="menu.icon">
-                        <v-icon :dark.sync="dark" :light.sync="light">{{ menu.icon }}</v-icon>
+                        <v-icon
+                            :dark.sync="dark"
+                            :light.sync="light"
+                        >{{ menu.icon }}</v-icon>
                     </v-list-tile-action>
 
                     <v-list-tile-content>

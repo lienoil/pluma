@@ -6,15 +6,22 @@
         @yield("pre-content")
 
         <main data-main>
-            @include("Frontier::partials.breadcrumbs")
-            <v-container fluid :style="`font-size:${settings.fontsize.model}px`">
+
+            @section("pre-container")
+                @include("Frontier::partials.breadcrumbs")
+            @show
+
+            <v-container fluid :style="`font-size: ${settings.fontsize.model}px`">
 
                 @yield("root")
 
             </v-container>
+
         </main>
 
-        @include("Frontier::partials.endnote")
+        @section("post-container")
+            @include("Frontier::partials.endnote")
+        @show
 
         @yield("post-content")
 
@@ -32,7 +39,7 @@
         }];
     </script>
     @stack("pre-scripts")
-    <script src='{{ present("frontier/$application->token/app/dist/app.js") }}'></script>
+    <script src='{{ present("frontier/app/dist/app.js") }}'></script>
     <script>
         // const app = new Vue({
         //     el: '#application-root',

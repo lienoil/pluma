@@ -2,7 +2,7 @@
 
 namespace Page\Models;
 
-use Pluma\Models\Model;
+use Frontier\Models\Page as Model;
 
 class Page extends Model
 {

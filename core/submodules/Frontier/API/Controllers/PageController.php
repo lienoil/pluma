@@ -8,7 +8,7 @@ use Pluma\API\Controllers\APIController;
 class PageController extends APIController
 {
     /**
-     * Get all pages.
+     * Get all resources.
      *
      * @param  Illuminate\Http\Request $request [description]
      * @return Illuminate\Http\Response

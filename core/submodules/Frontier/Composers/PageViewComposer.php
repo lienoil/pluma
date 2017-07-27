@@ -58,14 +58,25 @@ class PageViewComposer extends BaseViewComposer
     private function handle()
     {
         return json_decode(json_encode([
-            'site' => $this->site(),
-            'head' => $this->head(),
             'body' => $this->body(),
-            'page' => $this->page(),
             'footer' => $this->footer(),
-            'version' => "v" . app()->version(),
+            'head' => $this->head(),
+            'page' => $this->page(),
+            'model' => $this->model(),
+            'site' => $this->site(),
             'token' => csrf_token(),
+            'version' => "v" . app()->version(),
         ]));
+    }
+
+    private function model()
+    {
+        $url = explode("/", $this->getCurrentUrl());
+        $slug = end($url);
+
+        return Page::whereSlug(end($url))->exists()
+            ? Page::whereSlug(end($url))->first()
+            : json_decode(json_encode([]));;
     }
 
     private function site()

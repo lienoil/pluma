@@ -17,11 +17,11 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{ present("user/{$application->token}/auth/register/dist/register.css") }}">
+    <link rel="stylesheet" href="{{ present("user/auth/register/dist/register.css") }}">
 @endpush
 
 @push('pre-js')
-    <script src="{{ present("user/{$application->token}/auth/register/dist/register.js") }}"></script>
+    <script src="{{ present("user/auth/register/dist/register.js") }}"></script>
     <script>
         Vue.component('register', register);
     </script>

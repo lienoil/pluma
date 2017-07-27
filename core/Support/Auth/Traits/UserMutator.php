@@ -2,8 +2,6 @@
 
 namespace Pluma\Support\Auth\Traits;
 
-// use Pluma\Models\Permission;
-// use Pluma\Helpers\Strings;
 use Closure;
 
 trait UserMutator
@@ -23,7 +21,6 @@ trait UserMutator
         $name = [];
         $this->prefixname ? $name[] = $this->prefixname : '';
         $this->firstname ? $name[] = $this->firstname : '';
-        // $this->middlename ? $name[] = Strings::acronym($this->middlename) : '';
         $name[] = $this->lastname;
 
         return implode(" ", $name);
@@ -33,7 +30,6 @@ trait UserMutator
     {
         $name[] = $this->lastname ? "$this->lastname, " : '';
         $name[] = $this->firstname;
-        // $name[] = $this->middlename ? Strings::acronym($this->middlename) : '';
 
         return implode(" ", $name);
     }
@@ -57,10 +53,28 @@ trait UserMutator
     public function getRolesListAttribute()
     {
         $roles = [];
-        foreach ($this->roles as $role) {
-            $roles[] = $role->name;
+
+        if (isset($this->roles)) {
+            foreach ($this->roles as $role) {
+                $roles[] = $role->name;
+            }
         }
 
         return implode(" / ", $roles);
+    }
+
+    public function getDisplayroleAttribute()
+    {
+        return $this->rolename ? $this->rolename : __('Guest');
+    }
+
+    /**
+     * Gets the mutated avatar of the model.
+     *
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+        return property_exists($this, 'details') ? $this->details->avatar : '//placeimg.com/100/100/people';
     }
 }

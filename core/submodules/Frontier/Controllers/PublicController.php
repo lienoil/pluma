@@ -4,7 +4,7 @@ namespace Frontier\Controllers;
 
 use Illuminate\Http\Request;
 use Frontier\Support\View\CheckView;
-use Pluma\Models\Task;
+use Page\Models\Page;
 
 class PublicController
 {
@@ -18,7 +18,7 @@ class PublicController
      */
     public function index(Request $request)
     {
-        return dd($request);
+        return abort(404);
     }
 
     /**
@@ -30,6 +30,13 @@ class PublicController
      */
     public function show(Request $request, $slug = null)
     {
-        return $this->view($slug, "Frontier::welcome.");
+        // First check database.
+        $page = Page::whereSlug(($slug == "" ? config("path.home", 'home') : $slug))->first();
+
+        if ($page && $page->exists()) {
+            return view("Theme::pages.show")->with(compact('page'));
+        }
+
+        return abort(404);
     }
 }

@@ -1,5 +1,8 @@
 @extends("Frontier::layouts.admin")
 
+@section("head-title", __('Roles'))
+@section("page-title", __('Roles'))
+
 @section("content")
     <div class="container">
         <div class="">

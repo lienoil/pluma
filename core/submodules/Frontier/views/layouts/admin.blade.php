@@ -18,10 +18,10 @@
     <v-container fluid class="pa-0">
         <v-layout row wrap>
             <v-flex xs6>
-                <small class="blue--text">{{ $application->site->copyright }}</small>
+                <small>{{ $application->site->copyright }}</small>
             </v-flex>
             <v-flex xs6 class="text-xs-right">
-                <small class="blue--text">{{ $application->version }}</small>
+                <small>{{ $application->version }}</small>
             </v-flex>
         </v-layout>
     </v-container>

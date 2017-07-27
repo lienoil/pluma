@@ -8,6 +8,10 @@ Route::get('core/{file?}', function ($file = null) {
     $fileExtension = end($extension);
     $isCss = 'css' === $fileExtension ? true : false;
 
+    if (! in_array($fileExtension, config('downloadables', []))) {
+        return abort(403);
+    }
+
     if (\File::exists($path)) {
         return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : []);
     }
@@ -24,6 +28,10 @@ Route::get('~assets/{module?}/{file?}', function ($module = null, $file = null) 
     $fileExtension = end($extension);
     $isCss = 'css' === $fileExtension ? true : false;
 
+    if (! in_array($fileExtension, config('downloadables', []))) {
+        return abort(403);
+    }
+
     if (\File::exists($path)) {
         return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : []);
     }
@@ -31,11 +39,7 @@ Route::get('~assets/{module?}/{file?}', function ($module = null, $file = null) 
     return abort(404);
 })->where('file', '.*');
 
-Route::get('~p/{module?}/{csrf?}/{file?}', function ($module = null, $csrf = null, $file = null) {
-    if ($csrf !== csrf_token()) {
-        return abort(404);
-    }
-
+Route::get('~p/{module?}/{file?}', function ($module = null, $file = null) {
     $module = ucfirst($module);
     $path = get_module($module)."/views/$file";
 
@@ -44,6 +48,10 @@ Route::get('~p/{module?}/{csrf?}/{file?}', function ($module = null, $csrf = nul
     $extension = explode(".", $lastFile);
     $fileExtension = end($extension);
     $isCss = 'css' === $fileExtension ? true : false;
+
+    if (! in_array($fileExtension, config('downloadables', []))) {
+        return abort(403);
+    }
 
     if (\File::exists($path)) {
         return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : []);

@@ -14,12 +14,24 @@ return [
         ],
     ],
 
+    'all-grants' => [
+        'name' => 'all-grants',
+        'slug' => url(config('path.admin').'/users/grants'),
+        'parent' => 'user',
+        'order' => 20,
+        // 'is_parent' => false,
+        'always_viewable' => false,
+        'icon' => '',
+        'labels' => [
+            'title' => __('Grants'),
+        ],
+    ],
+
     'all-permissions' => [
         'name' => 'all-permissions',
         'slug' => url(config('path.admin').'/users/permissions'),
         'parent' => 'user',
-        'order' => 11,
-        'is_parent' => true,
+        'order' => 30,
         'always_viewable' => false,
         'icon' => '',
         'labels' => [

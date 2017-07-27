@@ -28,5 +28,4 @@ Artisan::command('route:list', function () {
         $name = $value->getName();
         echo "| $uri| $name  |\n";
     }
-// admin---------------------------------------
 });
