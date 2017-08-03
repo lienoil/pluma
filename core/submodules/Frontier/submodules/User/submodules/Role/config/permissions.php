@@ -21,47 +21,47 @@ return [
      */
     'view-role' => [
         'name' =>  'roles.index',
-        'slug' => 'view-role',
+        'code' => 'view-role',
         'description' => 'View roles',
     ],
     'show-role' => [
         'name' => 'roles.show',
-        'slug' => 'show-role',
+        'code' => 'show-role',
         'description' => 'Show a role',
     ],
     'create-role' => [
         'name' => 'roles.create',
-        'slug' => 'create-role',
+        'code' => 'create-role',
         'description' => 'Show role form',
     ],
     'store-role' => [
         'name' => 'roles.store',
-        'slug' => 'store-role',
+        'code' => 'store-role',
         'description' => 'Store the role',
     ],
     'edit-role' => [
         'name' => 'roles.edit',
-        'slug' => 'edit-role',
+        'code' => 'edit-role',
         'description' => 'Edit the role',
     ],
     'update-role' => [
         'name' => 'roles.update',
-        'slug' => 'update-role',
+        'code' => 'update-role',
         'description' => 'Update the role',
     ],
     'destroy-role' => [
         'name' =>  'roles.destroy',
-        'slug' => 'destroy-role',
+        'code' => 'destroy-role',
         'description' => 'Destroy the role',
     ],
     'trash-role' => [
         'name' =>  'roles.trash',
-        'slug' => 'trash-role',
+        'code' => 'trash-role',
         'description' => 'Trash the role',
     ],
     'restore-role' => [
         'name' => 'roles.restore',
-        'slug' => 'restore-role',
+        'code' => 'restore-role',
         'description' => 'Restore the role',
     ],
 ];

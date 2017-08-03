@@ -35,11 +35,11 @@ class Migration extends AbstractMigration
         $this->capsule = new Capsule();
 
         $this->capsule->addConnection([
-            'driver'    => config('DB_CONNECTION', env('DB_CONNECTION', 'mysql')),
-            'host'      => config('DB_HOST', env('DB_HOST', 'localhost')),
-            'database'  => config('DB_DATABASE', env('DB_DATABASE', 'pluma')),
-            'username'  => config('DB_USERNAME', env('DB_USERNAME', 'pluma')),
-            'password'  => config('DB_PASSWORD', env('DB_PASSWORD', 'pluma')),
+            'driver'    => env('DB_CONNECTION', 'mysql'),
+            'host'      => env('DB_HOST', 'localhost'),
+            'database'  => env('DB_DATABASE', 'pluma'),
+            'username'  => env('DB_USERNAME', 'pluma'),
+            'password'  => env('DB_PASSWORD', 'pluma'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

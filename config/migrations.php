@@ -4,7 +4,7 @@
 
 return [
     'paths' => [
-        'migrations' => ['database/migrations'],
+        'migrations' => [__DIR__.'/../database/migrations'],
     ],
     'migration_base_class' => '\Pluma\Support\Migration\Migration',
     'environments' => [

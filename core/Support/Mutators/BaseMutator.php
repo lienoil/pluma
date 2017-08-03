@@ -54,4 +54,15 @@ trait BaseMutator
 
         return Str::words($blurb, $this->wordCount);
     }
+
+    public function scopeExplode($key)
+    {
+        $words = [];
+
+        foreach ($this->{$key} as $value) {
+            $words[] = $value;
+        }
+
+        return explode(" / ", $words);
+    }
 }

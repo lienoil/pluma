@@ -10,7 +10,7 @@ return [
     'settings' => [
         'name' => 'settings',
         'is_parent' => true,
-        'order' => 500,
+        'order' => 1000,
         'slug' => url(config('path.admin').'/settings'),
         'always_viewable' => true,
         'icon' => 'settings',

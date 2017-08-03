@@ -21,7 +21,7 @@ class Model extends BaseModel
      *
      * @var int
      */
-    protected $perPage = 15;
+    protected $perPage = 5;
 
     /**
      * Create a new Eloquent model instance.

@@ -8,7 +8,7 @@ return [
         'order' => 10,
         // 'is_parent' => true,
         'always_viewable' => false,
-        'icon' => '',
+        'icon' => 'supervisor_account',
         'labels' => [
             'title' => __('Roles'),
         ],
@@ -21,7 +21,7 @@ return [
         'order' => 20,
         // 'is_parent' => false,
         'always_viewable' => false,
-        'icon' => '',
+        'icon' => 'lock_open',
         'labels' => [
             'title' => __('Grants'),
         ],
@@ -33,7 +33,7 @@ return [
         'parent' => 'user',
         'order' => 30,
         'always_viewable' => false,
-        'icon' => '',
+        'icon' => 'lock_outline',
         'labels' => [
             'title' => __('Permissions'),
         ],

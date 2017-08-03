@@ -2,26 +2,35 @@
 
 namespace Pluma\API\Controllers;
 
-// use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
-// use Illuminate\Foundation\Validation\ValidatesRequests;
-// use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Pluma\Support\Auth\Access\Traits\AuthorizesRequests;
+use Pluma\Support\Bus\Traits\DispatchesJobs;
+use Pluma\Support\Validation\Traits\ValidatesRequests;
 
 class APIController extends BaseController
 {
-    // use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $successResponse = [
-        'code' => 'success',
+        'context' => 'success',
         'type' => 'success',
         'message' => 'Success',
+        'text' => 'Action successfully done.',
     ];
 
     protected $errorResponse = [
-        'code' => 'error',
+        'context' => 'error',
         'type' => 'danger',
-        'message' => 'Error',
+        'message' => 'Error on last action executed.',
+        'text' => 'Error',
     ];
+
+    /**
+     * Number of data to be process at a given time.
+     *
+     * @var integer
+     */
+    protected $chunk = 10;
 
     /**
      * Create a new controller instance.

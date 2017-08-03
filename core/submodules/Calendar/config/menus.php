@@ -4,7 +4,7 @@ return [
     'calendar' => [
         'name' => 'calendar',
         'is_parent' => true,
-        'order' => 500,
+        'order' => 700,
         'slug' => url(config('path.admin').'/calendars'),
         'always_viewable' => false,
         'icon' => 'date_range',

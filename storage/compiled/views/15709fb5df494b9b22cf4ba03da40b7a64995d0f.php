@@ -50,7 +50,7 @@
                                     primary
                                     type="submit"
                                 >
-                                    <span>Login</span>
+                                    <span><?php echo e(__("Login Me")); ?></span>
                                 </v-btn>
                             </v-layout>
 

@@ -360,3 +360,81 @@ if (! function_exists('loop_modules')) {
         }
     }
 }
+
+if (! function_exists('get_permissions')) {
+    /**
+     * Gets the permissions files from modules.
+     *
+     * @param  array $modules
+     * @return array
+     */
+    function get_permissions($modules = null)
+    {
+        $permissions = [];
+        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+
+        foreach ($modules as $name => $module) {
+            if (is_array($module)) {
+                $permissions = get_permissions($module);
+                $module = $name;
+            }
+
+            if (file_exists("$module/config/permissions.php")) {
+                $permissions[] = "$module/config/permissions.php";
+            }
+        }
+
+        return $permissions;
+    }
+}
+
+if (! function_exists('get_menus')) {
+    /**
+     * Get all menus from modules.
+     *
+     * @param  array $modules
+     * @return array|object|mixed
+     */
+    function get_menus($modules = null)
+    {
+        $menus = [];
+        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+
+        foreach ($modules as $name => $module) {
+            if (is_array($module)) {
+                $menus = get_menus($module);
+                $module = $name;
+            }
+
+            if (file_exists("$module/config/menus.php")) {
+                $menus[] = "$module/config/menus.php";
+            }
+        }
+
+        return $menus;
+    }
+}
+
+if (! function_exists('get_menu')) {
+    /**
+     * Get the specified menu from the menus files of every module.
+     *
+     * @param  string $name
+     * @param  string $key
+     * @return array|object|mixed
+     */
+    function get_menu($name, $key = 'slug')
+    {
+        $menus = get_menus();
+
+        foreach ($menus as $menu) {
+            $menu = require_once $menu;
+
+            if (isset($menu[$key]) && $menu[$key] == $name) {
+                return json_decode(json_encode($menu));
+            }
+        }
+
+        return json_decode(json_encode([]));;
+    }
+}

@@ -10,6 +10,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <meta name="_token" content="<?php echo e(csrf_token()); ?>">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">

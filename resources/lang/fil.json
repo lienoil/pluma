@@ -41,5 +41,20 @@
     "welcome": "maligayang pagdating",
     "hello": "kamusta",
     "what": "ano",
-    "or": "o"
+    "or": "o",
+
+    "Appearance": "Anyo",
+    "appearance": "anyo",
+
+    "Menus": "Mga Talaan",
+    "menus": "mga talaan",
+
+    "Calendar": "Kalendaryo",
+    "calendar": "kalendaryo",
+
+    "Calendars": "Mga Kalendaryo",
+    "calendars": "mga kalendaryo",
+
+    "Guest": "Bisita",
+    "guest": "bisita"
 }

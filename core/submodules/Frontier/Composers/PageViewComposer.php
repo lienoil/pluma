@@ -114,6 +114,7 @@ class PageViewComposer extends BaseViewComposer
         return json_decode(json_encode([
             'title' => $this->guessTitle($this->getCurrentUrl()),
             'subtitle' => $this->guessSubtitle($this->getCurrentUrl()),
+            'icon' => $this->getIcon($this->getCurrentUrl()),
         ]));
     }
 
@@ -263,5 +264,12 @@ class PageViewComposer extends BaseViewComposer
         }
 
         return url("core/fallback/logos/main.png?v=$version");
+    }
+
+    public function getIcon($url)
+    {
+        // dd(get_menu($url));
+        // $url = (end((explode("/", $url))));
+        // return get_menus($url)->icon;
     }
 }

@@ -4,6 +4,7 @@ namespace Role\Controllers;
 
 use Frontier\Controllers\AdminController as Controller;
 use Illuminate\Http\Request;
+use Role\Models\Role;
 
 class RoleController extends Controller
 {
@@ -15,6 +16,8 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        return view("Role::roles.index");
+        $resources = Role::paginate();
+
+        return view("Role::roles.index")->with(compact('resources'));
     }
 }

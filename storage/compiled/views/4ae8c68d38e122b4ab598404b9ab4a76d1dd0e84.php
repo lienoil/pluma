@@ -41,6 +41,7 @@
     <?php echo $__env->yieldPushContent("pre-scripts"); ?>
     <script src='<?php echo e(present("frontier/app/dist/app.js")); ?>'></script>
     <script>
+        Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name=_token]').getAttribute('value');
         // const app = new Vue({
         //     el: '#application-root',
         //     mixins : mixins,

@@ -52,7 +52,7 @@
                                     primary
                                     type="submit"
                                 >
-                                    <span>Login</span>
+                                    <span>{{ __("Login Me") }}</span>
                                 </v-btn>
                             </v-layout>
 
