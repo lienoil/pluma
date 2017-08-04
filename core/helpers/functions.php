@@ -247,6 +247,10 @@ if (! function_exists('is_installed')) {
 if (! function_exists('write_to_env')) {
     function write_to_env($data)
     {
+        if (file_exists(base_path('.env'))) {
+            return;
+        }
+
         if (!count($data)) {
             return;
         }

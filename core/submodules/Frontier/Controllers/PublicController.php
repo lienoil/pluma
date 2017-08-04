@@ -34,7 +34,15 @@ class PublicController
         $page = Page::whereSlug(($slug == "" ? config("path.home", 'home') : $slug))->first();
 
         if ($page && $page->exists()) {
-            return view("Theme::pages.show")->with(compact('page'));
+            if (view()->exists("Theme::pages.{$page->slug}")) {
+                return view("Theme::pages.{$page->slug}")->with(compact('page'));
+            }
+            return view("Theme::index")->with(compact('page'));
+        }
+
+        // Static
+        if (view()->exists("Static::$slug")) {
+            return view("Static::$slug")->with(compact('page'));
         }
 
         return abort(404);

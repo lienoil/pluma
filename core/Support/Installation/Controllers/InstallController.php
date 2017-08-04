@@ -34,7 +34,14 @@ class InstallController extends Controller
 
     public function write(Request $request)
     {
-        write_to_env($request->all());
+        try {
+            write_to_env($request->all());
+        } catch (Whoops\Exception\ErrorException $e) {
+            return view("Install::errors.general")->with(compact('e'));
+        } catch (\Exception $e) {
+            return view("Install::errors.general")->with(compact('e'));
+        }
+
 
         return redirect()->route('installation.show');
     }
@@ -46,13 +53,19 @@ class InstallController extends Controller
 
     public function install(Request $request)
     {
-        $this->db(env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'))->drop()->make();
+        try {
+            $this->db(env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'))->drop()->make();
 
-        $this->migrate(null, $request);
+            $this->migrate(null, $request);
 
-        // $this->seed();
+            // $this->seed();
 
-        $this->createRootUser($request);
+            $this->createRootUser($request);
+        } catch (Whoops\Exception\ErrorException $e) {
+            return view("Install::errors.general")->with(compact('e'));
+        } catch (\Exception $e) {
+            return view("Install::errors.general")->with(compact('e'));
+        }
 
         return redirect()->route('installation.last');
     }

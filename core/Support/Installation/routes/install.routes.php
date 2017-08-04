@@ -1,8 +1,7 @@
 <?php
 
-Route::get('/', function () {
-    return redirect()->route('installation.welcome');
-}); //->where('slug', '.*');
+Route::get('/', 'Pluma\Support\Installation\Controllers\InstallController@welcome');
+Route::get('/{slug?}', 'Pluma\Support\Installation\Controllers\InstallController@welcome');
 
 Route::get('welcome', '\Pluma\Support\Installation\Controllers\InstallController@welcome')->name("installation.welcome");
 

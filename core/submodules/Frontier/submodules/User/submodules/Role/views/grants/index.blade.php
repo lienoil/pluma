@@ -2,7 +2,7 @@
 
 @push("utilitybar")
     {{-- <v-progress-linear buffer v-if="loading" class="ma-0" v-bind:indeterminate="true"></v-progress-linear> --}}
-    @include("Frontier::partials.loading")
+    {{-- @include("Frontier::partials.loading") --}}
 @endpush
 
 @push("page-settings")
@@ -20,7 +20,8 @@
 @section("content")
     <v-layout row wrap>
         <v-flex sm5>
-            <form id="update-or-create-form">
+            <form action="{{ route('grants.store') }}" method="POST">
+                {{ csrf_field() }}
                 <v-card class="lighten-4 grey--text elevation-1 mb-2">
                     <v-toolbar class="primary lighten-2 elevation-0">
                         <v-toolbar-title class="white--text">{{ __('Add Grant') }}</v-toolbar-title>
@@ -28,19 +29,22 @@
                     </v-toolbar>
                     <v-card-text>
                         <v-text-field
+                            required
                             name="name"
                             label="Name"
-                            @change="val => { grant.name = val; }"
+                            value="{{ old('name') }}"
                         ></v-text-field>
                         <v-text-field
+                            required
                             name="code"
                             label="Code"
-                            @change="val => { grant.code = val; }"
+                            value="{{ old('code') }}"
+                            hint="No special characters nor spaces"
                         ></v-text-field>
                         <v-text-field
                             name="description"
                             label="Description"
-                            @change="val => { grant.description = val; }"
+                            value="{{ old('description') }}"
                         ></v-text-field>
                     </v-card-text>
                     <v-layout row wrap>
@@ -67,7 +71,7 @@
                         </v-flex>
                     </v-layout>
                     <v-card-text>
-                        <v-btn @click.native="postGrant(grant)" primary>Submit</v-btn>
+                        <button type="submit" class="btn btn--raised primary">{{ __('Submit') }}</button>
                     </v-card-text>
                 </v-card>
             </form>
@@ -164,14 +168,7 @@
                             <td class="text-xs-right">@{{ props.item.permissions.length }}</td>
                             <td>
                                 <div class="text-xs-center">
-                                    <v-btn
-                                        href="{{ route('grants.edit', 1) }}"
-                                        @click.native="removeGrant(props.item)"
-                                        icon
-                                        v-tooltip:left="{'html': 'Edit'}"
-                                    >
-                                        <v-icon>edit</v-icon>
-                                    </v-btn>
+                                    <a role="button" class="btn btn--icon btn--raised" href="{{ route('grants.edit', 1) }}" icon v-tooltip:left="{'html': 'Edit'}"><div class="btn__content"><v-icon>edit</v-icon></div></a>
                                     <v-btn
                                         @click.native="removeGrant(props.item)"
                                         icon
@@ -187,28 +184,12 @@
             </v-card>
         </v-flex>
     </v-layout>
-    <v-snackbar
-        top
-        right
-        :timeout="snackbar.timeout"
-        :success="snackbar.context === 'success'"
-        :info="snackbar.context === 'info'"
-        :warning="snackbar.context === 'warning'"
-        :error="snackbar.context === 'error'"
-        :primary="snackbar.context === 'primary'"
-        :secondary="snackbar.context === 'secondary'"
-        :multi-line="snackbar.mode === 'multi-line'"
-        :vertical="snackbar.mode === 'vertical'"
-        v-model="snackbar.model"
-    >
-      @{{ snackbar.text }}
-      {{-- <v-btn dark flat @click.native="snackbar.model = false">Close</v-btn> --}}
-    </v-snackbar>
+
 @endsection
 
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendor/vue/resource/vue-resource.min.js') }}"></script>
-    <script src="{{ present('frontier/components/Draggable/dist/vuedraggable.min.js') }}"></script>
+    {{-- <script src="{{ assets('frontier/vendor/vue/resource/vue-resource.min.js') }}"></script> --}}
+    {{-- <script src="{{ present('frontier/components/Draggable/dist/vuedraggable.min.js') }}"></script> --}}
     <script>
         /**
          * ---------------------------------------
@@ -216,7 +197,7 @@
          * ---------------------------------------
          * Browser friendly imports
          */
-        Vue.use(VueResource);
+        // Vue.use(VueResource);
         // Vue.use(VueDraggable);
 
         /**
@@ -239,92 +220,39 @@
         mixins.push({
             data () {
                 return {
-                    snackbar: {
-                        model: false,
-                        context: '',
-                        mode: '',
-                        timeout: 2000,
-                        text: '',
-                    },
                     quicktools: {
                         model: null,
                         items: {
-                            refresh: { model: null, icon: 'refresh', description: '{{ __("Refresh List") }}', callback: () => {
-                                this.getAllGrants() }, },
-                            edit: { toggle: true, model: false, icon: 'edit', description: '{{ __("Toggle Quick Edit") }}', value: () => { console.log('adasd'); }, },
-                            delete: { model: null, icon: 'delete', description: '{{ __("Remove Many") }}', value: () => { console.log('adasd'); }, },
+                            refresh: {
+                                model: null,
+                                icon: 'refresh',
+                                description: '{{ __("Refresh List") }}',
+                                callback: () => { this.getAllGrants() },
+                            },
+                            edit: {
+                                toggle: true,
+                                model: false,
+                                icon: 'edit',
+                                description: '{{ __("Toggle Quick Edit") }}',
+                            },
+                            delete: {
+                                model: null,
+                                icon: 'delete',
+                                description: '{{ __("Remove Many") }}',
+                            },
                         },
                     },
-                    headers: [
-                        {
-                            text: 'ID',
-                            align: 'left',
-                            sortable: true,
-                            value: 'id'
-                        },
-                        {
-                            text: 'Name',
-                            align: 'left',
-                            sortable: true,
-                            value: 'name'
-                        },
-                        {
-                            text: 'Code',
-                            align: 'left',
-                            sortable: true,
-                            value: 'code'
-                        },
-                        {
-                            text: 'Permissions',
-                            align: 'right',
-                            sortable: true,
-                            value: 'permissions'
-                        },
-                        {
-                            text: 'Actions',
-                            align: 'center',
-                            sortable: false,
-                            value: 'actions'
-                        },
-                    ],
-                    grants: [],
-                    items: [],
                     loading: true,
-                    pagination: {},
-                    search: '',
-                    selected: [],
-                    totalItems: 0,
-                    selects: {
-                        permissions: null,
-                    },
-                    grant: {
-                        name: null,
-                        code: null,
-                        description: null,
-                    },
                 };
             },
 
-            watch: {
-                pagination: {
-                    handler () {
-                        this.getDataFromApi()
-                            .then(data => {
-                                this.grants = data.items
-                                this.totalItems = data.total
-                            });
-                    },
-                    deep: true
-                }
-            },
-
             mounted () {
-                this.initializeSelects();
-                this.getDataFromApi()
-                    .then(data => {
-                        this.grants = data.items
-                        this.totalItems = data.total
-                    });
+                // this.initializeSelects();
+                // this.getDataFromApi()
+                //     .then(data => {
+                //         this.grants = data.items
+                //         this.totalItems = data.total
+                //     });
             },
 
             methods: {
@@ -388,19 +316,6 @@
                     });
                 },
 
-                // editGrant (id) {
-                //     let self = this;
-                //     let url = '{{ route('api.grants.find') }}';
-
-                //     self.setLoading(true);
-
-                //     this.$http.post(url, {id: id}).then(response => {
-                //         self.setGrant(response.data);
-
-                //         self.setLoading(false);
-                //     });
-                // },
-
                 putGrant (data) {
                     let self = this;
                     let url = '{{ route('api.grants.update') }}';
@@ -434,15 +349,6 @@
                         setTimeout(() => {
                             self.getAllGrants();
                         }, 800);
-                    });
-                },
-
-                initializeSelects () {
-                    let self = this;
-                    let url = '{{ route('api.permissions.all') }}';
-
-                    this.$http.get(url).then(response => {
-                        self.selects.permissions = response.data;
                     });
                 },
 

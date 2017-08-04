@@ -6,6 +6,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Support\Handlers\ExceptionHandler;
+use Pluma\Support\Request\FormRequest;
 
 class PlumaServiceProvider extends ServiceProvider
 {

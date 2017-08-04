@@ -13,6 +13,7 @@ return [
     'jpeg',
     'jpg',
     'js',
+    'map',
     'png',
     'ppt',
     'pptx',

@@ -20,6 +20,7 @@ return [
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
+        // Pluma\Providers\FormRequestServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,

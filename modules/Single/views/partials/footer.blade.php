@@ -1,3 +1,0 @@
-    @stack('js')
-</body>
-</html>

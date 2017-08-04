@@ -38,6 +38,9 @@ class InstallationServiceProvider extends ServiceProvider
 
             // Views
             $this->loadViewsFrom(core_path('Support/Installation/views'), "Install");
+
+            // exit();
+            // return false;
         }
     }
 

@@ -37,7 +37,7 @@
 
     <?php echo $__env->yieldPushContent("pre-css"); ?>
 
-    <?php $__env->startSection("css"); ?>
+    <?php echo $__env->yieldPushContent("css"); ?>
         
         <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
         <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">

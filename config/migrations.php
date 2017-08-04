@@ -1,9 +1,14 @@
 <?php
 // Reinitialize another instance of app.
-(new Dotenv\Dotenv(__DIR__.'/../'))->load();
+try {
+    (new Dotenv\Dotenv(__DIR__.'/../'))->load();
+} catch (Exception $e) {
+
+}
 
 return [
     'paths' => [
+        'seeds' => [__DIR__.'/../database/seeds'],
         'migrations' => [__DIR__.'/../database/migrations'],
     ],
     'migration_base_class' => '\Pluma\Support\Migration\Migration',

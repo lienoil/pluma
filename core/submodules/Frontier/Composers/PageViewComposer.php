@@ -62,7 +62,7 @@ class PageViewComposer extends BaseViewComposer
             'footer' => $this->footer(),
             'head' => $this->head(),
             'page' => $this->page(),
-            'model' => $this->model(),
+            // 'model' => $this->model(),
             'site' => $this->site(),
             'token' => csrf_token(),
             'version' => "v" . app()->version(),
