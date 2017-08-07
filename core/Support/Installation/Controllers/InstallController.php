@@ -72,9 +72,9 @@ class InstallController extends Controller
 
     public function last(Request $request)
     {
-        // if (! $this->installed) {
-        //     return redirect()->route('installation.welcome');
-        // }
+        if (! $this->installed) {
+            return redirect()->route('installation.welcome');
+        }
 
         $this->clean();
 

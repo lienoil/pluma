@@ -43,10 +43,11 @@ trait MigrateDatabase
         $migration = new PhinxApplication();
         $wrapper = new TextWrapper($migration);
 
-        if (! is_dir(base_path('tmp'))) File::makeDirectory(base_path('tmp'));
-        File::put(base_path('tmp/c.php'), '<?php return '.var_export(config('migrations'), true) . ';');
+        File::copy(config('migrations'), base_path('database/migrations'));
+        // if (! is_dir(base_path('tmp'))) File::makeDirectory(base_path('tmp'));
+        // File::put(base_path('tmp/c.php'), '<?php return '.var_export(config('migrations'), true) . ';');
 
-        $wrapper->setOption('configuration', base_path('tmp/c.php'));
+        $wrapper->setOption('configuration', base_path('config/migrations.php'));
         $wrapper->setOption('parser', 'php');
         $wrapper->setOption('environment', env('APP_ENV'));
 

@@ -13,7 +13,7 @@
             <header class="header">
                 <h2 class="header-title text-danger mt-5">Oops!</span></h2>
                 <p class="lead">Something went wrong :(</p>
-                <p>Below are the likely cause of the error. If none could work, try looking at the error logs, or contacting your Host Provider</p>
+                <p>Below are the likely causes of the error. If none could work, try looking at the error logs, or contacting your Host Provider</p>
             </header>
 
             <main class="content">

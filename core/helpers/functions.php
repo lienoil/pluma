@@ -251,7 +251,7 @@ if (! function_exists('write_to_env')) {
             return;
         }
 
-        if (!count($data)) {
+        if (! count($data)) {
             return;
         }
 
