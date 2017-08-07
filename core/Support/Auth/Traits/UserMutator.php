@@ -75,6 +75,8 @@ trait UserMutator
      */
     public function getAvatarAttribute()
     {
-        return property_exists($this, 'details') ? $this->details->avatar : '//placeimg.com/100/100/people';
+        $gender = strtolower(($this->gender ? $this->gender : 'male'));
+
+        return property_exists($this, 'details') ? $this->details->avatar : url("core/fallback/avatars/{$gender}.png");
     }
 }

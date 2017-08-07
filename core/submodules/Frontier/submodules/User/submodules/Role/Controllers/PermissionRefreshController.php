@@ -9,13 +9,6 @@ use Role\Models\Permission;
 
 class PermissionRefreshController extends Controller
 {
-    /**
-     * Collected permissions.
-     *
-     * @var array|mixed
-     */
-    protected $permissions;
-
     public function index(Request $request)
     {
         $resources = Permission::paginate();
@@ -32,48 +25,74 @@ class PermissionRefreshController extends Controller
      */
     public function refresh(Request $request)
     {
-        // Get The enabled Modules
-        $modules = config("modules.enabled");
+        try {
+            $permissions = [];
+            // Get The enabled Modules
+            $modules = modules(true, null, false);
+            // Get the enabled modules' permissions file
+            // $this->permissions += $this->
+            $permissions = $this->permissions($modules);
+            // transform into a collection
+            $permissions = collect($permissions);
+            $p = $permissions;
+            // get the Permissions by code, as a collection
+            $old = collect(Permission::get()->toArray())->keyBy('code');
+            // get all old Permissions that are no longer existing in the new
+            $removables = array_diff(array_keys($old->all()), array_keys($p->all()));
+            // delete the removables.
+            foreach ($removables as $code) {
+                $permission = Permission::whereSlug($code)->first();
 
-        // Get the enabled modules' permissions file
-        // $this->permissions += $this->
-        foreach ($modules as $module) {
-            if (file_exists(base_path("modules/$module/config/permissions.php"))) {
-                $permissions += require base_path("modules/$module/config/permissions.php");
+                if (! is_null($permission)) {
+                    $permission->delete();
+                }
+            }
+            // Create new permissions if it does not exist yet.
+            foreach ($permissions as $code => $permission) {
+                if (! Permission::whereCode($permission['code'])->exists()) {
+                    $permission = new Permission();//Permission::create( $permission );
+                    $permission->name = $permission['name'];
+                    $permission->code = $permission['code'];
+                    $permission->description = $permission['description'];
+                    $permission->save();
+                }
+            }
+        } catch (Exception $e) {
+            session()->flash('type', 'success');
+            session()->flash('message', $e->getMessage());
+        } finally {
+            // Disco.
+            session()->flash('type', 'success');
+            session()->flash('message', 'Resource successfully refreshed');
+        }
+
+        return back();
+    }
+
+    /**
+     * Gets the permissions.
+     *
+     * @param  array $modules
+     * @return void
+     */
+    public function permissions($modules = null)
+    {
+        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+
+        $permissions = [];
+        foreach ($modules as $name => $module) {
+            if (is_array($module)) {
+                $permissions = $this->permissions($module);
+
+                $module = $name;
+            }
+
+            if (file_exists("$module/config/permissions.php")) {
+                $permissions += require "$module/config/permissions.php";
             }
         }
-        // transform into a collection
-        $permissions = collect($permissions);
-        $p = $permissions;
-        // get the Permissions by slug, as a collection
-        $old = collect(Permission::get()->toArray())->keyBy('slug');
-        // get all old Permissions that are no longer existing in the new
-        $removables = array_diff(array_keys($old->all()), array_keys($p->all()));
-        // delete the removables.
-        foreach ($removables as $slug) {
-            $permission = Permission::whereSlug($slug)->first();
 
-            if (! is_null($permission)) {
-                $permission->delete();
-            }
-        }
-
-        // Create new permissions if it does not exist yet.
-        foreach ($permissions as $slug => $permission) {
-            if (! Permission::whereSlug($permission['slug'])->exists()) {
-                $_permission = new Permission();//Permission::create( $permission );
-                $_permission->name = $permission['name'];
-                $_permission->slug = $permission['slug'];
-                $_permission->description = $permission['description'];
-                $_permission->save();
-            }
-        }
-
-        // Disco.
-        session()->flash('type', 'success');
-        session()->flash('message', 'Resource successfully refreshed.');
-
-        return redirect()->route('permissions.index');
+        return $permissions;
     }
 
     /**

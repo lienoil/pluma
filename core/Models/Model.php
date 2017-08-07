@@ -24,6 +24,13 @@ class Model extends BaseModel
     protected $perPage = 5;
 
     /**
+     * Array of searchable columns.
+     *
+     * @var array
+     */
+    protected $searchables = [];
+
+    /**
      * Create a new Eloquent model instance.
      *
      * @param  array  $attributes
@@ -34,5 +41,22 @@ class Model extends BaseModel
         parent::__construct($attributes);
 
         $this->setPerPage(config('settings.global.per_page', $this->perPage));
+    }
+
+    /**
+     * Search all given searchable columns
+     *
+     * @return $query
+     */
+    public function scopeSearch($query, $search = "")
+    {
+        if (empty($search)) {
+            return $query;
+        }
+
+        foreach ($this->searchables as $searchable) {
+            $query->orWhere($searchable, 'LIKE', "%{$search}%");
+        }
+        return $query;
     }
 }

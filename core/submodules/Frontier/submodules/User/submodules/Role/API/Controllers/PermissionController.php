@@ -8,6 +8,29 @@ use Role\Models\Permission;
 
 class PermissionController extends APIController
 {
+
+    /**
+     * Search the resource.
+     *
+     * @param  Request $request
+     * @return Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $take = $request->get('take') ? $request->get('take') : 0;
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+
+        if ($take < 0) {
+            $take = 0;
+        }
+
+        $permissions = Permission::search($search)->orderBy($sort, $order)->paginate($take);
+
+        return response()->json($permissions);
+    }
+
     /**
      * Get all resources.
      *
@@ -16,7 +39,15 @@ class PermissionController extends APIController
      */
     public function getAll(Request $request)
     {
-        $permissions = Permission::paginate();
+        $take = $request->get('take') ? $request->get('take') : 0;
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+
+        if ($take < 0) {
+            $take = 0;
+        }
+
+        $permissions = Permission::orderBy($sort, $order)->paginate($take);
 
         return response()->json($permissions);
     }

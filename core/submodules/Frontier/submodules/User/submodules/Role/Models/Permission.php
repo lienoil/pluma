@@ -10,4 +10,6 @@ class Permission extends Model
     use BelongsToManyGrants;
 
     protected $fillable = ['name', 'code', 'description'];
+
+    protected $searchables = ['name', 'code', 'description'];
 }

@@ -32,7 +32,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      *
      * @var string
      */
-    const VERSION = '0.0.1';
+    const VERSION = '2.0.1';
 
     /**
      * The base path for the installation.

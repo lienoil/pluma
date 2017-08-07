@@ -31,12 +31,14 @@ class PublicController
     public function show(Request $request, $slug = null)
     {
         // First check database.
-        $page = Page::whereSlug(($slug == "" ? config("path.home", 'home') : $slug))->first();
+        $slug = is_null($slug) ? config('path.home', 'home') : $slug;
+        $page = Page::whereSlug($slug)->first();
 
         if ($page && $page->exists()) {
             if (view()->exists("Theme::pages.{$page->slug}")) {
                 return view("Theme::pages.{$page->slug}")->with(compact('page'));
             }
+
             return view("Theme::index")->with(compact('page'));
         }
 

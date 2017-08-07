@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use \Pluma\Support\Migration\Migration;
+use Illuminate\Support\Facades\Schema;
+use Pluma\Support\Migration\Migration;
 
-class CreateGrantsTable extends Migration
+class CreateCalendarsTable extends Migration
 {
     /**
      * Change Method.
@@ -32,7 +33,7 @@ class CreateGrantsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'grants';
+    protected $tablename = 'calendars';
 
     /**
      * Run the migrations.
@@ -41,20 +42,22 @@ class CreateGrantsTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->tablename)) {
-            return;
-        }
-
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('code');
-            $table->text('description')->nullable();
-            $table->integer('parent_id')->unsigned()->nullable()->default(NULL);
-            $table->integer('lft')->unsigned()->nullable();
-            $table->integer('rgt')->unsigned()->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->date('date')->index();
+            $table->dateTime('datetime');
+            $table->unsignedInteger('day');
+            $table->unsignedInteger('month');
+            $table->unsignedInteger('year');
+            $table->unsignedInteger('week');
+            $table->unsignedInteger('weekday');
+            $table->boolean('weekend');
+            $table->string('month_name', 16);
+            $table->string('weekday_name', 16);
+            $table->string('holiday');
+
+            // Indexes
+            $table->index(['year', 'month', 'day']);
         });
     }
 

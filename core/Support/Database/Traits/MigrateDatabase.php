@@ -25,9 +25,9 @@ trait MigrateDatabase
                     // $this->execute($migration, $request);
                 }
 
-                $this->execute([$name], $request);
+                $this->execute($name, $request);
             } else {
-                $this->execute([$migration], $request);
+                $this->execute($migration, $request);
             }
 
         }
@@ -37,23 +37,19 @@ trait MigrateDatabase
 
     public function execute($migrationsPath, $request)
     {
-        config()->set('migrations.paths.migrations', $migrationsPath);
-        config()->set('migrations.environments.'.env('APP_ENV'), $this->getConfig($request));
-
         $migration = new PhinxApplication();
         $wrapper = new TextWrapper($migration);
 
-        File::copy(config('migrations'), base_path('database/migrations'));
-        // if (! is_dir(base_path('tmp'))) File::makeDirectory(base_path('tmp'));
-        // File::put(base_path('tmp/c.php'), '<?php return '.var_export(config('migrations'), true) . ';');
+        foreach (glob("$migrationsPath/*.php") as $migration) {
+            $basename = basename($migration);
+            File::copy($migration, base_path("database/migrations/$basename"));
+        }
 
         $wrapper->setOption('configuration', base_path('config/migrations.php'));
         $wrapper->setOption('parser', 'php');
         $wrapper->setOption('environment', env('APP_ENV'));
 
         $log = $wrapper->getMigrate();
-
-        File::deleteDirectory(base_path('tmp'));
     }
 
     public function getConfig($request)
