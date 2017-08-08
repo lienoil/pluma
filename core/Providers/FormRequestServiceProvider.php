@@ -2,26 +2,16 @@
 
 namespace Pluma\Providers;
 
-use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
-use Pluma\Support\Request\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
 class FormRequestServiceProvider extends ServiceProvider
 {
     /**
-     * Boot the service.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->bootFormRequest();
-    }
-
-    /**
-     * Register the services.
+     * Register the service provider.
      *
      * @return void
      */
@@ -31,17 +21,17 @@ class FormRequestServiceProvider extends ServiceProvider
     }
 
     /**
-     * Configure the form request related services.
+     * Bootstrap the application services.
      *
      * @return void
      */
-    private function bootFormRequest()
+    public function boot()
     {
-        $this->app->afterResolving(function (ValidatesWhenResolved $resolved) {
+        $this->app->afterResolving(ValidatesWhenResolved::class, function ($resolved) {
             $resolved->validate();
         });
 
-        $this->app->resolving(function (FormRequest $request, $app) {
+        $this->app->resolving(FormRequest::class, function ($request, $app) {
             $this->initializeRequest($request, $app['request']);
 
             $request->setContainer($app)->setRedirector($app->make(Redirector::class));
@@ -66,8 +56,10 @@ class FormRequestServiceProvider extends ServiceProvider
             $current->cookies->all(), $files, $current->server->all(), $current->getContent()
         );
 
+        $form->setJson($current->json());
+
         if ($session = $current->getSession()) {
-            $form->setSession($session);
+            $form->setLaravelSession($session);
         }
 
         $form->setUserResolver($current->getUserResolver());

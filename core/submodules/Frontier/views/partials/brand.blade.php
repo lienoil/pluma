@@ -1,1 +1,1 @@
-<img src="{{ $application->site->logo }}" alt="{{ __($application->site->title) }}" width="100%">
+<img src="{{ $application->site->logo }}" alt="{{ __($application->site->title) }}" width="100px">

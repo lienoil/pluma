@@ -11,7 +11,7 @@
     @include("Frontier::partials.banner")
 
     <v-layout row wrap>
-        <v-flex sm8>
+        <v-flex sm8 xs12>
             <v-card class="mb-3">
                 <v-card-title>
                     {{-- <span>{{ __('Permissions') }}</span> --}}
@@ -23,6 +23,17 @@
                         hide-details
                         v-model="search"
                     ></v-text-field>
+                    <v-slide-x-transition>
+                        <v-btn
+                            @click.native="search = ''"
+                            icon
+                            light
+                            v-show="search"
+                            v-tooltip:bottom="{'html': 'Clear Search'}"
+                        >
+                            <v-icon>clear</v-icon>
+                        </v-btn>
+                    </v-slide-x-transition>
                     @can('delete-permissions')
                     <v-btn icon light v-tooltip:bottom="{'html': 'Bulk Delete'}"><v-icon>delete</v-icon></v-btn>
                     @endcan
@@ -31,6 +42,7 @@
                     :loading="loading"
                     :total-items="totalItems"
                     class="elevation-0"
+                    no-data-text="{{ _('No resource found') }}"
                     {{-- select-all --}}
                     selected-key="id"
                     v-bind:headers="headers"
@@ -52,7 +64,7 @@
                             ></v-checkbox>
                         </td> --}}
                         <td>@{{ prop.item.id }}</td>
-                        <td><strong>@{{ prop.item.name }}</strong></td>
+                        <td><strong v-tooltip:bottom="{'html': prop.item.description}">@{{ prop.item.name }}</strong></td>
                         <td>@{{ prop.item.code }}</td>
                         <td>@{{ prop.item.description }}</td>
                         <td>@{{ prop.item.created }}</td>
@@ -60,32 +72,49 @@
                 </v-data-table>
             </v-card>
         </v-flex>
-        <v-flex sm4>
+        <v-flex sm4 xs12>
             <v-card class="mb-3">
-                <v-card-title class="primary--text"><strong>{{ __("Refresh Permissions") }}</strong></v-card-title>
+                <v-card-title class="primary--text"><strong><v-icon class="primary--text">refresh</v-icon>{{ __("Refresh Permissions") }}</strong></v-card-title>
                 <v-card-text>
                     <form action="{{ route('permissions.refresh.refresh') }}" method="POST">
                         {{ csrf_field() }}
-                        <p class="grey--text">{{ __("Refreshing will add and/or update all new permissions specified by the modules you've installed. Existing permissions will not be removed. Doing this action is relatively safe.") }}</p>
+                        <p class="grey--text text-sm-right">{{ __("Refreshing will add and/or update all new permissions specified by the modules you've installed. Existing permissions will not be removed. Doing this action is relatively safe.") }}</p>
 
                         <div class="text-sm-right">
                             <button type="submit" class="btn btn--raised primary ma-0">Refresh</button>
                         </div>
-                        {{-- <a class="btn btn--raised primary white--text ma-0 mb-3" href="{{ route('permissions.refresh.index') }}">Refresh</a> --}}
                     </form>
                 </v-card-text>
             </v-card>
 
+            {{-- @can("reset-permission") --}}
             <v-card class="error mb-3" dark>
                 <v-card-title><strong><v-icon>priority_high</v-icon>{{ __("Reset Permissions") }}</strong></v-card-title>
                 <v-card-text>
-                    <form action="{{ route('permissions.refresh.refresh') }}" method="POST" class="text-sm-right">
+                    <form id="reset-permissions-form" action="{{ route('permissions.reset.reset') }}" method="POST" class="text-sm-right">
                         {{ csrf_field() }}
                         <p>{{ __("Resetting will remove all existing permissions from the database. Then it will re-populate the database with all of the permissions defined from the modules you've installed. Doing this will not reset the roles you've created - you have to manually redefine each roles again. Proceed with caution!") }}</p>
-                        <button type="submit" class="btn btn--raised white ma-0">Reset</button>
+
+                        <v-dialog v-model="dialog.model" width="80%">
+                            <v-btn white slot="activator">Reset</v-btn>
+                            <v-card class="text-xs-center">
+                                <v-card-title class="error white--text headline">{{ _("Warning, here be dragons") }}<v-spacer></v-spacer><v-icon class="white--text">priority_high</v-icon></v-card-title>
+                                <v-card-text >
+                                    {{ __("Performing this action will completely remove all Permissions data. The Application might not work properly after this action. You might need to setup the Users' Roles, Grants, and Permissions manually again. If you do not know what the message means, then for the love of Talos, DO NOT PROCEED!") }}
+                                </v-card-text>
+                                <v-card-text class="text-xs-center"><strong>{{ __("Would you like to proceed?") }}</strong></v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn class="green--text darken-1" flat @click.native="dialog.model = false">Cancel</v-btn>
+                                    <v-btn class="error--text darken-1" flat @click.native="proceed()">Yes, Proceed</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+
                     </form>
                 </v-card-text>
             </v-card>
+            {{-- @endcan --}}
         </v-flex>
     </v-layout>
 @endsection
@@ -107,7 +136,7 @@
                     },
                     headers: [
                         { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                        { text: '{{ __("Title") }}', align: 'left', value: 'name' },
+                        { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                         { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                         { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
                         { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
@@ -171,7 +200,8 @@
                             totalItems
                         } = this.pagination;
 
-                        url = url+'?take='+rowsPerPage+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending);
+                        let query = this.search;
+                        url = url+'?take='+rowsPerPage+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending)+'&q='+(query);
                         this.setDataset(url);
 
                         let items = this.getDataset();
@@ -200,6 +230,10 @@
                             }, 1000);
                         });
                 },
+
+                proceed () {
+                    document.getElementById("reset-permissions-form").submit();
+                }
             },
             mounted () {
                 let self = this;

@@ -2,6 +2,7 @@
 <v-toolbar
     :class="theme.utilitybar"
     class="elevation-1 grey--text"
+    fixed
     :dark.sync="light" :light.sync="dark"
 >
     <v-toolbar-side-icon class="grey--text" @click.native.stop="setStorage('sidebar.drawer', (sidebar.drawer = !sidebar.drawer))">

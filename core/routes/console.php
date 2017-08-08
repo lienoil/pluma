@@ -22,9 +22,10 @@ Artisan::command('route:list', function () {
     echo "| URL                                     |      |\n";
     echo "+-----------------------------------------+------+\n";
     foreach ($routeCollection as $value) {
+        $methods = implode("/", $value->methods());
         $uri = $value->uri() . str_repeat(" ", (40-strlen($value->uri())));
         $name = $value->getName();
-        echo "| $uri| $name  |\n";
+        echo "| $methods | $uri| $name  |\n";
     }
 });
 

@@ -11,5 +11,5 @@ class Permission extends Model
 
     protected $fillable = ['name', 'code', 'description'];
 
-    protected $searchables = ['name', 'code', 'description'];
+    protected $searchables = ['name', 'code', 'description', 'updated_at', 'created_at'];
 }

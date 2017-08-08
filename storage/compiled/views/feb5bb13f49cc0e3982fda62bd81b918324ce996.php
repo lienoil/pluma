@@ -9,7 +9,7 @@
     <?php echo $__env->make("Frontier::partials.banner", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
     <v-layout row wrap>
-        <v-flex sm8>
+        <v-flex sm8 xs12>
             <v-card class="mb-3">
                 <v-card-title>
                     
@@ -21,6 +21,17 @@
                         hide-details
                         v-model="search"
                     ></v-text-field>
+                    <v-slide-x-transition>
+                        <v-btn
+                            @click.native="search = ''"
+                            icon
+                            light
+                            v-show="search"
+                            v-tooltip:bottom="{'html': 'Clear Search'}"
+                        >
+                            <v-icon>clear</v-icon>
+                        </v-btn>
+                    </v-slide-x-transition>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete-permissions')): ?>
                     <v-btn icon light v-tooltip:bottom="{'html': 'Bulk Delete'}"><v-icon>delete</v-icon></v-btn>
                     <?php endif; ?>
@@ -29,6 +40,7 @@
                     :loading="loading"
                     :total-items="totalItems"
                     class="elevation-0"
+                    no-data-text="<?php echo e(_('No resource found')); ?>"
                     
                     selected-key="id"
                     v-bind:headers="headers"
@@ -44,7 +56,7 @@
                     <template slot="items" scope="prop">
                         
                         <td>{{ prop.item.id }}</td>
-                        <td><strong>{{ prop.item.name }}</strong></td>
+                        <td><strong v-tooltip:bottom="{'html': prop.item.description}">{{ prop.item.name }}</strong></td>
                         <td>{{ prop.item.code }}</td>
                         <td>{{ prop.item.description }}</td>
                         <td>{{ prop.item.created }}</td>
@@ -52,34 +64,52 @@
                 </v-data-table>
             </v-card>
         </v-flex>
-        <v-flex sm4>
+        <v-flex sm4 xs12>
             <v-card class="mb-3">
-                <v-card-title class="primary--text"><strong><?php echo e(__("Refresh Permissions")); ?></strong></v-card-title>
+                <v-card-title class="primary--text"><strong><v-icon class="primary--text">refresh</v-icon><?php echo e(__("Refresh Permissions")); ?></strong></v-card-title>
                 <v-card-text>
                     <form action="<?php echo e(route('permissions.refresh.refresh')); ?>" method="POST">
                         <?php echo e(csrf_field()); ?>
 
-                        <p class="grey--text"><?php echo e(__("Refreshing will add and/or update all new permissions specified by the modules you've installed. Existing permissions will not be removed. Doing this action is relatively safe.")); ?></p>
+                        <p class="grey--text text-sm-right"><?php echo e(__("Refreshing will add and/or update all new permissions specified by the modules you've installed. Existing permissions will not be removed. Doing this action is relatively safe.")); ?></p>
 
                         <div class="text-sm-right">
                             <button type="submit" class="btn btn--raised primary ma-0">Refresh</button>
                         </div>
-                        
                     </form>
                 </v-card-text>
             </v-card>
 
+            
             <v-card class="error mb-3" dark>
                 <v-card-title><strong><v-icon>priority_high</v-icon><?php echo e(__("Reset Permissions")); ?></strong></v-card-title>
                 <v-card-text>
-                    <form action="<?php echo e(route('permissions.refresh.refresh')); ?>" method="POST" class="text-sm-right">
+                    <form id="reset-permissions-form" action="<?php echo e(route('permissions.reset.reset')); ?>" method="POST" class="text-sm-right">
                         <?php echo e(csrf_field()); ?>
 
                         <p><?php echo e(__("Resetting will remove all existing permissions from the database. Then it will re-populate the database with all of the permissions defined from the modules you've installed. Doing this will not reset the roles you've created - you have to manually redefine each roles again. Proceed with caution!")); ?></p>
-                        <button type="submit" class="btn btn--raised white ma-0">Reset</button>
+
+                        <v-dialog v-model="dialog.model" width="80%">
+                            <v-btn white slot="activator">Reset</v-btn>
+                            <v-card class="text-xs-center">
+                                <v-card-title class="error white--text headline"><?php echo e(_("Warning, here be dragons")); ?><v-spacer></v-spacer><v-icon class="white--text">priority_high</v-icon></v-card-title>
+                                <v-card-text >
+                                    <?php echo e(__("Performing this action will completely remove all Permissions data. The Application might not work properly after this action. You might need to setup the Users' Roles, Grants, and Permissions manually again. If you do not know what the message means, then for the love of Talos, DO NOT PROCEED!")); ?>
+
+                                </v-card-text>
+                                <v-card-text class="text-xs-center"><strong><?php echo e(__("Would you like to proceed?")); ?></strong></v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn class="green--text darken-1" flat @click.native="dialog.model = false">Cancel</v-btn>
+                                    <v-btn class="error--text darken-1" flat @click.native="proceed()">Yes, Proceed</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+
                     </form>
                 </v-card-text>
             </v-card>
+            
         </v-flex>
     </v-layout>
 <?php $__env->stopSection(); ?>
@@ -101,7 +131,7 @@
                     },
                     headers: [
                         { text: '<?php echo e(__("ID")); ?>', align: 'left', value: 'id' },
-                        { text: '<?php echo e(__("Title")); ?>', align: 'left', value: 'name' },
+                        { text: '<?php echo e(__("Name")); ?>', align: 'left', value: 'name' },
                         { text: '<?php echo e(__("Code")); ?>', align: 'left', value: 'code' },
                         { text: '<?php echo e(__("Excerpt")); ?>', align: 'left', value: 'description' },
                         { text: '<?php echo e(__("Last Modified")); ?>', align: 'left', value: 'updated_at' },
@@ -165,7 +195,8 @@
                             totalItems
                         } = this.pagination;
 
-                        url = url+'?take='+rowsPerPage+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending);
+                        let query = this.search;
+                        url = url+'?take='+rowsPerPage+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending)+'&q='+(query);
                         this.setDataset(url);
 
                         let items = this.getDataset();
@@ -194,6 +225,10 @@
                             }, 1000);
                         });
                 },
+
+                proceed () {
+                    document.getElementById("reset-permissions-form").submit();
+                }
             },
             mounted () {
                 let self = this;

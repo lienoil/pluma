@@ -61,6 +61,7 @@ class InstallController extends Controller
             // $this->seed();
 
             $this->createRootUser($request);
+            $this->installed = true;
         } catch (Whoops\Exception\ErrorException $e) {
             return view("Install::errors.general")->with(compact('e'));
         } catch (\Exception $e) {
@@ -73,7 +74,7 @@ class InstallController extends Controller
     public function last(Request $request)
     {
         if (! $this->installed) {
-            return redirect()->route('installation.welcome');
+            // return redirect()->route('installation.welcome');
         }
 
         $this->clean();

@@ -37,10 +37,10 @@
 
     @stack("pre-css")
 
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="{{ assets('frontier/vendor/vue/dist/vue.min.css') }}?v={{ $application->version }}" rel="stylesheet">
     @stack("css")
         {{-- compile this --}}
-        <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-        <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
         <script src="https://unpkg.com/vue/dist/vue.js"></script>
         <script src="https://unpkg.com/vuetify@0.13.1/dist/vuetify.min.js"></script>
         {{-- ^complile this --}}

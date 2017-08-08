@@ -2,11 +2,11 @@
 
 namespace Role\Controllers;
 
-use Frontier\Controllers\AdminController as Controller;
+use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Role\Models\Role;
 
-class RoleController extends Controller
+class RoleController extends AdminController
 {
     /**
      * Display a listing of the resource.

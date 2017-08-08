@@ -40,7 +40,9 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
+            'Psr\\Container\\' => 14,
             'Pluma\\' => 6,
             'Phinx\\' => 6,
         ),
@@ -75,9 +77,14 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
             'Illuminate\\Cache\\' => 17,
             'Illuminate\\Auth\\' => 16,
         ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
         'C' => 
@@ -151,9 +158,17 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Pluma\\' => 
         array (
@@ -263,9 +278,17 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         array (
             0 => __DIR__ . '/..' . '/illuminate/auth',
         ),
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
+        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
         ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
@@ -295,7 +318,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'CreateGrantRoleTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035864_create_grant_role_table.php',
         'CreateGrantsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035861_create_grants_table.php',
         'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
-        'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035860_create_password_resets_table.php',
+        'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170622035860_create_password_resets_table.php',
         'CreatePermissionsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035860_create_permissions_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035863_create_roles_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035859_create_users_table.php',
@@ -336,6 +359,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/core/Middleware/VerifyCsrfToken.php',
         'Pluma\\Models\\Model' => __DIR__ . '/../..' . '/core/Models/Model.php',
         'Pluma\\Models\\User' => __DIR__ . '/../..' . '/core/Models/User.php',
+        'Pluma\\Providers\\ApplicationServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ApplicationServiceProvider.php',
         'Pluma\\Providers\\DatabaseServiceProvider' => __DIR__ . '/../..' . '/core/Providers/DatabaseServiceProvider.php',
         'Pluma\\Providers\\EncryptionServiceProvider' => __DIR__ . '/../..' . '/core/Providers/EncryptionServiceProvider.php',
         'Pluma\\Providers\\FilesystemServiceProvider' => __DIR__ . '/../..' . '/core/Providers/FilesystemServiceProvider.php',
@@ -346,6 +370,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\Providers\\TranslationServiceProvider' => __DIR__ . '/../..' . '/core/Providers/TranslationServiceProvider.php',
         'Pluma\\Providers\\ViewServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ViewServiceProvider.php',
         'Pluma\\Requests\\FormRequest' => __DIR__ . '/../..' . '/core/Requests/FormRequest.php',
+        'Pluma\\Scopes\\SearchScope' => __DIR__ . '/../..' . '/core/Scopes/SearchScope.php',
         'Pluma\\Support\\Auth\\Access\\Traits\\AuthorizesRequests' => __DIR__ . '/../..' . '/core/Support/Auth/Access/Traits/AuthorizesRequests.php',
         'Pluma\\Support\\Auth\\Traits\\AuthenticatesUsers' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/AuthenticatesUsers.php',
         'Pluma\\Support\\Auth\\Traits\\Authorizable' => __DIR__ . '/../..' . '/core/Support/Auth/Traits/Authorizable.php',
@@ -396,6 +421,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Role\\API\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/PermissionController.php',
         'Role\\API\\Controllers\\PermissionRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/PermissionRefreshController.php',
         'Role\\Controllers\\GrantController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/GrantController.php',
+        'Role\\Controllers\\GrantRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/GrantRefreshController.php',
         'Role\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/PermissionController.php',
         'Role\\Controllers\\PermissionRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/PermissionRefreshController.php',
         'Role\\Controllers\\RoleController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/RoleController.php',

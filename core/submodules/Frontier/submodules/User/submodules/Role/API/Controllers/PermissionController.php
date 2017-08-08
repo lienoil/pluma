@@ -8,7 +8,6 @@ use Role\Models\Permission;
 
 class PermissionController extends APIController
 {
-
     /**
      * Search the resource.
      *
@@ -18,13 +17,9 @@ class PermissionController extends APIController
     public function search(Request $request)
     {
         $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
-        $take = $request->get('take') ? $request->get('take') : 0;
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
-
-        if ($take < 0) {
-            $take = 0;
-        }
 
         $permissions = Permission::search($search)->orderBy($sort, $order)->paginate($take);
 
@@ -39,15 +34,12 @@ class PermissionController extends APIController
      */
     public function getAll(Request $request)
     {
-        $take = $request->get('take') ? $request->get('take') : 0;
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
 
-        if ($take < 0) {
-            $take = 0;
-        }
-
-        $permissions = Permission::orderBy($sort, $order)->paginate($take);
+        $permissions = Permission::search($search)->orderBy($sort, $order)->paginate($take);
 
         return response()->json($permissions);
     }

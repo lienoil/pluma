@@ -2,13 +2,19 @@
 
 namespace Role\Controllers;
 
-use Frontier\Controllers\AdminController as Controller;
+use Frontier\Controllers\AdminController;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Role\Models\Permission;
 
-class PermissionRefreshController extends Controller
+class PermissionRefreshController extends AdminController
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $resources = Permission::paginate();
@@ -41,7 +47,7 @@ class PermissionRefreshController extends Controller
             $removables = array_diff(array_keys($old->all()), array_keys($p->all()));
             // delete the removables.
             foreach ($removables as $code) {
-                $permission = Permission::whereSlug($code)->first();
+                $permission = Permission::whereCode($code)->first();
 
                 if (! is_null($permission)) {
                     $permission->delete();
@@ -49,16 +55,10 @@ class PermissionRefreshController extends Controller
             }
             // Create new permissions if it does not exist yet.
             foreach ($permissions as $code => $permission) {
-                if (! Permission::whereCode($permission['code'])->exists()) {
-                    $permission = new Permission();//Permission::create( $permission );
-                    $permission->name = $permission['name'];
-                    $permission->code = $permission['code'];
-                    $permission->description = $permission['description'];
-                    $permission->save();
-                }
+                $permission = Permission::updateOrCreate(['code' => $permission['code']], $permission);
             }
         } catch (Exception $e) {
-            session()->flash('type', 'success');
+            session()->flash('type', 'error');
             session()->flash('message', $e->getMessage());
         } finally {
             // Disco.
@@ -102,18 +102,14 @@ class PermissionRefreshController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function reset()
+    public function reset(Request $request)
     {
         \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        \DB::table('permission_role')->truncate();
+        \DB::table('grant_permission')->truncate();
         Permission::truncate();
         \DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        \Artisan::call('db:seed', ['--class' => '\Pluma\Database\Seeds\PermissionsTableSeeder']);
 
-        session()->flash('type', 'success');
-        session()->flash('message', 'Resource successfully refreshed.');
-
-        return redirect()->route('permissions.index');
+        return $this->refresh($request);
     }
 
     /**

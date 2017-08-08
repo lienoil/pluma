@@ -585,7 +585,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         // application instance automatically for the developer. This is simply
         // a more convenient way of specifying your service provider classes.
         if (is_string($provider)) {
-            $provider = $this->resolveProviderClass($provider);
+            $provider = $this->resolveProvider($provider);
         }
 
         if (method_exists($provider, 'register')) {
@@ -624,6 +624,17 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         return Arr::first($this->serviceProviders, function ($value) use ($name) {
             return $value instanceof $name;
         });
+    }
+
+    /**
+     * Resolve a service provider instance from the class name.
+     *
+     * @param  string  $provider
+     * @return \Illuminate\Support\ServiceProvider
+     */
+    public function resolveProvider($provider)
+    {
+        return new $provider($this);
     }
 
     /**
