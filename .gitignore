@@ -1,5 +1,6 @@
 node_modules/
 /bower_components
 /vendor
-/storage/compiled/sessions/
+storage/compiled/sessions/
+storage/framework/cache/
 .env

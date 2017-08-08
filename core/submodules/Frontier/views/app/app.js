@@ -47,7 +47,7 @@ const app = new Vue({
         };
     },
     mounted () {
-        this.initData();
+        this.initLocalStorageData();
     },
     methods: {
         setStorage (key, value) {
@@ -59,7 +59,7 @@ const app = new Vue({
         clearStorage () {
             localStorage.clear();
         },
-        initData() {
+        initLocalStorageData() {
             this.settings.fontsize.model = this.getStorage('settings.fontsize') ? this.getStorage('settings.fontsize') : 16;
 
             this.sidebar.drawer = this.getStorage('sidebar.drawer') === 'true';
@@ -92,7 +92,6 @@ const app = new Vue({
                 parent.model = false;
             };
         },
-
         dotToObject(key, value) {
             var result = object = {};
             var arr = key.split('.');
@@ -101,6 +100,27 @@ const app = new Vue({
             }
             object[arr[arr.length-1]] = value;
             return result;
+        },
+
+        submit (url, query) {
+            url = url.split('null').join(query);
+            this.target.submit();
+        },
+
+        route (url, query) {
+            return url.split('null').join(query);
+            // window.location = url;
+        },
+
+        postResource (url, query) {
+            return new Promise((resolve, reject) => {
+                query = query ? query : {};
+                this.$http.post(url, query).then((response) => {
+                    let items = response.body;
+                    let total = response.body.total ? response.body.total : response.body.length;
+                    resolve({items, total});
+                });
+            });
         },
     },
 });

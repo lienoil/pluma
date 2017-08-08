@@ -23,6 +23,7 @@
                                         label="Email or username"
                                         name="username"
                                         persistent-hint
+                                        value="<?php echo e(old('username')); ?>"
                                         type="text"
                                     ></v-text-field>
                                     <v-text-field
@@ -34,6 +35,7 @@
                                         label="Password"
                                         min="6"
                                         name="password"
+                                        value="<?php echo e(old('password')); ?>"
                                         persistent-hint
                                     ></v-text-field>
                                     <v-checkbox

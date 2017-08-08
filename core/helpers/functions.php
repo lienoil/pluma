@@ -240,7 +240,7 @@ if (! function_exists("settings")) {
 if (! function_exists('is_installed')) {
     function is_installed()
     {
-        return ! file_exists(base_path('.install'));
+        return ! file_exists(public_path('.install'));
     }
 }
 

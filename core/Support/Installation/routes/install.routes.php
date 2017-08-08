@@ -1,7 +1,6 @@
 <?php
 
 Route::get('/', 'Pluma\Support\Installation\Controllers\InstallController@welcome');
-Route::get('/{slug?}', 'Pluma\Support\Installation\Controllers\InstallController@welcome');
 
 Route::get('welcome', '\Pluma\Support\Installation\Controllers\InstallController@welcome')->name("installation.welcome");
 
@@ -16,3 +15,5 @@ Route::post('welcome/install', '\Pluma\Support\Installation\Controllers\InstallC
 Route::get('welcome/last', '\Pluma\Support\Installation\Controllers\InstallController@last')->name("installation.last");
 
 Route::post('welcome/migrate', '\Pluma\Support\Installation\Controllers\InstallController@migrate')->name("installation.migrate");
+
+Route::get('{slug?}', 'Pluma\Support\Installation\Controllers\InstallController@welcome');

@@ -22,7 +22,7 @@ class CheckIfInstalled
             DB::connection()->getPdo();
 
             // Then, check if .install is deleted
-            if (file_exists(base_path('.install'))) {
+            if (file_exists(public_path('.install'))) {
                 return redirect('/');
             }
         } catch (\PDOException $e) {

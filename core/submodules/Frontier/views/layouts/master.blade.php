@@ -40,7 +40,7 @@
     </script>
     @stack("pre-scripts")
     <script src='{{ present("frontier/app/filters.js") }}'></script>
-    <script src='{{ present("frontier/app/dist/app.js") }}'></script>
+    <script src='{{ present("frontier/app/app.js") }}'></script>
     <script>
         // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name=_token]').getAttribute('value');
         // const app = new Vue({

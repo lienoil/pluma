@@ -19,8 +19,8 @@
                 <p>You may now visit the <a href="<?php echo e(url('admin')); ?>">Admin Dashboard</a> and login with the following credentials:</p>
 
                 <ul>
-                    <li><strong>Username: </strong></li>
-                    <li><strong>Password: </strong></li>
+                    <li><strong>Username: <?php echo e($user->email); ?></strong></li>
+                    <li><strong>Password: <em>Your password</em></strong></li>
                 </ul>
 
                 <a href="<?php echo e(route('login.show')); ?>" class="btn btn-primary">Login</a>

@@ -56,7 +56,7 @@
                         ></v-text-field>
 
                         <v-dialog v-model="dialog.model" width="50%">
-                            <a role="button" white flat slot="activator" class="ma-0 pa-0">Choose Permissions...</a>
+                            <p slot="activator" index="0"><a role="button" white flat class="ma-0 pa-0">Choose Permissions...</a></p>
                             <v-card>
                                 <v-card-title class="headline">
                                     <span>{{ _("Permissions List") }}</span>
@@ -109,7 +109,6 @@
                                 </v-data-table>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn class="grey--text darken-1" flat @click.native="dialog.model = false">Cancel</v-btn>
                                     <v-btn class="primary--text darken-1" flat @click.native="dialog.model = false">Okay</v-btn>
                                 </v-card-actions>
                             </v-card>
@@ -118,7 +117,7 @@
                         <template v-if="permissions.selected">
                             <span v-for="(item, i) in permissions.selected">
                                 <input type="hidden" name="permissions[]" :value="item.id">
-                                <v-chip close v-model="item.selected" @input="permissions.selected.splice(i, 1)"><strong>@{{ item.name }}</strong> - @{{ item.code }}</v-chip>
+                                <v-chip close v-model="item.selected" @input="permissions.selected.splice(i, 1)"><strong>@{{ item.code }}</strong></v-chip>
                             </span>
                         </template>
 
@@ -193,8 +192,7 @@
                         </td>
                         <td>@{{ prop.item.created }}</td>
                         <td width="30%">
-                            {{-- <a class="btn btn--flat btn--icon" :href="`/admin/users/grants/${prop.item.id}/edit`"><span class="btn__content"><v-icon>edit</v-icon></span></a> --}}
-                            <v-btn @click.native="route(urls.grants.edit, (prop.item.id))" icon flat v-tooltip:bottom="{'html': 'Edit'}"><v-icon>edit</v-icon></v-btn>
+                            <a class="btn btn--flat btn--icon" :href="route(urls.grants.edit, (prop.item.id))"><span class="btn__content"><v-icon>edit</v-icon></span></a>
 
                             <form :action="route(urls.grants.destroy, (prop.item.id))" method="POST" class="inline">
                                 {{ csrf_field() }}
@@ -293,16 +291,6 @@
                     console.log("TEST", this.permissions.selected);
                 },
 
-                submit (url, query) {
-                    url = url.split('null').join(query);
-                    this.target.submit();
-                },
-
-                route (url, query) {
-                    return url.split('null').join(query);
-                    // window.location = url;
-                },
-
                 searchFromAPI (url, query) {
                     return new Promise((resolve, reject) => {
                         const {
@@ -344,17 +332,6 @@
                     });
                 },
 
-                postResource (url, query) {
-                    return new Promise((resolve, reject) => {
-                        query = query ? query : {};
-                        this.$http.post(url, query).then((response) => {
-                            let items = response.body;
-                            let total = response.body.total ? response.body.total : response.body.length;
-                            resolve({items, total});
-                        });
-                    });
-                },
-
                 getDataset () {
                     return this.dataset;
                 },
@@ -385,14 +362,6 @@
 
                 this.postResource('{{ route('api.grants.permissions') }}')
                     .then((data) => {
-                        // let items = [];
-                        // for (var i = data.items.length - 1; i >= 0; i--) {
-                        //     console.log(data.items[i].name);
-                        //     items.push({header: data.items[i].name});
-                        //     for (var j = data.items[i].permissions.length - 1; j >= 0; j--) {
-                        //         items.push(data.items[i].permissions[j]);
-                        //     }
-                        // }
                         self.permissions.items = data.items;
                     });
             }

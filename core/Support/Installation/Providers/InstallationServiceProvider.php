@@ -38,9 +38,6 @@ class InstallationServiceProvider extends ServiceProvider
 
             // Views
             $this->loadViewsFrom(core_path('Support/Installation/views'), "Install");
-
-            // exit();
-            // return false;
         }
     }
 
@@ -49,9 +46,8 @@ class InstallationServiceProvider extends ServiceProvider
         try {
             // First, check if can connect to database
             DB::connection()->getPdo();
-
             // Then, check if .install is deleted
-            if (file_exists(base_path('.install'))) {
+            if (file_exists(public_path('.install'))) {
                 return false;
             }
         } catch (\PDOException $e) {

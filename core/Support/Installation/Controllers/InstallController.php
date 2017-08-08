@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Pluma\Models\User;
 use Pluma\Support\Auth\Traits\CreateUser;
 use Pluma\Support\Database\Traits\CreateDatabase;
 use Pluma\Support\Database\Traits\MigrateDatabase;
@@ -55,13 +56,9 @@ class InstallController extends Controller
     {
         try {
             $this->db(env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'))->drop()->make();
-
             $this->migrate(null, $request);
-
             // $this->seed();
-
             $this->createRootUser($request);
-            $this->installed = true;
         } catch (Whoops\Exception\ErrorException $e) {
             return view("Install::errors.general")->with(compact('e'));
         } catch (\Exception $e) {
@@ -73,18 +70,16 @@ class InstallController extends Controller
 
     public function last(Request $request)
     {
-        if (! $this->installed) {
-            // return redirect()->route('installation.welcome');
-        }
-
         $this->clean();
 
-        return view("Install::welcome.last")->with(['config' => config('env')]);
+        $user = User::get()->first();
+
+        return view("Install::welcome.last")->with(['user' => $user, 'config' => config('env')]);
     }
 
     public function clean()
     {
         File::delete(base_path('bootstrap/cache/services.php'));
-        File::delete(base_path('.install'));
+        File::delete(public_path('.install'));
     }
 }
