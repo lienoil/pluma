@@ -53,7 +53,17 @@ class GrantRequest extends FormRequest
 
         return [
             'name' => 'required|max:255',
-            'code' => 'required|unique:grants'.$isUpdating,
+            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:grants'.$isUpdating,
+            'description' => 'nullable|regex:/^[\pL\s\-\*\.]+$/u',
+            'permissions' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
+            'description.regex' => 'Only letters, spaces, and hypens are allowed.',
         ];
     }
 }

@@ -5,9 +5,9 @@ namespace Role\API\Controllers;
 use Illuminate\Http\Request;
 use Pluma\API\Controllers\APIController;
 use Role\Models\Grant;
-use Role\Models\Permission;
+use Role\Models\Role;
 
-class GrantController extends APIController
+class RoleController extends APIController
 {
     /**
      * Search the resource.
@@ -23,13 +23,13 @@ class GrantController extends APIController
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
         $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
 
-        $grants = Grant::search($search)->orderBy($sort, $order);
+        $roles = Role::search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
-            $grants->onlyTrashed();
+            $roles->onlyTrashed();
         }
-        $grants = $grants->paginate($take);
+        $roles = $roles->paginate($take);
 
-        return response()->json($grants);
+        return response()->json($roles);
     }
 
     /**
@@ -45,7 +45,7 @@ class GrantController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
 
-        $permissions = Grant::search($search)->orderBy($sort, $order)->paginate($take);
+        $permissions = Role::search($search)->orderBy($sort, $order)->paginate($take);
 
         return response()->json($permissions);
     }
@@ -63,26 +63,21 @@ class GrantController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
 
-        $permissions = Grant::search($search)->orderBy($sort, $order)->onlyTrashed()->paginate($take);
+        $permissions = Role::search($search)->orderBy($sort, $order)->onlyTrashed()->paginate($take);
 
         return response()->json($permissions);
     }
 
     /**
-     * Gets the permissions.
+     * Gets the grants.
      *
      * @param  array $modules
      * @return void
      */
-    public function permissions($modules = null)
+    public function grants($modules = null)
     {
-        $permissions = Permission::all();
+        $grants = Grant::pluck('name', 'id');
 
-        $p = [];
-        foreach ($permissions as $i => $permission) {
-            $p[$permission->grants()->first() ? $permission->grants()->first()->name : 'Uncategorized'][] = $permission;
-        }
-
-        return response()->json($p);
+        return response()->json($grants);
     }
 }

@@ -6,12 +6,13 @@
         dismissible
         transition="slide-y-transition"
         v-model="alert.model"
+        :model="alert.mode"
         value="{{ Session::has("type") ? true : false }}"
     >
         <v-card style="margin-bottom: -2rem" class="elevation-1 mb--2">
-            @if (Session::has('title'))
-                <v-card-title class="headline">{{ __(Session::get('title')) }}</v-card-title>
-            @endif
+            {{-- @if (Session::has('title'))
+                <v-card-title class="text-xs-center pb-0">{{ __(Session::get('title')) }}</v-card-title>
+            @endif --}}
             @if (Session::has('message'))
                 <v-card-text class="text-xs-center">{{ __(Session::get('message')) }}</v-card-text>
             @endif

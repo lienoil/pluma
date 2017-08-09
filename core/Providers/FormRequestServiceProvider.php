@@ -2,11 +2,11 @@
 
 namespace Pluma\Providers;
 
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\Http\FormRequest;
+use Pluma\Support\Request\FormRequest;
 use Symfony\Component\HttpFoundation\Request;
-use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
 class FormRequestServiceProvider extends ServiceProvider
 {

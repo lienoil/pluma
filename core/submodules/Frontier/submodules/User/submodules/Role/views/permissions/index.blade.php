@@ -13,8 +13,11 @@
     <v-layout row wrap>
         <v-flex sm8 xs12>
             <v-card class="mb-3">
+                <v-toolbar class="primary elevation-0">
+                    <v-toolbar-title class="white--text">{{ __('Permissions') }}</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                </v-toolbar>
                 <v-card-title>
-                    {{-- <span>{{ __('Permissions') }}</span> --}}
                     <v-spacer></v-spacer>
                     <v-text-field
                         append-icon="search"
@@ -78,10 +81,12 @@
                 <v-card-text>
                     <form action="{{ route('permissions.refresh.refresh') }}" method="POST">
                         {{ csrf_field() }}
-                        <p class="grey--text text-sm-right">{{ __("Refreshing will add and/or update all new permissions specified by the modules you've installed. Existing permissions will not be removed. Doing this action is relatively safe.") }}</p>
+                        <p class="grey--text text-sm-right">{{ __("Refreshing will add and/or update all new permissions specified by the modules you've installed. Existing permissions will not be removed.") }}</p>
 
                         <div class="text-sm-right">
-                            <button type="submit" class="btn btn--raised primary ma-0">Refresh</button>
+                            <button type="submit" class="btn btn--raised primary ma-0">
+                                <span v-tooltip:left="{'html': 'Doing this action is relatively safe'}">Refresh</span>
+                            </button>
                         </div>
                     </form>
                 </v-card-text>
@@ -95,8 +100,8 @@
                         {{ csrf_field() }}
                         <p>{{ __("Resetting will remove all existing permissions from the database. Then it will re-populate the database with all of the permissions defined from the modules you've installed. Doing this will not reset the roles you've created - you have to manually redefine each roles again. Proceed with caution!") }}</p>
 
-                        <v-dialog v-model="dialog.model" width="80%">
-                            <v-btn white slot="activator">Reset</v-btn>
+                        <v-dialog v-model="permissions.dialog.model" width="100%">
+                            <v-btn white slot="activator"><span v-tooltip:left="{'html': 'Caution: This action is irreversible'}">Reset</span></v-btn>
                             <v-card class="text-xs-center">
                                 <v-card-title class="error white--text headline">{{ _("Warning, here be dragons") }}<v-spacer></v-spacer><v-icon class="white--text">priority_high</v-icon></v-card-title>
                                 <v-card-text >
@@ -105,7 +110,7 @@
                                 <v-card-text class="text-xs-center"><strong>{{ __("Would you like to proceed?") }}</strong></v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn class="green--text darken-1" flat @click.native="dialog.model = false">Cancel</v-btn>
+                                    <v-btn class="green--text darken-1" flat @click.native="permissions.dialog.model = false">Cancel</v-btn>
                                     <v-btn class="error--text darken-1" flat @click.native="proceed()">Yes, Proceed</v-btn>
                                 </v-card-actions>
                             </v-card>
@@ -142,6 +147,11 @@
                         { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
                     ],
                     dataset: [],
+                    permissions: {
+                        dialog: {
+                            model: false,
+                        },
+                    },
                 };
             },
             watch: {

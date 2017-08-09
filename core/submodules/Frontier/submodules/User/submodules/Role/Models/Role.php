@@ -9,4 +9,6 @@ use Role\Support\Traits\BelongsToManyUsers;
 class Role extends Model
 {
     use SoftDeletes, BelongsToManyUsers;
+
+    protected $searchables = ['name', 'code', 'description', 'created_at', 'updated_at'];
 }

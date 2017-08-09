@@ -13,7 +13,7 @@ class GrantController extends AdminController
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -42,7 +42,7 @@ class GrantController extends AdminController
      * @param  \Role\Requests\GrantRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GrantRequest $request)
     {
         $grant = new Grant();
         $grant->name = $request->input('name');
@@ -58,6 +58,7 @@ class GrantController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -72,11 +73,11 @@ class GrantController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Role\Requests\GrantRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GrantRequest $request, $id)
     {
         $grant = Grant::findOrFail($id);
         $grant->name = $request->input('name');
@@ -92,18 +93,22 @@ class GrantController extends AdminController
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $resource = Grant::findOrFail($id);
+
+        return view("Role::grants.show")->with(compact('resource'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $user
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
@@ -111,7 +116,7 @@ class GrantController extends AdminController
         $grant = Grant::findOrFail($id);
         $grant->delete();
 
-        return back();
+        return redirect()->route('grants.index');
     }
 
     /**
@@ -121,18 +126,24 @@ class GrantController extends AdminController
      */
     public function trash()
     {
-        //
+        $resources = Grant::onlyTrashed()->paginate();
+
+        return view("Role::grants.trash")->with(compact('resources'));
     }
 
     /**
      * Restore the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function restore($id)
+    public function restore(Request $request, $id)
     {
-        //
+        $grant = Grant::onlyTrashed()->findOrFail($id);
+        $grant->restore();
+
+        return back();
     }
 
     /**
@@ -141,8 +152,11 @@ class GrantController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
-        //
+        $grant = Grant::withTrashed()->findOrFail($id);
+        $grant->forceDelete();
+
+        return redirect()->route('grants.trash');
     }
 }

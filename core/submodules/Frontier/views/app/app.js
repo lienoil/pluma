@@ -20,6 +20,7 @@ const app = new Vue({
             },
             alert: {
                 model: true,
+                mode: null,
             },
             dialog: {
                 icon: null,

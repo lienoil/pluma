@@ -26,7 +26,7 @@ class PlumaServiceProvider extends ServiceProvider
     protected $composers;
 
     /**
-     * Boot the service.
+     * Bootstrap any application services.
      *
      * @return void
      */

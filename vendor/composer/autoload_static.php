@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
+class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -420,7 +420,9 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
         'Role\\API\\Controllers\\GrantController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/GrantController.php',
         'Role\\API\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/PermissionController.php',
         'Role\\API\\Controllers\\PermissionRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/PermissionRefreshController.php',
+        'Role\\API\\Controllers\\RoleController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/RoleController.php',
         'Role\\Controllers\\GrantController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/GrantController.php',
+        'Role\\Controllers\\GrantManyController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/GrantManyController.php',
         'Role\\Controllers\\GrantRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/GrantRefreshController.php',
         'Role\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/PermissionController.php',
         'Role\\Controllers\\PermissionRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/PermissionRefreshController.php',
@@ -428,6 +430,8 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
         'Role\\Models\\Grant' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Models/Grant.php',
         'Role\\Models\\Permission' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Models/Permission.php',
         'Role\\Models\\Role' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Models/Role.php',
+        'Role\\Observers\\GrantObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Observers/GrantObserver.php',
+        'Role\\Providers\\RoleServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Providers/RoleServiceProvider.php',
         'Role\\Requests\\GrantRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Requests/GrantRequest.php',
         'Role\\Support\\Traits\\BelongsToManyGrants' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Support/Traits/BelongsToManyGrants.php',
         'Role\\Support\\Traits\\BelongsToManyPermissions' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Support/Traits/BelongsToManyPermissions.php',
@@ -443,10 +447,10 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
 
         }, null, ClassLoader::class);
     }

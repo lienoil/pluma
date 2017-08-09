@@ -1,13 +1,14 @@
 <?php
 
-// Route::post('permissions/refresh', 'Role\API\Controllers\PermissionRefreshController@postRefresh')->name('permissions.refresh');
-Route::get('permissions/all', 'Role\API\Controllers\PermissionController@getAll')->name('permissions.all');
-Route::get('permissions/search', 'Role\API\Controllers\PermissionController@search')->name('permissions.search');
+Route::get('roles/trash/all', 'Role\API\Controllers\RoleController@getTrash')->name('roles.trash.all');
+Route::get('roles/all', 'Role\API\Controllers\RoleController@getAll')->name('roles.all');
+Route::get('roles/search', 'Role\API\Controllers\RoleController@search')->name('roles.search');
+Route::post('roles/grants', 'Role\API\Controllers\RoleController@grants')->name('roles.grants');
 
+Route::get('grants/trash/all', 'Role\API\Controllers\GrantController@getTrash')->name('grants.trash.all');
 Route::get('grants/all', 'Role\API\Controllers\GrantController@getAll')->name('grants.all');
 Route::get('grants/search', 'Role\API\Controllers\GrantController@search')->name('grants.search');
 Route::post('grants/permissions', 'Role\API\Controllers\GrantController@permissions')->name('grants.permissions');
-// Route::post('grants/store', 'Role\API\Controllers\GrantController@store')->name('grants.store');
-// Route::post('grants/find', 'Role\API\Controllers\GrantController@find')->name('grants.find');
-// Route::put('grants/update', 'Role\API\Controllers\GrantController@update')->name('grants.update');
-// Route::delete('grants/remove/{id}', 'Role\API\Controllers\GrantController@remove')->name('grants.remove');
+
+Route::get('permissions/all', 'Role\API\Controllers\PermissionController@getAll')->name('permissions.all');
+Route::get('permissions/search', 'Role\API\Controllers\PermissionController@search')->name('permissions.search');

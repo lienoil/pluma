@@ -67,7 +67,7 @@ class GrantRefreshController extends AdminController
         } finally {
             // Disco.
             session()->flash('type', 'success');
-            session()->flash('message', 'New Grants successfully added.');
+            session()->flash('message', 'Grants list successfully updated');
         }
 
         return back();
