@@ -4,7 +4,7 @@ namespace Role\Requests;
 
 use Pluma\Requests\FormRequest;
 
-class GrantRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -55,7 +55,7 @@ class GrantRequest extends FormRequest
             'name' => 'required|max:255',
             'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:grants'.$isUpdating,
             'description' => 'nullable|regex:/^[\pL\s\-\*\.\,\[\]]+$/u',
-            'permissions' => 'required',
+            'grants' => 'required',
         ];
     }
 

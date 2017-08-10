@@ -84,15 +84,26 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $basename = $this->basename;
         $activeTheme = basename($this->activeTheme);
         $themePath = config('path.themes', 'themes');
 
         if (is_dir(base_path("$themePath/$activeTheme/views"))) {
-            $this->loadViewsFrom(base_path("$themePath/$activeTheme/views"), $basename);
-        } else {
-            $theme = get_module("Frontier");
-            $this->loadViewsFrom("$theme/views/themes/default", $basename);
+            $this->loadViewsFrom(base_path("$themePath/$activeTheme/views"), $this->basename);
+        }
+
+        // Default is loaded after the themes.
+        $this->registerDefaultViews();
+    }
+
+    public function registerDefaultViews($modules = null)
+    {
+        $modules = $modules ? $modules : modules(true, null, false);
+        foreach ($modules as $name => $module) {
+            if (is_array($module)) {
+                $this->registerDefaultViews($module);
+                $module = $name;
+            }
+            $this->loadViewsFrom("$module/views", $this->basename);
         }
     }
 }

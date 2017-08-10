@@ -1,7 +1,7 @@
 <?php
 
 Route::get('roles/trash/all', 'Role\API\Controllers\RoleController@getTrash')->name('roles.trash.all');
-Route::get('roles/all', 'Role\API\Controllers\RoleController@getAll')->name('roles.all');
+Route::get('roles/all', 'Role\API\Controllers\RoleController@all')->name('roles.all');
 Route::get('roles/search', 'Role\API\Controllers\RoleController@search')->name('roles.search');
 Route::post('roles/grants', 'Role\API\Controllers\RoleController@grants')->name('roles.grants');
 

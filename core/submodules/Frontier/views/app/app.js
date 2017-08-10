@@ -1,5 +1,9 @@
 let ls = window.localStorage;
 
+import API from './api.js';
+
+Vue.mixin(API);
+
 const app = new Vue({
     el: '#application-root',
     mixins : mixins,

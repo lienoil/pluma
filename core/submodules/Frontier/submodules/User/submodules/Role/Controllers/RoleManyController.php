@@ -4,11 +4,9 @@ namespace Role\Controllers;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use Role\Models\Grant;
-use Role\Models\Permission;
-use Role\Requests\GrantRequest;
+use Role\Models\Role;
 
-class GrantManyController extends AdminController
+class RoleManyController extends AdminController
 {
     /**
      * Restore the specified resource from storage.
@@ -18,9 +16,9 @@ class GrantManyController extends AdminController
      */
     public function restore(Request $request)
     {
-        foreach ($request->input('grants') as $id) {
-            $grant = Grant::onlyTrashed()->findOrFail($id);
-            $grant->restore();
+        foreach ($request->input('roles') as $id) {
+            $role = Role::onlyTrashed()->findOrFail($id);
+            $role->restore();
         }
 
         return back();
@@ -34,12 +32,12 @@ class GrantManyController extends AdminController
      */
     public function destroy(Request $request)
     {
-        foreach ($request->input('grants') as $id) {
-            $grant = Grant::findOrFail($id);
-            $grant->delete();
+        foreach ($request->input('roles') as $id) {
+            $role = Role::findOrFail($id);
+            $role->delete();
         }
 
-        return redirect()->route('grants.index');
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -50,9 +48,9 @@ class GrantManyController extends AdminController
      */
     public function delete(Request $request)
     {
-        foreach ($request->input('grants') as $id) {
-            $grant = Grant::withTrashed()->findOrFail($id);
-            $grant->forceDelete();
+        foreach ($request->input('roles') as $id) {
+            $role = Role::withTrashed()->findOrFail($id);
+            $role->forceDelete();
         }
 
         return back();

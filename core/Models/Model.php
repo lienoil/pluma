@@ -4,10 +4,12 @@ namespace Pluma\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Pluma\Support\Mutators\BaseMutator;
+use Support\Database\Traits\BaseRelation;
+use Support\Database\Traits\Relationships;
 
 class Model extends BaseModel
 {
-    use BaseMutator;
+    use BaseMutator, BaseRelation;
 
     /**
      * Accessors to append on every request.

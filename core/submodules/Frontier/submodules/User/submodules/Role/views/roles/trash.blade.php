@@ -1,93 +1,61 @@
 @extends("Theme::layouts.admin")
 
-@section("head-title", __('Roles'))
-@section("page-title", __('Roles'))
+@section("head-title", __('Trashed Roles'))
+@section("page-title", __('Trashed Roles'))
 
+@push("utilitybar")
+    {{--  --}}
+@endpush
 
 @section("content")
     @include("Theme::partials.banner")
 
     <v-layout row wrap>
-        <v-flex sm3 xs12>
 
-            <v-card class="mb-3">
-                <v-card-title class="primary--text"><strong>{{ __("New Role") }}</strong></v-card-title>
-                <v-card-text>
-                    <form action="{{ route('roles.store') }}" method="POST">
-                        {{ csrf_field() }}
-                        <v-text-field
-                            :error-messages="resource.errors.name"
-                            label="{{ _('Name') }}"
-                            name="name"
-                            value="{{ old('name') }}"
-                            @input="(val) => { resource.item.name = val; }"
-                        ></v-text-field>
-                        <v-text-field
-                            label="{{ _('Code') }}"
-                            :value="resource.item.name ? resource.item.name : '{{ old('code') }}' | slugify"
-                            name="code"
-                            :error-messages="resource.errors.code"
-                            hint="{{ __('Will be used as an ID for Roles. Make sure the code is unique.') }}"
-                        ></v-text-field>
-                        <v-text-field
-                            label="{{ _('Short Description') }}"
-                            value="{{ old('description') }}"
-                            name="description"
-                            :error-messages="resource.errors.description"
-                        ></v-text-field>
-                        <v-select
-                            auto
-                            autocomplete
-                            chips
-                            item-text="text"
-                            item-value="value"
-                            label="{{ __('Grants') }}"
-                            multiple
-                            v-bind:items="suppliments.grants.items"
-                            v-model="suppliments.grants.selected"
-                            :error-messages="resource.errors.grants"
-                        >
-                            <template slot="selection" scope="data">
-                                <v-chip
-                                    close
-                                    @input="data.parent.selectItem(data.item)"
-                                    @click.native.stop
-                                    class="chip--select-multi"
-                                    :key="data.item"
-                                >
-                                    <input type="hidden" name="grants[]" :value="data.item.value">
-                                    @{{ data.item.text }}
-                                </v-chip>
-                            </template>
-                        </v-select>
-
-                        <div class="text-sm-right">
-                            <button type="submit" class="btn btn--raised primary ma-0"><span class="btn__content">{{ __('Submit') }}</span></button>
-                        </div>
-                    </form>
-                </v-card-text>
-            </v-card>
-
-        </v-flex>
-        <v-flex sm9 xs12>
+        <v-flex sm8 xs12>
             <v-card class="mb-3">
                 <v-toolbar class="info elevation-0">
-                    <v-toolbar-title class="white--text">{{ __('Roles') }}</v-toolbar-title>
+                    <v-toolbar-title class="white--text">{{ __('Trashed Roles') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
 
                     {{-- Batch Commands --}}
                     <v-slide-y-transition>
                         <template v-if="dataset.selected.length > 1">
-                            {{-- Bulk Delete --}}
-                            <form action="{{ route('roles.many.destroy') }}" method="POST" class="inline">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <template v-for="item in dataset.selected">
-                                    <input type="hidden" name="roles[]" :value="item.id">
-                                </template>
-                                <button type="submit" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon dark class="white--text">delete_sweep</v-icon></span></button>
-                            </form>
-                            {{-- /Bulk Delete --}}
+                            <div>
+                                {{-- Bulk Restore --}}
+                                <form action="{{ route('roles.many.restore') }}" method="POST" class="inline">
+                                    {{ csrf_field() }}
+                                    <template v-for="item in dataset.selected">
+                                        <input type="hidden" name="roles[]" :value="item.id">
+                                    </template>
+                                    <button type="submit" v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon class="white--text">restore</v-icon></span></button>
+                                </form>
+                                {{-- /Bulk Restore --}}
+
+                                {{-- Bulk Delete --}}
+                                <v-dialog v-model="dataset.dialog.model" lazy width="auto">
+                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon dark class="white--text">delete_forever</v-icon></v-btn>
+                                    <v-card class="text-xs-center">
+                                        <v-card-title class="headline">{{ __('Permanent Delete') }}</v-card-title>
+                                        <v-card-text >
+                                            {{ __("You are about to permanently delete the resources. This action is irreversible. Do you want to proceed?") }}
+                                        </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn class="green--text darken-1" flat @click.native.stop="dataset.dialog.model=false">{{ __('Cancel') }}</v-btn>
+                                            <form action="{{ route('roles.many.delete') }}" method="POST" class="inline">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <template v-for="item in dataset.selected">
+                                                    <input type="hidden" name="roles[]" :value="item.id">
+                                                </template>
+                                                <button type="submit" class="btn btn--flat error--text"><span class="btn__content">{{ __('Delete All Selected Forever') }}</span></button>
+                                            </form>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                                {{-- /Bulk Delete --}}
+                            </div>
                         </template>
                     </v-slide-y-transition>
                     {{-- /Batch Commands --}}
@@ -109,19 +77,11 @@
                     </v-btn>
                     {{-- /Search --}}
 
-                    <a
-                        class="btn btn--icon btn--flat theme--dark dark--bg"
-                        dark
-                        href="{{ route('roles.trash') }}"
-                        v-tooltip:left="{'html': `View trashed items`}"
-                    >
-                        <span class="btn__content"><v-icon>archive</v-icon></span>
-                    </a>
                 </v-toolbar>
 
                 <v-data-table
                     :loading="dataset.loading"
-                    :total-items="dataset.totalItems"
+                    :total-items="dataset.pagination.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
                     select-all
@@ -154,13 +114,28 @@
                         </td>
                         <td>@{{ prop.item.created }}</td>
                         <td width="100%" class="text-xs-center">
-                            <a v-tooltip:bottom="{'html': 'Show'}" class="btn btn--flat btn--icon" :href="route(urls.roles.show, (prop.item.id))"><span class="btn__content"><v-icon>search</v-icon></span></a>
-                            <a v-tooltip:bottom="{'html': 'Edit'}" class="btn btn--flat btn--icon" :href="route(urls.roles.edit, (prop.item.id))"><span class="btn__content"><v-icon>edit</v-icon></span></a>
-                            <form :action="route(urls.roles.destroy, (prop.item.id))" method="POST" class="inline">
+                            <form :action="route(urls.roles.restore, (prop.item.id))" method="POST" class="inline">
                                 {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" v-tooltip:bottom="{'html': 'Move to Trash'}" class="btn btn--icon btn--flat"><span class="btn__content"><v-icon>delete</v-icon></span></button>
+                                <button type="submit" class="btn btn--flat btn--icon" v-tooltip:bottom="{'html': '{{ __('Restore resource') }}'}"><span class="btn__content"><v-icon>restore</v-icon></span></button>
                             </form>
+                            <v-dialog v-model="prop.item.dialog" lazy width="auto" min-width="200px">
+                                <v-btn flat icon slot="activator" v-tooltip:bottom="{'html': '{{ __('Move to Trash') }}'}"><v-icon>delete_forever</v-icon></v-btn>
+                                <v-card class="text-xs-center">
+                                    <v-card-title class="headline">{{ __('Permanently Delete') }} "@{{ prop.item.name }}"</v-card-title>
+                                    <v-card-text >
+                                        {{ __("You are about to permanently delete the resource. This action is irreversible. Do you want to proceed?") }}
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        {{-- <v-btn class="green--text darken-1" flat @click.native="prop.item.dialog=false">{{ __('Cancel') }}</v-btn> --}}
+                                        <form :action="route(urls.roles.delete, (prop.item.id))" method="POST" class="inline">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn btn--flat error--text"><span class="btn__content">{{ __('Delete Forever') }}</span></button>
+                                        </form>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
                         </td>
                     </template>
                 </v-data-table>
@@ -187,6 +162,9 @@
             data () {
                 return {
                     dataset: {
+                        dialog: {
+                            model: false,
+                        },
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
@@ -201,6 +179,7 @@
                         pagination: {
                             rowsPerPage: 5,
                             totalItems: 0,
+                            trashedOnly: true,
                         },
                         searchform: {
                             model: false,
@@ -226,9 +205,8 @@
                     },
                     urls: {
                         roles: {
-                            show: '{{ route('roles.show', 'null') }}',
-                            edit: '{{ route('roles.edit', 'null') }}',
-                            destroy: '{{ route('roles.destroy', 'null') }}',
+                            restore: '{{ route('roles.restore', 'null') }}',
+                            delete: '{{ route('roles.delete', 'null') }}',
                         },
                     },
                 };
@@ -251,6 +229,7 @@
                             q: filter,
                             sort: sortBy,
                             take: rowsPerPage,
+                            trashedOnly: true,
                         };
 
                         this.api().search('{{ route('api.roles.search') }}', query)
@@ -272,30 +251,10 @@
                             this.dataset.loading = false;
                         });
                 },
-
-                mountSuppliments () {
-                    let items = {!! json_encode($grants) !!};
-                    let g = [];
-                    for (var i in items) {
-                        g.push({ text: items[i], value: i});
-                    }
-                    this.suppliments.grants.items = g;
-
-                    let selected = {!! json_encode(old('grants')) !!};
-                    let s = [];
-                    if (selected) {
-                        for (var i = 0; i < selected.length; i++) {
-                            s.push(selected[i].toString());
-                        }
-                    }
-                    this.suppliments.grants.selected = s ? s : [];
-                },
             },
 
             mounted () {
                 this.get();
-                this.mountSuppliments();
-                console.log(this.dataset.pagination);
             },
         });
     </script>

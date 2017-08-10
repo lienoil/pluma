@@ -46,7 +46,7 @@ class GrantRefreshController extends AdminController
 
             foreach ($grants as $name => $permissions) {
                 $grant = Grant::updateOrCreate(['code' => $name]);
-                $grant->name = ucfirst(str_plural($name));
+                $grant->name = "Full " . ucfirst(str_plural($name));
                 $grant->code = $name;
                 $grant->description = "Collection of $name permissions.";
                 $grant->save();

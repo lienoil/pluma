@@ -14,7 +14,7 @@
 
         @if ($menu->has_children)
             <v-list-group v-model="navigation">
-                <v-list-tile slot="item" class="{{ $menu->active ? 'list--group__header--active' : '' }}">
+                <v-list-tile slot="item" class="{{ $menu->child->active || $menu->active ? 'list--group__header--active' : '' }}">
                     @if (isset($menu->icon))
                         <v-list-tile-action>
                             <v-icon :dark.sync="dark" :light.sync="light">{{ $menu->icon }}</v-icon>
@@ -36,7 +36,7 @@
                 </v-list-tile>
 
                 @foreach ($menu->children as $menu)
-                    <v-list-tile href="{{ $menu->slug }}" class="{{ $menu->active ? 'primary' : '' }}">
+                    <v-list-tile href="{{ $menu->slug }}" class="{{ $menu->child->active || $menu->active ? 'primary' : '' }}">
                         @if (isset($menu->icon))
                             <v-icon :dark.sync="dark" :light.sync="light">{{ $menu->icon }}</v-icon>
                         @endif

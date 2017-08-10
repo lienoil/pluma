@@ -73,11 +73,11 @@ class NavigationViewComposer extends BaseViewComposer
 
         $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent) use ($traverser) {
             $menu['active'] = isset($menu['slug']) ? (url($this->getCurrentUrl()) === $menu['slug']) : false;
-
             if ($menu['active']) {
                 $parent['active'] = $menu['active'];
             }
 
+            $menu['child']['active'] = false;
         });
 
         return $this;
