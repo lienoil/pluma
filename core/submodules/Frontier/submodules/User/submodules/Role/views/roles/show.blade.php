@@ -9,9 +9,43 @@
     <v-layout row wrap>
         <v-flex sm8 xs12 offset-sm2>
             <v-card class="grey--text elevation-1 mb-2">
-                <v-toolbar class="primary elevation-0">
-                    <v-toolbar-title class="white--text">{{ __($resource->name) }}</v-toolbar-title>
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text">{{ __($resource->name) }}</v-toolbar-title>
                     <v-spacer></v-spacer>
+                    <v-menu bottom right>
+                        <v-btn icon slot="activator">
+                            <v-icon>more_vert</v-icon>
+                        </v-btn>
+                        <v-list>
+                            <v-list-tile href="{{ route('roles.edit', $resource->id) }}">
+                                <v-list-tile-title>
+                                    <v-icon>edit</v-icon> {{ _('Edit') }}
+                                </v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile>
+                                <v-dialog v-model="resource.dialog.model" lazy min-width="300px">
+                                    <v-list-tile-title slot="activator">
+                                        <v-icon>delete</v-icon> {{ __('Delete') }}
+                                    </v-list-tile-title>
+                                    <v-card class="text-xs-center">
+                                        <v-card-text>
+                                            <v-icon class="display-2">delete</v-icon>
+                                            <br>
+                                            {{ __('Move this resource to trash?') }}
+                                        </v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <form action="{{ route('roles.destroy', $resource->id) }}" method="POST" class="inline">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <button class="btn btn--flat error error--text" type="submit"><span class="btn__content">Delete</span></button>
+                                            </form>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
                 </v-toolbar>
                 <v-card-text>
                     <v-layout row wrap>
@@ -77,16 +111,9 @@
                         </v-flex>
                     </v-layout>
                 </v-card-text>
-                <v-card-actions class="text-xs-center">
+                <v-card-actions>
                     <v-spacer></v-spacer>
-                    <a role="button" href="{{ route('roles.edit', $resource->id) }}" class="btn btn--raised primary"><span class="btn__content"><v-icon class="white--text">edit</v-icon> {{ _('Edit') }}</span></a>
-                    <form action="{{ route('roles.destroy', $resource->id) }}" method="POST" class="inline">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <button type="submit" v-tooltip:bottom="{'html': 'Move to Trash'}" class="btn btn--raised error"><span class="btn__content"><v-icon class="white--text">delete</v-icon> Delete</span></button>
-                    </form>
-                    <a role="button" href="{{ route('roles.index') }}" class="btn btn--raised"><span class="btn__content">{{ _('Back') }}</span></a>
-                    <v-spacer></v-spacer>
+                    <a role="button" href="{{ route('roles.index') }}" class="btn btn--flat"><span class="btn__content"><v-icon>keyboard_backspace</v-icon>{{ _('Back') }}</span></a>
                 </v-card-actions>
             </v-card>
         </v-flex>
@@ -102,7 +129,10 @@
                     resource: {
                         item: {!! json_encode($resource) !!},
                         model: false,
-                    }
+                        dialog: {
+                            model: false,
+                        },
+                    },
                 };
             },
             mounted () {

@@ -48,6 +48,14 @@ const app = new Vue({
             theme: {
                 avatar: 'transparent',
                 utilitybar: 'white',
+                colors: {
+                    items: [
+                        {text: 'Default', value: 'theme--transparent', preview: 'transparent'},
+                        {text: 'Dark', value: 'theme--dark', preview: 'black'},
+                        {text: 'Avenger', value: 'theme--avenger', preview: 'red'},
+                        {text: 'Eco', value: 'theme--eco success', preview: 'green'},
+                    ]
+                }
             },
         };
     },

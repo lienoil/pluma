@@ -14,8 +14,8 @@
 
         <v-flex sm8 xs12>
             <v-card class="mb-3">
-                <v-toolbar class="info elevation-0">
-                    <v-toolbar-title class="white--text">{{ __('Trashed Roles') }}</v-toolbar-title>
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text">{{ __('Trashed Roles') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
 
                     {{-- Batch Commands --}}
@@ -28,13 +28,13 @@
                                     <template v-for="item in dataset.selected">
                                         <input type="hidden" name="roles[]" :value="item.id">
                                     </template>
-                                    <button type="submit" v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon class="white--text">restore</v-icon></span></button>
+                                    <button type="submit" v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon success>restore</v-icon></span></button>
                                 </form>
                                 {{-- /Bulk Restore --}}
 
                                 {{-- Bulk Delete --}}
                                 <v-dialog v-model="dataset.dialog.model" lazy width="auto">
-                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon dark class="white--text">delete_forever</v-icon></v-btn>
+                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon error>delete_forever</v-icon></v-btn>
                                     <v-card class="text-xs-center">
                                         <v-card-title class="headline">{{ __('Permanent Delete') }}</v-card-title>
                                         <v-card-text >
@@ -69,10 +69,10 @@
                             hide-details
                             v-if="dataset.searchform.model"
                             v-model="dataset.searchform.query"
-                            dark
+                            light
                         ></v-text-field>
                     </v-slide-y-transition>
-                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat dark @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
+                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
                         <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
                     </v-btn>
                     {{-- /Search --}}
@@ -116,10 +116,10 @@
                         <td width="100%" class="text-xs-center">
                             <form :action="route(urls.roles.restore, (prop.item.id))" method="POST" class="inline">
                                 {{ csrf_field() }}
-                                <button type="submit" class="btn btn--flat btn--icon" v-tooltip:bottom="{'html': '{{ __('Restore resource') }}'}"><span class="btn__content"><v-icon>restore</v-icon></span></button>
+                                <button type="submit" class="btn btn--flat btn--icon" v-tooltip:bottom="{'html': '{{ __('Restore resource') }}'}"><span class="btn__content"><v-icon success>restore</v-icon></span></button>
                             </form>
-                            <v-dialog v-model="prop.item.dialog" lazy width="auto" min-width="200px">
-                                <v-btn flat icon slot="activator" v-tooltip:bottom="{'html': '{{ __('Move to Trash') }}'}"><v-icon>delete_forever</v-icon></v-btn>
+                            <v-dialog v-model="prop.item.dialog" lazy width="auto" min-width="200px" class="inline">
+                                <v-btn flat icon slot="activator" v-tooltip:bottom="{'html': '{{ __('Delete forever') }}'}"><v-icon error>delete_forever</v-icon></v-btn>
                                 <v-card class="text-xs-center">
                                     <v-card-title class="headline">{{ __('Permanently Delete') }} "@{{ prop.item.name }}"</v-card-title>
                                     <v-card-text >
@@ -229,7 +229,7 @@
                             q: filter,
                             sort: sortBy,
                             take: rowsPerPage,
-                            trashedOnly: true,
+                            trashedOnly: this.dataset.pagination.trashedOnly,
                         };
 
                         this.api().search('{{ route('api.roles.search') }}', query)

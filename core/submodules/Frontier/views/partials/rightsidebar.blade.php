@@ -34,7 +34,7 @@
                 class="text--lighten-1"
                 v-if="page.model"
             >
-                Page Settings
+                {{ __('Page Settings') }}
             </v-subheader>
             @stack("page-settings")
             {{-- /Page Specific settings --}}
@@ -73,6 +73,33 @@
                             <v-switch v-bind:label="`Extend Utilitybar`" v-on:change="setStorage('sidebar.floating', sidebar.floating)" v-model="sidebar.floating"></v-switch>
                             <v-switch v-bind:label="`Mini sidebar`" v-on:change="setStorage('sidebar.mini', sidebar.mini)" v-model="sidebar.mini"></v-switch>
                         </v-card-text>
+
+                        {{-- Color Scheme --}}
+                        {{-- <v-card-text>
+                            <div class="text-xs-left">
+                                <span>{{ __('Color') }}</span>
+                            </div>
+                        </v-card-text>
+                        <v-container fluid>
+                            <v-layout row wrap>
+                                <v-flex
+                                    xs4
+                                    v-for="thm in theme.colors.items"
+                                    :key="thm"
+                                >
+                                    <v-card flat tile>
+                                        <v-btn
+                                            @click.native="theme.avatar = thm.value"
+                                            role="button"
+                                            :style="`background-color: ${thm.preview};
+                                                width: 100%; height:40px;
+                                                border: 1px solid gray`"
+                                        ></v-btn>
+                                    </v-card>
+                                </v-flex>
+                            </v-layout>
+                        </v-container> --}}
+                        {{-- /Color Scheme --}}
                     </v-card>
                 </v-flex>
             </v-layout>

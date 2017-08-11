@@ -1,7 +1,8 @@
 node_modules/
-bower_components
-vendor
+bower_components/
+vendor/
 storage/compiled/sessions/
 storage/compiled/views/
 storage/framework/cache/
+.sass-cache/
 .env

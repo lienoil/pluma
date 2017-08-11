@@ -34,7 +34,8 @@
                 class="text--lighten-1"
                 v-if="page.model"
             >
-                Page Settings
+                <?php echo e(__('Page Settings')); ?>
+
             </v-subheader>
             <?php echo $__env->yieldPushContent("page-settings"); ?>
             
@@ -73,6 +74,10 @@
                             <v-switch v-bind:label="`Extend Utilitybar`" v-on:change="setStorage('sidebar.floating', sidebar.floating)" v-model="sidebar.floating"></v-switch>
                             <v-switch v-bind:label="`Mini sidebar`" v-on:change="setStorage('sidebar.mini', sidebar.mini)" v-model="sidebar.mini"></v-switch>
                         </v-card-text>
+
+                        
+                        
+                        
                     </v-card>
                 </v-flex>
             </v-layout>

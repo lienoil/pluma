@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
-@section("head-title", __('Edit Grant'))
-@section("page-title", __('Edit Grant'))
+@section("head-title", __('Edit Role'))
+@section("page-title", __('Edit Role'))
 
 @push("page-settings")
     <v-card>
@@ -20,8 +20,8 @@
     <v-layout row wrap>
         <v-flex sm8>
             <v-card class="grey--text elevation-1 mb-2">
-                <v-toolbar class="primary elevation-0">
-                    <v-toolbar-title class="white--text">{{ __('Edit Grant') }}</v-toolbar-title>
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text">{{ __('Edit Role') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-card-text>
@@ -33,13 +33,14 @@
                             label="Name"
                             name="name"
                             value="{{ $resource->name }}"
+                            @input="(val) => { resource.item.name = val; }"
                         ></v-text-field>
                         <v-text-field
                             :error-messages="resource.errors.code"
+                            hint="{{ __('Will be used as an ID for Roles. Make sure the code is unique.') }}"
                             label="Code"
                             name="code"
-                            value="{{ $resource->code }}"
-                            hint="{{ __('Will be used as an ID for Roles. Make sure the code is unique.') }}"
+                            :value="resource.item.name ? resource.item.name : '{{ $resource->code }}' | slugify"
                         ></v-text-field>
                         <v-text-field
                             :error-messages="resource.errors.description"
@@ -48,6 +49,7 @@
                             value="{{ $resource->description }}"
                         ></v-text-field>
                         <v-select
+                            :error-messages="resource.errors.grants"
                             auto
                             autocomplete
                             chips
@@ -57,7 +59,6 @@
                             multiple
                             v-bind:items="suppliments.grants.items"
                             v-model="suppliments.grants.selected"
-                            :error-messages="resource.errors.grants"
                         >
                             <template slot="selection" scope="data">
                                 <v-chip

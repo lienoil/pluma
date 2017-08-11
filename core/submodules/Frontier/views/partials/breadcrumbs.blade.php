@@ -5,7 +5,7 @@
         :key="breadcrumb.name"
         v-for="breadcrumb in breadcrumbs"
     >
-        <small>@{{ breadcrumb.label }}</small>
+        <small :class="!breadcrumb.active ? 'info--text' : 'grey--text'">@{{ breadcrumb.label }}</small>
     </v-breadcrumbs-item>
 </v-breadcrumbs>
 

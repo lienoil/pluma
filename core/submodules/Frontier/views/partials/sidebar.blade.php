@@ -1,6 +1,7 @@
 <v-navigation-drawer
     :dark.sync="dark"
     :floating="sidebar.floating"
+    light
     :light.sync="light"
     :mini-variant.sync="sidebar.mini"
     @click.native.stop="setStorage('sidebar.mini', sidebar.mini)"
@@ -17,13 +18,12 @@
                     @include("Frontier::partials.brand")
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ $application->site->title }}</v-list-tile-title>
+                    <v-list-tile-title><strong>{{ $application->site->title }}</strong></v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                     <v-btn
                         icon
-                        :dark.sync="dark"
-                        :light.sync="light"
+                        :dark.sync="dark" :light.sync="light"
                         @click.native.stop="setStorage('sidebar.mini', (sidebar.mini = !sidebar.mini))"
                     >
                         <v-icon>chevron_left</v-icon>
@@ -33,35 +33,36 @@
         </v-list>
     </v-toolbar>
 
-    <v-divider :dark.sync="dark" :light.sync="light"></v-divider>
+    {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
 
-    <v-toolbar flat class="transparent">
+    <v-toolbar flat class="pt-2 pb-2" :class="theme.avatar?theme.avatar:'transparent'">
         <v-list class="pa-0">
-            <v-list-tile tag="div" :class="theme.avatar" class="lighten-1">
+            <v-list-tile tag="div">
                 <v-list-tile-avatar>
                     <img src="{{ user()->avatar }}" alt="{{ user()->handlename }}">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ user()->displayname }}</v-list-tile-title>
-                    <small>{{ user()->displayrole }}</small>
+                    <strong><v-list-tile-title>{{ user()->displayname }}</v-list-tile-title></strong>
+                    <small v-if="`{{ user()->displayrole }}`"><v-icon :dark.sync="dark" :light.sync="light">supervisor_account</v-icon>{{ user()->displayrole }}</small>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
     </v-toolbar>
 
-    <v-divider :dark.sync="dark" :light.sync="light"></v-divider>
+    {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
 
     <v-toolbar flat class="transparent">
-        <v-list dense>
+        <v-list>{{-- <v-list dense> --}}
 
             <template v-for="(menu, i) in navigation.sidebar">
                 {{-- if is header --}}
                 <v-subheader
                     v-if="menu.is_header"
                     :dark.sync="dark" :light.sync="light"
-                    class="text--lighten-1"
+                    class="grey--text text--lighten-1 mt-4"
                 >
-                    @{{ menu.text }}
+                    <small>@{{ menu.text.toUpperCase() }}</small>
+                    &nbsp;<v-divider :dark.sync="dark" :light.sync="light"></v-divider>
                 </v-subheader>
 
                 {{-- elseif has children --}}
@@ -94,7 +95,7 @@
                     {{-- childmenu --}}
                     <v-list-tile
                         :key="i"
-                        :class="(child.child && child.child.active) || child.active ? 'primary' : ''"
+                        :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
                         :href="child.slug"
                         v-for="(child, i) in menu.children"
                         {{-- v-model="child.active" --}}
@@ -106,16 +107,16 @@
                             >@{{ child.icon }}</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
-                            <v-list-tile-title>
-                                @{{ child.labels.title }}
-                            </v-list-tile-title>
+                            @{{ child.labels.title }}
+                            {{-- <v-list-tile-title>
+                            </v-list-tile-title> --}}
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list-group>
 
                 {{-- else if no children --}}
                 <v-list-tile
-                    :class="menu.active ? 'primary' : ''"
+                    :class="menu.active ? 'active--primary' : ''"
                     :href="menu.slug"
                     :title="menu.labels.description"
                     v-else

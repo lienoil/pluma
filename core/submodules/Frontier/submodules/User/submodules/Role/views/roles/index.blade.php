@@ -8,10 +8,12 @@
     @include("Theme::partials.banner")
 
     <v-layout row wrap>
-        <v-flex sm3 xs12>
+        <v-flex sm5 md3 xs12>
 
             <v-card class="mb-3">
-                <v-card-title class="primary--text"><strong>{{ __("New Role") }}</strong></v-card-title>
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text">{{ __('New Roles') }}</v-toolbar-title>
+                </v-toolbar>
                 <v-card-text>
                     <form action="{{ route('roles.store') }}" method="POST">
                         {{ csrf_field() }}
@@ -23,19 +25,20 @@
                             @input="(val) => { resource.item.name = val; }"
                         ></v-text-field>
                         <v-text-field
-                            label="{{ _('Code') }}"
-                            :value="resource.item.name ? resource.item.name : '{{ old('code') }}' | slugify"
-                            name="code"
                             :error-messages="resource.errors.code"
+                            :value="resource.item.name ? resource.item.name : '{{ old('code') }}' | slugify"
                             hint="{{ __('Will be used as an ID for Roles. Make sure the code is unique.') }}"
+                            label="{{ _('Code') }}"
+                            name="code"
                         ></v-text-field>
                         <v-text-field
-                            label="{{ _('Short Description') }}"
-                            value="{{ old('description') }}"
-                            name="description"
                             :error-messages="resource.errors.description"
+                            label="{{ _('Short Description') }}"
+                            name="description"
+                            value="{{ old('description') }}"
                         ></v-text-field>
                         <v-select
+                            :error-messages="resource.errors.grants"
                             auto
                             autocomplete
                             chips
@@ -45,7 +48,6 @@
                             multiple
                             v-bind:items="suppliments.grants.items"
                             v-model="suppliments.grants.selected"
-                            :error-messages="resource.errors.grants"
                         >
                             <template slot="selection" scope="data">
                                 <v-chip
@@ -69,10 +71,10 @@
             </v-card>
 
         </v-flex>
-        <v-flex sm9 xs12>
+        <v-flex sm7 md9 xs12>
             <v-card class="mb-3">
-                <v-toolbar class="info elevation-0">
-                    <v-toolbar-title class="white--text">{{ __('Roles') }}</v-toolbar-title>
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text">{{ __('Roles') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
 
                     {{-- Batch Commands --}}
@@ -85,7 +87,7 @@
                                 <template v-for="item in dataset.selected">
                                     <input type="hidden" name="roles[]" :value="item.id">
                                 </template>
-                                <button type="submit" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon dark class="white--text">delete_sweep</v-icon></span></button>
+                                <button type="submit" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon warning>delete_sweep</v-icon></span></button>
                             </form>
                             {{-- /Bulk Delete --}}
                         </template>
@@ -101,17 +103,17 @@
                             hide-details
                             v-if="dataset.searchform.model"
                             v-model="dataset.searchform.query"
-                            dark
+                            light
                         ></v-text-field>
                     </v-slide-y-transition>
-                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat dark @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
+                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
                         <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
                     </v-btn>
                     {{-- /Search --}}
 
                     <a
-                        class="btn btn--icon btn--flat theme--dark dark--bg"
-                        dark
+                        class="btn btn--icon btn--flat theme--light light--bg"
+                        light
                         href="{{ route('roles.trash') }}"
                         v-tooltip:left="{'html': `View trashed items`}"
                     >
@@ -154,8 +156,8 @@
                         </td>
                         <td>@{{ prop.item.created }}</td>
                         <td width="100%" class="text-xs-center">
-                            <a v-tooltip:bottom="{'html': 'Show'}" class="btn btn--flat btn--icon" :href="route(urls.roles.show, (prop.item.id))"><span class="btn__content"><v-icon>search</v-icon></span></a>
-                            <a v-tooltip:bottom="{'html': 'Edit'}" class="btn btn--flat btn--icon" :href="route(urls.roles.edit, (prop.item.id))"><span class="btn__content"><v-icon>edit</v-icon></span></a>
+                            <a v-tooltip:bottom="{'html': 'Show'}" class="btn btn--flat btn--icon" :href="route(urls.roles.show, (prop.item.id))"><span class="btn__content"><v-icon info>search</v-icon></span></a>
+                            <a v-tooltip:bottom="{'html': 'Edit'}" class="btn btn--flat btn--icon" :href="route(urls.roles.edit, (prop.item.id))"><span class="btn__content"><v-icon class="text--lighten-2">edit</v-icon></span></a>
                             <form :action="route(urls.roles.destroy, (prop.item.id))" method="POST" class="inline">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
@@ -295,7 +297,7 @@
             mounted () {
                 this.get();
                 this.mountSuppliments();
-                console.log(this.dataset.pagination);
+                console.log("dataset.pagination", this.dataset.pagination);
             },
         });
     </script>
