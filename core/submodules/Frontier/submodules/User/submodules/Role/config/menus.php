@@ -4,6 +4,15 @@ return [
     'all-roles' => [
         'name' => 'all-roles',
         'slug' => url(config('path.admin').'/users/roles'),
+        'routes' => [
+            'name' => 'roles.index',
+            'children' => [
+                'roles.create',
+                'roles.edit',
+                'roles.show',
+                'roles.trash',
+            ]
+        ],
         'parent' => 'user',
         'order' => 10,
         // 'is_parent' => true,
@@ -19,7 +28,15 @@ return [
         'slug' => url(config('path.admin').'/users/grants'),
         'parent' => 'user',
         'order' => 20,
-        // 'is_parent' => false,
+        'routes' => [
+            'name' => 'grants.index',
+            'children' => [
+                'grants.create',
+                'grants.edit',
+                'grants.show',
+                'grants.trash',
+            ]
+        ],
         'always_viewable' => false,
         'icon' => 'lock_open',
         'labels' => [
@@ -32,6 +49,17 @@ return [
         'slug' => url(config('path.admin').'/users/permissions'),
         'parent' => 'user',
         'order' => 30,
+        'routes' => [
+            'name' => 'permissions.index',
+            'children' => [
+                'permissions.create',
+                'permissions.edit',
+                'permissions.show',
+                'permissions.trash',
+                'permissions.refresh',
+                'permissions.reset',
+            ]
+        ],
         'always_viewable' => false,
         'icon' => 'lock_outline',
         'labels' => [

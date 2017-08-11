@@ -303,6 +303,19 @@ if (! function_exists('generate_random_key')) {
     }
 }
 
+if (! function_exists('theme')) {
+    /**
+     * Gets theme files from specified path
+     *
+     * @param  string $file
+     * @return Illuminate\Http\Response
+     */
+    function theme($file)
+    {
+        return url("theme/$file");
+    }
+}
+
 if (! function_exists('assets')) {
     /**
      * Gets assets files from specified path

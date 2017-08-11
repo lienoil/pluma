@@ -10,5 +10,5 @@ Route::get('grants/all', 'Role\API\Controllers\GrantController@getAll')->name('g
 Route::get('grants/search', 'Role\API\Controllers\GrantController@search')->name('grants.search');
 Route::post('grants/permissions', 'Role\API\Controllers\GrantController@permissions')->name('grants.permissions');
 
-Route::get('permissions/all', 'Role\API\Controllers\PermissionController@getAll')->name('permissions.all');
+Route::get('permissions/all', 'Role\API\Controllers\PermissionController@all')->name('permissions.all');
 Route::get('permissions/search', 'Role\API\Controllers\PermissionController@search')->name('permissions.search');

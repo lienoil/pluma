@@ -3,6 +3,7 @@
 namespace Pluma\Support\Composers;
 
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 /**
@@ -22,6 +23,13 @@ class BaseViewComposer
     protected $currentUrl;
 
     /**
+     * The current route instance.
+     *
+     * @var string
+     */
+    protected $currentRouteName;
+
+    /**
      * The view's variable.
      *
      * @var string
@@ -37,6 +45,7 @@ class BaseViewComposer
     public function compose(View $view)
     {
         $this->setCurrentUrl(Request::path());
+        $this->setCurrentRouteName(Route::currentRouteName());
     }
 
     /**
@@ -57,6 +66,26 @@ class BaseViewComposer
     public function getCurrentUrl()
     {
         return $this->currentUrl;
+    }
+
+    /**
+     * Sets the current route.
+     *
+     * @param string $currentRouteName
+     */
+    protected function setCurrentRouteName($currentRouteName)
+    {
+        $this->currentRouteName = $currentRouteName;
+    }
+
+    /**
+     * Gets the current route value.
+     *
+     * @return string
+     */
+    public function getCurrentRouteName()
+    {
+        return $this->currentRouteName;
     }
 
     /**

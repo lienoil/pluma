@@ -16,14 +16,19 @@ class PermissionController extends APIController
      */
     public function search(Request $request)
     {
-        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
-        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
-        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $permissions = Permission::search($search)->orderBy($sort, $order)->paginate($take);
+        $resources = Permission::search($search)->orderBy($sort, $order);
+        if ($onlyTrashed) {
+            $resources->onlyTrashed();
+        }
+        $resources = $resources->paginate($take);
 
-        return response()->json($permissions);
+        return response()->json($resources);
     }
 
     /**
@@ -32,15 +37,20 @@ class PermissionController extends APIController
      * @param  Illuminate\Http\Request $request [description]
      * @return Illuminate\Http\Response
      */
-    public function getAll(Request $request)
+    public function all(Request $request)
     {
-        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
-        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
-        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $permissions = Permission::search($search)->orderBy($sort, $order)->paginate($take);
+        $resources = Permission::search($search)->orderBy($sort, $order);
+        if ($onlyTrashed) {
+            $resources->onlyTrashed();
+        }
+        $resources = $resources->paginate($take);
 
-        return response()->json($permissions);
+        return response()->json($resources);
     }
 }

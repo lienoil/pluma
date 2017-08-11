@@ -121,7 +121,7 @@
 
                 <v-data-table
                     :loading="dataset.loading"
-                    :total-items="dataset.totalItems"
+                    :total-items="dataset.pagination.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
                     select-all
@@ -256,7 +256,7 @@
                         this.api().search('{{ route('api.roles.search') }}', query)
                             .then((data) => {
                                 this.dataset.items = data.items.data ? data.items.data : data.items;
-                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
                                 this.dataset.loading = false;
                             });
                     }, 1000);
@@ -268,7 +268,7 @@
                     this.api().get('{{ route('api.roles.all') }}', this.dataset.pagination)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
-                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
                 },

@@ -94,7 +94,7 @@
                     {{-- childmenu --}}
                     <v-list-tile
                         :key="i"
-                        :class="child.child.active || child.active ? 'primary' : ''"
+                        :class="(child.child && child.child.active) || child.active ? 'primary' : ''"
                         :href="child.slug"
                         v-for="(child, i) in menu.children"
                         {{-- v-model="child.active" --}}

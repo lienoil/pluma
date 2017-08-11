@@ -77,7 +77,11 @@ class NavigationViewComposer extends BaseViewComposer
                 $parent['active'] = $menu['active'];
             }
 
-            $menu['child']['active'] = false;
+            $childRoutes = isset($menu['routes']['children']) ? $menu['routes']['children'] : [];
+            $currentRouteName = $this->getCurrentRouteName();
+            if ($menu['child']['active'] = in_array($currentRouteName, $childRoutes)) {
+                $parent['active'] = $menu['child']['active'];
+            }
         });
 
         return $this;

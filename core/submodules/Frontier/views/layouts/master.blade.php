@@ -1,4 +1,4 @@
-@include("Frontier::partials.header")
+@include("Theme::partials.header")
 
 <div id="application-root" class="application-root" data-application-root>
     <v-app standalone>
@@ -8,7 +8,7 @@
         <main data-main>
 
             @section("pre-container")
-                @include("Frontier::partials.breadcrumbs")
+                @include("Theme::partials.breadcrumbs")
             @show
 
             <v-container fluid :style="`font-size: ${settings.fontsize.model}px`">
@@ -20,7 +20,7 @@
         </main>
 
         @section("post-container")
-            @include("Frontier::partials.endnote")
+            @include("Theme::partials.endnote")
         @show
 
         @yield("post-content")
@@ -62,4 +62,4 @@
     @stack("post-scripts")
 @show
 
-@include("Frontier::partials.footer")
+@include("Theme::partials.footer")

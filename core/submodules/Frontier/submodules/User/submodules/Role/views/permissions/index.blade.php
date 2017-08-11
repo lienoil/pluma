@@ -13,45 +13,39 @@
     <v-layout row wrap>
         <v-flex sm8 xs12>
             <v-card class="mb-3">
-                <v-toolbar class="primary elevation-0">
+                <v-toolbar class="info elevation-0">
                     <v-toolbar-title class="white--text">{{ __('Permissions') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
+
+                    {{-- Search --}}
+                    <v-slide-y-transition>
+                        <v-text-field
+                            append-icon="search"
+                            label="{{ _('Search') }}"
+                            single-line
+                            hide-details
+                            v-if="dataset.searchform.model"
+                            v-model="dataset.searchform.query"
+                            dark
+                        ></v-text-field>
+                    </v-slide-y-transition>
+                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat dark @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
+                        <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
+                    </v-btn>
+                    {{-- /Search --}}
+
                 </v-toolbar>
-                <v-card-title>
-                    <v-spacer></v-spacer>
-                    <v-text-field
-                        append-icon="search"
-                        label="Search"
-                        single-line
-                        hide-details
-                        v-model="search"
-                    ></v-text-field>
-                    <v-slide-x-transition>
-                        <v-btn
-                            @click.native="search = ''"
-                            icon
-                            light
-                            v-show="search"
-                            v-tooltip:bottom="{'html': 'Clear Search'}"
-                        >
-                            <v-icon>clear</v-icon>
-                        </v-btn>
-                    </v-slide-x-transition>
-                    @can('delete-permissions')
-                    <v-btn icon light v-tooltip:bottom="{'html': 'Bulk Delete'}"><v-icon>delete</v-icon></v-btn>
-                    @endcan
-                </v-card-title>
+
                 <v-data-table
-                    :loading="loading"
-                    :total-items="totalItems"
+                    :loading="dataset.loading"
+                    :total-items="dataset.pagination.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
-                    {{-- select-all --}}
                     selected-key="id"
-                    v-bind:headers="headers"
-                    v-bind:items="dataset"
-                    v-bind:pagination.sync="pagination"
-                    v-model="selected"
+                    v-bind:headers="dataset.headers"
+                    v-bind:items="dataset.items"
+                    v-bind:pagination.sync="dataset.pagination"
+                    v-model="dataset.selected"
                 >
                     <template slot="headerCell" scope="props">
                         <span v-tooltip:bottom="{'html': props.header.text}">
@@ -59,13 +53,6 @@
                         </span>
                     </template>
                     <template slot="items" scope="prop">
-                        {{-- <td>
-                            <v-checkbox
-                                primary
-                                hide-details
-                                v-model="prop.selected"
-                            ></v-checkbox>
-                        </td> --}}
                         <td>@{{ prop.item.id }}</td>
                         <td><strong v-tooltip:bottom="{'html': prop.item.description}">@{{ prop.item.name }}</strong></td>
                         <td>@{{ prop.item.code }}</td>
@@ -132,21 +119,27 @@
         mixins.push({
             data () {
                 return {
-                    loading: true,
-                    totalItems: 0,
-                    search: null,
-                    selected: [],
-                    pagination: {
-                        rowsPerPage: 5,
+                    dataset: {
+                        headers: [
+                            { text: '{{ __("ID") }}', align: 'left', value: 'id' },
+                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
+                            { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
+                        ],
+                        items: [],
+                        loading: true,
+                        pagination: {
+                            rowsPerPage: 5,
+                            totalItems: 0,
+                        },
+                        searchform: {
+                            model: false,
+                            query: '',
+                        },
+                        selected: [],
+                        totalItems: 0,
                     },
-                    headers: [
-                        { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                        { text: '{{ __("Name") }}', align: 'left', value: 'name' },
-                        { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                        { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
-                        { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
-                    ],
-                    dataset: [],
                     permissions: {
                         dialog: {
                             model: false,
@@ -155,103 +148,50 @@
                 };
             },
             watch: {
-                search (filter) {
-                    setTimeout(() => {
-                        let self = this;
-                        this.searchFromAPI('{{ route('api.permissions.search') }}', filter)
-                            .then((data) => {
-                                console.log("watch.search", data);
-                                self.dataset = data.items;
-                                self.totalItems = data.total;
-                            });
-                    }, 1000);
-                },
-
-                pagination: {
+                'dataset.pagination': {
                     handler () {
-                        this.getDataFromAPI('{{ route('api.permissions.all') }}')
-                            .then((data) => {
-                                console.log("watch.pagination", data);
-                                self.dataset = data.items;
-                                self.totalItems = data.total;
-                            });
+                        this.get();
                     },
                     deep: true
                 },
+
+                'dataset.searchform.query': function (filter) {
+                    setTimeout(() => {
+                        const { sortBy, descending, page, rowsPerPage, totalItems } = this.dataset.pagination;
+
+                        let query = {
+                            descending: descending,
+                            page: page,
+                            q: filter,
+                            sort: sortBy,
+                            take: rowsPerPage,
+                        };
+
+                        this.api().search('{{ route('api.permissions.search') }}', query)
+                            .then((data) => {
+                                this.dataset.items = data.items.data ? data.items.data : data.items;
+                                this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.loading = false;
+                            });
+                    }, 1000);
+                },
             },
             methods: {
-                searchFromAPI (url, query) {
-                    return new Promise((resolve, reject) => {
-                        const {
-                            sortBy,
-                            descending,
-                            page,
-                            rowsPerPage,
-                            totalItems
-                        } = this.pagination;
-
-                        url = url+'?take='+(rowsPerPage)+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending)+'&q='+(query);
-                        this.setDataset(url);
-
-                        let items = this.getDataset();
-                        const total = this.totalItems;
-
-                        resolve({items, total});
-                    });
-                },
-
-                getDataFromAPI (url) {
-                    return new Promise((resolve, reject) => {
-                        const {
-                            sortBy,
-                            descending,
-                            page,
-                            rowsPerPage,
-                            totalItems
-                        } = this.pagination;
-
-                        let query = this.search;
-                        url = url+'?take='+rowsPerPage+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending)+'&q='+(query);
-                        this.setDataset(url);
-
-                        let items = this.getDataset();
-                        const total = this.totalItems;
-
-                        resolve({items, total});
-                    });
-                },
-
-                getDataset () {
-                    return this.dataset;
-                },
-
-                setDataset (url) {
-                    let self = this;
-                    this.loading = true;
-
-                    this.$http.get(url)
-                        .then((response) => {
-                            // console.log("setDataset", response);
-                            self.dataset = response.body.data;
-                            self.totalItems = response.body.total;
-
-                            setTimeout(() => {
-                                this.loading = false;
-                            }, 1000);
-                        });
-                },
-
                 proceed () {
                     document.getElementById("reset-permissions-form").submit();
-                }
+                },
+
+                get () {
+                    this.api().get('{{ route('api.permissions.all') }}', this.dataset.pagination)
+                        .then((data) => {
+                            this.dataset.items = data.items.data ? data.items.data : data.items;
+                            this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.loading = false;
+                        });
+                },
             },
             mounted () {
-                let self = this;
-                this.getDataFromAPI('{{ route('api.permissions.all') }}')
-                    .then((data) => {
-                        self.dataset = data.items;
-                        self.totalItems = data.total;
-                    });
+                this.get();
             }
         });
     </script>
