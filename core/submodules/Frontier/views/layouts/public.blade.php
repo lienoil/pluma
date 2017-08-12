@@ -1,4 +1,4 @@
-@include("Frontier::partials.header")
+@include("Theme::partials.header")
 
 @section("css", "")
 
@@ -6,4 +6,4 @@
 @yield("content")
 @yield("post-content")
 
-@include("Frontier::partials.footer")
+@include("Theme::partials.footer")

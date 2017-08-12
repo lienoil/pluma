@@ -1,6 +1,7 @@
 <?php
 // Reinitialize another instance of app.
 try {
+    include_once __DIR__.'/../core/helpers/helpers.php';
     (new Dotenv\Dotenv(__DIR__.'/../'))->load();
 } catch (Exception $e) {
 

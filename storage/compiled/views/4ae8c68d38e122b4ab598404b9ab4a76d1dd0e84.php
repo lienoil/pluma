@@ -30,35 +30,11 @@
 
 <?php $__env->startSection("scripts"); ?>
     <script>
-        let mixins = [{
-            data: {
-                page: {
-                    model: false,
-                },
-            },
-        }];
+        let mixins = [{ data: { page: { model: false, }, }, }];
     </script>
     <?php echo $__env->yieldPushContent("pre-scripts"); ?>
-    <script src='<?php echo e(present("frontier/app/filters.js")); ?>'></script>
-    <script src='<?php echo e(present("frontier/app/dist/app.js")); ?>'></script>
-    <script>
-        // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name=_token]').getAttribute('value');
-        // const app = new Vue({
-        //     el: '#application-root',
-        //     mixins : mixins,
-        //     data: {
-        //         dark: true, light: false,
-        //         mini: false, drawer: true,
-        //         menu: {
-        //             open: false,
-        //         },
-        //         theme: {
-        //             avatar: 'red',
-        //             utilitybar: 'white',
-        //         },
-        //     },
-        // });
-    </script>
+    <script src='<?php echo e(assets("frontier/app/filters.js")); ?>'></script>
+    <script src='<?php echo e(assets("frontier/app/dist/app.js")); ?>'></script>
     <?php echo $__env->yieldPushContent("post-scripts"); ?>
 <?php echo $__env->yieldSection(); ?>
 

@@ -1,7 +1,7 @@
-@include("Frontier::partials.header")
+@include("Theme::partials.header")
 
 @yield("pre-content")
 @yield("content")
 @yield("post-content")
 
-@include("Frontier::partials.footer")
+@include("Theme::partials.footer")

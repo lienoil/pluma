@@ -10,4 +10,6 @@ use Pluma\Support\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use SoftDeletes, UserMutator;
+
+    protected $fillable = ['email', 'username', 'password'];
 }

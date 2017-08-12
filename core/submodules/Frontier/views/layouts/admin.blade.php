@@ -1,8 +1,8 @@
-@extends("Frontier::layouts.master")
+@extends("Theme::layouts.master")
 
 @section("pre-content")
-    @include("Frontier::partials.sidebar")
-    @include("Frontier::partials.utilitybar")
+    @include("Theme::partials.sidebar")
+    @include("Theme::partials.utilitybar")
 @endsection
 
 @section("root")
@@ -10,8 +10,8 @@
 @endsection
 
 @section("post-content")
-    @include("Frontier::partials.rightsidebar")
-    @include("Frontier::partials.dialog")
+    @include("Theme::partials.rightsidebar")
+    @include("Theme::partials.dialog")
 @endsection
 
 @section("endnote")

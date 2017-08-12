@@ -8,7 +8,7 @@
     @include("Theme::partials.banner")
 
     <v-layout row wrap>
-        <v-flex sm5 md3 xs12>
+        <v-flex sm5 md4 xs12>
 
             <v-card class="mb-3">
                 <v-toolbar class="transparent elevation-0">
@@ -71,7 +71,7 @@
             </v-card>
 
         </v-flex>
-        <v-flex sm7 md9 xs12>
+        <v-flex sm7 md8 xs12>
             <v-card class="mb-3">
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __('Roles') }}</v-toolbar-title>
@@ -181,7 +181,7 @@
 @endpush
 
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendor/vue/dist/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/vendor/vue/resource/vue-resource.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
 

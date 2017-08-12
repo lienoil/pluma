@@ -44,7 +44,7 @@
         <?php if(env('APP_ENV', 'production') == 'development'): ?>
             <script src="<?php echo e(assets('frontier/vendor/vue/dist/vue.js')); ?>?v=<?php echo e($application->version); ?>"></script>
         <?php else: ?>
-            <script src="<?php echo e(assets('frontier/vendor/vue/dist/vue.js')); ?>?v=<?php echo e($application->version); ?>"></script>
+            <script src="<?php echo e(assets('frontier/vendor/vue/dist/vue.min.js')); ?>?v=<?php echo e($application->version); ?>"></script>
         <?php endif; ?>
         <script src="<?php echo e(assets('frontier/vendor/vuetify/dist/vuetify.min.js')); ?>?v=<?php echo e($application->version); ?>"></script>
         

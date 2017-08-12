@@ -1,6 +1,6 @@
 <?php $__env->startSection("pre-content"); ?>
-    <?php echo $__env->make("Frontier::partials.sidebar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-    <?php echo $__env->make("Frontier::partials.utilitybar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make("Theme::partials.sidebar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make("Theme::partials.utilitybar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("root"); ?>
@@ -8,8 +8,8 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("post-content"); ?>
-    <?php echo $__env->make("Frontier::partials.rightsidebar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-    <?php echo $__env->make("Frontier::partials.dialog", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make("Theme::partials.rightsidebar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make("Theme::partials.dialog", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("endnote"); ?>
@@ -25,4 +25,4 @@
     </v-container>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make("Frontier::layouts.master", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make("Theme::layouts.master", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

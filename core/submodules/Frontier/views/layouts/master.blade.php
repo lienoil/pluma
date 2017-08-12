@@ -30,35 +30,11 @@
 
 @section("scripts")
     <script>
-        let mixins = [{
-            data: {
-                page: {
-                    model: false,
-                },
-            },
-        }];
+        let mixins = [{ data: { page: { model: false, }, }, }];
     </script>
     @stack("pre-scripts")
-    <script src='{{ present("frontier/app/filters.js") }}'></script>
-    <script src='{{ present("frontier/app/dist/app.js") }}'></script>
-    <script>
-        // Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name=_token]').getAttribute('value');
-        // const app = new Vue({
-        //     el: '#application-root',
-        //     mixins : mixins,
-        //     data: {
-        //         dark: true, light: false,
-        //         mini: false, drawer: true,
-        //         menu: {
-        //             open: false,
-        //         },
-        //         theme: {
-        //             avatar: 'red',
-        //             utilitybar: 'white',
-        //         },
-        //     },
-        // });
-    </script>
+    <script src='{{ assets("frontier/app/filters.js") }}'></script>
+    <script src='{{ assets("frontier/app/dist/app.js") }}'></script>
     @stack("post-scripts")
 @show
 

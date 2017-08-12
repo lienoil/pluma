@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
+class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -311,12 +311,16 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     );
 
     public static $classMap = array (
+        'App\\Mail\\EmailVerification' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Mail/EmailVerification.php',
         'Calendar\\Controllers\\CalendarController' => __DIR__ . '/../..' . '/core/submodules/Calendar/Controllers/CalendarController.php',
         'Calendar\\Models\\Calendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Models/Calendar.php',
+        'CreateActivationsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170743035959_create_activations_table.php',
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/20170624132509_create_calendars_table.php',
+        'CreateFailedJobsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170812142355_create_failed_jobs_table.php',
         'CreateGrantPermissionTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035862_create_grant_permission_table.php',
         'CreateGrantRoleTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035864_create_grant_role_table.php',
         'CreateGrantsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035861_create_grants_table.php',
+        'CreateJobsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170812142353_create_jobs_table.php',
         'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170622035860_create_password_resets_table.php',
         'CreatePermissionsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035860_create_permissions_table.php',
@@ -446,17 +450,22 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'User\\API\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/LoginController.php',
         'User\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/LoginController.php',
         'User\\Controllers\\RegisterController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/RegisterController.php',
+        'User\\Jobs\\ActivateUser' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Jobs/ActivateUser.php',
+        'User\\Jobs\\SendVerificationEmail' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Jobs/SendVerificationEmail.php',
+        'User\\Models\\Activation' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Models/Activation.php',
         'User\\Models\\User' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Models/User.php',
         'User\\Providers\\UserServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Providers/UserServiceProvider.php',
+        'User\\Support\\Traits\\BelongsToUser' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/BelongsToUser.php',
+        'User\\Support\\Traits\\HasOneActivation' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/HasOneActivation.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$classMap;
 
         }, null, ClassLoader::class);
     }

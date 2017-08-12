@@ -72,7 +72,7 @@
                     no-action
                 >
                     
-                    <v-list-tile slot="item" :title="menu.labels.description">
+                    <v-list-tile slot="item" v-tooltip:top="{'html': menu.labels.description ? menu.labels.description : ''}">
                         <v-list-tile-action v-if="menu.icon">
                             <v-icon
                                 :dark.sync="dark"
@@ -98,6 +98,7 @@
                         :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
                         :href="child.slug"
                         v-for="(child, i) in menu.children"
+                        :title="child.labels.description"
                         
                     >
                         <v-list-tile-action>
@@ -106,9 +107,10 @@
                                 :light.sync="light"
                             >{{ child.icon }}</v-icon>
                         </v-list-tile-action>
-                        <v-list-tile-content>
-                            {{ child.labels.title }}
-                            
+                        <v-list-tile-content >
+                            <v-list-tile-title>
+                                {{ child.labels.title }}
+                            </v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list-group>
@@ -117,7 +119,7 @@
                 <v-list-tile
                     :class="menu.active ? 'active--primary' : ''"
                     :href="menu.slug"
-                    :title="menu.labels.description"
+                    v-tooltip:top="{'html': menu.labels.description ? menu.labels.description : ''}"
                     v-else
                     v-model="menu.active"
                 >

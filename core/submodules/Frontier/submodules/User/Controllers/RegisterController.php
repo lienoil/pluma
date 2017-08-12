@@ -2,9 +2,15 @@
 
 namespace User\Controllers;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Pluma\Controllers\Controller as Controller;
 use Pluma\Support\Auth\Traits\RegistersUsers;
+use User\Jobs\ActivateUser;
+use User\Jobs\SendVerificationEmail;
+use User\Models\Activation;
 use User\Models\User;
 
 class RegisterController extends Controller
@@ -30,6 +36,13 @@ class RegisterController extends Controller
     protected $redirectTo = '/admin/login';
 
     /**
+     * The session key for when user successfully registered.
+     *
+     * @var string
+     */
+    protected $sessionKey = 'user';
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -48,26 +61,32 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'terms_and_conditions' => 'required',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  Object  $data
+     * @param  Array  $data
      * @return User
      */
-    protected function create(Object $data)
+    protected function create(Array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'user' => $data['email'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $user = new User();
+        $user->username = $data['email'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
+
+        $activation = new Activation();
+        $activation->token = base64_encode($data['email']);
+        $activation->user()->associate($user);
+        $activation->save();
+
+        return $user;
     }
 
     /**
@@ -77,6 +96,75 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('User::auth.register');
+        return view('Theme::auth.register');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // dispatch(new SendVerificationEmail($user));
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
+    /**
+     * Show the registered page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    public function showRegisteredPage(Request $request)
+    {
+        $session = Session::get($this->sessionKey);
+        if (isset($session->id)) {
+            $user = User::find($session->id);
+            if ($user->exists()) {
+                return view("Theme::auth.registered");
+            }
+        }
+
+        return abort(404);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        $request->session()->put($this->sessionKey, $user);
+
+        return redirect()->route("register.registered");
+    }
+
+
+    /**
+     * Verify the user.
+     *
+     * @param  mixed $token
+     * @param  int   $id
+     * @return boolean
+     */
+    protected function verify($token, $id)
+    {
+        $user = User::find($id);
+
+        if ($user && $user->exists() && ($user->activation->token === $token)) {
+
+        }
     }
 }

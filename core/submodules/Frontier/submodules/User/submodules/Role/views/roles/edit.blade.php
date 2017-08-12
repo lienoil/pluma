@@ -84,7 +84,7 @@
 @endsection
 
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendor/vue/dist/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/vendor/vue/resource/vue-resource.min.js') }}"></script>
     <script>
         mixins.push({
             data () {

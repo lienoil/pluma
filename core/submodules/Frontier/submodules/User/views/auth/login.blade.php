@@ -1,65 +1,59 @@
-@extends("Frontier::layouts.auth")
+@extends("Theme::layouts.auth")
 
 @section("content")
-    <v-card class="grey lighten-5" flat>
-        <v-toolbar dark class="primary elevation-0" extended></v-toolbar>
+    <v-card flat class="transparent ma-0">
+        <div class="primary" style="height: 3px;"></div>
+        <v-toolbar class="accent elevation-0" extended></v-toolbar>
         <v-layout>
-            <v-flex sm4 md5 offset-sm2>
+            <v-flex xs10 sm6 md4 offset-sm3 offset-md4 offset-xs1>
 
-                @include("Frontier::partials.alert")
+                @include("Theme::partials.banner")
 
-                <form method="POST" action="{{ route('login.login') }}">
-                    <v-card class="card--flex-toolbar card--flex-toolbar--stylized" transition="slide-x-transition">
-                        <v-toolbar card class="white" prominent>
-                            <v-toolbar-title>{{ __($application->head->title) }} <span class="grey--text">{{ __($application->site->title) }}</span></v-toolbar-title>
-                            <v-spacer></v-spacer>
-                        </v-toolbar>
-                        <v-divider></v-divider>
-                        <v-card-text>
-                            <v-layout row>
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <v-flex>
-                                    <v-text-field
-                                        :hint="'{{ $errors->has('username')?$errors->first('username'):'' }}'"
-                                        class="input-group"
-                                        label="Email or username"
-                                        name="username"
-                                        persistent-hint
-                                        value="{{ old('username') }}"
-                                        type="text"
-                                    ></v-text-field>
-                                    <v-text-field
-                                        :append-icon-cb="() => (visible = !visible)"
-                                        :append-icon="visible ? 'visibility' : 'visibility_off'"
-                                        :hint="'{{ $errors->has('password')?$errors->first('password'):'' }}'"
-                                        :type="visible ? 'text': 'password'"
-                                        class="input-group"
-                                        label="Password"
-                                        min="6"
-                                        name="password"
-                                        value="{{ old('password') }}"
-                                        persistent-hint
-                                    ></v-text-field>
-                                    <v-checkbox
-                                        :checked="remember"
-                                        @click="() => {remember = !remember}"
-                                        label="Remember Me"
-                                        light
-                                        v-model="remember"
-                                    ></v-checkbox>
-                                </v-flex>
-                            </v-layout>
-                            <v-layout>
-                                <v-btn
-                                    primary
-                                    type="submit"
-                                >
-                                    <span>{{ __("Login") }}</span>
-                                </v-btn>
-                            </v-layout>
+                <v-card class="card--flex-toolbar card--flex-toolbar--stylized" transition="slide-x-transition">
+                    <v-toolbar card class="white text-xs-center" prominent>
+                        <v-spacer v-if="settings && settings.logo_is_centered"></v-spacer>
+                        <img class="brand-logo" width="40" avatar src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+                        <v-toolbar-title class="brand-type accent--text">{{ __($application->site->title) }}</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                    </v-toolbar>
+                    <v-divider></v-divider>
+                    <v-container fluid>
+                        <form method="POST" action="{{ route('login.login') }}">
+                            {{ csrf_field() }}
+                            <v-text-field
+                                :error-messages="resource.errors.username"
+                                class="input-group"
+                                label="Email or username"
+                                name="username"
+                                type="text"
+                                hide-details
+                                value="{{ old('username') }}"
+                            ></v-text-field>
+                            <v-text-field
+                                :append-icon-cb="() => (resource.visible = !resource.visible)"
+                                :append-icon="resource.visible ? 'visibility' : 'visibility_off'"
+                                :error-messages="resource.errors.password"
+                                :type="resource.visible ? 'text': 'password'"
+                                class="input-group"
+                                label="Password"
+                                min="6"
+                                name="password"
+                                hide-details
+                                value="{{ old('password') }}"
+                            ></v-text-field>
 
+                            <v-checkbox
+                                :checked="resource.remember"
+                                label="Remember Me"
+                                light
+                                hide-details
+                                v-model="resource.remember"
+                                @click="() => {resource.remember = !resource.remember}"
+                            ></v-checkbox>
+                            <input v-if="resource.remember" type="hidden" name="remember" value="true">
 
-                            <template inline-template>
+                            {{-- Template --}}
+                            {{-- <template inline-template>
                                 <div class="hr">
                                     <strong class="hr-text grey--text text--lighten-2">or</strong>
                                 </div>
@@ -78,21 +72,28 @@
                                         </v-btn>
                                     </v-flex>
                                 </v-layout>
-                            </template>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-text>
-                            <v-layout row>
-                                <v-flex>
-                                    <a href="{{ route('register.show') }}" class="mr-3">Create Account</a>
-                                    <a href="{{ route('register.show') }}" class="mr-3">Lost password?</a>
-                                </v-flex>
-                            </v-layout>
-                        </v-card-text>
-                    </v-card>
-                </form>
+                            </template> --}}
+                            {{-- /Template --}}
 
-                <div class="copy">
+                            <v-card-actions>
+                                <v-btn class="ma-0" primary type="submit">{{ __("Login") }}</v-btn>
+                                <v-spacer></v-spacer>
+                                <v-btn class="ma-0" role="button" secondary outline href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
+                            </v-card-actions>
+                        </form>
+                    </v-container>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions class="pa-3">
+                        <v-spacer></v-spacer>
+                        <a href="{{ route('register.show') }}">{{ __('Lost password?') }}</a>
+                    </v-card-actions>
+                </v-card>
+
+                @stack('post-login')
+
+                <div class="text-xs-center mt-1 mb-4">
                     <small class="grey--text">{{ __($application->site->copyright) }}</small>
                 </div>
 
@@ -104,18 +105,30 @@
 
 @push('post-css')
     <style>
+        .card--flex-toolbar--stylized {
+            margin-top: -65px;
+        }
+    </style>
+    {{-- <style>
         @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);.card--flex-toolbar--stylized{margin-top:-64px}.hr{text-align:center;position:relative}.hr:after,.hr:before{content:"";display:block;width:40%;height:1px;margin:2px 1rem;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);background-color:rgba(0,0,0,.15)}.hr:after{text-align:left;position:absolute;left:0}.hr:before{position:absolute;text-align:right;right:0}[class*=application-] .color--google:hover{background-color:#db3236;color:#fff}[class*=application-] .color--facebook:hover{background-color:#3a589e;color:#fff}
         /*# sourceMappingURL=login.css.map*/
-    </style>
+    </style> --}}
 @endpush
 
-@push('js')
+@push('pre-scripts')
     <script>
-        let app = new Vue({
-            el: 'v-app',
-            data: {
-                visible: false,
-                remember: true,
+        mixins.push({
+            data () {
+                return {
+                    settings: {},
+                    resource: {
+                        errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
+                        item: [],
+                        model: false,
+                        remember: true,
+                        visible: false,
+                    }
+                };
             },
         });
     </script>

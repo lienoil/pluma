@@ -49,7 +49,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth.guest', ['except' => 'logout']);
+        $this->middleware('auth.guest', ['except' => 'logout']);
 
         $this->logoutPath = config('admin.slug.logout', $this->logoutPath);
 
@@ -65,7 +65,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('User::auth.login');
+        return view('Theme::auth.login');
     }
 
     /**
