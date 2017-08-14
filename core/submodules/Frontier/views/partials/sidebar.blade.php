@@ -43,7 +43,7 @@
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                     <strong><v-list-tile-title>{{ user()->displayname }}</v-list-tile-title></strong>
-                    <small v-if="`{{ user()->displayrole }}`"><v-icon :dark.sync="dark" :light.sync="light">supervisor_account</v-icon>{{ user()->displayrole }}</small>
+                    <small><v-icon :dark.sync="dark" :light.sync="light">supervisor_account</v-icon>{{ user()->displayrole }}</small>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
@@ -72,7 +72,7 @@
                     no-action
                 >
                     {{-- headmenu --}}
-                    <v-list-tile slot="item" v-tooltip:top="{'html': menu.labels.description ? menu.labels.description : ''}">
+                    <v-list-tile slot="item" :title="menu.labels.description">
                         <v-list-tile-action v-if="menu.icon">
                             <v-icon
                                 :dark.sync="dark"
@@ -119,7 +119,7 @@
                 <v-list-tile
                     :class="menu.active ? 'active--primary' : ''"
                     :href="menu.slug"
-                    v-tooltip:top="{'html': menu.labels.description ? menu.labels.description : ''}"
+                    :title="menu.labels.description"
                     v-else
                     v-model="menu.active"
                 >

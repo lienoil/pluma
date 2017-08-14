@@ -6,14 +6,39 @@ use Closure;
 
 trait UserMutator
 {
+    /**
+     * Array of roles.
+     *
+     * @var array
+     */
+    protected $rolesnames;
+
+    /**
+     * Get the mutated handlename.
+     *
+     * @return string
+     */
     public function getHandlenameAttribute()
     {
         return isset($this->username) ? $this->username : studly_case("$this->firstname $this->lastname");
     }
 
-    public function getRolenameAttribute()
+    /**
+     * Get the mutated display role.
+     *
+     * @return string
+     */
+    public function getDisplayroleAttribute()
     {
-        return $this->rolesList;
+        if (isset($this->roles)) {
+            foreach ($this->roles as $role) {
+                $this->rolesnames[] = $role->name;
+            }
+        } else {
+            $this->rolesnames[] = __('Guest');
+        }
+
+        return implode(" / ", $this->rolesnames);
     }
 
     public function getFullnameAttribute()
@@ -48,24 +73,6 @@ trait UserMutator
         $displayname = preg_replace('/%propername%/', $this->propername, $displayname);
 
         return ! empty($displayname) ? $displayname : $this->username;
-    }
-
-    public function getRolesListAttribute()
-    {
-        $roles = [];
-
-        if (isset($this->roles)) {
-            foreach ($this->roles as $role) {
-                $roles[] = $role->name;
-            }
-        }
-
-        return implode(" / ", $roles);
-    }
-
-    public function getDisplayroleAttribute()
-    {
-        return $this->rolename ? $this->rolename : __('Guest');
     }
 
     /**

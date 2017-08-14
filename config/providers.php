@@ -11,6 +11,7 @@
 return [
     'providers' => [
         Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
@@ -23,6 +24,7 @@ return [
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
         Pluma\Providers\ModuleServiceProvider::class,
+        Pluma\Providers\EventServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
         Pluma\Providers\RouteServiceProvider::class,

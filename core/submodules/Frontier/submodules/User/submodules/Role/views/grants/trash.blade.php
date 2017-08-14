@@ -14,8 +14,8 @@
 
         <v-flex sm8 xs12>
             <v-card class="mb-3">
-                <v-toolbar class="info elevation-0">
-                    <v-toolbar-title class="white--text">{{ __('Trashed Grants') }}</v-toolbar-title>
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text">{{ __('Trashed Grants') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
 
                     {{-- Batch Commands --}}
@@ -28,13 +28,15 @@
                                     <template v-for="item in dataset.selected">
                                         <input type="hidden" name="grants[]" :value="item.id">
                                     </template>
-                                    <button type="submit" v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon class="white--text">restore</v-icon></span></button>
+                                    <v-btn type="submit" flat icon v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}">
+                                        <v-icon>restore</v-icon>
+                                    </v-btn>
                                 </form>
                                 {{-- /Bulk Restore --}}
 
                                 {{-- Bulk Delete --}}
                                 <v-dialog v-model="dataset.dialog.model" lazy width="auto">
-                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon dark class="white--text">delete_forever</v-icon></v-btn>
+                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon>delete_forever</v-icon></v-btn>
                                     <v-card class="text-xs-center">
                                         <v-card-title class="headline">{{ __('Permanent Delete') }}</v-card-title>
                                         <v-card-text >
@@ -67,28 +69,28 @@
                             label="{{ _('Search') }}"
                             single-line
                             hide-details
-                            v-if="searchform.model"
-                            v-model="search"
-                            dark
+                            v-if="dataset.searchform.model"
+                            v-model="dataset.searchform.query"
+                            light
                         ></v-text-field>
                     </v-slide-y-transition>
-                    <v-btn v-tooltip:left="{'html': !searchform.model ? 'Search resources' : 'Clear'}" icon flat dark @click.native="searchform.model = !searchform.model; search = '';">
-                        <v-icon>@{{ !searchform.model ? 'search' : 'clear' }}</v-icon>
+                    <v-btn v-tooltip:left="{'html': !dataset.searchform.model ? 'Search resources' : 'Clear'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
+                        <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
                     </v-btn>
                     {{-- /Search --}}
 
                 </v-toolbar>
 
                 <v-data-table
-                    :loading="loading"
-                    :total-items="dataset.pagination.totalItems"
+                    :loading="dataset.loading"
+                    :total-items="dataset.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
                     select-all
                     selected-key="id"
-                    v-bind:headers="headers"
+                    v-bind:headers="dataset.headers"
                     v-bind:items="dataset.items"
-                    v-bind:pagination.sync="pagination"
+                    v-bind:pagination.sync="dataset.pagination"
                     v-model="dataset.selected"
                 >
                     <template slot="headerCell" scope="props">
@@ -161,173 +163,106 @@
         mixins.push({
             data () {
                 return {
-                    errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
-                    urls: {
-                        grants: {
-                            show: '{{ route('grants.show', 'null') }}',
-                            edit: '{{ route('grants.edit', 'null') }}',
-                            destroy: '{{ route('grants.destroy', 'null') }}',
-                            delete: '{{ route('grants.delete', 'null') }}',
-                            restore: '{{ route('grants.restore', 'null') }}',
-                        },
-                    },
-                    grants: {
-                        dialog: {
-                            model: false,
-                        },
-                    },
-                    loading: true,
-                    search: null,
-                    searchform: {
-                        model: false,
-                        query: '',
-                    },
-                    headers: [
-                        { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                        { text: '{{ __("Name") }}', align: 'left', value: 'name' },
-                        { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                        { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
-                        { text: '{{ __("Permissions") }}', align: 'left', value: 'permissions' },
-                        { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
-                        { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
-                    ],
-                    pagination: {
-                        totalItems: 0,
-                        rowsPerPage: 5,
-                    },
                     dataset: {
-                        items: [],
-                        selected: [],
-                        pagination: {
-                            totalItems: 0,
-                            rowsPerPage: 5,
-                        },
                         dialog: {
                             model: false,
                         },
+                        headers: [
+                            { text: '{{ __("ID") }}', align: 'left', value: 'id' },
+                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
+                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
+                            { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
+                            { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
+                        ],
+                        items: [],
+                        loading: true,
+                        pagination: {
+                            rowsPerPage: 5,
+                            totalItems: 0,
+                            trashedOnly: true,
+                        },
+                        searchform: {
+                            model: false,
+                            query: '',
+                        },
+                        selected: [],
+                        totalItems: 0,
                     },
                     resource: {
-                        name: '',
-                        code: '',
-                        description: '',
-                        model: '',
-                        dialog: {
-                            model: false,
+                        item: {
+                            name: '',
+                            code: '',
+                            description: '',
+                            grants: '',
                         },
+                        errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                     },
-                    permissions: {
-                        search: '',
-                        selected: JSON.parse('{!! json_encode((old('permissions') ? old('permissions') : [])) !!}'),
-                        items: [],
+                    suppliments: {
+                        grants: {
+                            items: [],
+                            selected: [],
+                        }
+                    },
+                    urls: {
+                        grants: {
+                            restore: '{{ route('grants.restore', 'null') }}',
+                            delete: '{{ route('grants.delete', 'null') }}',
+                        },
                     },
                 };
             },
             watch: {
-                search (filter) {
-                    setTimeout(() => {
-                        let self = this;
-                        this.searchFromAPI('{{ route('api.grants.search') }}', {q: filter, trashedOnly: 1})
-                            .then((data) => {
-                                console.log("watch.search", data);
-                                self.dataset.items = data.items;
-                                self.dataset.pagination.totalItems = data.total;
-                            });
-                    }, 800);
-                },
-
-                pagination: {
+                'dataset.pagination': {
                     handler () {
-                        let self = this;
-                        this.getDataFromAPI('{{ route('api.grants.trash.all') }}')
-                            .then((data) => {
-                                // console.log("watch.pagination", data);
-                                self.dataset.items = data.items;
-                                self.dataset.pagination.totalItems = data.total;
-                            });
+                        this.get();
                     },
                     deep: true
                 },
+
+                'dataset.searchform.query': function (filter) {
+                    setTimeout(() => {
+                        const { sortBy, descending, page, rowsPerPage, totalItems } = this.dataset.pagination;
+
+                        let query = {
+                            descending: descending,
+                            page: page,
+                            q: filter,
+                            sort: sortBy,
+                            take: rowsPerPage,
+                            trashedOnly: this.dataset.pagination.trashedOnly,
+                        };
+
+                        this.api().search('{{ route('api.grants.search') }}', query)
+                            .then((data) => {
+                                this.dataset.items = data.items.data ? data.items.data : data.items;
+                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.loading = false;
+                            });
+                    }, 1000);
+                },
             },
             methods: {
-                test () {
-                    // alert(this.permissions.selected);
-                    console.log("TEST", this.permissions.selected);
-                },
-
-                searchFromAPI (url, query) {
-                    return new Promise((resolve, reject) => {
-                        const {
-                            sortBy,
-                            descending,
-                            page,
-                            rowsPerPage,
-                            totalItems
-                        } = this.pagination;
-
-                        query = query ? query : {};
-                        let q = "";
-                        for (key in query) {
-                            q += '&'+key+'='+query[key];
-                        }
-
-                        url = url+'?take='+(rowsPerPage)+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending)+q;
-                        this.setDataset(url);
-
-                        let items = this.getDataset();
-                        const total = this.pagination.totalItems;
-
-                        resolve({items, total});
-                    });
-                },
-
-                getDataFromAPI (url) {
-                    return new Promise((resolve, reject) => {
-                        const {
-                            sortBy,
-                            descending,
-                            page,
-                            rowsPerPage,
-                            totalItems
-                        } = this.pagination;
-
-                        let query = this.search;
-                        url = url+'?take='+rowsPerPage+'&page='+(page)+'&sort='+(sortBy)+'&descending='+(descending)+'&q='+(query);
-                        this.setDataset(url);
-
-                        let items = this.getDataset();
-                        const total = this.pagination.totalItems;
-
-                        resolve({items, total});
-                    });
-                },
-
-                getDataset () {
-                    return this.dataset.items;
-                },
-
-                setDataset (url) {
-                    let self = this;
-                    this.loading = true;
-
-                    this.$http.get(url)
-                        .then((response) => {
-                            // console.log("setDataset", response);
-                            self.dataset.items = response.body.data;
-                            self.dataset.pagination.totalItems = response.body.total;
-
-                            setTimeout(() => {
-                                this.loading = false;
-                            }, 800);
+                get () {
+                    const { sortBy, descending, page, rowsPerPage, totalItems } = this.dataset.pagination;
+                    let query = {
+                        descending: descending,
+                        page: page,
+                        sort: sortBy,
+                        take: rowsPerPage,
+                        trashedOnly: this.dataset.pagination.trashedOnly,
+                    };
+                    this.api().get('{{ route('api.grants.all') }}', query)
+                        .then((data) => {
+                            this.dataset.items = data.items.data ? data.items.data : data.items;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.loading = false;
                         });
                 },
             },
             mounted () {
-                let self = this;
-                this.getDataFromAPI('{{ route('api.grants.trash.all') }}')
-                    .then((data) => {
-                        self.dataset.items = data.items;
-                        self.dataset.pagination.totalItems = data.total;
-                    });
+                this.get();
             }
         });
     </script>

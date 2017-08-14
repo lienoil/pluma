@@ -54,8 +54,11 @@
                     <v-card class="elevation-0">
                         <v-card-text>
                             <div class="text-xs-left">
-                                <span>@{{ `Font size: ${settings.fontsize.model}px` }}</span>
+                                <span>{{ __('Font size') }}: @{{ `${settings.fontsize.model}px` }}</span>
                                 <v-btn icon title="{{ __('Reset font size')  }}" @click.native="setStorage('settings.fontsize', (settings.fontsize.model = settings.fontsize.default))"><v-icon>refresh</v-icon></v-btn>
+                                <br>
+                                <small class="grey--text">{{ __('Font size affects all body of texts like articles, paragraphs, quotes found within the app.') }}</small>
+                                <p class="ma-0" :style="`font-size: ${settings.fontsize.model}px`"><em>Sample Text</em></p>
                             </div>
                             <v-slider
                                 role="button"

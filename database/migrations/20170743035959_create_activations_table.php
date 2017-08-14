@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Pluma\Support\Migration\Migration;
+use \Pluma\Support\Migration\Migration;
 
 class CreateActivationsTable extends Migration
 {

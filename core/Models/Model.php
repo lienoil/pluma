@@ -3,13 +3,15 @@
 namespace Pluma\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Pluma\Support\Database\Scopes\Exceptable;
+use Pluma\Support\Database\Scopes\Searchable;
 use Pluma\Support\Mutators\BaseMutator;
 use Support\Database\Traits\BaseRelation;
 use Support\Database\Traits\Relationships;
 
 class Model extends BaseModel
 {
-    use BaseMutator, BaseRelation;
+    use BaseMutator, BaseRelation, Searchable, Exceptable;
 
     /**
      * Accessors to append on every request.
@@ -26,13 +28,6 @@ class Model extends BaseModel
     protected $perPage = 5;
 
     /**
-     * Array of searchable columns.
-     *
-     * @var array
-     */
-    protected $searchables = [];
-
-    /**
      * Create a new Eloquent model instance.
      *
      * @param  array  $attributes
@@ -46,19 +41,15 @@ class Model extends BaseModel
     }
 
     /**
-     * Search all given searchable columns
+     * Boot the model.
      *
-     * @return $query
+     * @return void
      */
-    public function scopeSearch($query, $search = "")
+    public static function boot()
     {
-        if (empty($search)) {
-            return $query;
-        }
+        parent::boot();
 
-        foreach ($this->searchables as $searchable) {
-            $query->orWhere($searchable, 'LIKE', "%{$search}%");
-        }
-        return $query;
+        // For observer events
+        Model::setEventDispatcher(app('events'));
     }
 }

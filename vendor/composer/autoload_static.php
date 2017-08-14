@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
+class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -75,6 +75,7 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
             'Illuminate\\Console\\' => 19,
             'Illuminate\\Config\\' => 18,
             'Illuminate\\Cache\\' => 17,
+            'Illuminate\\Bus\\' => 15,
             'Illuminate\\Auth\\' => 16,
         ),
         'E' => 
@@ -274,6 +275,10 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
         array (
             0 => __DIR__ . '/..' . '/illuminate/cache',
         ),
+        'Illuminate\\Bus\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/bus',
+        ),
         'Illuminate\\Auth\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/auth',
@@ -311,7 +316,6 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
     );
 
     public static $classMap = array (
-        'App\\Mail\\EmailVerification' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Mail/EmailVerification.php',
         'Calendar\\Controllers\\CalendarController' => __DIR__ . '/../..' . '/core/submodules/Calendar/Controllers/CalendarController.php',
         'Calendar\\Models\\Calendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Models/Calendar.php',
         'CreateActivationsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170743035959_create_activations_table.php',
@@ -324,6 +328,7 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
         'CreatePagesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170210132504_create_pages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170622035860_create_password_resets_table.php',
         'CreatePermissionsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035860_create_permissions_table.php',
+        'CreateRoleUserTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170814035860_create_role_user_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035863_create_roles_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035859_create_users_table.php',
         'Crowfeather\\Traverser\\Contracts\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Contracts/Traverser.php',
@@ -366,6 +371,7 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
         'Pluma\\Providers\\ApplicationServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ApplicationServiceProvider.php',
         'Pluma\\Providers\\DatabaseServiceProvider' => __DIR__ . '/../..' . '/core/Providers/DatabaseServiceProvider.php',
         'Pluma\\Providers\\EncryptionServiceProvider' => __DIR__ . '/../..' . '/core/Providers/EncryptionServiceProvider.php',
+        'Pluma\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/core/Providers/EventServiceProvider.php',
         'Pluma\\Providers\\FilesystemServiceProvider' => __DIR__ . '/../..' . '/core/Providers/FilesystemServiceProvider.php',
         'Pluma\\Providers\\FormRequestServiceProvider' => __DIR__ . '/../..' . '/core/Providers/FormRequestServiceProvider.php',
         'Pluma\\Providers\\ModuleServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ModuleServiceProvider.php',
@@ -432,10 +438,13 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
         'Role\\Controllers\\PermissionRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/PermissionRefreshController.php',
         'Role\\Controllers\\RoleController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/RoleController.php',
         'Role\\Controllers\\RoleManyController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Controllers/RoleManyController.php',
+        'Role\\Middleware\\AuthenticateUserRole' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Middleware/AuthenticateUserRole.php',
         'Role\\Models\\Grant' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Models/Grant.php',
         'Role\\Models\\Permission' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Models/Permission.php',
         'Role\\Models\\Role' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Models/Role.php',
         'Role\\Observers\\GrantObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Observers/GrantObserver.php',
+        'Role\\Observers\\PermissionObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Observers/PermissionObserver.php',
+        'Role\\Observers\\RoleObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Observers/RoleObserver.php',
         'Role\\Providers\\RoleServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Providers/RoleServiceProvider.php',
         'Role\\Requests\\GrantRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Requests/GrantRequest.php',
         'Role\\Requests\\RoleRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Requests/RoleRequest.php',
@@ -448,13 +457,17 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
         'Support\\Database\\Relations\\HasManyToManyThrough' => __DIR__ . '/../..' . '/core/Support/Database/Relations/HasManyToManyThrough.php',
         'Support\\Database\\Traits\\BaseRelation' => __DIR__ . '/../..' . '/core/Support/Database/Traits/BaseRelation.php',
         'User\\API\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/LoginController.php',
+        'User\\API\\Controllers\\UserController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/UserController.php',
         'User\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/LoginController.php',
         'User\\Controllers\\RegisterController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/RegisterController.php',
+        'User\\Controllers\\UserController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/UserController.php',
         'User\\Jobs\\ActivateUser' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Jobs/ActivateUser.php',
-        'User\\Jobs\\SendVerificationEmail' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Jobs/SendVerificationEmail.php',
+        'User\\Jobs\\SendVerifyEmailNotification' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Jobs/SendVerifyEmailNotification.php',
+        'User\\Mail\\EmailVerification' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Mail/EmailVerification.php',
         'User\\Models\\Activation' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Models/Activation.php',
         'User\\Models\\User' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Models/User.php',
         'User\\Providers\\UserServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Providers/UserServiceProvider.php',
+        'User\\Requests\\UserRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Requests/UserRequest.php',
         'User\\Support\\Traits\\BelongsToUser' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/BelongsToUser.php',
         'User\\Support\\Traits\\HasOneActivation' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/HasOneActivation.php',
     );
@@ -462,10 +475,10 @@ class ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5df2dcdb19c318ca8973ddb5d9820eab::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -2,23 +2,25 @@
   'providers' => 
   array (
     0 => 'Illuminate\\Auth\\AuthServiceProvider',
-    1 => 'Illuminate\\Cache\\CacheServiceProvider',
-    2 => 'Illuminate\\Cookie\\CookieServiceProvider',
-    3 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
-    4 => 'Illuminate\\Hashing\\HashServiceProvider',
-    5 => 'Illuminate\\Mail\\MailServiceProvider',
-    6 => 'Illuminate\\Pagination\\PaginationServiceProvider',
-    7 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
-    8 => 'Illuminate\\Session\\SessionServiceProvider',
-    9 => 'Illuminate\\Validation\\ValidationServiceProvider',
-    10 => 'Pluma\\Providers\\ApplicationServiceProvider',
-    11 => 'Pluma\\Providers\\ViewServiceProvider',
-    12 => 'Pluma\\Providers\\ModuleServiceProvider',
-    13 => 'Pluma\\Providers\\DatabaseServiceProvider',
-    14 => 'Pluma\\Providers\\EncryptionServiceProvider',
-    15 => 'Pluma\\Providers\\RouteServiceProvider',
-    16 => 'Pluma\\Providers\\TranslationServiceProvider',
-    17 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    1 => 'Illuminate\\Bus\\BusServiceProvider',
+    2 => 'Illuminate\\Cache\\CacheServiceProvider',
+    3 => 'Illuminate\\Cookie\\CookieServiceProvider',
+    4 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
+    5 => 'Illuminate\\Hashing\\HashServiceProvider',
+    6 => 'Illuminate\\Mail\\MailServiceProvider',
+    7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
+    8 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
+    9 => 'Illuminate\\Session\\SessionServiceProvider',
+    10 => 'Illuminate\\Validation\\ValidationServiceProvider',
+    11 => 'Pluma\\Providers\\ApplicationServiceProvider',
+    12 => 'Pluma\\Providers\\ViewServiceProvider',
+    13 => 'Pluma\\Providers\\ModuleServiceProvider',
+    14 => 'Pluma\\Providers\\EventServiceProvider',
+    15 => 'Pluma\\Providers\\DatabaseServiceProvider',
+    16 => 'Pluma\\Providers\\EncryptionServiceProvider',
+    17 => 'Pluma\\Providers\\RouteServiceProvider',
+    18 => 'Pluma\\Providers\\TranslationServiceProvider',
+    19 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
   ),
   'eager' => 
   array (
@@ -30,13 +32,17 @@
     5 => 'Pluma\\Providers\\ApplicationServiceProvider',
     6 => 'Pluma\\Providers\\ViewServiceProvider',
     7 => 'Pluma\\Providers\\ModuleServiceProvider',
-    8 => 'Pluma\\Providers\\DatabaseServiceProvider',
-    9 => 'Pluma\\Providers\\EncryptionServiceProvider',
-    10 => 'Pluma\\Providers\\RouteServiceProvider',
-    11 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    8 => 'Pluma\\Providers\\EventServiceProvider',
+    9 => 'Pluma\\Providers\\DatabaseServiceProvider',
+    10 => 'Pluma\\Providers\\EncryptionServiceProvider',
+    11 => 'Pluma\\Providers\\RouteServiceProvider',
+    12 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
   ),
   'deferred' => 
   array (
+    'Illuminate\\Bus\\Dispatcher' => 'Illuminate\\Bus\\BusServiceProvider',
+    'Illuminate\\Contracts\\Bus\\Dispatcher' => 'Illuminate\\Bus\\BusServiceProvider',
+    'Illuminate\\Contracts\\Bus\\QueueingDispatcher' => 'Illuminate\\Bus\\BusServiceProvider',
     'cache' => 'Illuminate\\Cache\\CacheServiceProvider',
     'cache.store' => 'Illuminate\\Cache\\CacheServiceProvider',
     'memcached.connector' => 'Illuminate\\Cache\\CacheServiceProvider',
@@ -53,6 +59,9 @@
   ),
   'when' => 
   array (
+    'Illuminate\\Bus\\BusServiceProvider' => 
+    array (
+    ),
     'Illuminate\\Cache\\CacheServiceProvider' => 
     array (
     ),

@@ -16,7 +16,7 @@ class GrantObserver
     {
         // save fields
         session()->flash('title', $resource->name);
-        session()->flash('message', "Grant successfully saved");
+        session()->flash('message', "Grant successfully created");
         session()->flash('type', 'success');
     }
 

@@ -48,6 +48,13 @@
                             name="description"
                             value="{{ $resource->description }}"
                         ></v-text-field>
+                        <v-text-field
+                            :error-messages="resource.errors.alias"
+                            hint="{{ __('Will be used as an alias.') }}"
+                            label="{{ _('Alias') }}"
+                            value="{{ $resource->alias }}"
+                            name="alias"
+                        ></v-text-field>
                         <v-select
                             :error-messages="resource.errors.grants"
                             auto

@@ -37,6 +37,12 @@
                             name="description"
                             value="{{ old('description') }}"
                         ></v-text-field>
+                        <v-text-field
+                            :error-messages="resource.errors.alias"
+                            hint="{{ __('Will be used as an alias.') }}"
+                            label="{{ _('Alias') }}"
+                            name="alias"
+                        ></v-text-field>
                         <v-select
                             :error-messages="resource.errors.grants"
                             auto
@@ -45,6 +51,7 @@
                             item-text="text"
                             item-value="value"
                             label="{{ __('Grants') }}"
+                            hide-details
                             multiple
                             v-bind:items="suppliments.grants.items"
                             v-model="suppliments.grants.selected"
@@ -123,7 +130,7 @@
 
                 <v-data-table
                     :loading="dataset.loading"
-                    :total-items="dataset.pagination.totalItems"
+                    :total-items="dataset.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
                     select-all
@@ -149,6 +156,7 @@
                         </td>
                         <td>@{{ prop.item.id }}</td>
                         <td><strong v-tooltip:bottom="{'html': prop.item.description ? prop.item.description : prop.item.name}">@{{ prop.item.name }}</strong></td>
+                        <td>@{{ prop.item.alias }}</td>
                         <td>@{{ prop.item.code }}</td>
                         <td>@{{ prop.item.description }}</td>
                         <td class="text-xs-right">
@@ -192,6 +200,7 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                            { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
                             { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
@@ -245,7 +254,7 @@
 
                 'dataset.searchform.query': function (filter) {
                     setTimeout(() => {
-                        const { sortBy, descending, page, rowsPerPage, totalItems } = this.dataset.pagination;
+                        const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
 
                         let query = {
                             descending: descending,
@@ -258,7 +267,7 @@
                         this.api().search('{{ route('api.roles.search') }}', query)
                             .then((data) => {
                                 this.dataset.items = data.items.data ? data.items.data : data.items;
-                                this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                                 this.dataset.loading = false;
                             });
                     }, 1000);
@@ -267,10 +276,17 @@
 
             methods: {
                 get () {
-                    this.api().get('{{ route('api.roles.all') }}', this.dataset.pagination)
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending,
+                        page: page,
+                        sort: sortBy,
+                        take: rowsPerPage,
+                    };
+                    this.api().get('{{ route('api.roles.all') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
-                            this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
                 },
@@ -297,7 +313,7 @@
             mounted () {
                 this.get();
                 this.mountSuppliments();
-                console.log("dataset.pagination", this.dataset.pagination);
+                // console.log("dataset.pagination", this.dataset.pagination);
             },
         });
     </script>

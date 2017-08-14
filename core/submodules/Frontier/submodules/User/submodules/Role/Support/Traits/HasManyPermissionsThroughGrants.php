@@ -17,4 +17,21 @@ trait HasManyPermissionsThroughGrants
     {
         return $this->belongsToMany(Permission::class);
     }
+
+    /**
+     * Checks permissions through grants.
+     *
+     * @param  string  $permission
+     * @return boolean
+     */
+    public function isPermittedTo($permission)
+    {
+        foreach ($this->grants as $grant) {
+            if ($grant->permissions()->where('code', $permission)->exists()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

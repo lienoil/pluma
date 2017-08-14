@@ -83,7 +83,7 @@ class FrontierServiceProvider extends ServiceProvider
 
         $this->router->aliasMiddleware('auth.admin', \Frontier\Middleware\AuthenticateAdmin::class);
         $this->router->aliasMiddleware('auth.guest', \Frontier\Middleware\RedirectToDashboardIfAuthenticated::class);
-        // $this->router->aliasMiddleware('auth.roles', AuthenticateRole::class);
+        $this->router->aliasMiddleware('auth.roles', \Role\Middleware\AuthenticateUserRole::class);
     }
 
     /**

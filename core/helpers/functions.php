@@ -124,6 +124,39 @@ if (! function_exists('get_module')) {
     }
 }
 
+if (! function_exists('get_modules_path')) {
+    /**
+     * Gets the all migrations path.
+     *
+     * @param  string $path
+     * @return array
+     */
+    function get_modules_path($includeCoreModules = true, $modulesPath = null)
+    {
+        $modules = is_null($modulesPath) ? glob(__DIR__."/../../modules/*", GLOB_ONLYDIR) : glob("$modulesPath/*", GLOB_ONLYDIR);
+
+        if ($includeCoreModules) {
+            $coreModules = is_null($modulesPath) ? glob(__DIR__."/../../core/submodules/*", GLOB_ONLYDIR) : glob("$modulesPath/*", GLOB_ONLYDIR);
+            $modules = array_merge($modules, $coreModules);
+        }
+
+        $m = [];
+        foreach ($modules as $k => $module) {
+            if (is_dir("$module/submodules")) {
+                $m[] = $module;
+                $mmm = get_modules_path(false, "$module/submodules");
+                foreach ($mmm as $mm) {
+                    $m[] = $mm;
+                }
+            } else {
+                $m[] = $module;
+            }
+        }
+
+        return $m;
+    }
+}
+
 if (! function_exists('get_migrations')) {
     /**
      * Gets the all migrations path.
@@ -134,7 +167,7 @@ if (! function_exists('get_migrations')) {
      */
     function get_migrations($modules = [], $path = "")
     {
-        if (empty($modules)) $modules = modules();
+        if (empty($modules)) $modules = modules(true, null, false);
         $migrationsPath = [];
 
         foreach ($modules as $key => $module) {

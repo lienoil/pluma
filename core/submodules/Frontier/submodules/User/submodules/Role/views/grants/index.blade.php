@@ -147,7 +147,7 @@
                     <a
                         class="btn btn--icon btn--flat theme--light light--bg"
                         light
-                        href="{{ route('roles.trash') }}"
+                        href="{{ route('grants.trash') }}"
                         v-tooltip:left="{'html': `View trashed items`}"
                     >
                         <span class="btn__content"><v-icon>archive</v-icon></span>
@@ -157,7 +157,7 @@
 
                 <v-data-table
                     :loading="dataset.loading"
-                    :total-items="dataset.pagination.totalItems"
+                    :total-items="dataset.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
                     select-all
@@ -236,6 +236,7 @@
                         loading: true,
                         pagination: {
                             rowsPerPage: 5,
+                            take: 5,
                             totalItems: 0,
                         },
                         searchform: {
@@ -293,7 +294,7 @@
                         this.api().search('{{ route('api.grants.search') }}', query)
                             .then((data) => {
                                 this.dataset.items = data.items.data ? data.items.data : data.items;
-                                this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                                 this.dataset.loading = false;
                             });
                     }, 1000);
@@ -301,10 +302,17 @@
             },
             methods: {
                 get () {
-                    this.api().get('{{ route('api.grants.all') }}', this.dataset.pagination)
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending,
+                        page: page,
+                        sort: sortBy,
+                        take: rowsPerPage,
+                    };
+                    this.api().get('{{ route('api.grants.all') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
-                            this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
                 },

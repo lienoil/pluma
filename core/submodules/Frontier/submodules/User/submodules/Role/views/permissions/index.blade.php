@@ -13,8 +13,8 @@
     <v-layout row wrap>
         <v-flex sm8 xs12>
             <v-card class="mb-3">
-                <v-toolbar class="info elevation-0">
-                    <v-toolbar-title class="white--text">{{ __('Permissions') }}</v-toolbar-title>
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text">{{ __('Permissions') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
 
                     {{-- Search --}}
@@ -26,10 +26,10 @@
                             hide-details
                             v-if="dataset.searchform.model"
                             v-model="dataset.searchform.query"
-                            dark
+                            light
                         ></v-text-field>
                     </v-slide-y-transition>
-                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat dark @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
+                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
                         <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
                     </v-btn>
                     {{-- /Search --}}
@@ -38,7 +38,7 @@
 
                 <v-data-table
                     :loading="dataset.loading"
-                    :total-items="dataset.pagination.totalItems"
+                    :total-items="dataset.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
                     selected-key="id"
@@ -170,7 +170,7 @@
                         this.api().search('{{ route('api.permissions.search') }}', query)
                             .then((data) => {
                                 this.dataset.items = data.items.data ? data.items.data : data.items;
-                                this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                                 this.dataset.loading = false;
                             });
                     }, 1000);
@@ -182,10 +182,17 @@
                 },
 
                 get () {
-                    this.api().get('{{ route('api.permissions.all') }}', this.dataset.pagination)
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending,
+                        page: page,
+                        sort: sortBy,
+                        take: rowsPerPage,
+                    };
+                    this.api().get('{{ route('api.permissions.all') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
-                            this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
                 },

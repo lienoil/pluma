@@ -5,4 +5,5 @@ storage/compiled/sessions/
 storage/compiled/views/
 storage/framework/cache/
 .sass-cache/
+.php_cs.cache
 .env

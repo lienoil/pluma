@@ -39,7 +39,11 @@
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+
+    {{-- Theme Specific --}}
     <link href="{{ theme('css/app.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+    {{-- /Theme Specific --}}
+
     @stack("css")
         {{-- compile this --}}
         @if (env('APP_ENV', 'production') == 'development')

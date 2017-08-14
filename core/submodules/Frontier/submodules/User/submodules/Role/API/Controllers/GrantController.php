@@ -17,19 +17,19 @@ class GrantController extends APIController
      */
     public function search(Request $request)
     {
-        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
-        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
-        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
-        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
         $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
+        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $grants = Grant::search($search)->orderBy($sort, $order);
+        $resources = Grant::search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
-            $grants->onlyTrashed();
+            $resources->onlyTrashed();
         }
-        $grants = $grants->paginate($take);
+        $resources = $resources->paginate($take);
 
-        return response()->json($grants);
+        return response()->json($resources);
     }
 
     /**
@@ -38,34 +38,21 @@ class GrantController extends APIController
      * @param  Illuminate\Http\Request $request [description]
      * @return Illuminate\Http\Response
      */
-    public function getAll(Request $request)
+    public function all(Request $request)
     {
-        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
-        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
-        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
-
-        $permissions = Grant::search($search)->orderBy($sort, $order)->paginate($take);
-
-        return response()->json($permissions);
-    }
-
-    /**
-     * Get all resources.
-     *
-     * @param  Illuminate\Http\Request $request [description]
-     * @return Illuminate\Http\Response
-     */
-    public function getTrash(Request $request)
-    {
         $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
-        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
-        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $permissions = Grant::search($search)->orderBy($sort, $order)->onlyTrashed()->paginate($take);
+        $resources = Grant::search($search)->orderBy($sort, $order);
+        if ($onlyTrashed) {
+            $resources->onlyTrashed();
+        }
+        $resources = $resources->paginate($take);
 
-        return response()->json($permissions);
+        return response()->json($resources);
     }
 
     /**

@@ -2,9 +2,11 @@
 
 namespace Pluma\Providers;
 
+use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\DatabaseServiceProvider as ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Events\Dispatcher;
 
 class DatabaseServiceProvider extends ServiceProvider
 {
@@ -43,7 +45,10 @@ class DatabaseServiceProvider extends ServiceProvider
             'prefix' => '',
             'strict' => false,
         ]);
+
+        // Set global, instance available globally via static methods
         $this->capsule->setAsGlobal();
+        // Start
         $this->capsule->bootEloquent();
 
         $this->app->capsule = $this->capsule;

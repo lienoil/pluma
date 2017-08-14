@@ -28,13 +28,13 @@
                                     <template v-for="item in dataset.selected">
                                         <input type="hidden" name="roles[]" :value="item.id">
                                     </template>
-                                    <button type="submit" v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon success>restore</v-icon></span></button>
+                                    <button type="submit" v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon>restore</v-icon></span></button>
                                 </form>
                                 {{-- /Bulk Restore --}}
 
                                 {{-- Bulk Delete --}}
                                 <v-dialog v-model="dataset.dialog.model" lazy width="auto">
-                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon error>delete_forever</v-icon></v-btn>
+                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon>delete_forever</v-icon></v-btn>
                                     <v-card class="text-xs-center">
                                         <v-card-title class="headline">{{ __('Permanent Delete') }}</v-card-title>
                                         <v-card-text >
@@ -81,7 +81,7 @@
 
                 <v-data-table
                     :loading="dataset.loading"
-                    :total-items="dataset.pagination.totalItems"
+                    :total-items="dataset.totalItems"
                     class="elevation-0"
                     no-data-text="{{ _('No resource found') }}"
                     select-all
@@ -116,10 +116,10 @@
                         <td width="100%" class="text-xs-center">
                             <form :action="route(urls.roles.restore, (prop.item.id))" method="POST" class="inline">
                                 {{ csrf_field() }}
-                                <button type="submit" class="btn btn--flat btn--icon" v-tooltip:bottom="{'html': '{{ __('Restore resource') }}'}"><span class="btn__content"><v-icon success>restore</v-icon></span></button>
+                                <button type="submit" class="btn btn--flat btn--icon" v-tooltip:bottom="{'html': '{{ __('Restore resource') }}'}"><span class="btn__content"><v-icon>restore</v-icon></span></button>
                             </form>
                             <v-dialog v-model="prop.item.dialog" lazy width="auto" min-width="200px" class="inline">
-                                <v-btn flat icon slot="activator" v-tooltip:bottom="{'html': '{{ __('Delete forever') }}'}"><v-icon error>delete_forever</v-icon></v-btn>
+                                <v-btn flat icon slot="activator" v-tooltip:bottom="{'html': '{{ __('Delete forever') }}'}"><v-icon>delete_forever</v-icon></v-btn>
                                 <v-card class="text-xs-center">
                                     <v-card-title class="headline">{{ __('Permanently Delete') }} "@{{ prop.item.name }}"</v-card-title>
                                     <v-card-text >
