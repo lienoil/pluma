@@ -38,15 +38,15 @@
     @stack("pre-css")
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <link href="{{ assets('frontier/vendor/vue/dist/vue.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+    <link href="{{ assets('frontier/vendors/vue/dist/vue.min.css') }}?v={{ $application->version }}" rel="stylesheet">
     @stack("css")
         {{-- compile this --}}
         @if (env('APP_ENV', 'production') == 'development')
-            <script src="{{ assets('frontier/vendor/vue/dist/vue.js') }}?v={{ $application->version }}"></script>
+            <script src="{{ assets('frontier/vendors/vue/dist/vue.js') }}?v={{ $application->version }}"></script>
         @else
-            <script src="{{ assets('frontier/vendor/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>
+            <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>
         @endif
-        <script src="{{ assets('frontier/vendor/vuetify/dist/vuetify.min.js') }}?v={{ $application->version }}"></script>
+        <script src="{{ assets('frontier/vendors/vuetify/dist/vuetify.min.js') }}?v={{ $application->version }}"></script>
         {{-- ^complile this --}}
     @show
 
