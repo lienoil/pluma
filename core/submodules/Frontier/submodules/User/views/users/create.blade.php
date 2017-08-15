@@ -1,27 +1,57 @@
 @extends("Theme::layouts.admin")
 
+@push('css')
+    <style>
+        .stickybar {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 64px;
+            z-index: 99999;
+        }
+        .sticky {
+            position: fixed;
+        }
+        .tabs__items {
+            border: none;
+        }
+    </style>
+@endpush
+
 @section("content")
     @include("Theme::partials.banner")
 
     <v-layout row wrap>
         <v-flex sm8>
-            <v-card class="mb-3">
-                <v-toolbar card class="transparent">
-                    <v-toolbar-title class="accent--text">{{ __($application->page->title) }}</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                </v-toolbar>
-                <v-card-text>
-                    <form action="{{ route('roles.store') }}" method="POST">
-                        {{ csrf_field() }}
+            <form action="{{ route('users.store') }}" method="POST">
+                {{ csrf_field() }}
+                <v-card class="mb-3">
+                    <v-toolbar card class="transparent">
+                        <v-toolbar-title class="accent--text">{{ __($application->page->title) }}</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                    </v-toolbar>
+
+                    <v-card-text>
                         <v-layout row wrap>
                             <v-flex md2>
-                                <v-text-field
+                                <v-select
+                                    :error-messages="resource.errors.roles"
+                                    auto
+                                    autocomplete
+                                    item-text="text"
+                                    item-value="value"
+                                    label="{{ __('Prefix Name') }}"
+                                    hide-details
+                                    v-bind:items="[{text: 'None', value: null}, {text: 'Mr', value: 'Mr.'}, {text: 'Mrs', value: 'Mrs.'}, {text: 'Ms', value: 'Ms.'}]"
+                                    name="prefixname"
+                                    {{-- v-model="suppliments.roles.selected" --}}
+                                ></v-select>
+                                {{-- <v-text-field
                                     :error-messages="resource.errors.prefixname"
                                     label="{{ _('Prefix Name') }}"
                                     name="prefixname"
                                     value="{{ old('prefixname') }}"
                                     input-group
-                                ></v-text-field>
+                                ></v-text-field> --}}
                             </v-flex>
                             <v-flex md3>
                                 <v-text-field
@@ -74,39 +104,102 @@
                                 ></v-text-field>
                             </v-flex>
                         </v-layout>
+
                         <v-layout row wrap>
-                            <v-flex md12>
-                                <v-select
-                                    :error-messages="resource.errors.roles"
-                                    auto
-                                    autocomplete
-                                    chips
-                                    item-text="text"
-                                    item-value="value"
-                                    label="{{ __('Roles') }}"
-                                    hide-details
-                                    multiple
-                                    v-bind:items="suppliments.roles.items"
-                                    v-model="suppliments.roles.selected"
-                                >
-                                    <template slot="selection" scope="data">
-                                        <v-chip
-                                            close
-                                            @input="data.parent.selectItem(data.item)"
-                                            @click.native.stop
-                                            class="chip--select-multi"
-                                            :key="data.item"
+                            <v-flex sm6>
+                                <p class="body-1"><strong>{{ __('Available Roles') }}</strong></p>
+                                <v-dialog v-model="resource.dialog.model" hide-overlay xtransition="dialog-bottom-transition" scrollable persistent lazy width="100%" min-width="100%" height="100vh">
+                                    <v-btn class="ma-0" flat slot="activator" info>{{ __('Select Available Roles...') }}</v-btn>
+                                    <v-card height="100%">
+                                        <v-toolbar card>
+                                            <v-toolbar-title>{{ __('Roles') }}</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            {{-- Search --}}
+                                            <v-slide-y-transition>
+                                                <v-text-field
+                                                    append-icon="search"
+                                                    label="{{ _('Search') }}"
+                                                    single-line
+                                                    hide-details
+                                                    v-if="dataset.searchform.model"
+                                                    v-model="dataset.searchform.query"
+                                                    light
+                                                ></v-text-field>
+                                            </v-slide-y-transition>
+                                            <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
+                                                <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
+                                            </v-btn>
+                                            {{-- /Search --}}
+
+                                            {{-- Close --}}
+                                            <v-btn icon flat light @click.native="resource.dialog.model = false">
+                                                <v-icon>clear</v-icon>
+                                            </v-btn>
+                                            {{-- /Close --}}
+                                        </v-toolbar>
+                                        <v-data-table
+                                            :loading="dataset.loading"
+                                            :total-items="dataset.totalItems"
+                                            class="elevation-0"
+                                            no-data-text="{{ _('No resource found') }}"
+                                            select-all
+                                            selected-key="id"
+                                            v-bind:headers="dataset.headers"
+                                            v-bind:items="dataset.items"
+                                            v-bind:pagination.sync="dataset.pagination"
+                                            v-model="dataset.selected"
                                         >
-                                            <input type="hidden" name="roles[]" :value="data.item.value">
-                                            @{{ data.item.text }}
-                                        </v-chip>
-                                    </template>
-                                </v-select>
+                                            <template slot="items" scope="prop">
+                                                <td>
+                                                    <v-checkbox
+                                                        primary
+                                                        hide-details
+                                                        class="pa-0"
+                                                        v-model="prop.selected"
+                                                    ></v-checkbox>
+                                                </td>
+                                                <td>
+                                                    <strong v-tooltip:bottom="{'html': prop.item.displayname ? prop.item.displayname : prop.item.propername}">@{{ prop.item.name }}</strong>
+                                                </td>
+                                                <td>@{{ prop.item.code }}</td>
+                                                <td>
+                                                    <template v-if="prop.item.grants" v-for="(grant, i) in prop.item.grants">
+                                                        <span>@{{ grant.name }} <template v-if="(i+1) < prop.item.grants.length">, </template></span>
+                                                    </template>
+                                                </td>
+                                            </template>
+                                        </v-data-table>
+
+                                        <v-card-actions bottom>
+                                            <v-spacer></v-spacer>
+                                            <v-btn flat primary @click.native="resource.dialog.model = false">{{ __('Accept') }}</v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                            </v-flex>
+                            <v-flex sm6>
+                                <p class="body-1"><strong>{{ __('Roles Chosen') }}</strong></p>
+                                <p v-if="dataset.selected.length <= 0" class="grey--text">{{ __("Roles you've assigned to this user will appear here.") }}</p>
+                                <template v-if="dataset.selected.length" v-for="(role, i) in dataset.selected">
+                                    <v-slide-y-transition>
+                                        <p class="subheading">
+                                            <strong>@{{ role.alias }}</strong>
+                                            <br>
+                                            <span class="grey--text">@{{ role.code }}</span>
+                                            <v-btn flat icon @click.native="dataset.selected.splice(i, 1)"><v-icon>close</v-icon></v-btn>
+                                            <input type="hidden" name="roles[]" :value="role.id">
+                                        </p>
+                                    </v-slide-y-transition>
+                                </template>
                             </v-flex>
                         </v-layout>
-                    </form>
-                </v-card-text>
-            </v-card>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn primary type="submit">{{ _('Submit') }}</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </form>
         </v-flex>
     </v-layout>
 @endsection
@@ -119,6 +212,25 @@
         mixins.push({
             data () {
                 return {
+                    dataset: {
+                        headers: [
+                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
+                        ],
+                        items: [],
+                        loading: true,
+                        pagination: {
+                            rowsPerPage: 5,
+                            totalItems: 0,
+                        },
+                        searchform: {
+                            model: false,
+                            query: '',
+                        },
+                        selected: {!! json_encode(old('roles')) !!} ? {!! json_encode(old('roles')) !!} : [],
+                        totalItems: 0,
+                    },
                     resource: {
                         item: {
                             name: '',
@@ -127,6 +239,9 @@
                             grants: '',
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
+                        dialog: {
+                            model: false,
+                        },
                     },
                     suppliments: {
                         roles: {
@@ -142,6 +257,60 @@
                         },
                     },
                 };
+            },
+
+            watch: {
+                'dataset.pagination': {
+                    handler () {
+                        this.get();
+                    },
+                    deep: true
+                },
+
+                'dataset.searchform.query': function (filter) {
+                    setTimeout(() => {
+                        const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+
+                        let query = {
+                            descending: descending,
+                            page: page,
+                            q: filter,
+                            sort: sortBy,
+                            take: rowsPerPage,
+                        };
+
+                        this.api().search('{{ route('api.roles.search') }}', query)
+                            .then((data) => {
+                                this.dataset.items = data.items.data ? data.items.data : data.items;
+                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.loading = false;
+                            });
+                    }, 1000);
+                },
+            },
+
+            methods: {
+                get () {
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending,
+                        page: page,
+                        sort: sortBy,
+                        take: rowsPerPage,
+                    };
+                    this.api().get('{{ route('api.roles.all') }}', query)
+                        .then((data) => {
+                            this.dataset.items = data.items.data ? data.items.data : data.items;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.loading = false;
+                        });
+                },
+            },
+
+            mounted () {
+                this.get();
+                // this.mountSuppliments();
+                // console.log("dataset.pagination", this.dataset.pagination);
             },
         });
     </script>

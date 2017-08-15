@@ -45,4 +45,4 @@
         <v-icon :dark.sync="dark" :light.sync="light">chevron_left</v-icon>
     </v-btn icon>
 </v-toolbar>
-<?php echo $__env->yieldContent("post-utilitybar"); ?>
+<?php echo $__env->yieldPushContent("post-utilitybar"); ?>

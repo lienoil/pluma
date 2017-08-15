@@ -421,7 +421,7 @@ if (! function_exists('get_permissions')) {
     function get_permissions($modules = null)
     {
         $permissions = [];
-        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+        $modules = is_null($modules) ? get_modules_path() : $modules;
 
         foreach ($modules as $name => $module) {
             if (is_array($module)) {
@@ -448,11 +448,11 @@ if (! function_exists('get_menus')) {
     function get_menus($modules = null)
     {
         $menus = [];
-        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+        $modules = is_null($modules) ? get_modules_path() : $modules;
 
         foreach ($modules as $name => $module) {
             if (is_array($module)) {
-                $menus = get_menus($module);
+                $menus = (array) get_menus($module);
                 $module = $name;
             }
 

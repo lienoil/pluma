@@ -2,7 +2,7 @@
 
 @section("content")
     <v-card flat class="transparent ma-0">
-        <div class="primary" style="height: 3px;"></div>
+        {{-- <div class="primary" style="height: 3px;"></div> --}}
         <v-toolbar class="accent elevation-0" extended></v-toolbar>
         <v-layout>
             <v-flex xs10 sm6 md4 offset-sm3 offset-md4 offset-xs1>
@@ -18,7 +18,7 @@
                     </v-toolbar>
                     <v-divider></v-divider>
                     <v-container fluid>
-                        <form method="POST" action="{{ route('login.login') }}">
+                        <form action="{{ route('login.login') }}" method="POST">
                             {{ csrf_field() }}
                             <v-text-field
                                 :error-messages="resource.errors.username"

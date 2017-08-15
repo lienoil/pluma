@@ -56,10 +56,11 @@ class AuthenticateUserRole
         $actions = $request->route()->getAction();
         $request->route()->setAction($actions + ['auth.roles' => $this->roles]);
 
-        // check if user has the role specified in the route
-        if ($request->user() &&
-            ($request->user()->hasRole($this->roles) ||
-            $request->user()->isRoot())) {
+        // check if user has the role specified.
+        if (($this->isAlwaysViewable($request->url())) ||
+            ($request->user() &&
+                ($request->user()->isRoot() ||
+                    $request->user()->hasRole($this->roles)))) {
             return $next($request);
         }
 
@@ -104,9 +105,13 @@ class AuthenticateUserRole
             }
         }
 
-        foreach ($roles as $collection) {
-            foreach ($collection as $role) {
-                $this->roles[] = $role->slug;
+        if ($roles) {
+            foreach ($roles as $collection) {
+                if ($collection) {
+                    foreach ($collection as $role) {
+                        $this->roles[] = $role->code;
+                    }
+                }
             }
         }
 
@@ -121,5 +126,29 @@ class AuthenticateUserRole
     protected function permissions()
     {
         return $this->permissions ? $this->permissions : [];
+    }
+
+    /**
+     * Checks if the menu is tagged as 'always_viewable'
+     *
+     * @param  string  $url
+     * @return boolean
+     */
+    protected function isAlwaysViewable($url)
+    {
+        foreach (get_menus() as $file) {
+            $menus = (array) require $file;
+
+            foreach ($menus as $name => $menu) {
+                if (isset($menu['always_viewable']) &&
+                    isset($menu['slug']) &&
+                    $url === $menu['slug'] &&
+                    $menu['always_viewable']) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

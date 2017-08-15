@@ -24,13 +24,13 @@ trait UserMutator
     }
 
     /**
-     * Get the mutated display role.
+     * Get the mutated array of roles.
      *
      * @return string
      */
     public function getDisplayroleAttribute()
     {
-        if (isset($this->roles)) {
+        if (property_exists($this, 'roles')) {
             foreach ($this->roles as $role) {
                 $this->rolesnames[] = $role->name;
             }
@@ -38,9 +38,14 @@ trait UserMutator
             $this->rolesnames[] = __('Guest');
         }
 
-        return implode(" / ", $this->rolesnames);
+        return implode(" / ", (array) $this->rolesnames);
     }
 
+    /**
+     * Get the mutated firstname, middlename, lastname role.
+     *
+     * @return string
+     */
     public function getFullnameAttribute()
     {
         $name = [];
@@ -51,6 +56,11 @@ trait UserMutator
         return implode(" ", $name);
     }
 
+    /**
+     * Get the mutated lastname, firstname.
+     *
+     * @return string
+     */
     public function getPropernameAttribute()
     {
         $name[] = $this->lastname ? "$this->lastname, " : '';
@@ -59,6 +69,11 @@ trait UserMutator
         return implode(" ", $name);
     }
 
+    /**
+     * Get the mutated display name.
+     *
+     * @return string
+     */
     public function getDisplaynameAttribute()
     {
         $displayname = config("settings.display_name", "%firstname% %lastname%");
@@ -76,7 +91,7 @@ trait UserMutator
     }
 
     /**
-     * Gets the mutated avatar of the model.
+     * Gets the mutated avatar of the resource.
      *
      * @return string
      */

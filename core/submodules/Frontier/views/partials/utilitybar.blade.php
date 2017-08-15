@@ -44,4 +44,4 @@
         <v-icon :dark.sync="dark" :light.sync="light">chevron_left</v-icon>
     </v-btn icon>
 </v-toolbar>
-@yield("post-utilitybar")
+@stack("post-utilitybar")

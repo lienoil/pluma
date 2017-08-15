@@ -17,19 +17,10 @@ return [
     'content' => [
         'name' => 'content',
         'is_header' => true,
+        // 'always_viewable' => true,
         'order' => 1,
         'class' => 'separator',
         'markup' => 'span',
         'text' => __('Content'),
     ],
-
-    // 'sample-separator' => [
-    //     'name' => 'sample-separator',
-    //     'is_separator' => true,
-    //     'slug' => '#',
-    //     'divider' => true,
-    //     'order' => 3,
-    //     'class' => 'mdl--separator',
-    //     'markup' => 'hr',
-    // ],
 ];

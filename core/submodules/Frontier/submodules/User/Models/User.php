@@ -5,12 +5,13 @@ namespace User\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Pluma\Models\User as Authenticatable;
+use Role\Support\Traits\BelongsToManyPermissionsThroughRoles;
 use Role\Support\Traits\BelongsToManyRoles;
 use User\Support\Traits\HasOneActivation;
 
 class User extends Authenticatable
 {
-    use HasOneActivation, BelongsToManyRoles;
+    use HasOneActivation, BelongsToManyRoles, BelongsToManyPermissionsThroughRoles;
 
     /**
      * Appends to both the model's

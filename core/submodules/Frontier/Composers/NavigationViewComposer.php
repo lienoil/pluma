@@ -56,7 +56,7 @@ class NavigationViewComposer extends BaseViewComposer
 
         $view->with($this->getVariablename(), $this->handle());
     }
-//
+
     /**
      * Sets the menus.
      *
@@ -156,6 +156,8 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function sidebar()
     {
+        $this->unsetForbiddenRoutes($this->menus);
+
         return json_decode(json_encode([
             // 'generate' => $this->generateSidebar(collect(json_decode(json_encode($this->menus)))),
             'collect' => collect(json_decode(json_encode($this->menus))),
@@ -173,5 +175,28 @@ class NavigationViewComposer extends BaseViewComposer
         $depth = $this->depth;
 
         return view("Frontier::templates.navigations.sidebar")->with(compact('menus', 'depth'))->render();
+    }
+
+    /**
+     * Remove all routes the user is
+     * restricted access.
+     *
+     * @param  array $menus
+     * @return void
+     */
+    public function unsetForbiddenRoutes($menus)
+    {
+        if (user()->isRoot()) {
+            return;
+        }
+
+        foreach ($menus as $name => $menu) {
+            if (! user()->isPermittedTo($menu['name']) &&
+                (isset($menu['always_viewable']) && ! $menu['always_viewable'])) {
+                unset($menus[$name]);
+            }
+        }
+
+        $this->menus = $menus;
     }
 }

@@ -5,7 +5,7 @@ namespace Role\Support\Traits;
 use Role\Models\Grant;
 use Role\Models\Permission;
 
-trait HasManyPermissionsThroughGrants
+trait BelongsToManyPermissionsThroughGrants
 {
     /**
      * Gets all Grant resources associated

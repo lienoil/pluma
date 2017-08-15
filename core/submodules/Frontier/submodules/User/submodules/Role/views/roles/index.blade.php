@@ -39,6 +39,7 @@
                         ></v-text-field>
                         <v-text-field
                             :error-messages="resource.errors.alias"
+                            :value="resource.item.name ? resource.item.name : '{{ old('alias') }}'"
                             hint="{{ __('Will be used as an alias.') }}"
                             label="{{ _('Alias') }}"
                             name="alias"

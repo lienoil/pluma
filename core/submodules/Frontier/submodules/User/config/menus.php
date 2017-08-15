@@ -17,13 +17,14 @@ return [
             'title' => __('Users'),
         ],
         'children' => [
-            'all-users' => [
-                'name' => 'all-users',
+            'view-users' => [
+                'name' => 'view-users',
                 'order' => 1,
                 'slug' => url(config('path.admin').'/users'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Users'),
+                    'description' => 'View list of all users'
                 ],
             ],
             'create-user' => [

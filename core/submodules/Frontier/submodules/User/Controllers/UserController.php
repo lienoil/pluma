@@ -43,6 +43,9 @@ class UserController extends AdminController
      */
     public function store(UserRequest $request)
     {
+        // echo "<pre>";
+        //     var_dump( dd($request->all()) ); die();
+        // echo "</pre>";
         $user = new User();
         $user->name = $request->input('name');
         $user->code = $request->input('code');

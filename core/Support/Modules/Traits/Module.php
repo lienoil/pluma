@@ -52,7 +52,7 @@ trait Module
             }
 
             if (file_exists("$module/$filepath")) {
-                $items += (array) require_once "$module/$filepath";
+                $items += (array) require "$module/$filepath";
             }
         }
 
