@@ -40,7 +40,8 @@
     "autoload": {
         "classmap": [
             "core",
-            "modules"
+            "modules",
+            "blacksmith"
         ],
         "psr-4": {
             "Pluma\\": "core/"

@@ -1,9 +1,10 @@
-node_modules/
+.env
+.php_cs.cache
+.sass-cache/
+blacksmith/
 bower_components/
-vendor/
+node_modules/
 storage/compiled/sessions/
 storage/compiled/views/
 storage/framework/cache/
-.sass-cache/
-.php_cs.cache
-.env
+vendor/

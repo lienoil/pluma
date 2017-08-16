@@ -4,7 +4,7 @@ namespace Pluma\Support\Console;
 
 use Closure;
 use ReflectionFunction;
-use Illuminate\Console\Command;
+use Pluma\Support\Console\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -51,7 +51,7 @@ class ClosureCommand extends Command
             }
         }
 
-        return $this->laravel->call(
+        return $this->app->call(
             $this->callback->bindTo($this, $this), $parameters
         );
     }

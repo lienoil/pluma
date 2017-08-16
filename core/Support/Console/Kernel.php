@@ -7,9 +7,9 @@ use Exception;
 use Throwable;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Console\Application as Artisan;
+use Pluma\Console\Application as Artisan;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Foundation\Application;
+use Pluma\Application\Application;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
@@ -19,7 +19,7 @@ class Kernel implements KernelContract
     /**
      * The application implementation.
      *
-     * @var \Illuminate\Contracts\Foundation\Application
+     * @var \Pluma\Application\Application
      */
     protected $app;
 
@@ -33,7 +33,7 @@ class Kernel implements KernelContract
     /**
      * The Artisan application instance.
      *
-     * @var \Illuminate\Console\Application
+     * @var \Pluma\Console\Application
      */
     protected $artisan;
 
@@ -57,9 +57,9 @@ class Kernel implements KernelContract
      * @var array
      */
     protected $bootstrappers = [
-        // \Pluma\Support\Bootstrap\LoadEnvironmentVariables::class,
+        \Pluma\Support\Bootstrap\LoadEnvironmentVariables::class,
         \Pluma\Support\Bootstrap\LoadConfiguration::class,
-        // \Pluma\Support\Bootstrap\HandleExceptions::class,
+        \Pluma\Support\Bootstrap\HandleExceptions::class,
         \Pluma\Support\Bootstrap\RegisterFacades::class,
         \Pluma\Support\Bootstrap\SetRequestForConsole::class,
         \Pluma\Support\Bootstrap\RegisterProviders::class,
@@ -69,7 +69,7 @@ class Kernel implements KernelContract
     /**
      * Create a new console kernel instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param  \Pluma\Application\Application  $app
      * @param  \Illuminate\Contracts\Events\Dispatcher  $events
      * @return void
      */
@@ -276,7 +276,7 @@ class Kernel implements KernelContract
     /**
      * Get the Artisan application instance.
      *
-     * @return \Illuminate\Console\Application
+     * @return \Pluma\Console\Application
      */
     protected function getArtisan()
     {
@@ -291,7 +291,7 @@ class Kernel implements KernelContract
     /**
      * Set the Artisan application instance.
      *
-     * @param  \Illuminate\Console\Application  $artisan
+     * @param  \Pluma\Console\Application  $artisan
      * @return void
      */
     public function setArtisan($artisan)
