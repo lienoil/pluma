@@ -1,7 +1,6 @@
 .env
 .php_cs.cache
 .sass-cache/
-blacksmith/
 bower_components/
 node_modules/
 storage/compiled/sessions/
