@@ -20,6 +20,7 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
+        Blacksmith\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]

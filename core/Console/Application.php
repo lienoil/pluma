@@ -22,11 +22,11 @@ use Symfony\Component\Process\ProcessUtils;
 class Application extends SymfonyApplication implements ApplicationContract
 {
     /**
-     * The Application app instance.
+     * The Web Application instance.
      *
      * @var \Illuminate\Contracts\Container\Container
      */
-    protected $app;
+    protected $webApp;
 
     /**
      * The output from the previous command.
@@ -52,16 +52,16 @@ class Application extends SymfonyApplication implements ApplicationContract
     /**
      * Create a new Artisan console app.
      *
-     * @param  \Illuminate\Contracts\Container\Container  $app
+     * @param  \Illuminate\Contracts\Container\Container  $webApp
      * @param  \Illuminate\Contracts\Events\Dispatcher  $events
      * @param  string  $version
      * @return void
      */
-    public function __construct(Container $app, Dispatcher $events, $version)
+    public function __construct(Container $webApp, Dispatcher $events, $version)
     {
         parent::__construct("Blacksmith's Furnace, an Artisan clone", $version);
 
-        $this->app = $app;
+        $this->webApp = $webApp;
         $this->events = $events;
         $this->setAutoExit(false);
         $this->setCatchExceptions(false);
@@ -196,8 +196,8 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     public function add(SymfonyCommand $command)
     {
-        if ($command instanceof Command) {
-            $command->setApp($this->app);
+        if ($command instanceof \Pluma\Support\Console\Command) {
+            $command->setWebApp($this->webApp);
         }
 
         return $this->addToParent($command);
@@ -222,7 +222,7 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     public function resolve($command)
     {
-        return $this->add($this->app->make($command));
+        return $this->add($this->webApp->make($command));
     }
 
     /**
@@ -271,10 +271,10 @@ class Application extends SymfonyApplication implements ApplicationContract
     /**
      * Get the App app instance.
      *
-     * @return \Illuminate\Contracts\Foundation\App
+     * @return \Illuminate\Contracts\Foundation\Application
      */
-    public function getApp()
+    public function getWebApp()
     {
-        return $this->app;
+        return $this->webApp;
     }
 }

@@ -18,11 +18,11 @@ use Symfony\Component\Console\Question\Question;
 class Command extends SymfonyCommand
 {
     /**
-     * The App app instance.
+     * The Web App instance.
      *
      * @var \Illuminate\Contracts\Foundation\Application
      */
-    protected $app;
+    protected $webApp;
 
     /**
      * The input interface implementation.
@@ -179,7 +179,9 @@ class Command extends SymfonyCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        return $this->app->call([$this, 'handle']);
+        $method = method_exists($this, 'handle') ? 'handle' : 'fire';
+
+        return $this->getWebApp()->call([$this, $method]);
     }
 
     /**
@@ -193,7 +195,7 @@ class Command extends SymfonyCommand
     {
         $arguments['command'] = $command;
 
-        return $this->getApp()->find($command)->run(
+        return $this->getApplication()->find($command)->run(
             new ArrayInput($arguments), $this->output
         );
     }
@@ -209,7 +211,7 @@ class Command extends SymfonyCommand
     {
         $arguments['command'] = $command;
 
-        return $this->getApp()->find($command)->run(
+        return $this->getApplication()->find($command)->run(
             new ArrayInput($arguments), new NullOutput
         );
     }
@@ -553,9 +555,9 @@ class Command extends SymfonyCommand
      *
      * @return \Illuminate\Contracts\Foundation\Application
      */
-    public function getApp()
+    public function getWebApp()
     {
-        return $this->app;
+        return $this->webApp;
     }
 
     /**
@@ -564,8 +566,8 @@ class Command extends SymfonyCommand
      * @param  \Illuminate\Contracts\Container\Container  $app
      * @return void
      */
-    public function setApp($app)
+    public function setWebApp($app)
     {
-        $this->app = $app;
+        $this->webApp = $app;
     }
 }

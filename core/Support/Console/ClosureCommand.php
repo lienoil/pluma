@@ -51,7 +51,7 @@ class ClosureCommand extends Command
             }
         }
 
-        return $this->app->call(
+        return $this->appInstance->call(
             $this->callback->bindTo($this, $this), $parameters
         );
     }

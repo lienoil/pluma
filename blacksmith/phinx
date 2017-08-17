@@ -15,6 +15,7 @@ $dispatcher = new EventDispatcher();
 $dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) use ($root) {
     $config = "";
     $command = $event->getCommand();
+    // dd($command);
     (new Dotenv\Dotenv(__DIR__.'/../'))->load();
 
     if ($command instanceof Phinx\Console\Command\AbstractCommand) {

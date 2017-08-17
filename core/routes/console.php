@@ -15,29 +15,29 @@ use \Symfony\Component\Process\Exception\ProcessFailedException;
 |
 */
 
-Artisan::command('route:list', function () {
-    $routeCollection = app('router')->getRoutes();
+// Artisan::command('route:list', function () {
+//     $routeCollection = app('router')->getRoutes();
 
-    echo "+-----------------------------------------+------+\n";
-    echo "| URL                                     |      |\n";
-    echo "+-----------------------------------------+------+\n";
-    foreach ($routeCollection as $value) {
-        $methods = implode("/", $value->methods());
-        $uri = $value->uri() . str_repeat(" ", (40-strlen($value->uri())));
-        $name = $value->getName();
-        echo "| $methods | $uri| $name  |\n";
-    }
-});
+//     echo "+-----------------------------------------+------+\n";
+//     echo "| URL                                     |      |\n";
+//     echo "+-----------------------------------------+------+\n";
+//     foreach ($routeCollection as $value) {
+//         $methods = implode("/", $value->methods());
+//         $uri = $value->uri() . str_repeat(" ", (40-strlen($value->uri())));
+//         $name = $value->getName();
+//         echo "| $methods | $uri| $name  |\n";
+//     }
+// });
 
-Artisan::command('migrate', function () {
+// Artisan::command('migrate', function () {
 
-    loop_modules(function ($name, $module) {
-        $migrationsPath = $module."/".config('path.migrations', 'database/migrations');
+//     loop_modules(function ($name, $module) {
+//         $migrationsPath = $module."/".config('path.migrations', 'database/migrations');
 
-        $process = new Process("php ./vendor/bin/phinx migrate -c config/migrations.php");
-        $process->run();
+//         $process = new Process("php ./vendor/bin/phinx migrate -c config/migrations.php");
+//         $process->run();
 
-        echo $process->getOutput();
-    }, modules(true, null, false));
+//         echo $process->getOutput();
+//     }, modules(true, null, false));
 
-});
+// });

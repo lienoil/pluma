@@ -4,15 +4,15 @@ namespace Pluma\Support\Console;
 
 use Closure;
 use Exception;
-use Throwable;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Contracts\Events\Dispatcher;
-use Pluma\Console\Application as Artisan;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Pluma\Application\Application;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
+use Pluma\Application\Application;
+use Pluma\Console\Application as Artisan;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Throwable;
 
 class Kernel implements KernelContract
 {
@@ -59,7 +59,7 @@ class Kernel implements KernelContract
     protected $bootstrappers = [
         \Pluma\Support\Bootstrap\LoadEnvironmentVariables::class,
         \Pluma\Support\Bootstrap\LoadConfiguration::class,
-        \Pluma\Support\Bootstrap\HandleExceptions::class,
+        // \Pluma\Support\Bootstrap\HandleExceptions::class,
         \Pluma\Support\Bootstrap\RegisterFacades::class,
         \Pluma\Support\Bootstrap\SetRequestForConsole::class,
         \Pluma\Support\Bootstrap\RegisterProviders::class,

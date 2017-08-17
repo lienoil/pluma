@@ -100,27 +100,27 @@ if (! function_exists('get_module')) {
      * Gets the pathname of the module specified
      *
      * @param  string $retrieve
-     * @return string|null|mixed
+     * @return mixed
      */
     function get_module($retrieve, $modules = null)
     {
-        $mm = null;
-        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+        $mm = false;
+        $modules = is_null($modules) ? get_modules_path() : $modules;
 
         foreach ($modules as $name => $module) {
             if (! is_array($module)) {
                 if (basename($module) == $retrieve) {
-                    return $module;
+                    return realpath($module);
                 }
             } else {
                 $mm = get_module($retrieve, $module);
-                if (basename($name) == $retrieve) {
-                    return $name;
+                if (basename($mm) == $retrieve) {
+                    return realpath($name);
                 }
             }
         }
 
-        return $mm;
+        return realpath($mm);
     }
 }
 
@@ -128,10 +128,12 @@ if (! function_exists('get_modules_path')) {
     /**
      * Gets the all migrations path.
      *
-     * @param  string $path
+     * @param  boolean $basenameOnly
+     * @param  boolean $includeCoreModules
+     * @param  string  $modulesPath
      * @return array
      */
-    function get_modules_path($includeCoreModules = true, $modulesPath = null)
+    function get_modules_path($basenameOnly = false, $includeCoreModules = true, $modulesPath = null)
     {
         $modules = is_null($modulesPath) ? glob(__DIR__."/../../modules/*", GLOB_ONLYDIR) : glob("$modulesPath/*", GLOB_ONLYDIR);
 
@@ -143,13 +145,13 @@ if (! function_exists('get_modules_path')) {
         $m = [];
         foreach ($modules as $k => $module) {
             if (is_dir("$module/submodules")) {
-                $m[] = $module;
-                $mmm = get_modules_path(false, "$module/submodules");
+                $m[] = $basenameOnly ? basename($module) : realpath($module);
+                $mmm = get_modules_path($basenameOnly, false, "$module/submodules");
                 foreach ($mmm as $mm) {
-                    $m[] = $mm;
+                    $m[] = $basenameOnly ? basename($mm) : realpath($mm);
                 }
             } else {
-                $m[] = $module;
+                $m[] = $basenameOnly ? basename($module) : realpath($module);
             }
         }
 

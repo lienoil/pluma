@@ -316,11 +316,20 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     );
 
     public static $classMap = array (
+        'Blacksmith\\Console\\Commands\\Furnace\\ForgeMigrateCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeMigrateCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeWeaponCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeWeaponCommand.php',
-        'Blacksmith\\Console\\Commands\\Migrations\\MigrateCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Migrations/MigrateCommand.php',
+        'Blacksmith\\Console\\Commands\\Phinx\\PhinxConfigurable' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Phinx/PhinxConfigurable.php',
+        'Blacksmith\\Console\\Commands\\Phinx\\PhinxCreateCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Phinx/PhinxCreateCommand.php',
+        'Blacksmith\\Console\\Commands\\Phinx\\PhinxMigrateCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Phinx/PhinxMigrateCommand.php',
         'Blacksmith\\Console\\Kernel' => __DIR__ . '/../..' . '/blacksmith/Console/Kernel.php',
+        'Blacksmith\\Providers\\ConsoleCommandServiceProvider' => __DIR__ . '/../..' . '/blacksmith/Providers/ConsoleCommandServiceProvider.php',
+        'Blacksmith\\Providers\\ConsoleSupportServiceProvider' => __DIR__ . '/../..' . '/blacksmith/Providers/ConsoleSupportServiceProvider.php',
+        'Blacksmith\\Providers\\MigrationServiceProvider' => __DIR__ . '/../..' . '/blacksmith/Providers/MigrationServiceProvider.php',
+        'Blacksmith\\Support\\Console\\Command' => __DIR__ . '/../..' . '/blacksmith/Support/Console/Command.php',
+        'Blacksmith\\Support\\Providers\\ServiceProvider' => __DIR__ . '/../..' . '/blacksmith/Support/Providers/ServiceProvider.php',
         'Calendar\\Controllers\\CalendarController' => __DIR__ . '/../..' . '/core/submodules/Calendar/Controllers/CalendarController.php',
         'Calendar\\Models\\Calendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Models/Calendar.php',
+        'CreaetSidequestsTable' => __DIR__ . '/../..' . '/modules/Quest/submodules/Sidequest/database/migrations/20170817090224_creaet_sidequests_table.php',
         'CreateActivationsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170743035959_create_activations_table.php',
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/20170624132509_create_calendars_table.php',
         'CreateFailedJobsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170812142355_create_failed_jobs_table.php',
