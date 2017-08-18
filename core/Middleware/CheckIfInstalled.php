@@ -23,7 +23,7 @@ class CheckIfInstalled
 
             // Then, check if .install is deleted
             if (file_exists(public_path('.install'))) {
-                return redirect('/');
+                return redirect()->route('installation.welcome');
             }
         } catch (\PDOException $e) {
             return redirect()->route('installation.welcome');

@@ -1,4 +1,4 @@
-@include("Theme::partials.header")
+@include("Frontier::partials.header")
 
 <div id="application-root" class="application-root" data-application-root>
     <v-app standalone>
@@ -8,10 +8,6 @@
             @yield("content")
 
         </main>
-
-        @section("post-container")
-            @include("Theme::partials.endnote")
-        @show
 
     </v-app>
 </div>

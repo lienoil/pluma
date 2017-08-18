@@ -1,7 +1,5 @@
 <?php
 
-include_file(core_path('routes'), 'fuzzy.php');
-
 Route::get('/', 'Pluma\Support\Installation\Controllers\InstallController@welcome');
 
 Route::get('welcome', '\Pluma\Support\Installation\Controllers\InstallController@welcome')->name("installation.welcome");
@@ -18,4 +16,4 @@ Route::get('welcome/last', '\Pluma\Support\Installation\Controllers\InstallContr
 
 Route::post('welcome/migrate', '\Pluma\Support\Installation\Controllers\InstallController@migrate')->name("installation.migrate");
 
-Route::get('{slug?}', 'Pluma\Support\Installation\Controllers\InstallController@welcome');
+Route::get('app/documentation', '\Pluma\Support\Installation\Controllers\InstallController@welcome')->name('installation.documentation');

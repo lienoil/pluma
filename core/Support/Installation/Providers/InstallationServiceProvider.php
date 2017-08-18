@@ -3,13 +3,14 @@
 namespace Pluma\Support\Installation\Providers;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Providers\DatabaseServiceProvider;
+use Pluma\Support\Installation\Traits\IsInstalledCheck;
 
 class InstallationServiceProvider extends ServiceProvider
 {
+    use IsInstalledCheck;
 
     /**
      * Boot the service.
@@ -33,29 +34,23 @@ class InstallationServiceProvider extends ServiceProvider
             Route::group([
                 //
             ], function () {
+                include_file(core_path('routes'), 'fuzzy.php');
                 include_file(core_path('Support/Installation/routes'), 'install.routes.php');
             });
 
             // Views
             $this->loadViewsFrom(core_path('Support/Installation/views'), "Install");
-        }
-    }
-
-    public function checkIfAppIsProperlyInstalled()
-    {
-        try {
-            // First, check if can connect to database
-            DB::connection()->getPdo();
-            // Then, check if .install is deleted
-            if (file_exists(public_path('.install'))) {
-                return false;
+        } else {
+            $modules = get_modules_path();
+            foreach ($modules as $module) {
+                if (file_exists("$module/routes/public.php")) {
+                    Route::group([
+                        'middleware' => ['web'],
+                    ], function () use ($module) {
+                        include_file("$module/routes", "public.php");
+                    });
+                }
             }
-        } catch (\PDOException $e) {
-            return false;
-        } catch (\InvalidArgumentException $e) {
-            return false;
         }
-
-        return true;
     }
 }

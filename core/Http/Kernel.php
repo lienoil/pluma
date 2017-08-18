@@ -14,11 +14,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \Pluma\Middleware\Localization::class,
         \Pluma\Middleware\TrimStrings::class,
         \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Pluma\Support\Http\Middleware\VerifyPostSize::class,
-        \Pluma\Middleware\Localization::class,
     ];
 
     /**
@@ -28,22 +28,22 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \Pluma\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Pluma\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Pluma\Middleware\CheckIfInstalled::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            // \Pluma\Middleware\CheckIfInstalled::class,
+            \Pluma\Middleware\EncryptCookies::class,
+            \Pluma\Middleware\VerifyCsrfToken::class,
         ],
 
         'api' => [
             'throttle:60,1',
             'bindings',
-            // \Pluma\Http\Middleware\EncryptCookies::class,
-            // \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            // \Illuminate\Session\Middleware\StartSession::class,
+            // \Pluma\Http\Middleware\EncryptCookies::class,
             // \Pluma\Http\Middleware\VerifyCsrfToken::class,
         ],
     ];
