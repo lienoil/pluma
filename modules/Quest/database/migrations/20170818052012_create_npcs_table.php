@@ -3,9 +3,9 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Migration\Migration;
-use $useClassName;
+use Phinx\Migration\AbstractMigration;
 
-class $className extends Migration
+class CreateNpcsTable extends Migration
 {
     /**
      * The table name.

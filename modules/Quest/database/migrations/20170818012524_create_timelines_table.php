@@ -3,16 +3,16 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Migration\Migration;
-use $useClassName;
+use Phinx\Migration\AbstractMigration;
 
-class $className extends Migration
+class CreateTimelinesTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $tablename = '';
+    protected $tablename = 'timelines';
 
     /**
      * Run the migrations.
@@ -22,9 +22,9 @@ class $className extends Migration
     public function up()
     {
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            // $table->increments('id');
-            // $table->timestamps();
-            // $table->softDeletes();
+            $table->increments('id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

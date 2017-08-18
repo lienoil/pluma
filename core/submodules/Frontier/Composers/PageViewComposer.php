@@ -58,6 +58,7 @@ class PageViewComposer extends BaseViewComposer
     private function handle()
     {
         return json_decode(json_encode([
+            'pluma' => $this->pluma(),
             'body' => $this->body(),
             'footer' => $this->footer(),
             'head' => $this->head(),
@@ -66,6 +67,16 @@ class PageViewComposer extends BaseViewComposer
             'site' => $this->site(),
             'token' => csrf_token(),
             'version' => "v" . app()->version(),
+        ]));
+    }
+
+    private function pluma()
+    {
+        return json_decode(json_encode([
+            'title' => 'Pluma CMS',
+            'tagline' => 'Elegant and modular, out-of-the-box',
+            'author' => 'John Lioneil Dionisio <john.dionisio1@gmail.com>',
+            // ...
         ]));
     }
 

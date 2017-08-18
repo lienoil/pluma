@@ -18,6 +18,7 @@ class PhinxCreateCommand extends Command
      */
     protected $signature = 'phinx:create
                             {name=null : The name of the file}
+                            {-t|table=null : The name of the database table}
                             ';
 
     /**
@@ -50,6 +51,6 @@ class PhinxCreateCommand extends Command
     {
         $this->setPhinxConfig();
 
-        $this->call('create', ['name' => $this->argument('name')]); // The phinx migrate command.
+        $this->call($this->command, ['name' => $this->argument('name')]); // The phinx migrate command.
     }
 }

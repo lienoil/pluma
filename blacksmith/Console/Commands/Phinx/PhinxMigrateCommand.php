@@ -46,15 +46,16 @@ class PhinxMigrateCommand extends Command
      */
     public function handle(Filesystem $file)
     {
-        $this->info("Using Phinx to migrate");
+        $modules = get_modules_path();
+        $this->setPhinxConfig($modules);
 
-        foreach (get_modules_path() as $module) {
-            $this->setPhinxConfig($module);
-            $this->info(str_pad('=', 80, "="));
-            $this->error(str_pad(' ', 80, " "));
-            $this->line("Migrating database from $module Module");
-            $this->error(str_pad(' ', 80, " "));
-            $this->call('migrate'); // The phinx migrate command.
-        }
+        $message = "Migrating database from all Module";
+        $this->info("Using Phinx to migrate");
+        $this->info(str_pad('=', count($message), "="));
+        $this->error(str_pad(' ', count($message), " "));
+        $this->line($message);
+        $this->error(str_pad(' ', count($message), " "));
+        $this->info(str_pad('=', count($message), "="));
+        $this->call($this->command, $this->getOptions()); // The phinx migrate command.
     }
 }

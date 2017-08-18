@@ -11,10 +11,11 @@ trait PhinxConfigurable
     /**
      * Sets the Default Phinx Config
      *
-     * @param mixed $current
+     * @param array $modules
      */
-    public function setPhinxConfig($current = null)
+    public function setPhinxConfig($modules = null)
     {
+        $modules = is_null($modules) ? get_modules_path(true) : $modules;
         $command = $this->getApplication()->find($this->command);
         $environment = $this->environment;
         $migrations = base_path("database/migrations");
@@ -24,18 +25,13 @@ trait PhinxConfigurable
             case 'Phinx\Console\Command\Create':
             case 'Phinx\Console\Command\SeedCreate':
                 $name = $this->argument('name');
-                $modules = get_modules_path(true); // basename only
                 if ('null' == $name || null == $name) {
                     $name = $this->ask('Please specify the migration class name (e.g. CreateQuestsTable)');
                     $this->input->setArgument('name', $name);
                 }
 
-                $question = new ChoiceQuestion(
-                    "Which module do you want to save this <info>$name</info> migration?",
-                    $modules
-                );
-
-                $module = $command->getHelper('question')->ask($this->input, $this->output, $question);
+                $question = "Which module do you want to save this <info>$name</info> migration?";
+                $module = $this->choice($question, $modules);
                 $module = get_module($module);
 
                 $migrations = "$module/database/migrations";
@@ -54,10 +50,15 @@ trait PhinxConfigurable
                 break;
 
             case 'Phinx\Console\Command\Migrate':
+                $migrations = array();
+                $seeds = array();
+                foreach ($modules as $module) {
+                    $migrations[] = "$module/database/migrations";
+                    $seeds[] = "$module/database/seeds";
+                }
+                break;
+
             default:
-            // dd('asdasd');
-                $migrations = "$current/database/migrations";
-                $seeds      = "$current/database/seeds";
                 break;
         }
 
@@ -73,16 +74,17 @@ trait PhinxConfigurable
                     'pass' => env('DB_PASSWORD', 'root'),
                     'port' => env('DB_PORT', 3306),
                     'charset' => env('DB_CHARSET', 'utf8'),
-                ]
+                ],
             ],
             'paths' => [
                 'migrations' => $migrations,
-                'seeds'      => $seeds
+                'seeds'      => $seeds,
             ],
             'templates' => [
                 'file' => base_path('blacksmith/templates/migrations/updown-migration.stub'),
             ],
         ]);
+        var_dump($migrations);
 
         $command->setConfig($config);
     }

@@ -17,6 +17,7 @@ if (! function_exists('modules_path')) {
      */
     function modules_path($path = '')
     {
+        $path = ltrim($path, '/');
         if (! function_exists('config')) {
             $modulePath = json_decode(json_encode(require __DIR__.'/../../config/path.php'));
             $modulePath = $modulePath->modules;
@@ -120,7 +121,7 @@ if (! function_exists('get_module')) {
             }
         }
 
-        return realpath($mm);
+        return empty($mm) ? null : realpath($mm);
     }
 }
 
@@ -347,7 +348,7 @@ if (! function_exists('theme')) {
      */
     function theme($file)
     {
-        return url("theme/$file");
+        return url("themes/$file");
     }
 }
 

@@ -1,0 +1,102 @@
+<?php
+/**
+ * -----------------------------------------------------------------------------
+ * Permissions Array
+ * -----------------------------------------------------------------------------
+ *
+ * Here we define our permissions that you can attach to roles.
+ *
+ * These permissions corresponds to a counterpart
+ * route (found in <this module>/routes/<route-files>.php).
+ * All permissionable routes should have a `name` (e.g. 'roles.store')
+ * for the role authentication middleware to work.
+ *
+ */
+return [
+    /**
+     * $name Permissions
+     *
+     */
+    'view-$code' => [
+        'name' =>  '$slug.index',
+        'code' => 'view-$code',
+        'description' => 'Ability to view list of $slug',
+        'group' => '$code',
+    ],
+    'show-$code' => [
+        'name' => '$slug.show',
+        'code' => 'show-$code',
+        'description' => 'Ability to show a single $code',
+        'group' => '$code',
+    ],
+    'create-$code' => [
+        'name' => '$slug.create',
+        'code' => 'create-$code',
+        'description' => 'Ability to show the form to create $code',
+        'group' => '$code',
+    ],
+    'store-$code' => [
+        'name' => '$slug.store',
+        'code' => 'store-$code',
+        'description' => 'Ability to save the $code',
+        'group' => '$code',
+    ],
+    'edit-$code' => [
+        'name' => '$slug.edit',
+        'code' => 'edit-$code',
+        'description' => 'Ability to show the form to edit $code',
+        'group' => '$code',
+    ],
+    'update-$code' => [
+        'name' => '$slug.update',
+        'code' => 'update-$code',
+        'description' => 'Ability to update the $code',
+        'group' => '$code',
+    ],
+    'destroy-$code' => [
+        'name' =>  '$slug.destroy',
+        'code' => 'destroy-$code',
+        'description' => 'Ability to move the $code to trash',
+        'group' => '$code',
+    ],
+    'delete-$code' => [
+        'name' =>  '$slug.delete',
+        'code' => 'delete-$code',
+        'description' => 'Ability to permanently delete the $code',
+        'group' => '$code',
+    ],
+    'trash-$code' => [
+        'name' =>  '$slug.trash',
+        'code' => 'trash-$code',
+        'description' => 'Ability to view the list of all trashed $code',
+        'group' => '$code',
+    ],
+    'restore-$code' => [
+        'name' => '$slug.restore',
+        'code' => 'restore-$code',
+        'description' => 'Ability to restore the $code',
+        'group' => '$code',
+    ],
+
+    // Many
+    'destroy-many-$code' => [
+        'name' =>  '$slug.many.destroy',
+        'code' => 'destroy-many-$code',
+        'description' => 'Ability to destroy many $slug',
+        'group' => '$code',
+    ],
+    'delete-many-$code' => [
+        'name' =>  '$slug.many.delete',
+        'code' => 'delete-many-$code',
+        'description' => 'Ability to permanently delete many $slug',
+        'group' => '$code',
+    ],
+    'restore-many-$code' => [
+        'name' => '$slug.many.restore',
+        'code' => 'restore-many-$code',
+        'description' => 'Ability to restore many $slug',
+        'group' => '$code',
+    ],
+
+    //
+];

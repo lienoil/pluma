@@ -19,7 +19,7 @@ Route::get('core/{file?}', function ($file = null) {
     return abort(404);
 })->where('file', '.*');
 
-Route::get('theme/{file?}', function ($file = null) {
+Route::get('themes/{file?}', function ($file = null) {
     $path = base_path(config('path.themes', 'themes').'/'.config("settings.active_theme", 'default'))."/assets/$file";
     $fileArray = explode('/', $file);
     $lastFile = end($fileArray);
