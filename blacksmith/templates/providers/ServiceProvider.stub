@@ -71,8 +71,8 @@ class $nameServiceProvider extends ServiceProvider
     public function bootRouterMiddlewares()
     {
         $router = $this->app['router'];
-        foreach ($this->middlewares() as $name => $class) {
-            $router->aliasMiddleware($name, $class);
+        foreach ($this->middlewares() as $key => $class) {
+            $router->aliasMiddleware($key, $class);
         }
     }
 
