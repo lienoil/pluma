@@ -1,5 +1,7 @@
 <?php
 
+include_file(core_path('routes'), 'fuzzy.php');
+
 Route::get('/', 'Pluma\Support\Installation\Controllers\InstallController@welcome');
 
 Route::get('welcome', '\Pluma\Support\Installation\Controllers\InstallController@welcome')->name("installation.welcome");

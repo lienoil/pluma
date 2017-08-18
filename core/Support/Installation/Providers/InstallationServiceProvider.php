@@ -31,7 +31,7 @@ class InstallationServiceProvider extends ServiceProvider
         if (! $this->checkIfAppIsProperlyInstalled()) {
             // Routes
             Route::group([
-                // 'middleware' => ['web'],
+                //
             ], function () {
                 include_file(core_path('Support/Installation/routes'), 'install.routes.php');
             });

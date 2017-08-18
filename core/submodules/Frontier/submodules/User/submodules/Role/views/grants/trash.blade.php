@@ -156,7 +156,7 @@
 @endpush
 
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendor/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
 

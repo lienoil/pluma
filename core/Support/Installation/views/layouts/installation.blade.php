@@ -1,64 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    @stack("pre-meta")
-    @stack("meta")
-    <meta charset="UTF-8">
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+@include("Theme::partials.header")
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="_token" content="{{ csrf_token() }}">
+<div id="application-root" class="application-root" data-application-root>
+    <v-app standalone>
 
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+        <main data-main>
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
+            @yield("content")
 
-    <link rel="shortcut icon" href="images/favicon.png">
+        </main>
 
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-    <link rel="canonical" href="http://www.example.com/">
-    -->
-    <title>{{ __(@$application->pluma->title) }}</title>
-    <meta name="description" content="{{ __(@$application->head->description) }}">
-    @stack("post-meta")
+        @section("post-container")
+            @include("Theme::partials.endnote")
+        @show
 
-    @stack("pre-css")
+    </v-app>
+</div>
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <link href="{{ assets('frontier/vendors/vue/dist/vue.min.css') }}?v={{ $application->version }}" rel="stylesheet">
-    @stack("css")
-        {{-- compile this --}}
-        @if (env('APP_ENV', 'production') == 'development')
-            <script src="{{ assets('frontier/vendors/vue/dist/vue.js') }}?v={{ $application->version }}"></script>
-        @else
-            <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>
-        @endif
-        <script src="{{ assets('frontier/vendors/vuetify/dist/vuetify.min.js') }}?v={{ $application->version }}"></script>
-        {{-- ^complile this --}}
-    @show
+@stack("pre-footer")
+@stack("footer")
+@stack("post-footer")
 
-    @stack("post-css")
-</head>
-<body>
+@stack("pre-scripts")
 
-    @yield("content")
+@section("scripts")
+    <script>
+        let mixins = [{ data: { page: { model: false, }, }, }];
+    </script>
+    @stack("pre-scripts")
+    <script src="{{ assets('frontier/app/filters.js') }}"></script>
+    <script src="{{ assets('frontier/app/dist/app.js') }}"></script>
+    @stack("post-scripts")
+@show
 
-    @stack("pre-footer")
-    @stack("footer")
-    @stack("post-footer")
+@stack("post-scripts")
 
-    @stack("pre-js")
-    @stack("js")
-    @stack("post-js")
-</body>
-</html>
+@include("Theme::partials.footer")
