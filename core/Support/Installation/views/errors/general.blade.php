@@ -1,54 +1,67 @@
 @extends("Install::layouts.installation")
 
-@push('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <style>
-        body {
-            background-color: #f1f2f3;
-        }
-    </style>
-@endpush
+@section("head-title", $application->pluma->title)
+@section("head-subtitle", "| " . $application->pluma->tagline)
 
 @section("content")
-    <div class="container">
-        <div class="col-sm-8 offset-sm-2">
-            <header class="header">
-                <h2 class="header-title text-danger mt-5">Oops!</span></h2>
-                <p class="lead">Something went wrong :(</p>
-                <p>Below are the likely causes of the error. If none could work, try looking at the error logs, or contacting your Host Provider</p>
-            </header>
+    @include("Theme::partials.banner")
 
-            <main class="content">
-                @include("Install::partials.banner")
+    <v-container fluid>
+        <v-layout row wrap>
+            <v-flex sm8 md6 offset-sm2 offset-md3>
+                <v-card class="mt-4 mb-3 transparent elevation-0 grey--text">
+                    <v-toolbar card class="transparent">
+                        <v-toolbar-title class="display-2 error--text">{!! __('Oh noes! :(') !!}</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                    </v-toolbar>
 
-                <ol>
-                    <li>
-                        <div class="text-muted">Error: {{ $e->getMessage() }}</div>
-                    </li>
-                    <li>
-                        <div class="text-muted">
-                            <strong>Write Permissions</strong> | Make sure you have the right permissions to write in the <code>/storage</code> folder.
-                            From your terminal, try: <br>
-                            <code>$ chmod -R 755 /path/to/pluma</code><br>
-                            <code>$ chmod -R 777 /path/to/pluma/storage</code>
-                            <br>
-                        </div>
-                    </li>
-                </ol>
+                    <v-card-text>
+                        <p class="headline">{{ __("Something went wrong. But nothing too terrible, since we are able to catch it. So there's that.") }}</p>
+                        <p class="subheadline">{{ __("Below is what we've gathered thus far:") }}</p>
 
-            </main>
+                        <blockquote class="error mb-4"><span class="white--text">Error: {{ $e->getMessage() }}</span></blockquote>
 
-            <aside class="footnote mb-3">
-                <small>&copy; Pluma&trade; 2017. Licensed under the MIT.</small>
-            </aside>
-        </div>
-    </div>
+                        <p>{{ __("Here are some helpful things to do:") }}</p>
+                        <ul class="mb-4">
+                            <li>
+                                <span class="grey--text">
+                                    <strong><code>.env</code> Permission Denied</strong>.
+                                    It means the application cannot write to the folder your .env is located. Recommended to write it manually, then rerun the setup.
+                                    Though not recommended, you can try and make the entire pluma folder writable temporarily: <br>
+                                    <code>$ sudo chmod -R 777 /path/to/pluma</code><br>
+                                    Make sure after the install, you revert it back:
+                                    <code>$ chmod -R 755 /path/to/pluma</code><br>
+                                    <code>$ chmod -R 777 /path/to/pluma/storage</code>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="grey--text">
+                                    <strong>{{ __('General Write Permissions') }}</strong>. Make sure you have the right permissions to write in the <code>/storage</code> folder.
+                                    From your terminal, try: <br>
+                                    <code>$ chmod -R 755 /path/to/pluma</code><br>
+                                    <code>$ chmod -R 777 /path/to/pluma/storage</code>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="grey--text">
+                                    <strong>{{ __('Missing Dependencies') }}</strong>.
+                                    {{ __('Pluma relies on composer packages. If the error above resembles something about an issue in autoloading, you should run') }}
+                                    <code>$ composer install && composer dump-autoload -o</code>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="grey--text">
+                                    <strong>{{ __('Corrupt Files') }}</strong>. Try downloading the <code>pluma</code> project again, and rerun the installation.
+                                </span>
+                            </li>
+                        </ul>
+
+                        <p class="subheadline">{{ __('If none could work, try looking at the error logs, or contacting your Host Provider.') }}</p>
+
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 
 @endsection
-
-
-@push('js')
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-@endpush

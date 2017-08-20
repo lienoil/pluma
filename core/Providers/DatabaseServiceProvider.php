@@ -10,6 +10,11 @@ use Illuminate\Events\Dispatcher;
 
 class DatabaseServiceProvider extends ServiceProvider
 {
+    /**
+     * The schema instance
+     *
+     * @var \Illuminate\Support\Facades\Schema
+     */
     public $schema;
 
     /**

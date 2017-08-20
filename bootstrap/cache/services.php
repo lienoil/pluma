@@ -11,17 +11,18 @@
     7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     8 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
     9 => 'Illuminate\\Session\\SessionServiceProvider',
-    10 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
-    11 => 'Illuminate\\Validation\\ValidationServiceProvider',
+    10 => 'Illuminate\\Validation\\ValidationServiceProvider',
+    11 => 'Pluma\\Providers\\ViewServiceProvider',
     12 => 'Pluma\\Providers\\ApplicationServiceProvider',
-    13 => 'Pluma\\Providers\\ViewServiceProvider',
-    14 => 'Pluma\\Providers\\ModuleServiceProvider',
+    13 => 'Pluma\\Providers\\DatabaseServiceProvider',
+    14 => 'Pluma\\Providers\\EncryptionServiceProvider',
     15 => 'Pluma\\Providers\\EventServiceProvider',
-    16 => 'Pluma\\Providers\\DatabaseServiceProvider',
-    17 => 'Pluma\\Providers\\EncryptionServiceProvider',
-    18 => 'Pluma\\Providers\\RouteServiceProvider',
-    19 => 'Pluma\\Providers\\TranslationServiceProvider',
+    16 => 'Pluma\\Providers\\ModuleServiceProvider',
+    17 => 'Pluma\\Providers\\RouteServiceProvider',
+    18 => 'Pluma\\Providers\\TranslationServiceProvider',
+    19 => 'Pluma\\Providers\\FormRequestServiceProvider',
     20 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    21 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
   ),
   'eager' => 
   array (
@@ -30,13 +31,13 @@
     2 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
     3 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     4 => 'Illuminate\\Session\\SessionServiceProvider',
-    5 => 'Pluma\\Providers\\ApplicationServiceProvider',
-    6 => 'Pluma\\Providers\\ViewServiceProvider',
-    7 => 'Pluma\\Providers\\ModuleServiceProvider',
+    5 => 'Pluma\\Providers\\ViewServiceProvider',
+    6 => 'Pluma\\Providers\\DatabaseServiceProvider',
+    7 => 'Pluma\\Providers\\EncryptionServiceProvider',
     8 => 'Pluma\\Providers\\EventServiceProvider',
-    9 => 'Pluma\\Providers\\DatabaseServiceProvider',
-    10 => 'Pluma\\Providers\\EncryptionServiceProvider',
-    11 => 'Pluma\\Providers\\RouteServiceProvider',
+    9 => 'Pluma\\Providers\\ModuleServiceProvider',
+    10 => 'Pluma\\Providers\\RouteServiceProvider',
+    11 => 'Pluma\\Providers\\FormRequestServiceProvider',
     12 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
   ),
   'deferred' => 
@@ -75,13 +76,16 @@
     'Illuminate\\Pipeline\\PipelineServiceProvider' => 
     array (
     ),
-    'Blacksmith\\Providers\\ConsoleSupportServiceProvider' => 
-    array (
-    ),
     'Illuminate\\Validation\\ValidationServiceProvider' => 
     array (
     ),
+    'Pluma\\Providers\\ApplicationServiceProvider' => 
+    array (
+    ),
     'Pluma\\Providers\\TranslationServiceProvider' => 
+    array (
+    ),
+    'Blacksmith\\Providers\\ConsoleSupportServiceProvider' => 
     array (
     ),
   ),

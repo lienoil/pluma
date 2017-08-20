@@ -127,7 +127,7 @@
                         model: false,
                         remember: true,
                         visible: false,
-                    }
+                    },
                 };
             },
         });

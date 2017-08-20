@@ -82,6 +82,11 @@ class PlumaServiceProvider extends ServiceProvider
         View::addExtension('template.php', 'blade');
     }
 
+    /**
+     * Register bindings.
+     *
+     * @return void
+     */
     public function registerBindings()
     {
         $this->registerExceptionHandlers();

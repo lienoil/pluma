@@ -3,10 +3,12 @@
 namespace Pluma\Providers;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
+use Pluma\Support\Installation\Traits\AppIsInstalled;
+use Pluma\Support\Providers\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
 {
+    use AppIsInstalled;
 
     /**
      * Array of modules.
@@ -40,7 +42,23 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function prepareModules()
     {
-        $this->modules = modules(true, null, false);
+        $this->modules = get_modules_path();
+    }
+
+    /**
+     * Prepares the providers.
+     *
+     * @return
+     */
+    public function prepareProviders()
+    {
+        foreach ($this->modules as $module) {
+            $basename = basename($module);
+            if (file_exists("$module/Providers/{$basename}ServiceProvider.php")) {
+                $serviceProvider = "\\$basename\\Providers\\{$basename}ServiceProvider::class";
+                $this->providers[] = $serviceProvider;
+            }
+        }
     }
 
     /**
@@ -92,6 +110,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function registerModules()
     {
         $this->loadModules($this->modules);
+        $this->loadPublicRoutes($this->modules);
     }
 
     /**
@@ -117,7 +136,9 @@ class ModuleServiceProvider extends ServiceProvider
             $this->loadViews($module);
 
             // Load Routes
-            $this->loadRoutes($module);
+            if ($this->appIsInstalled()) {
+                $this->loadRoutes($module);
+            }
         }
     }
 
@@ -186,6 +207,25 @@ class ModuleServiceProvider extends ServiceProvider
             ], function () use ($module) {
                 include_file("$module/routes", "web.php");
             });
+        }
+    }
+
+    /**
+     * Load public routes.
+     *
+     * @param  array $modules
+     * @return void
+     */
+    public function loadPublicRoutes($modules)
+    {
+        foreach ($modules as $module) {
+            if ($this->appIsInstalled() && file_exists("$module/routes/public.php")) {
+                Route::group([
+                    'middleware' => ['web'],
+                ], function () use ($module) {
+                    include_file("$module/routes", "public.php");
+                });
+            }
         }
     }
 }

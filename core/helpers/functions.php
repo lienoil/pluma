@@ -276,17 +276,13 @@ if (! function_exists("settings")) {
 if (! function_exists('is_installed')) {
     function is_installed()
     {
-        return ! file_exists(public_path('.install'));
+        return ! file_exists(storage_path('.install'));
     }
 }
 
 if (! function_exists('write_to_env')) {
     function write_to_env($data)
     {
-        if (file_exists(base_path('.env'))) {
-            return;
-        }
-
         if (! count($data)) {
             return;
         }

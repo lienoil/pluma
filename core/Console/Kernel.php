@@ -13,7 +13,24 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        // Blacksmith
+        \Blacksmith\Console\Commands\Furnace\ForgeModuleCommand::class,
+        \Blacksmith\Console\Commands\Furnace\ForgeWeaponCommand::class,
+        \Blacksmith\Console\Commands\Phinx\PhinxMigrateCreateCommand::class,
+        \Blacksmith\Console\Commands\Phinx\PhinxMigrateRunCommand::class,
+        \Blacksmith\Console\Commands\Phinx\PhinxSeedCreateCommand::class,
+        \Blacksmith\Console\Commands\Phinx\PhinxSeedRunCommand::class,
+
+        // vendor
+        \Phinx\Console\Command\Init::class,
+        \Phinx\Console\Command\Create::class,
+        \Phinx\Console\Command\Migrate::class,
+        \Phinx\Console\Command\Rollback::class,
+        \Phinx\Console\Command\Status::class,
+        \Phinx\Console\Command\Breakpoint::class,
+        \Phinx\Console\Command\Test::class,
+        \Phinx\Console\Command\SeedCreate::class,
+        \Phinx\Console\Command\SeedRun::class,
     ];
 
     /**

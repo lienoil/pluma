@@ -52,11 +52,11 @@ class UserRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
-            'firstname' => 'required|max:255',
-            'lastname' => 'required|max:255',
-            'username' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
-            'email' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
-            'roles' => 'required',
+            'firstname' => 'sometimes|required|max:255',
+            'lastname' => 'sometimes|required|max:255',
+            'username' => 'sometimes|required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
+            'email' => 'required|email|unique:users'.$isUpdating,
+            'roles' => 'sometimes|required',
         ];
     }
 

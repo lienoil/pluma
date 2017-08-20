@@ -4,6 +4,7 @@ namespace Pluma\Providers;
 
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Encryption\EncryptionServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use RuntimeException;
 
@@ -40,10 +41,28 @@ class EncryptionServiceProvider extends ServiceProvider
     {
         return tap($config['key'], function ($key) {
             if (empty($key)) {
-                throw new RuntimeException(
-                    'No application encryption key has been specified.'
-                );
+                $this->tryResolve($key);
             }
         });
+    }
+
+    /**
+     * Try to generate an encryption key.
+     *
+     * @param  mixed $key
+     * @return void
+     */
+    protected function tryResolve($key)
+    {
+        try {
+            if (! File::exists(base_path('.env'))) {
+                File::copy(base_path('.env.example'), base_path('.env'));
+                write_to_env(['APP_KEY' => generate_random_key()]);
+            }
+        } catch (\Exception $e) {
+            throw new RuntimeException(
+                'No application encryption key has been specified.'
+            );
+        }
     }
 }

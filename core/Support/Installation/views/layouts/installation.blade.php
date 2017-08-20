@@ -16,8 +16,6 @@
 @stack("footer")
 @stack("post-footer")
 
-@stack("pre-scripts")
-
 @section("scripts")
     <script>
         let mixins = [{ data: { page: { model: false, }, }, }];
@@ -27,7 +25,5 @@
     <script src="{{ assets('frontier/app/dist/app.js') }}"></script>
     @stack("post-scripts")
 @show
-
-@stack("post-scripts")
 
 @include("Theme::partials.footer")

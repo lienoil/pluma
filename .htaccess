@@ -17,4 +17,11 @@
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # STRONG HTACCESS PROTECTION
+    <Files ~ "^.*\.([Ee][Nn][Vv])">
+        order allow,deny
+        deny from all
+        satisfy all
+    </Files>
 </IfModule>

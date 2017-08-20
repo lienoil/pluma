@@ -61,8 +61,6 @@ class ForgeModuleCommand extends Command
                         exit();
                         break;
                 }
-                if ($chosen == 'choose from existing modules') {
-                }
             }
 
             $module = "$module/submodules/$submodule";
@@ -107,9 +105,12 @@ class ForgeModuleCommand extends Command
         foreach ($files as $file) {
             switch ($file) {
                 case "$module/Controllers/{$name}Controller.php":
+                    $namespace = basename($module);
+                    $name = "{$name}Controller";
+                    $model = basename($name);
                     $template = $filesystem->put(
                         blacksmith_path("templates/controllers/ControllerAdmin.stub"),
-                        compact('file', 'module', 'name', 'slug')
+                        compact('model', 'namespace', 'name', 'slug')
                     );
                     break;
 

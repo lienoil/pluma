@@ -4,61 +4,119 @@ namespace Pluma\Support\Installation\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
-use Pluma\Models\User;
 use Pluma\Support\Auth\Traits\CreateUser;
 use Pluma\Support\Database\Traits\CreateDatabase;
 use Pluma\Support\Database\Traits\MigrateDatabase;
+use Pluma\Support\Database\Traits\SeedDatabase;
+use Pluma\Support\Installation\Requests\SetupRequest;
+use Pluma\Support\Installation\Requests\UserRequest;
+use Role\Models\Role;
+use User\Models\User;
 
 class InstallController extends Controller
 {
-    use CreateDatabase, MigrateDatabase, CreateUser;
+    use CreateDatabase, MigrateDatabase, CreateUser, SeedDatabase;
 
-    protected $installed = false;
+    /**
+     * Checks if already migrated.
+     *
+     * @var boolean
+     */
+    protected $migrated = false;
 
-    public function welcome(Request $request)
+    /**
+     * Display the welcome page.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
     {
-        if (! File::exists(base_path('.env'))) {
-            File::copy(base_path('.env.example'), base_path('.env'));
-            write_to_env(['APP_KEY' => generate_random_key()]);
+        return view("Install::welcome.index");
+    }
+
+    /**
+     * Display the setup page.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getSetupForm(Request $request)
+    {
+        if ($this->isMigrated()) {
+            return redirect()->route('installation.seed.form');
         }
 
-        return view("Install::welcome.welcome");
+        return view("Install::welcome.setup");
     }
 
-    public function next(Request $request)
-    {
-        return view("Install::welcome.next");
-    }
-
-    public function write(Request $request)
+    /**
+     * Store the setup parameters.
+     *
+     * @param  \Pluma\Support\Installation\Requests\SetupRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function setup(SetupRequest $request)
     {
         try {
-            write_to_env($request->all());
+            if (! file_exists(base_path('.env'))) {
+                write_to_env($request->all());
+                write_to_env(['APP_KEY' => generate_random_key()]);
+            }
+
+            $this->db(
+                $request->input('DB_DATABASE'),
+                $request->input('DB_USERNAME'),
+                $request->input('DB_PASSWORD')
+            )->drop()->make();
+
+            if ($this->migrate()) {
+                $this->seed();
+                $this->setMigrated(true);
+            }
+
         } catch (Whoops\Exception\ErrorException $e) {
             return view("Install::errors.general")->with(compact('e'));
         } catch (\Exception $e) {
             return view("Install::errors.general")->with(compact('e'));
         }
 
-
-        return redirect()->route('installation.show');
+        return redirect()->route('installation.seed.form');
     }
 
-    public function show(Request $request)
+    /**
+     * Display the seed page.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getSeedForm(Request $request)
     {
-        return view("Install::welcome.show");
+        if (! $this->isMigrated()) {
+            return redirect()->route('installation.setup');
+        }
+
+        return view("Install::welcome.seed");
     }
 
-    public function install(Request $request)
+    /**
+     * Performs the seeding.
+     *
+     * @param  \Pluma\Support\Installation\Requests\UserRequest $request
+     * @return mixed
+     */
+    public function store(UserRequest $request)
     {
         try {
-            $this->db(env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'))->drop()->make();
-            $this->migrate(null, $request);
-            // $this->seed();
-            $this->createRootUser($request);
+            $user = new User();
+            $user->email = $request->input('email');
+            $user->username = $request->input('email');
+            $user->password = bcrypt($request->input('password'));
+            $role = Role::whereCode('superadmin')->first();
+            $user->save();
+            $user->roles()->attach($role);
+
         } catch (Whoops\Exception\ErrorException $e) {
             return view("Install::errors.general")->with(compact('e'));
         } catch (\Exception $e) {
@@ -70,16 +128,57 @@ class InstallController extends Controller
 
     public function last(Request $request)
     {
-        $this->clean();
+        if (! $this->isMigrated()) {
+            return redirect()->route('installation.setup.form');
+        }
 
         $user = User::get()->first();
 
         return view("Install::welcome.last")->with(['user' => $user, 'config' => config('env')]);
     }
 
-    public function clean()
+    /**
+     * Remove the install files.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function clean(Request $request)
     {
-        File::delete(base_path('bootstrap/cache/services.php'));
-        File::delete(public_path('.install'));
+        try {
+            File::delete(base_path('bootstrap/cache/services.php'));
+            File::delete(storage_path('.migrated'));
+            File::move(storage_path('.install'), storage_path('.installed'));
+            // File::delete(storage_path('.installed'));
+        } catch (\Exception $e) {
+
+        } finally {
+            session()->flash('title', __('Success'));
+            session()->flash('type', 'success');
+            session()->flash('message', __('Files successfully removed.'));
+        }
+
+        return back();
+    }
+
+    /**
+     * Sets the migrated variable.
+     *
+     * @param bool $migrated
+     */
+    protected function setMigrated($migrated)
+    {
+        $this->migrated = $migrated;
+        File::put(storage_path('.migrated'), 'true');
+    }
+
+    /**
+     * Checks if the .migrate file exists.
+     *
+     * @return boolean
+     */
+    protected function isMigrated()
+    {
+        return File::exists(storage_path('.migrated'));
     }
 }

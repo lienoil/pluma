@@ -2,15 +2,16 @@
 
 namespace Pluma\Support\Installation\Providers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Providers\DatabaseServiceProvider;
-use Pluma\Support\Installation\Traits\IsInstalledCheck;
+use Pluma\Support\Installation\Traits\AppIsInstalled;
 
 class InstallationServiceProvider extends ServiceProvider
 {
-    use IsInstalledCheck;
+    use AppIsInstalled;
 
     /**
      * Boot the service.
@@ -29,10 +30,10 @@ class InstallationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (! $this->checkIfAppIsProperlyInstalled()) {
+        if (! $this->appIsInstalled()) {
             // Routes
             Route::group([
-                //
+                'middleware' => ['web'],
             ], function () {
                 include_file(core_path('routes'), 'fuzzy.php');
                 include_file(core_path('Support/Installation/routes'), 'install.routes.php');
@@ -40,17 +41,6 @@ class InstallationServiceProvider extends ServiceProvider
 
             // Views
             $this->loadViewsFrom(core_path('Support/Installation/views'), "Install");
-        } else {
-            $modules = get_modules_path();
-            foreach ($modules as $module) {
-                if (file_exists("$module/routes/public.php")) {
-                    Route::group([
-                        'middleware' => ['web'],
-                    ], function () use ($module) {
-                        include_file("$module/routes", "public.php");
-                    });
-                }
-            }
         }
     }
 }

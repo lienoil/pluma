@@ -18,7 +18,6 @@ use Pluma\Application\ProviderRepository;
 use Pluma\Providers\DatabaseServiceProvider;
 use Pluma\Providers\PlumaServiceProvider;
 use Pluma\Support\Facades\AliasLoader;
-use Pluma\Support\Installation\Providers\InstallationServiceProvider;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpKernel\Exception\HttpException;

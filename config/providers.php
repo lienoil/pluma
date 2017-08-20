@@ -20,17 +20,18 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Blacksmith\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
-        Pluma\Providers\ModuleServiceProvider::class,
-        Pluma\Providers\EventServiceProvider::class,
+        Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
+        Pluma\Providers\EventServiceProvider::class,
+        Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\RouteServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
+        Pluma\Providers\FormRequestServiceProvider::class,
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
+        Blacksmith\Providers\ConsoleSupportServiceProvider::class,
     ],
 
     'aliases' => [

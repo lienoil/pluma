@@ -26,7 +26,7 @@ trait PhinxConfigurable
             case 'Phinx\Console\Command\SeedCreate':
                 $name = $this->argument('name');
                 if ('null' == $name || null == $name) {
-                    $name = $this->ask('Please specify the migration class name (e.g. CreateQuestsTable)');
+                    $name = $this->ask('Please specify the class name (e.g. CreateQuestsTable, UsersTableSeeder)');
                     $this->input->setArgument('name', $name);
                 }
 
@@ -44,16 +44,18 @@ trait PhinxConfigurable
                     File::makeDirectory($seeds, 0755, true, true);
                 }
 
-                if (! is_dir($migrations)) {
-                    dd(File::makeDirectory($migrations, 0755, true, true));
-                }
                 break;
 
             case 'Phinx\Console\Command\Migrate':
                 $migrations = array();
-                $seeds = array();
                 foreach ($modules as $module) {
                     $migrations[] = "$module/database/migrations";
+                }
+                break;
+
+            case 'Phinx\Console\Command\SeedRun':
+                $seeds = array();
+                foreach ($modules as $module) {
                     $seeds[] = "$module/database/seeds";
                 }
                 break;
@@ -84,7 +86,6 @@ trait PhinxConfigurable
                 'file' => base_path('blacksmith/templates/migrations/updown-migration.stub'),
             ],
         ]);
-        var_dump($migrations);
 
         $command->setConfig($config);
     }
