@@ -3,7 +3,7 @@
 if (! function_exists('core_path')) {
     function core_path($path = '')
     {
-        $corePath = "core"; // config("settings.core.path", 'core/');
+        $corePath = config('settings.core_path', 'core');
         return app()->basePath().DIRECTORY_SEPARATOR.$corePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }

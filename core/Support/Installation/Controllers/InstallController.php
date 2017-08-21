@@ -11,6 +11,7 @@ use Pluma\Support\Database\Traits\MigrateDatabase;
 use Pluma\Support\Database\Traits\SeedDatabase;
 use Pluma\Support\Installation\Requests\SetupRequest;
 use Pluma\Support\Installation\Requests\UserRequest;
+use Role\Models\Grant;
 use Role\Models\Role;
 use User\Models\User;
 
@@ -114,6 +115,7 @@ class InstallController extends Controller
             $user->username = $request->input('email');
             $user->password = bcrypt($request->input('password'));
             $role = Role::whereCode('superadmin')->first();
+            $role->grants()->attach((Grant::pluck('id')));
             $user->save();
             $user->roles()->attach($role);
 
@@ -158,7 +160,9 @@ class InstallController extends Controller
             session()->flash('message', __('Files successfully removed.'));
         }
 
-        return back();
+        $user = User::get()->first();
+
+        return view("Install::welcome.last")->with(['user' => $user, 'config' => config('env')]);
     }
 
     /**

@@ -37,7 +37,7 @@ class Model extends BaseModel
     {
         parent::__construct($attributes);
 
-        $this->setPerPage(config('settings.global.per_page', $this->perPage));
+        $this->setPerPage(config('settings.display_resource_per_page', $this->perPage));
     }
 
     /**

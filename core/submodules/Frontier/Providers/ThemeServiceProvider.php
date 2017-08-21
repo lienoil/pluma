@@ -43,7 +43,7 @@ class ThemeServiceProvider extends ServiceProvider
     {
         parent::__construct($app);
 
-        $this->setActiveTheme(config("settings.active_theme", "default"));
+        $this->setActiveTheme(settings('active_theme', "default"));
     }
 
     /**

@@ -76,7 +76,7 @@ trait UserMutator
      */
     public function getDisplaynameAttribute()
     {
-        $displayname = config("settings.display_name", "%firstname% %lastname%");
+        $displayname = config('settings.display_name', "%firstname% %lastname%");
         $displayname = preg_replace('/%firstname%/', $this->firstname, $displayname);
         $displayname = preg_replace('/%lastname%/', $this->lastname, $displayname);
         $displayname = preg_replace('/%middlename%/', $this->middlename, $displayname);

@@ -154,7 +154,7 @@
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn primary type="submit">{{ __('Setup') }}</v-btn>
+                            <v-btn primary type="submit">{{ __('Install') }}</v-btn>
                         </v-card-actions>
                     </form>
 

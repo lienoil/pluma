@@ -19,7 +19,7 @@
                             name="site_title"
                             input-group
                             hide-details
-                            value="{{ old('site_title') ? old('site_title') : $resource->site_title }}"
+                            value="{{ old('site_title') ? old('site_title') : @$resource->site_title }}"
                         ></v-text-field>
                         <v-text-field
                             label="{{ __('Site Tagline') }}"

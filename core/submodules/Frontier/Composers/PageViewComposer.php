@@ -93,10 +93,10 @@ class PageViewComposer extends BaseViewComposer
     private function site()
     {
         return json_decode(json_encode([
-            'title' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
-            'tagline' => config("settings.site.tagline", env("APP_TAGLINE")),
-            'author' => config("settings.site.author", env("APP_AUTHOR")),
-            'logo' => config("settings.site.logo", $this->getBrandLogoUrl()),
+            'title' => settings('site_title', env("APP_NAME", "Pluma CMS")),
+            'tagline' => settings('site_tagline', env("APP_TAGLINE")),
+            'author' => settings('site_author', env("APP_AUTHOR")),
+            'logo' => settings('site_logo', $this->getBrandLogoUrl()),
             'copyright' => $this->guessCopyright(),
             'fulltitle' => $this->guessTitle() . " " . $this->guessSubtitle(),
         ]));
@@ -107,10 +107,10 @@ class PageViewComposer extends BaseViewComposer
         return json_decode(json_encode([
             'title' => $this->guessTitle(),
             'subtitle' => $this->guessSubtitle(),
-            'separator' => config("settings.site.title_separator", '|'),
+            'separator' => settings('site_title_separator', '|'),
             'description' => $this->guessDescription(),
-            'name' => config("settings.site.title", env("APP_NAME", "Pluma CMS")),
-            'tagline' => config("settings.site.subtitle", env("APP_TAGLINE")),
+            'name' => settings('site_title', env("APP_NAME", "Pluma CMS")),
+            'tagline' => settings('site_subtitle', env("APP_TAGLINE")),
             'fulltitle' => $this->guessTitle() . " " . $this->guessSubtitle(),
         ]));
     }
@@ -151,7 +151,7 @@ class PageViewComposer extends BaseViewComposer
         }
 
         if (empty($segments->first())) {
-            return config("settings.pages.default_name", "Home");
+            return settings('pages_default_name', "Home");
         }
 
         if (count($segments) >= 3) {
@@ -196,10 +196,10 @@ class PageViewComposer extends BaseViewComposer
         $segments = collect(explode("/", $this->getCurrentUrl()));
 
         if (empty($segments->first())) {
-            return "| " . config("settings.site.subtitle", env("APP_TAGLINE"));
+            return "| " . settings('site_subtitle', env("APP_TAGLINE"));
         }
 
-        return '| ' . config("settings.site.title", env("APP_NAME"));
+        return '| ' . settings('site_title', env("APP_NAME"));
     }
 
     /**
@@ -233,7 +233,7 @@ class PageViewComposer extends BaseViewComposer
      */
     public function guessCopyright()
     {
-        $blurb = config("settings.site.copyright", env("APP_COPYRIGHT"));
+        $blurb = settings('site_copyright', env("APP_COPYRIGHT"));
 
         $blurb = preg_replace("/\{APP_NAME\}/", env("APP_NAME"), $blurb);
         $blurb = preg_replace("/\{APP_TAGLINE\}/", env("APP_TAGLINE"), $blurb);
