@@ -27,7 +27,7 @@ trait BelongsToManyPermissionsThroughGrants
     public function isPermittedTo($permission)
     {
         foreach ($this->grants as $grant) {
-            if ($grant->permissions()->where('code', $permission)->exists()) {
+            if ($grant->permissions && $grant->permissions()->where('code', $permission)->exists()) {
                 return true;
             }
         }

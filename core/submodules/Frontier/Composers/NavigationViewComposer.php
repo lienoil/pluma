@@ -191,9 +191,14 @@ class NavigationViewComposer extends BaseViewComposer
         }
 
         foreach ($menus as $name => $menu) {
-            if (! user()->isPermittedTo($menu['name']) &&
-                (isset($menu['always_viewable']) && ! $menu['always_viewable'])) {
-                unset($menus[$name]);
+            if (user()->roles) {
+                foreach (user()->roles as $role) {
+                    if (! $role->isPermittedTo($menu['name']) &&
+                        (isset($menu['always_viewable']) &&
+                        ! $menu['always_viewable'])) {
+                        unset($menus[$name]);
+                    }
+                }
             }
         }
 

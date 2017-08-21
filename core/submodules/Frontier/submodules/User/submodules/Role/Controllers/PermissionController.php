@@ -11,13 +11,14 @@ class PermissionController extends AdminController
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $resources = Permission::paginate();
 
-        return view("Role::permissions.index")->with(compact('resources'));
+        return view("Theme::permissions.index")->with(compact('resources'));
     }
 
     /**
@@ -27,6 +28,6 @@ class PermissionController extends AdminController
      */
     public function create()
     {
-        return view("Role::permissions.create");
+        return view("Theme::permissions.create");
     }
 }

@@ -120,6 +120,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function loadModules($modules = null)
     {
+        $modules = array_reverse($modules, $preserveKeys = true);
         foreach ($modules as $key => $module) {
             if (is_array($module)) {
                 // Load Modules again

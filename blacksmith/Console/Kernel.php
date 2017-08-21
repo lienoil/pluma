@@ -14,7 +14,9 @@ class Kernel extends BaseKernel
     public $commands = [
         // Blacksmith
         Commands\Furnace\ForgeControllerCommand::class,
+        Commands\Furnace\ForgeModelCommand::class,
         Commands\Furnace\ForgeModuleCommand::class,
+        Commands\Furnace\ForgePermissionsCommand::class,
         Commands\Furnace\ForgeWeaponCommand::class,
         Commands\Phinx\PhinxMigrateCreateCommand::class,
         Commands\Phinx\PhinxMigrateRunCommand::class,

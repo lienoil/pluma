@@ -69,23 +69,23 @@ class Handler extends BaseHandler
         }
 
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-            return response()->view(config('settings.pages.404', 'Frontier::errors.404'), [
-                'error' => [
-                    'code' => 'NOT_FOUND',
-                    'message' => $exception->getMessage(),
-                    'description' => config('messages.404'),
-                ]
-            ], 404);
+            // return response()->view(config('settings.pages.404', 'Frontier::errors.404'), [
+            //     'error' => [
+            //         'code' => 'NOT_FOUND',
+            //         'message' => $exception->getMessage(),
+            //         'description' => config('messages.404'),
+            //     ]
+            // ], 404);
         }
 
         if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
-            return response()->view('Theme::errors.403', [
-                'error' => [
-                    'code' => 'NOT_AUTHORIZED',
-                    'message' => $exception->getMessage(),
-                    'description' => 'Unauthorized request.',
-                ]
-            ], 403);
+            // return response()->view('Theme::errors.403', [
+            //     'error' => [
+            //         'code' => 'NOT_AUTHORIZED',
+            //         'message' => $exception->getMessage(),
+            //         'description' => 'Unauthorized request.',
+            //     ]
+            // ], 403);
         }
 
         return parent::render($request, $exception);

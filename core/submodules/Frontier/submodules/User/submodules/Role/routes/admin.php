@@ -36,5 +36,6 @@ Route::group(['prefix' => 'users'], function () {
     Route::get('permissions/refresh', 'Role\Controllers\PermissionRefreshController@index')->name('permissions.refresh.index');
     Route::post('permissions/refresh', 'Role\Controllers\PermissionRefreshController@refresh')->name('permissions.refresh.refresh');
     Route::post('permissions/reset', 'Role\Controllers\PermissionRefreshController@reset')->name('permissions.reset.reset');
-    Route::resource('permissions', 'Role\Controllers\PermissionController');
+    // Route::resource('permissions', 'Role\Controllers\PermissionController');
+    Route::get('permissions', 'Role\Controllers\PermissionController@index')->name('permissions.index');
 });

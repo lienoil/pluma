@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 use Role\Support\Traits\BelongsToManyGrants;
 use Role\Support\Traits\BelongsToManyPermissionsThroughGrants;
-use Role\Support\Traits\BelongsToManyUsers;
+use User\Support\Traits\BelongsToManyUsers;
 
 class Role extends Model
 {

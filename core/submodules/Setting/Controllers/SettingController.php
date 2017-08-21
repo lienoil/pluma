@@ -4,6 +4,7 @@ namespace Setting\Controllers;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Setting\Models\General;
 use Setting\Models\Setting;
 
 class SettingController extends AdminController
@@ -29,9 +30,9 @@ class SettingController extends AdminController
      */
     public function getGeneralForm(Request $request)
     {
-        $resources = (Setting::all())->generals;
+        $resource = General::key();
 
-        return view("Theme::settings.general")->with(compact('resources'));
+        return view("Theme::settings.general")->with(compact('resource'));
     }
 
     /**
@@ -52,9 +53,16 @@ class SettingController extends AdminController
      * @param  \Setting\Requests\SettingRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SettingRequest $request)
+    public function store(Request $request)
     {
-        //
+        foreach ($request->except(['_token']) as $key => $value) {
+            $setting = General::updateOrCreate(
+                ['key' => $key], [
+                    'value' => $value,
+                    'settingable_type' => get_class(new General),
+                ]
+            );
+        }
 
         return back();
     }

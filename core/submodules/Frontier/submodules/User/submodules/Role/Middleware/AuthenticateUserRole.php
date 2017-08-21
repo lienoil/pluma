@@ -57,10 +57,11 @@ class AuthenticateUserRole
         $request->route()->setAction($actions + ['auth.roles' => $this->roles]);
 
         // check if user has the role specified.
-        if (($this->isAlwaysViewable($request->url())) ||
-            ($request->user() &&
-                ($request->user()->isRoot() ||
-                    $request->user()->hasRole($this->roles)))) {
+        if (($this->isAlwaysViewable($request->url())) || (
+            $request->user() && (
+                $request->user()->isRoot() ||
+                $request->user()->hasRole($this->roles)
+            ))) {
             return $next($request);
         }
 
@@ -97,6 +98,7 @@ class AuthenticateUserRole
         }
 
         $roles = [];
+
         foreach ($this->permissions() as $permission) {
             if (! empty($request) &&
                 isset($request->route()->getAction()['as']) &&

@@ -1,6 +1,6 @@
 <?php
 
-namespace Role\Support\Traits;
+namespace User\Support\Traits;
 
 use User\Models\User;
 

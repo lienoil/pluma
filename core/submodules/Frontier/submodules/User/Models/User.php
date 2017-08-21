@@ -11,7 +11,9 @@ use User\Support\Traits\HasOneActivation;
 
 class User extends Authenticatable
 {
-    use HasOneActivation, BelongsToManyRoles, BelongsToManyPermissionsThroughRoles;
+    use HasOneActivation, BelongsToManyRoles;
+
+    protected $with = ['roles'];
 
     /**
      * Appends to both the model's

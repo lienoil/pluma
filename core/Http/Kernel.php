@@ -42,8 +42,8 @@ class Kernel extends HttpKernel
             'bindings',
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            \Pluma\Http\Middleware\EncryptCookies::class,
-            \Pluma\Http\Middleware\VerifyCsrfToken::class,
+            \Pluma\Middleware\EncryptCookies::class,
+            \Pluma\Middleware\VerifyCsrfToken::class,
         ],
     ];
 

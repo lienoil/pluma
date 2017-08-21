@@ -107,8 +107,8 @@ trait BelongsToManyRoles
      *
      * @param array $rootroles
      */
-    public function setRootRoles($rootroles = [])
+    public function setRootroles($rootroles = [])
     {
-        $this->rootRoles = array_merge($this->rootRoles, $rootRoles);
+        $this->rootroles = array_merge($this->rootroles, $rootroles);
     }
 }

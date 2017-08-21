@@ -28,7 +28,7 @@ trait BelongsToManyPermissionsThroughRoles
     {
         foreach ($this->roles as $role) {
             foreach ($role->grants as $grant) {
-                if ($grant->permissions()->where('code', $permission)->exists()) {
+                if ($grant->permissions() && $grant->permissions()->where('code', $permission)->exists()) {
                     return true;
                 }
             }

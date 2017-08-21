@@ -11,9 +11,9 @@ trait ExceptionHandler
      */
     public function registerExceptionHandlers()
     {
-        // $this->app->singleton(
-        //     \Illuminate\Contracts\Debug\ExceptionHandler::class,
-        //     \Pluma\Exceptions\Handler::class
-        // );
+        $this->app->singleton(
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \Pluma\Exceptions\Handler::class
+        );
     }
 }
