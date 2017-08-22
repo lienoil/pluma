@@ -30,9 +30,9 @@ trait UserMutator
      */
     public function getDisplayroleAttribute()
     {
-        if (property_exists($this, 'roles')) {
+        if (isset($this->roles)) {
             foreach ($this->roles as $role) {
-                $this->rolesnames[] = $role->name;
+                $this->rolesnames[] = $role->alias;
             }
         } else {
             $this->rolesnames[] = __('Guest');

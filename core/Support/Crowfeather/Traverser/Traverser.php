@@ -122,7 +122,7 @@ class Traverser implements TraverserContract
                 $tree[$name] = $traversable;
                 if (! isset($tree[$name]['children'])) {
                     $tree[$name]['children'] = [];
-                    $tree[$name]['is_parent'] = true;
+                    $tree[$name]['is_parent'] = $tree[$name]['has_children'];
                 }
 
                 $tree[$name]['children'] += $this->rechild($traversable[$options['name']], $traversables, $options);

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'all-roles' => [
-        'name' => 'all-roles',
+    'view-role' => [
+        'name' => 'view-role',
         'slug' => url(config('path.admin').'/users/roles'),
         'routes' => [
             'name' => 'roles.index',
@@ -15,7 +15,6 @@ return [
         ],
         'parent' => 'user',
         'order' => 10,
-        // 'is_parent' => true,
         'always_viewable' => false,
         'icon' => 'supervisor_account',
         'labels' => [
@@ -23,8 +22,8 @@ return [
         ],
     ],
 
-    'all-grants' => [
-        'name' => 'all-grants',
+    'view-grant' => [
+        'name' => 'view-grant',
         'slug' => url(config('path.admin').'/users/grants'),
         'parent' => 'user',
         'order' => 20,
@@ -44,8 +43,8 @@ return [
         ],
     ],
 
-    'all-permissions' => [
-        'name' => 'all-permissions',
+    'view-permission' => [
+        'name' => 'view-permission',
         'slug' => url(config('path.admin').'/users/permissions'),
         'parent' => 'user',
         'order' => 30,

@@ -50,66 +50,33 @@ class AuthenticateUserRole
      */
     public function handle($request, Closure $next)
     {
-        $this->setRoles($request);
+        $this->setPermissions();
+        $this->roles = $this->roles($request);
+        dd($this->roles);
 
         $actions = $request->route()->getAction();
-        $request->route()->setAction($actions + ['auth.roles' => $this->roles()]);
+        $request->route()->setAction($actions + ['auth.roles' => $this->roles]);
 
-        // if menu is always viewable, proceed.
-        if ($this->isAlwaysViewable($request->url())) {
+        // check if user has the role specified.
+        if (($this->isAlwaysViewable($request->url())) || (
+            $request->user() && (
+                $request->user()->isRoot() ||
+                $request->user()->hasRole($this->roles)
+            ))) {
             return $next($request);
         }
 
-        if ($request->user()) {
-            // if user is root, proceed.
-            if ($request->user()->isRoot()) {
-                return $next($request);
-            }
-
-            // if user has appropriate role, proceed.
-            if ($request->user()->hasRole($this->roles)) {
-                return $next($request);
-            }
-        }
-
-        // Forbid
         return response()->view("Theme::errors.403", [], 403);
     }
 
     /**
-     * Gets the route's roles.
-     *
-     * @param  Request $request
-     * @return array
-     */
-    public function setRoles(Request $request)
-    {
-        if (App::runningInConsole()) {
-            return [];
-        }
-
-        $this->setUserPermissions();
-
-        $action = $request->route()->getAction();
-        foreach ($this->permissions() as $permission) {
-            if ($action['as'] === $permission->name) {
-                foreach ($permission->grants as $grants) {
-                    foreach ($grants->roles as $role) {
-                        $this->roles[] = $role->code;
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Sets the User's Permissions.
+     * Sets the Permissions.
      *
      */
-    public function setUserPermissions()
+    public function setPermissions()
     {
-        if (isset(user()->roles)) {
-            foreach (user()->roles as $role) {
+        if (isset(auth()->user()->roles)) {
+            foreach (auth()->user()->roles as $role) {
                 foreach ($role->grants as $grant) {
                     foreach ($grant->permissions as $permission) {
                         $this->permissions[] = $permission;
@@ -120,6 +87,41 @@ class AuthenticateUserRole
     }
 
     /**
+     * Gets all the user's roles.
+     *
+     * @param  Request $request
+     * @return array
+     */
+    public function roles(Request $request)
+    {
+        if (App::runningInConsole()) {
+            return [];
+        }
+
+        $roles = [];
+
+        foreach ($this->permissions() as $permission) {
+            if (! empty($request) &&
+                isset($request->route()->getAction()['as']) &&
+                $request->route()->getAction()['as'] == $permission->code) {
+                $roles[] = $permission->roles;
+            }
+        }
+
+        if ($roles) {
+            foreach ($roles as $collection) {
+                if ($collection) {
+                    foreach ($collection as $role) {
+                        $this->roles[] = $role->code;
+                    }
+                }
+            }
+        }
+
+        return $this->roles;
+    }
+
+    /**
      * Gets the permissions array.
      *
      * @return array
@@ -127,16 +129,6 @@ class AuthenticateUserRole
     protected function permissions()
     {
         return $this->permissions ? $this->permissions : [];
-    }
-
-    /**
-     * Gets the roles array.
-     *
-     * @return array
-     */
-    protected function roles()
-    {
-        return $this->roles ? $this->roles : [];
     }
 
     /**

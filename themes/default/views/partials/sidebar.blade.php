@@ -10,7 +10,6 @@
     overflow
     persistent
     v-model="sidebar.drawer"
-    class="pb-3"
 >
     <v-toolbar flat class="transparent">
         <v-list class="pa-0">
@@ -27,7 +26,7 @@
                         :dark.sync="dark" :light.sync="light"
                         @click.native.stop="setStorage('sidebar.mini', (sidebar.mini = !sidebar.mini))"
                     >
-                        <v-icon>chevron_left</v-icon>
+                        <v-icon class="grey--text lighten-2">chevron_left</v-icon>
                     </v-btn>
                 </v-list-tile-action>
             </v-list-tile>
@@ -55,7 +54,7 @@
 
     {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
 
-    <v-toolbar flat class="transparent">
+    <v-toolbar flat class="transparent pb-3">
         <v-list>{{-- <v-list dense> --}}
 
             <template v-for="(menu, i) in navigation.sidebar">
@@ -63,7 +62,7 @@
                 <v-subheader
                     v-if="menu.is_header"
                     :dark.sync="dark" :light.sync="light"
-                    class="grey--text text--lighten-1 mt-4"
+                    class="grey--text text--lighten-1 mt-5"
                 >
                     <small>@{{ menu.text.toUpperCase() }}</small>
                     &nbsp;<v-divider :dark.sync="dark" :light.sync="light"></v-divider>
@@ -90,8 +89,7 @@
                         </v-list-tile-content>
                         <v-list-tile-action>
                             <v-icon
-                                :dark.sync="dark"
-                                :light.sync="light"
+                                class="grey--text lighten-2"
                             >@{{ menu.name ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                         </v-list-tile-action>
                     </v-list-tile>

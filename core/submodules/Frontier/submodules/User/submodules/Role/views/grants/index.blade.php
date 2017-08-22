@@ -1,14 +1,14 @@
-@extends("Frontier::layouts.admin")
+@extends("Theme::layouts.admin")
 
 @section("head-title", __('Grants'))
 @section("page-title", __('Grants'))
 
 @section("content")
-    @include("Frontier::partials.banner")
+    @include("Theme::partials.banner")
 
     <v-layout row wrap>
         <v-flex sm4 xs12>
-            <v-card class="mb-3">
+            <v-card class="mb-3 elevation-1">
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text"><v-icon class="accent--text">build</v-icon><span v-tooltip:bottom="{'html': 'Automatic Grant-Permission Provisioning'}">{{ __("Automatic Grant-Permission Provisioning") }}</span></v-toolbar-title>
                 </v-toolbar>
@@ -28,7 +28,7 @@
                 </v-card-text>
             </v-card>
 
-            <v-card class="mb-3">
+            <v-card class="mb-3 elevation-1">
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __("New Grant") }}</v-toolbar-title>
                 </v-toolbar>
@@ -104,7 +104,7 @@
 
         </v-flex>
         <v-flex sm8 xs12>
-            <v-card class="mb-3">
+            <v-card class="mb-3 elevation-1">
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __('Grants') }}</v-toolbar-title>
                     <v-spacer></v-spacer>

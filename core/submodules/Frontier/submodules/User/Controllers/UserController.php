@@ -43,15 +43,16 @@ class UserController extends AdminController
      */
     public function store(UserRequest $request)
     {
-        // echo "<pre>";
-        //     var_dump( dd($request->all()) ); die();
-        // echo "</pre>";
         $user = new User();
-        $user->name = $request->input('name');
-        $user->code = $request->input('code');
-        $user->description = $request->input('description');
+        $user->prefixname = $request->input('prefixname');
+        $user->firstname = $request->input('firstname');
+        $user->middlename = $request->input('middlename');
+        $user->lastname = $request->input('lastname');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
         $user->save();
-        $user->grants()->attach($request->input('grants'));
+        $user->roles()->attach($request->input('roles'));
 
         return back();
     }

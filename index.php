@@ -64,6 +64,9 @@ require __DIR__.'/bootstrap/pretty-errors.php';
  */
 $app = require_once __DIR__.'/bootstrap/app.php';
 
+// Make the public folder the root folder.
+$app->instance('path.public', realpath(__DIR__));
+
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(

@@ -34,7 +34,7 @@ export default {
 
                         self.$http.get(url).then((response) => {
                             let items = response.body;
-                            const total = response.body.data.total ? response.body.data.total : response.body.total;
+                            const total = response.body.data.total ? response.body.data.total : response.body.data.length;
 
                             resolve({items, total});
                         });

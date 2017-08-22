@@ -18,10 +18,11 @@
 @endpush
 
 @section("content")
-    @include("Theme::partials.banner")
 
     <v-layout row wrap>
-        <v-flex sm8>
+        <v-flex sm8 offset-sm2>
+            @include("Theme::partials.banner")
+
             <form action="{{ route('users.store') }}" method="POST">
                 {{ csrf_field() }}
                 <v-card class="mb-3">
@@ -87,19 +88,35 @@
                         <v-layout row wrap>
                             <v-flex sm6>
                                 <v-text-field
-                                    :error-messages="resource.errors.username"
-                                    label="{{ _('User Name') }}"
-                                    name="username"
-                                    value="{{ old('username') }}"
+                                    :error-messages="resource.errors.email"
+                                    label="{{ _('Email') }}"
+                                    name="email"
+                                    value="{{ old('email') }}"
                                     input-group
                                 ></v-text-field>
                             </v-flex>
                             <v-flex sm6>
                                 <v-text-field
-                                    :error-messages="resource.errors.email"
-                                    label="{{ _('Email') }}"
-                                    name="email"
-                                    value="{{ old('email') }}"
+                                    :error-messages="resource.errors.username"
+                                    label="{{ _('Username') }}"
+                                    name="username"
+                                    value="{{ old('username') }}"
+                                    input-group
+                                ></v-text-field>
+                                <v-text-field
+                                    :error-messages="resource.errors.password"
+                                    label="{{ _('Password') }}"
+                                    type="password"
+                                    name="password"
+                                    value="{{ old('password') }}"
+                                    input-group
+                                ></v-text-field>
+                                <v-text-field
+                                    :error-messages="resource.errors.password_confirmation"
+                                    label="{{ _('Password Confirmation') }}"
+                                    type="password"
+                                    name="password_confirmation"
+                                    value="{{ old('password_confirmation') }}"
                                     input-group
                                 ></v-text-field>
                             </v-flex>
@@ -108,7 +125,7 @@
                         <v-layout row wrap>
                             <v-flex sm6>
                                 <p class="body-1"><strong>{{ __('Available Roles') }}</strong></p>
-                                <v-dialog v-model="resource.dialog.model" hide-overlay xtransition="dialog-bottom-transition" scrollable persistent lazy width="100%" min-width="100%" height="100vh">
+                                <v-dialog v-model="resource.dialog.model" hide-overlay transition="dialog-bottom-transition" scrollable persistent lazy width="100%" min-width="100%" height="100vh">
                                     <v-btn class="ma-0" flat slot="activator" info>{{ __('Select Available Roles...') }}</v-btn>
                                     <v-card height="100%">
                                         <v-toolbar card>

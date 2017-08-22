@@ -77,6 +77,14 @@ class NavigationViewComposer extends BaseViewComposer
                 $parent['active'] = $menu['active'];
             }
 
+            $menu['can_be_accessed'] = false;
+            if (user()->isRoot() ||
+                (isset($menu['always_viewable']) && $menu['always_viewable']) ||
+                (isset($menu['is_header']) && $menu['is_header']) ||
+                user()->isPermittedTo($menu['name'])) {
+                $menu['can_be_accessed'] = true;
+            }
+
             $childRoutes = isset($menu['routes']['children']) ? $menu['routes']['children'] : [];
             $currentRouteName = $this->getCurrentRouteName();
             if ($menu['child']['active'] = in_array($currentRouteName, $childRoutes)) {
@@ -156,7 +164,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function sidebar()
     {
-        $this->unsetForbiddenRoutes($this->menus);
+        $this->menus = $this->unsetForbiddenRoutes($this->menus);
 
         return json_decode(json_encode([
             // 'generate' => $this->generateSidebar(collect(json_decode(json_encode($this->menus)))),
@@ -184,24 +192,24 @@ class NavigationViewComposer extends BaseViewComposer
      * @param  array $menus
      * @return void
      */
-    public function unsetForbiddenRoutes($menus)
+    public function unsetForbiddenRoutes(&$menus = null)
     {
         if (user()->isRoot()) {
-            return;
+            return $menus;
         }
 
-        foreach ($menus as $name => $menu) {
-            if (user()->roles) {
-                foreach (user()->roles as $role) {
-                    if (! $role->isPermittedTo($menu['name']) &&
-                        (isset($menu['always_viewable']) &&
-                        ! $menu['always_viewable'])) {
-                        unset($menus[$name]);
-                    }
-                }
+        $menus = is_null($menus) ? $this->menus : $menus;
+        foreach ($menus as $i => &$menu) {
+            if (isset($menu['children']) && ! empty($menu['children'])) {
+                $menu['children'] = $this->unsetForbiddenRoutes($menu['children']);
+            }
+
+            if ((! $menu['can_be_accessed'] && ! $menu['is_parent']) ||
+                (! $menu['can_be_accessed'] && $menu['is_parent'] && empty($menu['children']))) {
+                unset($menus[$i]);
             }
         }
 
-        $this->menus = $menus;
+        return $menus;
     }
 }

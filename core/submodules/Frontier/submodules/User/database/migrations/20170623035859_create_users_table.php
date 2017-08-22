@@ -47,7 +47,7 @@ class CreateUsersTable extends Migration
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('prefixname');
+            $table->string('prefixname')->nullable();
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');

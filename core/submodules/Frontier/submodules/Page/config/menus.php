@@ -12,8 +12,8 @@ return [
             'title' => __('Pages'),
         ],
         'children' => [
-            'all-pages' => [
-                'name' => 'all-pages',
+            'view-pages' => [
+                'name' => 'view-pages',
                 'parent' => 'page',
                 'order' => 1,
                 'slug' => url(config('path.admin').'/pages'),
@@ -34,8 +34,8 @@ return [
                     'title' => __('Create Page'),
                 ],
             ],
-            'trashed-pages' => [
-                'name' => 'trashed-pages',
+            'trash-page' => [
+                'name' => 'trash-page',
                 'parent' => 'page',
                 'order' => 3,
                 'slug' => url(config('path.admin').'/pages/trashed'),

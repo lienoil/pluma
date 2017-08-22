@@ -29,6 +29,54 @@ if (! function_exists('modules_path')) {
     }
 }
 
+if (! function_exists('themes_path')) {
+    /**
+     * Gets the path of modules.
+     *
+     * @param  string  $path
+     * @return array
+     */
+    function themes_path($path = '')
+    {
+        $path = ltrim($path, '/');
+        if (! function_exists('config')) {
+            $themesPath = json_decode(json_encode(require __DIR__.'/../../config/path.php'));
+            $themesPath = $themesPath->themes;
+        } else {
+            $themesPath = config('path.themes') ? config('path.themes') : base_path("themes");
+        }
+
+        return app()->basePath().DIRECTORY_SEPARATOR.$themesPath.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+}
+
+if (! function_exists('get_themes')) {
+    /**
+     * Gets themes.
+     *
+     * @param  string  $path
+     * @param  string  $identifier
+     * @return array
+     */
+    function get_themes($path = null, $identifier = 'index.html')
+    {
+        $themePath = is_null($path) ? themes_path() : $path;
+        $directories = glob("$themePath/*/$identifier");
+        $themes = [];
+
+        foreach ($directories as $i => $directory) {
+            $themes[$i]['theme'] = [];
+            if (file_exists(dirname($directory).'/theme.json')) {
+                $themes[$i]['theme'] = json_decode(file_get_contents(dirname($directory).'/theme.json'));
+            }
+            $themes[$i]['path'] = dirname($directory);
+            $themes[$i]['preview'] = url('anytheme/'.basename(dirname($directory)).'/preview.png');
+        }
+
+        return json_decode(json_encode($themes));
+    }
+}
+
 if (! function_exists('migrations_path')) {
     /**
      * Gets an array of migrations_path for a given module.
@@ -340,10 +388,15 @@ if (! function_exists('theme')) {
      * Gets theme files from specified path
      *
      * @param  string $file
+     * @param  string $any
      * @return Illuminate\Http\Response
      */
-    function theme($file)
+    function theme($file, $any = false)
     {
+        if ($any) {
+            return url("anytheme/file");
+        }
+
         return url("themes/$file");
     }
 }

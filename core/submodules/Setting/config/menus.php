@@ -19,28 +19,30 @@ return [
             'description' => __('Manage app settings')
         ],
         'children' => [
-            'general-settings' => [
-                'name' => 'general-settings',
-                'slug' => url(config('path.admin').'/settings/general'),
-                'labels' => [
-                    'title' => __('General'),
-                    'description' => __('Lorem ipsum dolor sit.'),
-                ],
-            ],
             'profile-settings' => [
                 'name' => 'profile-settings',
                 'slug' => url(config('path.admin').'/settings/profile'),
                 'labels' => [
                     'title' => __('Profile'),
-                    'description' => __('Lorem ipsum dolor sit.'),
+                    'description' => __('Manage your Profile settings'),
                 ],
             ],
-            'theme-settings' => [
-                'name' => 'theme-settings',
-                'slug' => url(config('path.admin').'/settings/theme'),
+            'general-settings' => [
+                'name' => 'general-settings',
+                'slug' => url(config('path.admin').'/settings/general'),
+                'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Theme'),
-                    'description' => __('Lorem ipsum dolor sit.'),
+                    'title' => __('General'),
+                    'description' => __('Manage General site settings'),
+                ],
+            ],
+            'themes-settings' => [
+                'name' => 'themes-settings',
+                'slug' => url(config('path.admin').'/settings/themes'),
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Themes'),
+                    'description' => __('Manage Themes for the site and application'),
                 ],
             ],
         ],

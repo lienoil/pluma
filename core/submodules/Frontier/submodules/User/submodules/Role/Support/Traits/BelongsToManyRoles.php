@@ -111,4 +111,23 @@ trait BelongsToManyRoles
     {
         $this->rootroles = array_merge($this->rootroles, $rootroles);
     }
+
+    /**
+     * Checks permissions through grants.
+     *
+     * @param  string  $permission
+     * @return boolean
+     */
+    public function isPermittedTo($permission)
+    {
+        foreach ($this->roles as $role) {
+            foreach ($role->grants as $grant) {
+                if ($grant->permissions && $grant->permissions()->where('code', $permission)->exists()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

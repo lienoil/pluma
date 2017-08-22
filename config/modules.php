@@ -10,7 +10,6 @@ return [
      *
      */
     'enabled' => [
-        // 'Single',
         // Modules here...
     ],
 

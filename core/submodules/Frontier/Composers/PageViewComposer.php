@@ -271,10 +271,11 @@ class PageViewComposer extends BaseViewComposer
         }
 
         if (file_exists(public_path('logo.png'))) {
+            // dd('sd');
             return url("logo.png?v=$version");
         }
 
-        return url("core/fallback/logos/main.png?v=$version");
+        return assets("frontier/images/logos/main.png?v=$version");
     }
 
     public function getIcon($url)

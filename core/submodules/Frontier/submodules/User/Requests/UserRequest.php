@@ -54,6 +54,7 @@ class UserRequest extends FormRequest
         return [
             'firstname' => 'sometimes|required|max:255',
             'lastname' => 'sometimes|required|max:255',
+            'password' => 'sometimes|required|min:6|confirmed',
             'username' => 'sometimes|required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
             'email' => 'required|email|unique:users'.$isUpdating,
             'roles' => 'sometimes|required',

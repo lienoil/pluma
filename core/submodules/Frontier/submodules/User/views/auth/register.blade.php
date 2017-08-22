@@ -10,7 +10,7 @@
                     <v-layout row wrap>
                         <v-flex style="text-shadow: 0 1px 1px rgba(0,0,0,0.3)">
                             {{-- <img class="brand-logo" width="200" avatar src="{{ $application->site->logo }}" alt="{{ $application->site->title }}"> --}}
-                            <img title="replace image" src="https://images.vexels.com/media/users/3/143495/isolated/preview/6b80b9965b1ec4d47c31d7eccf8ce4b0-yellow-lightning-bolt-icon-by-vexels.png" width="200">
+                            <img title="replace image" src="{{ $application->site->logo }}" width="200">
                             <h1 class="display-3 white--text"><strong>{{ __('Welcome, brave traveller') }}</strong></h1>
                             <p class="headline">Replace this image! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae obcaecati ex ut vel ducimus, officiis et sapiente enim vitae suscipit, at modi minima asperiores nam ipsa non esse corporis molestiae.</p>
                         </v-flex>

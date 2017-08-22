@@ -23,6 +23,19 @@ class SettingController extends AdminController
     }
 
     /**
+     * Display the Profile Settings Form.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getProfileForm(Request $request)
+    {
+        $resource = []; //Profile::key();
+
+        return view("Theme::settings.profile")->with(compact('resource'));
+    }
+
+    /**
      * Display the General Settings Form.
      *
      * @param  \Illuminate\Http\Request $request
@@ -36,15 +49,17 @@ class SettingController extends AdminController
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the Theme Settings Form.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getThemesForm(Request $request)
     {
-        //
+        // dd("asd", get_themes());
+        $resources = get_themes();
 
-        return view("Theme::settings.create");
+        return view("Theme::settings.themes")->with(compact('resources'));
     }
 
     /**
