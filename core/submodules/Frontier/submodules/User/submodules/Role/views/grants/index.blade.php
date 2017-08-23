@@ -10,32 +10,11 @@
         <v-flex sm4 xs12>
             <v-card class="mb-3 elevation-1">
                 <v-toolbar class="transparent elevation-0">
-                    <v-toolbar-title class="accent--text"><v-icon class="accent--text">build</v-icon><span v-tooltip:bottom="{'html': 'Automatic Grant-Permission Provisioning'}">{{ __("Automatic Grant-Permission Provisioning") }}</span></v-toolbar-title>
-                </v-toolbar>
-                <v-card-text>
-                    <form action="{{ route('grants.refresh.refresh') }}" method="POST">
-                        {{ csrf_field() }}
-                        <p class="grey--text">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}</p>
-
-                        <div class="text-sm-right">
-                            <button type="submit" class="btn btn--raised primary ma-0">
-                                <span v-tooltip:bottom="{'html': 'Doing this action is relatively safe'}">
-                                    Start
-                                </span>
-                            </button>
-                        </div>
-                    </form>
-                </v-card-text>
-            </v-card>
-
-            <v-card class="mb-3 elevation-1">
-                <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __("New Grant") }}</v-toolbar-title>
                 </v-toolbar>
-                <v-card-text>
-                    <form action="{{ route('grants.store') }}" method="POST">
-                        {{ csrf_field() }}
-                        <p class="subtitle grey--text">{{ __("Need to add a new fine-tuned Grant? Use the form below.") }}</p>
+                <form action="{{ route('grants.store') }}" method="POST">
+                    {{ csrf_field() }}
+                    <v-card-text>
                         <v-text-field
                             :error-messages="resource.errors.name"
                             label="{{ _('Name') }}"
@@ -59,27 +38,29 @@
                         ></v-text-field>
                         <v-select
                             :error-messages="resource.errors.permissions"
-                            auto
                             autocomplete
                             chips
-                            item-text="name"
+                            item-text="code"
                             item-value="id"
                             label="{{ __('Permissions') }}"
-                            max-height="90vh"
+                            max-height="260px"
                             multiple
                             v-bind:items="suppliments.permissions.items"
                             v-model="suppliments.permissions.selected"
+                            hint="{{ __('Search permissions list') }}"
+                            persistent-hint
                         >
                             <template slot="selection" scope="data">
                                 <v-chip
+                                    label
                                     close
                                     @input="data.parent.selectItem(data.item)"
                                     @click.native.stop
-                                    class="chip--select-multi"
+                                    class="chip--select-multi pink darken-3 white--text"
                                     :key="data.item"
                                 >
+                                    @{{ data.item.code }}
                                     <input type="hidden" name="permissions[]" :value="data.item.id">
-                                    @{{ data.item.name }}
                                 </v-chip>
                             </template>
                             <template slot="item" scope="data">
@@ -88,18 +69,43 @@
                                 </template>
                                 <template v-else>
                                     <v-list-tile-content>
-                                        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                                        <v-list-tile-sub-title v-html="data.item.code"></v-list-tile-sub-title>
+                                        <v-list-tile-title>
+                                            <strong>@{{ data.item.code }}</strong>
+                                            <span class="grey--text">@{{ data.item.name }}</span>
+                                        </v-list-tile-title>
+                                        <v-list-tile-sub-title class="grey--text">@{{ data.item.description }}</v-list-tile-sub-title>
                                     </v-list-tile-content>
                                 </template>
                             </template>
                         </v-select>
+                    </v-card-text>
 
-                        <div class="text-sm-right">
-                            <button type="submit" class="btn btn--raised primary ma-0"><span class="btn__content">{{ __('Submit') }}</span></button>
-                        </div>
-                    </form>
-                </v-card-text>
+                    <v-card-actions>
+                        {{-- <v-btn flat @click.native.stop="() => { alert('sad') }">{{ __('Expand Permissions List...') }}</v-btn> --}}
+                        <v-spacer></v-spacer>
+                        <v-btn primary type="submit">{{ __('Save') }}</v-btn>
+                    </v-card-actions>
+                </form>
+            </v-card>
+
+            <v-card class="mb-3 elevation-1">
+                <v-toolbar class="transparent elevation-0">
+                    <v-toolbar-title class="accent--text"><v-icon class="accent--text">build</v-icon><span v-tooltip:bottom="{'html': 'Automatic Grant-Permission Provisioning'}">{{ __("Automatic Grant-Permission Provisioning") }}</span></v-toolbar-title>
+                </v-toolbar>
+                <form action="{{ route('grants.refresh.refresh') }}" method="POST">
+                    {{ csrf_field() }}
+                    <v-card-text>
+                        <p class="grey--text mb-0">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}</p>
+
+                        <small class="warning--text">{{ __("Any edit you've made from existing grants might get overridden.") }}</small>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn primary type="submit" v-tooltip:bottom="{'html': 'Doing this action is relatively safe'}">
+                            {{ __('Start') }}
+                        </v-btn>
+                    </v-card-actions>
+                </form>
             </v-card>
 
         </v-flex>
@@ -173,23 +179,76 @@
                         </span>
                     </template>
                     <template slot="items" scope="prop">
-                        <td>
-                            <v-checkbox
-                                primary
-                                hide-details
-                                class="pa-0"
-                                v-model="prop.selected"
-                            ></v-checkbox>
-                        </td>
-                        <td>@{{ prop.item.id }}</td>
-                        <td><strong v-tooltip:bottom="{'html': prop.item.description ? prop.item.description : prop.item.name}">@{{ prop.item.name }}</strong></td>
-                        <td>@{{ prop.item.code }}</td>
-                        <td>@{{ prop.item.description }}</td>
-                        <td class="text-xs-right">
-                            <span v-tooltip:bottom="{'html': 'Number of permissions associated'}">@{{ prop.item.permissions.length }}</span>
-                        </td>
-                        <td>@{{ prop.item.created }}</td>
-                        <td width="100%" class="text-xs-center">
+                        <tr>
+                            <td>
+                                <v-checkbox
+                                    primary
+                                    hide-details
+                                    class="pa-0"
+                                    v-model="prop.selected"
+                                ></v-checkbox>
+                            </td>
+                            <td>@{{ prop.item.id }}</td>
+                            <td><strong v-tooltip:bottom="{'html': '{{ __('Edit the resource') }}'}"><a :href="route(urls.grants.edit, (prop.item.id))">@{{ prop.item.name }}</a></strong></td>
+                            <td>@{{ prop.item.code }}</td>
+                            <td>@{{ prop.item.excerpt }}</td>
+                            <td class="text-xs-right">
+                                <span v-tooltip:bottom="{'html': 'Number of permissions associated'}">@{{ prop.item.permissions.length }}</span>
+                            </td>
+                            <td>@{{ prop.item.created }}</td>
+                            <td class="text-xs-center">
+                                <v-menu bottom left>
+                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-list>
+                                        <v-list-tile :href="route(urls.grants.show, (prop.item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon info>search</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('View details') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile :href="route(urls.grants.edit, (prop.item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon accent>edit</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Edit this resource') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile
+                                            @click.native.stop="destroy(route(urls.grants.api.destroy, prop.item.id),
+                                            {
+                                                '_token': '{{ csrf_token() }}'
+                                            })">
+                                            <v-list-tile-action>
+                                                <v-icon warning>delete</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Move to Trash') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile @click.native.stop="post(route(urls.grants.api.clone, (prop.item.id)))">
+                                            <v-list-tile-action>
+                                                <v-icon accent>content_copy</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Clone the resource') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
+                            </td>
+                        </tr>
+                        {{-- <td width="100%" class="text-xs-center">
                             <a v-tooltip:bottom="{'html': 'Show'}" class="btn btn--flat btn--icon" :href="route(urls.grants.show, (prop.item.id))"><span class="btn__content"><v-icon info>search</v-icon></span></a>
                             <a v-tooltip:bottom="{'html': 'Edit'}" class="btn btn--flat btn--icon" :href="route(urls.grants.edit, (prop.item.id))"><span class="btn__content"><v-icon>edit</v-icon></span></a>
                             <form :action="route(urls.grants.destroy, (prop.item.id))" method="POST" class="inline">
@@ -197,22 +256,13 @@
                                 {{ method_field('DELETE') }}
                                 <button type="submit" v-tooltip:bottom="{'html': 'Move to Trash'}" class="btn btn--icon btn--flat"><span class="btn__content"><v-icon>delete</v-icon></span></button>
                             </form>
-                        </td>
+                        </td> --}}
                     </template>
                 </v-data-table>
             </v-card>
         </v-flex>
     </v-layout>
 @endsection
-
-
-@push('css')
-    <style>
-        .inline {
-            display: inline-block;
-        }
-    </style>
-@endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
@@ -257,24 +307,35 @@
                     },
                     suppliments: {
                         permissions: {
-                            items: [],
-                            search: '',
+                            loading: true,
                             selected: [],
                         },
                     },
                     urls: {
                         grants: {
+                            api: {
+                                clone: '{{ route('api.grants.clone', 'null') }}',
+                                destroy: '{{ route('api.grants.destroy', 'null') }}',
+                            },
                             show: '{{ route('grants.show', 'null') }}',
                             edit: '{{ route('grants.edit', 'null') }}',
                             destroy: '{{ route('grants.destroy', 'null') }}',
                         },
+                    },
+                    snackbar: {
+                        model: false,
+                        text: '',
+                        context: '',
+                        timeout: 2000,
+                        y: 'bottom',
+                        x: 'right'
                     },
                 };
             },
             watch: {
                 'dataset.pagination': {
                     handler () {
-                        this.get();
+                        this.get('{{ route('api.grants.all') }}');
                     },
                     deep: true
                 },
@@ -301,7 +362,7 @@
                 },
             },
             methods: {
-                get () {
+                get (url) {
                     const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
                     let query = {
                         descending: descending,
@@ -309,7 +370,7 @@
                         sort: sortBy,
                         take: rowsPerPage,
                     };
-                    this.api().get('{{ route('api.grants.all') }}', query)
+                    this.api().get(url, query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;
@@ -317,14 +378,34 @@
                         });
                 },
 
+                post (url, query) {
+                    var self = this;
+                    this.api().post(url, query)
+                        .then((data) => {
+                            self.get('{{ route('api.grants.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data.response.body);
+                            self.snackbar.model = true;
+                        });
+                },
+
+                destroy (url, query) {
+                    var self = this;
+                    this.api().delete(url, query)
+                        .then((data) => {
+                            self.get('{{ route('api.grants.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data.response.body);
+                            self.snackbar.model = true;
+                        });
+                },
+
                 mountSuppliments () {
                     let items = {!! json_encode($permissions) !!};
                     let g = [];
                     for (var i in items) {
-                        g.push({ text: items[i], id: i, name: items[i], value: i});
+                        g.push({ text: items[i], id: i, code: items[i].code, name: items[i].name, description: items[i].description, value: i});
                     }
                     this.suppliments.permissions.items = g;
-                    console.log("this.suppliments.permissions.items", g);
+                    console.log("dataset.pagination", this.suppliments.permissions.items);
 
                     let selected = {!! json_encode(old('permissions')) !!};
                     let s = [];
@@ -338,9 +419,9 @@
             },
 
             mounted () {
-                this.get();
+                this.get('{{ route('api.grants.all') }}');
                 this.mountSuppliments();
-                console.log("dataset.pagination", this.dataset.pagination);
+                this.dataset.pagination.rowsPerPage = this.dataset.totalItems <= 15 ? '-1' : this.dataset.totalItems;
             }
         });
     </script>

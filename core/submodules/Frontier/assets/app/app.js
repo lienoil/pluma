@@ -4,11 +4,16 @@ import API from './api.js';
 
 Vue.mixin(API);
 
+if (typeof Vue.http != 'undefined') {
+    Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name=_token]').getAttribute('content');
+}
+
 const app = new Vue({
     el: '#application-root',
     mixins : mixins,
     data() {
         return {
+            snackbar: {},
             dark: true, light: false,
             rightsidebar: {
                 model: false,
@@ -123,17 +128,6 @@ const app = new Vue({
         route (url, query) {
             return url.split('null').join(query);
             // window.location = url;
-        },
-
-        postResource (url, query) {
-            return new Promise((resolve, reject) => {
-                query = query ? query : {};
-                this.$http.post(url, query).then((response) => {
-                    let items = response.body;
-                    let total = response.body.total ? response.body.total : response.body.length;
-                    resolve({items, total});
-                });
-            });
         },
     },
 });

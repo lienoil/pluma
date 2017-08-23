@@ -15,10 +15,12 @@
 @endpush
 
 @section("content")
-    @include("Theme::partials.banner")
 
     <v-layout row wrap>
-        <v-flex sm10 offset-sm1>
+        <v-flex sm8 offset-sm2>
+
+            @include("Theme::partials.banner")
+
             <v-card class="grey--text elevation-1 mb-2">
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __('Edit Grant') }}</v-toolbar-title>
@@ -51,27 +53,32 @@
                     </v-card-text>
 
                     <v-layout row wrap>
-                        <v-flex sm6>
-                            <v-subheader><strong>{{ __('Available Permissions') }}</strong></v-subheader>
-
-                            {{-- Permissions Table --}}
-                            <v-card-text>
+                        <v-flex sm12>
+                            <v-subheader class="subheading grey--text">{{ __('Selected ') }}@{{ dataset.selected.length }} {{ __('of') }} @{{ dataset.items.length }} {{ __('Permissions') }}</v-subheader>
+                            <v-toolbar class="transparent elevation-0">
+                                <v-toolbar-title class="accent--text subheading">{{ __('Permissions') }}</v-toolbar-title>
+                                <v-spacer></v-spacer>
                                 <v-text-field
                                     append-icon="search"
-                                    label="{{ _('Search') }}"
+                                    label="{{ _('Search Permissions') }}"
                                     single-line
                                     hide-details
                                     v-model="dataset.searchform.query"
                                     light
                                     class="pb-0"
                                 ></v-text-field>
-                            </v-card-text>
+                            </v-toolbar>
+
+                            {{-- Permissions Table --}}
+                            <template v-for="(prop, i) in dataset.selected">
+                                <input type="hidden" name="permissions[]" :value="prop.id">
+                            </template>
                             <v-data-table
                                 :loading="dataset.loading"
-                                :total-items="dataset.totalItems"
+                                {{-- :total-items="dataset.totalItems" --}}
                                 class="elevation-0"
                                 no-data-text="{{ _('No available permissions') }}"
-                                {{-- select-all --}}
+                                select-all
                                 selected-key="id"
                                 v-bind:headers="dataset.headers"
                                 v-bind:items="dataset.items"
@@ -81,15 +88,17 @@
                             >
                                 <template slot="items" scope="prop">
                                     <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
-                                        {{-- <td>
+                                        <td>
                                             <v-checkbox
                                                 primary
                                                 hide-details
                                                 class="pa-0"
                                                 :input-value="prop.selected"
                                             ></v-checkbox>
-                                        </td> --}}
-                                        <td role="button"><strong>@{{ prop.item.code }}</strong></td>
+                                        </td>
+                                        <td><strong>@{{ prop.item.id }}</strong></td>
+                                        <td><strong>@{{ prop.item.name }}</strong></td>
+                                        <td><strong>@{{ prop.item.code }}</strong></td>
                                         <td>@{{ prop.item.description }}</td>
                                     </tr>
                                 </template>
@@ -97,62 +106,7 @@
                             {{-- /Permissions Table --}}
 
                         </v-flex>
-                        <v-flex sm6>
-                            <v-subheader><strong>{{ __('Chosen Permissions') }}</strong></v-subheader>
 
-                            {{-- Permissions Table --}}
-                            <v-card-text>
-                                <v-text-field
-                                    append-icon="search"
-                                    label="{{ _('Search') }}"
-                                    single-line
-                                    hide-details
-                                    v-model="selected.searchform.query"
-                                    light
-                                    select-all
-                                    class="pb-0"
-                                ></v-text-field>
-                            </v-card-text>
-                            <v-data-table
-                                :loading="selected.loading"
-                                class="elevation-0"
-                                no-data-text="{{ _('No resource found') }}"
-                                selected-key="id"
-                                {{-- select-all --}}
-                                v-bind:headers="selected.headers"
-                                v-bind:items="selected.items"
-                                v-bind:search="selected.searchform.query"
-                                v-model="selected.selected"
-                                hide-actions
-                            >
-                                <template slot="items" scope="prop">
-                                    <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
-                                        {{-- <td>
-                                            <v-checkbox
-                                                primary
-                                                hide-details
-                                                class="pa-0"
-                                                :input-value="prop.selected"
-                                            ></v-checkbox>
-                                        </td> --}}
-                                        <td>
-                                            <strong>@{{ prop.item.code }}</strong>
-                                        </td>
-                                        <td>@{{ prop.item.description }}</td>
-                                        <td>
-                                            <v-btn
-                                                v-tooltip:left="{'html': '{{ __('Remove') }}'}"
-                                                flat
-                                                icon
-                                                @click.native="selected.items.pop(prop.item)"
-                                            ><v-icon>close</v-icon></v-btn>
-                                        </td>
-                                    </tr>
-                                </template>
-                            </v-data-table>
-                            {{-- /Permissions Table --}}
-
-                        </v-flex>
                     </v-layout>
 
                     <v-card-actions>
@@ -173,39 +127,22 @@
                 return {
                     dataset: {
                         headers: [
-                            { text: '{{ __("Code") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Description") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("ID") }}', align: 'left', value: 'id' },
+                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Description") }}', align: 'left', value: 'description' },
                         ],
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 10,
+                            rowsPerPage: null,
                             totalItems: 0,
                         },
                         searchform: {
                             model: false,
                             query: '',
                         },
-                        selected: {!! json_encode(old('roles')) !!} ? {!! json_encode(old('roles')) !!} : [],
-                        totalItems: 0,
-                    },
-                    selected: {
-                        headers: [
-                            { text: '{{ __("Code") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Description") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Actions") }}', align: 'center', value: 'actions' },
-                        ],
-                        items: [],
-                        loading: false,
-                        pagination: {
-                            rowsPerPage: 10,
-                            totalItems: 0,
-                        },
-                        searchform: {
-                            model: false,
-                            query: '',
-                        },
-                        selected: {!! json_encode(old('roles')) !!} ? {!! json_encode(old('roles')) !!} : [],
+                        selected: {!! json_encode(old('permissions')) !!} ? {!! json_encode(old('permissions')) !!} : JSON.parse('{!! json_encode($resource->permissions) !!}'),
                         totalItems: 0,
                     },
                     resource: {
@@ -242,10 +179,10 @@
                 //         const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
 
                 //         let query = {
-                //             descending: descending,
-                //             page: page,
+                //             descending: descending ? descending : false,
+                //             page: page ? page : 1,
                 //             q: filter,
-                //             sort: sortBy,
+                //             sort: sortBy ? sortBy : 'id',
                 //             take: rowsPerPage,
                 //         };
 

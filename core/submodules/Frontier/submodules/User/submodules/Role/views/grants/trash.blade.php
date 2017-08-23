@@ -12,7 +12,7 @@
 
     <v-layout row wrap>
 
-        <v-flex sm8 xs12>
+        <v-flex sm8 offset-sm2>
             <v-card class="mb-3">
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __('Trashed Grants') }}</v-toolbar-title>

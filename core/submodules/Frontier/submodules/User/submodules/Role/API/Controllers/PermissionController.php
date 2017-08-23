@@ -26,7 +26,7 @@ class PermissionController extends APIController
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $resources->paginate($take);
+        $resources = $take ? $resources->paginate($take) : $resources->get();
 
         return response()->json($resources);
     }
@@ -49,7 +49,7 @@ class PermissionController extends APIController
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $resources->paginate($take);
+        $resources = $take ? $resources->paginate($take) : $resources->get();
 
         return response()->json($resources);
     }

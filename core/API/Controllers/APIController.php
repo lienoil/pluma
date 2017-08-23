@@ -15,14 +15,14 @@ class APIController extends BaseController
         'context' => 'success',
         'type' => 'success',
         'message' => 'Success',
-        'text' => 'Action successfully done.',
+        'text' => 'Action successfully done',
     ];
 
     protected $errorResponse = [
         'context' => 'error',
         'type' => 'danger',
-        'message' => 'Error on last action executed.',
-        'text' => 'Error',
+        'message' => 'Error',
+        'text' => 'Error on last action executed',
     ];
 
     /**

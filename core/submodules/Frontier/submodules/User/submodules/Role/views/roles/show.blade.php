@@ -12,37 +12,42 @@
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __($resource->name) }}</v-toolbar-title>
                     <v-spacer></v-spacer>
-                    <v-menu bottom right>
-                        <v-btn icon slot="activator">
-                            <v-icon>more_vert</v-icon>
-                        </v-btn>
+                    <v-menu bottom left>
+                        <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                         <v-list>
-                            <v-list-tile href="{{ route('roles.edit', $resource->id) }}">
-                                <v-list-tile-title>
-                                    <v-icon>edit</v-icon> {{ _('Edit') }}
-                                </v-list-tile-title>
-                            </v-list-tile>
-                            <v-list-tile>
-                                <v-dialog v-model="resource.dialog.model" lazy min-width="300px">
-                                    <v-list-tile-title slot="activator">
-                                        <v-icon>delete</v-icon> {{ __('Delete') }}
+                            <v-list-tile :href="route(urls.roles.edit, ('{{ $resource->id }}'))">
+                                <v-list-tile-action>
+                                    <v-icon accent>edit</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        {{ __('Edit') }}
                                     </v-list-tile-title>
-                                    <v-card class="text-xs-center">
-                                        <v-card-text>
-                                            <v-icon class="display-2">delete</v-icon>
-                                            <br>
-                                            {{ __('Move this resource to trash?') }}
-                                        </v-card-text>
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <form action="{{ route('roles.destroy', $resource->id) }}" method="POST" class="inline">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <button class="btn btn--flat error error--text" type="submit"><span class="btn__content">Delete</span></button>
-                                            </form>
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-dialog>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                            {{-- <v-list-tile @click.native.stop="post(route(urls.roles.api.clone, ('{{ $resource->id }}')))">
+                                <v-list-tile-action>
+                                    <v-icon accent>content_copy</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        {{ __('Clone') }}
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile> --}}
+                            <v-list-tile
+                                @click.native.stop="destroy(route(urls.roles.api.destroy, '{{ $resource->id }}'),
+                                {
+                                    '_token': '{{ csrf_token() }}'
+                                })">
+                                <v-list-tile-action>
+                                    <v-icon warning>delete</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        {{ __('Move to Trash') }}
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
                             </v-list-tile>
                         </v-list>
                     </v-menu>
@@ -113,7 +118,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <a role="button" href="{{ route('roles.index') }}" class="btn btn--flat"><span class="btn__content"><v-icon>keyboard_backspace</v-icon>{{ _('Back') }}</span></a>
+                    <v-btn flat href="{{ route('roles.index') }}"><v-icon>keyboard_backspace</v-icon>{{ _('Back') }}</v-btn>
                 </v-card-actions>
             </v-card>
         </v-flex>
@@ -133,24 +138,21 @@
                             model: false,
                         },
                     },
+                    urls: {
+                        roles: {
+                            api: {
+                                clone: '{{ route('api.roles.clone', 'null') }}',
+                                destroy: '{{ route('api.roles.destroy', 'null') }}',
+                            },
+                            show: '{{ route('roles.show', 'null') }}',
+                            edit: '{{ route('roles.edit', 'null') }}',
+                            destroy: '{{ route('roles.destroy', 'null') }}',
+                        },
+                    },
                 };
             },
             mounted () {
                 let self = this;
-
-                {{-- {{ route('api.roles.permissions') }} --}}
-                // this.postResource('')
-                //     .then((data) => {
-                //         let items = [];
-                //         for (var key in data.items) {
-                //             items.push({header: key});
-                //             for (var i = 0; i < data.items[key].length; i++) {
-                //                 items.push(data.items[key][i]);
-                //             }
-                //             items.push({divider: true});
-                //         }
-                //         self.permissions.items = items;
-                //     });
             }
         })
     </script>

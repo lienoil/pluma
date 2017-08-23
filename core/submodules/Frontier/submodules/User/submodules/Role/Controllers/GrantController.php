@@ -19,7 +19,7 @@ class GrantController extends AdminController
     public function index(Request $request)
     {
         $resources = Grant::paginate();
-        $permissions = Permission::pluck('code', 'id');
+        $permissions = Permission::select(['code', 'name', 'id', 'description'])->get();
 
         return view("Role::grants.index")->with(compact('resources', 'permissions'));
     }
@@ -158,5 +158,20 @@ class GrantController extends AdminController
         $grant->forceDelete();
 
         return redirect()->route('grants.trash');
+    }
+
+    /**
+     * Copy the resource as a new resource.
+     * @param  Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function clone(Request $request, $id)
+    {
+        $grant = Grant::findOrFail($id);
+        $grant->code = "{$grant->code}-clone-$id";
+        Grant::create($grant->toArray());
+
+        return back();
     }
 }

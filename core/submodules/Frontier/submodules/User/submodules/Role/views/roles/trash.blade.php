@@ -8,11 +8,13 @@
 @endpush
 
 @section("content")
-    @include("Theme::partials.banner")
 
     <v-layout row wrap>
 
-        <v-flex sm8 xs12>
+        <v-flex sm8 offset-sm2>
+
+            @include("Theme::partials.banner")
+
             <v-card class="mb-3">
                 <v-toolbar class="transparent elevation-0">
                     <v-toolbar-title class="accent--text">{{ __('Trashed Roles') }}</v-toolbar-title>
@@ -108,50 +110,65 @@
                         <td>@{{ prop.item.id }}</td>
                         <td><strong v-tooltip:bottom="{'html': prop.item.description ? prop.item.description : prop.item.name}">@{{ prop.item.name }}</strong></td>
                         <td>@{{ prop.item.code }}</td>
-                        <td>@{{ prop.item.description }}</td>
+                        <td>@{{ prop.item.excerpt }}</td>
                         <td class="text-xs-right">
-                            <span v-tooltip:bottom="{'html': 'Number of grants associated'}">@{{ prop.item.grants ? prop.item.grants.length : 0 }}</span>
+                            <span v-tooltip:bottom="{'html': '{{ __('Number of grants associated') }}'}">@{{ prop.item.grants ? prop.item.grants.length : 0 }}</span>
+                            @{{ prop.item.dialog }}
                         </td>
                         <td>@{{ prop.item.created }}</td>
-                        <td width="100%" class="text-xs-center">
-                            <form :action="route(urls.roles.restore, (prop.item.id))" method="POST" class="inline">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn--flat btn--icon" v-tooltip:bottom="{'html': '{{ __('Restore resource') }}'}"><span class="btn__content"><v-icon>restore</v-icon></span></button>
-                            </form>
-                            <v-dialog v-model="prop.item.dialog" lazy width="auto" min-width="200px" class="inline">
-                                <v-btn flat icon slot="activator" v-tooltip:bottom="{'html': '{{ __('Delete forever') }}'}"><v-icon>delete_forever</v-icon></v-btn>
-                                <v-card class="text-xs-center">
-                                    <v-card-title class="headline">{{ __('Permanently Delete') }} "@{{ prop.item.name }}"</v-card-title>
-                                    <v-card-text >
-                                        {{ __("You are about to permanently delete the resource. This action is irreversible. Do you want to proceed?") }}
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        {{-- <v-btn class="green--text darken-1" flat @click.native="prop.item.dialog=false">{{ __('Cancel') }}</v-btn> --}}
-                                        <form :action="route(urls.roles.delete, (prop.item.id))" method="POST" class="inline">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn btn--flat error--text"><span class="btn__content">{{ __('Delete Forever') }}</span></button>
-                                        </form>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
+                        <td class="text-xs-center">
+                            <v-menu bottom left>
+                                <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                <v-list>
+                                    <v-list-tile @click.native.stop="post(route(urls.roles.api.restore, (prop.item.id)))">
+                                        <v-list-tile-action>
+                                            <v-icon accent>restore</v-icon>
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ __('Restore') }}
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                    <v-list-tile
+                                        @click.native="setDialog(true, prop.item)"
+                                    >
+                                        <v-list-tile-action>
+                                            <v-icon>delete_forever</v-icon>
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ __('Permanently Delete') }}
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                </v-list>
+                            </v-menu>
                         </td>
                     </template>
                 </v-data-table>
             </v-card>
         </v-flex>
     </v-layout>
+
+    <v-dialog v-model="resource.dialog.model" persistent lazy width="auto" min-width="200px">
+        <v-card class="text-xs-center">
+            <v-card-title class="headline">{{ __('Permanently Delete') }} "@{{ resource.dialog.data.name }}"</v-card-title>
+            <v-card-text >
+                {{ __("You are about to permanently delete the resource. This action is irreversible. Do you want to proceed?") }}
+            </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn class="green--text darken-1" flat @click.native="resource.dialog.model=false">{{ __('Cancel') }}</v-btn>
+                <form :action="route(urls.roles.delete, (resource.dialog.data.id))" method="POST" class="inline">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <v-btn type="submit" flat class="error error--text">{{ __('Delete Forever') }}</v-btn>
+                </form>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 @endsection
-
-
-@push('css')
-    <style>
-        .inline {
-            display: inline-block;
-        }
-    </style>
-@endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
@@ -196,6 +213,10 @@
                             grants: '',
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
+                        dialog: {
+                            model: false,
+                            data: {},
+                        }
                     },
                     suppliments: {
                         grants: {
@@ -205,9 +226,22 @@
                     },
                     urls: {
                         roles: {
+                            api: {
+                                restore: '{{ route('api.roles.restore', 'null') }}',
+                                delete: '{{ route('api.roles.delete', 'null') }}',
+                            },
                             restore: '{{ route('roles.restore', 'null') }}',
                             delete: '{{ route('roles.delete', 'null') }}',
                         },
+                    },
+
+                    snackbar: {
+                        model: false,
+                        text: '',
+                        context: '',
+                        timeout: 2000,
+                        y: 'bottom',
+                        x: 'right'
                     },
                 };
             },
@@ -250,6 +284,32 @@
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
+                },
+
+                post (url, query) {
+                    var self = this;
+                    this.api().post(url, query)
+                        .then((data) => {
+                            console.log(data);
+                            self.get('{{ route('api.roles.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data.items);
+                            self.snackbar.model = true;
+                        });
+                },
+
+                destroy (url, query) {
+                    var self = this;
+                    this.api().delete(url, query)
+                        .then((data) => {
+                            self.get('{{ route('api.roles.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data);
+                            self.snackbar.model = true;
+                        });
+                },
+
+                setDialog (model, data) {
+                    this.resource.dialog.model = model;
+                    this.resource.dialog.data = data;
                 },
             },
 

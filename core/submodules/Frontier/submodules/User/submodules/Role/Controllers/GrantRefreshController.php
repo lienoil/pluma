@@ -41,7 +41,13 @@ class GrantRefreshController extends AdminController
                     $permission['group'] = 'others';
                 }
 
-                $grants[$permission['group']][] = $permission;
+                if (is_array($permission['group'])) {
+                    foreach ($permission['group'] as $group) {
+                        $grants[$group][] = $permission;
+                    }
+                } else {
+                    $grants[$permission['group']][] = $permission;
+                }
             }
 
             foreach ($grants as $name => $permissions) {

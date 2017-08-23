@@ -19,7 +19,7 @@ class RoleController extends AdminController
     public function index(Request $request)
     {
         $resources = Role::paginate();
-        $grants = Grant::pluck('name', 'id')->toArray();
+        $grants = Grant::pluck('name', 'id');
 
         return view("Theme::roles.index")->with(compact('resources', 'grants'));
     }
@@ -103,7 +103,10 @@ class RoleController extends AdminController
     public function destroy(Request $request, $id)
     {
         $role = Role::findOrFail($id);
-        $role->delete();
+
+        if (! in_array($role->code, config('auth.rootroles', []))) {
+            $role->delete();
+        }
 
         return redirect()->route('roles.index');
     }

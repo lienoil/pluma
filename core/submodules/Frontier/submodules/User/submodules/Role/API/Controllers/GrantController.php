@@ -72,4 +72,39 @@ class GrantController extends APIController
 
         return response()->json($p);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        $grant = Grant::findOrFail($id);
+        $grant->delete();
+
+        return response()->json($this->successResponse);
+    }
+
+    /**
+     * Copy the resource as a new resource.
+     * @param  Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function clone(Request $request, $id)
+    {
+        $grant = Grant::findOrFail($id);
+
+        $clone = new Grant();
+        $clone->name = $grant->name;
+        $clone->code = "{$grant->code}-clone-{$id}";
+        $clone->description = $grant->description;
+        $clone->save();
+        $clone->permissions()->attach($grant->permissions->pluck('id')->toArray());
+
+        return response()->json($this->successResponse);
+    }
 }

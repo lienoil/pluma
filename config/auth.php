@@ -109,4 +109,10 @@ return [
         ],
     ],
 
+    'rootroles' => [
+        'admin',
+        'superadmin',
+        'root',
+        'dev',
+    ],
 ];

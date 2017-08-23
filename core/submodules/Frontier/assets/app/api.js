@@ -34,7 +34,7 @@ export default {
 
                         self.$http.get(url).then((response) => {
                             let items = response.body;
-                            const total = response.body.data.total ? response.body.data.total : response.body.data.length;
+                            const total = typeof response.body.data != 'undefined' ? response.body.data.total : response.body.length;
 
                             resolve({items, total});
                         });
@@ -52,7 +52,16 @@ export default {
                         })
 
                     });
-                }
+                },
+
+                delete (url, query) {
+                    return new Promise((resolve, reject) => {
+                        self.$http.delete(url, self.serialize(query)).then((response) => {
+                            self.get();
+                            resolve({response});
+                        });
+                    });
+                },
             }
         },
 

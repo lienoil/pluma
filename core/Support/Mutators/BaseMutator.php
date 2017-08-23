@@ -11,7 +11,7 @@ trait BaseMutator
      *
      * @var integer
      */
-    protected $wordCount = 20;
+    protected $wordCount = 6;
 
     /**
      * Get the pretty date of the created_at column.

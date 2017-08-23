@@ -122,7 +122,7 @@ if (! function_exists('modules')) {
      */
     function modules($includeCoreModules = false, $modulesPath = null, $basenameOnly = true)
     {
-        $modules = is_null($modulesPath) ? glob(modules_path()."/*", GLOB_ONLYDIR) : glob("$modulesPath/*", GLOB_ONLYDIR);
+        $modules = is_null($modulesPath) ? glob(modules_path()."/*", GLOB_ONLYDIR) : $p = glob("$modulesPath/*", GLOB_ONLYDIR);
 
         if ($includeCoreModules) {
             $coreModules = is_null($modulesPath) ? glob(core_path()."/submodules/*", GLOB_ONLYDIR) : glob("$modulesPath/*", GLOB_ONLYDIR);
@@ -132,7 +132,7 @@ if (! function_exists('modules')) {
         $m = [];
         foreach ($modules as $k => $module) {
             if (! in_array(basename($module), config('modules.disabled'))) {
-                if (is_dir("$module/submodules")) {
+                if (is_dir("$module/submodules") && ! empty(glob("$module/submodules/*", GLOB_ONLYDIR))) {
                     $m[($basenameOnly ? basename($module) : $module)] = modules(false, "$module/submodules", $basenameOnly);
                 } else {
                     $m[$k] = ($basenameOnly ? basename($module) : $module);

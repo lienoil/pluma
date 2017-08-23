@@ -27,7 +27,7 @@ return [
         'name' =>  'settings.profile',
         'code' => 'profile-settings',
         'description' => 'Ability to view list of profile settings',
-        'group' => 'setting',
+        'group' => ['setting', 'profile'],
     ],
     'themes-settings' => [
         'name' =>  'settings.themes',
