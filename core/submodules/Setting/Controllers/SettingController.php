@@ -23,19 +23,6 @@ class SettingController extends AdminController
     }
 
     /**
-     * Display the Profile Settings Form.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function getProfileForm(Request $request)
-    {
-        $resource = []; //Profile::key();
-
-        return view("Theme::settings.profile")->with(compact('resource'));
-    }
-
-    /**
      * Display the General Settings Form.
      *
      * @param  \Illuminate\Http\Request $request

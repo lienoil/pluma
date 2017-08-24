@@ -20,7 +20,7 @@ trait UserMutator
      */
     public function getHandlenameAttribute()
     {
-        return isset($this->username) ? $this->username : studly_case("$this->firstname $this->lastname");
+        return "@" . (isset($this->username) ? $this->username : studly_case("$this->firstname $this->lastname"));
     }
 
     /**
@@ -52,8 +52,9 @@ trait UserMutator
         $this->prefixname ? $name[] = $this->prefixname : '';
         $this->firstname ? $name[] = $this->firstname : '';
         $name[] = $this->lastname;
+        $name = trim(implode(" ", $name));
 
-        return implode(" ", $name);
+        return ! empty($name) ? $name : $this->username;
     }
 
     /**
@@ -65,8 +66,9 @@ trait UserMutator
     {
         $name[] = $this->lastname ? "$this->lastname, " : '';
         $name[] = $this->firstname;
+        $name = trim(implode(" ", $name));
 
-        return implode(" ", $name);
+        return ! empty($name) ? $name : $this->username;
     }
 
     /**
@@ -87,7 +89,7 @@ trait UserMutator
         $displayname = preg_replace('/%fullname%/', $this->fullname, $displayname);
         $displayname = preg_replace('/%propername%/', $this->propername, $displayname);
 
-        return ! empty($displayname) ? $displayname : $this->username;
+        return ! empty(trim($displayname)) ? $displayname : $this->username;
     }
 
     /**
@@ -100,5 +102,16 @@ trait UserMutator
         $gender = strtolower(($this->gender ? $this->gender : 'male'));
 
         return property_exists($this, 'details') ? $this->details->avatar : url("core/fallback/avatars/{$gender}.png");
+    }
+
+    /**
+     * Gets the mutated bio of the resource.
+     *
+     * @return string
+     */
+    public function getBioAttribute()
+    {
+        $placeholder = $this->id == user()->id ? __("A short description about yourself will look nice here.") : __("The user haven't shared their bio yet.");
+        return isset($this->details) && ! empty($this->details->bio) ? $this->details->bio : $placeholder;
     }
 }

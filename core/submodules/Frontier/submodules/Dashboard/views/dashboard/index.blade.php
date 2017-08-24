@@ -1,26 +1,28 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
-    <v-layout row wrap v-if="widgets.welcome.show">
-        <v-flex>
-            <v-card class="elevation-0 mb-4" min-height="200px">
-                <v-card-title class="headline">{{ __('Welcome') }}</v-card-title>
-                <v-card-text>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, eos molestias voluptatum, perferendis reiciendis obcaecati minima ad earum accusantium incidunt suscipit dolore nihil repudiandae tempora doloribus, inventore velit voluptates corporis?</p>
-                </v-card-text>
-            </v-card>
-        </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-        <v-flex :class="widgets.calendar.show?'md8':'md12'">
-            <v-card class="white elevation-1 mb-4">
-                <v-card-text></v-card-text>
-            </v-card>
-        </v-flex>
-        <v-flex md4 v-if="widgets.calendar.show">
-            @include("Frontier::widgets.calendar")
-        </v-flex>
-    </v-layout>
+    <v-container fluid>
+        <v-layout row wrap v-if="widgets.welcome.show">
+            <v-flex>
+                <v-card class="elevation-0 mb-4" min-height="200px">
+                    <v-card-title class="headline">{{ __('Welcome') }}</v-card-title>
+                    <v-card-text>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, eos molestias voluptatum, perferendis reiciendis obcaecati minima ad earum accusantium incidunt suscipit dolore nihil repudiandae tempora doloribus, inventore velit voluptates corporis?</p>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap>
+            <v-flex :class="widgets.calendar.show?'md8':'md12'">
+                <v-card class="white elevation-1 mb-4">
+                    <v-card-text></v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex md4 v-if="widgets.calendar.show">
+                @include("Frontier::widgets.calendar")
+            </v-flex>
+        </v-layout>
+    </v-container>
 @endsection
 
 @push('pre-scripts')

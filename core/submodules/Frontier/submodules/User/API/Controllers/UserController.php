@@ -53,4 +53,57 @@ class UserController extends APIController
 
         return response()->json($resources);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, User $user)
+    {
+        try {
+            $this->authorize('delete', $user);
+        } catch (\Exception $e) {
+            $this->errorResponse['text'] = "You are not allowed to delete your own account.";
+            return response()->json($this->errorResponse);
+        }
+
+        $user = User::findOrFail($user->id);
+        $user->delete();
+
+        $this->successResponse['text'] = "{$user->displayname} moved to trash.";
+
+        return response()->json($this->successResponse);
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Request $request, $id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        return response()->json($this->successResponse);
+    }
+
+    /**
+     * Delete the specified resource from storage permanently.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, $id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->forceDelete();
+
+        return response()->json($this->successResponse);
+    }
 }

@@ -4,6 +4,7 @@ namespace Role\Controllers;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Role\Models\Grant;
 use Role\Models\Permission;
 use Role\Requests\GrantRequest;
@@ -19,7 +20,7 @@ class GrantController extends AdminController
     public function index(Request $request)
     {
         $resources = Grant::paginate();
-        $permissions = Permission::select(['code', 'name', 'id', 'description'])->get();
+        $permissions = Permission::select('name', 'description', 'code', 'id')->get()->toArray();
 
         return view("Role::grants.index")->with(compact('resources', 'permissions'));
     }
@@ -65,7 +66,7 @@ class GrantController extends AdminController
     public function edit(Request $request, $id)
     {
         $resource = Grant::findOrFail($id);
-        $permissions = Permission::pluck('code', 'id');
+        $permissions = Permission::select('name', 'description', 'code', 'id')->get()->toArray();
 
         return view("Role::grants.edit")->with(compact('resource', 'permissions'));
     }

@@ -23,12 +23,12 @@ return [
         'description' => 'Ability to view list of general settings',
         'group' => 'setting',
     ],
-    'profile-settings' => [
-        'name' =>  'settings.profile',
-        'code' => 'profile-settings',
-        'description' => 'Ability to view list of profile settings',
-        'group' => ['setting', 'profile'],
-    ],
+    // 'profile-settings' => [
+    //     'name' =>  'settings.profile',
+    //     'code' => 'profile-settings',
+    //     'description' => 'Ability to view list of profile settings',
+    //     'group' => ['setting', 'profile'],
+    // ],
     'themes-settings' => [
         'name' =>  'settings.themes',
         'code' => 'themes-settings',

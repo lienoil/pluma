@@ -3,15 +3,20 @@
 namespace User\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Pluma\Support\Auth\AuthServiceProvider;
+use User\Models\User;
+use User\Policies\UserPolicy;
 
-class UserServiceProvider extends ServiceProvider
+class UserServiceProvider extends AuthServiceProvider
 {
     /**
-     * The app's router instance.
+     * The policy mappings for the application.
      *
-     * @var Illuminate\Routing\Router
+     * @var array
      */
-    protected $router;
+    protected $policies = [
+        User::class => UserPolicy::class,
+    ];
 
     /**
      * Boot the service.
@@ -20,16 +25,6 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->bootRouter();
-    }
-
-    /**
-     * Boot the router instance.
-     *
-     * @return void
-     */
-    public function bootRouter()
-    {
-        $this->router = $this->app['router'];
+        $this->registerPolicies();
     }
 }

@@ -19,14 +19,6 @@ return [
             'description' => __('Manage app settings')
         ],
         'children' => [
-            'profile-settings' => [
-                'name' => 'profile-settings',
-                'slug' => url(config('path.admin').'/settings/profile'),
-                'labels' => [
-                    'title' => __('Profile'),
-                    'description' => __('Manage your Profile settings'),
-                ],
-            ],
             'general-settings' => [
                 'name' => 'general-settings',
                 'slug' => url(config('path.admin').'/settings/general'),

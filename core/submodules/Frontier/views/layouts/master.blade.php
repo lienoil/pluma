@@ -5,17 +5,13 @@
 
         @yield("pre-content")
 
-        <main data-main>
+        <main data-main :style="`font-size: ${settings.fontsize.model}px`">
 
             @section("pre-container")
                 @include("Theme::partials.breadcrumbs")
             @show
 
-            <v-container fluid :style="`font-size: ${settings.fontsize.model}px`">
-
-                @yield("root")
-
-            </v-container>
+            @yield("root")
 
         </main>
 

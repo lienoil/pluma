@@ -15,108 +15,125 @@
 @endpush
 
 @section("content")
+    <v-container fluid>
+        <v-layout row wrap>
+            <v-flex sm8 offset-sm2>
 
-    <v-layout row wrap>
-        <v-flex sm8 offset-sm2>
+                @include("Theme::partials.banner")
 
-            @include("Theme::partials.banner")
-
-            <v-card class="grey--text elevation-1 mb-2">
-                <v-toolbar class="transparent elevation-0">
-                    <v-toolbar-title class="accent--text">{{ __('Edit Grant') }}</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                </v-toolbar>
-                <form action="{{ route('grants.update', $resource->id) }}" method="POST">
-                    <v-card-text>
-                        {{ csrf_field() }}
-                        {{ method_field('PUT') }}
-                        <v-text-field
-                            :error-messages="resource.errors.name"
-                            label="Name"
-                            name="name"
-                            value="{{ $resource->name }}"
-                            @input="(val) => { resource.item.name = val; }"
-                        ></v-text-field>
-                        <v-text-field
-                            :error-messages="resource.errors.code"
-                            hint="{{ __('Will be used as an ID for Grants. Make sure the code is unique.') }}"
-                            label="Code"
-                            name="code"
-                            :value="resource.item.name ? resource.item.name : '{{ $resource->code }}' | slugify"
-                        ></v-text-field>
-                        <v-text-field
-                            :error-messages="resource.errors.description"
-                            label="Description"
-                            name="description"
-                            value="{{ $resource->description }}"
-                        ></v-text-field>
-                    </v-card-text>
-
-                    <v-layout row wrap>
-                        <v-flex sm12>
-                            <v-subheader class="subheading grey--text">{{ __('Selected ') }}@{{ dataset.selected.length }} {{ __('of') }} @{{ dataset.items.length }} {{ __('Permissions') }}</v-subheader>
-                            <v-toolbar class="transparent elevation-0">
-                                <v-toolbar-title class="accent--text subheading">{{ __('Permissions') }}</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-text-field
-                                    append-icon="search"
-                                    label="{{ _('Search Permissions') }}"
-                                    single-line
-                                    hide-details
-                                    v-model="dataset.searchform.query"
-                                    light
-                                    class="pb-0"
-                                ></v-text-field>
-                            </v-toolbar>
-
-                            {{-- Permissions Table --}}
-                            <template v-for="(prop, i) in dataset.selected">
-                                <input type="hidden" name="permissions[]" :value="prop.id">
-                            </template>
-                            <v-data-table
-                                :loading="dataset.loading"
-                                {{-- :total-items="dataset.totalItems" --}}
-                                class="elevation-0"
-                                no-data-text="{{ _('No available permissions') }}"
-                                select-all
-                                selected-key="id"
-                                v-bind:headers="dataset.headers"
-                                v-bind:items="dataset.items"
-                                v-bind:search="dataset.searchform.query"
-                                {{-- v-bind:pagination.sync="dataset.pagination" --}}
-                                v-model="dataset.selected"
-                            >
-                                <template slot="items" scope="prop">
-                                    <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
-                                        <td>
-                                            <v-checkbox
-                                                primary
-                                                hide-details
-                                                class="pa-0"
-                                                :input-value="prop.selected"
-                                            ></v-checkbox>
-                                        </td>
-                                        <td><strong>@{{ prop.item.id }}</strong></td>
-                                        <td><strong>@{{ prop.item.name }}</strong></td>
-                                        <td><strong>@{{ prop.item.code }}</strong></td>
-                                        <td>@{{ prop.item.description }}</td>
-                                    </tr>
-                                </template>
-                            </v-data-table>
-                            {{-- /Permissions Table --}}
-
-                        </v-flex>
-
-                    </v-layout>
-
-                    <v-card-actions>
+                <v-card class="grey--text elevation-1 mb-2">
+                    <v-toolbar class="transparent elevation-0">
+                        <v-toolbar-title class="accent--text">{{ __('Edit Grant') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-btn type="submit" primary>{{ __('Update') }}</v-btn>
-                    </v-card-actions>
-                </form>
-            </v-card>
-        </v-flex>
-    </v-layout>
+                    </v-toolbar>
+                    <form action="{{ route('grants.update', $resource->id) }}" method="POST">
+                        <v-card-text>
+                            {{ csrf_field() }}
+                            {{ method_field('PUT') }}
+                            <v-text-field
+                                :error-messages="resource.errors.name"
+                                label="Name"
+                                name="name"
+                                value="{{ old('name') ? old('name') : $resource->name }}"
+                                @input="(val) => { resource.item.name = val; }"
+                            ></v-text-field>
+                            <v-text-field
+                                :error-messages="resource.errors.code"
+                                hint="{{ __('Will be used as an ID for Grants. Make sure the code is unique.') }}"
+                                label="Code"
+                                name="code"
+                                :value="resource.item.name ? resource.item.name : '{{ old('code') ? old('code') : $resource->code }}' | slugify"
+                            ></v-text-field>
+                            <v-text-field
+                                :error-messages="resource.errors.description"
+                                label="Description"
+                                name="description"
+                                value="{{ old('description') ? old('description') : $resource->description }}"
+                            ></v-text-field>
+                        </v-card-text>
+
+                        <v-layout row wrap>
+                            <v-flex xs12>
+                                <v-toolbar class="transparent elevation-0">
+                                    <v-toolbar-title class="subheading">{{ __('Selected Permissions') }}</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                </v-toolbar>
+                                <v-card-text class="text-xs-center">
+                                    <template v-if="suppliments.permissions.selected.length">
+                                        <template v-for="(grant, i) in suppliments.permissions.selected">
+                                            <v-chip
+                                                width="100px"
+                                                label
+                                                close
+                                                success
+                                                @click.native.stop
+                                                @input="suppliments.permissions.selected.splice(i, 1)"
+                                                class="chip--select-multi pink darken-3 white--text"
+                                                :key="i"
+                                            >
+                                                <input type="hidden" name="permissions[]" :value="JSON.stringify(grant)">
+                                                @{{ grant.name }}
+                                            </v-chip>
+                                        </template>
+                                    </template>
+                                    <small v-else class="grey--text">{{ __('No chosen Permissions') }}</small>
+                                </v-card-text>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-toolbar class="transparent elevation-0">
+                                    <v-toolbar-title class="subheading">{{ __('Available Permissions') }}</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-text-field
+                                        append-icon="search"
+                                        label="{{ _('Search') }}"
+                                        single-line
+                                        hide-details
+                                        v-model="suppliments.permissions.searchform.query"
+                                        light
+                                    ></v-text-field>
+                                </v-toolbar>
+
+                                <v-data-table
+                                    class="elevation-0"
+                                    no-data-text="{{ _('No resource found') }}"
+                                    select-all
+                                    selected-key="id"
+                                    {{-- hide-actions --}}
+                                    v-bind:search="suppliments.permissions.searchform.query"
+                                    v-bind:headers="suppliments.permissions.headers"
+                                    v-bind:items="suppliments.permissions.items"
+                                    v-model="suppliments.permissions.selected"
+                                    v-bind:pagination.sync="suppliments.permissions.pagination"
+                                >
+                                    <template slot="items" scope="prop">
+                                        <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
+                                            <td>
+                                                <v-checkbox
+                                                    primary
+                                                    hide-details
+                                                    class="pa-0"
+                                                    :input-value="prop.selected"
+                                                ></v-checkbox>
+                                            </td>
+                                            <td>@{{ prop.item.name }}</td>
+                                            <td>@{{ prop.item.code }}</td>
+                                            <td>@{{ prop.item.description }}</td>
+                                        </tr>
+                                    </template>
+                                </v-data-table>
+                            </v-flex>
+                        </v-layout>
+
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn type="submit" primary>{{ __('Update') }}</v-btn>
+                        </v-card-actions>
+                    </form>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 @endsection
 
 @push('pre-scripts')
@@ -159,8 +176,21 @@
                     },
                     suppliments: {
                         permissions: {
+                            headers: [
+                                { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                                { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                                { text: '{{ __("Description") }}', align: 'left', value: 'description' },
+                            ],
+                            pagination: {
+                                rowsPerPage: 10,
+                                totalItems: 0,
+                            },
                             items: [],
                             selected: [],
+                            searchform: {
+                                query: '',
+                                model: true,
+                            }
                         }
                     },
                 };
@@ -212,21 +242,31 @@
                             this.dataset.loading = false;
                         });
                 },
+
                 mountSuppliments () {
                     let items = {!! json_encode($permissions) !!};
                     let g = [];
                     for (var i in items) {
-                        g.push({ text: items[i], value: i});
+                        g.push({
+                            id: items[i].id,
+                            name: items[i].name,
+                            code: items[i].code,
+                            description: items[i].description,
+                        });
                     }
                     this.suppliments.permissions.items = g;
 
-                    let selected = {!! json_encode($resource->permissions->pluck('id')) !!};
+                    let selected = {!! json_encode($resource->permissions->pluck('code', 'id')) !!};
                     let s = [];
-                    for (var i = 0; i < selected.length; i++) {
-                        s.push(selected[i].toString());
+                    if (selected) {
+                        for (var i in selected) {
+                            s.push({
+                                id: i,
+                                name: selected[i],
+                            });
+                        }
                     }
                     this.suppliments.permissions.selected = s ? s : [];
-
                 },
             },
 
