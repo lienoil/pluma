@@ -5,6 +5,7 @@ namespace User\Controllers;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Role\Models\Role;
+use User\Models\Detail;
 use User\Models\User;
 use User\Requests\UserRequest;
 
@@ -19,8 +20,9 @@ class UserController extends AdminController
     public function index(Request $request)
     {
         $resources = User::paginate();
+        $trashed = User::onlyTrashed()->count();
 
-        return view("Theme::users.index")->with(compact('resources'));
+        return view("Theme::users.index")->with(compact('resources', 'trashed'));
     }
 
     /**
@@ -30,9 +32,15 @@ class UserController extends AdminController
      */
     public function create()
     {
-        $roles = Role::except(['superadmin'])->pluck('name', 'id');
+        $roles = Role::select('name', 'code', 'description', 'id');
+        if (! user()->isRoot()) {
+            $roles = $roles->except(config('auth.rootroles', []));
+        }
+        $roles = $roles->get();
 
-        return view("Theme::users.create")->with(compact('roles'));
+        $avatars = User::avatars();
+
+        return view("Theme::users.create")->with(compact('roles', 'avatars'));
     }
 
     /**
@@ -43,6 +51,7 @@ class UserController extends AdminController
      */
     public function store(UserRequest $request)
     {
+        // User
         $user = new User();
         $user->prefixname = $request->input('prefixname');
         $user->firstname = $request->input('firstname');
@@ -51,8 +60,20 @@ class UserController extends AdminController
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
+        $user->avatar = $request->input('avatar');
         $user->save();
+
+        // Role
         $user->roles()->attach($request->input('roles'));
+
+        // Detail
+        $detail = new Detail();
+        $detail->birthday = date('Y-m-d', strtotime($request->input('birthday')));
+        $detail->phone = $request->input('phone');
+        $detail->sex = $request->input('sex');
+        $detail->gender = $request->input('gender');
+        $detail->address = $request->input('address');
+        $user->detail()->save($detail);
 
         return back();
     }
@@ -81,9 +102,15 @@ class UserController extends AdminController
     public function edit(Request $request, $id)
     {
         $resource = User::findOrFail($id);
-        $grants = Grant::pluck('name', 'id');
+        $roles = Role::select('name', 'code', 'description', 'id');
+        if (! user()->isRoot()) {
+            $roles = $roles->except(config('auth.rootroles', []));
+        }
+        $roles = $roles->get();
 
-        return view("Theme::users.edit")->with(compact('resource', 'grants'));
+        $avatars = User::avatars();
+
+        return view("Theme::users.edit")->with(compact('resource', 'roles', 'avatars'));
     }
 
     /**
@@ -95,13 +122,28 @@ class UserController extends AdminController
      */
     public function update(UserRequest $request, $id)
     {
+        // User
         $user = User::findOrFail($id);
-        $user->name = $request->input('name');
-        $user->code = $request->input('code');
-        $user->description = $request->input('description');
+        $user->prefixname = $request->input('prefixname');
+        $user->firstname = $request->input('firstname');
+        $user->middlename = $request->input('middlename');
+        $user->lastname = $request->input('lastname');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->avatar = $request->input('avatar');
         $user->save();
 
-        $user->grants()->sync($request->input('grants'));
+        // Role
+        $user->roles()->sync($request->input('roles'));
+
+        // Detail
+        $detail = new Detail();
+        $detail->birthday = date('Y-m-d', strtotime($request->input('birthday')));
+        $detail->phone = $request->input('phone');
+        $detail->sex = $request->input('sex');
+        $detail->gender = $request->input('gender');
+        $detail->address = $request->input('address');
+        $user->detail()->save($detail);
 
         return back();
     }

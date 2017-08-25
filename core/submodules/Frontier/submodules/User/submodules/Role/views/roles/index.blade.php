@@ -132,47 +132,60 @@
                         <v-spacer></v-spacer>
 
                         {{-- Batch Commands --}}
+                        <v-btn
+                            v-show="dataset.selected.length < 2"
+                            flat
+                            icon
+                            v-model="bulk.destroy.model"
+                            :class="bulk.destroy.model ? 'btn--active error error--text' : ''"
+                            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checboxes') }}'}"
+                            @click.native="bulk.destroy.model = !bulk.destroy.model"
+                        ><v-icon>@{{ bulk.destroy.model ? 'indeterminate_check_box' : 'check_box_outline_blank' }}</v-icon></v-btn>
+                        {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                {{-- Bulk Delete --}}
                                 <form action="{{ route('roles.many.destroy') }}" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <template v-for="item in dataset.selected">
                                         <input type="hidden" name="roles[]" :value="item.id">
                                     </template>
-                                    <button type="submit" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon warning>delete_sweep</v-icon></span></button>
+                                    <v-btn
+                                        flat
+                                        icon
+                                        type="submit"
+                                        v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"
+                                    ><v-icon error>delete_sweep</v-icon></v-btn>
                                 </form>
-                                {{-- /Bulk Delete --}}
                             </template>
                         </v-slide-y-transition>
+                        {{-- /Bulk Delete --}}
                         {{-- /Batch Commands --}}
 
                         {{-- Search --}}
-                        <v-slide-y-transition>
-                            <v-text-field
-                                append-icon="search"
-                                label="{{ _('Search') }}"
-                                single-line
-                                hide-details
-                                v-if="dataset.searchform.model"
-                                v-model="dataset.searchform.query"
-                                light
-                            ></v-text-field>
-                        </v-slide-y-transition>
+                        <v-text-field
+                            append-icon="search"
+                            label="{{ _('Search') }}"
+                            single-line
+                            hide-details
+                            v-if="dataset.searchform.model"
+                            v-model="dataset.searchform.query"
+                            light
+                        ></v-text-field>
                         <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
                             <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
                         </v-btn>
                         {{-- /Search --}}
 
-                        <a
-                            class="btn btn--icon btn--flat theme--light light--bg"
-                            light
+                        {{-- Trashed --}}
+                        <v-btn
+                            icon
+                            flat
                             href="{{ route('roles.trash') }}"
+                            light
                             v-tooltip:left="{'html': `View trashed items`}"
-                        >
-                            <span class="btn__content"><v-icon>archive</v-icon></span>
-                        </a>
+                        ><v-icon class="grey--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn>
+                        {{-- /Trashed --}}
                     </v-toolbar>
 
                     <v-data-table
@@ -180,8 +193,8 @@
                         :total-items="dataset.totalItems"
                         class="elevation-0"
                         no-data-text="{{ _('No resource found') }}"
-                        select-all
-                        selected-key="id"
+                        v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
+                        {{-- selected-key="id" --}}
                         v-bind:headers="dataset.headers"
                         v-bind:items="dataset.items"
                         v-bind:pagination.sync="dataset.pagination"
@@ -193,11 +206,10 @@
                             </span>
                         </template>
                         <template slot="items" scope="prop">
-                            <td>
+                            <td v-show="bulk.destroy.model">
                                 <v-checkbox
-                                    primary
                                     hide-details
-                                    class="pa-0"
+                                    class="pa-0 primary--text"
                                     v-model="prop.selected"
                                 ></v-checkbox>
                             </td>
@@ -276,6 +288,11 @@
         mixins.push({
             data () {
                 return {
+                    bulk: {
+                        destroy: {
+                            model: false,
+                        },
+                    },
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },

@@ -42,6 +42,6 @@ class UserPolicy
     public function delete(User $user, User $resource)
     {
         // User cannot delete self.
-        return ! ($user->id === $resource->id);
+        return (! $resource->isRoot()) && (! $user->id === $resource->id);
     }
 }

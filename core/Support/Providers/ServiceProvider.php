@@ -30,6 +30,15 @@ class ServiceProvider extends BaseServiceProvider
     ];
 
     /**
+     * Array of providers to register.
+     *
+     * @var array
+     */
+    protected $providers = [
+        //
+    ];
+
+    /**
      * Bootstraps the Observables.
      *
      * @return void
@@ -78,5 +87,17 @@ class ServiceProvider extends BaseServiceProvider
     public function middlewares()
     {
         return $this->middlewares;
+    }
+
+    /**
+     * Register additional Providers through this Provider.
+     *
+     * @return void
+     */
+    public function registerProviders()
+    {
+        foreach ($this->providers as $provider) {
+            $this->app->register($provider);
+        }
     }
 }

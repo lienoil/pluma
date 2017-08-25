@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class SearchScope implements Scope
+class ExceptScope implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -15,8 +15,8 @@ class SearchScope implements Scope
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
-    public function apply(Builder $builder, Model $model)
+    public function apply(Builder $builder, Model $model, $ommitables = [], $column = 'code')
     {
-        $builder->where('age', '>', 200);
+        $builder->whereNotIn($column, $ommitables);
     }
 }

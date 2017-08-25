@@ -19,6 +19,24 @@ class UserServiceProvider extends AuthServiceProvider
     ];
 
     /**
+     * Array of observable models.
+     *
+     * @var array
+     */
+    protected $observables = [
+        [\User\Models\User::class, '\User\Observers\UserObserver'],
+    ];
+
+    /**
+     * The provider class names.
+     *
+     * @var array
+     */
+    protected $providers = [
+        PasswordServiceProvider::class,
+    ];
+
+    /**
      * Boot the service.
      *
      * @return void
@@ -26,5 +44,9 @@ class UserServiceProvider extends AuthServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        $this->bootObservables();
+
+        $this->registerProviders();
     }
 }

@@ -19,9 +19,10 @@ class RoleController extends AdminController
     public function index(Request $request)
     {
         $resources = Role::paginate();
+        $trashed = Role::onlyTrashed()->count();
         $grants = Grant::pluck('name', 'id');
 
-        return view("Theme::roles.index")->with(compact('resources', 'grants'));
+        return view("Theme::roles.index")->with(compact('resources', 'grants', 'trashed'));
     }
 
     /**

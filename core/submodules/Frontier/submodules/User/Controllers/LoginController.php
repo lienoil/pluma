@@ -114,7 +114,7 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         if ($this->guard()->attempt(
-            [$this->username() => $request->username, 'password' => $request->password], $request->has('remember')
+            ['email' => $request->username, 'password' => $request->password], $request->has('remember')
         )) {
             return true;
         }
@@ -126,7 +126,7 @@ class LoginController extends Controller
         }
 
         if ($this->guard()->attempt(
-            ['email' => $request->username, 'password' => $request->password], $request->has('remember')
+            [$this->username() => $request->username, 'password' => $request->password], $request->has('remember')
         )) {
             return true;
         }

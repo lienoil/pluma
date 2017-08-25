@@ -79,13 +79,13 @@ class Handler extends BaseHandler
         }
 
         if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
-            // return response()->view('Theme::errors.403', [
-            //     'error' => [
-            //         'code' => 'NOT_AUTHORIZED',
-            //         'message' => $exception->getMessage(),
-            //         'description' => 'Unauthorized request.',
-            //     ]
-            // ], 403);
+            return response()->view('Theme::errors.403', [
+                'error' => [
+                    'code' => 'NOT_AUTHORIZED',
+                    'message' => $exception->getMessage(),
+                    'description' => 'Unauthorized request.',
+                ]
+            ], 403);
         }
 
         return parent::render($request, $exception);

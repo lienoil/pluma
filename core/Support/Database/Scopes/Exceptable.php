@@ -8,17 +8,25 @@ trait Exceptable
      * Exclude the given from the resource.
      *
      * @param  \Illuminate\Database\Query\Builder $builder
-     * @param  mixed $search
+     * @param  mixed $ommitables
      * @param  string $column
      * @return $builder
      */
-    public function scopeExcept($builder, $except = [], $column = "code")
+    public function scopeExcept($builder, $ommitables = [], $column = "code")
     {
-        if (auth()->user()->isRoot()) return $builder;
+        return $builder->whereNotIn($column, (array) $ommitables);
+    }
 
-        // Merge $params to $rootroles
-        $this->setRootRoles($except);
-        dd($this->rootroles());
-        return $builder->whereNotIn($column, $this->rootroles());
+    /**
+     * Alias of except.
+     *
+     * @param  \Illuminate\Database\Query\Builder $builder
+     * @param  mixed $ommitables
+     * @param  string $column
+     * @return $builder
+     */
+    public function scopeOmmit($builder, $ommitables = [], $column = "code")
+    {
+        return $this->except($builder, (array) $ommitables, $column);
     }
 }

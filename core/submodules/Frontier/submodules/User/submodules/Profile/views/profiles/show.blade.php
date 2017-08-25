@@ -4,13 +4,13 @@
 @section("page-title", __(""))
 
 @section("content")
-    <v-parallax height="225" src="//placeimg.com/1000/600">
+    <v-parallax height="225" src="https://source.unsplash.com/1600x900/?nature,water">
         <v-container fill-height fluid>
             <v-layout fill-height>
                 <v-flex xs12 align-end flexbox>
                     <v-card avatar class="pa-1 mr-2" style="width: 100px;">
                         <v-card-media
-                            src="//placeimg.com/100/100"
+                            src="{{ $resource->avatar }}"
                             height="100"
                         ></v-card-media>
                     </v-card>
@@ -23,6 +23,10 @@
                         <br>
                         <strong class="pa-2 caption">{{ user()->email }}</strong>
                     </div>
+                    <v-spacer></v-spacer>
+                    @can('update', $resource)
+                    <v-btn accent dark outline>{{ __('Change Backdrop') }}</v-btn>
+                    @endcan
                 </v-flex>
             </v-layout>
         </v-container>
@@ -115,20 +119,6 @@
                 return {
                     resource: {
                         items: {!! json_encode(@$resource) !!},
-                        radios: {
-                            membership: {
-                                items: {!! json_encode(config('auth.registration.modes', [])) !!},
-                                model: '{{ @$resource->site_membership ? $resource->site_membership : config('auth.registration.default', 2) }}',
-                            },
-                            date_format: {
-                                custom: 'm/d/Y',
-                                model: '{{ @$resource->date_format ? $resource->date_format : config('settings.date_format', 'F d, Y') }}'
-                            },
-                            time_format: {
-                                custom: 'H:i:s a',
-                                model: '{{ @$resource->time_format ? $resource->time_format : config('settings.time_format', 'h:s A') }}'
-                            }
-                        },
                     },
                 };
             },

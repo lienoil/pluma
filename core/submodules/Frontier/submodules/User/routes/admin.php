@@ -16,9 +16,16 @@ Route::get('logout', 'User\Controllers\LoginController@logout')->name('logout.lo
 Route::post('logout', 'User\Controllers\LoginController@logout')->name('logout.postLogout');
 
 /**
+ * Password
+ *
+ */
+
+/**
  * User
  *
  */
+Route::get('users/{id}/password/change', 'User\Controllers\PasswordController@getChangeForm')->name('password.change.form');
+Route::post('users/password/change/{id}', 'User\Controllers\PasswordController@change')->name('password.change');
 Route::delete('users/delete/many', 'User\Controllers\UserManyController@delete')->name('users.many.delete');
 Route::delete('users/delete/{user}', 'User\Controllers\UserController@delete')->name('users.delete');
 Route::delete('users/destroy/many', 'User\Controllers\UserManyController@destroy')->name('users.many.destroy');

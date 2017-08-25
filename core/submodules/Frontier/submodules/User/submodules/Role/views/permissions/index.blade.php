@@ -18,17 +18,15 @@
                         <v-spacer></v-spacer>
 
                         {{-- Search --}}
-                        <v-slide-y-transition>
-                            <v-text-field
-                                append-icon="search"
-                                label="{{ _('Search') }}"
-                                single-line
-                                hide-details
-                                v-if="dataset.searchform.model"
-                                v-model="dataset.searchform.query"
-                                light
-                            ></v-text-field>
-                        </v-slide-y-transition>
+                        <v-text-field
+                            append-icon="search"
+                            label="{{ _('Search') }}"
+                            single-line
+                            hide-details
+                            v-if="dataset.searchform.model"
+                            v-model="dataset.searchform.query"
+                            light
+                        ></v-text-field>
                         <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
                             <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
                         </v-btn>

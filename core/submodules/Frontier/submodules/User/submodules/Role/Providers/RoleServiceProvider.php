@@ -2,8 +2,10 @@
 
 namespace Role\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Providers\ServiceProvider;
+use Role\Models\Permission;
 
 class RoleServiceProvider extends ServiceProvider
 {
@@ -34,7 +36,24 @@ class RoleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->bootGate();
         $this->bootObservables();
         $this->bootRouterMiddlewares();
+    }
+
+    /**
+     * Registers the Permissions as Gate policies.
+     *
+     * @return void
+     */
+    public function bootGate()
+    {
+        if (Schema::hasTable('permissions')) {
+            foreach (Permission::get() as $permission) {
+                Gate::define($permission->code, function ($user) use ($permission) {
+                    return user()->isRoot() || $user->isPermittedTo($permission->code);
+                });
+            }
+        }
     }
 }

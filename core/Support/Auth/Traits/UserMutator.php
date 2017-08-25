@@ -93,18 +93,6 @@ trait UserMutator
     }
 
     /**
-     * Gets the mutated avatar of the resource.
-     *
-     * @return string
-     */
-    public function getAvatarAttribute()
-    {
-        $gender = strtolower(($this->gender ? $this->gender : 'male'));
-
-        return property_exists($this, 'details') ? $this->details->avatar : url("core/fallback/avatars/{$gender}.png");
-    }
-
-    /**
      * Gets the mutated bio of the resource.
      *
      * @return string

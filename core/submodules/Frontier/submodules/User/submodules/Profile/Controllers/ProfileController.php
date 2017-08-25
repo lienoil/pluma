@@ -18,9 +18,9 @@ class ProfileController extends AdminController
      */
     public function show(Request $request, $handle)
     {
-        $user = User::whereUsername(ltrim($handle, '@'))->first();
+        $resource = User::whereUsername(ltrim($handle, '@'))->first();
 
-        return view("Theme::profiles.show");
+        return view("Theme::profiles.show")->with(compact('resource'));
     }
 
     /**

@@ -29,6 +29,7 @@ return [
                     'children' => [
                         'users.edit',
                         'users.show',
+                        'password.change.form',
                     ]
                 ],
                 'labels' => [

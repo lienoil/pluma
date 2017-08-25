@@ -3,70 +3,66 @@
 @section("content")
 
     <v-container fluid>
-        <v-layout row wrap>
-            <v-flex sm8 offset-sm2>
-                @include("Theme::partials.banner")
+        @include("Theme::partials.banner")
+        <form action="{{ route('users.store') }}" method="POST">
+            {{ csrf_field() }}
+            <v-layout row wrap>
+                <v-flex sm9>
 
-                <form action="{{ route('users.store') }}" method="POST">
-                    {{ csrf_field() }}
                     <v-card class="mb-3 elevation-1">
                         <v-toolbar card class="transparent">
                             <v-toolbar-title class="accent--text">{{ __($application->page->title) }}</v-toolbar-title>
                             <v-spacer></v-spacer>
+                            <v-switch
+                                label="{{ __('Show required fields only') }}"
+                                v-model="suppliments.required_fields.model"
+                                value
+                                right
+                                @click.native="setStorage('settings.show_required_fields_only', (suppliments.required_fields.model))"
+                            ></v-switch>
                         </v-toolbar>
 
+                        <v-subheader>{{ __('Basic Information') }}</v-subheader>
                         <v-card-text>
                             <v-layout row wrap>
-                                <v-flex xs4>
-                                    <v-card avatar>
-                                        <v-card-media
-                                            src="{{ user()->avatar }}"
-                                            height="200px"
-                                        ></v-card-media>
-                                        <v-card-actions>
-                                            <v-btn flat>{{ __('Upload') }}</v-btn>
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-flex>
-                                <v-flex xs8>
-                                    ;asd
-                                </v-flex>
-                            </v-layout>
-                            <v-layout row wrap>
-                                <v-flex md2>
+                                <v-flex xs2 v-show="!suppliments.required_fields.model">
                                     <v-select
                                         :error-messages="resource.errors.prefix"
                                         auto
                                         autocomplete
+                                        prepend-icon="account_box"
                                         item-text="text"
                                         item-value="value"
                                         label="{{ __('Prefix Name') }}"
-                                        hide-details
-                                        v-bind:items="[{text: 'None', value: null}, {text: 'Mr', value: 'Mr.'}, {text: 'Mrs', value: 'Mrs.'}, {text: 'Ms', value: 'Ms.'}]"
-                                        name="prefixname"
+                                        v-model="resource.prefixname.model"
+                                        v-bind:items="[{text: '{{ __('None') }}', value: null}, {text: '{{ __('Mr') }}', value: '{{ __('Mr.') }}'}, {text: '{{ __('Mrs') }}', value: '{{ __('Mrs.') }}'}, {text: '{{ __('Ms') }}', value: '{{ __('Ms.') }}'}]"
                                     ></v-select>
+                                    <input type="hidden" name="prefixname" :value="resource.prefixname.model">
                                 </v-flex>
-                                <v-flex md3>
+                                <v-flex
+                                    v-bind="suppliments.required_fields.model?{[`xs6`]:true}:{[`xs3`]:true}"
+                                >
                                     <v-text-field
+                                        :prepend-icon="suppliments.required_fields.model?'account_box':''"
                                         :error-messages="resource.errors.firstname"
                                         label="{{ _('First Name') }}"
                                         name="firstname"
                                         value="{{ old('firstname') }}"
                                         input-group
-                                        {{-- @input="(val) => { resource.item.name = val; }" --}}
                                     ></v-text-field>
                                 </v-flex>
-                                <v-flex md3>
+                                <v-flex xs3 v-show="!suppliments.required_fields.model">
                                     <v-text-field
                                         :error-messages="resource.errors.middlename"
                                         label="{{ _('Middle Name') }}"
                                         name="middlename"
                                         value="{{ old('middlename') }}"
                                         input-group
-                                        {{-- @input="(val) => { resource.item.name = val; }" --}}
                                     ></v-text-field>
                                 </v-flex>
-                                <v-flex md4>
+                                <v-flex
+                                    v-bind="suppliments.required_fields.model?{[`xs6`]:true}:{[`xs4`]:true}"
+                                >
                                     <v-text-field
                                         :error-messages="resource.errors.lastname"
                                         label="{{ _('Last Name') }}"
@@ -78,21 +74,21 @@
                                 </v-flex>
                             </v-layout>
                             <v-layout row wrap>
-                                <v-flex sm6>
+                                <v-flex xs12>
                                     <v-text-field
                                         :error-messages="resource.errors.email"
                                         label="{{ _('Email') }}"
                                         name="email"
+                                        prepend-icon="email"
                                         value="{{ old('email') }}"
                                         input-group
                                     ></v-text-field>
-                                </v-flex>
-                                <v-flex sm6>
                                     <v-text-field
                                         :error-messages="resource.errors.username"
                                         label="{{ _('Username') }}"
                                         name="username"
                                         value="{{ old('username') }}"
+                                        prepend-icon="account_circle"
                                         input-group
                                     ></v-text-field>
                                     <v-text-field
@@ -101,116 +97,170 @@
                                         type="password"
                                         name="password"
                                         value="{{ old('password') }}"
+                                        prepend-icon="lock"
                                         input-group
                                     ></v-text-field>
                                     <v-text-field
-                                        :error-messages="resource.errors.password_confirmation"
+                                        :error-messages="resource.errors.password"
                                         label="{{ _('Password Confirmation') }}"
                                         type="password"
                                         name="password_confirmation"
                                         value="{{ old('password_confirmation') }}"
+                                        prepend-icon="lock_open"
                                         input-group
                                     ></v-text-field>
                                 </v-flex>
                             </v-layout>
+                        </v-card-text>
 
-                            <v-layout row wrap>
-                                <v-flex sm6>
-                                    <p class="body-1"><strong>{{ __('Available Roles') }}</strong></p>
-                                    <v-dialog v-model="resource.dialog.model" hide-overlay transition="dialog-bottom-transition" scrollable persistent lazy width="100%" min-width="100%" height="100vh">
-                                        <v-btn class="ma-0" flat slot="activator" info>{{ __('Select Available Roles...') }}</v-btn>
-                                        <v-card height="100%">
-                                            <v-toolbar card>
-                                                <v-toolbar-title>{{ __('Roles') }}</v-toolbar-title>
-                                                <v-spacer></v-spacer>
-                                                {{-- Search --}}
-                                                <v-slide-y-transition>
-                                                    <v-text-field
-                                                        append-icon="search"
-                                                        label="{{ _('Search') }}"
-                                                        single-line
-                                                        hide-details
-                                                        v-if="dataset.searchform.model"
-                                                        v-model="dataset.searchform.query"
-                                                        light
-                                                    ></v-text-field>
-                                                </v-slide-y-transition>
-                                                <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
-                                                    <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
-                                                </v-btn>
-                                                {{-- /Search --}}
+                        <v-layout row wrap>
+                            <v-flex xs6>
+                                <v-toolbar class="transparent elevation-0">
+                                    <v-toolbar-title class="body-1">{{ __('Available Roles') }}</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-text-field
+                                        append-icon="search"
+                                        label="{{ _('Search') }}"
+                                        single-line
+                                        hide-details
+                                        v-model="suppliments.roles.searchform.query"
+                                        light
+                                    ></v-text-field>
+                                </v-toolbar>
 
-                                                {{-- Close --}}
-                                                <v-btn icon flat light @click.native="resource.dialog.model = false">
-                                                    <v-icon>clear</v-icon>
-                                                </v-btn>
-                                                {{-- /Close --}}
-                                            </v-toolbar>
-                                            <v-data-table
-                                                :loading="dataset.loading"
-                                                :total-items="dataset.totalItems"
-                                                class="elevation-0"
-                                                no-data-text="{{ _('No resource found') }}"
-                                                select-all
-                                                selected-key="id"
-                                                v-bind:headers="dataset.headers"
-                                                v-bind:items="dataset.items"
-                                                v-bind:pagination.sync="dataset.pagination"
-                                                v-model="dataset.selected"
-                                            >
-                                                <template slot="items" scope="prop">
-                                                    <td>
-                                                        <v-checkbox
-                                                            primary
-                                                            hide-details
-                                                            class="pa-0"
-                                                            v-model="prop.selected"
-                                                        ></v-checkbox>
-                                                    </td>
-                                                    <td>
-                                                        <strong v-tooltip:bottom="{'html': prop.item.displayname ? prop.item.displayname : prop.item.propername}">@{{ prop.item.name }}</strong>
-                                                    </td>
-                                                    <td>@{{ prop.item.code }}</td>
-                                                    <td>
-                                                        <template v-if="prop.item.grants" v-for="(grant, i) in prop.item.grants">
-                                                            <span>@{{ grant.name }} <template v-if="(i+1) < prop.item.grants.length">, </template></span>
-                                                        </template>
-                                                    </td>
-                                                </template>
-                                            </v-data-table>
-
-                                            <v-card-actions bottom>
-                                                <v-spacer></v-spacer>
-                                                <v-btn flat primary @click.native="resource.dialog.model = false">{{ __('Accept') }}</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </v-flex>
-                                <v-flex sm6>
-                                    <p class="body-1"><strong>{{ __('Roles Chosen') }}</strong></p>
-                                    <p v-if="dataset.selected.length <= 0" class="grey--text">{{ __("Roles you've assigned to this user will appear here.") }}</p>
-                                    <template v-if="dataset.selected.length" v-for="(role, i) in dataset.selected">
-                                        <v-slide-y-transition>
-                                            <p class="subheading">
-                                                <strong>@{{ role.alias }}</strong>
-                                                <br>
-                                                <span class="grey--text">@{{ role.code }}</span>
-                                                <v-btn flat icon @click.native="dataset.selected.splice(i, 1)"><v-icon>close</v-icon></v-btn>
-                                                <input type="hidden" name="roles[]" :value="role.id">
-                                            </p>
-                                        </v-slide-y-transition>
+                                <v-data-table
+                                    class="elevation-0"
+                                    no-data-text="{{ _('No resource found') }}"
+                                    select-all="primary"
+                                    selected-key="id"
+                                    {{-- hide-actions --}}
+                                    v-bind:search="suppliments.roles.searchform.query"
+                                    v-bind:headers="suppliments.roles.headers"
+                                    v-bind:items="suppliments.roles.items"
+                                    v-model="suppliments.roles.selected"
+                                    v-bind:pagination.sync="suppliments.roles.pagination"
+                                >
+                                    <template slot="items" scope="prop">
+                                        <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
+                                            <td>
+                                                <v-checkbox
+                                                color="primary"
+                                                    hide-details
+                                                    class="pa-0"
+                                                    :input-value="prop.selected"
+                                                ></v-checkbox>
+                                            </td>
+                                            <td>@{{ prop.item.name }}</td>
+                                            <td>@{{ prop.item.code }}</td>
+                                            <td>@{{ prop.item.description }}</td>
+                                        </tr>
                                     </template>
+                                </v-data-table>
+                            </v-flex>
+                            <v-flex xs6>
+                                <v-subheader>{{ __('Selected Roles') }}</v-subheader>
+                                <v-card-text class="text-xs-center">
+                                    <template v-if="suppliments.roles.selected.length">
+                                        <template v-for="(grant, i) in suppliments.roles.selected">
+                                            <v-chip
+                                                width="100px"
+                                                label
+                                                close
+                                                success
+                                                @click.native.stop
+                                                @input="suppliments.roles.selected.splice(i, 1)"
+                                                class="chip--select-multi pink darken-3 white--text"
+                                                :key="i"
+                                            >
+                                                <input type="hidden" name="roles[]" :value="grant.id">
+                                                @{{ grant.name }}
+                                            </v-chip>
+                                        </template>
+                                    </template>
+                                    <small v-else class="grey--text">{{ __('No chosen Roles') }}</small>
+                                </v-card-text>
+                            </v-flex>
+                        </v-layout>
+
+                        <v-subheader v-show="!suppliments.required_fields.model">{{ __('Details') }}</v-subheader>
+                        <v-card-text v-show="!suppliments.required_fields.model">
+                            <v-layout row wrap>
+                                <v-flex xs12>
+                                    <v-text-field
+                                        v-show="!suppliments.required_fields.model"
+                                        :error-messages="resource.errors.address"
+                                        label="{{ _('Address') }}"
+                                        prepend-icon="map"
+                                        name="address"
+                                        value="{{ old('address') }}"
+                                        input-group
+                                    ></v-text-field>
+                                    <v-text-field
+                                        v-show="!suppliments.required_fields.model"
+                                        :error-messages="resource.errors.phone"
+                                        label="{{ _('Phone') }}"
+                                        prepend-icon="phone"
+                                        name="phone"
+                                        value="{{ old('phone') }}"
+                                        input-group
+                                    ></v-text-field>
+                                    <v-menu
+                                        v-show="!suppliments.required_fields.model"
+                                        lazy
+                                        :close-on-content-click="false"
+                                        transition="scale-transition"
+                                        offset-y
+                                        full-width
+                                        :nudge-left="40"
+                                        max-width="290px"
+                                    >
+                                        <v-text-field
+                                            slot="activator"
+                                            label="Birthday"
+                                            v-model="resource.birthday.formatted"
+                                            prepend-icon="fa-birthday-cake"
+                                            name="birthday"
+                                            value="{{ old('birthday') }}"
+                                            readonly
+                                        ></v-text-field>
+                                            <v-date-picker
+                                                v-model="resource.birthday.value"
+                                                scrollable
+                                                actions
+                                                :date-format="date => new Date(date).toDateString()"
+                                                :formatted-value.sync="resource.birthday.formatted"
+                                            >
+                                            <template scope="{ save, cancel }">
+                                                <v-card-actions>
+                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
+                                                </v-card-actions>
+                                            </template>
+                                        </v-date-picker>
+                                    </v-menu>
                                 </v-flex>
                             </v-layout>
                         </v-card-text>
-                        <v-card-actions>
+
+                        {{-- <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn primary type="submit">{{ _('Submit') }}</v-btn>
-                        </v-card-actions>
+                            <v-btn primary type="submit" class="elevation-1">{{ _('Submit') }}</v-btn>
+                        </v-card-actions> --}}
                     </v-card>
-                </form>
-            </v-flex>
-        </v-layout>
+                </v-flex>
+                <v-flex sm3>
+
+                    {{-- Avatar --}}
+                    @include("Theme::cards.avatar")
+                    {{-- Avatar --}}
+
+                    {{-- Save --}}
+                    @include("Theme::cards.saving")
+                    {{-- /Save --}}
+
+                </v-flex>
+            </v-layout>
+        </form>
     </v-container>
 @endsection
 
@@ -248,6 +298,22 @@
                             description: '',
                             grants: '',
                         },
+                        prefixname: {
+                            model: '',
+                        },
+                        birthday: {
+                            value: '',
+                            formatted: '{{ old('birthday') }}',
+                        },
+                        notify: {
+                            model: false,
+                        },
+                        status: {
+                            model: true,
+                        },
+                        status_range: {
+                            model: '',
+                        },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                         dialog: {
                             model: false,
@@ -255,9 +321,29 @@
                     },
                     suppliments: {
                         roles: {
+                            headers: [
+                                { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                                { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                                { text: '{{ __("Description") }}', align: 'left', value: 'description' },
+                            ],
+                            pagination: {
+                                rowsPerPage: 10,
+                                totalItems: 0,
+                            },
                             items: [],
                             selected: [],
-                        }
+                            searchform: {
+                                query: '',
+                                model: true,
+                            }
+                        },
+                        avatars: {
+                            selected: {!! json_encode($avatars[0]) !!},
+                            items: {!! json_encode($avatars) !!}
+                        },
+                        required_fields: {
+                            model: false,
+                        },
                     },
                     urls: {
                         roles: {
@@ -300,25 +386,45 @@
             },
 
             methods: {
-                get () {
-                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
-                    let query = {
-                        descending: descending,
-                        page: page,
-                        sort: sortBy,
-                        take: rowsPerPage,
-                    };
-                    this.api().get('{{ route('api.roles.all') }}', query)
-                        .then((data) => {
-                            this.dataset.items = data.items.data ? data.items.data : data.items;
-                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
-                            this.dataset.loading = false;
+                mountSuppliments () {
+                    let items = {!! json_encode($roles) !!};
+                    let g = [];
+                    for (var i in items) {
+                        g.push({
+                            id: items[i].id,
+                            name: items[i].name,
+                            code: items[i].code,
+                            description: items[i].description,
                         });
+                    }
+                    this.suppliments.roles.items = g;
+
+                    let selected = {!! json_encode(old('roles')) !!};
+                    let s = [];
+                    if (selected) {
+                        for (var i in selected) {
+                            for (var j = items.length - 1; j >= 0; j--) {
+                                if (selected[i] == items[j].id) {
+                                    let instance = items[j];
+                                    s.push({
+                                        id: instance.id,
+                                        name: instance.name,
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    this.suppliments.roles.selected = s ? s : [];
+                },
+
+                getStorageData() {
+                    this.suppliments.required_fields.model = this.getStorage('settings.show_required_fields_only') == 'true';
                 },
             },
 
             mounted () {
-                this.get();
+                this.mountSuppliments();
+                this.getStorageData();
                 // this.mountSuppliments();
                 // console.log("dataset.pagination", this.dataset.pagination);
             },

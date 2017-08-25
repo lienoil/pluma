@@ -66,7 +66,7 @@ class UserController extends APIController
         try {
             $this->authorize('delete', $user);
         } catch (\Exception $e) {
-            $this->errorResponse['text'] = "You are not allowed to delete your own account.";
+            $this->errorResponse['text'] = "You are not allowed to delete Root accounts.";
             return response()->json($this->errorResponse);
         }
 

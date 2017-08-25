@@ -19,7 +19,13 @@ class User extends Model implements
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, Searchable, Exceptable, BaseMutator, UserMutator;
+    use Authenticatable,
+        Authorizable,
+        CanResetPassword,
+        UserMutator,
+        BaseMutator,
+        Searchable,
+        Exceptable;
 
     /**
      * Boot the model.
