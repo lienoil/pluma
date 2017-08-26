@@ -33,6 +33,9 @@ class PurgeCacheCommand extends Command
             $filesystem->deleteDirectory(storage_path('compiled/sessions'), $preservedTopLevelDirectory = true);
             $filesystem->deleteDirectory(storage_path('compiled/views'), $preservedTopLevelDirectory = true);
             $filesystem->deleteDirectory(storage_path('framework/cache'), $preservedTopLevelDirectory = true);
+            $filesystem->put(storage_path('compiled/sessions/.gitignore'), "!\n*");
+            $filesystem->put(storage_path('compiled/views/.gitignore'), "!\n*");
+            $filesystem->put(storage_path('framework/cache/.gitignore'), "!\n*");
             exec('composer dump-autoload -o');
         } catch (\Pluma\Support\Filesystem\FileAlreadyExists $e) {
             $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
