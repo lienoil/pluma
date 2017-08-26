@@ -1,7 +1,6 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __('Trashed Roles'))
-@section("page-title", __('Trashed Roles'))
 
 @push("utilitybar")
     {{--  --}}

@@ -11,7 +11,7 @@ class AuthenticateAdmin
      * The redirect route for guests.
      * @var string
      */
-    protected $redirectGuest = 'admin/login';
+    protected $redirectGuest = 'login';
 
     /**
      * Handle an incoming request.

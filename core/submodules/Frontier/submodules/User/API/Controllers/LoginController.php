@@ -34,14 +34,14 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/login';
+    protected $redirectTo = '/login';
 
     /**
      * Redirect path upon successful logout.
      *
      * @var string
      */
-    protected $logoutPath = '/admin/login';
+    protected $logoutPath = '/login';
 
     /**
      * Create a new controller instance.
@@ -53,11 +53,11 @@ class LoginController extends Controller
         $this->middleware('web');
         $this->middleware('auth.guest', ['except' => 'logout']);
 
-        $this->logoutPath = config('admin.slug.logout', $this->logoutPath);
+        $this->logoutPath = config('path.logout', $this->logoutPath);
 
-        $this->redirectPath = config('admin.slug.dashboard', $this->redirectPath);
+        $this->redirectPath = config('path.dashboard', $this->redirectPath);
 
-        $this->redirectTo = config('admin.slug.login', $this->redirectTo);
+        $this->redirectTo = config('path.login', $this->redirectTo);
     }
 
     /**
@@ -91,14 +91,6 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
-
-            // return response()->json([
-            //     'status' => true,
-            //     'success' => true,
-            //     'message' => 'Login successful',
-            //     'type' => 'success',
-            //     'redirect' => url('admin/dashboard'),
-            // ]);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -107,7 +99,6 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
-        // return response()->json(['success' => false, $this->username() => Lang::get('auth.failed')]);
     }
 
     /**

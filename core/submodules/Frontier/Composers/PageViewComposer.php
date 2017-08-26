@@ -24,7 +24,7 @@ class PageViewComposer extends BaseViewComposer
      * E.g. a url with "/admin/login" will
      * generate a "Login Admin" title.
      * Registering the "admin" word as banned
-     * will generate a much intuitive "Login"
+     * will generate a much simpler "Login"
      * for the title.
      *
      * @var array

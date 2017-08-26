@@ -2,7 +2,6 @@
 
 @section("head-title", '403 Error')
 @section("head-subtitle", 'Forbidden')
-@section("page-title", 'Unauthorized Access')
 
 @section("content")
     <v-container fluid>

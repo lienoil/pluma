@@ -1,7 +1,6 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __('Edit Role'))
-@section("page-title", __('Edit Role'))
 
 @push("page-settings")
     <v-card>

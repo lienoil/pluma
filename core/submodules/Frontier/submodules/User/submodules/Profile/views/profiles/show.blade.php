@@ -1,7 +1,6 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __("Profile"))
-@section("page-title", __(""))
 
 @section("content")
     <v-parallax height="225" src="https://source.unsplash.com/1600x900/?nature,water">

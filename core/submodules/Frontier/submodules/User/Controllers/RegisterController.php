@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/login';
+    protected $redirectTo = '/login';
 
     /**
      * The session key for when user successfully registered.

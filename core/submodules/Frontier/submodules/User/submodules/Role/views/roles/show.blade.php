@@ -1,7 +1,6 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __($resource->name))
-@section("page-title", __($resource->name))
 
 @section("content")
     @include("Frontier::partials.banner")

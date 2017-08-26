@@ -1,8 +1,6 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __('Roles'))
-@section("page-title", __('Roles'))
-
 
 @section("content")
 

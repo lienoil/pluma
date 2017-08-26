@@ -1,7 +1,6 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __('Grants'))
-@section("page-title", __('Grants'))
 
 @section("content")
     <v-container fluid>

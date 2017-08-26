@@ -26,21 +26,21 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectPath = '/admin/dashboard';
+    protected $redirectPath = '/dashboard';
 
     /**
      * Where to redirect users on failed login.
      *
      * @var string
      */
-    protected $redirectTo = '/admin/login';
+    protected $redirectTo = '/login';
 
     /**
      * Redirect path upon successful logout.
      *
      * @var string
      */
-    protected $logoutPath = '/admin/login';
+    protected $logoutPath = '/login';
 
     /**
      * Create a new controller instance.
@@ -51,11 +51,11 @@ class LoginController extends Controller
     {
         $this->middleware('auth.guest', ['except' => 'logout']);
 
-        $this->logoutPath = config('admin.slug.logout', $this->logoutPath);
+        $this->logoutPath = config('path.logout', $this->logoutPath);
 
-        $this->redirectPath = config('admin.slug.dashboard', $this->redirectPath);
+        $this->redirectPath = config('path.dashboard', $this->redirectPath);
 
-        $this->redirectTo = config('admin.slug.login', $this->redirectTo);
+        $this->redirectTo = config('path.login', $this->redirectTo);
     }
 
     /**

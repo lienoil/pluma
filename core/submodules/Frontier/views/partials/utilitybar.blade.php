@@ -8,7 +8,8 @@
     <v-toolbar-side-icon class="grey--text" @click.stop="setStorage('sidebar.drawer', (sidebar.drawer = !sidebar.drawer))">
         {{-- <v-icon :dark.sync="dark" :light.sync="light">@{{ sidebar.drawer?'chevron_left':'chevron_right' }}</v-icon> --}}
     </v-toolbar-side-icon>
-    <v-toolbar-title>@section("page-title"){{ __($application->page->title) }}@show</v-toolbar-title>
+
+    @stack("page-title")
 
     <v-spacer></v-spacer>
 

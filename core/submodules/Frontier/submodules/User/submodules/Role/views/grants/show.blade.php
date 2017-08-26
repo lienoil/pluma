@@ -1,7 +1,6 @@
 @extends("Frontier::layouts.admin")
 
 @section("head-title", __($resource->name))
-@section("page-title", __($resource->name))
 
 @section("content")
     <v-container fluid>

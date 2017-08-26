@@ -1,7 +1,6 @@
 @extends("Frontier::layouts.admin")
 
 @section("head-title", __('Permissions'))
-@section("page-title", __('Permissions'))
 
 @push("utilitybar")
     {{-- <a class="btn btn--raised primary white--text" href="{{ route('permissions.refresh') }}">Refresh</a> --}}

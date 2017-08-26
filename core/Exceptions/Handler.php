@@ -104,6 +104,6 @@ class Handler extends BaseHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest('login');
+        return redirect()->guest(config('path.login', 'login'));
     }
 }
