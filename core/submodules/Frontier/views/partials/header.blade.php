@@ -54,3 +54,4 @@
     @stack("post-css")
 </head>
 <body>
+    @include("Theme::warnings.general")

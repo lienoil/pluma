@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectPath = '/dashboard';
+    protected $redirectPath = '/admin/dashboard';
 
     /**
      * Where to redirect users on failed login.
@@ -40,7 +40,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $logoutPath = '/login';
+    protected $logoutPath = '/';
 
     /**
      * Create a new controller instance.

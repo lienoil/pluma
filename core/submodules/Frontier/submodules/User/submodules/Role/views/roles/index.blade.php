@@ -48,10 +48,19 @@
                         <v-layout row wrap>
                             <v-flex xs12>
                                 <v-toolbar class="transparent elevation-0">
-                                    <v-toolbar-title class="subheading">{{ __('Selected Grants') }}</v-toolbar-title>
+                                    <v-toolbar-title
+                                        :class="resource.errors.grants?'error--text':''"
+                                        class="subheading">{{ __('Selected Grants') }}</v-toolbar-title>
                                     <v-spacer></v-spacer>
                                 </v-toolbar>
                                 <v-card-text class="text-xs-center">
+                                    <div v-show="resource.errors.grants">
+                                        <small class="error--text">
+                                            <template v-for="message in resource.errors.grants">
+                                                @{{ message }}
+                                            </template>
+                                        </small>
+                                    </div>
                                     <template v-if="suppliments.grants.selected.length">
                                         <template v-for="(grant, i) in suppliments.grants.selected">
                                             <v-chip
