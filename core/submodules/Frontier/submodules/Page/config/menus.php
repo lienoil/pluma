@@ -4,7 +4,7 @@ return [
     'page' => [
         'name' => 'page',
         'is_parent' => true,
-        'order' => 10,
+        'order' => 30,
         'slug' => url(config('path.admin').'/pages'),
         'always_viewable' => false,
         'icon' => 'insert_drive_file',

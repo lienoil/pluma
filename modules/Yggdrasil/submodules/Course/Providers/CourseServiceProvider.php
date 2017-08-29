@@ -1,10 +1,10 @@
 <?php
 
-namespace $name\Providers;
+namespace Course\Providers;
 
 use Pluma\Support\Providers\ServiceProvider;
 
-class $nameServiceProvider extends ServiceProvider
+class CourseServiceProvider extends ServiceProvider
 {
     /**
      * Array of observable models.
@@ -12,7 +12,7 @@ class $nameServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observables = [
-        [\$name\Models\$name::class, '\$name\Observers\$nameObserver'],
+        [\Course\Models\Course::class, '\Course\Observers\CourseObserver'],
     ];
 
     /**

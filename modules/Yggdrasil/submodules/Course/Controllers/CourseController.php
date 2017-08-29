@@ -1,12 +1,12 @@
 <?php
 
-namespace $namespace\Controllers;
+namespace Course\Controllers;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use $namespace\Models\$model;
+use Course\Models\Course;
 
-class $class extends AdminController
+class CourseController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class $class extends AdminController
     {
         //
 
-        return view("Theme::$slug.index");
+        return view("Theme::courses.index");
     }
 
     /**
@@ -32,7 +32,7 @@ class $class extends AdminController
     {
         //
 
-        return view("Theme::$slug.show");
+        return view("Theme::courses.show");
     }
 
     /**
@@ -44,16 +44,16 @@ class $class extends AdminController
     {
         //
 
-        return view("Theme::$slug.create");
+        return view("Theme::courses.create");
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \Course\Requests\CourseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($nameRequest $request)
+    public function store(CourseRequest $request)
     {
         //
 
@@ -71,17 +71,17 @@ class $class extends AdminController
     {
         //
 
-        return view("Theme::$slug.edit");
+        return view("Theme::courses.edit");
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \Course\Requests\CourseRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($nameRequest $request, $id)
+    public function update(CourseRequest $request, $id)
     {
         //
 
@@ -99,7 +99,7 @@ class $class extends AdminController
     {
         //
 
-        return redirect()->route('$slug.index');
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -111,17 +111,17 @@ class $class extends AdminController
     {
         //
 
-        return view("Theme::$slug.trash");
+        return view("Theme::courses.trash");
     }
 
     /**
      * Restore the specified resource from storage.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \Course\Requests\CourseRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function restore($nameRequest $request, $id)
+    public function restore(CourseRequest $request, $id)
     {
         //
 
@@ -131,14 +131,14 @@ class $class extends AdminController
     /**
      * Delete the specified resource from storage permanently.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \Course\Requests\CourseRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($nameRequest $request, $id)
+    public function delete(CourseRequest $request, $id)
     {
         //
 
-        return redirect()->route('$slug.trash');
+        return redirect()->route('courses.trash');
     }
 }

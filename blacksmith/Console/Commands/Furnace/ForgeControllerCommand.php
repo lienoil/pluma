@@ -55,23 +55,22 @@ class ForgeControllerCommand extends Command
                 $this->info("Using path: $module");
             }
 
-            $files = [
-                "$module/Controllers/{$name}.php",
-            ];
+            $file = "$module/Controllers/{$name}Controller.php";
+            $name = $name;
+            $namespace = basename($module);
+            $class = "{$name}Controller";
+            $model = basename($module);
+            $slug = strtolower(str_plural($name));
 
-            foreach ($files as $file) {
-                $namespace = basename($module);
-                $model = basename($module);
-                $slug = strtolower(str_plural($namespace));
-                $template = $filesystem->put(
-                    blacksmith_path("templates/controllers/ControllerAdmin.stub"),
-                    compact('model', 'namespace', 'name', 'slug')
-                );
+            $template = $filesystem->put(
+                blacksmith_path("templates/controllers/ControllerAdmin.stub"),
+                compact('namespace', 'name', 'class', 'model', 'slug')
+            );
 
-                if ($filesystem->make($file, $template)) {
-                    $this->info("File created: $file");
-                }
+            if ($filesystem->make($file, $template)) {
+                $this->info("File created: $file");
             }
+
 
             exec("composer dump-autoload -o");
         } catch (\Pluma\Support\Filesystem\FileAlreadyExists $e) {

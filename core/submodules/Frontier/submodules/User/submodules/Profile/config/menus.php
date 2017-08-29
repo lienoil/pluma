@@ -1,21 +1,22 @@
 <?php
 
 return [
+
     /**
      * -------------------------------------------------------------------------
-     * Profiles Menus
+     * Avatar Menus
      * -------------------------------------------------------------------------
-     * Specify here the menus to appear on the sidebar.
+     *
      *
      */
-    'show-profile' => [
-        'name' => 'show-profile',
-        'order' => 1,
-        'slug' => url(config('path.admin').'/profile/'.user()->handlename),
+    'avatar' => [
+        'is_avatar' => true,
+        'is_header' => true,
+        'order' => 0,
+        'name' => 'avatar',
         'always_viewable' => true,
-        'icon' => 'account_circle',
         'routes' => [
-            'name' => 'profile.show',
+            'name' => 'profile.index',
             'children' => [
                 'profile.show',
             ]
@@ -24,5 +25,54 @@ return [
             'title' => __('Profile'),
             'description' => __('Manage profile'),
         ],
+        'children' => [
+            /**
+             * -----------------------------------------------------------------
+             * Profiles Menus
+             * -----------------------------------------------------------------
+             * Specify here the menus to appear on the sidebar.
+             *
+             */
+            'show-profile' => [
+                'name' => 'show-profile',
+                'order' => 1,
+                'slug' => url(config('path.admin').'/profile/'.user()->handlename),
+                'always_viewable' => true,
+                'icon' => 'account_circle',
+                'routes' => [
+                    'name' => 'profile.show',
+                    'children' => [
+                        'profile.show',
+                    ]
+                ],
+                'labels' => [
+                    'title' => __('Profile'),
+                    'description' => __('Manage profile'),
+                ],
+            ],
+
+            /**
+             * -----------------------------------------------------------------
+             * Logout
+             * -----------------------------------------------------------------
+             * Logout
+             *
+             */
+            'logout' => [
+                'name' => 'logout',
+                'order' => 2,
+                'slug' => route('logout.logout'),
+                'always_viewable' => true,
+                'icon' => 'exit_to_app',
+                'routes' => [
+                    'name' => 'logout.logout',
+                ],
+                'labels' => [
+                    'title' => __('Logout'),
+                    'description' => __('Signout from the application'),
+                ],
+            ],
+        ],
     ],
+
 ];

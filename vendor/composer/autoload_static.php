@@ -341,6 +341,11 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
         'Chronos\\Controllers\\ChronosController' => __DIR__ . '/../..' . '/modules/Chronos/Controllers/ChronosController.php',
         'Chronos\\Providers\\ChronosServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/Providers/ChronosServiceProvider.php',
+        'Course\\Controllers\\CourseController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/CourseController.php',
+        'Course\\Models\\Course' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Models/Course.php',
+        'Course\\Observers\\CourseObserver' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Observers/CourseObserver.php',
+        'Course\\Providers\\CourseServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Providers/CourseServiceProvider.php',
+        'Course\\Requests\\CourseRequest' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Requests/CourseRequest.php',
         'CreateActivationsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170743035959_create_activations_table.php',
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/20170624132509_create_calendars_table.php',
         'CreateDetailsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170825065924_create_details_table.php',
@@ -433,7 +438,6 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
-        'Frontier\\API\\Controllers\\PageController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PageController.php',
         'Frontier\\API\\Controllers\\PublicController' => __DIR__ . '/../..' . '/core/submodules/Frontier/API/Controllers/PublicController.php',
         'Frontier\\Composers\\NavigationViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/NavigationViewComposer.php',
         'Frontier\\Composers\\PageViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/PageViewComposer.php',
@@ -1269,6 +1273,8 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Psr\\SimpleCache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/simple-cache/src/InvalidArgumentException.php',
         'Quest\\Console\\Commands\\CarryCommand' => __DIR__ . '/../..' . '/modules/Quest/Console/Commands/CarryCommand.php',
         'Quest\\Console\\Commands\\ShoutCommand' => __DIR__ . '/../..' . '/modules/Quest/Console/Commands/ShoutCommand.php',
+        'Quest\\Controllers\\CourseController' => __DIR__ . '/../..' . '/modules/Quest/Controllers/CourseController.php',
+        'Quest\\Models\\Course' => __DIR__ . '/../..' . '/modules/Quest/Models/Course.php',
         'Role\\API\\Controllers\\GrantController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/GrantController.php',
         'Role\\API\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/PermissionController.php',
         'Role\\API\\Controllers\\PermissionRefreshController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/API/Controllers/PermissionRefreshController.php',
@@ -1936,6 +1942,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
+        'Yggdrasil\\Providers\\YggdrasilServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/Providers/YggdrasilServiceProvider.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

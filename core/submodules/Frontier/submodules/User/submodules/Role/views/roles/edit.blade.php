@@ -74,7 +74,7 @@
                                                 class="chip--select-multi pink darken-3 white--text"
                                                 :key="i"
                                             >
-                                                <input type="hidden" name="grants[]" :value="JSON.stringify(grant)">
+                                                <input type="hidden" name="grants[]" :value="grant.id">
                                                 @{{ grant.name }}
                                             </v-chip>
                                         </template>

@@ -40,7 +40,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $logoutPath = '/';
+    protected $logoutPath = '/login';
 
     /**
      * Create a new controller instance.
@@ -51,7 +51,7 @@ class LoginController extends Controller
     {
         $this->middleware('auth.guest', ['except' => 'logout']);
 
-        $this->logoutPath = config('path.logout', $this->logoutPath);
+        $this->logoutPath = config('path.redirect_after_logout', $this->logoutPath);
 
         $this->redirectPath = config('path.dashboard', $this->redirectPath);
 

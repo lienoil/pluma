@@ -1,11 +1,11 @@
 <?php
 
-namespace $namespace\Models;
+namespace Quest\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 
-class $class extends Model
+class Course extends Model
 {
     use SoftDeletes;
 

@@ -39,7 +39,7 @@ class ForgeModuleCommand extends Command
         $modules = get_modules_path(true);
 
         if ($option['module'] !== 'none') {
-            // The its a submodule
+            // Then its a submodule
             $submodule = $name;
             $module = get_module($option['module']);
             if (is_null($module)) {
@@ -90,8 +90,6 @@ class ForgeModuleCommand extends Command
         $files = [
             "$module/config/menus.php",
             "$module/config/permissions.php",
-            "$module/Controllers/{$name}Controller.php",
-            "$module/Models/{$name}.php",
             "$module/Observers/{$name}Observer.php",
             "$module/Providers/{$name}ServiceProvider.php",
             "$module/Requests/{$name}Request.php",
@@ -102,18 +100,15 @@ class ForgeModuleCommand extends Command
             "$module/views/$slug/index.blade.php",
             "$module/views/$slug/trash.blade.php",
         ];
+
+        // Controller
+        $this->call("forge:controller", ['name' => "$name", '--module' => basename($module)]);
+
+        // Model
+        $this->call("forge:model", ['name' => "$name", '--module' => basename($module)]);
+
         foreach ($files as $file) {
             switch ($file) {
-                case "$module/Controllers/{$name}Controller.php":
-                    $namespace = basename($module);
-                    $name = "{$name}Controller";
-                    $model = basename($name);
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/controllers/ControllerAdmin.stub"),
-                        compact('model', 'namespace', 'name', 'slug')
-                    );
-                    break;
-
                 case "$module/views/$slug/create.blade.php":
                 case "$module/views/$slug/edit.blade.php":
                 case "$module/views/$slug/index.blade.php":
@@ -126,6 +121,7 @@ class ForgeModuleCommand extends Command
 
                 case "$module/Requests/{$name}Request.php":
                     $code = str_singular($slug);
+                    $name = studly_case($this->argument('name'));
                     $template = $filesystem->put(
                         blacksmith_path("templates/requests/FormRequest.stub"),
                         compact('code', 'name', 'slug')
@@ -133,6 +129,7 @@ class ForgeModuleCommand extends Command
                     break;
 
                 case "$module/Providers/{$name}ServiceProvider.php":
+                    $name = studly_case($this->argument('name'));
                     $template = $filesystem->put(
                         blacksmith_path("templates/providers/ServiceProvider.stub"),
                         compact('file', 'module', 'name', 'slug')
@@ -140,20 +137,15 @@ class ForgeModuleCommand extends Command
                     break;
 
                 case "$module/Observers/{$name}Observer.php":
+                    $name = studly_case($this->argument('name'));
                     $template = $filesystem->put(
                         blacksmith_path("templates/observers/Observer.stub"),
                         compact('file', 'module', 'name', 'slug')
                     );
                     break;
 
-                case "$module/Models/{$name}.php":
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/models/Model.stub"),
-                        compact('file', 'module', 'name', 'slug')
-                    );
-                    break;
-
                 case "$module/config/menus.php":
+                    $name = studly_case($this->argument('name'));
                     $code = str_singular($slug);
                     $template = $filesystem->put(
                         blacksmith_path("templates/config/menus.stub"),
@@ -162,6 +154,7 @@ class ForgeModuleCommand extends Command
                     break;
 
                 case "$module/config/permissions.php":
+                    $name = studly_case($this->argument('name'));
                     $code = str_singular($slug);
                     $template = $filesystem->put(
                         blacksmith_path("templates/config/permissions.stub"),
@@ -171,6 +164,7 @@ class ForgeModuleCommand extends Command
 
                 case "$module/routes/admin.php":
                 case "$module/routes/public.php":
+                    $name = studly_case($this->argument('name'));
                     $code = str_singular($slug);
                     $template = $filesystem->put(
                         blacksmith_path("templates/routes/route.stub"),
@@ -182,6 +176,7 @@ class ForgeModuleCommand extends Command
                     $template = "<?php ";
                     break;
             }
+
             if ($filesystem->make($file, $template)) {
                 $this->info("File created: $file");
             }

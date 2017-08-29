@@ -33,24 +33,7 @@
         </v-list>
     </v-toolbar>
 
-    {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
-
-    <v-toolbar flat class="pt-2 pb-2" :class="theme.avatar?theme.avatar:'transparent'">
-        <v-list class="pa-0">
-            <v-list-tile tag="div">
-                <v-list-tile-avatar>
-                    <img src="{{ user()->avatar }}" alt="{{ user()->handlename }}">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <strong><v-list-tile-title>{{ user()->displayname }}</v-list-tile-title></strong>
-                    <small>
-                        <v-icon :dark.sync="dark" :light.sync="light">supervisor_account</v-icon>
-                        {{ user()->displayrole }}
-                    </small>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-    </v-toolbar>
+    <v-divider :dark.sync="dark" :light.sync="light"></v-divider>
 
     {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
 
@@ -58,9 +41,64 @@
         <v-list>{{-- <v-list dense> --}}
 
             <template v-for="(menu, i) in navigation.sidebar">
+                {{-- if is avatar --}}
+                {{-- Avatar --}}
+                <template v-if="menu.is_avatar">
+                    <v-list-group
+                        :dark.sync="dark" :light.sync="light"
+                        class="mb-4"
+                        no-action
+                        v-model="menu.active"
+                    >
+                        {{-- headmenu --}}
+                        <v-list-tile slot="item">
+                            <v-list-tile-avatar>
+                                <img src="{{ user()->avatar }}" alt="{{ user()->handlename }}">
+                            </v-list-tile-avatar>
+                            <v-list-tile-content>
+                                <strong><v-list-tile-title>{{ user()->displayname }}</v-list-tile-title></strong>
+                                <small>
+                                    <v-icon :dark.sync="dark" :light.sync="light">supervisor_account</v-icon>
+                                    {{ user()->displayrole }}
+                                </small>
+                            </v-list-tile-content>
+                            <v-list-tile-action>
+                                <v-icon
+                                    :dark.sync="dark"
+                                    :light.sync="light"
+                                >keyboard_arrow_down</v-icon>
+                            </v-list-tile-action>
+                        </v-list-tile>
+
+                        {{-- childmenu --}}
+                        <v-list-tile
+                            :key="i"
+                            :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
+                            :href="child.slug"
+                            v-for="(child, i) in menu.children"
+                            :title="child.labels.description"
+                            v-model="child.active"
+                            light
+                        >
+                            <v-list-tile-action>
+                                <v-icon
+                                    :dark.sync="dark"
+                                    :light.sync="light"
+                                >@{{ child.icon }}</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content >
+                                <v-list-tile-title>
+                                    @{{ child.labels.title }}
+                                </v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </v-list-group>
+                    {{-- /Avatar --}}
+                </template>
+
                 {{-- if is header --}}
                 <v-subheader
-                    v-if="menu.is_header"
+                    v-else-if="menu.is_header"
                     :dark.sync="dark" :light.sync="light"
                     class="grey--text text--lighten-1 mt-5"
                 >

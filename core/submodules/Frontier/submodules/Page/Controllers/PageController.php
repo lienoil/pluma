@@ -4,6 +4,7 @@ namespace Page\Controllers;
 
 use Frontier\Controllers\AdminController as Controller;
 use Illuminate\Http\Request;
+use Page\Models\Page;
 
 class PageController extends Controller
 {
@@ -15,7 +16,10 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {
-        return view("Page::pages.index");
+        $resources = Page::paginate();
+        $trashed = Page::onlyTrashed()->count();
+
+        return view("Page::pages.index")->with(compact('resources', 'trashed'));
     }
 
     /**
@@ -41,5 +45,23 @@ class PageController extends Controller
     public function create(Request $request)
     {
         return view("Page::pages.create");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $page = new Page();
+        $page->title = $request->input('title');
+        $page->slug = $request->input('slug');
+        $page->body = $request->input('body');
+        $page->delta = $request->input('delta');
+        $page->save();
+
+        return back();
     }
 }

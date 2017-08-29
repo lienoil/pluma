@@ -55,22 +55,21 @@ class ForgeModelCommand extends Command
                 $this->info("Using path: $module");
             }
 
-            $files = [
-                "$module/Models/{$name}.php",
-            ];
+            $file = "$module/Models/{$name}.php";
 
-            foreach ($files as $file) {
-                $namespace = basename($module);
-                $model = basename($module);
-                $slug = strtolower(str_plural($namespace));
-                $template = $filesystem->put(
-                    blacksmith_path("templates/models/Model.stub"),
-                    compact('model', 'namespace', 'name', 'slug')
-                );
+            $namespace = basename($module);
+            $name = $name;
+            $namespace = basename($module);
+            $class = $name;
+            $model = basename($module);
+            $slug = strtolower(str_plural($name));
+            $template = $filesystem->put(
+                blacksmith_path("templates/models/Model.stub"),
+                compact('namespace', 'name', 'class', 'model', 'slug')
+            );
 
-                if ($filesystem->make($file, $template)) {
-                    $this->info("File created: $file");
-                }
+            if ($filesystem->make($file, $template)) {
+                $this->info("File created: $file");
             }
 
             exec("composer dump-autoload -o");

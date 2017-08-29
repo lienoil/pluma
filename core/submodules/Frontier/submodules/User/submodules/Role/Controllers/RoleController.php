@@ -88,7 +88,6 @@ class RoleController extends AdminController
         $role->description = $request->input('description');
         $role->alias = $request->input('alias');
         $role->save();
-
         $role->grants()->sync($request->input('grants'));
 
         return back();

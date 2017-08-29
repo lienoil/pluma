@@ -4,7 +4,7 @@ return [
     'dashboard' => [
         'name' => 'dashboard',
         'is_parent' => true,
-        'order' => 0,
+        'order' => 5,
         'slug' => url(config('path.admin').'/dashboard'),
         'always_viewable' => true,
         'icon' => 'widgets',
@@ -18,7 +18,7 @@ return [
         'name' => 'content',
         'is_header' => true,
         // 'always_viewable' => true,
-        'order' => 10,
+        'order' => 20,
         'class' => 'separator',
         'markup' => 'span',
         'text' => __('Content'),

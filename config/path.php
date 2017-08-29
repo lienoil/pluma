@@ -11,4 +11,5 @@ return [
     'login' => 'login',
     'logout' => 'logout',
     'register' => 'register',
+    'redirect_after_logout' => 'login',
 ];
