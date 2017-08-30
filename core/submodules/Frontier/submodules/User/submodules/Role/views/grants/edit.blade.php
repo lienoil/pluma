@@ -59,7 +59,7 @@
                                 </v-toolbar>
                                 <v-card-text class="text-xs-center">
                                     <template v-if="suppliments.permissions.selected.length">
-                                        <template v-for="(grant, i) in suppliments.permissions.selected">
+                                        <template v-for="(permission, i) in suppliments.permissions.selected">
                                             <v-chip
                                                 width="100px"
                                                 label
@@ -70,8 +70,9 @@
                                                 class="chip--select-multi pink darken-3 white--text"
                                                 :key="i"
                                             >
-                                                <input type="hidden" name="permissions[]" :value="JSON.stringify(grant)">
-                                                @{{ grant.name }}
+                                                <input type="hidden" name="json_permissions[]" :value="JSON.stringify(permission)">
+                                                <input type="hidden" name="permissions[]" :value="permission.id">
+                                                @{{ permission.name }}
                                             </v-chip>
                                         </template>
                                     </template>
@@ -136,6 +137,7 @@
 @endsection
 
 @push('pre-scripts')
+
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
         mixins.push({
@@ -255,7 +257,7 @@
                     }
                     this.suppliments.permissions.items = g;
 
-                    let selected = {!! json_encode($resource->permissions->pluck('code', 'id')) !!};
+                    let selected = {!! old('json_permissions') ? old('json_permissions') : json_encode($resource->permissions->pluck('code', 'id')) !!};
                     let s = [];
                     if (selected) {
                         for (var i in selected) {
@@ -266,6 +268,7 @@
                         }
                     }
                     this.suppliments.permissions.selected = s ? s : [];
+                    console.log("dataset.pagination:", selected);
                 },
             },
 

@@ -56,7 +56,8 @@
                                                 class="chip--select-multi pink darken-3 white--text"
                                                 :key="i"
                                             >
-                                                <input type="hidden" name="permissions[]" :value="JSON.stringify(permission)">
+                                                <input type="hidden" name="json_permissions[]" :value="JSON.stringify(permission)">
+                                                <input type="hidden" name="permissions[]" :value="permission.id">
                                                 @{{ permission.name }}
                                             </v-chip>
                                         </template>
@@ -441,7 +442,7 @@
                     }
                     this.suppliments.permissions.items = g;
 
-                    let selected = {!! json_encode(old('permissions')) !!};
+                    let selected = {!! json_encode(old('json_permissions')) !!};
                     console.log(selected);
                     let s = [];
                     if (selected) {
@@ -460,7 +461,7 @@
             mounted () {
                 this.get('{{ route('api.grants.all') }}');
                 this.mountSuppliments();
-                this.dataset.pagination.rowsPerPage = this.dataset.totalItems <= 15 ? '-1' : this.dataset.totalItems;
+                // this.dataset.pagination.rowsPerPage = this.dataset.totalItems <= 15 ? '-1' : this.dataset.totalItems;
             }
         });
     </script>

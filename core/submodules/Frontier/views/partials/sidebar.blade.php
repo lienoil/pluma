@@ -98,7 +98,7 @@
 
                 {{-- if is header --}}
                 <v-subheader
-                    v-else-if="menu.is_header"
+                    v-else-if="menu.is_header || menu.before"
                     :dark.sync="dark" :light.sync="light"
                     class="grey--text text--lighten-1 mt-4"
                 >

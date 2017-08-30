@@ -81,7 +81,6 @@ class NavigationViewComposer extends BaseViewComposer
             if (user()->isRoot() ||
                 (isset($menu['always_viewable']) && $menu['always_viewable']) ||
                 (isset($menu['is_header']) && $menu['is_header']) ||
-                (isset($menu['is_parent']) && $menu['is_parent']) ||
                 user()->isPermittedTo($menu['name'])) {
                 $menu['can_be_accessed'] = true;
             }
@@ -167,6 +166,24 @@ class NavigationViewComposer extends BaseViewComposer
     {
         $this->menus = $this->unsetForbiddenRoutes($this->menus);
 
+        // ------------------------------------------------------
+        // Note to future self:
+        // This will remove the headers if no menus are under it.
+        // TODO: refactor this.
+        foreach ($this->menus as $i => &$current) {
+            $next = next($this->menus);
+            if (isset($current['is_header'])) {
+                if (! $next) {
+                    unset($this->menus[$i]);
+                }
+
+                if ($next && isset($next['is_header'])) {
+                    unset($this->menus[$i]);
+                }
+            }
+        }
+        // ------------------------------------------------------
+
         return json_decode(json_encode([
             // 'generate' => $this->generateSidebar(collect(json_decode(json_encode($this->menus)))),
             'collect' => collect(json_decode(json_encode($this->menus))),
@@ -200,6 +217,7 @@ class NavigationViewComposer extends BaseViewComposer
         }
 
         $menus = is_null($menus) ? $this->menus : $menus;
+
         foreach ($menus as $i => &$menu) {
             if (isset($menu['children']) && ! empty($menu['children'])) {
                 $menu['children'] = $this->unsetForbiddenRoutes($menu['children']);

@@ -18,31 +18,31 @@ return [
      *
      */
     'view-profile' => [
-        'name' =>  'profiles.index',
+        'name' =>  'profile.index',
         'code' => 'view-profile',
         'description' => 'Ability to view list of profiles',
         'group' => 'profile',
     ],
     'show-profile' => [
-        'name' => 'profiles.show',
+        'name' => 'profile.show',
         'code' => 'show-profile',
         'description' => 'Ability to show a single profile',
         'group' => 'profile',
     ],
     'store-profile' => [
-        'name' => 'profiles.store',
+        'name' => 'profile.store',
         'code' => 'store-profile',
         'description' => 'Ability to save the profile',
         'group' => 'profile',
     ],
     'edit-profile' => [
-        'name' => 'profiles.edit',
+        'name' => 'profile.edit',
         'code' => 'edit-profile',
         'description' => 'Ability to show the form to edit profile',
         'group' => 'profile',
     ],
     'update-profile' => [
-        'name' => 'profiles.update',
+        'name' => 'profile.update',
         'code' => 'update-profile',
         'description' => 'Ability to update the profile',
         'group' => 'profile',

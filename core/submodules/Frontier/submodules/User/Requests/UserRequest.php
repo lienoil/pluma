@@ -13,33 +13,29 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        switch ($this->method()) {
+            case 'POST':
+                if ($this->user()->can('store-user')) {
+                    return true;
+                }
+                break;
 
-        // switch ($this->method()) {
-        //     case 'POST':
-        //         if ($this->user()->can('store-grant')) {
-        //             return true;
-        //         }
-        //         break;
+            case 'PUT':
+                if ($this->user()->can('update-user')) {
+                    return true;
+                }
+                break;
 
-        //     case 'PUT':
-        //         if ($this->user()->can('update-grant')) {
-        //             return true;
-        //         }
-        //         break;
+            case 'DELETE':
+                if ($this->user()->can('destroy-user')) {
+                    return true;
+                }
+                break;
 
-        //     case 'DELETE':
-        //         if ($this->user()->can('destroy-grant')) {
-        //             return true;
-        //         }
-        //         break;
-
-        //     default:
-        //         return false;
-        //         break;
-        // }
-
-        // return false;
+            default:
+                return false;
+                break;
+        }
     }
 
     /**
@@ -55,7 +51,7 @@ class UserRequest extends FormRequest
             'firstname' => 'sometimes|required|max:255',
             'lastname' => 'sometimes|required|max:255',
             'password' => 'sometimes|required|min:6|confirmed',
-            'username' => 'sometimes|required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
+            'username' => 'sometimes|required|regex:/^[\pL\s\-\.\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
             'email' => 'required|email|unique:users'.$isUpdating,
             'roles' => 'sometimes|required',
         ];

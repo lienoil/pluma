@@ -12,7 +12,7 @@ return [
         'is_parent' => true,
         'order' => 1000,
         'slug' => url(config('path.admin').'/settings'),
-        'always_viewable' => true,
+        'always_viewable' => false,
         'icon' => 'settings',
         'labels' => [
             'title' => __('Settings'),

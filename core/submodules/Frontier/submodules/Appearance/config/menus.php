@@ -6,7 +6,7 @@ return [
         'is_parent' => true,
         'order' => 600,
         'slug' => url(config('path.admin').'/appearance'),
-        'always_viewable' => true,
+        'always_viewable' => false,
         'icon' => 'palette',
         'labels' => [
             'title' => __('Appearance'),

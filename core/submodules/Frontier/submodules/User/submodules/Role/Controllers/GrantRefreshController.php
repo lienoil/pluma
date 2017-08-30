@@ -87,7 +87,7 @@ class GrantRefreshController extends AdminController
      */
     public function permissions($modules = null)
     {
-        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+        $modules = is_null($modules) ? get_modules_path() : $modules;
 
         $permissions = [];
         foreach ($modules as $name => $module) {

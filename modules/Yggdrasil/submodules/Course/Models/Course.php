@@ -11,5 +11,5 @@ class Course extends Model
 
     protected $with = [];
 
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $searchables = ['title', 'code', 'slug', 'body', 'created_at', 'updated_at'];
 }

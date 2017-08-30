@@ -73,7 +73,8 @@
                                                 class="chip--select-multi pink darken-3 white--text"
                                                 :key="i"
                                             >
-                                                <input type="hidden" name="grants[]" :value="JSON.stringify(grant)">
+                                                <input type="hidden" name="json_grants[]" :value="JSON.stringify(grant)">
+                                                <input type="hidden" name="grants[]" :value="grant.id">
                                                 @{{ grant.name }}
                                             </v-chip>
                                         </template>
@@ -450,7 +451,6 @@
                     this.suppliments.grants.items = g;
 
                     let selected = {!! json_encode(old('grants')) !!};
-                    console.log("selected", selected);
                     let s = [];
                     if (selected) {
                         for (var i in selected) {

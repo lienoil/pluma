@@ -19,8 +19,8 @@ return [
             'description' => __('Manage courses'),
         ],
         'children' => [
-            'view-courses' => [
-                'name' => 'view-courses',
+            'view-course' => [
+                'name' => 'view-course',
                 'order' => 1,
                 'slug' => url(config('path.admin').'/courses'),
                 'always_viewable' => false,
@@ -39,8 +39,8 @@ return [
                     'description' => __('Create a Course'),
                 ],
             ],
-            'trashed-courses' => [
-                'name' => 'trashed-courses',
+            'trashed-course' => [
+                'name' => 'trashed-course',
                 'order' => 3,
                 'slug' => url(config('path.admin').'/courses/trashed'),
                 'always_viewable' => false,

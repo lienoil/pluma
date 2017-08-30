@@ -89,7 +89,6 @@ class ForgeModuleCommand extends Command
         $slug = str_plural($slug);
         $files = [
             "$module/config/menus.php",
-            "$module/config/permissions.php",
             "$module/Observers/{$name}Observer.php",
             "$module/Providers/{$name}ServiceProvider.php",
             "$module/Requests/{$name}Request.php",
@@ -106,6 +105,9 @@ class ForgeModuleCommand extends Command
 
         // Model
         $this->call("forge:model", ['name' => "$name", '--module' => basename($module)]);
+
+        // config/permissions.php
+        $this->call("forge:permissions", ['--module' => basename($module)]);
 
         foreach ($files as $file) {
             switch ($file) {
@@ -149,15 +151,6 @@ class ForgeModuleCommand extends Command
                     $code = str_singular($slug);
                     $template = $filesystem->put(
                         blacksmith_path("templates/config/menus.stub"),
-                        compact('code', 'module', 'name', 'slug')
-                    );
-                    break;
-
-                case "$module/config/permissions.php":
-                    $name = studly_case($this->argument('name'));
-                    $code = str_singular($slug);
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/config/permissions.stub"),
                         compact('code', 'module', 'name', 'slug')
                     );
                     break;

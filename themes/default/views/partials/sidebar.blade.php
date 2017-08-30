@@ -100,10 +100,10 @@
                 <v-subheader
                     v-else-if="menu.is_header"
                     :dark.sync="dark" :light.sync="light"
-                    class="grey--text text--lighten-1 mt-5"
+                    class="grey--text text--lighten-1 mt-4"
                 >
                     <small>@{{ menu.text.toUpperCase() }}</small>
-                    &nbsp;<v-divider :dark.sync="dark" :light.sync="light"></v-divider>
+                    &nbsp; <v-divider :dark.sync="dark" :light.sync="light"></v-divider>
                 </v-subheader>
 
                 {{-- elseif has children --}}

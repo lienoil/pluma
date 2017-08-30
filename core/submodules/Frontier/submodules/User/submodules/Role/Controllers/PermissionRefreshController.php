@@ -34,7 +34,7 @@ class PermissionRefreshController extends AdminController
         try {
             $permissions = [];
             // Get The enabled Modules
-            $modules = modules(true, null, false);
+            $modules = get_modules_path();
             // Get the enabled modules' permissions file
             // $this->permissions += $this->
             $permissions = $this->permissions($modules);
@@ -77,7 +77,7 @@ class PermissionRefreshController extends AdminController
      */
     public function permissions($modules = null)
     {
-        $modules = is_null($modules) ? modules(true, null, false) : $modules;
+        $modules = is_null($modules) ? get_modules_path() : $modules;
 
         $permissions = [];
         foreach ($modules as $name => $module) {

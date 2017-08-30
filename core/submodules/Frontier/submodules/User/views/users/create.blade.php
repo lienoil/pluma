@@ -186,6 +186,18 @@
                         <v-card-text v-show="!suppliments.required_fields.model">
                             <v-layout row wrap>
                                 <v-flex xs12>
+                                    <v-radio label="{{ __('Male') }}"
+                                        v-model="resource.gender.model"
+                                        color="blue"
+                                        value="Male"
+                                        hide-details></v-radio>
+                                    <v-radio label="{{ __('Female') }}"
+                                        v-model="resource.gender.model"
+                                        color="pink"
+                                        value="Female"
+                                        hide-details></v-radio>
+                                    <input type="hidden" name="gender" :value="resource.gender.model">
+
                                     <v-text-field
                                         v-show="!suppliments.required_fields.model"
                                         :error-messages="resource.errors.address"
@@ -312,6 +324,9 @@
                             model: true,
                         },
                         status_range: {
+                            model: '',
+                        },
+                        gender: {
                             model: '',
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),

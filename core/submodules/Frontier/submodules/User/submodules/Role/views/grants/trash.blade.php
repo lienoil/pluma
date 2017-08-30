@@ -9,10 +9,10 @@
 @section("content")
 
     <v-container fluid>
-        @include("Frontier::partials.banner")
         <v-layout row wrap>
-
             <v-flex sm8 offset-sm2>
+                @include("Frontier::partials.banner")
+
                 <v-card class="mb-3">
                     <v-toolbar class="transparent elevation-0">
                         <v-toolbar-title class="accent--text">{{ __('Trashed Grants') }}</v-toolbar-title>

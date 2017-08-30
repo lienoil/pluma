@@ -17,8 +17,7 @@ return [
     'content' => [
         'name' => 'content',
         'is_header' => true,
-        // 'always_viewable' => true,
-        'order' => 20,
+        'order' => 20, // 20 or 4
         'class' => 'separator',
         'markup' => 'span',
         'text' => __('Content'),

@@ -19,8 +19,8 @@ return [
             'description' => __('Manage $slug'),
         ],
         'children' => [
-            'view-$slug' => [
-                'name' => 'view-$slug',
+            'view-$code' => [
+                'name' => 'view-$code',
                 'order' => 1,
                 'slug' => url(config('path.admin').'/$slug'),
                 'always_viewable' => false,
@@ -39,8 +39,8 @@ return [
                     'description' => __('Create a $name'),
                 ],
             ],
-            'trashed-$slug' => [
-                'name' => 'trashed-$slug',
+            'trashed-$code' => [
+                'name' => 'trashed-$code',
                 'order' => 3,
                 'slug' => url(config('path.admin').'/$slug/trashed'),
                 'always_viewable' => false,
