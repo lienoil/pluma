@@ -2,9 +2,10 @@
 
 namespace Course\Controllers;
 
+use Course\Models\Course;
+use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use Course\Models\Course;
 
 class CourseController extends AdminController
 {
@@ -55,7 +56,7 @@ class CourseController extends AdminController
      */
     public function store(CourseRequest $request)
     {
-        //
+        dd($request->all());
 
         return back();
     }

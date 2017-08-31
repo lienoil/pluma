@@ -5,6 +5,7 @@ namespace $namespace\Controllers;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use $namespace\Models\$model;
+use $namespace\Requests\$nameRequest;
 
 class $class extends AdminController
 {

@@ -2,6 +2,7 @@
 
 namespace Quest\Controllers;
 
+use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Quest\Models\Quest;
@@ -50,12 +51,12 @@ class CourseController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Quest\Requests\CourseRequest  $request
+     * @param  \Course\Requests\CourseRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CourseRequest $request)
     {
-        //
+        dd($request->all());
 
         return back();
     }

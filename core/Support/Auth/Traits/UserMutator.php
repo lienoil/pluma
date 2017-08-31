@@ -3,6 +3,7 @@
 namespace Pluma\Support\Auth\Traits;
 
 use Closure;
+use Parchment\Helpers\Word;
 
 trait UserMutator
 {
@@ -78,14 +79,14 @@ trait UserMutator
      */
     public function getDisplaynameAttribute()
     {
-        $displayname = config('settings.display_name', "%firstname% %lastname%");
+        $displayname = config('settings.display_name', "%firstname% %middleinitial% %lastname%");
         $displayname = preg_replace('/%firstname%/', $this->firstname, $displayname);
         $displayname = preg_replace('/%lastname%/', $this->lastname, $displayname);
         $displayname = preg_replace('/%middlename%/', $this->middlename, $displayname);
         $displayname = preg_replace('/%prefixname%/', $this->firstname, $displayname);
-        // $displayname = preg_replace('/%middleinitial%/', Strings::acronym($this->middlename, $this->middlename?true:false), $displayname);
-        // $displayname = preg_replace('/%firstinitial%/', Strings::acronym($this->firstname, $this->firstname?true:false), $displayname);
-        // $displayname = preg_replace('/%lastinitial%/', Strings::acronym($this->lastname, $this->lastname?true:false), $displayname);
+        $displayname = preg_replace('/%middleinitial%/', Word::acronym($this->middlename, $this->middlename ? true : false), $displayname);
+        $displayname = preg_replace('/%firstinitial%/', Word::acronym($this->firstname, $this->firstname ? true : false), $displayname);
+        $displayname = preg_replace('/%lastinitial%/', Word::acronym($this->lastname, $this->lastname ? true : false), $displayname);
         $displayname = preg_replace('/%fullname%/', $this->fullname, $displayname);
         $displayname = preg_replace('/%propername%/', $this->propername, $displayname);
 
