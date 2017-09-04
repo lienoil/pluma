@@ -85,13 +85,20 @@ $monokai = {
     &-distraction-free {
         position: fixed !important;
         top: 0 !important;
-        z-index: 999 !important;
         left: 0 !important;
+        z-index: 999 !important;
         width: 100% !important;
-        min-height: 100vh !important;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        height: 100% !important;
+        flex-flow: column;
+        // min-height: 100vh !important;
 
         .CodeMirror {
-            min-height: 100vh !important;
+            // min-height: 100vh !important;
         }
     }
 }

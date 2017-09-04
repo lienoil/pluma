@@ -61,18 +61,10 @@
                             <option value="32px">{{ __('Huge') }}</option>
                         </select>
                     </span>
-                    {{-- <span class="ql-formats">
-                        <select class="ql-size">
-                            @foreach ([8,9,10,11,15,20,22,75] as $size)
-                                <option value="{{ "{$size}px" }}">{{ "{$size}px" }}</option>
-                            @endforeach
-                        </select>
-                    </span> --}}
                     <span class="ql-formats">
                         <select class="ql-font">
                             <option selected>Roboto</option>
                             <option class="ql-font-montserrat" value="Montserrat">Montserrat</option>
-                            {{-- <option value="roboto">Roboto</option> --}}
                         </select>
                     </span>
                     <span class="ql-formats">
@@ -103,32 +95,38 @@
         </v-layout>
     </v-card-actions>
 
-    <v-layout row wrap>
-        <v-flex>
+    <v-layout fill-height row wrap>
+        <v-flex xs6 wrap>
             <v-card flat height="100%">
                 <div id="quill-editor" class="quill-editor ql-editor--yellow"></div>
             </v-card>
-        </v-flex sm6>
-        <v-flex v-show="editor.source.model">
+        </v-flex>
+        <v-flex xs6 wrap v-show="editor.source.model" fill-height>
             <v-card flat height="100%">
-                <div id="codemirror-editor" class="codemirror-editor"></div>
+                <textarea id="codemirror-editor" class="codemirror-editor" v-model="editor.content.model"></textarea>
             </v-card>
         </v-flex>
-        <v-flex v-show="editor.preview.model">
+        <v-flex xs12 wrap v-show="editor.preview.model">
             <v-card flat class="grey lighten-5" height="100%">
                 <v-card-text>
-                    <v-card class="elevation-1">
+                    <v-card class="elevation-1" wrap>
                         <v-card-text>
                             <div id="preview-editor" class="preview-editor" v-html="editor.content.model"></div>
                         </v-card-text>
                     </v-card>
                 </v-card-text>
             </v-card>
+            <input type="hidden" name="body" :value="editor.content.model">
+            <input type="hidden" name="delta" :value="editor.content.delta">
         </v-flex>
     </v-layout>
 
-    <input type="hidden" name="body" :value="editor.content.model">
-    <input type="hidden" name="delta" :value="editor.content.delta">
+    <v-card-actions class="yellow lighten-5 grey--text">
+        <v-spacer></v-spacer>
+        <small>@{{ editor.content.count }},</small>
+        <small>@{{ editor.content.selection }} {{ __('selected') }}</small>
+    </v-card-actions>
+
 </v-card>
 
 @push('pre-css')
@@ -166,8 +164,18 @@
                         },
                         content: {
                             editor: null,
+                            options: {
+                                lineNumbers: true,
+                                lineWrapping: true,
+                                matchBrackets: true,
+                                styleActiveLine: true,
+                                mode: "htmlmixed",
+                                theme: "monokai",
+                            },
                             model: '',
                             delta: null,
+                            count: 0,
+                            selection: 0,
                         },
                         toolbar: {
                             model: true,
@@ -183,7 +191,15 @@
 
             watch: {
                 'editor.content.model': function (val) {
-                    this.editor.source.editor.setValue(val);
+                    // this.editor.source.editor.setValue(val);
+
+                    // Counter
+                    let str = [];
+                    str.push(charLength = (this.editor.content.editor.getText().length - 1));
+                    str.push(charLength <= 1 ? '{{ __('character') }}' : '{{ __('characters') }}');
+                    str.push(wordLength = this.editor.content.editor.getText().split(' ').length);
+                    str.push(wordLength <= 1 ? '{{ __('word') }}' : '{{ __('words') }}');
+                    this.editor.content.count = str.join(' ');
                 },
             },
 
@@ -192,16 +208,10 @@
                     let self = this;
                     let target = document.querySelector('#codemirror-editor');
 
-                    this.editor.source.editor = CodeMirror(target, {
-                        lineNumbers: true,
-                        lineWrapping: true,
-                        mode: "htmlmixed",
-                        theme: "monokai",
-                    });
+                    this.editor.source.editor = CodeMirror.fromTextArea(target, self.editor.content.options);
 
                     this.editor.source.editor.on('keyup', function (instance) {
-                        self.editor.content.model = instance.getValue();
-                        // self.editor.content.editor.clipboard.dangerouslyPasteHTML(instance.getValue());
+                        self.editor.content.editor.clipboard.dangerouslyPasteHTML(instance.getValue());
                     });
 
                     self.editor.source.editor.setValue(self.editor.content.model);
@@ -219,7 +229,6 @@
                     Quill.register(SizeStyle, true);
                     // Quill.register(ImageImport, true);
                     // Quill.register(ImageResize, true);
-
 
                     Quill.prototype.getHtml = function() {
                         let content = this.container.querySelector('.ql-editor').innerHTML;
@@ -244,8 +253,24 @@
                     });
 
                     self.editor.content.editor.on('text-change', function(delta, oldDelta, source) {
-                        self.editor.content.model = self.editor.content.editor.getHtml();
+                        let htmlContent = self.editor.content.editor.getHtml();
+                        htmlContent = htmlContent.replace(/\>\</g, ">\n<");
+                        self.editor.content.model = htmlContent;
                         self.editor.content.delta = JSON.stringify(self.editor.content.editor.getContents());
+                    });
+
+                    let events = ['keyup', 'click'];
+                    let elements = ['#quill-editor .ql-editor', '#quill-toolbar'];
+                    for (let i in events) {
+                        for (let j in elements) {
+                            document.querySelector(elements[j]).addEventListener(events[i], function (el) {
+                                self.editor.source.editor.setValue(self.editor.content.model);
+                            });
+                        }
+                    }
+
+                    self.editor.content.editor.on('selection-change', function(range, oldRange, source) {
+                        self.editor.content.selection = range ? range.length : 0;
                     });
 
                     return self.editor.content.editor;

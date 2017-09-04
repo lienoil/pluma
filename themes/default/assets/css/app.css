@@ -13,7 +13,7 @@
 
 /* line 158 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_colors.styl */
 
-/* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_theme.styl */
+/* line 113 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_theme.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_theme.styl */
 
@@ -23,11 +23,11 @@
 
 /* line 6 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_theme.styl */
 
-/* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/main.styl */
+/* line 113 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/main.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/main.styl */
 
-/* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_variables.styl */
+/* line 113 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_variables.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_variables.styl */
 
@@ -7823,7 +7823,7 @@ table.table tfoot tr{height:56px;border-top:1px solid rgba(0,0,0,0.12)}
 .sortable-chosen{background-color:#c5e1a5}
 /* line 14 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 .sortable-ghost{opacity:1}
-/* line 1 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+/* line 113 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
 
@@ -7900,10 +7900,10 @@ table.table tfoot tr{height:56px;border-top:1px solid rgba(0,0,0,0.12)}
 /* line 82 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
 .mode{transition:all .9s ease-in-out;}
 /* line 85 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
-.mode-distraction-free{position:fixed !important;top:0 !important;z-index:999 !important;left:0 !important;width:100% !important;min-height:100vh !important;}
-/* line 93 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
-.mode-distraction-free .CodeMirror{min-height:100vh !important}
-/* line 99 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
+.mode-distraction-free{position:fixed !important;top:0 !important;left:0 !important;z-index:999 !important;width:100% !important;display:-moz-flex;display:-ms-flex;display:-o-flex;display:-ms-flexbox;display:flex;height:100% !important;-ms-flex-flow:column;flex-flow:column;}
+/* line 100 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
+
+/* line 106 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
 .CodeMirror{min-height:300px;height:auto !important;padding:2rem 0;}
-/* line 103 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
+/* line 110 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
 .CodeMirror-scroll{overflow:auto !important}
