@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-container fluid class="pa-0">
+    <v-container fluid grid-list-lg>
         <v-tabs light scrollable="false">
             <v-tabs-bar slot="activators" class="white">
                 <v-tabs-slider class="primary"></v-tabs-slider>

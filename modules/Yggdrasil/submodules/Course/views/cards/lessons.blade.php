@@ -1,6 +1,6 @@
 <template>
     <v-card class="mb-3 elevation-1 grey lighten-4">
-        <v-toolbar card dense class="green lighten-4">
+        <v-toolbar card dense class="green lighten-3">
             <v-icon class="green--text text--darken-3">fa-leaf</v-icon>
             <v-toolbar-title class="subheading green--text text--darken-3">{{ __('Lessons') }}</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -43,7 +43,7 @@
                         v-model="draggable.active"
                     >
                         {{-- head --}}
-                        <v-toolbar card role="button" slot="header" class="light-green lighten-4" dense @click.native="draggable.active = !draggable.active">
+                        <v-toolbar card role="button" slot="header" class="light-green lighten-3" dense @click.native="draggable.active = !draggable.active">
                             <div class="sortable-handle parent-handle"><v-icon>drag_handle</v-icon></div>
                             <v-toolbar-title class="subheading">@{{ draggable.resource.title }}</v-toolbar-title>
                             <v-spacer></v-spacer>
@@ -51,7 +51,7 @@
                             <v-btn icon @click.native="draggables.items.splice(key, 1)"><v-icon>close</v-icon></v-btn>
                         </v-toolbar>
 
-                        {{-- content --}}
+                        {{-- lessons --}}
                         <v-slide-y-transition>
                             <v-card flat tile v-show="draggable.active">
                                 <v-layout row wrap>
@@ -70,39 +70,57 @@
                                             ></v-text-field>
                                         </v-card-text>
                                     </v-flex>
-                                    <v-flex sm9>
-                                        <v-subheader>{{ __('Content') }}</v-subheader>
-                                        <v-card-text>
-                                            <v-card
-                                                flat
-                                                class="mb-2 cyan darken-1 white--text"
-                                                v-for="(content, c) in draggable.sections"
-                                                :key="c"
-                                            >
-                                                {{-- head --}}
-                                                <v-toolbar card dark role="button" s----lot="header" class="transparent" dense @click.native="content.active = !content.active">
-                                                    <div class="sortable-handle"><v-icon dark>drag_handle</v-icon></div>
-                                                    <v-toolbar-title class="subheading">@{{ c + 1 }} | @{{ content.resource.title }}</v-toolbar-title>
-                                                    <v-spacer></v-spacer>
-                                                    <v-icon dark>@{{ content.active ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-                                                </v-toolbar>
+                                    <v-flex sm9 class="grey lighten-3">
+                                        <v-toolbar card class="transparent">
+                                            <v-toolbar-title class="subheading grey--text text--darken-2">{{ __('Content') }}</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn icon class="teal--text text--darken-1" v-tooltip:left="{'html': '{{ __('Add Content') }}'}" @click.native="addSection(draggable.sections)"><v-icon>add</v-icon></v-btn>
 
-                                                {{-- content --}}
-                                                <v-slide-y-transition>
-                                                    <v-card-text v-show="content.active">
-                                                        @include("Theme::dialogs.media")
+                                            <v-btn icon class="teal--text text--darken-1" v-tooltip:left="{'html': '{{ __('Toggle Bulk Commands') }}'}"><v-icon>check_box_outline_blank</v-icon></v-btn>
+                                        </v-toolbar>
+                                        <v-card
+                                            class="mb-2 elevation-1"
+                                            tile
+                                            v-for="(content, c) in draggable.sections"
+                                            :key="c"
+                                        >
+                                            {{-- head --}}
+                                            <v-toolbar card role="button" class="teal lighten-2" dense @click.native="content.active = !content.active">
+                                                <div class="sortable-handle"><v-icon>drag_handle</v-icon></div>
+                                                <v-toolbar-title class="subheading">@{{ c + 1 }} | @{{ content.resource.title }}</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-icon>@{{ content.active ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                                                <v-btn icon @click.native="draggable.sections.splice(c, 1)"><v-icon>close</v-icon></v-btn>
+                                            </v-toolbar>
+
+                                            {{-- content --}}
+                                            <v-slide-y-transition>
+                                                <div v-show="content.active">
+                                                    <v-card-text>
+                                                        <input type="hidden" :name="`lessons[${key}][content][${c}][sort]`" :value="c">
+                                                        <v-text-field
+                                                            :name="`lessons[${key}][content][${c}][title]`"
+                                                            label="{{ __('Content Title') }}"
+                                                            v-model="content.resource.title"
+                                                        ></v-text-field>
+                                                        <v-text-field
+                                                            :name="`lessons[${key}][content][${c}][description]`"
+                                                            label="{{ __('Content Description') }}"
+                                                            v-model="content.resource.description"
+                                                        ></v-text-field>
                                                     </v-card-text>
-                                                </v-slide-y-transition>
 
-                                            </v-card>
-                                        </v-card-text>
+                                                    <v-card-actions class="teal lighten-3">
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn small @click.native.stop="mediabox.model = true"><v-icon>perm_media</v-icon>&nbsp;{{ __('Media...') }}</v-btn>
+                                                    </v-card-actions>
+                                                </div>
+                                            </v-slide-y-transition>
+
+                                        </v-card>
+
                                     </v-flex>
                                 </v-layout>
-
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn flat info @click.native="addSection(draggable.sections)">{{ __('Add Content') }}</v-btn>
-                                </v-card-actions>
                             </v-card>
                         </v-slide-y-transition>
                     </v-card>
@@ -111,6 +129,72 @@
         </v-card-text>
     </v-card>
 </template>
+
+@push("mediabox.content")
+    <v-tabs dark v-model="mediabox.tabs.active">
+        <v-tabs-bar class="accent">
+            <v-tabs-item
+                key="tab-packages"
+                href="#tab-packages"
+                ripple
+            >
+                {{ __('Packages') }}
+            </v-tabs-item>
+            <v-tabs-item
+                key="tab-pages"
+                href="#tab-pages"
+                ripple
+            >
+                {{ __('Pages') }}
+            </v-tabs-item>
+            <v-tabs-item
+                key="tab-forms"
+                href="#tab-forms"
+                ripple
+            >
+                {{ __('Forms') }}
+            </v-tabs-item>
+            <v-tabs-slider class="primary"></v-tabs-slider>
+        </v-tabs-bar>
+    <v-tabs-items>
+        <v-tabs-content
+            id="tab-packages"
+        >
+            <v-card flat class="transparent">
+                <v-container fluid grid-list-lg>
+                    <v-layout row wrap>
+                        <template v-for="(media, m) in mediabox.contents.packages">
+                            <v-flex sm4>
+                                <v-card :key="m" tile accent class="mb-1 elevation-1">
+                                    <v-card-text>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vel mollitia aliquam, ipsum, obcaecati porro commodi incidunt consequatur veniam maxime illum molestias alias veritatis quos velit sed iusto, ut facere?
+                                    </v-card-text>
+                                </v-card>
+                            </v-flex>
+                        </template>
+                    </v-layout>
+                </v-container>
+            </v-card>
+        </v-tabs-content>
+        <v-tabs-content
+            id="tab-pages"
+        >
+            <v-card flat>
+                pages
+            </v-card>
+        </v-tabs-content>
+        <v-tabs-content
+            id="tab-forms"
+        >
+            <v-card flat>
+                forms
+            </v-card>
+        </v-tabs-content>
+    </v-tabs-items>
+
+@endpush
+
+@include("Theme::mediabox.media")
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
@@ -130,6 +214,11 @@
                     },
                     draggables: {
                         items: [],
+                    },
+                    mediabox: {
+                        contents: {
+                            packages: [],
+                        },
                     },
                 };
             },

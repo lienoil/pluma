@@ -13,7 +13,7 @@
 @endpush
 
 @section("content")
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex sm8 offset-sm2>
                 @include("Theme::partials.banner")

@@ -5,7 +5,7 @@
 @section("content")
     @include("Frontier::partials.banner")
 
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex sm8 xs12 offset-sm2>
                 <v-card class="grey--text elevation-1 mb-2">

@@ -15,7 +15,7 @@
 @endsection
 
 @section("endnote")
-    <v-container fluid class="pa-0">
+    <v-container fluid grid-list-lg class="pa-0">
         <v-layout row wrap>
             <v-flex xs6>
                 <small>{{ $application->site->copyright }}</small>

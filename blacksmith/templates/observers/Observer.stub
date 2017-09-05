@@ -1,61 +1,61 @@
 <?php
 
-namespace $name\Observers;
+namespace $namespace\Observers;
 
-use $name\Models\$name;
+use $namespace\Models\$model;
 
-class $nameObserver
+class $class
 {
     /**
      * Listen to the $name created event.
      *
-     * @param  \$name\Models\$name  $resource
+     * @param  \$namespace\Models\$model  $resource
      * @return void
      */
-    public function created($name $resource)
+    public function created($model $resource)
     {
         // save fields
         session()->flash('title', $resource->name);
-        session()->flash('message', "$name successfully created");
+        session()->flash('message', "$model successfully created");
         session()->flash('type', 'success');
     }
 
     /**
      * Listen to the $name updated event.
      *
-     * @param  \$name\Models\$name  $resource
+     * @param  \$namespace\Models\$model  $resource
      * @return void
      */
-    public function updated($name $resource)
+    public function updated($model $resource)
     {
         session()->flash('title', $resource->name);
-        session()->flash('message', "$name successfully updated");
+        session()->flash('message', "$model successfully updated");
         session()->flash('type', 'success');
     }
 
     /**
      * Listen to the $name deleted event.
      *
-     * @param  \$name\Models\$name  $resource
+     * @param  \$namespace\Models\$model  $resource
      * @return void
      */
-    public function deleted($name $resource)
+    public function deleted($model $resource)
     {
         session()->flash('title', $resource->name);
-        session()->flash('message', "$name successfully removed");
+        session()->flash('message', "$model successfully removed");
         session()->flash('type', 'success');
     }
 
     /**
      * Listen to the $name restored event.
      *
-     * @param  \$name\Models\$name  $resource
+     * @param  \$namespace\Models\$model  $resource
      * @return void
      */
-    public function restored($name $resource)
+    public function restored($model $resource)
     {
         session()->flash('title', $resource->name);
-        session()->flash('message', "$name successfully restored");
+        session()->flash('message', "$model successfully restored");
         session()->flash('type', 'success');
     }
 }

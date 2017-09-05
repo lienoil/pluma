@@ -39,7 +39,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{{ assets('frontier/vendors/vue/dist/vue.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+    <link href="{{ assets('frontier/vendors/vuetify/dist/vuetify.min.css') }}?v={{ $application->version }}" rel="stylesheet">
     @stack("css")
         {{-- compile this --}}
         @if (env('APP_ENV', 'production') == 'development')

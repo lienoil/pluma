@@ -2,7 +2,6 @@
 
 use Calendar\Models\Calendar;
 use Phinx\Seed\AbstractSeed;
-use DateTime;
 
 class CalendarTableSeeder extends AbstractSeed
 {
@@ -23,7 +22,7 @@ class CalendarTableSeeder extends AbstractSeed
         $endDate = DateTime::createFromFormat('Y-m-d H:i:s', "$endYear-31-12 23:59:59");
         $current = clone $startDate;
 
-        while ($current < $end_date) {
+        while ($current < $endDate) {
             $date         = $current->format('Y-m-d');
             $datetime     = $current->format('Y-m-d H:i:s');
 

@@ -22,19 +22,19 @@ trait Holidays
         // March | Easter Sunday
         '04-09', // Day of Valor
         '05-01', // Labor Day | A.K.A. Irony Day
-        # '05-05', // Lailatul Isra Wal Mi Raj - Common Local holidays
+        // '05-05', // Lailatul Isra Wal Mi Raj - Common Local holidays
         '06-12', // Independence Day
-        # '06-20', // June Solstice | Season
-        # '07-08', // Eidul-Fitar - Common Local holidays
+        // '06-20', // June Solstice | Season
+        // '07-08', // Eidul-Fitar - Common Local holidays
         '08-21', // Ninoy Aquino Day
         '08-29', // National Heroe's Day
         '09-13', // Id-ul-Adha (Feast of the Sacrifice)
-        # '09-22', September equinox | 22 - John Lioneil's birthday
+        // '09-22', September equinox | 22 - John Lioneil's birthday
         '10-31', // Special non-working Day
         '11-01', // All Saint's Day
         '11-02', // All Souls' Day
         '11-30', // Bonifacio Day
-        # '12-21', // December Solsctice | Season
+        // '12-21', // December Solsctice | Season
         '12-24', // Christmas Eve
         '12-25', // Christmas Day
         '12-30', // Rizal Day

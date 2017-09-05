@@ -137,7 +137,7 @@ class UserController extends AdminController
         $user->roles()->sync($request->input('roles'));
 
         // Detail
-        $detail = new Detail();
+        $detail = Detail::firstOrCreate(['user_id' => $user->id]);
         $detail->birthday = date('Y-m-d', strtotime($request->input('birthday')));
         $detail->phone = $request->input('phone');
         $detail->sex = $request->input('sex');

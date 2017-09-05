@@ -16,6 +16,7 @@ class Kernel extends BaseKernel
         Commands\Furnace\ForgeControllerCommand::class,
         Commands\Furnace\ForgeModelCommand::class,
         Commands\Furnace\ForgeModuleCommand::class,
+        Commands\Furnace\ForgeObserverCommand::class,
         Commands\Furnace\ForgePermissionsCommand::class,
         Commands\Furnace\ForgeWeaponCommand::class,
         Commands\Furnace\PurgeCacheCommand::class,

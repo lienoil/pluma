@@ -2,7 +2,7 @@
 
 @section("content")
 
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         @include("Theme::partials.banner")
         <form action="{{ route('users.store') }}" method="POST">
             {{ csrf_field() }}
@@ -186,36 +186,18 @@
                         <v-card-text v-show="!suppliments.required_fields.model">
                             <v-layout row wrap>
                                 <v-flex xs12>
-                                    <v-radio label="{{ __('Male') }}"
-                                        v-model="resource.gender.model"
-                                        color="blue"
-                                        value="Male"
-                                        hide-details></v-radio>
-                                    <v-radio label="{{ __('Female') }}"
-                                        v-model="resource.gender.model"
-                                        color="pink"
-                                        value="Female"
-                                        hide-details></v-radio>
-                                    <input type="hidden" name="gender" :value="resource.gender.model">
+                                    <v-radio-group v-model="resource.gender.model" :mandatory="false">
+                                        <v-radio label="{{ __('Male') }}"
+                                            color="blue"
+                                            value="Male"
+                                            hide-details></v-radio>
+                                        <v-radio label="{{ __('Female') }}"
+                                            color="pink"
+                                            value="Female"
+                                            hide-details></v-radio>
+                                        <input type="hidden" name="gender" :value="resource.gender.model">
+                                    </v-radio-group>
 
-                                    <v-text-field
-                                        v-show="!suppliments.required_fields.model"
-                                        :error-messages="resource.errors.address"
-                                        label="{{ _('Address') }}"
-                                        prepend-icon="map"
-                                        name="address"
-                                        value="{{ old('address') }}"
-                                        input-group
-                                    ></v-text-field>
-                                    <v-text-field
-                                        v-show="!suppliments.required_fields.model"
-                                        :error-messages="resource.errors.phone"
-                                        label="{{ _('Phone') }}"
-                                        prepend-icon="phone"
-                                        name="phone"
-                                        value="{{ old('phone') }}"
-                                        input-group
-                                    ></v-text-field>
                                     <v-menu
                                         v-show="!suppliments.required_fields.model"
                                         lazy
@@ -228,7 +210,7 @@
                                     >
                                         <v-text-field
                                             slot="activator"
-                                            label="Birthday"
+                                            label="{{ __('Birthday') }}"
                                             v-model="resource.birthday.formatted"
                                             prepend-icon="fa-birthday-cake"
                                             name="birthday"
@@ -250,6 +232,25 @@
                                             </template>
                                         </v-date-picker>
                                     </v-menu>
+
+                                    <v-text-field
+                                        v-show="!suppliments.required_fields.model"
+                                        :error-messages="resource.errors.address"
+                                        label="{{ _('Address') }}"
+                                        prepend-icon="map"
+                                        name="address"
+                                        value="{{ old('address') }}"
+                                        input-group
+                                    ></v-text-field>
+                                    <v-text-field
+                                        v-show="!suppliments.required_fields.model"
+                                        :error-messages="resource.errors.phone"
+                                        label="{{ _('Phone') }}"
+                                        prepend-icon="phone"
+                                        name="phone"
+                                        value="{{ old('phone') }}"
+                                        input-group
+                                    ></v-text-field>
                                 </v-flex>
                             </v-layout>
                         </v-card-text>

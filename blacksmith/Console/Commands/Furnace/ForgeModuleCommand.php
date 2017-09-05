@@ -38,34 +38,32 @@ class ForgeModuleCommand extends Command
         $module = modules_path($name);
         $modules = get_modules_path(true);
 
-        if ($option['module'] !== 'none') {
-            // Then its a submodule
-            $submodule = $name;
-            $module = get_module($option['module']);
-            if (is_null($module)) {
-                $this->error("{$option['module']} Does not exist.");
-                $chosen = $this->choice("Do you want to create the {$option['module']} module?", ['yes', 'choose from existing modules', 'cancel']);
+        // Then its a submodule
+        $submodule = $name;
+        $module = get_module($option['module']);
+        if (is_null($module)) {
+            $this->info("Module will be $name.");
+            $chosen = $this->choice("Options available", ["create '$name' as a top-level module", 'choose from existing modules', 'cancel']);
 
-                switch ($chosen) {
-                    case 'choose from existing modules':
-                        $module = $this->choice("What module to put '$name' in?", $modules);
-                        $module = get_module($module);
-                        break;
+            switch ($chosen) {
+                case 'choose from existing modules':
+                    $module = $this->choice("What module to put '$name' in?", array_merge(['core'], $modules));
+                    $module = $module === "core" ? core_path("submodule") : get_module($module);
+                    break;
 
-                    case 'yes':
-                        $module = modules_path($option['module']);
-                        break;
+                case "create '$name' as a top-level module":
+                    $module = modules_path($name);
+                    break;
 
-                    case 'cancel':
-                    default:
-                        exit();
-                        break;
-                }
+                case 'cancel':
+                default:
+                    exit();
+                    break;
             }
-
-            $module = "$module/submodules/$submodule";
-            $this->info("Using path: $module");
         }
+
+        $module = "$module/submodules/$submodule";
+        $this->info("Using path: $module");
 
         // Create the module files
         $directories = [
@@ -89,7 +87,6 @@ class ForgeModuleCommand extends Command
         $slug = str_plural($slug);
         $files = [
             "$module/config/menus.php",
-            "$module/Observers/{$name}Observer.php",
             "$module/Providers/{$name}ServiceProvider.php",
             "$module/Requests/{$name}Request.php",
             "$module/routes/admin.php",
@@ -108,6 +105,9 @@ class ForgeModuleCommand extends Command
 
         // config/permissions.php
         $this->call("forge:permissions", ['--module' => basename($module)]);
+
+        // Observers
+        $this->call("forge:observer", ['name' => "{$name}Observer", '--module' => basename($module)]);
 
         foreach ($files as $file) {
             switch ($file) {
@@ -134,14 +134,6 @@ class ForgeModuleCommand extends Command
                     $name = studly_case($this->argument('name'));
                     $template = $filesystem->put(
                         blacksmith_path("templates/providers/ServiceProvider.stub"),
-                        compact('file', 'module', 'name', 'slug')
-                    );
-                    break;
-
-                case "$module/Observers/{$name}Observer.php":
-                    $name = studly_case($this->argument('name'));
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/observers/Observer.stub"),
                         compact('file', 'module', 'name', 'slug')
                     );
                     break;

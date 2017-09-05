@@ -25,6 +25,7 @@ class UserServiceProvider extends AuthServiceProvider
      */
     protected $observables = [
         [\User\Models\User::class, '\User\Observers\UserObserver'],
+        [\User\Models\Detail::class, '\User\Observers\DetailObserver'],
     ];
 
     /**

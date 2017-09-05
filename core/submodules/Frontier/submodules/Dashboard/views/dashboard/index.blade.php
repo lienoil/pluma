@@ -1,7 +1,7 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
 
         <v-layout row wrap v-if="widgets.welcome.show">
             <v-flex>

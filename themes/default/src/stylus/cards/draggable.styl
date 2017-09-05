@@ -3,15 +3,17 @@
         cursor: move;
     }
 
-    &-container .sortable-chosen {
-        transition: all 0.2s ease-in-out;
-    }
+    // &-container .sortable-chosen {
+    //     transition: all 0.2s ease-in-out;
+    // }
 
     &-chosen {
-        background-color: $light-green.lighten-3;
+        -webkit-user-drag: none;
+        // pointer-events: none;
+        background-color: $green.lighten-3;
     }
 
     &-ghost {
-        opacity: 1;
+        opacity: 0.5;
     }
 }

@@ -3,7 +3,7 @@
 @section("head-title", __('Grants'))
 
 @section("content")
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         @include("Theme::partials.banner")
         <v-layout row wrap>
             <v-flex sm4 xs12>
@@ -296,7 +296,7 @@
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
-                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
+                            { text: '{{ __("Permissions") }}', align: 'left', value: 'grants' },
                             { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
                         ],

@@ -17,13 +17,13 @@ class RolesTableSeeder extends AbstractSeed
     {
         $dataset = array(
             array(
-                'name' => 'Superadmin',
-                'alias' => 'Super Admin',
+                'name' => 'Super Administrator',
+                'alias' => 'Superadmin',
                 'code' => 'superadmin',
                 'description' => 'The highest Role available for users.',
             ),
             array(
-                'name' => 'Admin',
+                'name' => 'Administrator',
                 'alias' => 'Admin',
                 'code' => 'admin',
                 'description' => 'The Official Site admin. Manages creation of other users.',

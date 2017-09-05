@@ -16,16 +16,16 @@
                     </v-toolbar>
 
                     <v-card-text>
-                        <h3 class="headline grey--text">{{ __('Almost There') }}</h3>
-                        <p class="subheading">{!! __('Successfully finished writing and migrating data!') !!}</p>
-                        <p>{!! __('Below, specify your sites <code>Superadmin</code>. It will then also seed your database with other default settings.') !!}</p>
+                        <h3 class="headline grey--text">{{ __('Seeding') }}</h3>
+                        <p class="subheading">{!! __('Done migrating tables. Successfully finished setting up the database.') !!}</p>
+                        <p>{!! __("Below, specify your site's <code>Superadmin Account</code>. It will then also seed your database with other default settings.") !!}</p>
                     </v-card-text>
 
                     <form action="{{ route('installation.store') }}" method="POST">
                         {{ csrf_field() }}
                         <v-card-text>
                             <legend><strong>{{ __('Superadmin') }}</strong></legend>
-                            <p class="grey--text">{{ __("The account you will be creating below is not removable from the application's dashboard.") }}</p>
+                            <p class="grey--text">{{ __("The account you will be creating below will be the main account used to login to the application.") }}</p>
                             <v-text-field
                                 :error-messages="resource.errors.email"
                                 label="{{ __('Email') }}"
@@ -52,8 +52,9 @@
                             ></v-text-field>
                         </v-card-text>
                         <v-card-actions>
+                            <small class="grey--text"><em>{{ __('Clicking the button will also seed the database of other data. This might take a while.') }}</em></small>
                             <v-spacer></v-spacer>
-                            <v-btn type="submit" primary>{{ __('Create') }}</v-btn>
+                            <v-btn type="submit" primary>{{ __('Seed') }}</v-btn>
                         </v-card-actions>
                     </form>
                 </v-card>

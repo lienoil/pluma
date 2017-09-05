@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         <form action="{{ route('courses.store') }}" method="POST">
             {{ csrf_field() }}
 

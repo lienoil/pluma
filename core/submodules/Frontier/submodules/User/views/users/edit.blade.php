@@ -4,7 +4,7 @@
 
 @section("content")
 
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
 
         @include("Theme::partials.banner")
 
@@ -57,14 +57,12 @@
                                 <v-flex xs2 v-show="!suppliments.required_fields.model">
                                     <v-select
                                         :error-messages="resource.errors.prefix"
-                                        auto
-                                        autocomplete
-                                        prepend-icon="account_box"
                                         item-text="text"
                                         item-value="value"
                                         label="{{ __('Prefix Name') }}"
+                                        prepend-icon="account_box"
+                                        v-bind:items="resource.prefixname.items"
                                         v-model="resource.prefixname.model"
-                                        v-bind:items="[{text: '{{ __('None') }}', value: null}, {text: '{{ __('Mr') }}', value: '{{ __('Mr.') }}'}, {text: '{{ __('Mrs') }}', value: '{{ __('Mrs.') }}'}, {text: '{{ __('Ms') }}', value: '{{ __('Ms.') }}'}]"
                                     ></v-select>
                                     <input type="hidden" name="prefixname" :value="resource.prefixname.model">
                                 </v-flex>
@@ -197,17 +195,45 @@
                         <v-card-text v-show="!suppliments.required_fields.model">
                             <v-layout row wrap>
                                 <v-flex xs12>
-                                    <v-radio label="{{ __('Male') }}"
-                                        v-model="resource.gender.model"
-                                        color="blue"
-                                        value="Male"
-                                        hide-details></v-radio>
-                                    <v-radio label="{{ __('Female') }}"
-                                        v-model="resource.gender.model"
-                                        color="pink"
-                                        value="Female"
-                                        hide-details></v-radio>
-                                    <input type="hidden" name="gender" :value="resource.gender.model">
+                                    <v-radio-group v-model="resource.gender.model" :mandatory="false">
+                                        <v-radio label="{{ __('Male') }}"
+                                            color="blue"
+                                            value="Male"
+                                            hide-details></v-radio>
+                                        <v-radio label="{{ __('Female') }}"
+                                            color="pink"
+                                            value="Female"
+                                            hide-details></v-radio>
+                                        <input type="hidden" name="gender" :value="resource.gender.model">
+                                    </v-radio-group>
+
+                                    <v-menu
+                                        v-show="!suppliments.required_fields.model"
+                                        lazy
+                                        :close-on-content-click="false"
+                                        transition="scale-transition"
+                                        offset-y
+                                        full-width
+                                        :nudge-left="40"
+                                        max-width="290px"
+                                    >
+                                        <v-text-field
+                                            slot="activator"
+                                            label="{{ __('Birthday') }}"
+                                            v-model="resource.birthday.formatted"
+                                            prepend-icon="fa-birthday-cake"
+                                            name="birthday"
+                                            value="{{ old('birthday') ? old('birthday') : @$resource->detail->birthday }}"
+                                        ></v-text-field>
+                                            <v-date-picker
+                                                v-model="resource.birthday.value"
+                                                scrollable
+                                                actions
+                                                :date-format="date => new Date(date).toDateString()"
+                                                :formatted-value.sync="resource.birthday.formatted"
+                                            >
+                                        </v-date-picker>
+                                    </v-menu>
 
                                     <v-text-field
                                         v-show="!suppliments.required_fields.model"
@@ -227,40 +253,6 @@
                                         value="{{ old('phone') ? old('phone') : @$resource->detail->phone }}"
                                         input-group
                                     ></v-text-field>
-                                    <v-menu
-                                        v-show="!suppliments.required_fields.model"
-                                        lazy
-                                        :close-on-content-click="false"
-                                        transition="scale-transition"
-                                        offset-y
-                                        full-width
-                                        :nudge-left="40"
-                                        max-width="290px"
-                                    >
-                                        <v-text-field
-                                            slot="activator"
-                                            label="Birthday"
-                                            v-model="resource.birthday.formatted"
-                                            prepend-icon="fa-birthday-cake"
-                                            name="birthday"
-                                            value="{{ old('birthday') ? old('birthday') : @$resource->detail->birthday }}"
-                                            readonly
-                                        ></v-text-field>
-                                            <v-date-picker
-                                                v-model="resource.birthday.value"
-                                                scrollable
-                                                actions
-                                                :date-format="date => new Date(date).toDateString()"
-                                                :formatted-value.sync="resource.birthday.formatted"
-                                            >
-                                            <template scope="{ save, cancel }">
-                                                <v-card-actions>
-                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
-                                                </v-card-actions>
-                                            </template>
-                                        </v-date-picker>
-                                    </v-menu>
                                 </v-flex>
                             </v-layout>
                         </v-card-text>
@@ -322,11 +314,17 @@
                             grants: '',
                         },
                         prefixname: {
-                            model: '',
+                            model: '{{ @$resource->prefixname }}',
+                            items: [
+                                { text: '{{ __('None') }}', value: '' },
+                                { text: '{{ __('Mr') }}', value: 'Mr' },
+                                { text: '{{ __('Mrs') }}', value: 'Mrs' },
+                                { text: '{{ __('Ms') }}', value: 'Ms' },
+                            ],
                         },
                         birthday: {
                             value: '',
-                            formatted: '{{ old('birthday') ? old('birthday') : $resource->birthday }}',
+                            formatted: '{{ old('birthday') ? old('birthday') : @date($resource->detail->birthday) }}',
                         },
                         notify: {
                             model: false,
@@ -338,7 +336,7 @@
                             model: '',
                         },
                         gender: {
-                            model: '',
+                            model: '{{ isset($resource->detail) ? $resource->detail->gender : '' }}',
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                         dialog: {

@@ -73,7 +73,6 @@ class InstallController extends Controller
             )->drop()->make();
 
             if ($this->migrate()) {
-                $this->seed();
                 $this->setMigrated(true);
             }
 
@@ -110,6 +109,9 @@ class InstallController extends Controller
     public function store(UserRequest $request)
     {
         try {
+            // Seed tables.
+            $this->seed();
+
             $user = new User();
             $user->email = $request->input('email');
             $user->username = $request->input('email');
@@ -150,7 +152,8 @@ class InstallController extends Controller
         try {
             File::delete(base_path('bootstrap/cache/services.php'));
             File::delete(storage_path('.migrated'));
-            File::move(storage_path('.install'), storage_path('.installed'));
+            File::delete(storage_path('.install'));
+            File::put(storage_path('.installed'), "installed=true\nIgnore me.");
             // File::delete(storage_path('.installed'));
         } catch (\Exception $e) {
 

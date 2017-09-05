@@ -11,5 +11,7 @@ class Detail extends Model
 
     protected $with = [];
 
+    protected $fillable = ['user_id'];
+
     protected $searchables = ['gender', 'sex', 'birthday', 'phone', 'address'];
 }

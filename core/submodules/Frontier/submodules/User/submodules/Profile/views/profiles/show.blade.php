@@ -32,7 +32,7 @@
     </v-parallax>
     <v-toolbar class="info" flat extended>
         <v-spacer></v-spacer>
-        <v-container fluid>
+        <v-container fluid grid-list-lg>
             <v-flex xs12 flexbox>
                 <em class="white--text subheading">{{ user()->bio }} <v-btn dark icon flat><v-icon>edit</v-icon></v-btn></em>
                 <v-spacer></v-spacer>
@@ -41,7 +41,7 @@
         </v-container>
     </v-toolbar>
     <v-container fluid>
-        <v-container fluid>
+        <v-container fluid grid-list-lg>
             <v-layout row>
                 <v-flex xs8>
                     <v-card class="card--flex-toolbar mb-3">
@@ -77,7 +77,7 @@
     </v-container>
 
 
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         {{-- <v-layout row wrap>
             <v-flex sm6 md8 xs12>
 

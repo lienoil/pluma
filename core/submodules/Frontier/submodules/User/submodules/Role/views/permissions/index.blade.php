@@ -2,12 +2,8 @@
 
 @section("head-title", __('Permissions'))
 
-@push("utilitybar")
-    {{-- <a class="btn btn--raised primary white--text" href="{{ route('permissions.refresh') }}">Refresh</a> --}}
-@endpush
-
 @section("content")
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         @include("Frontier::partials.banner")
         <v-layout row wrap>
             <v-flex sm8 xs12>

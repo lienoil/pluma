@@ -1,7 +1,7 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         <form action="{{ route('pages.store') }}" method="POST">
             {{ csrf_field() }}
             <v-layout row wrap>
