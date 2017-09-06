@@ -40,19 +40,20 @@ class ForgeModuleCommand extends Command
 
         // Then its a submodule
         $submodule = $name;
-        $module = get_module($option['module']);
+        $module = get_module($option['module']) ? get_module($option['module']) . "/submodules/$submodule" : null;
         if (is_null($module)) {
             $this->info("Module will be $name.");
-            $chosen = $this->choice("Options available", ["create '$name' as a top-level module", 'choose from existing modules', 'cancel']);
+            $chosen = $this->choice("Options available", ["create '$name' as a top-level module", "make '$name' a submodule of an existing module", 'cancel']);
 
             switch ($chosen) {
-                case 'choose from existing modules':
+                case "make '$name' a submodule of an existing module":
                     $module = $this->choice("What module to put '$name' in?", array_merge(['core'], $modules));
-                    $module = $module === "core" ? core_path("submodule") : get_module($module);
+                    $module = $module === "core" ? core_path("submodules/$name") : get_module($module) . "/submodules/$submodule";
                     break;
 
                 case "create '$name' as a top-level module":
                     $module = modules_path($name);
+                    // $module = "$module/submodules/$submodule";
                     break;
 
                 case 'cancel':
@@ -62,7 +63,6 @@ class ForgeModuleCommand extends Command
             }
         }
 
-        $module = "$module/submodules/$submodule";
         $this->info("Using path: $module");
 
         // Create the module files

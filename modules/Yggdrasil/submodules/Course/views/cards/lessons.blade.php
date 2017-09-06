@@ -134,6 +134,13 @@
     <v-tabs dark v-model="mediabox.tabs.active">
         <v-tabs-bar class="accent">
             <v-tabs-item
+                key="tab-library"
+                href="#tab-library"
+                ripple
+            >
+                {{ __('Library') }}
+            </v-tabs-item>
+            <v-tabs-item
                 key="tab-packages"
                 href="#tab-packages"
                 ripple
@@ -244,7 +251,7 @@
             },
 
             mounted () {
-                //
+                getPackages();
             },
         });
     </script>

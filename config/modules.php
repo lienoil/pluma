@@ -23,6 +23,5 @@ return [
      */
     'disabled' => [
         'Single',
-        'Chronos',
     ],
 ];

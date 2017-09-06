@@ -133,26 +133,31 @@
                     </v-list-tile>
 
                     {{-- childmenu --}}
-                    <v-list-tile
-                        :key="i"
-                        :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
-                        :href="child.slug"
+                    <template
                         v-for="(child, i) in menu.children"
-                        :title="child.labels.description"
-                        {{-- v-model="child.active" --}}
                     >
-                        <v-list-tile-action>
-                            <v-icon
-                                :dark.sync="dark"
-                                :light.sync="light"
-                            >@{{ child.icon }}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content >
-                            <v-list-tile-title>
-                                @{{ child.labels.title }}
-                            </v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                        <v-divider class="my-2" v-if="child.is_divider"></v-divider>
+                        <v-list-tile
+                            v-else
+                            :key="i"
+                            :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
+                            :href="child.slug"
+                            :title="child.labels && child.labels.description"
+                            {{-- v-model="child.active" --}}
+                        >
+                            <v-list-tile-action>
+                                <v-icon
+                                    :dark.sync="dark"
+                                    :light.sync="light"
+                                >@{{ child.icon }}</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content >
+                                <v-list-tile-title>
+                                    @{{ child.labels.title }}
+                                </v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </template>
                 </v-list-group>
 
                 {{-- else if no children --}}

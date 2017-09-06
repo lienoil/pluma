@@ -126,6 +126,11 @@ const app = new Vue({
         },
 
         route (url, query) {
+            if (typeof query === 'object') {
+                query = Object.keys(query).map((i) => i+'='+query[i]).join('&');
+                return url + '?' + query;
+            }
+
             return url.split('null').join(query);
             // window.location = url;
         },
