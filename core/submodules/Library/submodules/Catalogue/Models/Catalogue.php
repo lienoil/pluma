@@ -13,5 +13,5 @@ class Catalogue extends Category
 
     protected $with = ['libraries'];
 
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $searchables = ['name', 'code', 'alias', 'description', 'icon', 'created_at', 'updated_at'];
 }

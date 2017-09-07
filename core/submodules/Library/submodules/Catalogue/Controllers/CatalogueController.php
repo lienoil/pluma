@@ -17,9 +17,9 @@ class CatalogueController extends AdminController
      */
     public function index(Request $request)
     {
-        //
+        $trashed = Catalogue::onlyTrashed()->count();
 
-        return view("Theme::catalogues.index");
+        return view("Theme::catalogues.index")->with(compact('trashed'));
     }
 
     /**
@@ -76,9 +76,9 @@ class CatalogueController extends AdminController
      */
     public function edit(Request $request, $id)
     {
-        //
+        $resource = Catalogue::findOrFail($id);
 
-        return view("Theme::catalogues.edit");
+        return view("Theme::catalogues.edit")->with(compact('resource'));
     }
 
     /**
@@ -90,7 +90,13 @@ class CatalogueController extends AdminController
      */
     public function update(CatalogueRequest $request, $id)
     {
-        //
+        $catalogue = Catalogue::findOrFail($id);
+        $catalogue->name = $request->input('name');
+        $catalogue->code = $request->input('code');
+        $catalogue->alias = $request->input('alias');
+        $catalogue->icon = $request->input('icon');
+        $catalogue->description = $request->input('description');
+        $catalogue->save();
 
         return back();
     }

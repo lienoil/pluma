@@ -19,7 +19,7 @@ class LibraryController extends AdminController
     public function index(Request $request)
     {
         $resources = Library::all();
-        $catalogues = Catalogue::all();
+        $catalogues = Catalogue::orderBy('name')->get();
 
         return view("Theme::library.index")->with(compact('resources', 'catalogues'));
     }
