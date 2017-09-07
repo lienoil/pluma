@@ -3,18 +3,46 @@
 @section("content")
 
     <v-container fluid class="grey lighten-4" grid-list-lg>
+
+        <v-slide-y-transition>
+            <v-layout v-if="bulk.upload.model" row wrap>
+                <v-flex>
+                    @include("Theme::cards.upload")
+                </v-flex>
+            </v-layout>
+        </v-slide-y-transition>
+
         <v-layout fill-height row wrap>
             <v-flex fill-height md3>
                 <v-list dense class="grey lighten-4">
                     <v-subheader>{{ __('Catalogues') }}</v-subheader>
-                    <v-divider></v-divider>
-                    <v-list-tile :href="route(urls.library.index, {catalogue: catalogue.id})" v-for="(catalogue, key) in suppliments.catalogues.items" :key="key">
+
+                    <v-divider class="my-1"></v-divider>
+
+                    <v-list-tile href="{{ route('library.index') }}" :class="!suppliments.catalogues.current ? 'active--primary' : ''">
                         <v-list-tile-action>
-                            <v-icon>@{{ catalogue.icon }}</v-icon>
+                            <v-icon :class="!suppliments.catalogues.current ? 'white--text' : 'grey--text'">book</v-icon>
                         </v-list-tile-action>
-                        <v-list-tile-content class="grey--text">
+                        <v-list-tile-content :class="!suppliments.catalogues.current ? 'white--text' : 'grey--text'">
+                            <v-list-tile-title>{{ __('All') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            <span class="grey--text">{{ $count }}</span>
+                        </v-list-tile-action>
+                    </v-list-tile>
+
+                    <v-divider class="my-1"></v-divider>
+
+                    <v-list-tile :href="route(urls.library.index, {catalogue: catalogue.id})" v-for="(catalogue, key) in suppliments.catalogues.items" :key="key" :class="catalogue.active ? 'active--primary' : ''">
+                        <v-list-tile-action>
+                            <v-icon :class="catalogue.active ? 'white--text' : 'grey--text'">@{{ catalogue.icon }}</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content :class="catalogue.active ? 'white--text' : 'grey--text'">
                             <v-list-tile-title>@{{ catalogue.name }}</v-list-tile-title>
                         </v-list-tile-content>
+                        <v-list-tile-action>
+                            <span class="grey--text">@{{ catalogue.libraries.length }}</span>
+                        </v-list-tile-action>
                     </v-list-tile>
                 </v-list>
             </v-flex>
@@ -25,17 +53,8 @@
                     <v-spacer></v-spacer>
                     <v-btn icon><v-icon>sort</v-icon></v-btn>
                     <v-btn icon><v-icon>search</v-icon></v-btn>
-                    <v-btn icon @click.native.stop="bulk.upload.model = !bulk.upload.model"><v-icon>fa-cloud-upload</v-icon></v-btn>
+                    <v-btn icon :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="bulk.upload.model = !bulk.upload.model"><v-icon>fa-cloud-upload</v-icon></v-btn>
                 </v-toolbar>
-
-                        <dropzone id="myVueDropzone">
-                            <!-- Optional parameters if any! -->
-                            <input type="hidden" name="token" value="xxx">
-                        </dropzone>
-                <v-slide-y-transition>
-                    <div v-if="bulk.upload.model">
-                    </div>
-                </v-slide-y-transition>
 
                 <v-layout row wrap>
                     @foreach ($resources as $resource)
@@ -55,19 +74,13 @@
 
 @endsection
 
-@push('post-css')
-    <link rel="stylesheet" href="{{ assets('frontier/components/dropzone/dist/dropzone.css') }}">
-@endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
-    <script src="{{ assets('frontier/components/dropzone/dist/dropzone.js') }}"></script>
     <script>
         Vue.use(VueResource);
-        Vue.use(dropzone);
 
         mixins.push({
-            components: {dropzone},
             data () {
                 return {
                     bulk: {
@@ -77,6 +90,7 @@
                     },
                     suppliments: {
                         catalogues: {
+                            current: null,
                             items: {!! json_encode($catalogues->toArray()) !!},
                         }
                     },
@@ -89,11 +103,16 @@
                 };
             },
 
-            methods: {
-                showSuccess: function (file) {
-                    console.log('A file was successfully uploaded');
-                },
-            },
+            mounted () {
+                this.suppliments.catalogues.current = '{{ request()->getQueryString() }}';
+
+                for (var i = this.suppliments.catalogues.items.length - 1; i >= 0; i--) {
+                    let current = this.suppliments.catalogues.items[i];
+                    if (current.id == this.suppliments.catalogues.current.split('=')[1]) {
+                        this.suppliments.catalogues.items[i].active = true;
+                    }
+                }
+            }
         });
     </script>
 @endpush

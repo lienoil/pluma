@@ -73,7 +73,7 @@
                         {{-- childmenu --}}
                         <v-list-tile
                             :key="i"
-                            :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
+                            {{-- :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''" --}}
                             :href="child.slug"
                             v-for="(child, i) in menu.children"
                             :title="child.labels.description"

@@ -19,9 +19,14 @@ class LibraryController extends AdminController
     public function index(Request $request)
     {
         $resources = Library::all();
+        $count = $resources->count();
         $catalogues = Catalogue::orderBy('name')->get();
 
-        return view("Theme::library.index")->with(compact('resources', 'catalogues'));
+        if (! is_null($request->get('catalogue'))) {
+            $resources = Library::where('catalogue_id', $request->get('catalogue'))->get();
+        }
+
+        return view("Theme::library.index")->with(compact('resources', 'catalogues', 'count'));
     }
 
     /**
@@ -58,7 +63,19 @@ class LibraryController extends AdminController
      */
     public function store(LibraryRequest $request)
     {
-        //
+        $files = $request->input('file');
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                $fileName = $file->getClientOriginalName();
+                $fullFilePath = storage_path(settings('library.storage_path', 'public/library')) . "/$fileName";
+                dd($fullFilePath);
+                // if ($file->move($fullFilePath, $filename);) {
+                    $library = new Library();
+                    // $library->name =
+                // }
+            }
+
+        }
 
         return back();
     }

@@ -50,8 +50,8 @@ class LibraryRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
-            'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:libraries'.$isUpdating,
+            // 'name' => 'required|max:255',
+            // 'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:libraries'.$isUpdating,
         ];
     }
 
