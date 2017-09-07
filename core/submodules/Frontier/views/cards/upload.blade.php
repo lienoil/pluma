@@ -12,6 +12,12 @@
             <template slot="preview">
                 <v-card class="elevation-1 dz-preview dz-file-preview well ma-2">
                     <img data-dz-thumbnail width="200px" height="200px">
+                    <v-card-text>
+                        <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                        <div class="dz-success-mark"><span></span></div>
+                        <div class="dz-error-mark"><span></span></div>
+                        <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                    </v-card-text>
                     <div class="dz-details pa-0">
                         <v-toolbar card dense class="transparent">
                             <v-spacer></v-spacer>
@@ -25,10 +31,11 @@
                         </v-card-text>
                     </div>
                     <v-card-text>
-                        <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-                        <div class="dz-success-mark"><span></span></div>
-                        <div class="dz-error-mark"><span></span></div>
-                        <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                        <v-text-field
+                            name="name"
+                            value="{{ old('name') }}"
+                            label="{{ __('Name') }}"
+                        ></v-text-field>
                     </v-card-text>
                 </v-card>
                 {{-- <div class="dz-preview dz-file-preview well" id="dz-preview-template">

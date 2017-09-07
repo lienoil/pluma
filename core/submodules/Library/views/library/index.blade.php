@@ -44,12 +44,18 @@
                             <span class="grey--text">@{{ catalogue.libraries.length }}</span>
                         </v-list-tile-action>
                     </v-list-tile>
+
+                    <div class="mt-2">
+                        <a href="{{ route('catalogues.index') }}">
+                            <v-icon>add</v-icon>
+                            <small>{{ __('Add new catalogue') }}</small>
+                        </a>
+                    </div>
                 </v-list>
             </v-flex>
 
             <v-flex md9>
                 <v-toolbar flat dense class="transparent">
-                    <v-subheader>{{ __('Collection') }}</v-subheader>
                     <v-spacer></v-spacer>
                     <v-btn icon><v-icon>sort</v-icon></v-btn>
                     <v-btn icon><v-icon>search</v-icon></v-btn>
