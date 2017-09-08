@@ -20,6 +20,7 @@ class Kernel extends BaseKernel
         Commands\Furnace\ForgePermissionsCommand::class,
         Commands\Furnace\ForgeWeaponCommand::class,
         Commands\Furnace\PurgeCacheCommand::class,
+        Commands\Furnace\PurgeStorageCommand::class,
         Commands\Phinx\PhinxMigrateCreateCommand::class,
         Commands\Phinx\PhinxMigrateRunCommand::class,
         Commands\Phinx\PhinxSeedCreateCommand::class,

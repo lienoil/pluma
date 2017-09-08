@@ -7,6 +7,11 @@
         <v-slide-y-transition>
             <v-layout v-if="bulk.upload.model" row wrap>
                 <v-flex>
+                    <v-toolbar card class="transparent">
+                        <v-toolbar-title>{{ __('Upload Files') }}</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click.native="bulk.upload.model = false"><v-icon>close</v-icon></v-btn>
+                    </v-toolbar>
                     @include("Theme::cards.upload")
                 </v-flex>
             </v-layout>
@@ -46,8 +51,8 @@
                     </v-list-tile>
 
                     <div class="mt-2">
+                        <v-icon>add</v-icon>
                         <a href="{{ route('catalogues.index') }}">
-                            <v-icon>add</v-icon>
                             <small>{{ __('Add new catalogue') }}</small>
                         </a>
                     </div>
@@ -59,7 +64,7 @@
                     <v-spacer></v-spacer>
                     <v-btn icon><v-icon>sort</v-icon></v-btn>
                     <v-btn icon><v-icon>search</v-icon></v-btn>
-                    <v-btn icon :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="bulk.upload.model = !bulk.upload.model"><v-icon>fa-cloud-upload</v-icon></v-btn>
+                    <v-btn icon :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="setStorage('bulk.upload.model', (bulk.upload.model = !bulk.upload.model))"><v-icon>fa-cloud-upload</v-icon></v-btn>
                 </v-toolbar>
 
                 <v-layout row wrap>
@@ -94,6 +99,29 @@
                             model: false,
                         },
                     },
+                    dataset: {
+                        headers: [
+                            { text: '{{ __("ID") }}', align: 'left', value: 'id' },
+                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                            { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
+                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
+                            { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
+                            { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
+                        ],
+                        items: [],
+                        loading: true,
+                        pagination: {
+                            rowsPerPage: 10,
+                            totalItems: 0,
+                        },
+                        searchform: {
+                            model: false,
+                            query: '',
+                        },
+                        selected: [],
+                        totalItems: 0,
+                    },
                     suppliments: {
                         catalogues: {
                             current: null,
@@ -109,7 +137,34 @@
                 };
             },
 
+            methods: {
+                get () {
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending?descending:true,
+                        page: page?page:1,
+                        sort: sortBy?sortBy:'name',
+                        take: rowsPerPage,
+                    };
+                    this.api().get('{{ route('api.library.all') }}', query)
+                        .then((data) => {
+                            this.dataset.items = data.items.data ? data.items.data : data.items;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.loading = false;
+                        });
+                },
+
+                storage () {
+                    this.bulk.upload.model = this.getStorage('bulk.upload.model') === 'true';
+                },
+
+                complete (file, dropzone) {
+                    this.get();
+                },
+            },
+
             mounted () {
+                this.storage();
                 this.suppliments.catalogues.current = '{{ request()->getQueryString() }}';
 
                 for (var i = this.suppliments.catalogues.items.length - 1; i >= 0; i--) {
@@ -118,7 +173,7 @@
                         this.suppliments.catalogues.items[i].active = true;
                     }
                 }
-            }
+            },
         });
     </script>
 @endpush

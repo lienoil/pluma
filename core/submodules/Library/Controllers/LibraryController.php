@@ -63,21 +63,24 @@ class LibraryController extends AdminController
      */
     public function store(LibraryRequest $request)
     {
-        $files = $request->input('file');
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                $fileName = $file->getClientOriginalName();
-                $fullFilePath = storage_path(settings('library.storage_path', 'public/library')) . "/$fileName";
-                dd($fullFilePath);
-                // if ($file->move($fullFilePath, $filename);) {
-                    $library = new Library();
-                    // $library->name =
-                // }
-            }
+        // try {
+        //     $files = $request->file('file');
+        //     if (is_array($files)) {
+        //         foreach ($files as $file) {
+        //             $fileName = $file->getClientOriginalName();
+        //             $fullFilePath = storage_path(settings('library.storage_path', 'public/library')) . "/$fileName";
+        //             if ($file->move($fullFilePath, $fileName)) {
+        //                 $library = new Library();
+        //                 $library->name = $request->input
+        //                 $library->originalname = $file->getClientOriginalName();
+        //             }
+        //         }
+        //     }
+        // } catch (Exception $e) {
+        //     return response()->json($this->errorResponse);
+        // }
 
-        }
-
-        return back();
+        // return response()->json($this->successResponse);
     }
 
     /**

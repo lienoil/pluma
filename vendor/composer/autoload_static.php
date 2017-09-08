@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
+class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -316,6 +316,7 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
     );
 
     public static $classMap = array (
+        'Blacksmith\\Console\\Commands\\Furnace\\ForgeCommandCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeCommandCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeControllerCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeControllerCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeModelCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeModelCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeModuleCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeModuleCommand.php',
@@ -323,6 +324,7 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
         'Blacksmith\\Console\\Commands\\Furnace\\ForgePermissionsCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgePermissionsCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeWeaponCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeWeaponCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\PurgeCacheCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/PurgeCacheCommand.php',
+        'Blacksmith\\Console\\Commands\\Furnace\\PurgeStorageCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/PurgeStorageCommand.php',
         'Blacksmith\\Console\\Commands\\Phinx\\PhinxConfigurable' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Phinx/PhinxConfigurable.php',
         'Blacksmith\\Console\\Commands\\Phinx\\PhinxMigrateCreateCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Phinx/PhinxMigrateCreateCommand.php',
         'Blacksmith\\Console\\Commands\\Phinx\\PhinxMigrateRunCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Phinx/PhinxMigrateRunCommand.php',
@@ -355,6 +357,7 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
         'Category\\Observers\\CategoryObserver' => __DIR__ . '/../..' . '/core/submodules/Category/Observers/CategoryObserver.php',
         'Category\\Providers\\CategoryServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Category/Providers/CategoryServiceProvider.php',
         'Category\\Requests\\CategoryRequest' => __DIR__ . '/../..' . '/core/submodules/Category/Requests/CategoryRequest.php',
+        'Chronos\\Providers\\ChronosServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/Providers/ChronosServiceProvider.php',
         'Course\\Controllers\\CourseController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/CourseController.php',
         'Course\\Models\\Course' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Models/Course.php',
         'Course\\Observers\\CourseObserver' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Observers/CourseObserver.php',
@@ -379,6 +382,7 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
         'CreateRoleUserTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170814035860_create_role_user_table.php',
         'CreateRolesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035863_create_roles_table.php',
         'CreateSettingsTable' => __DIR__ . '/../..' . '/core/submodules/Setting/database/migrations/20170820155855_create_settings_table.php',
+        'CreateTimesheetsTable' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/database/migrations/20170906095634_create_timesheets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170623035859_create_users_table.php',
         'Crowfeather\\Traverser\\Contracts\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Contracts/Traverser.php',
         'Crowfeather\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Traverser.php',
@@ -1007,7 +1011,6 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
         'Illuminate\\Validation\\Factory' => __DIR__ . '/..' . '/illuminate/validation/Factory.php',
         'Illuminate\\Validation\\PresenceVerifierInterface' => __DIR__ . '/..' . '/illuminate/validation/PresenceVerifierInterface.php',
         'Illuminate\\Validation\\Rule' => __DIR__ . '/..' . '/illuminate/validation/Rule.php',
-        'Illuminate\\Validation\\Rules\\DatabaseRule' => __DIR__ . '/..' . '/illuminate/validation/Rules/DatabaseRule.php',
         'Illuminate\\Validation\\Rules\\Dimensions' => __DIR__ . '/..' . '/illuminate/validation/Rules/Dimensions.php',
         'Illuminate\\Validation\\Rules\\Exists' => __DIR__ . '/..' . '/illuminate/validation/Rules/Exists.php',
         'Illuminate\\Validation\\Rules\\In' => __DIR__ . '/..' . '/illuminate/validation/Rules/In.php',
@@ -1053,6 +1056,7 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/illuminate/view/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/illuminate/view/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/illuminate/view/ViewServiceProvider.php',
+        'Library\\API\\Controllers\\LibraryController' => __DIR__ . '/../..' . '/core/submodules/Library/API/Controllers/LibraryController.php',
         'Library\\Controllers\\LibraryController' => __DIR__ . '/../..' . '/core/submodules/Library/Controllers/LibraryController.php',
         'Library\\Models\\Library' => __DIR__ . '/../..' . '/core/submodules/Library/Models/Library.php',
         'Library\\Observers\\LibraryObserver' => __DIR__ . '/../..' . '/core/submodules/Library/Observers/LibraryObserver.php',
@@ -1780,7 +1784,6 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
         'Symfony\\Component\\HttpKernel\\Profiler\\Profile' => __DIR__ . '/..' . '/symfony/http-kernel/Profiler/Profile.php',
         'Symfony\\Component\\HttpKernel\\Profiler\\Profiler' => __DIR__ . '/..' . '/symfony/http-kernel/Profiler/Profiler.php',
         'Symfony\\Component\\HttpKernel\\Profiler\\ProfilerStorageInterface' => __DIR__ . '/..' . '/symfony/http-kernel/Profiler/ProfilerStorageInterface.php',
-        'Symfony\\Component\\HttpKernel\\RebootableInterface' => __DIR__ . '/..' . '/symfony/http-kernel/RebootableInterface.php',
         'Symfony\\Component\\HttpKernel\\TerminableInterface' => __DIR__ . '/..' . '/symfony/http-kernel/TerminableInterface.php',
         'Symfony\\Component\\HttpKernel\\UriSigner' => __DIR__ . '/..' . '/symfony/http-kernel/UriSigner.php',
         'Symfony\\Component\\Process\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/process/Exception/ExceptionInterface.php',
@@ -1923,6 +1926,11 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'Timesheet\\Controllers\\TimesheetController' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Controllers/TimesheetController.php',
+        'Timesheet\\Models\\Timesheet' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Models/Timesheet.php',
+        'Timesheet\\Observers\\TimesheetObserver' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Observers/TimesheetObserver.php',
+        'Timesheet\\Providers\\TimesheetServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Providers/TimesheetServiceProvider.php',
+        'Timesheet\\Requests\\TimesheetRequest' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Requests/TimesheetRequest.php',
         'User\\API\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/LoginController.php',
         'User\\API\\Controllers\\UserController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/UserController.php',
         'User\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/LoginController.php',
@@ -1972,10 +1980,10 @@ class ComposerStaticInitb4788e31bb46c99e2073303c69bdca03
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb4788e31bb46c99e2073303c69bdca03::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb4788e31bb46c99e2073303c69bdca03::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb4788e31bb46c99e2073303c69bdca03::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb4788e31bb46c99e2073303c69bdca03::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
 
         }, null, ClassLoader::class);
     }
