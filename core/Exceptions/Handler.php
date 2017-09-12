@@ -78,7 +78,9 @@ class Handler extends BaseHandler
             ], 404);
         }
 
-        if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
+        if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException
+            || $exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException
+        ) {
             return response()->view('Theme::errors.403', [
                 'error' => [
                     'code' => 'NOT_AUTHORIZED',

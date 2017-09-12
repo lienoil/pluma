@@ -2,9 +2,10 @@
 
 namespace Library\API\Controllers;
 
+use Catalogue\Models\Catalogue;
 use Illuminate\Http\Request;
-use Pluma\API\Controllers\APIController;
 use Library\Models\Library;
+use Pluma\API\Controllers\APIController;
 
 class LibraryController extends APIController
 {
@@ -26,7 +27,7 @@ class LibraryController extends APIController
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $resources->paginate($take);
+        $resources = $resources->get();
 
         return response()->json($resources);
     }
@@ -49,7 +50,7 @@ class LibraryController extends APIController
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $resources->paginate($take);
+        $resources = $resources->get();
 
         return response()->json($resources);
     }
@@ -131,14 +132,18 @@ class LibraryController extends APIController
             if (is_array($files)) {
                 foreach ($files as $file) {
                     $fileName = $file->getClientOriginalName();
-                    $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/" . date('Y-m-d');
+                    $date = date('Y-m-d');
+                    $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/$date";
                     $fullFilePath = "$filePath/$fileName";
+
                     if ($file->move($filePath, $fileName)) {
                         $library = new Library();
                         $library->name = $file->getClientOriginalName();
-                        $library->originalname = $file->getClientOriginalName();
+                        $library->originalname = $fileName;
                         $library->pathname = $fullFilePath;
-                        $library->url = $file->getClientOriginalName();
+                        $library->mime = $file->getClientMimeType();
+                        $library->size = $file->getClientSize();
+                        $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
                         $library->save();
                     }
                 }
@@ -148,5 +153,16 @@ class LibraryController extends APIController
         }
 
         return response()->json($this->successResponse);
+    }
+
+
+    /**
+     * Get all catalogues.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function catalogues()
+    {
+        return response()->json(Catalogue::get()->toArray());
     }
 }

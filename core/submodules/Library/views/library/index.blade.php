@@ -7,11 +7,6 @@
         <v-slide-y-transition>
             <v-layout v-if="bulk.upload.model" row wrap>
                 <v-flex>
-                    <v-toolbar card class="transparent">
-                        <v-toolbar-title>{{ __('Upload Files') }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-btn icon @click.native="bulk.upload.model = false"><v-icon>close</v-icon></v-btn>
-                    </v-toolbar>
                     @include("Theme::cards.upload")
                 </v-flex>
             </v-layout>
@@ -32,7 +27,7 @@
                             <v-list-tile-title>{{ __('All') }}</v-list-tile-title>
                         </v-list-tile-content>
                         <v-list-tile-action>
-                            <span class="grey--text">{{ $count }}</span>
+                            <span class="grey--text">@{{ dataset.items.length }}</span>
                         </v-list-tile-action>
                     </v-list-tile>
 
@@ -68,14 +63,29 @@
                 </v-toolbar>
 
                 <v-layout row wrap>
-                    @foreach ($resources as $resource)
-                        <v-flex sm4>
-                            <v-card tile class="elevation-1">
-                                {{-- <v-card-media height="200px" src="//source.unplash.com/100x100?nature"></v-card-media> --}}
-                                <v-card-title>{{ $resource->name }}</v-card-title>
-                            </v-card>
-                        </v-flex>
-                    @endforeach
+                    <v-flex sm4 v-for="(dataset, key) in dataset.items" :key="key">
+                        <v-card tile class="elevation-1">
+                            <img width="100%" :src="dataset.thumbnail" :alt="dataset.name">
+                            {{-- <v-card-media height="250px" :src="dataset.thumbnail">
+                                <v-layout row fill-height>
+                                    <v-flex flexbox align-end>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <a :href="dataset.thumbnail"><span class="subheading pa-2" v-html="dataset.name"></span></a>
+                                        </v-card-actions>
+                                    </v-flex>
+                                </v-layout>
+                            </v-card-media> --}}
+                            {{-- <v-card-actions>
+                            </v-card-actions> --}}
+                            <v-card-actions dense class="accent">
+                                <v-card-title :href="dataset.thumbnail"><span class="subheading pa-2" v-html="dataset.name"></span></v-card-title>
+                                <v-spacer></v-spacer>
+                                <span class="caption pa-1 pink" v-html="dataset.mime"></span>
+                                <span class="caption pa-1 blue" v-html="dataset.filesize"></span>
+                            </v-card-actions>
+                        </v-card>
+                    </v-flex>
                 </v-layout>
 
             </v-flex>
@@ -105,7 +115,6 @@
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
                             { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
                         ],
@@ -125,7 +134,7 @@
                     suppliments: {
                         catalogues: {
                             current: null,
-                            items: {!! json_encode($catalogues->toArray()) !!},
+                            items: [],
                         }
                     },
 
@@ -146,12 +155,31 @@
                         sort: sortBy?sortBy:'name',
                         take: rowsPerPage,
                     };
+
                     this.api().get('{{ route('api.library.all') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
+                            this.mountSuppliments();
                         });
+                },
+
+                mountSuppliments () {
+                    this.suppliments.catalogues.current = '{{ request()->getQueryString() }}';
+
+                    this.api().get('{{ route('api.library.catalogues') }}')
+                        .then((data) => {
+                            console.log(data);
+                            this.suppliments.catalogues.items = data.items.data ? data.items.data : data.items;
+                            for (var i = this.suppliments.catalogues.items.length - 1; i >= 0; i--) {
+                                let current = this.suppliments.catalogues.items[i];
+                                if (current.id == this.suppliments.catalogues.current.split('=')[1]) {
+                                    this.suppliments.catalogues.items[i].active = true;
+                                }
+                            }
+                        });
+
                 },
 
                 storage () {
@@ -164,15 +192,8 @@
             },
 
             mounted () {
+                this.get();
                 this.storage();
-                this.suppliments.catalogues.current = '{{ request()->getQueryString() }}';
-
-                for (var i = this.suppliments.catalogues.items.length - 1; i >= 0; i--) {
-                    let current = this.suppliments.catalogues.items[i];
-                    if (current.id == this.suppliments.catalogues.current.split('=')[1]) {
-                        this.suppliments.catalogues.items[i].active = true;
-                    }
-                }
             },
         });
     </script>

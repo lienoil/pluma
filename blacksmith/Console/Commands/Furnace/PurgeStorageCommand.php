@@ -3,6 +3,7 @@
 namespace Blacksmith\Console\Commands\Furnace;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\File;
 use Pluma\Support\Console\Command;
 
 class PurgeStorageCommand extends Command
@@ -12,7 +13,8 @@ class PurgeStorageCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'purge:storage';
+    protected $signature = 'purge:storage
+                            {--t|truncate : Truncate the storage database table}';
 
     /**
      * The console command description.
@@ -29,9 +31,19 @@ class PurgeStorageCommand extends Command
     public function handle(Filesystem $filesystem)
     {
         try {
-            $this->line("Purging storage/public...");
-            $filesystem->deleteDirectory(storage_path('public'), $preservedTopLevelDirectory = true);
+            $option = $this->option();
+            $path = storage_path('public');
+
+            $this->info("Purging storage/public...");
+
+            array_map('unlink', glob("$path/**/*.*"));
+            File::cleanDirectory($path);
+
             exec('composer dump-autoload -o');
+
+            if ((bool) $option['truncate']) {
+                \Library\Models\Library::query()->truncate();
+            }
         } catch (\Pluma\Support\Filesystem\FileAlreadyExists $e) {
             $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
             $this->error(" ".$e->getMessage()." ");
@@ -41,7 +53,7 @@ class PurgeStorageCommand extends Command
             $this->error(" ".$e->getMessage()." ");
             $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
         } finally {
-            $this->line("Done.");
+            $this->info("Done.");
         }
     }
 }

@@ -1,4 +1,9 @@
 <v-card class='elevation-1'>
+    <v-toolbar card dense class="transparent">
+        <v-toolbar-title>{{ __('Upload Files') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon @click.native="bulk.upload.model = false"><v-icon>close</v-icon></v-btn>
+    </v-toolbar>
     <v-card-text>
         {{-- Dropzone --}}
         <dropzone parallel-uploads="-1" url="{{ route('api.library.upload') }}" :upload-multiple="true" :params="{_token: '{{ csrf_token() }}'}" :auto-process-queue="false" v-on:thumbnail="thumbnail" v-on:addedfile="addedfile" v-on:complete="complete" v-on:success="success" v-on:uploadprogress="uploadprogress">

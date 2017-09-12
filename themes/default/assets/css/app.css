@@ -13,7 +13,7 @@
 
 /* line 180 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_colors.styl */
 
-/* line 19 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_theme.styl */
+/* line 27 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_theme.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_theme.styl */
 
@@ -23,17 +23,17 @@
 
 /* line 2 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_theme.styl */
 
-/* line 19 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/main.styl */
+/* line 27 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/main.styl */
 
 /* line 7 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/main.styl */
 
-/* line 19 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/app.styl */
+/* line 27 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/app.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/app.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_elevations.styl */
 
-/* line 19 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_variables.styl */
+/* line 27 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_variables.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/settings/_variables.styl */
 
@@ -3455,7 +3455,7 @@ p{margin-bottom:16px}
 70%,90%{margin-left:-2px}}
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/tools/_colors.styl */
 
-/* line 19 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/tools/_elevations.styl */
+/* line 27 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/tools/_elevations.styl */
 
 /* line 111 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/tools/_elevations.styl */
 
@@ -9649,9 +9649,11 @@ table.table tfoot tr{height:56px}
 
 /* line 2 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 .sortable-handle{cursor:move}
-/* line 10 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+/* line 6 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+.sortable-container,.sortable-container span{display:block;width:100%;min-height:80px;background-color:rgba(0,0,0,0.01);padding:1rem}
+/* line 18 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 .sortable-chosen{-webkit-user-drag:none;background-color:#a5d6a7}
-/* line 16 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+/* line 24 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 .sortable-ghost{opacity:.5}
 /* line 114 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 

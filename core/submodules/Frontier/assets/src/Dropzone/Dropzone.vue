@@ -143,6 +143,7 @@
     .card-dropzone {
         min-height: 250px;
         border: none;
+        position: relative;
     }
 
     .card-dropzone [data-dz-thumbnail] {
@@ -229,5 +230,15 @@
         top: unset;
         background: transparent;
         background-color: rgba(0,0,0,0.7);
+    }
+
+    .card-dropzone .dz-default.dz-message {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+        font-weight: bold;
+        color: rgba(0,0,0,0.2);
     }
 </style>

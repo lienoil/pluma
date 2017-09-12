@@ -1062,6 +1062,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Library\\Observers\\LibraryObserver' => __DIR__ . '/../..' . '/core/submodules/Library/Observers/LibraryObserver.php',
         'Library\\Providers\\LibraryServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Library/Providers/LibraryServiceProvider.php',
         'Library\\Requests\\LibraryRequest' => __DIR__ . '/../..' . '/core/submodules/Library/Requests/LibraryRequest.php',
+        'Library\\Supports\\Mutators\\LibraryMutator' => __DIR__ . '/../..' . '/core/submodules/Library/Supports/Mutators/LibraryMutator.php',
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
         'Monolog\\Formatter\\ChromePHPFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
         'Monolog\\Formatter\\ElasticaFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php',

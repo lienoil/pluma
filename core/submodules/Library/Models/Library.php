@@ -3,15 +3,18 @@
 namespace Library\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Library\Supports\Mutators\LibraryMutator;
 use Pluma\Models\Model;
 
 class Library extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, LibraryMutator;
 
     protected $table = 'library';
 
     protected $with = [];
 
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $appends = ['thumbnail', 'filesize'];
+
+    protected $searchables = ['url', 'name', 'created_at', 'updated_at'];
 }
