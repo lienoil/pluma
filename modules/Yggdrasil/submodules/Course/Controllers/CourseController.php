@@ -6,6 +6,7 @@ use Course\Models\Course;
 use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Lesson\Models\Lesson;
 
 class CourseController extends AdminController
 {
@@ -54,9 +55,43 @@ class CourseController extends AdminController
      * @param  \Course\Requests\CourseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseRequest $request)
+    public function store(Request $request)
     {
-        dd($request->all());
+        // echo "<pre>";
+        // dd($request->all());
+
+        $course = new Course();
+        $course->title = $request->input('title');
+        $course->slug = $request->input('slug');
+        $course->code = $request->input('code');
+        $course->feature = $request->input('feature');
+        $course->body = $request->input('body');
+        $course->delta = $request->input('delta');
+        $course->user()->associate(user());
+
+        $request['lessons']->each(function ($input, $key) use ($course) {
+            $lesson = new Lesson();
+            $lesson->sort = $input->sort;
+            $lesson->title = $input->title;
+            $lesson->body = $input->body;
+            $lesson->delta = $input->delta;
+
+            // foreach ($input['contents'] as $input) {
+            //     $content = new Content();
+            //     $content->sort = $input['sort'];
+            //     $content->title = $input['title'];
+            //     $content->body = $input['body'];
+            //     $content->delta = $input['delta'];
+            //     $content->attachment = $input['attachment'];
+            //     $content->delta = $input['delta'];
+            //     $content->library()->associate(Library::find($input['library_id'])->first());
+            //     $lesson->contents()->save($content);
+            // }
+
+            $course->lessons()->save($lesson);
+        });
+
+        $course->save();
 
         return back();
     }

@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Migration\Migration;
 use Phinx\Migration\AbstractMigration;
 
-class CreateCoursesTable extends Migration
+class CreateContentsTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $tablename = 'courses';
+    protected $tablename = 'contents';
 
     /**
      * Run the migrations.
@@ -21,19 +21,23 @@ class CreateCoursesTable extends Migration
      */
     public function up()
     {
+        if ($this->schema->hasTable($this->tablename)) {
+            return;
+        }
+
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('lesson_id')->unsigned();
+            $table->integer('sort')->default(0);
             $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('code')->unique();
-            $table->text('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
-            $table->integer('user_id')->unsigned();
+            $table->text('attachment')->nullable();
+            $table->integer('library_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('lesson_id')->references('id')->on('lessons');
+            $table->foreign('library_id')->references('id')->on('library');
         });
     }
 

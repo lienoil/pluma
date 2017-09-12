@@ -3,7 +3,7 @@
 namespace Library\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Library\Supports\Mutators\LibraryMutator;
+use Library\Support\Mutators\LibraryMutator;
 use Pluma\Models\Model;
 
 class Library extends Model

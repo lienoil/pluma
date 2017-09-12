@@ -1,6 +1,6 @@
 <?php
 
-namespace Library\Supports\Mutators;
+namespace Library\Support\Mutators;
 
 use Parchment\Helpers\Word;
 

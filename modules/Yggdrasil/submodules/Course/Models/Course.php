@@ -3,11 +3,13 @@
 namespace Course\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Lesson\Support\Traits\HasManyLessons;
 use Pluma\Models\Model;
+use User\Support\Traits\BelongsToUser;
 
 class Course extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasManyLessons, BelongsToUser;
 
     protected $with = [];
 
