@@ -65,25 +65,14 @@
                 <v-layout row wrap>
                     <v-flex sm4 v-for="(dataset, key) in dataset.items" :key="key">
                         <v-card tile class="elevation-1">
-                            <img width="100%" :src="dataset.thumbnail" :alt="dataset.name">
-                            {{-- <v-card-media height="250px" :src="dataset.thumbnail">
-                                <v-layout row fill-height>
-                                    <v-flex flexbox align-end>
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <a :href="dataset.thumbnail"><span class="subheading pa-2" v-html="dataset.name"></span></a>
-                                        </v-card-actions>
-                                    </v-flex>
-                                </v-layout>
-                            </v-card-media> --}}
-                            {{-- <v-card-actions>
-                            </v-card-actions> --}}
-                            <v-card-actions dense class="accent">
-                                <v-card-title :href="dataset.thumbnail"><span class="subheading pa-2" v-html="dataset.name"></span></v-card-title>
-                                <v-spacer></v-spacer>
-                                <span class="caption pa-1 pink" v-html="dataset.mime"></span>
-                                <span class="caption pa-1 blue" v-html="dataset.filesize"></span>
-                            </v-card-actions>
+                            <v-card-media height="250px" :src="dataset.thumbnail">
+                                <v-card-title class="subheading accent white--text" :href="dataset.thumbnail" v-html="dataset.originalname"></v-card-title>
+                                <v-card-actions dense class="transparent">
+                                    <v-spacer></v-spacer>
+                                    <span class="caption pa-1 pink white--text" v-html="dataset.mime"></span>
+                                    <span class="caption pa-1 blue white--text" v-html="dataset.filesize"></span>
+                                </v-card-actions>
+                            </v-card-media>
                         </v-card>
                     </v-flex>
                 </v-layout>

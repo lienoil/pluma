@@ -128,31 +128,52 @@ class LibraryController extends APIController
     public function upload(Request $request)
     {
         try {
-            $files = $request->file('file');
-            if (is_array($files)) {
+            $file = $request->file('file');
+            if (is_array($file) && $files = $file) {
                 foreach ($files as $file) {
-                    $fileName = $file->getClientOriginalName();
-                    $date = date('Y-m-d');
-                    $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/$date";
-                    $fullFilePath = "$filePath/$fileName";
-
-                    if ($file->move($filePath, $fileName)) {
-                        $library = new Library();
-                        $library->name = $file->getClientOriginalName();
-                        $library->originalname = $fileName;
-                        $library->pathname = $fullFilePath;
-                        $library->mime = $file->getClientMimeType();
-                        $library->size = $file->getClientSize();
-                        $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
-                        $library->save();
-                    }
+                    $this->save($request, $file);
                 }
+            } else {
+                $this->save($request, $file);
             }
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
 
         return response()->json($this->successResponse);
+    }
+
+    /**
+     * Save the library.
+     *
+     * @param  File $file
+     * @return boolean
+     */
+    public function save($request, $file)
+    {
+        $originalName = $file->getClientOriginalName();
+        $date = date('Y-m-d');
+        $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/$date";
+        do {
+           $fileName = md5(time().$originalName) . '.' . $file->getClientOriginalExtension();
+        } while (file_exists("$filePath/$fileName"));
+        $fullFilePath = "$filePath/$fileName";
+
+        if ($file->move($filePath, $fileName)) {
+            $library = new Library();
+            $library->name = $fileName;
+            $library->originalname = $originalName;
+            $library->pathname = $fullFilePath;
+            $library->mime = $file->getClientMimeType();
+            $library->size = $file->getClientSize();
+            $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
+            // $library->catalogue()->save($request->input('catalogue_id'));
+            $library->save();
+
+            if ($request->input('extract')) {
+                // $this->extract($fullFilePath);
+            }
+        }
     }
 
 

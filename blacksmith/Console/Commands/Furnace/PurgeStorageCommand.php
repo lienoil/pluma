@@ -42,7 +42,9 @@ class PurgeStorageCommand extends Command
             exec('composer dump-autoload -o');
 
             if ((bool) $option['truncate']) {
-                \Library\Models\Library::query()->truncate();
+                \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+                \Illuminate\Support\Facades\DB::table('library')->truncate();
+                \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
             }
         } catch (\Pluma\Support\Filesystem\FileAlreadyExists $e) {
             $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");

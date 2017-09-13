@@ -60,7 +60,7 @@
                 return {
                     resource: {
                         avatars: {
-                            model: '{{ isset($resource) ? $resource->avatar : old('avatar') }}',
+                            model: '{{ old('avatar') ? old('avatar') : (isset($resource) ? $resource->avatar : '') }}',
                             items: {!! json_encode($avatars) !!},
                         },
                     }

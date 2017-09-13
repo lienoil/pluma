@@ -43,7 +43,8 @@
                     </v-card>
 
                     {{-- Editor --}}
-                    @include("Theme::cards.editor")
+                    {{-- @include("Frontier::cards.editor") --}}
+                    @include("Course::cards.editor")
                     {{-- /Editor --}}
 
                     {{-- Lessons --}}

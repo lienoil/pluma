@@ -116,8 +116,8 @@
                     </v-card>
                 </v-card-text>
             </v-card>
-            <input type="hidden" name="body" :value="editor.content.model">
-            <input type="hidden" name="delta" :value="editor.content.delta">
+            <input type="hidden" :name="editor.content.inputname.body" :value="editor.content.model">
+            <input type="hidden" :name="editor.content.inputname.delta" :value="editor.content.delta">
         </v-flex>
     </v-layout>
 
@@ -163,6 +163,10 @@
                             model: false,
                         },
                         content: {
+                            inputname: {
+                                body: '{{ isset($name) ? $name['body'] : 'body' }}',
+                                delta: '{{ isset($name) ? $name['delta'] : 'delta' }}',
+                            },
                             editor: null,
                             options: {
                                 lineNumbers: true,
@@ -224,7 +228,7 @@
                         Font = Quill.import('formats/font'),
                         SizeStyle = Quill.import('attributors/style/size');
 
-                    Font.whitelist = ['Montserrat'];//{!! json_encode(config('editor.fonts.enabled', [])) !!};
+                    Font.whitelist = {!! json_encode(config('editor.fonts.enabled', [])) !!};
                     Quill.register(Font, true);
                     Quill.register(SizeStyle, true);
                     // Quill.register(ImageImport, true);
@@ -240,9 +244,9 @@
                         return content;
                     };
 
-                    self.editor.content.editor = new Quill('#quill-editor', {
+                    self.editor.content.editor = new Quill('.quill-editor', {
                         modules: {
-                            toolbar: '#quill-toolbar',
+                            toolbar: '.quill-toolbar',
                         },
                         theme: 'snow',
                         placeholder: '{{ __('Write something...') }}',
@@ -260,7 +264,7 @@
                     });
 
                     let events = ['keyup', 'click'];
-                    let elements = ['#quill-editor .ql-editor', '#quill-toolbar'];
+                    let elements = ['#quill-editor .ql-editor', '.quill-editor .ql-editor', '#quill-toolbar'];
                     for (let i in events) {
                         for (let j in elements) {
                             document.querySelector(elements[j]).addEventListener(events[i], function (el) {

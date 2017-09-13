@@ -2,11 +2,13 @@
 
 namespace Course\Controllers;
 
+use Content\Models\Content;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
+use Library\Models\Library;
 
 class CourseController extends AdminController
 {
@@ -55,7 +57,7 @@ class CourseController extends AdminController
      * @param  \Course\Requests\CourseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
         // echo "<pre>";
         // dd($request->all());
@@ -69,29 +71,31 @@ class CourseController extends AdminController
         $course->delta = $request->input('delta');
         $course->user()->associate(user());
 
-        $request['lessons']->each(function ($input, $key) use ($course) {
+        $course->save();
+        collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
             $lesson = new Lesson();
             $lesson->sort = $input->sort;
             $lesson->title = $input->title;
-            $lesson->body = $input->body;
-            $lesson->delta = $input->delta;
+            // $lesson->body = $input->body;
+            // $lesson->delta = $input->delta;
+            $lesson->course()->associate($course);
+            $lesson->save();
 
-            // foreach ($input['contents'] as $input) {
-            //     $content = new Content();
-            //     $content->sort = $input['sort'];
-            //     $content->title = $input['title'];
-            //     $content->body = $input['body'];
-            //     $content->delta = $input['delta'];
-            //     $content->attachment = $input['attachment'];
-            //     $content->delta = $input['delta'];
-            //     $content->library()->associate(Library::find($input['library_id'])->first());
-            //     $lesson->contents()->save($content);
-            // }
+            if (isset($input->contents)) {
+                foreach ($input->contents as $input) {
+                    $content = new Content();
+                    $content->sort = $input->sort;
+                    $content->title = $input->title;
+                    // $content->body = $input->body;
+                    // $content->delta = $input->delta;
+                    // $content->attachment = $input->attachment;
+                    $content->library()->save(Library::find($input->library_id)->first());
+                    $content->lesson()->associate($lesson);
+                    $content->save();
+                }
+            }
 
-            $course->lessons()->save($lesson);
         });
-
-        $course->save();
 
         return back();
     }

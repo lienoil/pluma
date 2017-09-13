@@ -55,7 +55,7 @@
                         <v-slide-y-transition>
                             <v-card flat tile v-show="draggable.active">
                                 <v-layout row wrap>
-                                    <v-flex sm3>
+                                    <v-flex sm12>
                                         <v-card-text>
                                             <input type="hidden" :name="`lessons[${key}][sort]`" :value="key">
                                             <v-text-field
@@ -66,11 +66,17 @@
                                             <v-text-field
                                                 label="{{ __('Lesson Description') }}"
                                                 :name="`lessons[${key}][description]`"
-                                                v-model="draggable.resource.description"
+                                                v-model="draggable.resource.body"
                                             ></v-text-field>
                                         </v-card-text>
+                                        <div class="quill-container">
+                                            <div :id="`quill-editor-${key}`" class="quill-editor"></div>
+                                        </div>
+                                        {{-- @include("Course::cards.editor", ['name' => ['body' => '`lessons[${key}][body]`', 'delta' => '`lessons[${key}][delta]`']]) --}}
                                     </v-flex>
-                                    <v-flex sm9 class="grey lighten-3">
+                                </v-layout>
+                                <v-layout row wrap>
+                                    <v-flex sm12 class="grey lighten-3">
                                         <v-toolbar card class="transparent">
                                             <v-toolbar-title class="subheading grey--text text--darken-2">{{ __('Content') }}</v-toolbar-title>
                                             <v-spacer></v-spacer>
@@ -101,14 +107,14 @@
                                                     <v-slide-y-transition>
                                                         <div v-show="content.active">
                                                             <v-card-text>
-                                                                <input type="hidden" :name="`lessons[${key}][content][${c}][sort]`" :value="c">
+                                                                <input type="hidden" :name="`lessons[${key}][contents][${c}][sort]`" :value="c">
                                                                 <v-text-field
-                                                                    :name="`lessons[${key}][content][${c}][title]`"
+                                                                    :name="`lessons[${key}][contents][${c}][title]`"
                                                                     label="{{ __('Content Title') }}"
                                                                     v-model="content.resource.title"
                                                                 ></v-text-field>
                                                                 <v-text-field
-                                                                    :name="`lessons[${key}][content][${c}][description]`"
+                                                                    :name="`lessons[${key}][contents][${c}][description]`"
                                                                     label="{{ __('Content Description') }}"
                                                                     v-model="content.resource.description"
                                                                 ></v-text-field>
@@ -118,11 +124,13 @@
                                                                 <v-card @click.native.stop="media(content).open()" flat class="pa-1 grey lighten-4" v-if="content.section">
                                                                     <v-card-media :src="content.section.thumbnail" height="200px"></v-card-media>
                                                                     <v-card-title v-html="content.section.name"></v-card-title>
-                                                                    <input type="hidden" :name="`lessons[${key}][content][${c}][content]`" :value="content.section.id">
+                                                                    <input type="hidden" :name="`lessons[${key}][contents][${c}][library_id]`" :value="content.section.id">
                                                                 </v-card>
                                                                 <v-spacer></v-spacer>
-                                                                <v-btn small @click.native.stop="media(content).open()"><v-icon>perm_media</v-icon>&nbsp;{{ __('Media...') }}</v-btn>
                                                             </v-card-text>
+                                                            <v-card-actions>
+                                                                <v-btn @click.native.stop="media(content).open()"><v-icon left>perm_media</v-icon>{{ __('Media...') }}</v-btn>
+                                                            </v-card-actions>
                                                         </div>
                                                     </v-slide-y-transition>
 
@@ -161,6 +169,7 @@
                     },
                     draggables: {
                         items: [],
+                        old: [],
                     },
                     mediabox: {
                         contents: {
@@ -183,6 +192,7 @@
 
                         if (origin) {
                             origin.section = val.item;
+                            console.log(origin.section.thumbnail);
                         }
 
                         // Reset
@@ -207,8 +217,17 @@
                     sections.push(c);
                 },
 
-                addContent (key) {
-                    this.draggables.items[key].sections.push({count:+1, j: []});
+                updateSection (section, values) {
+                    section = {
+                        id: values.id,
+                        name: values.name,
+                        active: values.active,
+                        resource: {
+                            title: values.title,
+                            code: values.code,
+                        },
+                        sections: values.sections,
+                    }
                 },
 
                 close (origin, options) {
@@ -217,7 +236,39 @@
             },
 
             mounted () {
-                //
+                this.draggables.old = JSON.parse('{!! json_encode(old('lessons')) !!}');
+                if (this.draggables.old) {
+
+                    for (var i = 0; i < this.draggables.old.length; i++) {
+                        let current = this.draggables.old[i];
+                        let newItem = {
+                            id: current.id,
+                            name: current.name,
+                            active: current.active,
+                            resource: {
+                                title: current.title,
+                                code: current.code,
+                            },
+                            sections: [],
+                        };
+                        this.draggables.items.push(newItem);
+
+                        if (current.contents) {
+                            for (var j = 0; j < current.contents.length; j++) {
+                                let section = current.contents[j];
+                                this.draggables.items[i].sections.push({
+                                    id: section.id,
+                                    name: section.name,
+                                    active: section.active,
+                                    resource: {
+                                        title: section.title,
+                                        code: section.code,
+                                    },
+                                });
+                            }
+                        }
+                    }
+                }
             },
         });
     </script>
