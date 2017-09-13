@@ -6,4 +6,5 @@ node_modules/
 storage/compiled/sessions/
 storage/compiled/views/
 storage/framework/cache/
+storage/public
 vendor/
