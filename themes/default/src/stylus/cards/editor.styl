@@ -21,7 +21,7 @@ $monokai = {
                 position: absolute;
                 width: 1px;
                 top: 0;
-                left: 30px;
+                left: 0;
                 background-color: color.lighten-5;
             }
         }
@@ -29,7 +29,9 @@ $monokai = {
 
     .ql-editor {
         min-height: 200px;
-        padding-left: 40px;
+        &:before {
+            // padding-left: 3rem;
+        }
 
         h1, h2, h3, h4, h5, h6,
         p {

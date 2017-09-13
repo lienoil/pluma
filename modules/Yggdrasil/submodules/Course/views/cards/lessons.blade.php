@@ -1,6 +1,6 @@
 <template>
     <v-card class="mb-3 elevation-1 grey lighten-4">
-        <v-toolbar card dense class="green lighten-3">
+        <v-toolbar card dense class="white lighten-3">
             <v-icon class="green--text text--darken-3">fa-leaf</v-icon>
             <v-toolbar-title class="subheading green--text text--darken-3">{{ __('Lessons') }}</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -53,7 +53,7 @@
 
                         {{-- lessons --}}
                         <v-slide-y-transition>
-                            <v-card flat tile v-show="draggable.active">
+                            <v-card flat tile v-if="draggable.active">
                                 <v-layout row wrap>
                                     <v-flex sm12>
                                         <v-card-text>
@@ -63,16 +63,17 @@
                                                 :name="`lessons[${key}][title]`"
                                                 v-model="draggable.resource.title"
                                             ></v-text-field>
-                                            <v-text-field
-                                                label="{{ __('Lesson Description') }}"
-                                                :name="`lessons[${key}][description]`"
-                                                v-model="draggable.resource.body"
-                                            ></v-text-field>
                                         </v-card-text>
-                                        <div class="quill-container">
-                                            <div :id="`quill-editor-${key}`" class="quill-editor"></div>
-                                        </div>
-                                        {{-- @include("Course::cards.editor", ['name' => ['body' => '`lessons[${key}][body]`', 'delta' => '`lessons[${key}][delta]`']]) --}}
+
+                                        {{-- Quill --}}
+                                        <quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" output="html" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                            <template slot="header">
+                                                <input type="text" :name="`lessons[${key}][body]`" :value="draggable.resource.quill.content">
+                                                <input type="hidden" :name="`lessons[${key}][delta]`" :value="JSON.stringify(draggable.resource.quill.delta)">
+                                            </template>
+                                        </quill>
+                                        {{-- /Quill --}}
+
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row wrap>
@@ -105,7 +106,7 @@
 
                                                     {{-- content --}}
                                                     <v-slide-y-transition>
-                                                        <div v-show="content.active">
+                                                        <div v-if="content.active">
                                                             <v-card-text>
                                                                 <input type="hidden" :name="`lessons[${key}][contents][${c}][sort]`" :value="c">
                                                                 <v-text-field
@@ -113,12 +114,16 @@
                                                                     label="{{ __('Content Title') }}"
                                                                     v-model="content.resource.title"
                                                                 ></v-text-field>
-                                                                <v-text-field
-                                                                    :name="`lessons[${key}][contents][${c}][description]`"
-                                                                    label="{{ __('Content Description') }}"
-                                                                    v-model="content.resource.description"
-                                                                ></v-text-field>
                                                             </v-card-text>
+
+                                                            {{-- Quill --}}
+                                                            <quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" output="html" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                                                <template slot="header">
+                                                                    <input type="text" :name="`lessons[${key}][contents][${c}][body]`" :value="content.resource.quill.content">
+                                                                    <input type="hidden" :name="`lessons[${key}][contents][${c}][delta]`" :value="JSON.stringify(content.resource.quill.delta)">
+                                                                </template>
+                                                            </quill>
+                                                            {{-- /Quill --}}
 
                                                             <v-card-text>
                                                                 <v-card @click.native.stop="media(content).open()" flat class="pa-1 grey lighten-4" v-if="content.section">
@@ -167,6 +172,9 @@
                             },
                         },
                     },
+                    quill: {
+                        values: {},
+                    },
                     draggables: {
                         items: [],
                         old: [],
@@ -211,6 +219,7 @@
                         resource: {
                             title: 'Untitled #' + (sections.length + 1),
                             code: '',
+                            quill: {},
                         },
                         sections: [],
                     }

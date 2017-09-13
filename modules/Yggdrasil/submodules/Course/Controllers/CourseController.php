@@ -57,10 +57,10 @@ class CourseController extends AdminController
      * @param  \Course\Requests\CourseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseRequest $request)
+    public function store(Request $request)
     {
-        // echo "<pre>";
-        // dd($request->all());
+        echo "<pre>";
+        dd($request->all());
 
         $course = new Course();
         $course->title = $request->input('title');

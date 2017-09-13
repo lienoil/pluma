@@ -52,7 +52,7 @@
                 </span>
             </slot>
         </div>
-        <div ref="quill" class="quill-editor"></div>
+        <div :id="id" ref="quill" class="quill-editor"></div>
     </div>
 </template>
 
@@ -66,6 +66,7 @@
         },
         props: {
             content: null,
+            id: { type: String, default: null },
             output: { type: String, default: '' },
             fonts: {
                 type: Array,
@@ -88,8 +89,6 @@
             return {
                 quill: {
                     editor: '',
-                    content: '',
-                    delta: '',
                 }
             };
         },
@@ -104,7 +103,8 @@
                 let Size = Quill.import('attributors/style/size');
                 Quill.register(Size, true);
                 Quill.prototype.getHTML = function() {
-                    return self.$refs.quill.querySelector('.ql-editor').innerHTML;
+                    console.log(self.quill.editor);
+                    return self.$el.querySelector('.ql-editor').innerHTML;
                 };
 
                 self.$emit('init', Quill);
@@ -113,20 +113,20 @@
                     toolbar: self.$refs.toolbar,
                 };
 
-                self.quill.editor = new Quill(self.$refs.quill, self.options);
+                self.quill.editor = new Quill(self.id ? '#'+self.id : self.$refs.quill, self.options);
 
                 // events
                 self.quill.editor.on('text-change', function (delta, oldDelta, source) {
                     self.quill.content = self.quill.editor.getHTML();
                     self.quill.delta = self.quill.editor.getContents();
-                    self.$emit('input', {content: self.quill.content, delta: self.quill.delta});
+                    self.$emit('input', {content: self.quill.editor.getHTML(), delta: self.quill.editor.getContents()});
                     self.$emit('text-change', delta, oldDelta, source, self.quill.editor);
                 });
 
                 self.quill.editor.on('selection-change', function (range, oldRange, source) {
                     self.quill.content = self.quill.editor.getHTML();
                     self.quill.delta = self.quill.editor.getContents();
-                    self.$emit('input', {content: self.quill.content, delta: self.quill.delta});
+                    self.$emit('input', {content: self.quill.editor.getHTML(), delta: self.quill.editor.getContents()});
                     self.$emit('selection-change', range, oldRange, source, self.quill.editor);
                 });
             },
@@ -139,4 +139,5 @@
 
 <style>
     @import '~quill/dist/quill.snow.css';
+    /**/
 </style>

@@ -1,6 +1,11 @@
-<quill v-model="content" output="html" class="mb-3 white elevation-1" :fonts="['Montserrat', 'Roboto']"></quill>
+<quill v-model="quill.values" output="html" class="mb-3 white elevation-1" :fonts="['Calibri', 'Montserrat', 'Roboto']">
+    <template slot="header">
+        <input type="hidden" name="body" :value="quill.values.content">
+        <input type="hidden" name="delta" :value="JSON.stringify(quill.values.delta)">
+    </template>
+</quill>
 
-@push('pre-css')
+{{-- @push('pre-css')
     <link rel="stylesheet" href="{{ assets('frontier/dist/quill/Quill.css') }}">
 @endpush
 
@@ -10,17 +15,19 @@
         Vue.use(Quill);
 
         mixins.push({
+            components: { Quill },
             data () {
                 return {
-                    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum eveniet hic vero suscipit cupiditate iure, cum veniam autem. Similique eaque unde perferendis! Minima quia ipsa tempora quos, quae, provident adipisci.'
+                    quill: {
+                        values: {},
+                    }
                 }
             },
-            components: { Quill },
             watch: {
-                content: function (val) {
-                    console.log("Content", val);
+                'quill.values': function (val) {
+                    console.log("Content", this.quill.values, val);
                 }
             },
         });
     </script>
-@endpush
+@endpush --}}

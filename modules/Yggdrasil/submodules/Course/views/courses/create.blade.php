@@ -61,12 +61,19 @@
     </v-container>
 @endsection
 
+@push('pre-css')
+    <link rel="stylesheet" href="{{ assets('frontier/dist/quill/Quill.css') }}">
+@endpush
+
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/dist/quill/Quill.js') }}"></script>
     <script>
         Vue.use(VueResource);
+        Vue.use(Quill);
 
         mixins.push({
+            components: { Quill },
             data () {
                 return {
                     resource: {
