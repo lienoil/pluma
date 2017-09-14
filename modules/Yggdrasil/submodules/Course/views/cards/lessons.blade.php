@@ -1,6 +1,6 @@
 <template>
-    <v-card class="mb-3 elevation-1 grey lighten-4">
-        <v-toolbar card dense class="white lighten-3">
+    <v-card class="mb-3 elevation-1 grey lighten-4" :class="lessons.toolbar.modes.distraction.model?'distraction-free-mode':''">
+        <v-toolbar card dense class="white lighten-3" :class="lessons.toolbar.modes.distraction.model?'distraction-free-mode--toolbar elevation-3':''">
             <v-icon class="green--text text--darken-3">fa-leaf</v-icon>
             <v-toolbar-title class="subheading green--text text--darken-3">{{ __('Lessons') }}</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -32,7 +32,7 @@
             </v-card-text>
         </template>
 
-        <v-card-text class="mt-4">
+        <v-card-text class="mt-4" :class="lessons.toolbar.modes.distraction.model?'pt-4':''">
             <draggable v-model="draggables.items" :options="{animation: 150, handle: '.parent-handle', group: 'lessons', draggable: '.draggable'}">
                 <transition-group>
                     <v-card
@@ -66,9 +66,9 @@
                                         </v-card-text>
 
                                         {{-- Quill --}}
-                                        <quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" output="html" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
-                                            <template slot="header">
-                                                <input type="text" :name="`lessons[${key}][body]`" :value="draggable.resource.quill.content">
+                                        <quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                            <template>
+                                                <input type="hidden" :name="`lessons[${key}][body]`" :value="draggable.resource.quill.html">
                                                 <input type="hidden" :name="`lessons[${key}][delta]`" :value="JSON.stringify(draggable.resource.quill.delta)">
                                             </template>
                                         </quill>
@@ -117,9 +117,9 @@
                                                             </v-card-text>
 
                                                             {{-- Quill --}}
-                                                            <quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" output="html" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
-                                                                <template slot="header">
-                                                                    <input type="text" :name="`lessons[${key}][contents][${c}][body]`" :value="content.resource.quill.content">
+                                                            <quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                                                <template>
+                                                                    <input type="hidden" :name="`lessons[${key}][contents][${c}][body]`" :value="content.resource.quill.html">
                                                                     <input type="hidden" :name="`lessons[${key}][contents][${c}][delta]`" :value="JSON.stringify(content.resource.quill.delta)">
                                                                 </template>
                                                             </quill>
@@ -154,13 +154,18 @@
     </v-card>
 </template>
 
+{{-- <v-btn @click.native.stop="media(content).open()"><v-icon left>perm_media</v-icon>{{ __('Media...') }}</v-btn> --}}
 @include("Theme::mediabox.media")
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
+    <script src="{{ assets('frontier/dist/mediabox/Mediabox.js') }}"></script>
     <script>
+        Vue.use(Mediabox);
+
         mixins.push({
+            components: { Mediabox },
             data () {
                 return {
                     lessons: {
@@ -171,9 +176,6 @@
                                 },
                             },
                         },
-                    },
-                    quill: {
-                        values: {},
                     },
                     draggables: {
                         items: [],
@@ -226,58 +228,48 @@
                     sections.push(c);
                 },
 
-                updateSection (section, values) {
-                    section = {
+                updateSection (sections, values) {
+                    console.log(values);
+                    sections.push({
                         id: values.id,
                         name: values.name,
-                        active: values.active,
+                        active: true,
                         resource: {
                             title: values.title,
                             code: values.code,
+                            quill: {
+                                html: values.body,
+                                delta: JSON.parse(values.delta),
+                            },
                         },
-                        sections: values.sections,
-                    }
+                        sections: [],
+                    });
                 },
 
                 close (origin, options) {
                     console.log("mediabox-origin", origin);
-                }
-            },
+                },
 
-            mounted () {
-                this.draggables.old = JSON.parse('{!! json_encode(old('lessons')) !!}');
-                if (this.draggables.old) {
+                old () {
+                    let olds = {!! json_encode(old('lessons')) !!};
+                    if (olds) {
+                        for (var i = 0; i < olds.length; i++) {
+                            let current = olds[i];
+                            this.updateSection(this.draggables.items, current);
 
-                    for (var i = 0; i < this.draggables.old.length; i++) {
-                        let current = this.draggables.old[i];
-                        let newItem = {
-                            id: current.id,
-                            name: current.name,
-                            active: current.active,
-                            resource: {
-                                title: current.title,
-                                code: current.code,
-                            },
-                            sections: [],
-                        };
-                        this.draggables.items.push(newItem);
-
-                        if (current.contents) {
-                            for (var j = 0; j < current.contents.length; j++) {
-                                let section = current.contents[j];
-                                this.draggables.items[i].sections.push({
-                                    id: section.id,
-                                    name: section.name,
-                                    active: section.active,
-                                    resource: {
-                                        title: section.title,
-                                        code: section.code,
-                                    },
-                                });
+                            if (current.contents) {
+                                for (var j = 0; j < current.contents.length; j++) {
+                                    let c = current.contents[j];
+                                    this.updateSection(this.draggables.items[i].sections, c);
+                                }
                             }
                         }
                     }
                 }
+            },
+
+            mounted () {
+                this.old();
             },
         });
     </script>

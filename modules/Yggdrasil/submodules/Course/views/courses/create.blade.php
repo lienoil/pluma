@@ -43,8 +43,12 @@
                     </v-card>
 
                     {{-- Editor --}}
-                    {{-- @include("Frontier::cards.editor") --}}
-                    @include("Course::cards.editor")
+                    <quill v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Montserrat', 'Roboto']">
+                        <template>
+                            <input type="hidden" name="body" :value="quill.values.html">
+                            <input type="hidden" name="delta" :value="JSON.stringify(quill.values.delta)">
+                        </template>
+                    </quill>
                     {{-- /Editor --}}
 
                     {{-- Lessons --}}
@@ -76,6 +80,12 @@
             components: { Quill },
             data () {
                 return {
+                    quill: {
+                        values: {
+                            html: '{!! old('body') !!}',
+                            delta: JSON.parse({!! json_encode(old('delta')) !!}),
+                        },
+                    },
                     resource: {
                         item: {
                             title: '',

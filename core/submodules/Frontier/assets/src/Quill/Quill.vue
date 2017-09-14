@@ -1,7 +1,7 @@
 <template>
     <div class="quill-container">
+        <slot name="header"></slot>
         <div ref="toolbar" class="quill-toolbar">
-            <slot name="header"></slot>
             <slot name="toolbar">
                 <span class="ql-formats">
                     <select class="ql-header">
@@ -53,6 +53,10 @@
             </slot>
         </div>
         <div :id="id" ref="quill" class="quill-editor"></div>
+        <slot scope="content">
+            <input type="hidden" name="html" :value="content.html">
+            <input type="hidden" name="delta" :value="content.delta">
+        </slot>
     </div>
 </template>
 
@@ -65,8 +69,8 @@
             prop: 'content',
         },
         props: {
-            content: null,
-            id: { type: String, default: null },
+            id: '',
+            content: {},
             output: { type: String, default: '' },
             fonts: {
                 type: Array,
@@ -85,9 +89,14 @@
                 }
             },
         },
+
+        computed: {
+            //
+        },
         data () {
             return {
                 quill: {
+                    id: '',
                     editor: '',
                 }
             };
@@ -95,44 +104,55 @@
         methods: {
             init () {
                 let self = this;
-
+                let _Quill = Quill; // localize
                 let Font = Quill.import('formats/font');
-                Font.whitelist = self.fonts;
-                Quill.register(Font, true);
-
                 let Size = Quill.import('attributors/style/size');
-                Quill.register(Size, true);
-                Quill.prototype.getHTML = function() {
-                    console.log(self.quill.editor);
-                    return self.$el.querySelector('.ql-editor').innerHTML;
+
+                Font.whitelist = self.fonts;
+                _Quill.register(Font, true);
+                _Quill.register(Size, true);
+                _Quill.prototype.getHTML = function() {
+                    return this.container.querySelector('.ql-editor').innerHTML;
                 };
 
-                self.$emit('init', Quill);
+                self.$emit('init', _Quill);
 
                 self.$props.options.modules = {
                     toolbar: self.$refs.toolbar,
                 };
 
-                self.quill.editor = new Quill(self.id ? '#'+self.id : self.$refs.quill, self.options);
+                self.quill.editor = new _Quill(self.$refs.quill, self.options);
+                if (self.content.delta) {
+                    self.quill.editor.setContents(self.content.delta.ops);
+                }
+            },
+
+            listen () {
+                let self = this;
 
                 // events
                 self.quill.editor.on('text-change', function (delta, oldDelta, source) {
-                    self.quill.content = self.quill.editor.getHTML();
-                    self.quill.delta = self.quill.editor.getContents();
-                    self.$emit('input', {content: self.quill.editor.getHTML(), delta: self.quill.editor.getContents()});
                     self.$emit('text-change', delta, oldDelta, source, self.quill.editor);
+                    self.$emit('input', self.getQuillContents());
                 });
 
                 self.quill.editor.on('selection-change', function (range, oldRange, source) {
-                    self.quill.content = self.quill.editor.getHTML();
-                    self.quill.delta = self.quill.editor.getContents();
-                    self.$emit('input', {content: self.quill.editor.getHTML(), delta: self.quill.editor.getContents()});
                     self.$emit('selection-change', range, oldRange, source, self.quill.editor);
+                    self.$emit('input', self.getQuillContents());
                 });
             },
+
+            getQuillContents () {
+                return {
+                    html: this.quill.editor.getHTML(),
+                    delta: this.quill.editor.getContents(),
+                };
+            },
         },
+
         mounted () {
             this.init();
+            this.listen();
         },
     }
 </script>
