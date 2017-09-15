@@ -85,22 +85,20 @@ $monokai = {
     transition: all 0.9s ease-in-out;
 
     &-distraction-free {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        z-index: 999 !important;
-        width: 100% !important;
-        display: -webkit-flex;
-        display: -moz-flex;
-        display: -ms-flex;
-        display: -o-flex;
-        display: flex;
         height: 100% !important;
-        flex-flow: column;
-        // min-height: 100vh !important;
+        min-height: 100vh;
+        top: 0;
+        left: 0;
+        position: fixed;
+        width: 100vw;
+        z-index: 4;
+        overflow-y: auto;
 
-        .CodeMirror {
-            // min-height: 100vh !important;
+        &--toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
         }
     }
 }

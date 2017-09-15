@@ -27,6 +27,16 @@ trait LibraryMutator
     }
 
     /**
+     * Gets the icon of the mimetype of the library resource.
+     *
+     * @return string
+     */
+    public function getIconAttribute()
+    {
+        return $this->guessIconFromMimeType($this->mime);
+    }
+
+    /**
      * Guess the thumbnail of the library entry.
      *
      * @param  string $mime
@@ -40,11 +50,12 @@ trait LibraryMutator
                 case 'application/zip':
                 case 'application/rar':
                     $archivePath = settings('library.extracted_files_path', 'public/archives');
-                    $archive = storage_path("$archivePath/$this->name");
+                    $archive = storage_path("$archivePath/$this->filename");
                     if (file_exists("$archive/thumbnail.png")) {
-                        $url = url("storage/$archivePath/$this->name/thumbnail.png");
+                        $url = url("storage/$archivePath/$this->filename/thumbnail.png");
                     } else {
-                        $url = "http://icons.iconarchive.com/icons/igh0zt/ios7-style-metro-ui/512/MetroUI-Other-ZIP-Archive-icon.png";
+                        // Brownish Monokai
+                        $url = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEUhHRr////O/a2GAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==";
                     }
                     break;
 
@@ -56,5 +67,22 @@ trait LibraryMutator
         }
 
         return $url;
+    }
+
+    /**
+     * Guess the icon of the library entry.
+     *
+     * @param  string $mime
+     * @return string
+     */
+    protected function guessIconFromMimeType($mime)
+    {
+        // $icon = 'perm_media';
+        $icons = config('thumbnails.icons', []);
+        if (array_key_exists($mime, $icons)) {
+            $icon = $icons[$mime];
+        }
+
+        return $icon;
     }
 }

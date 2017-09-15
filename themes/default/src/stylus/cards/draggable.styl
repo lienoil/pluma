@@ -8,20 +8,19 @@
         width: 100%;
         min-height: 80px;
         background-color: rgba(0,0,0,0.01);
-        padding: 1rem;
-    }
 
-    // &-container .sortable-chosen {
-    //     transition: all 0.2s ease-in-out;
-    // }
+        .sortable-ghost {
+            opacity: 0.1 !important;
+        }
+
+        .sortable-fallback {
+            opacity: 1 !important;
+        }
+    }
 
     &-chosen {
         -webkit-user-drag: none;
-        // pointer-events: none;
-        background-color: $green.lighten-3;
+        background-color: rgba(255,255,255,0.05);
     }
 
-    &-ghost {
-        opacity: 0.5;
-    }
 }

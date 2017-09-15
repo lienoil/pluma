@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"Mediabox.css","sourceRoot":""}
+{"version":3,"sources":["webpack:///./src/Mediabox/Mediabox.vue"],"names":[],"mappings":"AACA,eACI,qCAAwC,CAE5C,uBACI,wBAA0B","file":"Mediabox.css","sourcesContent":["\n.mediabox-item {\n    transition: box-shadow 0.2s ease-in-out;\n}\n.mediabox-item--active {\n    border: 1px solid inherit;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/Mediabox/Mediabox.vue"],"sourceRoot":""}
