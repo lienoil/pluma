@@ -48,7 +48,7 @@
     @stack("css")
         {{-- compile this --}}
         @if (env('APP_ENV', 'production') == 'development')
-            <script src="{{ assets('frontier/vendors/vue/dist/vue.js') }}?v={{ $application->version }}"></script>
+            <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>
         @else
             <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>
         @endif

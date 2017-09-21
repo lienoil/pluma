@@ -15,7 +15,7 @@ class Library extends Model
 
     protected $with = [];
 
-    protected $appends = ['thumbnail', 'filesize', 'icon'];
+    protected $appends = ['filesize', 'icon', 'thumbnail'];
 
-    protected $searchables = ['url', 'name', 'created_at', 'updated_at'];
+    protected $searchables = ['url', 'name', 'mimetype', 'mime', 'created_at', 'updated_at'];
 }

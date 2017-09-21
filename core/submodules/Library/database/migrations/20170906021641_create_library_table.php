@@ -27,14 +27,15 @@ class CreateLibraryTable extends Migration
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
-            $table->text('originalname');
+            $table->string('name');
+            $table->string('originalname');
+            $table->string('filename')->unique()->nullable();
             $table->text('pathname')->nullable();
-            $table->text('url')->nullable();
-            $table->text('description')->nullable();
             $table->string('size')->nullable();
-            $table->string('mime')->nullable();
-            $table->string('type')->nullable();
+            $table->string('mimetype')->nullable();
+            $table->text('description')->nullable();
+            $table->text('thumbnail')->nullable();
+            $table->text('url')->nullable();
             $table->integer('catalogue_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

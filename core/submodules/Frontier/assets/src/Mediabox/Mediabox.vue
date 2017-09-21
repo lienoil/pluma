@@ -27,7 +27,6 @@
                                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                                 </v-list-tile-content>
                                 <v-list-tile-action>
-
                                     <span class="grey--text" v-html="item.count"></span>
                                 </v-list-tile-action>
                             </v-list-tile>
@@ -260,7 +259,7 @@
                 this.dialog.model = this.open;
                 console.log(this.open, this.dialog.model, val);
                 this.$emit('open', val);
-                this.$emit('input', !val);
+                this.$emit('input', val);
             },
 
             'dialog.model': function (val) {

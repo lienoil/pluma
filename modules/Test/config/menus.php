@@ -13,7 +13,7 @@ return [
         'order' => 500,
         'slug' => url(config('path.admin').'/tests'),
         'always_viewable' => false,
-        'icon' => 'fa-leaf',
+        'icon' => 'fa-flask',
         'labels' => [
             'title' => __('Tests'),
             'description' => __('Manage tests'),
