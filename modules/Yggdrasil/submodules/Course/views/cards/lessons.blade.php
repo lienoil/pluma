@@ -40,7 +40,8 @@
             <template v-if="!draggables.items.length">
                 <v-card-text role="button" v-tooltip:top="{'html': '{{ __('Add lesson') }}'}" class="text-xs-center grey--text my-5" @click="addSection(draggables.items)">
                     <v-icon x-large>fa-leaf</v-icon>
-                    <p class="text-xs-center ma-0">{{ __('no lessons planned yet') }}</p>
+                    <p v-if="resource.errors.lessons" class="caption error--text" v-html="resource.errors.lessons.join(', ')"></p>
+                    <p v-else class="subheading text-xs-center ma-0">{{ __('no lessons planned yet') }}</p>
                 </v-card-text>
             </template>
             <draggable v-if="draggables.items.length" class="sortable-container" v-model="draggables.items" :options="{animation: 150, handle: '.parent-handle', group: 'lessons', draggable: '.draggable-lesson', forceFallback: true}">
@@ -64,8 +65,8 @@
                         </v-toolbar>
 
                         {{-- lessons --}}
-                        <v-slide-y-transition>
-                            <v-card flat tile v-if="draggable.active">
+                        {{-- <v-scale-transition> --}}
+                            <v-card flat tile v-show="draggable.active" transition="slide-y-transition">
                                 <v-layout row wrap>
                                     <v-flex sm12>
                                         <v-card-text>
@@ -109,7 +110,7 @@
                                             </v-card-text>
                                         </template>
 
-                                        <draggable v-if="draggable.sections.length" class="sortable-container pa-1" v-model="draggable.sections" :options="{animation: 150, handle: '.sortable-handle', group: 'contents', draggable: '.draggable-child', forceFallback: true}">
+                                        <draggable v-show="draggable.sections && draggable.sections.length" class="sortable-container pa-1" v-model="draggable.sections" :options="{animation: 150, handle: '.sortable-handle', group: 'contents', draggable: '.draggable-child', forceFallback: true}">
                                             <transition-group>
                                                 <v-card
                                                     class="draggable-child mb-2 elevation-1"
@@ -129,8 +130,8 @@
                                                     </v-toolbar>
 
                                                     {{-- Content --}}
-                                                    <v-slide-y-transition>
-                                                        <div v-if="content.active">
+                                                    {{-- <v-slide-y-transition> --}}
+                                                        <div v-show="content.active" transition="slide-y-transition">
                                                             <v-card-text>
                                                                 <input type="hidden" :name="`lessons[${key}][contents][${c}][sort]`" :value="c">
                                                                 <v-text-field
@@ -151,8 +152,10 @@
 
                                                             {{-- Interactive Content --}}
                                                             <v-card-text class="grey lighten-4">
-                                                                <p class="subheading grey--text">{{ __('Interactive Content') }}</p>
-                                                                <template v-if="!content.resource.interactive">
+                                                                <p class="subheading grey--text" @click.stop="content.mediabox = !content.mediabox">{{ __('Interactive Content') }}</p>
+                                                                <input type="hidden" :name="`lessons[${key}][contents][${c}][interactive]`" :value="JSON.stringify(content.resource.interactive)">
+                                                                <input type="hidden" :name="`lessons[${key}][contents][${c}][library_id]`" :value="content.resource.interactive && content.resource.interactive.length ? content.resource.interactive[0].id : null">
+                                                                <template v-if="content.resource.interactive && !content.resource.interactive.length">
                                                                     <v-card-text
                                                                         class="grey lighten-3 text-xs-center grey--text py-5"
                                                                         ripple
@@ -163,75 +166,60 @@
                                                                     </v-card-text>
                                                                 </template>
                                                                 {{-- Preview --}}
-                                                                <v-fade-transition>
-                                                                    <v-card
-                                                                        class="elevation-1"
-                                                                        role="button"
-                                                                        transition="fade-transition"
-                                                                        v-if="content.resource.interactive"
-                                                                        @click.stop="content.mediabox = !content.mediabox">
-                                                                        <v-card-media :src="content.resource.interactive.thumbnail" height="230px">
+                                                                <v-scale-transition>
+                                                                    <v-card class="mt-3" v-show="content.resource.interactive.length" :key="i" v-for="(o, i) in content.resource.interactive" @click.stop="content.mediabox = true" role="button">
+                                                                        <v-card-media :src="o.thumbnail" height="250px">
                                                                             <v-container fill-height fluid class="pa-0 white--text">
-                                                                                <v-layout column>
-                                                                                    <v-card-actions>
-                                                                                        <v-card-title v-html="content.resource.interactive.name"></v-card-title>
-                                                                                        <v-spacer></v-spacer>
-                                                                                        <v-btn
-                                                                                            icon
-                                                                                            dark
-                                                                                            @click.stop="content.resource.interactive = null"><v-icon>close</v-icon>
-                                                                                        </v-btn>
-                                                                                    </v-card-actions>
+                                                                              <v-layout column>
+                                                                                <v-card-title class="subheading">
+                                                                                    <div v-html="o.name"></div>
                                                                                     <v-spacer></v-spacer>
-                                                                                    <v-card-actions>
-                                                                                        <v-icon left class="white--text" v-html="content.resource.interactive.icon"></v-icon>
-                                                                                        <span v-html="content.resource.interactive.mime"></span>
-                                                                                        <v-spacer></v-spacer>
-                                                                                        <span v-html="content.resource.interactive.filesize"></span>
-                                                                                        <input type="hidden" :name="`lessons[${key}][contents][${c}][library_id]`" :value="content.resource.interactive.id">
-                                                                                        <input type="hidden" :name="`lessons[${key}][contents][${c}][interactive]`" :value="JSON.stringify(content.resource.interactive)">
-                                                                                    </v-card-actions>
-                                                                                </v-layout>
+                                                                                    <v-btn dark icon @click.stop="content.resource.interactive = []"><v-icon>close</v-icon></v-btn>
+                                                                                </v-card-title>
+                                                                                <v-spacer></v-spacer>
+                                                                                <v-card-actions class="px-2 white--text">
+                                                                                    <v-icon class="white--text" v-html="o.icon"></v-icon>
+                                                                                    <v-spacer></v-spacer>
+                                                                                    <span v-html="o.mime"></span>
+                                                                                    <span v-html="o.filesize"></span>
+                                                                                </v-card-actions>
+                                                                              </v-layout>
                                                                             </v-container>
                                                                         </v-card-media>
                                                                     </v-card>
-                                                                </v-fade-transition>
+                                                                </v-scale-transition>
                                                                 {{-- /Preview --}}
                                                             </v-card-text>
                                                             <v-card-actions class="grey lighten-4">
                                                                 <v-spacer></v-spacer>
-                                                                <mediabox :toolbar-items="[
-                                                                        {code:'all', count:100,title:'All',icon:'perm_media', url: '{{ route('api.library.all') }}' },
-                                                                        {code:'albums', count:69,title:'Albums',icon:'album'},
-                                                                        {code:'collections', count:99,title:'Collections',icon:'collections'},
-                                                                    ]"
-                                                                    :open="content.mediabox"
-                                                                    url="{{ route('api.library.all') }}"
-                                                                    v-model="content.resource.interactive">
-                                                                    <template slot="item" scope="props">
-                                                                        <v-card-media :src="props.item.thumbnail" height="200px">
-                                                                            <v-container fill-height fluid class="pa-0 white--text">
-                                                                                <v-layout column>
-                                                                                    <v-slide-y-transition>
-                                                                                        <v-icon ripple class="display-4 pa-4 success--text" v-if="props.item.active">check</v-icon>
-                                                                                    </v-slide-y-transition>
-                                                                                    <v-card-title>@{{ props.item.originalname }}</v-card-title>
-                                                                                    <v-spacer></v-spacer>
-                                                                                    <v-card-actions>
-                                                                                        <v-icon class="white--text" v-html="props.item.icon"></v-icon>
+                                                                <v-mediabox search :multiple="false" close-on-click :categories="mediabox.catalogues" v-model="content.mediabox" :old="content.resource.interactive ? content.resource.interactive : []" @selected="value => { content.resource.interactive = value }">
+                                                                    <template slot="media" scope="props">
+                                                                        <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
+                                                                            {{-- <span v-html="props"></span> --}}
+                                                                            <v-card-media height="250px" :src="props.item.thumbnail">
+                                                                                <v-container fill-height class="pa-0 white--text">
+                                                                                    <v-layout fill-height wrap column>
+                                                                                        <v-card-title class="subheading" v-html="props.item.originalname"></v-card-title>
+                                                                                        <v-slide-y-transition>
+                                                                                            <v-icon ripple class="display-4 pa-1 text-xs-center white--text" v-show="props.item.active">check</v-icon>
+                                                                                        </v-slide-y-transition>
                                                                                         <v-spacer></v-spacer>
-                                                                                        <span>@{{ props.item.mime }}</span>
-                                                                                        <span>@{{ props.item.filesize }}</span>
-                                                                                    </v-card-actions>
-                                                                                </v-layout>
-                                                                            </v-container>
-                                                                        </v-card-media>
+                                                                                        <v-card-actions class="px-2 white--text">
+                                                                                            <v-icon class="white--text" v-html="props.item.icon"></v-icon>
+                                                                                            <v-spacer></v-spacer>
+                                                                                            <span v-html="props.item.mime"></span>
+                                                                                            <span v-html="props.item.filesize"></span>
+                                                                                        </v-card-actions>
+                                                                                    </v-layout>
+                                                                                </v-container>
+                                                                            </v-card-media>
+                                                                        </v-card>
                                                                     </template>
-                                                                </mediabox>
+                                                                </v-mediabox>
                                                             </v-card-actions>
                                                             {{-- Interactive Content --}}
                                                         </div>
-                                                    </v-slide-y-transition>
+                                                    {{-- </v-slide-y-transition> --}}
 
                                                 </v-card>
                                             </transition-group>
@@ -240,7 +228,7 @@
                                     </v-flex>
                                 </v-layout>
                             </v-card>
-                        </v-slide-y-transition>
+                        {{-- </v-scale-transition> --}}
                     </v-card>
                 </transition-group>
             </draggable>
@@ -248,23 +236,12 @@
     </v-card>
 </template>
 
-@push('css')
-    <link rel="stylesheet" href="{{ assets('frontier/dist/mediabox/Mediabox.css') }}">
-@endpush
-@php
-    echo "<pre>";
-        var_dump( old('lessons') );
-    echo "</pre>";
-@endphp
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
-    <script src="{{ assets('frontier/dist/mediabox/Mediabox.js') }}"></script>
+    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
     <script>
-        Vue.use(Mediabox);
-
         mixins.push({
-            components: { Mediabox },
             data () {
                 return {
                     lessons: {
@@ -283,6 +260,11 @@
                         items: [],
                         old: [],
                     },
+                    mediabox: {
+                        model: false,
+                        output: null,
+                        catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
+                    }
                 };
             },
 
@@ -332,11 +314,11 @@
                 },
 
                 updateSection (sections, values) {
-                    console.log(values);
+                    // console.log('Update',values);
                     sections.push({
                         id: values.id,
                         name: values.name,
-                        active: true,
+                        active: false,
                         resource: {
                             title: values.title,
                             code: values.code,
@@ -344,7 +326,7 @@
                                 html: values.body,
                                 delta: JSON.parse(values.delta),
                             },
-                            // interactive: null,
+                            interactive: values.interactive ? JSON.parse(values.interactive) : [],
                         },
                         mediabox: false,
                         sections: [],
@@ -371,6 +353,10 @@
                         }
                     }
                 },
+
+                getMediaboxOutput (content, value) {
+                    // console.log('GMO', content, value)
+                }
             },
 
             mounted () {

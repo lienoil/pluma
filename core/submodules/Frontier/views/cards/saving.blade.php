@@ -1,4 +1,4 @@
-<v-card class="mb-5 elevation-1">
+<v-card class="mb-3 elevation-1">
     <v-toolbar card class="transparent">
 
         @stack("cards.saving.pre-title")

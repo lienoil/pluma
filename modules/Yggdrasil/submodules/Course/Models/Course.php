@@ -11,7 +11,7 @@ class Course extends Model
 {
     use SoftDeletes, HasManyLessons, BelongsToUser;
 
-    protected $with = [];
+    protected $with = ['lessons', 'user'];
 
-    protected $searchables = ['title', 'code', 'slug', 'body', 'created_at', 'updated_at'];
+    protected $searchables = ['title', 'code', 'slug', 'feature', 'body', 'created_at', 'updated_at'];
 }

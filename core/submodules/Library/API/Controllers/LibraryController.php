@@ -186,4 +186,18 @@ class LibraryController extends APIController
     {
         return response()->json(Catalogue::get()->toArray());
     }
+
+    /**
+     * Get library entries from given catalogue's ID
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $catalogue_id
+     * @return \Illuminate\Http\Response
+     */
+    public function fromCatalogue(Request $request, $catalogue_id)
+    {
+        $catalogue = Catalogue::findOrFail($catalogue_id);
+
+        return response()->json($catalogue->libraries);
+    }
 }

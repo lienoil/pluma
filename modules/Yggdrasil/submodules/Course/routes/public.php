@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('courses', 'Course\Controllers\CourseController');
+// Route::get('courses', 'Course\Controllers\CourseController@index')->name('courses.index');

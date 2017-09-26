@@ -2,6 +2,7 @@
 
 namespace Course\Controllers;
 
+use Catalogue\Models\Catalogue;
 use Content\Models\Content;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
@@ -20,9 +21,9 @@ class CourseController extends AdminController
      */
     public function index(Request $request)
     {
-        //
+        $courses = Course::all();
 
-        return view("Theme::courses.index");
+        return view("Theme::courses.index")->with(compact('courses'));
     }
 
     /**
@@ -46,9 +47,9 @@ class CourseController extends AdminController
      */
     public function create()
     {
-        //
+        $catalogues = Catalogue::mediabox();
 
-        return view("Theme::courses.create");
+        return view("Theme::courses.create")->with(compact('catalogues'));
     }
 
     /**
@@ -59,9 +60,6 @@ class CourseController extends AdminController
      */
     public function store(CourseRequest $request)
     {
-        echo "<pre>";
-        dd($request->all());
-
         $course = new Course();
         $course->title = $request->input('title');
         $course->slug = $request->input('slug');
@@ -70,14 +68,14 @@ class CourseController extends AdminController
         $course->body = $request->input('body');
         $course->delta = $request->input('delta');
         $course->user()->associate(user());
-
         $course->save();
+
         collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
             $lesson = new Lesson();
             $lesson->sort = $input->sort;
             $lesson->title = $input->title;
-            // $lesson->body = $input->body;
-            // $lesson->delta = $input->delta;
+            $lesson->body = $input->body;
+            $lesson->delta = $input->delta;
             $lesson->course()->associate($course);
             $lesson->save();
 
@@ -86,15 +84,14 @@ class CourseController extends AdminController
                     $content = new Content();
                     $content->sort = $input->sort;
                     $content->title = $input->title;
-                    // $content->body = $input->body;
-                    // $content->delta = $input->delta;
+                    $content->body = $input->body;
+                    $content->delta = $input->delta;
                     // $content->attachment = $input->attachment;
-                    $content->library()->save(Library::find($input->library_id)->first());
                     $content->lesson()->associate($lesson);
+                    $content->library()->associate(Library::find($input->library_id));
                     $content->save();
                 }
             }
-
         });
 
         return back();

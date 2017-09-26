@@ -11,13 +11,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum cupiditate tenetur ut dolorum soluta sit pariatur cum repellat velit officiis, nobis, maiores, quo asperiores id ipsa. Laudantium quas in quae.</p>
                     </v-card-text>
                     <v-btn @click="mediabox.model = true">Mediabox</v-btn>
-                    <v-mediabox search :multiple="false" close-on-click v-model="mediabox.model" :categories="[{
-                      icon: 'perm_media',
-                      name: 'All',
-                      count: '4',
-                      code: 'perm_media',
-                      url: '{{ route('api.library.all') }}',
-                    }]" v-model="mediabox.model" :selected="mediabox.output" @selected="getOutput">
+                    <v-mediabox search :multiple="false" close-on-click v-model="mediabox.model" :categories="catalogues" v-model="mediabox.model" :selected="mediabox.output" @selected="getOutput">
                         <template slot="media" scope="props">
                             <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
                                 {{-- <span v-html="props"></span> --}}
@@ -80,6 +74,7 @@
         mixins.push({
             data () {
                 return {
+                    catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
                     mediabox: {
                         model: false,
                         output: []
@@ -90,6 +85,19 @@
                 getOutput (value) {
                     this.mediabox.output = value;
                 }
+            },
+            watch: {
+                'catalogues': function (val) {
+                    //
+                },
+                'mediabox.output': function (val) {
+                    console.log("OUTPUR", val);
+                }
+            },
+
+            mounted () {
+                this.catalogues = JSON.parse(JSON.stringify({!! json_encode($catalogues) !!}));
+                console.log(this.catalogues);
             }
         })
     </script>

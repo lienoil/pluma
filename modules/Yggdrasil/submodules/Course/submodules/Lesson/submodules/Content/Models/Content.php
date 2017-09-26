@@ -3,14 +3,14 @@
 namespace Content\Models;
 
 use Lesson\Support\Traits\BelongsToLesson;
-use Library\Support\Traits\HasOneLibrary;
+use Library\Support\Traits\BelongsToLibrary;
 use Pluma\Models\Model;
 
 class Content extends Model
 {
-    use BelongsToLesson, HasOneLibrary;
+    use BelongsToLesson, BelongsToLibrary;
 
-    protected $with = [];
+    protected $with = ['library', 'lesson'];
 
     protected $searchables = ['created_at', 'updated_at'];
 }

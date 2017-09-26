@@ -53,6 +53,7 @@ class CourseRequest extends FormRequest
             'title' => 'required|max:255',
             'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
             'slug' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
+            'lessons' => 'required',
         ];
     }
 

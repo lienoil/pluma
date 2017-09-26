@@ -2,8 +2,11 @@
 
 namespace Test\Controllers;
 
+use Catalogue\Models\Catalogue;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Library\Models\Library;
 use Test\Models\Test;
 use Test\Requests\TestRequest;
 
@@ -17,9 +20,24 @@ class TestController extends AdminController
      */
     public function index(Request $request)
     {
-        //
+        $catalogues = Catalogue::all();
+        $array[] = array(
+            'count' => Library::count(),
+            'name' => 'All',
+            'icon' => 'perm_media',
+            'url' => route('api.library.all')
+        );
 
-        return view("Theme::tests.index");
+        foreach ($catalogues as $i => $catalogue) {
+            $array[$i+1]['count'] = $catalogue->libraries->count();
+            $array[$i+1]['name'] = $catalogue->name;
+            $array[$i+1]['url'] = route('api.library.catalogue', [$catalogue->id]);
+            $array[$i+1]['icon'] = $catalogue->icon;
+        }
+
+        $catalogues = $array;
+
+        return view("Theme::tests.index")->with(compact('catalogues'));
     }
 
     /**

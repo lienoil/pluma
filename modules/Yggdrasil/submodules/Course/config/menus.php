@@ -11,7 +11,7 @@ return [
     'course' => [
         'name' => 'course',
         'order' => 51,
-        'slug' => url(config('path.admin').'/courses'),
+        'slug' => url('courses'),
         'always_viewable' => false,
         'icon' => 'fa-book',
         'labels' => [
@@ -22,7 +22,7 @@ return [
             'view-course' => [
                 'name' => 'view-course',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/courses'),
+                'slug' => url('courses'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Courses'),

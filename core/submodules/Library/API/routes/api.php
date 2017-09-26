@@ -6,6 +6,7 @@ Route::get('library/all', 'Library\API\Controllers\LibraryController@all')->name
 Route::get('library/search', 'Library\API\Controllers\LibraryController@search')->name('library.search');
 Route::get('library/trash/all', 'Library\API\Controllers\LibraryController@getTrash')->name('library.trash.all');
 Route::get('library/catalogues', 'Library\API\Controllers\LibraryController@catalogues')->name('library.catalogues');
+Route::get('library/catalogue/{catalogue}', 'Library\API\Controllers\LibraryController@fromCatalogue')->name('library.catalogue');
 Route::post('library/{library}/clone', 'Library\API\Controllers\LibraryController@clone')->name('library.clone');
 Route::post('library/upload', 'Library\API\Controllers\LibraryController@upload')->name('library.upload');
 Route::post('library/{library}/restore', 'Library\API\Controllers\LibraryController@restore')->name('library.restore');

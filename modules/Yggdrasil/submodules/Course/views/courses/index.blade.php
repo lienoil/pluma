@@ -1,56 +1,211 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
+    <v-toolbar dark class="mb-3 elevation-1 info sticky">
+        <v-menu transition="slide-y-transition">
+            <v-btn flat slot="activator" class="white--text">
+                <v-icon left>perm_media</v-icon>
+                <span>All</span>
+                <v-icon right>arrow_drop_down</v-icon>
+            </v-btn>
+            {{-- <v-card>
+                <v-list>
+                    <v-list-tile v-for="(item, i) in toolbar.items.category.items" :key="i" @click="toolbarbox().category().select(item)">
+                        <v-list-tile-action>
+                            <v-icon left v-html="item.icon"></v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action v-if="item.count">
+                            <span class="grey--text" v-html="item.count"></span>
+                        </v-list-tile-action>
+                    </v-list-tile>
+                </v-list>
+            </v-card> --}}
+        </v-menu>
+
+        <v-spacer></v-spacer>
+        <template>
+            <v-text-field
+                :append-icon-cb="() => {bulk.searchform.model = !bulk.searchform.model}"
+                :prefix="bulk.searchform.prefix"
+                :prepend-icon="bulk.searchform.prepend"
+                append-icon="search"
+                light solo hide-details single-line
+                placeholder="Search"
+                v-model="bulk.searchform.query"
+                v-show="bulk.searchform.model"
+            ></v-text-field>
+            <v-btn v-show="!bulk.searchform.model" icon v-tooltip:left="{html:'{{ __('Search') }}'}" @click.stop="bulk.searchform.model = !bulk.searchform.model"><v-icon>search</v-icon></v-btn>
+        </template>
+        <v-btn icon v-tooltip:left="{html:'{{ __('Sort') }}'}"><v-icon>sort</v-icon></v-btn>
+        <v-btn icon v-tooltip:left="{html:bulk.gridlist.model?'{{ __('Grid View') }}':'{{ __('List View') }}'}" @click.stop="bulk.gridlist.model = !bulk.gridlist.model"><v-icon v-html="bulk.gridlist.model?'apps':'list'"></v-icon></v-btn>
+        <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
+    </v-toolbar>
     <v-container fluid grid-list-lg>
-        <v-tabs light scrollable="false">
-            <v-tabs-bar slot="activators" class="white">
-                <v-tabs-slider class="primary"></v-tabs-slider>
-                <v-tabs-item
-                    href="#tab-all-courses"
-                    ripple
-                    class="proper-case"
-                >
-                    {{ __('All Courses') }}
-                </v-tabs-item>
-                <v-tabs-item
-                    href="#tab-my-courses"
-                    ripple
-                    class="proper-case"
-                >
-                    {{ __('My Courses') }}
-                </v-tabs-item>
-                <v-tabs-item
-                    href="#tab-previous-courses"
-                    ripple
-                    class="proper-case"
-                >
-                    {{ __('Previous') }}
-                </v-tabs-item>
-            </v-tabs-bar>
-            <v-tabs-content id="tab-all-courses">
-                <v-container fluid>
-                    <v-layout row wrap>
-                        <v-flex>
-                            {{--  --}}
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-tabs-content>
-            <v-tabs-content id="tab-my-courses">My Lorem ipsum dolor.</v-tabs-content>
-        </v-tabs>
+        <v-layout row wrap>
+
+            <template v-if="bulk.gridlist.model">
+                <v-flex
+                    md4
+                    v-for="(card, i) in dataset.items"
+                    :key="card.id">
+                    <v-card class="elevation-1">
+                        <v-card-media :src="card.feature" height="250px">
+                            <v-container fill-height fluid class="pa-0 white--text">
+                                <v-layout column>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn dark icon><v-icon>more_vert</v-icon></v-btn>
+                                    </v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-card-actions>
+                                        {{-- If Bookmarked --}}
+                                        <v-avatar v-if="true" small v-tooltip:right="{html:'{{ __('Bookmarked') }}'}"><v-icon class="red--text">fa-bookmark</v-icon></v-avatar>
+                                        {{-- /If Bookmarked --}}
+                                        <v-spacer></v-spacer>
+                                        {{-- If Enrolled --}}
+                                        <v-chip class="ml-0" v-if="true">
+                                            <v-avatar class="success"><v-icon class="white--text">check</v-icon></v-avatar>
+                                            <strong class="success--text">Enrolled</strong>
+                                        </v-chip>
+                                        {{-- /If Enrolled --}}
+                                    </v-card-actions>
+                                </v-layout>
+                            </v-container>
+                        </v-card-media>
+
+                        <v-card-title primary-title class="pb-0">
+                            <a href="" class="title td-n accent--text" v-html="card.title"></a>
+                        </v-card-title>
+                        <v-card-text class="grey--text">
+                            <small class="caption"><v-icon left small>class</v-icon><span v-html="card.code"></span></small>
+                            {{-- <span>|</span> --}}
+                            <small class="caption"><v-icon left small>fa-leaf</v-icon>&nbsp;<span v-html="`${card.lessons.length} Lessons`"></span></small>
+                            {{-- <span>|</span> --}}
+                            <small class="caption"><v-icon left small>label</v-icon><span>Supervisory</span></small>
+                        </v-card-text>
+
+                        <v-card-text class="grey--text" v-html="card.excerpt"></v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn flat primary>{{ __('View Details') }}</v-btn>
+                            {{-- <v-btn flat primary>{{ __('Resume') }}</v-btn> --}}
+                        </v-card-actions>
+                    </v-card>
+                </v-flex>
+            </template>
+
+            <template v-else>
+                <v-flex
+                    xs12
+                    v-for="(card, i) in dataset.items"
+                    :key="card.id">
+                    <v-card class="mb-3">
+                        <v-layout row>
+                            <v-flex sm3 class="pa-0">
+                                <v-card-media :src="card.feature" height="100%"></v-card-media>
+                            </v-flex>
+                            <v-flex sm9 class="pa-0">
+                                <v-card flat>
+                                    <v-layout column wrap>
+                                        <v-card-title primary-title>
+                                            <a href="" class="title td-n pb-0" v-html="card.title"></a>
+                                            <v-spacer></v-spacer>
+                                            <v-btn icon><v-icon>more_vert</v-icon></v-btn>
+                                        </v-card-title>
+                                        <v-card-text>
+                                            <v-icon left>fa-tags</v-icon><strong class="grey--text mt-2" v-html="card.code"></strong>
+                                            <small class="grey--text caption" v-html="`${card.lessons.length} Lessons`"></small>
+                                        </v-card-text>
+
+                                        <v-card-text class="grey--text" v-html="card.excerpt"></v-card-text>
+
+                                        <v-spacer></v-spacer>
+
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn flat primary>{{ __('Resume') }}</v-btn>
+                                        </v-card-actions>
+                                    </v-layout>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
+                    </v-card>
+                </v-flex>
+            </template>
+
+        </v-layout>
     </v-container>
-    {{-- <v-container fluid>
-
-        @include("Theme::partials.banner")
-
-        <v-tabs-content id="tab-all-courses">
-            <v-container fluid>
-                <v-layout row wrap>
-                    <v-flex xs12>
-                        asd
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </v-tabs-content>
-    </v-container> --}}
 @endsection
+
+@push('pre-scripts')
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script>
+        Vue.use(VueResource);
+
+        mixins.push({
+            data () {
+                return {
+                    bulk: {
+                        destroy: {
+                            model: false,
+                        },
+                        gridlist: {
+                            model: true,
+                        },
+                        searchform: {
+                            model: false,
+                        },
+                    },
+                    dataset: {
+                        headers: [
+                            { text: '{{ __("ID") }}', align: 'left', value: 'id' },
+                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                            { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
+                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
+                            { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
+                            { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
+                        ],
+                        items: [],
+                        loading: true,
+                        pagination: {
+                            rowsPerPage: 10,
+                            totalItems: 0,
+                            page: 1,
+                        },
+                        searchform: {
+                            model: false,
+                            query: '',
+                        },
+                        selected: [],
+                        totalItems: 0,
+                    },
+                }
+            },
+            methods: {
+                get () {
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending ? descending : null,
+                        page: page,
+                        sort: sortBy ? sortBy : null,
+                        take: rowsPerPage,
+                    };
+                    this.api().get('{{ route('api.courses.all') }}', query)
+                        .then((data) => {
+                            this.dataset.items = data.items.data ? data.items.data : data.items;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.loading = false;
+                        });
+                },
+            },
+
+            mounted () {
+                this.get();
+            },
+        })
+    </script>
+@endpush

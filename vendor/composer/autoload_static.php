@@ -316,6 +316,11 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     );
 
     public static $classMap = array (
+        'Assignment\\Controllers\\AssignmentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/Controllers/AssignmentController.php',
+        'Assignment\\Models\\Assignment' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/Models/Assignment.php',
+        'Assignment\\Observers\\AssignmentObserver' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/Observers/AssignmentObserver.php',
+        'Assignment\\Providers\\AssignmentServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/Providers/AssignmentServiceProvider.php',
+        'Assignment\\Requests\\AssignmentRequest' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/Requests/AssignmentRequest.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeCommandCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeCommandCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeControllerCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeControllerCommand.php',
         'Blacksmith\\Console\\Commands\\Furnace\\ForgeModelCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Furnace/ForgeModelCommand.php',
@@ -364,6 +369,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Content\\Providers\\ContentServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Providers/ContentServiceProvider.php',
         'Content\\Requests\\ContentRequest' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Requests/ContentRequest.php',
         'Content\\Support\\Traits\\HasManyContents' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Support/Traits/HasManyContents.php',
+        'Course\\API\\Controllers\\CourseController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/API/Controllers/CourseController.php',
         'Course\\Controllers\\CourseController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/CourseController.php',
         'Course\\Models\\Course' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Models/Course.php',
         'Course\\Observers\\CourseObserver' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Observers/CourseObserver.php',
@@ -1079,6 +1085,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Library\\Providers\\LibraryServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Library/Providers/LibraryServiceProvider.php',
         'Library\\Requests\\LibraryRequest' => __DIR__ . '/../..' . '/core/submodules/Library/Requests/LibraryRequest.php',
         'Library\\Support\\Mutators\\LibraryMutator' => __DIR__ . '/../..' . '/core/submodules/Library/Support/Mutators/LibraryMutator.php',
+        'Library\\Support\\Traits\\BelongsToLibrary' => __DIR__ . '/../..' . '/core/submodules/Library/Support/Traits/BelongsToLibrary.php',
         'Library\\Support\\Traits\\HasOneLibrary' => __DIR__ . '/../..' . '/core/submodules/Library/Support/Traits/HasOneLibrary.php',
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
         'Monolog\\Formatter\\ChromePHPFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
