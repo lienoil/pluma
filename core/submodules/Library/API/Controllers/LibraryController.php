@@ -164,7 +164,8 @@ class LibraryController extends APIController
             $library->name = $fileName;
             $library->originalname = $originalName;
             $library->pathname = $fullFilePath;
-            $library->mime = $file->getClientMimeType();
+            $library->mimetype = $file->getClientMimeType();
+            $library->thumbnail = settings('library.storage_path', 'public/library') . "/$date/$fileName";
             $library->size = $file->getClientSize();
             $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
             // $library->catalogue()->save($request->input('catalogue_id'));

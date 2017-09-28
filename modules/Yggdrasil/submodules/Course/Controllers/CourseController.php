@@ -2,7 +2,9 @@
 
 namespace Course\Controllers;
 
+use Assignment\Models\Assignment;
 use Catalogue\Models\Catalogue;
+use Category\Models\Category;
 use Content\Models\Content;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
@@ -48,8 +50,9 @@ class CourseController extends AdminController
     public function create()
     {
         $catalogues = Catalogue::mediabox();
+        $categories = Category::all();
 
-        return view("Theme::courses.create")->with(compact('catalogues'));
+        return view("Theme::courses.create")->with(compact('catalogues', 'categories'));
     }
 
     /**
@@ -60,6 +63,9 @@ class CourseController extends AdminController
      */
     public function store(CourseRequest $request)
     {
+        echo "<pre>";
+            var_dump( $request->all() ); die();
+        echo "</pre>";
         $course = new Course();
         $course->title = $request->input('title');
         $course->slug = $request->input('slug');
@@ -67,9 +73,11 @@ class CourseController extends AdminController
         $course->feature = $request->input('feature');
         $course->body = $request->input('body');
         $course->delta = $request->input('delta');
+        $course->category()->associate(Category::find($request->input('category_id')));
         $course->user()->associate(user());
         $course->save();
 
+        // Lessons
         collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
             $lesson = new Lesson();
             $lesson->sort = $input->sort;
@@ -77,8 +85,10 @@ class CourseController extends AdminController
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;
             $lesson->course()->associate($course);
+            $lesson->assignment()->associate(Assignment::find($input->assignment_id));
             $lesson->save();
 
+            // Contents
             if (isset($input->contents)) {
                 foreach ($input->contents as $input) {
                     $content = new Content();

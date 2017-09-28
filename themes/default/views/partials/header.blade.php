@@ -58,5 +58,6 @@
 
     @stack("post-css")
 </head>
-<body>
+<body class="with-backdrop">
     @include("Theme::warnings.general")
+    @include("Theme::partials.backdrop")

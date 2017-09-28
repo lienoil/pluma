@@ -11,5 +11,5 @@ class Category extends Model
 
     protected $with = [];
 
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $searchables = ['name', 'alias', 'code', 'description', 'icon', 'created_at', 'updated_at'];
 }

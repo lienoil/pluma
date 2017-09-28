@@ -11,5 +11,5 @@ class Assignment extends Model
 
     protected $with = [];
 
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $searchables = ['title', 'code', 'description', 'created_at', 'updated_at'];
 }

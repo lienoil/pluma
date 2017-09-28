@@ -13,7 +13,7 @@ trait LibraryMutator
      */
     public function getThumbnailAttribute()
     {
-        return $this->guessThumbnailFromMimeType($this->mime, $this->url);
+        return $this->guessThumbnailFromMimeType($this->mimetype, $this->url);
     }
 
     /**
@@ -33,7 +33,7 @@ trait LibraryMutator
      */
     public function getIconAttribute()
     {
-        return $this->guessIconFromMimeType($this->mime);
+        return $this->guessIconFromMimeType($this->mimetype);
     }
 
     /**

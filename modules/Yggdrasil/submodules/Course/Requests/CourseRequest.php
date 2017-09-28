@@ -54,6 +54,12 @@ class CourseRequest extends FormRequest
             'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
             'slug' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
             'lessons' => 'required',
+            'lessons.*.assignment.title' => 'required',
+            'lessons.*.assignment.code' => 'required|unique:assignments'.$isUpdating,
+            'lessons.*.title' => 'required',
+            'lessons.*.contents' => 'required',
+            'lessons.*.contents.*.title' => 'required',
+            'lessons.*.contents.*.library_id' => 'required',
         ];
     }
 
@@ -66,6 +72,13 @@ class CourseRequest extends FormRequest
     {
         return [
             'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
+            'lessons.*.assignment.title.required' => 'The Assignment Title field is required.',
+            'lessons.*.assignment.code.required' => 'The Assignment Code field is required.',
+            'lessons.*.assignment.code.unique' => 'The Assignment Code field must be unique.',
+            'lessons.*.title.required' => 'The Lesson Title field is required.',
+            'lessons.*.contents.required' => 'Atleast one content field is required.',
+            'lessons.*.contents.*.library_id.required' => 'The Interactive Content field is required.',
+            'lessons.*.contents.*.title.required' => 'The Content Title field is required.',
         ];
     }
 }
