@@ -21,7 +21,7 @@
         <v-text-field
             :error-messages="resource.errors[`lessons.${key}.assignment.code`]"
             :name="`lessons[${key}][assignment][code]`"
-            :value="draggable.resource.assignment.title | slugify"
+            :value="draggable.resource.assignment.title ? draggable.resource.assignment.title : ''"
             label="{{ __('Assignment Code') }}"
         ></v-text-field>
         {{-- /Code --}}
@@ -29,8 +29,8 @@
         {{-- Body / Delta --}}
         <quill v-model="draggable.resource.assignment.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
             <template>
-                <input type="hidden" :name="`lessons[${key}][assignment][body]`" :value="draggable.resource.assignment.quill.html">
-                <input type="hidden" :name="`lessons[${key}][assignment][delta]`" :value="JSON.stringify(draggable.resource.assignment.quill.delta)">
+                <input type="hidden" :name="`lessons[${key}][assignment][body]`" :value="draggable.resource.assignment.quill?draggable.resource.assignment.quill.html:''">
+                <input type="hidden" :name="`lessons[${key}][assignment][delta]`" :value="draggable.resource.assignment.quill?JSON.stringify(draggable.resource.assignment.quill.delta):''">
             </template>
         </quill>
         {{-- /Body / Delta --}}

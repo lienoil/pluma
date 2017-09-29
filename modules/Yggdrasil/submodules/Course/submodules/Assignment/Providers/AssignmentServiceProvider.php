@@ -12,7 +12,7 @@ class AssignmentServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observables = [
-        [\Assignment\Models\Assignment::class, '\Assignment\Observers\AssignmentObserver'],
+        //
     ];
 
     /**

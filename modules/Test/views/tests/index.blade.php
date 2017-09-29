@@ -5,64 +5,74 @@
         @include("Theme::partials.banner")
         <v-layout row wrap>
             <v-flex sm12>
+                <v-tabs dark v-model="tab">
+                  <v-tabs-bar class="accent white--text">
+                    <v-tabs-item
+                      v-for="tab in 5"
+                      :key="`tab-${tab}`"
+                      :href="'#tab-' + tab"
+                      ripple
+                    >
+                      Item @{{ tab }}
+                    </v-tabs-item>
+                    <v-tabs-slider class="primary"></v-tabs-slider>
+                  </v-tabs-bar>
+                  <v-tabs-items>
+                    <v-tabs-content
+                      v-for="tab in 5"
+                      :key="`tab-${tab}`"
+                      :id="`tab-${tab}`"
+                    >
+                      <v-card flat>
+                        <v-card-text>lorem @{{ tab }}</v-card-text>
+                      </v-card>
+                    </v-tabs-content>
+                  </v-tabs-items>
+                </v-tabs>
+
+                <v-divider></v-divider>
+
                 <v-card class="elevation-1">
                     <v-card-title class="headline">Test Module</v-card-title>
                     <v-card-text>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum cupiditate tenetur ut dolorum soluta sit pariatur cum repellat velit officiis, nobis, maiores, quo asperiores id ipsa. Laudantium quas in quae.</p>
                     </v-card-text>
                     <v-btn @click="mediabox.model = true">Mediabox</v-btn>
-                    <v-mediabox search :multiple="false" close-on-click v-model="mediabox.model" :categories="catalogues" v-model="mediabox.model" :selected="mediabox.output" @selected="getOutput">
-                        <template slot="media" scope="props">
-                            <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
-                                {{-- <span v-html="props"></span> --}}
-                                <v-card-media height="250px" :src="props.item.thumbnail">
-                                    <v-container fill-height class="pa-0 white--text">
-                                        <v-layout fill-height wrap column>
-                                            <v-card-title class="subheading" v-html="props.item.originalname"></v-card-title>
-                                            <v-slide-y-transition>
-                                                <v-icon ripple class="display-4 pa-1 text-xs-center white--text" v-show="props.item.active">check</v-icon>
-                                            </v-slide-y-transition>
-                                            <v-spacer></v-spacer>
-                                            <v-card-actions class="px-2 white--text">
-                                                <v-icon class="white--text" v-html="props.item.icon"></v-icon>
-                                                <v-spacer></v-spacer>
-                                                <span v-html="props.item.mime"></span>
-                                                <span v-html="props.item.filesize"></span>
-                                            </v-card-actions>
-                                        </v-layout>
-                                    </v-container>
-                                </v-card-media>
-                            </v-card>
-                        </template>
-                    </v-mediabox>
-                </v-card>
 
-                {{-- <v-span v-html="mediabox.output"></v-span> --}}
-                <v-scale-transition>
-                    <v-card class="mt-3" v-show="mediabox.output.length" :key="i" v-for="(o, i) in mediabox.output" @click.stop="mediabox.model = true" role="button">
-                        <v-card-media :src="o.thumbnail" height="250px">
-                            <v-container fill-height fluid class="pa-0 white--text">
-                              <v-layout column>
-                                <v-card-title class="subheading">
-                                    <div v-html="o.originalname"></div>
-                                    <v-spacer></v-spacer>
-                                    <v-btn dark icon @click.stop="mediabox.output = []"><v-icon>close</v-icon></v-btn>
-                                </v-card-title>
-                                <v-spacer></v-spacer>
-                                <v-card-actions class="px-2 white--text">
-                                  <v-icon class="white--text" v-html="o.icon"></v-icon>
-                                  <v-spacer></v-spacer>
-                                  <span v-html="o.mime"></span>
-                                  <span v-html="o.filesize"></span>
-                                </v-card-actions>
-                              </v-layout>
-                            </v-container>
-                        </v-card-media>
-                    </v-card>
-                </v-scale-transition>
+                    <v-stepper v-model="e6" vertical class="elevation-0">
+                        <v-divider></v-divider>
+                        <v-stepper-step :editable="e6 > 1" step="1" complete>
+                            Introduction
+                        </v-stepper-step>
+                        <v-stepper-content step="1">
+                            <v-card-text>
+                                Short description for this section.
+                                <br>
+                                <v-btn v-if="e6 > 0" primary @click.native="e6 = 2">Start</v-btn>
+                            </v-card-text>
+                        </v-stepper-content>
+
+                        <v-stepper-step :editable="e6 > 2" step="2" v-bind:complete="e6 > 2">Introduction Video</v-stepper-step>
+                        <v-stepper-content step="2">
+                            <v-btn primary @click.native="e6 = 3">Start</v-btn>
+                        </v-stepper-content>
+
+                        <v-stepper-step :editable="e6 > 3" step="3" v-bind:complete="e6 > 3">Video</v-stepper-step>
+                        <v-stepper-content step="3">
+                            <v-btn primary @click.native="e6 = 4">Next</v-btn>
+                        </v-stepper-content>
+
+                        <v-stepper-step :editable="e6 > 4" step="4">Symptoms of Stress</v-stepper-step>
+                        <v-stepper-content step="4">
+                            <v-btn primary @click.native="e6 = 1">Next</v-btn>
+                        </v-stepper-content>
+                    </v-stepper>
+
+                </v-card>
             </v-flex>
         </v-layout>
     </v-container>
+
 @endsection
 
 @push('pre-scripts')
@@ -74,6 +84,8 @@
         mixins.push({
             data () {
                 return {
+                    tab: 2,
+                    e6: 1,
                     catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
                     mediabox: {
                         model: false,

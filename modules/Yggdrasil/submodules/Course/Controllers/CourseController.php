@@ -32,14 +32,14 @@ class CourseController extends AdminController
      * Display the specified resource.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  string  $code
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $code)
     {
-        //
+        $resource = Course::whereCode($code)->first();
 
-        return view("Theme::courses.show");
+        return view("Theme::courses.show")->with(compact('resource'));
     }
 
     /**
@@ -63,9 +63,6 @@ class CourseController extends AdminController
      */
     public function store(CourseRequest $request)
     {
-        echo "<pre>";
-            var_dump( $request->all() ); die();
-        echo "</pre>";
         $course = new Course();
         $course->title = $request->input('title');
         $course->slug = $request->input('slug');
@@ -85,7 +82,9 @@ class CourseController extends AdminController
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;
             $lesson->course()->associate($course);
-            $lesson->assignment()->associate(Assignment::find($input->assignment_id));
+            if (! empty($input->assignment->title)) {
+                $lesson->assignment()->associate(Assignment::create((array) $input->assignment));
+            }
             $lesson->save();
 
             // Contents

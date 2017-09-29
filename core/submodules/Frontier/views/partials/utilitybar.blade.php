@@ -40,17 +40,17 @@
         </v-menu> --}}
     @show
 
-    <v-text-field
+    {{-- <v-text-field
         class="elevation-0"
         solo
         prepend-icon="search"
-        {{-- append-icon="keyboard_voice" --}}
+        append-icon="keyboard_voice"
     >
 
-    </v-text-field>
+    </v-text-field> --}}
 
     <v-btn icon class="grey--text" @click.native.stop="rightsidebar.model = !rightsidebar.model">
-        <v-icon :dark.sync="dark" :light.sync="light">chevron_left</v-icon>
+        <v-icon :dark.sync="light" :light.sync="dark">chevron_left</v-icon>
     </v-btn icon>
 </v-toolbar>
 

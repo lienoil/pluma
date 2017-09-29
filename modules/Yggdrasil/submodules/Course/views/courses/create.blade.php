@@ -99,7 +99,7 @@
                             slug: '',
                             code: '',
                             body: '',
-                            feature: JSON.parse({!! json_encode(old('feature_obj')) !!}),
+                            feature: [JSON.parse('{!! old('feature_obj') ? old('feature_obj') : '[]' !!}')],
                             category: JSON.parse({!! json_encode(old('category')) !!}),
                         },
                         feature: {

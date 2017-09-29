@@ -12,7 +12,7 @@ class LessonServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observables = [
-        [\Lesson\Models\Lesson::class, '\Lesson\Observers\LessonObserver'],
+        //
     ];
 
     /**

@@ -32,10 +32,12 @@ class CreateAssignmentsTable extends Migration
             $table->text('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
-            $table->text('attachment')->nullable();
+            $table->integer('library_id')->unsigned()->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('library_id')->references('id')->on('library');
         });
     }
 

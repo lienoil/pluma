@@ -12,5 +12,17 @@ class Content extends Model
 
     protected $with = ['library', 'lesson'];
 
+    protected $append = ['completed'];
+
     protected $searchables = ['created_at', 'updated_at'];
+
+    public function getCompletedAttribute()
+    {
+        return 'true';
+    }
+
+    public function getCurrentAttribute()
+    {
+        return 2;
+    }
 }

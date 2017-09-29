@@ -1,36 +1,36 @@
 .sortable {
-    &-handle {
-        cursor: move;
+  &-handle {
+    cursor: move;
+  }
+
+  &-container {
+    display: block;
+    width: 100%;
+    min-height: 80px;
+    background-color: rgba(0,0,0,0.01);
+
+    .sortable-ghost {
+      opacity: 0.1 !important;
+    },
+
+    .sortable-ghost, sortable-drag {
+      -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                  supported by Chrome and Opera */
     }
 
-    &-container {
-        display: block;
-        width: 100%;
-        min-height: 80px;
-        background-color: rgba(0,0,0,0.01);
-
-        .sortable-ghost {
-            opacity: 0.1 !important;
-        },
-
-        .sortable-ghost, sortable-drag {
-            -webkit-touch-callout: none; /* iOS Safari */
-                -webkit-user-select: none; /* Safari */
-                 -khtml-user-select: none; /* Konqueror HTML */
-                   -moz-user-select: none; /* Firefox */
-                    -ms-user-select: none; /* Internet Explorer/Edge */
-                        user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-        }
-
-        .sortable-fallback {
-            opacity: 1 !important;
-        }
+    .sortable-fallback {
+      opacity: 1 !important;
     }
+  }
 
-    &-chosen {
-        -webkit-user-drag: none;
-        background-color: rgba(255,255,255,0.05);
-    }
+  &-chosen {
+    -webkit-user-drag: none;
+    background-color: rgba(255,255,255,0.05);
+  }
 
 }

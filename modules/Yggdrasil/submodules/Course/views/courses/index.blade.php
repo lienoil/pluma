@@ -8,21 +8,6 @@
                 <span>All</span>
                 <v-icon right>arrow_drop_down</v-icon>
             </v-btn>
-            {{-- <v-card>
-                <v-list>
-                    <v-list-tile v-for="(item, i) in toolbar.items.category.items" :key="i" @click="toolbarbox().category().select(item)">
-                        <v-list-tile-action>
-                            <v-icon left v-html="item.icon"></v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action v-if="item.count">
-                            <span class="grey--text" v-html="item.count"></span>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                </v-list>
-            </v-card> --}}
         </v-menu>
 
         <v-spacer></v-spacer>
@@ -90,8 +75,7 @@
                         <v-card-text class="grey--text" v-html="card.excerpt"></v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn flat primary>{{ __('View Details') }}</v-btn>
-                            {{-- <v-btn flat primary>{{ __('Resume') }}</v-btn> --}}
+                            <v-btn flat primary :href="route(urls.show, card.code)">{{ __('View Details') }}</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-flex>
@@ -158,6 +142,9 @@
                         searchform: {
                             model: false,
                         },
+                    },
+                    urls: {
+                        show: '{{ route('courses.show', 'null') }}'
                     },
                     dataset: {
                         headers: [

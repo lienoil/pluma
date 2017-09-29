@@ -12,7 +12,7 @@ class ContentServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observables = [
-        [\Content\Models\Content::class, '\Content\Observers\ContentObserver'],
+        //
     ];
 
     /**

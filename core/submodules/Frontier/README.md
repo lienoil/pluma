@@ -1,4 +1,2 @@
-## TODO: expand on the Frontier Readme
-
-# Special Thanks
-* Vue.Draggable
+## Pluma/Frontier
+Frontier Module for Pluma CMS

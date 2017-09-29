@@ -49,7 +49,7 @@
                     <v-spacer></v-spacer>
                     <v-btn dark icon @click.stop="resource.item.feature = null"><v-icon>close</v-icon></v-btn>
 
-                    <input type="hidden" name="feature_obj" :value="JSON.stringify(resource.item.feature?resource.item.feature:[])">
+                    <input type="hidden" name="feature_obj" :value="JSON.stringify(resource.item.feature)">
                     <input type="hidden" name="feature" :value="resource.item.feature ? resource.item.feature.thumbnail : ''">
                 </v-card-title>
             </v-layout>

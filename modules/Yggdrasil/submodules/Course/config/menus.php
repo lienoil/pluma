@@ -49,16 +49,17 @@ return [
                     'description' => __('View list of all courses moved to trash'),
                 ],
             ],
-            'course-category' => [
-                'name' => 'course-category',
-                'order' => 4,
-                'slug' => url(config('path.admin').'/courses/categories'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Course Categories'),
-                    'description' => __('View list of all course categories'),
-                ],
-            ],
+
+            // 'course-category' => [
+            //     'name' => 'course-category',
+            //     'order' => 4,
+            //     'slug' => url(config('path.admin').'/courses/categories'),
+            //     'always_viewable' => false,
+            //     'labels' => [
+            //         'title' => __('Course Categories'),
+            //         'description' => __('View list of all course categories'),
+            //     ],
+            // ],
         ],
     ],
 ];

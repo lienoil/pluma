@@ -82,8 +82,8 @@
                                         {{-- Quill --}}
                                         <quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
                                             <template>
-                                                <input type="hidden" :name="`lessons[${key}][body]`" :value="draggable.resource.quill.html">
-                                                <input type="hidden" :name="`lessons[${key}][delta]`" :value="JSON.stringify(draggable.resource.quill.delta)">
+                                                <input type="hidden" :name="`lessons[${key}][body]`" :value="draggable.resource.quill?draggable.resource.quill.html:''">
+                                                <input type="hidden" :name="`lessons[${key}][delta]`" :value="draggable.resource.quill?JSON.stringify(draggable.resource.quill.delta):''">
                                             </template>
                                         </quill>
                                         {{-- /Quill --}}
@@ -323,6 +323,7 @@
                         },
                         mediabox: false,
                         assignment: {
+                            add: false,
                             model: false,
                         },
                         sections: [],
@@ -331,7 +332,6 @@
                 },
 
                 updateSection (sections, values) {
-                    // console.log('Update',values);
                     sections.push({
                         id: values.id,
                         name: values.name,
@@ -344,15 +344,7 @@
                                 delta: JSON.parse(values.delta),
                             },
                             interactive: values.interactive ? JSON.parse(values.interactive) : [],
-                            assignment: {
-                                title: values.assignment.title,
-                                code: values.assignment.code,
-                                quill: {
-                                    html: values.assignment.body,
-                                    delta: values.assignment.delta?JSON.parse(values.assignment.delta):[],
-                                },
-                                attachment: values.assignment.attachment,
-                            }
+                            assignment: values.assignment,
                         },
                         mediabox: false,
                         assignment: {
@@ -368,6 +360,7 @@
 
                 old () {
                     let olds = {!! json_encode(old('lessons')) !!};
+                    console.log("OLD", olds);
                     if (olds) {
                         for (var i = 0; i < olds.length; i++) {
                             let current = olds[i];

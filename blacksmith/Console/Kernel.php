@@ -13,6 +13,7 @@ class Kernel extends BaseKernel
      */
     public $commands = [
         // Blacksmith
+        Commands\Furnace\EmptyTableCommand::class,
         Commands\Furnace\ForgeControllerCommand::class,
         Commands\Furnace\ForgeModelCommand::class,
         Commands\Furnace\ForgeModuleCommand::class,
