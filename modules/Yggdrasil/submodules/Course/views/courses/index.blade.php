@@ -28,10 +28,11 @@
         <v-btn icon v-tooltip:left="{html:bulk.gridlist.model?'{{ __('Grid View') }}':'{{ __('List View') }}'}" @click.stop="bulk.gridlist.model = !bulk.gridlist.model"><v-icon v-html="bulk.gridlist.model?'apps':'list'"></v-icon></v-btn>
         <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
     </v-toolbar>
+
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
 
-            <template v-if="bulk.gridlist.model">
+            <template>
                 <v-flex
                     md4
                     v-for="(card, i) in dataset.items"
@@ -64,6 +65,7 @@
                         <v-card-title primary-title class="pb-0">
                             <a href="" class="title td-n accent--text" v-html="card.title"></a>
                         </v-card-title>
+
                         <v-card-text class="grey--text">
                             <small class="caption"><v-icon left small>class</v-icon><span v-html="card.code"></span></small>
                             {{-- <span>|</span> --}}
@@ -73,49 +75,16 @@
                         </v-card-text>
 
                         <v-card-text class="grey--text" v-html="card.excerpt"></v-card-text>
+
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn flat primary :href="route(urls.show, card.code)">{{ __('View Details') }}</v-btn>
+
+                            @can('edit-course')
+                            <v-btn flat primary :href="route(urls.edit, card.id)"><v-icon left>edit</v-icon>{{ __('Edit') }}</v-btn>
+                            @endcan
+
+                            <v-btn flat primary :href="route(urls.show, card.slug)">{{ __('View Details') }}</v-btn>
                         </v-card-actions>
-                    </v-card>
-                </v-flex>
-            </template>
-
-            <template v-else>
-                <v-flex
-                    xs12
-                    v-for="(card, i) in dataset.items"
-                    :key="card.id">
-                    <v-card class="mb-3">
-                        <v-layout row>
-                            <v-flex sm3 class="pa-0">
-                                <v-card-media :src="card.feature" height="100%"></v-card-media>
-                            </v-flex>
-                            <v-flex sm9 class="pa-0">
-                                <v-card flat>
-                                    <v-layout column wrap>
-                                        <v-card-title primary-title>
-                                            <a href="" class="title td-n pb-0" v-html="card.title"></a>
-                                            <v-spacer></v-spacer>
-                                            <v-btn icon><v-icon>more_vert</v-icon></v-btn>
-                                        </v-card-title>
-                                        <v-card-text>
-                                            <v-icon left>fa-tags</v-icon><strong class="grey--text mt-2" v-html="card.code"></strong>
-                                            <small class="grey--text caption" v-html="`${card.lessons.length} Lessons`"></small>
-                                        </v-card-text>
-
-                                        <v-card-text class="grey--text" v-html="card.excerpt"></v-card-text>
-
-                                        <v-spacer></v-spacer>
-
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn flat primary>{{ __('Resume') }}</v-btn>
-                                        </v-card-actions>
-                                    </v-layout>
-                                </v-card>
-                            </v-flex>
-                        </v-layout>
                     </v-card>
                 </v-flex>
             </template>
@@ -144,7 +113,8 @@
                         },
                     },
                     urls: {
-                        show: '{{ route('courses.show', 'null') }}'
+                        show: '{{ route('courses.show', 'null') }}',
+                        edit: '{{ route('courses.edit', 'null') }}',
                     },
                     dataset: {
                         headers: [

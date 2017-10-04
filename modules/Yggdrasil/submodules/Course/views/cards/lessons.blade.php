@@ -80,12 +80,12 @@
                                         </v-card-text>
 
                                         {{-- Quill --}}
-                                        <quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                        <v-quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
                                             <template>
                                                 <input type="hidden" :name="`lessons[${key}][body]`" :value="draggable.resource.quill?draggable.resource.quill.html:''">
                                                 <input type="hidden" :name="`lessons[${key}][delta]`" :value="draggable.resource.quill?JSON.stringify(draggable.resource.quill.delta):''">
                                             </template>
-                                        </quill>
+                                        </v-quill>
                                         {{-- /Quill --}}
 
                                     </v-flex>
@@ -146,12 +146,12 @@
                                                                 </v-card-text>
 
                                                                 {{-- Quill --}}
-                                                                <quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                                                <v-quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
                                                                     <template>
                                                                         <input type="hidden" :name="`lessons[${key}][contents][${c}][body]`" :value="content.resource.quill.html">
                                                                         <input type="hidden" :name="`lessons[${key}][contents][${c}][delta]`" :value="JSON.stringify(content.resource.quill.delta)">
                                                                     </template>
-                                                                </quill>
+                                                                </v-quill>
                                                                 {{-- /Quill --}}
 
                                                                 {{-- Interactive Content --}}

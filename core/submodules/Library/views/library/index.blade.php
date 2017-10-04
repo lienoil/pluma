@@ -1,89 +1,93 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
+    <v-toolbar class="light-blue elevation-1" dark>
+        <v-menu :nudge-width="100">
+            <v-toolbar-title slot="activator">
+                <v-icon class="white--text pr-2" v-html="suppliments.catalogues.current.icon">view_module</v-icon>
+                <span v-html="suppliments.catalogues.current.name"></span>
+                <v-icon dark>arrow_drop_down</v-icon>
+            </v-toolbar-title>
+            <v-list>
+                <v-list-tile @click="supplimentary().select(item)" ripple v-for="(item, i) in suppliments.catalogues.items" :key="i">
+                    <v-list-tile-action>
+                        <v-icon accent v-html="item.icon"></v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title v-html="item.name"></v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                        <v-chip class="blue white--text" label v-html="item.libraries?item.libraries.length:item.count"></v-chip>
+                    </v-list-tile-action>
+                </v-list-tile>
+            </v-list>
+        </v-menu>
+
+        <v-spacer></v-spacer>
+        <v-btn icon v-tooltip:left="{ html: 'Search' }">
+            <v-icon>search</v-icon>
+        </v-btn>
+        <v-btn icon v-tooltip:left="{ html: 'Upload files' }" :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="setStorage('bulk.upload.model', (bulk.upload.model = !bulk.upload.model))">
+            <v-icon>fa-cloud-upload</v-icon>
+        </v-btn>
+        <v-btn icon v-tooltip:left="{ html: 'Sort' }">
+            <v-icon>sort</v-icon>
+        </v-btn>
+        <v-btn icon id="Button1" v-tooltip:left="{ html: 'Grid / List' }">
+            <v-icon>view_module</v-icon>
+        </v-btn>
+        <v-btn icon v-tooltip:left="{ html: 'Filter' }">
+            <v-icon>filter_list</v-icon>
+        </v-btn>
+        <v-menu bottom left>
+            <v-btn icon class="white--text" slot="activator" v-tooltip:bottom="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
+            <v-list>
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon accent class="blue--text">select_all</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>
+                            Select
+                        </v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon accent>mode_edit</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>
+                            Edit
+                        </v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon accent class="orange--text">delete</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>
+                            Move to Trash
+                        </v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
+        </v-menu>
+    </v-toolbar>
 
     <v-container fluid class="grey lighten-4" grid-list-lg>
-
-        <v-slide-y-transition>
-            <v-layout v-if="bulk.upload.model" row wrap>
-                <v-flex>
-                    @include("Theme::cards.upload")
-                </v-flex>
-            </v-layout>
-        </v-slide-y-transition>
-
         <v-layout fill-height row wrap>
-            <v-flex fill-height md3>
-                <v-list dense class="grey lighten-4">
-                    <v-subheader>{{ __('Catalogues') }}</v-subheader>
-
-                    <v-divider class="my-1"></v-divider>
-
-                    <v-list-tile href="{{ route('library.index') }}" :class="!suppliments.catalogues.current ? 'active--primary' : ''">
-                        <v-list-tile-action>
-                            <v-icon :class="!suppliments.catalogues.current ? 'white--text' : 'grey--text'">book</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content :class="!suppliments.catalogues.current ? 'white--text' : 'grey--text'">
-                            <v-list-tile-title>{{ __('All') }}</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <span class="grey--text">@{{ dataset.items.length }}</span>
-                        </v-list-tile-action>
-                    </v-list-tile>
-
-                    <v-divider class="my-1"></v-divider>
-
-                    <v-list-tile :href="route(urls.library.index, {catalogue: catalogue.id})" v-for="(catalogue, key) in suppliments.catalogues.items" :key="key" :class="catalogue.active ? 'active--primary' : ''">
-                        <v-list-tile-action>
-                            <v-icon :class="catalogue.active ? 'white--text' : 'grey--text'">@{{ catalogue.icon }}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content :class="catalogue.active ? 'white--text' : 'grey--text'">
-                            <v-list-tile-title>@{{ catalogue.name }}</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <span class="grey--text">@{{ catalogue.libraries.length }}</span>
-                        </v-list-tile-action>
-                    </v-list-tile>
-
-                    <div class="mt-2">
-                        <v-icon>add</v-icon>
-                        <a href="{{ route('catalogues.index') }}">
-                            <small>{{ __('Add new catalogue') }}</small>
-                        </a>
-                    </div>
-                </v-list>
+            <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
+                <v-card class="elevation-1">
+                    <v-toolbar card>
+                        <v-toolbar-title v-html=""></v-toolbar-title>
+                    </v-toolbar>
+                </v-card>
             </v-flex>
-
-            <v-flex md9>
-                <v-toolbar flat dense class="transparent">
-                    <v-spacer></v-spacer>
-                    <v-btn icon><v-icon>sort</v-icon></v-btn>
-                    <v-btn icon><v-icon>search</v-icon></v-btn>
-                    <v-btn icon :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="setStorage('bulk.upload.model', (bulk.upload.model = !bulk.upload.model))"><v-icon>fa-cloud-upload</v-icon></v-btn>
-                </v-toolbar>
-
-                <v-layout row wrap>
-                    <v-flex sm4 v-for="(dataset, key) in dataset.items" :key="key">
-                        <v-card tile class="elevation-1">
-                            <v-card-media height="250px" :src="dataset.thumbnail">
-                                <v-card-title class="subheading accent white--text" :href="dataset.thumbnail" v-html="dataset.originalname"></v-card-title>
-                                <v-card-actions dense class="transparent">
-                                    <v-spacer></v-spacer>
-                                    <span class="caption pa-1 pink white--text" v-html="dataset.mime"></span>
-                                    <span class="caption pa-1 blue white--text" v-html="dataset.filesize"></span>
-                                </v-card-actions>
-                            </v-card-media>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-
-            </v-flex>
-
         </v-layout>
     </v-container>
-
 @endsection
-
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
@@ -122,7 +126,7 @@
                     },
                     suppliments: {
                         catalogues: {
-                            current: null,
+                            current: {},
                             items: [],
                         }
                     },
@@ -155,19 +159,19 @@
                 },
 
                 mountSuppliments () {
-                    this.suppliments.catalogues.current = '{{ request()->getQueryString() }}';
+                    // this.suppliments.catalogues.current = '{{ request()->getQueryString() }}';
 
-                    this.api().get('{{ route('api.library.catalogues') }}')
-                        .then((data) => {
-                            console.log(data);
-                            this.suppliments.catalogues.items = data.items.data ? data.items.data : data.items;
-                            for (var i = this.suppliments.catalogues.items.length - 1; i >= 0; i--) {
-                                let current = this.suppliments.catalogues.items[i];
-                                if (current.id == this.suppliments.catalogues.current.split('=')[1]) {
-                                    this.suppliments.catalogues.items[i].active = true;
-                                }
-                            }
-                        });
+                    // this.api().get('{{ route('api.library.catalogues') }}')
+                    //     .then((data) => {
+                    //         console.log(data);
+                    //         this.suppliments.catalogues.items = data.items.data ? data.items.data : data.items;
+                    //         for (var i = this.suppliments.catalogues.items.length - 1; i >= 0; i--) {
+                    //             let current = this.suppliments.catalogues.items[i];
+                    //             if (current.id == this.suppliments.catalogues.current.split('=')[1]) {
+                    //                 this.suppliments.catalogues.items[i].active = true;
+                    //             }
+                    //         }
+                    //     });
 
                 },
 
@@ -178,11 +182,33 @@
                 complete (file, dropzone) {
                     this.get();
                 },
+
+                supplimentary () {
+                    let self = this;
+
+                    return {
+                        mount () {
+                            self.suppliments.catalogues.items.push({name:'{{ __('All') }}', icon: 'perm_media', count: '{{ $resources->count() }}'});
+                            let items = {!! json_encode($catalogues) !!};
+
+                            for (var i = 0; i < items.length; i++) {
+                                self.suppliments.catalogues.items.push(items[i]);
+                            }
+
+                            self.suppliments.catalogues.current = self.suppliments.catalogues.items[0];
+                        },
+
+                        select (item) {
+                            self.suppliments.catalogues.current = item;
+                        }
+                    }
+                }
             },
 
             mounted () {
                 this.get();
                 this.storage();
+                this.supplimentary().mount();
             },
         });
     </script>

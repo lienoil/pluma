@@ -162,7 +162,7 @@
 
                 {{-- else if no children --}}
                 <v-list-tile
-                    :class="menu.active ? 'active--primary' : ''"
+                    :class="menu.active ? 'active--primary white--text' : ''"
                     :href="menu.slug"
                     :title="menu.labels.description"
                     v-else
@@ -176,7 +176,7 @@
                     </v-list-tile-action>
 
                     <v-list-tile-content>
-                        <v-list-tile-title>
+                        <v-list-tile-title :class="{'white--text': menu.active}">
                             @{{ menu.labels.title }}
                         </v-list-tile-title>
                     </v-list-tile-content>

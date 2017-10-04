@@ -5,32 +5,14 @@
         @include("Theme::partials.banner")
         <v-layout row wrap>
             <v-flex sm12>
-                <v-tabs dark v-model="tab">
-                  <v-tabs-bar class="accent white--text">
-                    <v-tabs-item
-                      v-for="tab in 5"
-                      :key="`tab-${tab}`"
-                      :href="'#tab-' + tab"
-                      ripple
-                    >
-                      Item @{{ tab }}
-                    </v-tabs-item>
-                    <v-tabs-slider class="primary"></v-tabs-slider>
-                  </v-tabs-bar>
-                  <v-tabs-items>
-                    <v-tabs-content
-                      v-for="tab in 5"
-                      :key="`tab-${tab}`"
-                      :id="`tab-${tab}`"
-                    >
-                      <v-card flat>
-                        <v-card-text>lorem @{{ tab }}</v-card-text>
-                      </v-card>
-                    </v-tabs-content>
-                  </v-tabs-items>
-                </v-tabs>
 
-                <v-divider></v-divider>
+                <v-card class="mb-3 elevation-1">
+                    {{-- <v-toolbar card dark class="accent">
+                        <v-toolbar-title>{{ __('Description') }}</v-toolbar-title>
+                    </v-toolbar> --}}
+
+                    <v-quill source v-model="quill.content"></v-quill>
+                </v-card>
 
                 <v-card class="elevation-1">
                     <v-card-title class="headline">Test Module</v-card-title>
@@ -75,7 +57,12 @@
 
 @endsection
 
+@push('post-css')
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
+@endpush
+
 @push('pre-scripts')
+    <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('test/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
     <script>
@@ -85,6 +72,9 @@
             data () {
                 return {
                     tab: 2,
+                    quill: {
+                        content: {}
+                    },
                     e6: 1,
                     catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
                     mediabox: {
@@ -103,13 +93,13 @@
                     //
                 },
                 'mediabox.output': function (val) {
-                    console.log("OUTPUR", val);
+                    // console.log("OUTPUR", val);
                 }
             },
 
             mounted () {
                 this.catalogues = JSON.parse(JSON.stringify({!! json_encode($catalogues) !!}));
-                console.log(this.catalogues);
+                // console.log(this.catalogues);
             }
         })
     </script>

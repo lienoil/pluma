@@ -32,12 +32,12 @@ class CourseController extends AdminController
      * Display the specified resource.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  string  $code
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $code)
+    public function show(Request $request, $slug)
     {
-        $resource = Course::whereCode($code)->first();
+        $resource = Course::whereSlug($slug)->first();
 
         return view("Theme::courses.show")->with(compact('resource'));
     }

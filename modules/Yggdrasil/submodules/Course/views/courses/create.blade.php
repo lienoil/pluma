@@ -46,12 +46,12 @@
                     </v-card>
 
                     {{-- Editor --}}
-                    <quill v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Montserrat', 'Roboto']">
+                    <v-quill source v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Montserrat', 'Roboto']">
                         <template>
                             <input type="hidden" name="body" :value="quill.values.html">
                             <input type="hidden" name="delta" :value="JSON.stringify(quill.values.delta)">
                         </template>
-                    </quill>
+                    </v-quill>
                     {{-- /Editor --}}
 
                     {{-- Lessons --}}
@@ -73,18 +73,16 @@
 @endsection
 
 @push('pre-css')
-    <link rel="stylesheet" href="{{ assets('frontier/dist/quill/Quill.css') }}">
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
 @endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
-    <script src="{{ assets('frontier/dist/quill/Quill.js') }}"></script>
+    <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
-        Vue.use(Quill);
 
         mixins.push({
-            components: { Quill },
             data () {
                 return {
                     quill: {

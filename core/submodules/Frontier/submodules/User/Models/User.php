@@ -4,6 +4,7 @@ namespace User\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Lock\Support\Traits\MorphManyUnlocks;
 use Pluma\Models\User as Authenticatable;
 use Role\Support\Traits\BelongsToManyPermissionsThroughRoles;
 use Role\Support\Traits\BelongsToManyRoles;
@@ -13,16 +14,10 @@ use User\Support\Traits\HasOneDetail;
 
 class User extends Authenticatable
 {
-    use HasOneActivation, BelongsToManyRoles, HasOneDetail, Avatar;
+    use HasOneActivation, BelongsToManyRoles, HasOneDetail, Avatar, MorphManyUnlocks;
 
     protected $with = ['roles'];
 
-    /**
-     * Appends to both the model's
-     * array and JSON forms.
-     *
-     * @var array
-     */
     protected $appends = ['handlename', 'propername', 'displayname', 'displayrole', 'fullname', 'created', 'modified'];
 
     protected $searchables = ['firstname', 'middlename', 'lastname', 'username', 'prefixname', 'email'];

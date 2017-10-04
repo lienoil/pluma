@@ -1,5 +1,5 @@
 {
-  "name": "Frontier",
+  "name": "frontier",
   "homepage": "https://github.com/lioneil/pluma",
   "authors": [
     "John Lioneil Dionisio <john.dionisio1@gmail.com>"
@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "vuetify-mediabox": "lioneil/vuetify-mediabox#^1.1.1"
+    "vuetify-mediabox": "lioneil/vuetify-mediabox#^1.1.1",
+    "vuetify-quill": "lioneil/vuetify-quill"
   }
 }

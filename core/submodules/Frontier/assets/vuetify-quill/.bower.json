@@ -1,0 +1,14 @@
+{
+  "name": "vuetify-quill",
+  "homepage": "https://github.com/lioneil/vuetify-quill",
+  "_release": "a947cc7f30",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a947cc7f3093854b925ec21cc80c6cb1cc4d302b"
+  },
+  "_source": "https://github.com/lioneil/vuetify-quill.git",
+  "_target": "*",
+  "_originalSource": "lioneil/vuetify-quill",
+  "_direct": true
+}
