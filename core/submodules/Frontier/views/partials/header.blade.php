@@ -55,3 +55,4 @@
 </head>
 <body>
     @include("Theme::warnings.general")
+    @include("Theme::partials.backdrop")

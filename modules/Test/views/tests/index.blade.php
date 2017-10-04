@@ -6,6 +6,14 @@
         <v-layout row wrap>
             <v-flex sm12>
 
+                <v-card>
+                    <v-dropzone :options="{url:'{{ route('api.library.upload') }}'}">
+                        <template>
+                            <v-text-field label="Catalogue"></v-text-field>
+                        </template>
+                    </v-dropzone>
+                </v-card>
+
                 <v-card class="mb-3 elevation-1">
                     {{-- <v-toolbar card dark class="accent">
                         <v-toolbar-title>{{ __('Description') }}</v-toolbar-title>
@@ -59,9 +67,11 @@
 
 @push('post-css')
     <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
+    <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-dropzone.min.css">
 @endpush
 
 @push('pre-scripts')
+    <script src="http://localhost:8080/dist/vuetify-dropzone.min.js"></script>
     <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('test/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>

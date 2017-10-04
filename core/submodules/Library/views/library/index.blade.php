@@ -80,9 +80,23 @@
         <v-layout fill-height row wrap>
             <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
                 <v-card class="elevation-1">
-                    <v-toolbar card>
-                        <v-toolbar-title v-html=""></v-toolbar-title>
-                    </v-toolbar>
+                    <v-card-media height="250px" :src="item.thumbnail">
+                        <v-container fill-height class="pa-0 white--text">
+                            <v-layout fill-height wrap column>
+                                <v-card-title class="subheading" v-html="item.originalname"></v-card-title>
+                                <v-slide-y-transition>
+                                    <v-icon ripple class="display-4 pa-1 text-xs-center white--text" v-show="item.active">check</v-icon>
+                                </v-slide-y-transition>
+                                <v-spacer></v-spacer>
+                                <v-card-actions class="px-2 white--text">
+                                    <v-icon class="white--text" v-html="item.icon"></v-icon>
+                                    <v-spacer></v-spacer>
+                                    <span v-html="item.mime"></span>
+                                    <span v-html="item.filesize"></span>
+                                </v-card-actions>
+                            </v-layout>
+                        </v-container>
+                    </v-card-media>
                 </v-card>
             </v-flex>
         </v-layout>
