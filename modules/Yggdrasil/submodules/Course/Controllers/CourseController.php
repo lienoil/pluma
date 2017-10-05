@@ -37,7 +37,7 @@ class CourseController extends AdminController
      */
     public function show(Request $request, $slug)
     {
-        $resource = Course::whereSlug($slug)->first();
+        $resource = Course::whereSlug($slug)->firstOrFail();
 
         return view("Theme::courses.show")->with(compact('resource'));
     }
@@ -115,9 +115,9 @@ class CourseController extends AdminController
      */
     public function edit(Request $request, $id)
     {
-        //
+        $resource = Course::lockForUpdate()->findOrFail($id);
 
-        return view("Theme::courses.edit");
+        return view("Theme::courses.edit")->with(compact('resource'));
     }
 
     /**
@@ -129,7 +129,8 @@ class CourseController extends AdminController
      */
     public function update(CourseRequest $request, $id)
     {
-        //
+        $course = Course::findOrFail($id);
+        dd($request->all());
 
         return back();
     }

@@ -127,6 +127,8 @@ class LibraryController extends APIController
      */
     public function upload(Request $request)
     {
+        dd($request->all());
+        return response()->json('Yeap, luv', 200);
         try {
             $file = $request->file('file');
             if (is_array($file) && $files = $file) {

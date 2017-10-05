@@ -13,6 +13,10 @@ class CourseRequest extends FormRequest
      */
     public function authorize()
     {
+        if ($this->user()->isRoot()) {
+            return true;
+        }
+
         switch ($this->method()) {
             case 'POST':
                 if ($this->user()->can('store-course')) {

@@ -28,6 +28,7 @@ class CreateCategoriesTable extends Migration
             $table->string('code')->unique();
             $table->text('description')->nullable();
             $table->string('icon')->nullable();
+            $table->string('categorable_type')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -7,18 +7,22 @@
             <v-flex sm12>
 
                 <v-card>
-                    <v-dropzone :options="{url:'{{ route('api.library.upload') }}'}">
+                    <v-dropzone :options="{url:'{{ route('api.library.upload') }}'}" :params="{'_token':'{{ csrf_token() }}', 'catalogue': catalogue}">
                         <template>
-                            <v-text-field label="Catalogue"></v-text-field>
+                            <v-select
+                              v-bind:items="catalogues"
+                              v-model="catalogue"
+                              label="Select"
+                              class="input-group--focused"
+                              item-text="name"
+                              item-value="id"
+                            ></v-select>
+                            <span v-html="catalogue"></span>
                         </template>
                     </v-dropzone>
                 </v-card>
 
                 <v-card class="mb-3 elevation-1">
-                    {{-- <v-toolbar card dark class="accent">
-                        <v-toolbar-title>{{ __('Description') }}</v-toolbar-title>
-                    </v-toolbar> --}}
-
                     <v-quill source v-model="quill.content"></v-quill>
                 </v-card>
 
@@ -67,11 +71,11 @@
 
 @push('post-css')
     <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
-    <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-dropzone.min.css">
+    <link rel="stylesheet" href="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.css') }}">
 @endpush
 
 @push('pre-scripts')
-    <script src="http://localhost:8080/dist/vuetify-dropzone.min.js"></script>
+    <script src="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.js') }}"></script>
     <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('test/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
@@ -82,6 +86,7 @@
             data () {
                 return {
                     tab: 2,
+                    catalogue: 'default',
                     quill: {
                         content: {}
                     },

@@ -1,0 +1,22 @@
+{
+  "name": "library",
+  "homepage": "https://github.com/lioneil/pluma",
+  "authors": [
+    "John Lioneil Dionisio <john.dionisio1@gmail.com>"
+  ],
+  "description": "Library Module for Pluma CMS",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vuetify-dropzone": "pluma-cms/vuetify-dropzone#^1.0.0"
+  }
+}

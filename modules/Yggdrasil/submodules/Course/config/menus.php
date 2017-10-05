@@ -50,16 +50,17 @@ return [
                 ],
             ],
 
-            // 'course-category' => [
-            //     'name' => 'course-category',
-            //     'order' => 4,
-            //     'slug' => url(config('path.admin').'/courses/categories'),
-            //     'always_viewable' => false,
-            //     'labels' => [
-            //         'title' => __('Course Categories'),
-            //         'description' => __('View list of all course categories'),
-            //     ],
-            // ],
+            'course-category' => [
+                'name' => 'course-category',
+                'order' => 11,
+                'slug' => route('courses.categories.index'),
+                'always_viewable' => false,
+                'icon' => 'label',
+                'labels' => [
+                    'title' => __('Categories'),
+                    'description' => __('View list of all course categories'),
+                ],
+            ],
         ],
     ],
 ];

@@ -36,6 +36,30 @@ class PageController extends Controller
         return view("Page::pages.show")->with(compact('resource'));
     }
 
+    public function edit(Request $request, $id)
+    {
+        \Illuminate\Support\Facades\DB::beginTransaction();
+        $resource = Page::sharedLock()->findOrFail($id);
+        \Illuminate\Support\Facades\DB::commit();
+
+        return view("Page::pages.edit")->with(compact('resource'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        \Illuminate\Support\Facades\DB::beginTransaction();
+        $page = Page::findOrFail($id);
+        $page->title = $request->input('title');
+        $page->slug = $request->input('slug');
+        $page->body = $request->input('body');
+        $page->delta = $request->input('delta');
+        $page->feature = $request->input('feature');
+        $page->save();
+        \Illuminate\Support\Facades\DB::commit();
+
+        return back();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -24,6 +24,7 @@
         </v-menu>
 
         <v-spacer></v-spacer>
+
         <v-btn icon v-tooltip:left="{ html: 'Search' }">
             <v-icon>search</v-icon>
         </v-btn>
