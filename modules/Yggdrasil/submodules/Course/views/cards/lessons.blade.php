@@ -71,12 +71,34 @@
                                     <v-flex sm12>
                                         <v-card-text>
                                             <input type="hidden" :name="`lessons[${key}][sort]`" :value="key">
-                                            <v-text-field
-                                                label="{{ __('Lesson Title') }}"
-                                                :name="`lessons[${key}][title]`"
-                                                :error-messages="resource.errors[`lessons.${key}.title`]"
-                                                v-model="draggable.resource.title"
-                                            ></v-text-field>
+                                            <input type="hidden" :name="`lessons[${key}][icon]`" :value="draggable.resource.icon">
+                                            <v-menu
+                                                offset-x
+                                                offset-y
+                                                v-model="draggable.icon"
+                                                full-width
+                                            >
+                                                <v-text-field
+                                                    slot="activator"
+                                                    label="{{ __('Lesson Title') }}"
+                                                    :prepend-icon="draggable.resource.icon"
+                                                    :append-icon-cb="() => { draggable.icon = !draggable.icon }"
+                                                    append-icon="fa-ellipsis-h"
+                                                    :name="`lessons[${key}][title]`"
+                                                    :error-messages="resource.errors[`lessons.${key}.title`]"
+                                                    v-model="draggable.resource.title"
+                                                ></v-text-field>
+                                                <v-card>
+                                                    <v-list>
+                                                        <v-list-tile v-for="item in draggables.icons.items" :key="item.name" @click="draggable.resource.icon = item.name">
+                                                            <v-list-tile-action>
+                                                                <v-icon>@{{ item.name }}</v-icon>
+                                                            </v-list-tile-action>
+                                                            <v-list-tile-title>@{{ item.name }}</v-list-tile-title>
+                                                        </v-list-tile>
+                                                    </v-list>
+                                                </v-card>
+                                            </v-menu>
                                         </v-card-text>
 
                                         {{-- Quill --}}
@@ -268,6 +290,15 @@
                         },
                     },
                     draggables: {
+                        icons: {
+                            model: false,
+                            items: [
+                                {name: 'fa-edit'},
+                                {name: 'perm_media'},
+                                {name: 'face'},
+                                {name: 'tag_faces'},
+                            ],
+                        },
                         items: [],
                         old: [],
                     },
@@ -312,8 +343,10 @@
                         id: sections.length + 1,
                         name: '{{ __('Lesson') }}',
                         active: true,
+                        icon: false,
                         resource: {
                             title: 'Untitled #' + (sections.length + 1),
+                            icon: '',
                             code: '',
                             quill: {},
                             interactive: null,
@@ -336,9 +369,11 @@
                         id: values.id,
                         name: values.name,
                         active: true,
+                        icon: false,
                         resource: {
                             title: values.title,
                             code: values.code,
+                            icon: values.icon,
                             quill: {
                                 html: values.body,
                                 delta: JSON.parse(values.delta),

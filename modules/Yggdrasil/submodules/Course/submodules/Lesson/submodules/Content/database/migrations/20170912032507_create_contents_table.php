@@ -32,7 +32,7 @@ class CreateContentsTable extends Migration
             $table->string('title');
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
-            $table->text('attachment')->nullable();
+            $table->string('icon')->nullable();
             $table->integer('library_id')->unsigned()->nullable();
             $table->timestamps();
 

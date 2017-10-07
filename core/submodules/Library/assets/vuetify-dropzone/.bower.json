@@ -1,15 +1,15 @@
 {
   "name": "vuetify-dropzone",
   "homepage": "https://github.com/pluma-cms/vuetify-dropzone",
-  "version": "1.0.0",
-  "_release": "1.0.0",
+  "version": "1.0.4",
+  "_release": "1.0.4",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.0",
-    "commit": "cd83fd4cacd53b77fb5e44abbc7e47b9b52cb710"
+    "tag": "v1.0.4",
+    "commit": "93b9caf2d9ba3377ba1d35eadab76b412ee9b309"
   },
   "_source": "https://github.com/pluma-cms/vuetify-dropzone.git",
-  "_target": "^1.0.0",
+  "_target": "^1.0.4",
   "_originalSource": "pluma-cms/vuetify-dropzone",
   "_direct": true
 }

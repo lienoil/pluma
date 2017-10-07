@@ -81,6 +81,10 @@ class Handler extends BaseHandler
         if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException
             || $exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException
         ) {
+            if ($request->ajax()) {
+                return response()->json("[ERR 403] Unauthorized request", 403);
+            }
+
             return response()->view('Theme::errors.403', [
                 'error' => [
                     'code' => 'NOT_AUTHORIZED',

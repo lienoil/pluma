@@ -2,14 +2,14 @@
 
 namespace Library\Models;
 
-use Catalogue\Support\Traits\HasOneCatalogue;
+use Catalogue\Support\Traits\BelongsToCatalogue;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Library\Support\Mutators\LibraryMutator;
 use Pluma\Models\Model;
 
 class Library extends Model
 {
-    use SoftDeletes, LibraryMutator, HasOneCatalogue;
+    use SoftDeletes, LibraryMutator, BelongsToCatalogue;
 
     protected $table = 'library';
 

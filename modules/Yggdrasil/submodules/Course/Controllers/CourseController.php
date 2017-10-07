@@ -81,6 +81,7 @@ class CourseController extends AdminController
             $lesson->title = $input->title;
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;
+            $lesson->icon = $input->icon;
             $lesson->course()->associate($course);
             if (! empty($input->assignment->title)) {
                 $lesson->assignment()->associate(Assignment::create((array) $input->assignment));

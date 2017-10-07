@@ -77,7 +77,7 @@ trait LibraryMutator
      */
     protected function guessIconFromMimeType($mime)
     {
-        // $icon = 'perm_media';
+        $icon = 'perm_media';
         $icons = config('thumbnails.icons', []);
         if (array_key_exists($mime, $icons)) {
             $icon = $icons[$mime];

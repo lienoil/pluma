@@ -26,6 +26,7 @@ class Catalogue extends Category
         );
 
         foreach (self::all() as $i => $catalogue) {
+            $array[$i+1]['id'] = $catalogue->id;
             $array[$i+1]['count'] = $catalogue->libraries->count();
             $array[$i+1]['name'] = $catalogue->name;
             $array[$i+1]['url'] = route('api.library.catalogue', [$catalogue->id]);

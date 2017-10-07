@@ -21,12 +21,17 @@ class CreateCoursesTable extends Migration
      */
     public function up()
     {
+        if ($this->schema->hasTable($this->tablename)) {
+            return;
+        }
+
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('code')->unique();
             $table->text('feature')->nullable();
+            $table->text('backdrop')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
             $table->integer('user_id')->unsigned();

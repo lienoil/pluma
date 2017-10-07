@@ -5,6 +5,7 @@ namespace Library\API\Controllers;
 use Catalogue\Models\Catalogue;
 use Illuminate\Http\Request;
 use Library\Models\Library;
+use Library\Requests\LibraryRequest;
 use Pluma\API\Controllers\APIController;
 
 class LibraryController extends APIController
@@ -125,10 +126,10 @@ class LibraryController extends APIController
      * @param  \Library\Requests\LibraryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function upload(Request $request)
+    public function upload(LibraryRequest $request)
     {
-        dd($request->all());
-        return response()->json('Yeap, luv', 200);
+        // dd($request->all());
+        // return response()->json('Yeap, luv', 200);
         try {
             $file = $request->file('file');
             if (is_array($file) && $files = $file) {
@@ -170,7 +171,7 @@ class LibraryController extends APIController
             $library->thumbnail = settings('library.storage_path', 'public/library') . "/$date/$fileName";
             $library->size = $file->getClientSize();
             $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
-            // $library->catalogue()->save($request->input('catalogue_id'));
+            $library->catalogue()->associate(Catalogue::find($request->input('catalogue_id')));
             $library->save();
 
             if ($request->input('extract')) {

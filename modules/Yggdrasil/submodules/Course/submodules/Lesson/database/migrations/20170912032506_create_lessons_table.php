@@ -31,6 +31,7 @@ class CreateLessonsTable extends Migration
             $table->integer('assignment_id')->unsigned()->nullable();
             $table->integer('sort')->default(0);
             $table->string('title');
+            $table->string('icon')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
             $table->timestamps();
