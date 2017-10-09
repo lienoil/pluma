@@ -14,9 +14,9 @@ class Lesson extends Model
 {
     use BelongsToCourse, Unlockable, HasManyContents, BelongsToAssignment, LessonMutator, MorphManyUnlocks;
 
-    protected $with = ['assignment', 'unlocks'];
+    protected $with = ['assignment'];
 
-    protected $appends = [];
+    protected $appends = ['progress', 'completed', 'unlocked', 'locked', 'dialog'];
 
     protected $searchables = ['created_at', 'updated_at'];
 }

@@ -13,7 +13,7 @@
 >
     <v-toolbar flat class="transparent">
         <v-list class="pa-0">
-            <v-list-tile tag="div">
+            <v-list-tile ripple tag="div">
                 <v-list-tile-avatar>
                     @include("Frontier::partials.brand")
                 </v-list-tile-avatar>
@@ -51,7 +51,7 @@
                         v-model="menu.active"
                     >
                         {{-- headmenu --}}
-                        <v-list-tile slot="item">
+                        <v-list-tile ripple slot="item">
                             <v-list-tile-avatar>
                                 <img src="{{ user()->avatar }}" alt="{{ user()->handlename }}">
                             </v-list-tile-avatar>
@@ -72,6 +72,7 @@
 
                         {{-- childmenu --}}
                         <v-list-tile
+                            ripple
                             :key="i"
                             {{-- :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''" --}}
                             :href="child.slug"
@@ -113,7 +114,7 @@
                     no-action
                 >
                     {{-- headmenu --}}
-                    <v-list-tile slot="item" :title="menu.labels.description">
+                    <v-list-tile ripple slot="item" :title="menu.labels.description">
                         <v-list-tile-action v-if="menu.icon">
                             <v-icon
                                 :dark.sync="dark"
@@ -138,6 +139,7 @@
                     >
                         <v-divider class="my-2" v-if="child.is_divider"></v-divider>
                         <v-list-tile
+                            ripple
                             v-else
                             :key="i"
                             :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
@@ -162,6 +164,7 @@
 
                 {{-- else if no children --}}
                 <v-list-tile
+                    ripple
                     :class="menu.active ? 'active--primary white--text' : ''"
                     :href="menu.slug"
                     :title="menu.labels.description"

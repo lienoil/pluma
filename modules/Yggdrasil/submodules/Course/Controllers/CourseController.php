@@ -37,7 +37,9 @@ class CourseController extends AdminController
      */
     public function show(Request $request, $slug)
     {
-        $resource = Course::whereSlug($slug)->firstOrFail();
+        $resource = Course::whereSlug($slug)
+            ->with('lessons.contents')
+            ->firstOrFail();
 
         return view("Theme::courses.show")->with(compact('resource'));
     }

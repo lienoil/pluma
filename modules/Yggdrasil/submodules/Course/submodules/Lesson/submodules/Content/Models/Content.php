@@ -13,7 +13,7 @@ class Content extends Model
 {
     use BelongsToLesson, BelongsToLibrary, Unlock, MorphManyUnlocks, ContentMutator;
 
-    protected $with = ['library', 'lesson'];
+    protected $with = ['library', 'lesson', 'unlocks'];
 
     protected $appends = ['url', 'completed', 'locked', 'unlocked', 'current'];
 

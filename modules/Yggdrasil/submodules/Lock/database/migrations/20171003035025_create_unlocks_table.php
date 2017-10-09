@@ -27,6 +27,7 @@ class CreateUnlocksTable extends Migration
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('finished')->default(false);
             $table->boolean('current')->default(false);
             $table->integer('user_id')->unsigned();
             $table->integer('unlockable_id')->unsigned();
