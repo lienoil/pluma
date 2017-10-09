@@ -48,42 +48,44 @@
                                     <v-spacer></v-spacer>
                                     <v-card-actions>
                                         {{-- If Bookmarked --}}
-                                        <v-avatar v-if="true" small v-tooltip:right="{html:'{{ __('Bookmarked') }}'}"><v-icon class="red--text">fa-bookmark</v-icon></v-avatar>
+                                        <v-avatar small v-if="true" class="red darken-1" v-tooltip:right="{html:'{{ __('Bookmarked') }}'}"><v-icon small class="white--text">fa-bookmark</v-icon></v-avatar>
                                         {{-- /If Bookmarked --}}
                                         <v-spacer></v-spacer>
                                         {{-- If Enrolled --}}
-                                        <v-chip class="ml-0" v-if="true">
-                                            <v-avatar class="success"><v-icon class="white--text">check</v-icon></v-avatar>
-                                            <strong class="success--text">Enrolled</strong>
-                                        </v-chip>
+                                        <v-chip small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
                                         {{-- /If Enrolled --}}
                                     </v-card-actions>
                                 </v-layout>
                             </v-container>
                         </v-card-media>
 
-                        <v-card-title primary-title class="pb-0">
-                            <a href="" class="title td-n accent--text" v-html="card.title"></a>
+                        <v-card-title primary-title>
+                            <strong class="title td-n accent--text" v-html="card.title"></strong>
                         </v-card-title>
 
-                        <v-card-text class="grey--text">
-                            <small class="caption"><v-icon left small>class</v-icon><span v-html="card.code"></span></small>
-                            {{-- <span>|</span> --}}
-                            <small class="caption"><v-icon left small>fa-leaf</v-icon>&nbsp;<span v-html="`${card.lessons.length} Lessons`"></span></small>
-                            {{-- <span>|</span> --}}
-                            <small class="caption"><v-icon left small>label</v-icon><span>Supervisory</span></small>
-                        </v-card-text>
+                        <v-footer>
+                            <v-chip label small class="caption transparent grey--text elevation-0"><v-icon left small class="subheading">class</v-icon><span v-html="card.code"></span></v-chip>
 
-                        <v-card-text class="grey--text" v-html="card.excerpt"></v-card-text>
+                            <v-chip label small class="caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${card.lessons.length} Parts`"></span></v-chip>
+
+                            <v-chip v-if="card.category" label class="caption transparent grey--text elevation-0"><v-icon left small class="subheading">label</v-icon><span v-html="card.category.name"></span></v-chip>
+
+                            <v-chip label small class="caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-clock-o</v-icon><span v-html="card.created"></span></v-chip>
+                        </v-footer>
+
+                        <v-card-text class="grey--text text--darken-1" v-html="card.excerpt"></v-card-text>
+
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
 
-                            @can('edit-course')
-                            <v-btn flat primary :href="route(urls.edit, card.id)"><v-icon left>edit</v-icon>{{ __('Edit') }}</v-btn>
+                            @can('show-course')
+                            <v-btn flat primary :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
                             @endcan
 
-                            <v-btn flat primary :href="route(urls.show, card.slug)">{{ __('View Details') }}</v-btn>
+                            @can('edit-course')
+                            <v-btn flat success :href="route(urls.edit, card.id)">{{ __('Edit') }}</v-btn>
+                            @endcan
                         </v-card-actions>
                     </v-card>
                 </v-flex>

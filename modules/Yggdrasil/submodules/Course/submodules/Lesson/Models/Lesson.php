@@ -16,5 +16,7 @@ class Lesson extends Model
 
     protected $with = ['assignment', 'unlocks'];
 
+    protected $appends = [];
+
     protected $searchables = ['created_at', 'updated_at'];
 }

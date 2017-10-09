@@ -46,7 +46,7 @@
                     </v-card>
 
                     {{-- Editor --}}
-                    <v-quill source v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Montserrat', 'Roboto']">
+                    <v-quill source v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Montserrat', 'Roboto']" :options="{modules:{toolbar:[['bold', 'italic', 'underline', 'strike']]}}">
                         <template>
                             <input type="hidden" name="body" :value="quill.values.html">
                             <input type="hidden" name="delta" :value="JSON.stringify(quill.values.delta)">

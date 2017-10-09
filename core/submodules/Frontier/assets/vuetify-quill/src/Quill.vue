@@ -1,6 +1,6 @@
 <template>
     <div class="quill-container" :class="paper ? 'ql-paper grey lighten-4' : ''">
-        <v-card flat>
+        <v-card flat class="transparent">
             <v-toolbar card v-if="toolbar" ref="toolbar">
                 <template v-if="toolbar">
                     <slot name="toolbar"></slot>
@@ -10,8 +10,6 @@
             <div v-show="quill.model" ref="quill" class="quill-editor" :class="{'elevation-1':paper,'scrollable':quill.scrollable.model}"></div>
 
             <v-codemirror class="codemirror-instance" v-if="codemirror" :class="{'codemirror-hidden':codemirror.model, 'codemirror-shown':!codemirror.model}" @input="event().getCodemirrorValue($event)" :content="quill.content.source"></v-codemirror>
-            <v-slide-y-transition>
-            </v-slide-y-transition>
 
             <template v-if="statusBar">
                 <v-card-actions class="grey--text status-bar">
@@ -49,6 +47,7 @@
             content: {},
             source: { type: Boolean, default: false },
             toolbar: { type: Boolean, default: false },
+            toolbarOptions: { type: [Object, Boolean], default: false },
             options: { type: Object, default: () => { return {} } },
             fonts: { type: Array, default: () => { return [] } },
             statusBar: { type: Boolean, default: true },
@@ -144,6 +143,7 @@
 
             mergeOptions () {
                 this.quill.options = ! this.options.length ? Object.assign(this.options, this.quill.options) : this.options
+                this.quill.options.modules.toolbar = this.toolbarOptions ? this.toolbarOptions : this.quill.options.modules.toolbar;
             },
 
             customToolbar () {
@@ -232,7 +232,6 @@
 
                 Countable.on(self.quillbox().getContainer(), counter => {
                     self.quill.status = counter
-                    console.log(counter)
                 }, { stripTags: false, ignore: [] })
             }
         }
@@ -251,7 +250,7 @@
         }
 
         .ql-toolbar.ql-snow {
-            border: none;
+            border: none !important;
         }
     }
 

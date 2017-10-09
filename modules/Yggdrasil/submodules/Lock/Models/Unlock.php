@@ -13,5 +13,5 @@ class Unlock extends Model
 
     protected $with = [];
 
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $searchables = [];
 }

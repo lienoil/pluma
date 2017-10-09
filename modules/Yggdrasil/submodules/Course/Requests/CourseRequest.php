@@ -59,9 +59,9 @@ class CourseRequest extends FormRequest
             'slug' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
             'lessons' => 'required',
             'lessons.*.title' => 'required',
-            'lessons.*.contents' => 'required',
-            'lessons.*.contents.*.title' => 'required',
-            'lessons.*.contents.*.library_id' => 'required',
+            // 'lessons.*.contents' => 'required',
+            // 'lessons.*.contents.*.title' => 'required',
+            // 'lessons.*.contents.*.library_id' => 'required',
         ];
     }
 

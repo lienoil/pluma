@@ -1,104 +1,104 @@
 $monokai = {
-    brown: #272822,
-    pink: #F92672,
-    blue: #66D9EF,
-    lime: #A6E22E,
-    orange: #FD971F,
+  brown: #272822,
+  pink: #F92672,
+  blue: #66D9EF,
+  lime: #A6E22E,
+  orange: #FD971F,
 }
 
 .quill-editor {
-    &.ql-container.ql-snow {
-        border: none;
-        box-shadow: none;
-        border: none;
+  &.ql-container.ql-snow {
+    border: none;
+    box-shadow: none;
+    border: none;
+  }
+
+  &.ql-editor {
+    for name, color in ($colors) {
+      &--{name}:before {
+        content: "";
+        height: 100%;
+        position: absolute;
+        width: 1px;
+        top: 0;
+        left: 0;
+        background-color: color.lighten-5;
+      }
+    }
+  }
+
+  .ql-editor {
+    min-height: 200px;
+    &:before {
+      // padding-left: 3rem;
     }
 
-    &.ql-editor {
-        for name, color in ($colors) {
-            &--{name}:before {
-                content: "";
-                height: 100%;
-                position: absolute;
-                width: 1px;
-                top: 0;
-                left: 0;
-                background-color: color.lighten-5;
-            }
-        }
+    h1, h2, h3, h4, h5, h6,
+    p {
+      margin-bottom: $spacers.two.y;
     }
-
-    .ql-editor {
-        min-height: 200px;
-        &:before {
-            // padding-left: 3rem;
-        }
-
-        h1, h2, h3, h4, h5, h6,
-        p {
-            margin-bottom: $spacers.two.y;
-        }
-    }
+  }
 }
 
 .quill-toolbar {
-    &.ql-toolbar.ql-snow {
-        border: none;
-    }
+  &.ql-toolbar.ql-snow {
+    border: none;
+  }
 }
 
 .ql-toolbar.ql-snow,
 .ql-container.ql-snow {
-    border: none;
-    font-family: $body-font-family;
-    font-size: $font-size-root;
+  border: none;
+  font-family: $body-font-family;
+  font-size: $font-size-root;
 }
 
 // Font & font size
 &[data-value="Montserrat"] {
-    font-family: 'Montserrat', $body-font-family;
+  font-family: 'Montserrat', $body-font-family;
 }
 
 .ql-picker-options .ql-picker-item {
 
-    &[data-value="18px"] {
-        font-size: 18px;
-    }
+  &[data-value="18px"] {
+    font-size: 18px;
+  }
 
-    &[data-value="10px"] {
-        font-size: 10px;
-    }
+  &[data-value="10px"] {
+    font-size: 10px;
+  }
 
-    &[data-value="32px"] {
-        font-size: 32px;
-    }
+  &[data-value="32px"] {
+    font-size: 32px;
+  }
 }
 
 .ql-font-Montserrat {
-    font-family: 'Montserrat', $body-font-family;
+  font-family: 'Montserrat', $body-font-family;
 }
 
 .preview-editor {
-    min-height: 100%;
+  min-height: 100%;
 }
 
 .mode {
-    transition: all 0.9s ease-in-out;
+  transition: all 0.9s ease-in-out;
 
-    &-distraction-free {
-        height: 100% !important;
-        min-height: 100vh;
-        top: 0;
-        left: 0;
-        position: fixed;
-        width: 100vw;
-        z-index: 4;
-        overflow-y: auto;
+  &-distraction-free {
+    height: 100% !important;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100vw;
+    z-index: 4;
+    overflow-y: auto;
 
-        &--toolbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-        }
+    &--toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
     }
+  }
 }

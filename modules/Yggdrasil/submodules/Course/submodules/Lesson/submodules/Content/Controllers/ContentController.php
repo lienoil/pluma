@@ -29,11 +29,11 @@ class ContentController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $course, $lesson, $id)
     {
-        //
+        $resource = Content::findOrFail($id);
 
-        return view("Theme::contents.show");
+        return view("Theme::contents.show")->with(compact('resource'));
     }
 
     /**

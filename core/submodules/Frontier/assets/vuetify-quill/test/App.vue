@@ -4,7 +4,7 @@
       <v-layout row wrap>
         <v-flex xs12>
           <v-card class="elevation-1 grey lighten-4">
-            <vue-component paper source v-model="quill.content" class="white" :fonts="['Roboto']"></vue-component>
+            <vue-component paper source v-model="quill.content" class="white" :fonts="['Roboto']" :toolbar-options="['bold']"></vue-component>
           </v-card>
           <div class="ql-editor" v-html="quill.content.html"></div>
           <span v-html="quill.content.delta"></span>

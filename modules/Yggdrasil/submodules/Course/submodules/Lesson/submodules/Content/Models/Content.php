@@ -2,6 +2,7 @@
 
 namespace Content\Models;
 
+use Content\Support\Traits\ContentMutator;
 use Lesson\Support\Traits\BelongsToLesson;
 use Library\Support\Traits\BelongsToLibrary;
 use Lock\Support\Traits\MorphManyUnlocks;
@@ -10,21 +11,11 @@ use Pluma\Models\Model;
 
 class Content extends Model
 {
-    use BelongsToLesson, BelongsToLibrary, Unlock, MorphManyUnlocks;
+    use BelongsToLesson, BelongsToLibrary, Unlock, MorphManyUnlocks, ContentMutator;
 
     protected $with = ['library', 'lesson'];
 
-    protected $append = ['completed'];
+    protected $appends = ['url', 'completed', 'locked', 'unlocked', 'current'];
 
-    protected $searchables = ['created_at', 'updated_at'];
-
-    public function getCompletedAttribute()
-    {
-        return 'true';
-    }
-
-    public function getCurrentAttribute()
-    {
-        return 2;
-    }
+    protected $searchables = ['title', 'body', 'created_at', 'updated_at'];
 }

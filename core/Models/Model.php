@@ -19,7 +19,7 @@ class Model extends BaseModel
      *
      * @var array
      */
-    protected $appends = ['created', 'excerpt'];
+    protected $appends = ['created', 'modified', 'removed', 'excerpt'];
 
     /**
      * The number of models to return for pagination.

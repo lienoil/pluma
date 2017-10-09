@@ -14,9 +14,4 @@ trait LessonMutator
         return $this->contents->count() . ' ' .
             ($this->contents->count() > 1 ? __('Contents') : __('Content'));
     }
-
-    public function getLockedAttribute()
-    {
-        return true;
-    }
 }

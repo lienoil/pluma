@@ -21,7 +21,9 @@
 
 /* line 3 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_theme.styl */
 
-/* line 10 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_theme.styl */
+/* line 12 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_theme.styl */
+.body--light{background-color:#ecf0f5}
+/* line 14 : /home/lioneil/Projects/pluma/themes/default/src/stylus/settings/_theme.styl */
 
 /* line 2 : /home/lioneil/Projects/pluma/themes/default/node_modules/vuetify/src/stylus/main.styl */
 
@@ -9641,7 +9643,15 @@ table.table tfoot tr{height:56px}
 .td-n{text-decoration:none}
 /* line 3 : /home/lioneil/Projects/pluma/themes/default/src/stylus/generic/typography.styl */
 
-/* line 3 : /home/lioneil/Projects/pluma/themes/default/src/stylus/components/_lists.styl */
+/* line 3 : /home/lioneil/Projects/pluma/themes/default/src/stylus/components/_cards.styl */
+
+/* line 1 : /home/lioneil/Projects/pluma/themes/default/src/stylus/components/_cards.styl */
+
+/* line 2 : /home/lioneil/Projects/pluma/themes/default/src/stylus/components/_cards.styl */
+.card--filed-on-top{margin-top:-80px}
+/* line 5 : /home/lioneil/Projects/pluma/themes/default/src/stylus/components/_cards.styl */
+
+/* line 5 : /home/lioneil/Projects/pluma/themes/default/src/stylus/components/_lists.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/src/stylus/components/_lists.styl */
 
@@ -9666,12 +9676,14 @@ table.table tfoot tr{height:56px}
 /* line 6 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 .sortable-container{display:block;width:100%;min-height:80px;background-color:rgba(0,0,0,0.01);}
 /* line 12 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
-.sortable-container .sortable-ghost{opacity:.1 !important;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
-/* line 23 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+.sortable-container .sortable-ghost{opacity:.1 !important}
+/* line 16 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+.sortable-container .sortable-ghost,.sortable-container sortable-drag{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+/* line 26 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 .sortable-container .sortable-fallback{opacity:1 !important}
-/* line 28 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+/* line 31 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 .sortable-chosen{-webkit-user-drag:none;background-color:rgba(255,255,255,0.05)}
-/* line 33 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
+/* line 35 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/draggable.styl */
 
 /* line 1 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
 
@@ -9753,7 +9765,3 @@ table.table tfoot tr{height:56px}
 .mode-distraction-free{height:100% !important;min-height:100vh;top:0;left:0;position:fixed;width:100vw;z-index:4;overflow-y:auto;}
 /* line 97 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
 .mode-distraction-free--toolbar{position:fixed;top:0;left:0;z-index:9999}
-/* line 106 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
-.CodeMirror{min-height:300px;height:auto !important;padding:2rem 0;z-index:100;}
-/* line 111 : /home/lioneil/Projects/pluma/themes/default/src/stylus/cards/editor.styl */
-.CodeMirror-scroll{overflow:auto !important}

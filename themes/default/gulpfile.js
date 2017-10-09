@@ -16,36 +16,36 @@ let del = require('del');
 let sourcemaps = require('gulp-sourcemaps');
 
 let directories = {
-    stylus: {
-        dir: './src/stylus/',
-        src: ['./src/stylus/app.styl'],
-        dist: './assets/css',
-        inc: [
-            __dirname,
-            __dirname + '/node_modules',
-        ],
-    },
-    sass: {
-        src: [],
-        dist: '',
-    },
-    javascript: {
-        src: [],
-        dist: '',
-    },
+  stylus: {
+    dir: './src/stylus/',
+    src: ['./src/stylus/app.styl'],
+    dist: './assets/css',
+    inc: [
+      __dirname,
+      __dirname + '/node_modules',
+    ],
+  },
+  sass: {
+    src: [],
+    dist: '',
+  },
+  javascript: {
+    src: [],
+    dist: '',
+  },
 }
 
 let app = {
-    name: {
-        css: 'app.css',
-        js: 'app.js',
-    }
+  name: {
+    css: 'app.css',
+    js: 'app.js',
+  }
 }
 
 let tasks = {
-    compile: {
-        stylus: 'compile:stylus',
-    },
+  compile: {
+    stylus: 'compile:stylus',
+  },
 };
 
 /**
@@ -54,20 +54,20 @@ let tasks = {
  * @run  gulp compile:stylus
  */
 gulp.task(tasks.compile.stylus, function () {
-    return gulp.src(directories.stylus.src)
-        .pipe(stylus({
-            compress: true,
-            linenos: true,
-            paths: directories.stylus.inc,
-            'include css': true,
-        }))
-        .pipe(autoprefixer('last 2 version'))
-        .pipe(rename(app.name.css))
-        .pipe(gulp.dest(directories.stylus.dist))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(cssnano())
-        .pipe(gulp.dest(directories.stylus.dist))
-        .pipe(notify({ message: 'Completed compiling SASS Files' }));
+  return gulp.src(directories.stylus.src)
+    .pipe(stylus({
+      compress: true,
+      linenos: true,
+      paths: directories.stylus.inc,
+      'include css': true,
+    }))
+    .pipe(autoprefixer('last 2 version'))
+    .pipe(rename(app.name.css))
+    .pipe(gulp.dest(directories.stylus.dist))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(cssnano())
+    .pipe(gulp.dest(directories.stylus.dist))
+    .pipe(notify({ message: 'Completed compiling SASS Files' }));
 });
 
 /**
@@ -76,11 +76,11 @@ gulp.task(tasks.compile.stylus, function () {
  * @run  gulp watch
  */
 gulp.task('watch', function () {
-    // Watch stylesheet files
-    gulp.watch(directories.stylus.dir + '/**/*', [tasks.compile.stylus]);
-    // Watch .js files
-    // gulp.watch(directories.javascript.src + '/**/*.js', [tasks.compile.javascript]);
-    // Add more...
+  // Watch stylesheet files
+  gulp.watch(directories.stylus.dir + '/**/*', [tasks.compile.stylus]);
+  // Watch .js files
+  // gulp.watch(directories.javascript.src + '/**/*.js', [tasks.compile.javascript]);
+  // Add more...
 
 });
 

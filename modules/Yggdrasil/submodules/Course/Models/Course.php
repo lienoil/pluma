@@ -15,7 +15,7 @@ class Course extends Model
 
     protected $with = ['lessons', 'user', 'category'];
 
-    protected $appends = ['lessons_count'];
+    protected $appends = ['created', 'excerpt', 'modified', 'lessons_count'];
 
     protected $searchables = ['title', 'code', 'slug', 'feature', 'body', 'created_at', 'updated_at'];
 }

@@ -2,6 +2,7 @@
 
 namespace Pluma\Support\Mutators;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 trait BaseMutator
@@ -20,7 +21,7 @@ trait BaseMutator
      */
     public function getCreatedAttribute()
     {
-        return date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->created_at));
+        return Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans(); //date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->created_at));
     }
 
     /**
@@ -30,7 +31,7 @@ trait BaseMutator
      */
     public function getModifiedAttribute()
     {
-        return date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->updated_at));
+        return Carbon::createFromTimeStamp(strtotime($this->updated_at))->diffForHumans(); // date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->updated_at));
     }
 
     /**
@@ -40,7 +41,7 @@ trait BaseMutator
      */
     public function getRemovedAttribute()
     {
-        return date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->deleted_at));
+        return Carbon::createFromTimeStamp(strtotime($this->deleted_at))->diffForHumans(); // date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->deleted_at));
     }
 
     /**

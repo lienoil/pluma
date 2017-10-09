@@ -106,9 +106,13 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import '~codemirror/lib/codemirror.css';
     @import '~codemirror/theme/monokai.css';
+
+    .CodeMirror {
+        z-index: 3;
+    }
 
     .codemirror-container, .codemirror-container .codemirror textarea {
         font-family: 'Ubuntu Mono', monospace;
