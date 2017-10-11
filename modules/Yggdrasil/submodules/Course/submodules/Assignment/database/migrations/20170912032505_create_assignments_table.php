@@ -32,6 +32,7 @@ class CreateAssignmentsTable extends Migration
             $table->text('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
+            $table->datetime('deadline')->nullable();
             $table->integer('library_id')->unsigned()->nullable();
 
             $table->timestamps();

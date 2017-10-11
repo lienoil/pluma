@@ -3,6 +3,7 @@
 namespace Test\Controllers;
 
 use Catalogue\Models\Catalogue;
+use Category\Models\Category;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class TestController extends AdminController
     public function index(Request $request)
     {
         $catalogues = Catalogue::select('name', 'id')->get();
-        $cataloguesObj = Catalogue::mediabox();
+        $cataloguesObj = Category::all();
 
         return view("Theme::tests.index")->with(compact('catalogues', 'cataloguesObj'));
     }

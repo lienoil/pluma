@@ -35,7 +35,6 @@
             </template>
         </v-toolbar>
 
-
         <v-card-text :class="lessons.toolbar.modes.distraction.model?'pa-5 mt-5':''">
             <template v-if="!draggables.items.length">
                 <v-card-text role="button" v-tooltip:top="{'html': '{{ __('Add lesson') }}'}" class="text-xs-center grey--text my-5" @click="addSection(draggables.items)">
@@ -73,9 +72,11 @@
                                             <input type="hidden" :name="`lessons[${key}][sort]`" :value="key">
                                             <input type="hidden" :name="`lessons[${key}][icon]`" :value="draggable.resource.icon">
                                             <v-menu
-                                                offset-x
-                                                offset-y
                                                 v-model="draggable.icon"
+                                                max-width="290px"
+                                                min-width="290px"
+                                                offset-y
+                                                offset-x
                                                 full-width
                                             >
                                                 <v-text-field
@@ -90,9 +91,9 @@
                                                 ></v-text-field>
                                                 <v-card>
                                                     <v-list>
-                                                        <v-list-tile v-for="item in draggables.icons.items" :key="item.name" @click="draggable.resource.icon = item.name">
+                                                        <v-list-tile v-for="item in draggables.icons.items" :key="item.name" @click="draggable.resource.icon = item.value">
                                                             <v-list-tile-action>
-                                                                <v-icon>@{{ item.name }}</v-icon>
+                                                                <v-icon>@{{ item.value }}</v-icon>
                                                             </v-list-tile-action>
                                                             <v-list-tile-title>@{{ item.name }}</v-list-tile-title>
                                                         </v-list-tile>
@@ -102,7 +103,7 @@
                                         </v-card-text>
 
                                         {{-- Quill --}}
-                                        <v-quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                        <v-quill :id="`lessons-${key}-editor`" v-model="draggable.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']" :options="{placeholder: '{{ __('Describe this lesson...') }}'}">
                                             <template>
                                                 <input type="hidden" :name="`lessons[${key}][body]`" :value="draggable.resource.quill?draggable.resource.quill.html:''">
                                                 <input type="hidden" :name="`lessons[${key}][delta]`" :value="draggable.resource.quill?JSON.stringify(draggable.resource.quill.delta):''">
@@ -168,7 +169,7 @@
                                                                 </v-card-text>
 
                                                                 {{-- Quill --}}
-                                                                <v-quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+                                                                <v-quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']" :options="{placeholder: '{{ __('Describe this content...') }}'}">
                                                                     <template>
                                                                         <input type="hidden" :name="`lessons[${key}][contents][${c}][body]`" :value="content.resource.quill.html">
                                                                         <input type="hidden" :name="`lessons[${key}][contents][${c}][delta]`" :value="JSON.stringify(content.resource.quill.delta)">
@@ -293,10 +294,12 @@
                         icons: {
                             model: false,
                             items: [
-                                {name: 'fa-edit'},
-                                {name: 'perm_media'},
-                                {name: 'face'},
-                                {name: 'tag_faces'},
+                                {name: 'None', value: ''},
+                                {name: 'Edit', value: 'fa-edit'},
+                                {name: 'Media', value: 'perm_media'},
+                                {name: 'Face', value: 'face'},
+                                {name: 'Tag Faces', value: 'tag_faces'},
+                                {name: 'Collections', value: 'collections'},
                             ],
                         },
                         items: [],
@@ -352,12 +355,14 @@
                             interactive: null,
                             assignment: {
                                 title: '', code: '', quill: {}, attachment: null,
+                                deadline: '',
                             },
                         },
                         mediabox: false,
                         assignment: {
-                            add: false,
+                            view: false,
                             model: false,
+                            deadline: false,
                         },
                         sections: [],
                     }
@@ -379,18 +384,28 @@
                                 delta: JSON.parse(values.delta),
                             },
                             interactive: values.interactive ? JSON.parse(values.interactive) : [],
-                            assignment: values.assignment,
+                            assignment: {
+                                title: values.assignment.title,
+                                code: values.assignment.code,
+                                deadline: values.assignment.deadline,
+                                quill: {
+                                    html: values.assignment.body,
+                                    delta: JSON.parse(values.assignment.delta),
+                                },
+                            },
                         },
                         mediabox: false,
                         assignment: {
+                            view: false,
                             model: false,
+                            deadline: false,
                         },
                         sections: [],
                     });
                 },
 
                 close (origin, options) {
-                    console.log("mediabox-origin", origin);
+                    // console.log("mediabox-origin", origin);
                 },
 
                 old () {

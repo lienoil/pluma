@@ -7,27 +7,42 @@
         <v-layout row wrap>
             <v-flex sm12>
 
-                <draggable class="sortable-container" :options="{animation: 150, handle: '.sortable-handle', group: 'lessons', draggable: '.draggable-lesson', forceFallback: true}">
-                    {{-- <transition-group> --}}
-                        <v-card class="draggable-lesson ma-3" v-for="(draggable, key) in draggables.items">
-                            <v-toolbar card class="sortable-handle" slot="header">adasTOOL</v-toolbar>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque ratione cupiditate quidem quisquam dolore suscipit amet, quam aperiam! Labore soluta, repudiandae incidunt optio tempore debitis excepturi minus non et culpa.
-                            <span v-html="draggable.name"></span>
-                        </v-card>
-                        <v-card class="draggable-lesson ma-3" v-for="(draggable, key) in draggables.items">
-                            <v-toolbar card class="sortable-handle" slot="header">adasTOOL</v-toolbar>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque ratione cupiditate quidem quisquam dolore suscipit amet, quam aperiam! Labore soluta, repudiandae incidunt optio tempore debitis excepturi minus non et culpa.
-                            <span v-html="draggable.name"></span>
-                        </v-card>
-                        <v-card class="draggable-lesson ma-3" v-for="(draggable, key) in draggables.items">
-                            <v-toolbar card class="sortable-handle" slot="header">adasTOOL</v-toolbar>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque ratione cupiditate quidem quisquam dolore suscipit amet, quam aperiam! Labore soluta, repudiandae incidunt optio tempore debitis excepturi minus non et culpa.
-                            <span v-html="draggable.name"></span>
-                        </v-card>
-                    {{-- </transition-group> --}}
-                </draggable>
+                <v-category
+                    :urls="{GET:'{{ route('api.categories.all') }}', POST: '{{ route('api.categories.store') }}'}"
+                    input-value="id"
+                    input-text="name"
+                    v-model="catalogue.selected"
+                    :list="cataloguesObj"
+                    icon="label"
+                    label="Category"
+                >
+                    <template slot="form" scope="{props}">
+                        <v-card-text>
+                            <input type="hidden" v-model="props.dataset.item._token" name="_token" value="{{ csrf_token() }}">
+                            <v-text-field :error-messages="props.dataset.errors.name" v-model="props.dataset.item.name" name="name" label="{{ __('Name') }}"></v-text-field>
+                            <v-text-field :error-messages="props.dataset.errors.alias" v-model="props.dataset.item.alias" name="alias" label="{{ __('Alias') }}"></v-text-field>
+                            <v-text-field :error-messages="props.dataset.errors.code" v-model="props.dataset.item.code" name="code" label="{{ __('Code') }}"></v-text-field>
+                            <v-text-field :error-messages="props.dataset.errors.description" v-model="props.dataset.item.description" name="description" label="{{ __('Description') }}"></v-text-field>
+                            <v-text-field :error-messages="props.dataset.errors.icon" v-model="props.dataset.item.icon" name="icon" label="{{ __('Icon') }}"></v-text-field>
+                            <v-text-field :error-messages="props.dataset.errors.categorable_type" v-model="props.dataset.item.categorable_type" name="categorable_type" label="{{ __('Type') }}" value="Course\Models\Course"></v-text-field>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn ripple primary @click.stop="props.save">{{ __('Save') }}</v-btn>
+                        </v-card-actions>
+                    </template>
+                </v-category>
+                <span v-html="catalogue.selected"></span>
 
-
+                {{-- <draggable class="sortable-container" :options="{animation: 150, draggable: '.draggable-lesson', handle: '.sortable-handle', forceFallback: true}">
+                    <transition-group>
+                        <v-card v-for="(item, i) in 5" :key="i" class="draggable-lesson ma-3">
+                            <v-toolbar card class="sortable-handle" slot="header">adasTOOL</v-toolbar>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque ratione cupiditate quidem quisquam dolore suscipit amet, quam aperiam! Labore soluta, repudiandae incidunt optio tempore debitis excepturi minus non et culpa.
+                            <span></span>
+                        </v-card>
+                    </transition-group>
+                </draggable> --}}
 
                 <v-card class="mb-3 mt-5">
                     <v-dropzone :options="{url:'{{ route('api.library.upload') }}'}" :params="{'_token':'{{ csrf_token() }}', 'catalogue': catalogue}">
@@ -45,65 +60,6 @@
                     </v-dropzone>
                 </v-card>
 
-                    {{-- <v-quill source v-model="quill.content"></v-quill> --}}
-                <v-card class="mb-3 elevation-1">
-
-                    <v-btn @click="mediabox.model = !mediabox.model" ripple>Mediabox</v-btn>
-                    <v-mediabox
-                        url="{{ route('api.library.all') }}"
-                        dropzone :multiple="false" :categories="cataloguesObj" v-model="mediabox.model"
-                        :dropzone-options="{url: '{{ route('api.library.upload') }}', autoProcessQueue: true}"
-                        :dropzone-params="{'_token':'{{ csrf_token() }}', catalogue_id: catalogue_id}"
-                        @category-change="(cat) => {catalogue.selected=cat}"
-                    >
-                        <template slot="dropzone">
-                            <template>
-                                <em class="grey--text caption">{{ __('Upload will be catalogued as ') }} <strong v-html="catalogue.selected.name?catalogue.selected.name:'Uncategorised'"></strong></em>
-                                <input type="hidden" name="catalogue_id" :value="catalogue.selected.id">
-                                {{-- <span v-html="catalogue.selected"></span> --}}
-                            </template>
-                        </template>
-                    </v-mediabox>
-                    {{-- <span v-html="catalogue.selected"></span> --}}
-                </v-card>
-
-                {{-- <v-card class="elevation-1">
-                    <v-card-title class="headline">Test Module</v-card-title>
-                    <v-card-text>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum cupiditate tenetur ut dolorum soluta sit pariatur cum repellat velit officiis, nobis, maiores, quo asperiores id ipsa. Laudantium quas in quae.</p>
-                    </v-card-text>
-                    <v-btn @click="mediabox.model = true">Mediabox</v-btn>
-
-                    <v-stepper v-model="e6" vertical class="elevation-0">
-                        <v-divider></v-divider>
-                        <v-stepper-step :editable="e6 > 1" step="1" complete>
-                            Introduction
-                        </v-stepper-step>
-                        <v-stepper-content step="1">
-                            <v-card-text>
-                                Short description for this section.
-                                <br>
-                                <v-btn v-if="e6 > 0" primary @click.native="e6 = 2">Start</v-btn>
-                            </v-card-text>
-                        </v-stepper-content>
-
-                        <v-stepper-step :editable="e6 > 2" step="2" v-bind:complete="e6 > 2">Introduction Video</v-stepper-step>
-                        <v-stepper-content step="2">
-                            <v-btn primary @click.native="e6 = 3">Start</v-btn>
-                        </v-stepper-content>
-
-                        <v-stepper-step :editable="e6 > 3" step="3" v-bind:complete="e6 > 3">Video</v-stepper-step>
-                        <v-stepper-content step="3">
-                            <v-btn primary @click.native="e6 = 4">Next</v-btn>
-                        </v-stepper-content>
-
-                        <v-stepper-step :editable="e6 > 4" step="4">Symptoms of Stress</v-stepper-step>
-                        <v-stepper-content step="4">
-                            <v-btn primary @click.native="e6 = 1">Next</v-btn>
-                        </v-stepper-content>
-                    </v-stepper>
-
-                </v-card> --}}
             </v-flex>
         </v-layout>
     </v-container>
@@ -113,7 +69,7 @@
 @push('post-css')
     <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
     <link rel="stylesheet" href="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.css') }}">
-    <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-mediabox.min.css">
+    <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-category-card.min.css">
 @endpush
 
 @push('pre-scripts')
@@ -123,7 +79,7 @@
     <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     {{-- <script src="{{ assets('test/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
-    <script src="http://localhost:8080/dist/vuetify-mediabox.min.js"></script>
+    <script src="http://localhost:8080/dist/vuetify-category-card.min.js"></script>
     <script>
         Vue.use(VueResource);
 

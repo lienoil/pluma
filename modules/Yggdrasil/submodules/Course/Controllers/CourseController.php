@@ -70,6 +70,7 @@ class CourseController extends AdminController
         $course->slug = $request->input('slug');
         $course->code = $request->input('code');
         $course->feature = $request->input('feature');
+        $course->backdrop = $request->input('backdrop');
         $course->body = $request->input('body');
         $course->delta = $request->input('delta');
         $course->category()->associate(Category::find($request->input('category_id')));

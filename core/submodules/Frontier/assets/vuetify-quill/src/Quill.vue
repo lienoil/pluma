@@ -81,28 +81,28 @@
                             },
                             imageDrop: true,
                             toolbar: [
-                                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                                ['blockquote', 'code-block'],
-
-                                [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                                // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
                                 [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                                // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                                // [{ 'font': [] }],
+
+                                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                                [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
+                                ['blockquote', 'code-block'],
 
                                 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                                 [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
                                 [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                                [{ 'direction': 'rtl' }],                         // text direction
 
-                                [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-
-                                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                                [{ 'font': [] }],
-                                [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
+                                // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
 
                                 ['link', 'image'],
 
                                 ['clean'],                                         // remove formatting button
 
-                                ['codemirror', 'scroll']
+                                [{ 'direction': 'rtl' }],                         // text direction
+
+                                ['codemirror'],
                             ]
                         }
                     }
@@ -142,8 +142,11 @@
             },
 
             mergeOptions () {
-                this.quill.options = ! this.options.length ? Object.assign(this.options, this.quill.options) : this.options
-                this.quill.options.modules.toolbar = this.toolbarOptions ? this.toolbarOptions : this.quill.options.modules.toolbar;
+                this.quill.options = Object.assign(this.quill.options, this.options)
+                this.quill.options.modules.toolbar = this.toolbarOptions ? this.toolbarOptions : this.quill.options.modules.toolbar
+                if (this.fonts.length) {
+                    this.quill.options.modules.toolbar.unshift([{font: this.fonts}])
+                }
             },
 
             customToolbar () {
@@ -151,17 +154,42 @@
                 let toolbar = self.quill.instance.getModule('toolbar')
 
                 if (self.source) {
-                    toolbar.addHandler('codemirror', function () {
-
-                    })
+                    toolbar.addHandler('codemirror', function () {})
                     let codemirrorButton = document.querySelector('.ql-codemirror')
-                    codemirrorButton.innerHTML = '<svg viewBox="0 0 18 18"> <polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline> <polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline> <line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line> </svg>'
+                    codemirrorButton.innerHTML = '<svg viewBox="0 0 113 105"><path d="M52 .9c-2.1.6-1.8.9 2.5 1.5 10.3 1.6 18.4 7 21.8 14.3.9 2.1.8 2.7-.8 3.9-2.9 2.2-5.5 1.8-5.6-.9 0-1.2-.7.3-1.4 3.3-1.8 7.3-4.3 9.4-11 8.7-2.7-.2-5.9-.8-7-1.2-1.7-.6-1.6-.3.4 1.5 1.4 1.2 3.7 2.4 5.3 2.7 2.6.5 2.8.9 2.8 5.5 0 5.6-2 10.5-6 14.8-3.4 3.6-2.7 3.8 2.1.6 2.4-1.7 4-2.1 5-1.5 2.4 1.5 8.1 1 14.5-1.3 6.1-2.2 6.2-2.2 10.2-.4 2.3 1 5 2.9 6.2 4.1 1.8 2 1.9 2.5.8 5.1-2 4.6-5.3 6.2-4.3 2.1.5-2-.1-2.6-5-4.6l-5.6-2.4-12.2 5.9c-9.9 4.7-13.2 5.8-17.4 5.9-4.1 0-5.7-.5-7.4-2.2l-2.2-2.1 2.1-3.4c1.1-1.8 2.3-4.4 2.7-5.8.5-2 0-1.6-2.4 1.6-2 2.7-5.7 5.5-11 8.4-7.6 4-9.9 6.1-11.4 10.2-.5 1.3.3 1.1 3.2-1 2-1.5 6.1-3.8 8.9-5.1l5.2-2.4 2.3 2c3.1 3 8.3 3.7 15.4 2 6.9-1.6 7.9-1.3 8.8 2.3.9 3.7-3 8.9-9.5 12.7-8.7 5.1-10 6.2-10 8.9 0 3.6 4.4 5.1 8.8 3 3.8-1.9 6.6-2 9.4-.5 1.8 1 1.9.8 1.3-1.1-.5-1.5-.4-2 .4-1.6.6.4 1.1.3 1.1-.2 0-2.6-6.5-2.9-11.5-.5-2.6 1.2-3.8 1.4-4.6.6-1.5-1.5-.4-3 4-5.3 2.1-1 5.8-3.4 8.3-5.4 4.3-3.2 4.8-3.3 6.7-1.9 3 2.1 8.2 3.4 10.5 2.7 1.5-.5 1.6-.8.5-1.5-2.1-1.3.8-3.1 4.4-2.6 5.4.7 1.7-3.9-4.1-4.9-5.5-1-7-2-9.2-6.4l-2-3.9 4.6-2.7c4.2-2.5 4.8-2.6 8.6-1.4 2.3.6 3.7 1.5 3.2 1.8-1.1.9-1.2 6.7-.1 7.9.5.4 1.4.1 2-.8.7-.9 2.5-1.9 4-2.3 2-.5 3.3-1.7 4.3-4.1 1.8-4.3 1.8-6-.1-7.8-1.3-1.3-1-1.9 1.8-5 3.9-4.1 9.6-17.1 10.4-23.6.4-3.7.2-5-1.2-6.1-1.6-1.3-2.1-1-5.5 2.8-4.9 5.5-9.2 16.1-9.4 22.9-.1 2.9-.1 5.3-.2 5.3 0 0-1.5-.7-3.3-1.6-3-1.5-3.7-1.5-9 0-6.6 1.8-9 2-12.4.7l-2.5-1 1.6-5.4c1.4-4.7 1.9-5.4 3.4-4.6 2.3 1.3 8.5 1.1 9.4-.2.3-.6 2.2-1.7 4-2.5 4.1-1.7 4.2-2.9.4-7.4-3.4-3.8-3.8-6.7-1.4-8.5 1.4-1 1.5-1.7.5-4.8C75.2 5.1 62.8-2.2 52 .9z"/><path d="M49.8 7.5c-1.1 1.5-4.7 3.3-10 5C14.5 20.8 3.6 31.2.7 50c-2.2 14.2 2.1 26.9 12.7 37.4 23.3 23.2 64.3 23.1 87.7-.3 7.5-7.5 10.8-13.2 11.5-19.9.9-8.8-3-9.5-5.5-1-3.8 13-17.5 26.9-31.1 31.7-9.9 3.4-26.8 3.2-38.9-.4l-5.4-1.7 2.7-2.1c1.7-1.4 3.5-4.6 4.9-8.7 2-5.9 2.7-6.7 6.7-8.8 3.8-1.9 4.1-2.2 1.9-2.2-5.1 0-8.9 2.1-10.4 5.6-1.2 3-1.7 3.3-4.4 2.8-4.4-.9-10 1.3-10.7 4.2-.3 1.3-1 2.4-1.4 2.4-1.7 0-10-10.4-12.7-15.8C5.7 68 5.5 66.6 5.5 56c0-11 .1-11.8 3.3-18.2 5.1-10.4 13.1-16.3 30.7-22.3 8.4-2.9 12.9-6.2 12.3-8.8-.2-1.2-.7-1-2 .8z"/></svg>'
+                    // '<svg viewBox="0 0 18 18"> <polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline> <polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline> <line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line> </svg>'
                     codemirrorButton.addEventListener('click', function () {
                         self.codemirror.model = !self.codemirror.model
                         self.quill.model = !self.quill.model
+
+                        if (self.quill.model === false) {
+                            this.classList.add('ql-active')
+                        } else {
+                            this.classList.remove('ql-active')
+                        }
                     })
                 }
 
+                // change font selects
+                let $container = self.quill.instance.container.parentNode
+                $container.querySelectorAll('.ql-toolbar .ql-picker-options .ql-picker-item, .ql-toolbar .ql-picker-label').forEach(function (item) {
+                    let index = item.getAttribute('data-value')
+                    if (self.fonts.indexOf(index) != -1) {
+                        // match
+                        item.classList.add('custom-font')
+                        let span = document.createElement('span')
+                        span.innerHTML = index
+                        item.insertBefore(span, item.firstChild)
+                    }
+
+                    item.addEventListener('click', function () {
+                        let label = item.parentNode.parentNode.querySelector('.ql-picker-label span')
+                        console.log('lbale', label)
+                        if (label) {
+                            label.innerHTML = label.parentNode.getAttribute('data-value')
+                        }
+                    })
+                })
             },
 
             listen () {
@@ -169,8 +197,27 @@
 
                 self.quill.instance.on('text-change', function (delta, oldDelta, source) {
                     // self.$emit('text-change', delta, oldDelta, source, self.quill.instance);
-                    self.$emit('input', self.quillbox().getContents());
+                    self.$emit('input', self.quillbox().getContents())
                 })
+
+                let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+                let observer = new MutationObserver(mutations => {
+                    mutations.forEach(mutation => {
+                        if (mutation.type == "attributes") {
+                            mutation.target.querySelector('span').innerHTML = mutation.target.getAttribute('data-value')
+                        }
+                    })
+                })
+
+                self.quill.instance.container.parentNode.querySelectorAll('[data-value]').forEach(function (item) {
+                    let index = item.getAttribute('data-value')
+                    if (self.fonts.indexOf(index) != -1) {
+                        observer.observe(item, {
+                            attributes: true
+                        })
+                    }
+                })
+
             },
 
             quillbox () {
@@ -265,6 +312,12 @@
 
         button {
             margin: 0;
+
+            &:hover, &.ql-active {
+                svg {
+                    fill: #06c;
+                }
+            }
         }
     }
     .ql-container {
@@ -329,5 +382,15 @@
             opacity: 1;
             max-width: 100%;
         }
+    }
+
+    .custom-font {
+        &:before {
+            content: '' !important;
+        }
+    }
+
+    .ql-font-Mirza, [data-value=Mirza] {
+        font-family: 'Mirza';
     }
 </style>

@@ -2,10 +2,11 @@
 
 namespace Category\API\Controllers;
 
+use Category\Models\Category;
+use Category\Models\Grant;
+use Category\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use Pluma\API\Controllers\APIController;
-use Category\Models\Grant;
-use Category\Models\Category;
 
 class CategoryController extends APIController
 {
@@ -33,12 +34,12 @@ class CategoryController extends APIController
     }
 
     /**
-     * Get all resources.
+     * Get a paginated list of resources.
      *
      * @param  Illuminate\Http\Request $request [description]
      * @return Illuminate\Http\Response
      */
-    public function all(Request $request)
+    public function paginated(Request $request)
     {
         $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
@@ -61,6 +62,17 @@ class CategoryController extends APIController
      * @param  Illuminate\Http\Request $request [description]
      * @return Illuminate\Http\Response
      */
+    public function all(Request $request)
+    {
+        return response()->json(Category::all());
+    }
+
+    /**
+     * Get all resources.
+     *
+     * @param  Illuminate\Http\Request $request [description]
+     * @return Illuminate\Http\Response
+     */
     public function getTrash(Request $request)
     {
         $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
@@ -74,16 +86,23 @@ class CategoryController extends APIController
     }
 
     /**
-     * Gets the grants.
+     * Store a newly created resource in storage.
      *
-     * @param  array $modules
-     * @return void
+     * @param  \Category\Requests\CategoryRequest  $request
+     * @return \Illuminate\Http\Response
      */
-    public function grants($modules = null)
+    public function store(CategoryRequest $request)
     {
-        $grants = Grant::pluck('name', 'id');
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->alias = $request->input('alias');
+        $category->code = $request->input('code');
+        $category->description = $request->input('description');
+        $category->icon = $request->input('icon');
+        $category->categorable_type = $request->input('categorable_type');
+        $category->save();
 
-        return response()->json($grants);
+        return response()->json($this->successResponse);
     }
 
     /**

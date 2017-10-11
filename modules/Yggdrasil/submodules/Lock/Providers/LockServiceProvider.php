@@ -74,12 +74,12 @@ class LockServiceProvider extends ServiceProvider
      */
     public function bootGate()
     {
-        if (Schema::hasTable('unlocks')) {
-            foreach (\Lock\Models\Unlock::get() as $unlock) {
-                Gate::define("unlocked-{$unlock->unlockable->id}", function ($user) use ($unlock) {
-                    return $user->id === $unlock->unlockable->id;
-                });
-            }
-        }
+        // if (Schema::hasTable('unlocks')) {
+        //     foreach (\Lock\Models\Unlock::get() as $unlock) {
+        //         Gate::define("unlocked-{$unlock->unlockable->id}", function ($user) use ($unlock) {
+        //             return $user->id === $unlock->user()->id;
+        //         });
+        //     }
+        // }
     }
 }

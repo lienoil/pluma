@@ -46,7 +46,7 @@
                     </v-card>
 
                     {{-- Editor --}}
-                    <v-quill source v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Montserrat', 'Roboto']">
+                    <v-quill source :options="{placeholder: '{{ __('Describe this course...') }}'}" v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Default', 'Montserrat', 'Roboto']">
                         <template>
                             <input type="hidden" name="body" :value="quill.values.html">
                             <input type="hidden" name="delta" :value="JSON.stringify(quill.values.delta)">
@@ -63,6 +63,8 @@
                     @include("Theme::cards.saving")
 
                     @include("Theme::cards.category")
+
+                    @include("Yggdrasil::cards.cover")
 
                     @include("Theme::cards.feature")
                 </v-flex>
@@ -97,12 +99,16 @@
                             slug: '',
                             code: '',
                             body: '',
-                            feature: [JSON.parse('{!! old('feature_obj') ? old('feature_obj') : '[]' !!}')],
+                            cover: '{!! old('cover_obj') !!}' ? JSON.parse('{!! old('cover_obj') !!}') : null,
+                            feature: '{!! old('feature_obj') !!}' ? JSON.parse('{!! old('feature_obj') !!}') : null,
                             category: JSON.parse({!! json_encode(old('category')) !!}),
                         },
                         feature: {
                             model: false,
                             catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
+                        },
+                        cover: {
+                            model: false,
                         },
                         slug: {
                             readonly: true,

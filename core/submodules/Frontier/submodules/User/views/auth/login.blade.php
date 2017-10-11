@@ -76,9 +76,9 @@
                             {{-- /Template --}}
 
                             <v-card-actions>
-                                <v-btn class="ma-0 elevation-1" primary type="submit">{{ __("Login") }}</v-btn>
-                                <v-spacer></v-spacer>
                                 <v-btn class="ma-0" role="button" secondary outline href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
+                                <v-spacer></v-spacer>
+                                <v-btn class="ma-0 elevation-1" primary type="submit">{{ __("Login") }}</v-btn>
                             </v-card-actions>
                         </form>
                     </v-container>

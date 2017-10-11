@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /**
      * -------------------------------------------------------------------------
      * Avatar Menus
@@ -11,7 +10,7 @@ return [
      */
     'avatar' => [
         'is_avatar' => true,
-        'is_header' => true,
+        'is_header' => false,
         'order' => 0,
         'name' => 'avatar',
         'always_viewable' => true,

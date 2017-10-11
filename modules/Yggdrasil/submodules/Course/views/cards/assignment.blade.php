@@ -3,10 +3,13 @@
         <v-icon left class="pink--text">fa-edit</v-icon>
         <v-toolbar-title class="subheading pink--text">{{ __('Assignment') }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-chip label class="pink darken-3 white--text" v-html="`${draggable.resource.title}`"></v-chip>
+        <v-btn icon @click.native.stop="draggable.assignment.view = !draggable.assignment.view">
+            <v-icon>@{{ draggable.assignment.view ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+        </v-btn>
     </v-toolbar>
 
-    <v-card-text>
+    <v-slide-y-transition>
+    <v-card-text v-show="draggable.assignment.view">
         {{-- Title --}}
         <v-text-field
             :error-messages="resource.errors[`lessons.${key}.assignment.title`]"
@@ -21,18 +24,41 @@
         <v-text-field
             :error-messages="resource.errors[`lessons.${key}.assignment.code`]"
             :name="`lessons[${key}][assignment][code]`"
-            :value="draggable.resource.assignment.title ? draggable.resource.assignment.title : ''"
+            :value="draggable.resource.assignment.title ? draggable.resource.assignment.title : '' | slugify"
             label="{{ __('Assignment Code') }}"
         ></v-text-field>
         {{-- /Code --}}
 
+        {{-- Deadline --}}
+        <v-menu
+            lazy
+            v-model="menu"
+            transition="scale-transition"
+            offset-y
+            full-width
+            :nudge-right="40"
+            max-width="290px"
+            min-width="290px"
+        >
+            <v-text-field
+                label="{{ __('Deadline') }}"
+                :name="`lessons[${key}][assignment][deadline]`"
+                prepend-icon="event"
+                readonly
+                slot="activator"
+                v-model="draggable.resource.assignment.deadline"
+            ></v-text-field>
+            <v-date-picker v-model="draggable.resource.assignment.deadline" no-title scrollable actions></v-date-picker>
+        </v-menu>
+        {{-- /Deadline --}}
+
         {{-- Body / Delta --}}
-        <quill v-model="draggable.resource.assignment.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']">
+        <v-quill v-model="draggable.resource.assignment.quill" class="mb-3 white" :fonts="['Montserrat', 'Roboto']" :options="{placeholder: '{{ __('Describe this assignment...') }}'}">
             <template>
                 <input type="hidden" :name="`lessons[${key}][assignment][body]`" :value="draggable.resource.assignment.quill?draggable.resource.assignment.quill.html:''">
                 <input type="hidden" :name="`lessons[${key}][assignment][delta]`" :value="draggable.resource.assignment.quill?JSON.stringify(draggable.resource.assignment.quill.delta):''">
             </template>
-        </quill>
+        </v-quill>
         {{-- /Body / Delta --}}
 
         {{-- Attachment --}}
@@ -40,7 +66,7 @@
             <v-card-text class="text-xs-center grey--text grey lighten-4 py-5" role="button" v-tooltip:top="{'html': '{{ __('Attach File') }}'}"
                 @click.stop="draggable.assignment.model = !draggable.assignment.model">
                 <v-icon x-large>fa-edit</v-icon>
-                <p v-if="resource.errors.lessons" class="caption error--text" v-html="resource.errors.lessons.join(', ')"></p>
+                <p v-if="resource.errors.assignment" class="caption error--text" v-html="resource.errors.assignment.join(', ')"></p>
                 <p v-else class="caption text-xs-center">{{ __('no file attachment') }}</p>
             </v-card-text>
         </template>
@@ -74,6 +100,7 @@
         </template>
         {{-- /Attachment --}}
     </v-card-text>
+    </v-slide-y-transition>
     <v-mediabox :multiple="false" close-on-click :categories="mediabox.catalogues" v-model="draggable.assignment.model" @selected="value => { draggable.resource.assignment.attachment = value[0] }">
         <template slot="media" scope="props">
             <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
