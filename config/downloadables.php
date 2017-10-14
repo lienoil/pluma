@@ -22,4 +22,22 @@ return [
     'xls',
     'xlsx',
     'zip',
+
+    // Uppercase
+    '7Z',
+    'CSS',
+    'DOCX',
+    'GIF',
+    'JPEG',
+    'JPG',
+    'JS',
+    'MAP',
+    'PNG',
+    'PPT',
+    'PPTX',
+    'RAR',
+    'TIFF',
+    'XLS',
+    'XLSX',
+    'ZIP',
 ];

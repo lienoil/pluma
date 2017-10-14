@@ -84,20 +84,22 @@
                     <v-card-media height="250px" :src="item.thumbnail">
                         <v-container fill-height class="pa-0 white--text">
                             <v-layout fill-height wrap column>
-                                <v-card-title class="subheading" v-html="item.originalname"></v-card-title>
                                 <v-slide-y-transition>
                                     <v-icon ripple class="display-4 pa-1 text-xs-center white--text" v-show="item.active">check</v-icon>
                                 </v-slide-y-transition>
                                 <v-spacer></v-spacer>
                                 <v-card-actions class="px-2 white--text">
-                                    <v-icon class="white--text" v-html="item.icon"></v-icon>
-                                    <v-spacer></v-spacer>
-                                    <span v-html="item.mime"></span>
-                                    <span v-html="item.filesize"></span>
+                                    {{-- <span v-html="item.mimetype"></span>
+                                    <span v-html="item.filesize"></span> --}}
                                 </v-card-actions>
                             </v-layout>
                         </v-container>
                     </v-card-media>
+                    <v-toolbar card>
+                        <v-toolbar-title class="subheading" v-html="item.originalname"></v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn small absolute fab top right class="info darken-1 elevation-1"><v-icon class="white--text" v-html="item.icon"></v-icon></v-btn>
+                    </v-toolbar>
                 </v-card>
             </v-flex>
         </v-layout>

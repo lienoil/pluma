@@ -5,60 +5,43 @@
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
-            <v-flex sm12>
+            <v-flex sm6>
 
-                <v-category
-                    :urls="{GET:'{{ route('api.categories.all') }}', POST: '{{ route('api.categories.store') }}'}"
-                    input-value="id"
-                    input-text="name"
-                    v-model="catalogue.selected"
-                    :list="cataloguesObj"
-                    icon="label"
-                    label="Category"
-                >
-                    <template slot="form" scope="{props}">
-                        <v-card-text>
-                            <input type="hidden" v-model="props.dataset.item._token" name="_token" value="{{ csrf_token() }}">
-                            <v-text-field :error-messages="props.dataset.errors.name" v-model="props.dataset.item.name" name="name" label="{{ __('Name') }}"></v-text-field>
-                            <v-text-field :error-messages="props.dataset.errors.alias" v-model="props.dataset.item.alias" name="alias" label="{{ __('Alias') }}"></v-text-field>
-                            <v-text-field :error-messages="props.dataset.errors.code" v-model="props.dataset.item.code" name="code" label="{{ __('Code') }}"></v-text-field>
-                            <v-text-field :error-messages="props.dataset.errors.description" v-model="props.dataset.item.description" name="description" label="{{ __('Description') }}"></v-text-field>
-                            <v-text-field :error-messages="props.dataset.errors.icon" v-model="props.dataset.item.icon" name="icon" label="{{ __('Icon') }}"></v-text-field>
-                            <v-text-field :error-messages="props.dataset.errors.categorable_type" v-model="props.dataset.item.categorable_type" name="categorable_type" label="{{ __('Type') }}" value="Course\Models\Course"></v-text-field>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn ripple primary @click.stop="props.save">{{ __('Save') }}</v-btn>
-                        </v-card-actions>
-                    </template>
-                </v-category>
-                <span v-html="catalogue.selected"></span>
+                <v-card tile>
+                    <v-card-actions><v-icon left class="subheading">fa-flask</v-icon>Mediabox Test</v-card-actions>
+                    <v-card-media height="250" :src="mediabox.selected?mediabox.selected.thumbnail:''"></v-card-media>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn primary ripple @click="mediabox.model = !mediabox.model">Open Mediabox</v-btn>
+                        <v-mediabox
+                            toolbar-icon="perm_media"
+                            toolbar-label="Mediabox"
+                            :url="mediabox.url"
+                            :categories="mediabox.categories"
+                            close-on-click
+                            auto-remove-files
+                            v-model="mediabox.model"
+                            :multiple="false"
+                            dropzone
+                            :dropzone-options="{url:'{{ route('api.library.upload') }}', parallelUploads: mediabox.options.parrallelUploads, autoProcessQueue: true}"
+                            :dropzone-params="{'_token': '{{ csrf_token() }}', 'catalogue_id': mediabox.category.id, name: mediabox.name}"
+                            @upload-completed="val => mediabox.categories = []"
+                            @selected="val => { mediabox.selected = val[0] }"
+                            @category-change="val => mediabox.category = val"
+                            @sending="({file, params}) => params.name = file.upload.filename"
+                        >
+                            <template slot="dropzone">
+                                <span class="caption" v-if="mediabox.category">{{ __('Uploads will be catalogued as') }}<em>@{{ mediabox.category.id ? mediabox.category.name : 'Uncategorized' }}</em></span>
 
-                {{-- <draggable class="sortable-container" :options="{animation: 150, draggable: '.draggable-lesson', handle: '.sortable-handle', forceFallback: true}">
-                    <transition-group>
-                        <v-card v-for="(item, i) in 5" :key="i" class="draggable-lesson ma-3">
-                            <v-toolbar card class="sortable-handle" slot="header">adasTOOL</v-toolbar>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque ratione cupiditate quidem quisquam dolore suscipit amet, quam aperiam! Labore soluta, repudiandae incidunt optio tempore debitis excepturi minus non et culpa.
-                            <span></span>
-                        </v-card>
-                    </transition-group>
-                </draggable> --}}
-
-                <v-card class="mb-3 mt-5">
-                    <v-dropzone :options="{url:'{{ route('api.library.upload') }}'}" :params="{'_token':'{{ csrf_token() }}', 'catalogue': catalogue}">
-                        <template>
-                            <v-select
-                              v-bind:items="catalogues"
-                              v-model="catalogue"
-                              label="Select"
-                              class="input-group--focused"
-                              item-text="name"
-                              item-value="id"
-                            ></v-select>
-                            <span v-html="catalogue"></span>
-                        </template>
-                    </v-dropzone>
+                                {{-- <v-divider></v-divider> --}}
+                                <v-card-text>
+                                    <span v-if="mediabox.name" v-html="`Currently uploading ${mediabox.name}`"></span>
+                                </v-card-text>
+                            </template>
+                        </v-mediabox>
+                    </v-card-actions>
                 </v-card>
+
 
             </v-flex>
         </v-layout>
@@ -67,40 +50,30 @@
 @endsection
 
 @push('post-css')
-    <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
-    <link rel="stylesheet" href="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.css') }}">
-    <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-category-card.min.css">
+    {{-- <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}"> --}}
+    <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-mediabox.min.css">
 @endpush
 
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
-    <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
-    <script src="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.js') }}"></script>
-    <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
-    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
-    {{-- <script src="{{ assets('test/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
-    <script src="http://localhost:8080/dist/vuetify-category-card.min.js"></script>
+    <script src="{{ assets('frontier/vue-resource/dist/vue-resource.min.js') }}"></script>
+    <script src="http://localhost:8080/dist/vuetify-mediabox.min.js"></script>
+    {{-- <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
     <script>
         Vue.use(VueResource);
 
         mixins.push({
             data () {
                 return {
-                    tab: 2,
-                    cataloguesObj: {!! json_encode($cataloguesObj) !!},
-                    catalogue: {selected: {}},
-                    catalogue_id: null,
-                    quill: {
-                        content: {}
-                    },
-                    e6: 1,
-                    draggables: {
-                        items: [{name: 'asd', active: true}]
-                    },
-                    catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
                     mediabox: {
                         model: false,
-                        output: []
+                        url: '{{ route('api.library.all') }}',
+                        categories: {!! json_encode($cataloguesObj) !!},
+                        category: {},
+                        selected: null,
+                        name: '',
+                        options: {
+                            parrallelUploads: 1,
+                        }
                     }
                 }
             },

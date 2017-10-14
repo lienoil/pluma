@@ -16,9 +16,10 @@
 
                 {{-- Expand --}}
                 <v-btn
+                    ripple
                     icon
                     v-tooltip:left="{'html': lessons.toolbar.expand.model?'{{ __('Expand All') }}':'{{ __('Compress All') }}'}"
-                    @click.native.stop="toolbar().expand().toggle(draggables.items, lessons.toolbar.expand.model)"
+                    @click="toolbar().expand().toggle(draggables.items, lessons.toolbar.expand.model)"
                 >
                     <v-icon small>@{{ lessons.toolbar.expand.model ? 'fa-expand' : 'fa-compress'}}</v-icon>
                 </v-btn>
@@ -261,6 +262,11 @@
                                 <v-divider></v-divider>
                                 @include("Course::cards.assignment")
                                 {{-- /Assignment Card --}}
+
+                                {{-- Meta Card --}}
+                                <v-divider></v-divider>
+                                @include("Course::cards.meta")
+                                {{-- /Meta Card --}}
                             </v-card>
                         {{-- </v-scale-transition> --}}
                     </v-card>
@@ -353,6 +359,7 @@
                             code: '',
                             quill: {},
                             interactive: null,
+                            lockable: false,
                             assignment: {
                                 title: '', code: '', quill: {}, attachment: null,
                                 deadline: '',
@@ -363,6 +370,10 @@
                             view: false,
                             model: false,
                             deadline: false,
+                        },
+                        options: {
+                            view: false,
+                            model: false,
                         },
                         sections: [],
                     }
@@ -384,6 +395,7 @@
                                 delta: JSON.parse(values.delta),
                             },
                             interactive: values.interactive ? JSON.parse(values.interactive) : [],
+                            lockable: values.lockable,
                             assignment: {
                                 title: values.assignment.title,
                                 code: values.assignment.code,
@@ -399,6 +411,10 @@
                             view: false,
                             model: false,
                             deadline: false,
+                        },
+                        options: {
+                            view: false,
+                            model: false,
                         },
                         sections: [],
                     });

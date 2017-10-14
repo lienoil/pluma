@@ -126,7 +126,7 @@ class LibraryController extends APIController
      * @param  \Library\Requests\LibraryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function upload(LibraryRequest $request)
+    public function upload(Request $request)
     {
         // dd($request->all());
         // return response()->json('Yeap, luv', 200);
@@ -154,17 +154,21 @@ class LibraryController extends APIController
      */
     public function save($request, $file)
     {
+        // dd($request->all());
         $originalName = $file->getClientOriginalName();
         $date = date('Y-m-d');
         $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/$date";
-        do {
-           $fileName = md5(time().$originalName) . '.' . $file->getClientOriginalExtension();
-        } while (file_exists("$filePath/$fileName"));
+
+        $name = $request->input('name') ? $request->input('name') : pathinfo($originalName, PATHINFO_FILENAME);
+
+        $fileName = str_slug($name);
+        $fileName .= ".".$file->getClientOriginalExtension();
+
         $fullFilePath = "$filePath/$fileName";
 
         if ($file->move($filePath, $fileName)) {
             $library = new Library();
-            $library->name = $fileName;
+            $library->name = $name;
             $library->originalname = $originalName;
             $library->pathname = $fullFilePath;
             $library->mimetype = $file->getClientMimeType();

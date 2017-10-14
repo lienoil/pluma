@@ -1,11 +1,11 @@
 @include("Theme::partials.header")
 
-<div id="application-root" class="application-root" data-application-root>
+<div id="application-root" class="application-root" data-application-root toolbar--fixed toolbar>
     <v-app standalone>
 
         @yield("pre-content")
 
-        <main data-main :style="`font-size: ${settings.fontsize.model}px`">
+        <main id="main" data-main :style="`font-size: ${settings.fontsize.model}px`">
 
             @section("pre-container")
                 @include("Theme::partials.breadcrumbs")

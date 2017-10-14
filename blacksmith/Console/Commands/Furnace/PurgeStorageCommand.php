@@ -14,6 +14,7 @@ class PurgeStorageCommand extends Command
      * @var string
      */
     protected $signature = 'purge:storage
+                            {--f|folder= : Which folder in the storage to delete}
                             {--t|truncate : Truncate the storage database table}';
 
     /**
@@ -32,9 +33,9 @@ class PurgeStorageCommand extends Command
     {
         try {
             $option = $this->option();
-            $path = storage_path('public');
+            $path = $option['folder'] ? storage_path($option['folder']) : storage_path('public');
 
-            $this->info("Purging storage/public...");
+            $this->info("Purging: $path");
 
             array_map('unlink', glob("$path/**/*.*"));
             File::cleanDirectory($path);

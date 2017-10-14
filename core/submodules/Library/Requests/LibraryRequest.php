@@ -50,7 +50,7 @@ class LibraryRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
-            // 'name' => 'required|max:255',
+            'name' => 'required|unique:library'.$isUpdating,
             // 'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:libraries'.$isUpdating,
         ];
     }
@@ -63,7 +63,7 @@ class LibraryRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
+            'name.unique' => 'The file or the filename already exists.',
         ];
     }
 }

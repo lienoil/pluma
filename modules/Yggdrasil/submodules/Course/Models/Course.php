@@ -6,16 +6,18 @@ use Category\Support\Traits\BelongsToCategory;
 use Course\Support\Mutators\CourseMutator;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Lesson\Support\Traits\HasManyLessons;
+use Lock\Support\Traits\MorphManyUnlocks;
+use Lock\Support\Traits\Unlock;
 use Pluma\Models\Model;
 use User\Support\Traits\BelongsToUser;
 
 class Course extends Model
 {
-    use SoftDeletes, HasManyLessons, BelongsToUser, BelongsToCategory, CourseMutator;
+    use BelongsToCategory, BelongsToUser, CourseMutator, HasManyLessons, MorphManyUnlocks, SoftDeletes, Unlock;
 
     protected $with = ['lessons', 'user', 'category'];
 
-    protected $appends = ['created', 'excerpt', 'modified'];
+    protected $appends = ['percentage', 'created', 'excerpt', 'modified', 'locked', 'unlocked', 'current'];
 
     protected $searchables = ['title', 'code', 'slug', 'feature', 'body', 'created_at', 'updated_at'];
 }

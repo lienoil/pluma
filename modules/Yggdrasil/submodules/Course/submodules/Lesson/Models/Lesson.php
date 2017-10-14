@@ -7,12 +7,12 @@ use Content\Support\Traits\HasManyContents;
 use Course\Support\Traits\BelongsToCourse;
 use Lesson\Support\Mutators\LessonMutator;
 use Lock\Support\Traits\MorphManyUnlocks;
-use Lock\Support\Traits\Unlock as Unlockable;
+use Lock\Support\Traits\Unlock;
 use Pluma\Models\Model;
 
 class Lesson extends Model
 {
-    use BelongsToCourse, Unlockable, HasManyContents, BelongsToAssignment, LessonMutator, MorphManyUnlocks;
+    use BelongsToCourse, Unlock, HasManyContents, BelongsToAssignment, LessonMutator, MorphManyUnlocks;
 
     protected $with = ['assignment'];
 

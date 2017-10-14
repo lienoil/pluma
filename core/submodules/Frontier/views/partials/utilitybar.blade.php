@@ -4,6 +4,8 @@
     :class="theme.utilitybar"
     class="elevation-1 grey--text"
     fixed
+    {{-- app --}}
+    {{-- scroll-off-screen --}}
     :dark.sync="light" :light.sync="dark"
 >
     <v-toolbar-side-icon class="grey--text" @click.stop="setStorage('sidebar.drawer', (sidebar.drawer = !sidebar.drawer))">

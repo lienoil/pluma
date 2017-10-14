@@ -5,7 +5,7 @@
     @stack("meta")
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -51,6 +51,7 @@
     @stack("css")
         {{-- compile this --}}
         @if (env('APP_ENV', 'production') == 'development')
+            {{-- <script src="https://unpkg.com/vue/dist/vue.js"></script> --}}
             <script src="{{ assets('frontier/vendors/vue/dist/vue.js') }}?v={{ $application->version }}"></script>
         @else
             <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>

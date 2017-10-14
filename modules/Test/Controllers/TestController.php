@@ -22,7 +22,7 @@ class TestController extends AdminController
     public function index(Request $request)
     {
         $catalogues = Catalogue::select('name', 'id')->get();
-        $cataloguesObj = Category::all();
+        $cataloguesObj = Catalogue::mediabox();
 
         return view("Theme::tests.index")->with(compact('catalogues', 'cataloguesObj'));
     }

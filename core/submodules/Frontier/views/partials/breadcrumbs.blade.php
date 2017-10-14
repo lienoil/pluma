@@ -4,7 +4,8 @@
         :href="breadcrumb.url"
         :key="breadcrumb.name"
         v-for="breadcrumb in breadcrumbs"
-        class="caption"
+        class="caption inline"
+        ripple
     >
         <small class="ma-0 caption" :class="!breadcrumb.active ? 'info--text' : 'grey--text'">@{{ breadcrumb.label }}</small>
     </v-breadcrumbs-item>

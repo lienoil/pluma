@@ -23,29 +23,39 @@
                         <v-btn icon><v-icon>more_vert</v-icon></v-btn>
                         @endcan
                     </v-toolbar>
-                    <v-container fluid grid-list-lg>
-                        <v-flex sm12>
-                            <v-layout row wrap>
-                                <v-flex md3 sm2>
-                                    <v-card-media ripple :src="resource.feature" height="150px" cover class="elevation-1"></v-card-media>
-                                </v-flex>
-                                <v-flex md9 sm10>
-                                    <v-card-title primary-title class="pa-0">
-                                        <strong class="headline td-n accent--text" v-html="resource.title"></strong>
-                                    </v-card-title>
-                                    <v-footer class="transparent">
-                                        <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">class</v-icon><span v-html="resource.code"></span></v-chip>
+                    <v-card-text>
+                        <v-container fluid grid-list-lg>
+                            <v-flex sm12>
+                                <v-layout row wrap>
+                                    <v-flex md3 sm2>
+                                        <v-card-media ripple :src="resource.feature" height="150px" cover class="elevation-1"></v-card-media>
+                                    </v-flex>
+                                    <v-flex md9 sm10>
+                                        <v-card-title primary-title class="pa-0">
+                                            <strong class="headline td-n accent--text" v-html="resource.title"></strong>
+                                        </v-card-title>
 
-                                        <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${resource.lessons.length} Parts`"></span></v-chip>
+                                        <v-avatar size="30px">
+                                            <img :src="resource.user.avatar" :alt="resource.user.fullname">
+                                        </v-avatar>
+                                        <v-chip label small class="pl-0 caption transparent grey--text elevation-0">
+                                            <a :href="route(urls.profile.show, resource.user.handlename)" v-html="resource.user.displayname"></a>
+                                        </v-chip>
 
-                                        <v-chip v-if="resource.category" label class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">label</v-icon><span v-html="resource.category.name"></span></v-chip>
+                                        <v-footer class="transparent">
+                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${resource.lessons.length} {{ __('Parts') }}`"></span></v-chip>
 
-                                        <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-clock-o</v-icon><span v-html="resource.created"></span></v-chip>
-                                    </v-footer>
-                                </v-flex>
-                            </v-layout>
-                        </v-flex>
-                    </v-container>
+                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">class</v-icon><span v-html="resource.code"></span></v-chip>
+
+                                            <v-chip v-if="resource.category" label class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">label</v-icon><span v-html="resource.category.name"></span></v-chip>
+
+                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-clock-o</v-icon><span v-html="resource.created"></span></v-chip>
+                                        </v-footer>
+                                    </v-flex>
+                                </v-layout>
+                            </v-flex>
+                        </v-container>
+                    </v-card-text>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -63,7 +73,7 @@
             </v-flex>
             <v-flex flex md6 xs12 order-lg2>
                 <v-card class="elevation-1">
-                    <v-toolbar card class="purple lighten-3 white--text transparent">
+                    <v-toolbar class="purple lighten-3 white--text transparent elevation-1">
                         <v-toolbar-title class="white--text">{{ __('Course Content') }}</v-toolbar-title>
                     </v-toolbar>
                     <template v-if="!resource.lessons.length">
@@ -72,11 +82,15 @@
                             <div class="purple--text text--lighten-4">{{ __('No lessons available yet') }}</div>
                         </v-card-text>
                     </template>
+                    {{-- Lessons --}}
                     <template v-for="(lesson, i) in resource.lessons">
-                        <v-card-text>
-                            <v-card flat tile class="elevation-0" :key="i">
+                        <v-card-text :class="{'grey lighten-4': lesson.locked}">
+                            <v-card flat tile class="transparent elevation-0" :key="i">
                                 <v-toolbar card class="transparent">
-                                    <v-toolbar-title class="accent--text" v-html="lesson.title"></v-toolbar-title>
+                                    <v-icon left v-if="lesson.locked">lock</v-icon>
+                                    <v-toolbar-title class="accent--text" :class="{'grey--text': lesson.locked}">
+                                        <span v-html="lesson.title"></span>
+                                    </v-toolbar-title>
                                     <v-spacer></v-spacer>
                                     <v-chip label class="success white--text" v-if="lesson.icon"><v-icon class="white--text" v-html="lesson.icon"></v-icon></v-chip>
                                     <v-chip label class="success white--text" v-else>1/10</v-chip>
@@ -84,7 +98,7 @@
                                 <v-card-text class="grey--text text--darken-2" v-html="lesson.body"></v-card-text>
                                 <v-card-actions v-if="lesson.contents.length">
                                     <v-spacer></v-spacer>
-                                    <v-dialog lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
+                                    <v-dialog v-if="lesson.unlocked" lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
                                         <v-btn slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
                                         <v-card flat tile class="bg--light">
                                             <v-parallax class="elevation-0" src="http://source.unsplash.com/800x400?night" height="400">
@@ -210,10 +224,33 @@
                         </v-card-text>
                         <v-divider></v-divider>
                     </template>
+                    {{-- /Lessons --}}
                 </v-card>
             </v-flex>
             <v-flex flex md3 xs12 order-lg3>
-                pto
+                <v-card class="elevation-1">
+                    <v-toolbar card class="transparent">
+                        <v-toolbar-title class="accent--text">{{ __('Progress') }}</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                    </v-toolbar>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-progress-circular
+                            :size="150"
+                            :width="20"
+                            :value="resource.percentage"
+                            class="purple--text text--lighten-4"
+                        >
+                            <span v-html="resource.percentage"></span>
+                        </v-progress-circular>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                    <v-card-text class="purple--text text--lighten-4 text-xs-center">
+                        <div>{{ __('Lesson Completed:') }}</div>
+                        <div v-html="resource.percentage"></div>
+                    </v-card-text>
+                </v-card>
             </v-flex>
         </v-layout>
     </v-container>
@@ -225,6 +262,11 @@
             data () {
                 return {
                     resource: {!! json_encode($resource->toArray()) !!},
+                    urls: {
+                        profile: {
+                            show: '{{ route('profile.show', 'null') }}'
+                        }
+                    },
                     {{-- resource: {!! json_encode($resource->with(['lessons', 'lessons.contents'])->first()->toArray()) !!} --}}
                 }
             },

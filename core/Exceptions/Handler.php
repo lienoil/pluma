@@ -82,7 +82,7 @@ class Handler extends BaseHandler
             || $exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException
         ) {
             if ($request->ajax()) {
-                return response()->json("[ERR 403] Unauthorized request", 403);
+                return response()->json(["[ERR 403] Unauthorized request"], 403);
             }
 
             return response()->view('Theme::errors.403', [

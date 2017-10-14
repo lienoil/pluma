@@ -11,7 +11,23 @@ trait Unlock
      */
     public function isLocked()
     {
+        if (! $this->isLockable()) {
+            return false;
+        }
+
         return $this->unlocks()->where('user_id', user()->id)->count() === 0;
+    }
+
+    /**
+     * Check if a column `lockable` is set to true.
+     * A falsy `lockable` (lockable == 0) means users will have access to the resource
+     * without unlocking.
+     *
+     * @return boolean
+     */
+    public function isLockable()
+    {
+        return isset($this->lockable) && (boolean) $this->lockable;
     }
 
     /**

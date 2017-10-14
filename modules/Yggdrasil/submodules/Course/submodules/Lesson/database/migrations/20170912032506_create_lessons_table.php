@@ -32,8 +32,10 @@ class CreateLessonsTable extends Migration
             $table->integer('sort')->default(0);
             $table->string('title');
             $table->string('icon')->nullable();
+            $table->string('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
+            $table->boolean('lockable')->nullable()->default(false);
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses');
