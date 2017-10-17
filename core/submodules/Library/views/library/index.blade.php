@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar class="light-blue elevation-1" dark>
+    <v-toolbar class="light-blue elevation-1 sticky" dark>
         <v-menu :nudge-width="100">
             <v-toolbar-title slot="activator">
                 <v-icon class="white--text pr-2" v-html="suppliments.catalogues.current.icon">view_module</v-icon>
@@ -24,6 +24,8 @@
         </v-menu>
 
         <v-spacer></v-spacer>
+        <span class="caption" v-if="bulk.selection.model" v-html="`${dataset.selected.length} Selected`"></span>
+        <v-spacer v-if="bulk.selection.model"></v-spacer>
 
         <v-btn icon v-tooltip:left="{ html: 'Search' }">
             <v-icon>search</v-icon>
@@ -40,74 +42,85 @@
         <v-btn icon v-tooltip:left="{ html: 'Filter' }">
             <v-icon>filter_list</v-icon>
         </v-btn>
-        <v-menu bottom left>
-            <v-btn icon class="white--text" slot="activator" v-tooltip:bottom="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
-            <v-list>
-                <v-list-tile>
-                    <v-list-tile-action>
-                        <v-icon accent class="blue--text">select_all</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>
-                            Select
-                        </v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile>
-                    <v-list-tile-action>
-                        <v-icon accent>mode_edit</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>
-                            Edit
-                        </v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile>
-                    <v-list-tile-action>
-                        <v-icon accent class="orange--text">delete</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>
-                            Move to Trash
-                        </v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-list>
-        </v-menu>
+        <v-btn v-model="bulk.selection.model" :class="{'primary': bulk.selection.model}" ripple @click="bulk.selection.model = !bulk.selection.model" icon v-tooltip:left="{ html: 'Toggle Bulk Selection' }">
+            <v-icon>check_circle</v-icon>
+        </v-btn>
     </v-toolbar>
+
+    <v-slide-y-transition>
+        <v-card flat tile v-show="bulk.upload.model" class="grey lighten-4">
+            <v-dropzone
+                :options="{url: '{{ route('api.library.upload') }}', timeout: '120s', autoProcessQueue: true, parallelUploads: 1 }"
+                :params="dropzone.params"
+                auto-remove-files
+                @complete="dropzonebox().completed($event)"
+                @sending="dropzonebox().sending($event)"
+            >
+                <template>
+                    <div class="caption grey--text text--darken-2">
+                        <span>{{ __('You may drag 20 files at a time.') }}</span>
+                        <em class="caption" v-html="`{{ __('Uploads will be catalogued as') }} <strong>${suppliments.catalogues.current.name}</strong>`"></em>
+                    </div>
+                </template>
+            </v-dropzone>
+        </v-card>
+    </v-slide-y-transition>
+
+    <v-container fluid class="grey lighten-4" grid-list-lg v-if="!dataset.items.length && !bulk.upload.model">
+        <v-layout fill-height row wrap>
+            <v-flex xs12>
+                <div class="text-xs-center grey--text">
+                    <v-icon class="display-4 grey--text">fa-frown-o</v-icon>
+                    <div class="mb-3">{{ __('There seems to be only loneliness here.') }}</div>
+                    <div><v-btn info class="elevation-1" @click="bulk.upload.model = !bulk.upload.model">{{ __('Upload') }}</v-btn></div>
+                </div>
+            </v-flex>
+        </v-layout>
+    </v-container>
 
     <v-container fluid class="grey lighten-4" grid-list-lg>
         <v-layout fill-height row wrap>
             <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
-                <v-card class="elevation-1">
-                    <v-card-media height="250px" :src="item.thumbnail">
+                <v-card tile class="elevation-1" @click.stop="item.active = !item.active">
+                    <v-card-media height="250px" :src="item.thumbnail" class="grey lighten-4">
                         <v-container fill-height class="pa-0 white--text">
                             <v-layout fill-height wrap column>
-                                <v-slide-y-transition>
-                                    <v-icon ripple class="display-4 pa-1 text-xs-center white--text" v-show="item.active">check</v-icon>
-                                </v-slide-y-transition>
+                                <v-scale-transition>
+                                    <v-btn v-show="bulk.selection.model" icon small class="white success--text" ripple @click.stop="item.active = !item.active">
+                                        <v-icon v-if="!item.active" ripple small class="success--text">radio_button_unchecked</v-icon>
+                                        <v-icon v-else ripple small class="success--text">check_circle</v-icon>
+                                    </v-btn>
+                                </v-scale-transition>
                                 <v-spacer></v-spacer>
                                 <v-card-actions class="px-2 white--text">
-                                    {{-- <span v-html="item.mimetype"></span>
-                                    <span v-html="item.filesize"></span> --}}
                                 </v-card-actions>
                             </v-layout>
                         </v-container>
                     </v-card-media>
-                    <v-toolbar card>
-                        <v-toolbar-title class="subheading" v-html="item.originalname"></v-toolbar-title>
+                    <v-toolbar card dense class="transparent">
+                        <v-toolbar-title class="subheading" v-html="item.name"></v-toolbar-title>
+
                         <v-spacer></v-spacer>
                         <v-btn small absolute fab top right class="info darken-1 elevation-1"><v-icon class="white--text" v-html="item.icon"></v-icon></v-btn>
                     </v-toolbar>
+                    <v-card-actions class="grey--text px-2">
+                        <span class="caption" v-html="item.mimetype"></span>
+                        <v-spacer></v-spacer>
+                        <span class="caption" v-html="item.filesize"></span>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
 
+@push('css')
+    <link rel="stylesheet" href="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.css') }}">
+@endpush
+
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
 
@@ -116,6 +129,9 @@
                 return {
                     bulk: {
                         upload: {
+                            model: false,
+                        },
+                        selection: {
                             model: false,
                         },
                     },
@@ -150,27 +166,41 @@
 
                     urls: {
                         library: {
+                            catalogue: '{{ route('api.library.catalogue', 'null') }}',
                             index: '{{ route('library.index') }}',
                         },
                     },
+
+                    dropzone: {
+                        currentfile: {},
+                        params: {
+                            _token: '{{ csrf_token() }}',
+                        },
+                    }
                 };
             },
 
             methods: {
-                get () {
+                get (url) {
+                    let self = this;
+
                     const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
                     let query = {
                         descending: descending?descending:true,
                         page: page?page:1,
                         sort: sortBy?sortBy:'name',
                         take: rowsPerPage,
+                        _token: '{{ csrf_token() }}'
                     };
 
-                    this.api().get('{{ route('api.library.all') }}', query)
+                    this.api().get(url, query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
+                            this.dataset.items.map(item => {
+                                self.$set(item, 'active', false);
+                            });
                             this.mountSuppliments();
                         });
                 },
@@ -193,22 +223,22 @@
                 },
 
                 storage () {
-                    this.bulk.upload.model = this.getStorage('bulk.upload.model') === 'true';
+                    // this.bulk.upload.model = this.getStorage('bulk.upload.model') === 'true';
                 },
 
                 complete (file, dropzone) {
-                    this.get();
+                    this.get('{{ route('api.library.all') }}');
                 },
 
                 supplimentary () {
                     let self = this;
 
                     return {
-                        mount () {
-                            self.suppliments.catalogues.items.push({name:'{{ __('All') }}', icon: 'perm_media', count: '{{ $resources->count() }}'});
-                            let items = {!! json_encode($catalogues) !!};
+                        mount (items) {
+                            self.suppliments.catalogues.items.push({name:'{{ __('All') }}', code: 'all', icon: 'perm_media', count: '{{ $resources->count() }}'});
 
                             for (var i = 0; i < items.length; i++) {
+                                items[i].count = items[i].count ? items[i].count : items[i].libraries.length;
                                 self.suppliments.catalogues.items.push(items[i]);
                             }
 
@@ -217,15 +247,35 @@
 
                         select (item) {
                             self.suppliments.catalogues.current = item;
+
+                            if (item.id) {
+                                self.get(self.route(self.urls.library.catalogue, item.id));
+                            } else {
+                                self.get('{{ route('api.library.all') }}');
+                            }
                         }
+                    }
+                },
+
+                dropzonebox () {
+                    let self = this
+                    return {
+                        completed (file) {
+                            self.supplimentary().select(self.suppliments.catalogues.current);
+                        },
+
+                        sending ({file, xhr, formData}) {
+                            self.dropzone.params.originalname = file.upload.filename;
+                            self.dropzone.params.catalogue_id = self.suppliments.catalogues.current.id ? self.suppliments.catalogues.current.id : 0;
+                        },
                     }
                 }
             },
 
             mounted () {
-                this.get();
+                this.get('{{ route('api.library.all') }}');
                 this.storage();
-                this.supplimentary().mount();
+                this.supplimentary().mount({!! json_encode($catalogues) !!});
             },
         });
     </script>

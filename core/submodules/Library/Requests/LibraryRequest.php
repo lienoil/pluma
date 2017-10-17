@@ -48,9 +48,11 @@ class LibraryRequest extends FormRequest
     public function rules()
     {
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
+        $mimes = implode(',', config('downloadables', []));
 
         return [
-            'name' => 'required|unique:library'.$isUpdating,
+            'originalname' => 'sometimes|required|unique:library'.$isUpdating,
+            'file.*' => 'required|mimes:'.$mimes,
             // 'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:libraries'.$isUpdating,
         ];
     }
@@ -63,7 +65,8 @@ class LibraryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => 'The file or the filename already exists.',
+            'originalname.unique' => 'The file or the filename already exists.',
+            'file.*.mimes' => 'The file type is not allowed to be uploaded.',
         ];
     }
 }

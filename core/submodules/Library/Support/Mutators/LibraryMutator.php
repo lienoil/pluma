@@ -2,6 +2,7 @@
 
 namespace Library\Support\Mutators;
 
+use Illuminate\Support\Facades\File;
 use Parchment\Helpers\Word;
 
 trait LibraryMutator
@@ -55,8 +56,13 @@ trait LibraryMutator
                         $url = url("storage/$archivePath/$this->filename/thumbnail.png");
                     } else {
                         // Brownish Monokai
-                        $url = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAABlBMVEUhHRr////O/a2GAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNgAAAAAgAB9HFkpgAAAABJRU5ErkJggg==";
+                        $url = config("thumbnails.thumbnails.$mime");
                     }
+                    break;
+
+                case 'audio/mpeg':
+                case 'audio/mp3':
+                    $url = config("thumbnails.thumbnails.$mime");
                     break;
 
                 case null:
@@ -84,5 +90,26 @@ trait LibraryMutator
         }
 
         return $icon;
+    }
+
+    /**
+     * Extracts file on a given path.
+     *
+     * @param  string $path
+     * @param  string $output
+     * @return void
+     */
+    public static function extract($path, $output)
+    {
+        try {
+            if (File::exists(storage_path($path))) {
+                $zipper = new Zipper;
+                $zipper->zip(storage_path($path))->extractTo($output);
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return true;
     }
 }

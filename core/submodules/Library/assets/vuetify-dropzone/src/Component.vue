@@ -73,6 +73,7 @@
       prop: 'params'
     },
     props: {
+      autoRemoveFiles: { type: Boolean, default: false },
       params: { type: Object, default: () => { return {} } },
       fallbackUrl: { type: String, default: '/' },
       name: { type: String, default: 'file' },
@@ -133,11 +134,13 @@
 
               // console.log('asd', self.dropzone.instance.options)
               self.files.push(file)
-              self.$emit('addedfile', file, self.dropzone)
+              self.$emit('addedfile', {file, dropzone: self.dropzone})
             })
 
             self.dropzone.instance.on("sending", function (file, xhr, formData) {
               // console.log('sending', JSON.parse(JSON.stringify(self.dropzone.options.params)))
+              self.$emit("sending", {file, xhr, formData})
+
               for (let param in self.params) {
                 // console.log(param, self.params[param])
                 formData.append(param, self.params[param])
@@ -187,16 +190,30 @@
               self.$emit("success", file, response)
             })
 
+            self.dropzone.instance.on("error", function (file, errorMessage) {
+              if (typeof errorMessage == 'object') {
+                let errors = []
+                for (let e in errorMessage) {
+                  errorMessage[e] = errorMessage[e].join(', ')
+                  errors.push(errorMessage[e])
+                }
+                errorMessage = errors.join(', ')
+              }
+
+              file.previewElement.querySelector('[data-dz-errormessage]').innerHTML = errorMessage
+              self.$emit("error", file, errorMessage)
+            })
+
             self.dropzone.instance.on("processing", function () {
-              self.dropzone.options.autoProcessQueue = true
+              // self.dropzone.options.autoProcessQueue = true
               self.$emit("processing")
             })
 
-            self.dropzone.instance.on("sending", function(file, xhr, formData) {
-              // Will send the filesize along with the file as POST data.
-              // formData.append("filesize", file.size);
-              self.$emit("sending", file, xhr, formData)
-            })
+            // self.dropzone.instance.on("sending", function(file, xhr, formData) {
+            //   // Will send the filesize along with the file as POST data.
+            //   // formData.append("filesize", file.size);
+            //   self.$emit("sending", file, xhr, formData)
+            // })
           },
 
           submit () {
@@ -221,7 +238,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~dropzone/src/dropzone";
+  @import "~dropzone/src/dropzone.scss";
 
   .dropzone {
     border: 1px dashed rgba(0,0,0,0.2);

@@ -126,7 +126,7 @@ class LibraryController extends APIController
      * @param  \Library\Requests\LibraryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function upload(Request $request)
+    public function upload(LibraryRequest $request)
     {
         // dd($request->all());
         // return response()->json('Yeap, luv', 200);
@@ -154,12 +154,14 @@ class LibraryController extends APIController
      */
     public function save($request, $file)
     {
-        // dd($request->all());
+        // echo "<pre>";
+        //     var_dump( $request->all() ); die();
+        // echo "</pre>";
         $originalName = $file->getClientOriginalName();
         $date = date('Y-m-d');
         $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/$date";
 
-        $name = $request->input('name') ? $request->input('name') : pathinfo($originalName, PATHINFO_FILENAME);
+        $name = (bool) $request->input('originalname') ? pathinfo($request->input('originalname'), PATHINFO_FILENAME) : pathinfo($originalName, PATHINFO_FILENAME);
 
         $fileName = str_slug($name);
         $fileName .= ".".$file->getClientOriginalExtension();
@@ -175,11 +177,13 @@ class LibraryController extends APIController
             $library->thumbnail = settings('library.storage_path', 'public/library') . "/$date/$fileName";
             $library->size = $file->getClientSize();
             $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
-            $library->catalogue()->associate(Catalogue::find($request->input('catalogue_id')));
+            if ((bool) $request->input('catalogue_id')) {
+                $library->catalogue()->associate(Catalogue::find($request->input('catalogue_id')));
+            }
             $library->save();
 
             if ($request->input('extract')) {
-                // $this->extract($fullFilePath);
+                Library::extract($fullFilePath);
             }
         }
     }

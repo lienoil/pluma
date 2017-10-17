@@ -90,6 +90,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         ),
         'C' => 
         array (
+            'Chumper\\Zipper\\' => 15,
             'Carbon\\' => 7,
         ),
     );
@@ -299,6 +300,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
+        'Chumper\\Zipper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -370,6 +375,11 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Category\\Requests\\CategoryRequest' => __DIR__ . '/../..' . '/core/submodules/Category/Requests/CategoryRequest.php',
         'Category\\Support\\Traits\\BelongsToCategory' => __DIR__ . '/../..' . '/core/submodules/Category/Support/Traits/BelongsToCategory.php',
         'Chronos\\Providers\\ChronosServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/Providers/ChronosServiceProvider.php',
+        'Chumper\\Zipper\\Facades\\Zipper' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Facades/Zipper.php',
+        'Chumper\\Zipper\\Repositories\\RepositoryInterface' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Repositories/RepositoryInterface.php',
+        'Chumper\\Zipper\\Repositories\\ZipRepository' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Repositories/ZipRepository.php',
+        'Chumper\\Zipper\\Zipper' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Zipper.php',
+        'Chumper\\Zipper\\ZipperServiceProvider' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/ZipperServiceProvider.php',
         'Content\\Controllers\\ContentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Controllers/ContentController.php',
         'Content\\Models\\Content' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Models/Content.php',
         'Content\\Providers\\ContentServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Providers/ContentServiceProvider.php',

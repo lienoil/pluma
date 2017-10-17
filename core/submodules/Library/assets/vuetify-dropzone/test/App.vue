@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <v-flex sm6 offset-sm3>
             <v-card>
-              <vue-component fallback-url="http://localhost:8000/upload.php" :options="{url:'http://localhost:8000/upload.php', params: {name:name}}">
+              <vue-component fallback-url="http://localhost:8000/upload.php" :options="{url:'http://localhost:8000/upload.php', params: {name: name}}">
                 <template>
                   <v-text-field label="Name" v-model="name"></v-text-field>
                   <v-text-field label="Catalogue"></v-text-field>
@@ -28,7 +28,8 @@ export default {
   components: { 'vue-component': Component },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      name: 'lorem'
     }
   }
 }
