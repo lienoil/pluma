@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "vuetify-dropzone": "pluma-cms/vuetify-dropzone#^1.0.11"
+    "vuetify-dropzone": "pluma-cms/vuetify-dropzone#^1.0.11",
+    "vuetify-dataset": "pluma-cms/vuetify-dataset"
   }
 }

@@ -33,11 +33,12 @@
         <v-btn icon v-tooltip:left="{ html: 'Upload files' }" :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="setStorage('bulk.upload.model', (bulk.upload.model = !bulk.upload.model))">
             <v-icon>fa-cloud-upload</v-icon>
         </v-btn>
-        <v-btn icon v-tooltip:left="{ html: 'Sort' }">
+        {{-- <v-btn icon v-tooltip:left="{ html: 'Sort' }">
             <v-icon>sort</v-icon>
-        </v-btn>
-        <v-btn icon id="Button1" v-tooltip:left="{ html: 'Grid / List' }">
-            <v-icon>view_module</v-icon>
+        </v-btn> --}}
+        <v-btn icon v-tooltip:left="{ html: 'Grid / List' }" @click="bulk.toggle.model = !bulk.toggle.model">
+            <v-icon v-if="bulk.toggle.model">widgets</v-icon>
+            <v-icon v-else>fa-list</v-icon>
         </v-btn>
         <v-btn icon v-tooltip:left="{ html: 'Filter' }">
             <v-icon>filter_list</v-icon>
@@ -80,7 +81,37 @@
 
     <v-container fluid class="grey lighten-4" grid-list-lg>
         <v-layout fill-height row wrap>
-            <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
+            <v-flex sm12>
+                <v-dataset
+                    :card="!bulk.toggle.model"
+                    :headers="dataset.headers"
+                    :items="dataset.items"
+                    :total-items="dataset.pagination.totalItems"
+                    :table="bulk.toggle.model"
+                    v-model="dataset.selected"
+                >
+                    <template slot="items" scope="{prop}">
+                        <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
+                            <td>
+                                <v-checkbox
+                                    color="primary"
+                                    primary
+                                    hide-details
+                                    :input-value="prop.selected"
+                                ></v-checkbox>
+                            </td>
+                            <td v-html="prop.item.id"></td>
+                            <td>
+                                <v-avatar>
+                                    <img :src="prop.item.thumbnail">
+                                </v-avatar>
+                            </td>
+                            <td v-html="prop.item.name"></td>
+                        </tr>
+                    </template>
+                </v-dataset>
+            </v-flex>
+            {{-- <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
                 <v-card tile class="elevation-1" @click.stop="item.active = !item.active">
                     <v-card-media height="250px" :src="item.thumbnail" class="grey lighten-4">
                         <v-container fill-height class="pa-0 white--text">
@@ -97,7 +128,6 @@
                             </v-layout>
                         </v-container>
                     </v-card-media>
-                    <v-divider></v-divider>
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="subheading" v-html="item.name"></v-toolbar-title>
 
@@ -110,16 +140,18 @@
                         <span class="caption" v-html="item.filesize"></span>
                     </v-card-actions>
                 </v-card>
-            </v-flex>
+            </v-flex> --}}
         </v-layout>
     </v-container>
 @endsection
 
 @push('css')
+    <link rel="stylesheet" href="{{ assets('library/vuetify-dataset/dist/vuetify-dataset.min.css') }}">
     <link rel="stylesheet" href="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.css') }}">
 @endpush
 
 @push('pre-scripts')
+    <script src="{{ assets('library/vuetify-dataset/dist/vuetify-dataset.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.js') }}"></script>
     <script>
@@ -130,6 +162,9 @@
                 return {
                     bulk: {
                         upload: {
+                            model: false,
+                        },
+                        toggle: {
                             model: false,
                         },
                         selection: {

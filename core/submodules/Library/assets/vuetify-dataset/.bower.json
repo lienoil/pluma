@@ -1,0 +1,14 @@
+{
+  "name": "vuetify-dataset",
+  "homepage": "https://github.com/pluma-cms/vuetify-dataset",
+  "_release": "af701bf9ea",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "af701bf9ea40841f0889a5cc5fe3d24ef104c162"
+  },
+  "_source": "https://github.com/pluma-cms/vuetify-dataset.git",
+  "_target": "*",
+  "_originalSource": "pluma-cms/vuetify-dataset",
+  "_direct": true
+}

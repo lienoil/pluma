@@ -51,7 +51,7 @@ class LibraryController extends APIController
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $resources->get();
+        $resources = $resources->paginate($take);
 
         return response()->json($resources);
     }
