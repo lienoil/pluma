@@ -2,48 +2,72 @@
 
 @section("content")
     <v-toolbar class="light-blue elevation-1 sticky" dark>
-        <v-menu :nudge-width="100">
-            <v-toolbar-title slot="activator">
-                <v-icon class="white--text pr-2" v-html="suppliments.catalogues.current.icon">view_module</v-icon>
-                <span v-html="suppliments.catalogues.current.name"></span>
-                <v-icon dark>arrow_drop_down</v-icon>
-            </v-toolbar-title>
-            <v-list>
-                <v-list-tile @click="supplimentary().select(item)" ripple v-for="(item, i) in suppliments.catalogues.items" :key="i">
-                    <v-list-tile-action>
-                        <v-icon accent v-html="item.icon"></v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title v-html="item.name"></v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action>
-                        <v-chip class="blue white--text" label v-html="item.libraries?item.libraries.length:item.count"></v-chip>
-                    </v-list-tile-action>
-                </v-list-tile>
-            </v-list>
-        </v-menu>
 
-        <v-spacer></v-spacer>
-        <span class="caption" v-if="bulk.selection.model" v-html="`${dataset.selected.length} Selected`"></span>
-        <v-spacer v-if="bulk.selection.model"></v-spacer>
+        <template v-if="dataset.searchform.model">
+            <v-text-field
+                prepend-icon="search"
+                append-icon="close"
+                :append-icon-cb="() => searchbox().close()"
+                light solo hide-details single-line
+                v-model="dataset.searchform.query"></v-text-field>
+        </template>
+        <template v-else>
+            <v-menu :nudge-width="100">
+                <v-toolbar-title slot="activator">
+                    <v-icon class="white--text pr-2" v-html="suppliments.catalogues.current.icon">view_module</v-icon>
+                    <span v-html="suppliments.catalogues.current.name"></span>
+                    <v-icon dark>arrow_drop_down</v-icon>
+                </v-toolbar-title>
+                <v-list>
+                    <v-list-tile @click="supplimentary().select(item)" ripple v-for="(item, i) in suppliments.catalogues.items" :key="i">
+                        <v-list-tile-action>
+                            <v-icon accent v-html="item.icon"></v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title v-html="item.name"></v-list-tile-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            <v-chip class="blue white--text" label v-html="item.libraries?item.libraries.length:item.count"></v-chip>
+                        </v-list-tile-action>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
 
-        <v-btn icon v-tooltip:left="{ html: 'Search' }">
-            <v-icon>search</v-icon>
+            <v-spacer></v-spacer>
+            <span class="caption" v-if="bulk.selection.model" v-html="`${dataset.selected.length}/${dataset.pagination.totalItems} Selected`"></span>
+            <v-spacer v-if="bulk.selection.model"></v-spacer>
+
+            {{-- Search --}}
+            <v-btn
+                icon
+                v-tooltip:left="{ html: 'Search' }"
+                @click="dataset.searchform.model = !dataset.searchform.model"
+            >
+                <v-icon>search</v-icon>
+            </v-btn>
+            {{-- /Search --}}
+        </template>
+
+        {{-- Selection --}}
+        <v-btn v-model="bulk.selection.model" :class="{'primary': bulk.selection.model}" ripple @click="bulk.selection.model = !bulk.selection.model; bulk.selection.model?bulk.toggle.model = true : null" icon v-tooltip:left="{ html: 'Toggle Bulk Selection' }">
+            <v-icon>check_circle</v-icon>
         </v-btn>
+        <template v-if="bulk.selection.model && dataset.selected.length > 1">
+            <v-btn small icon v-tooltip:left="{html:'{{ __('Move to Trash') }}'}"><v-icon class="error--text">delete</v-icon></v-btn>
+            <v-btn small icon v-tooltip:left="{html:'{{ __('Download') }}'}"><v-icon>cloud_download</v-icon></v-btn>
+        </template>
+        {{-- /Selection --}}
+
         <v-btn icon v-tooltip:left="{ html: 'Upload files' }" :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="setStorage('bulk.upload.model', (bulk.upload.model = !bulk.upload.model))">
             <v-icon>fa-cloud-upload</v-icon>
         </v-btn>
-        <v-btn icon v-tooltip:left="{ html: 'Sort' }">
-            <v-icon>sort</v-icon>
+
+        <v-btn icon v-tooltip:left="{html: 'Grid / List'}" @click="bulk.toggle.model = !bulk.toggle.model">
+            <v-icon small v-if="bulk.toggle.model">view_module</v-icon>
+            <v-icon small v-else>fa-list</v-icon>
         </v-btn>
-        <v-btn icon id="Button1" v-tooltip:left="{ html: 'Grid / List' }">
-            <v-icon>view_module</v-icon>
-        </v-btn>
-        <v-btn icon v-tooltip:left="{ html: 'Filter' }">
+        <v-btn icon v-tooltip:left="{html: 'Filter'}">
             <v-icon>filter_list</v-icon>
-        </v-btn>
-        <v-btn v-model="bulk.selection.model" :class="{'primary': bulk.selection.model}" ripple @click="bulk.selection.model = !bulk.selection.model" icon v-tooltip:left="{ html: 'Toggle Bulk Selection' }">
-            <v-icon>check_circle</v-icon>
         </v-btn>
     </v-toolbar>
 
@@ -66,6 +90,14 @@
         </v-card>
     </v-slide-y-transition>
 
+    <v-container fluid v-if="dataset.loading">
+        <v-layout fill-height row wrap>
+            <v-flex xs12 class="text-xs-center">
+                <v-progress-circular :size="75" indeterminate class="grey--text"></v-progress-circular>
+            </v-flex>
+        </v-layout>
+    </v-container>
+
     <v-container fluid class="grey lighten-4" grid-list-lg v-if="!dataset.items.length && !bulk.upload.model">
         <v-layout fill-height row wrap>
             <v-flex xs12>
@@ -80,7 +112,72 @@
 
     <v-container fluid class="grey lighten-4" grid-list-lg>
         <v-layout fill-height row wrap>
-            <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
+            <v-flex sm12>
+                <v-dataset
+                    :card="!bulk.toggle.model"
+                    :headers="dataset.headers"
+                    :items="dataset.items"
+                    :total-items="dataset.pagination.totalItems"
+                    :pagination.sync="dataset.pagination"
+                    :table="bulk.toggle.model"
+                    item-key="id"
+                    item-name="name"
+                    v-model="dataset.selected"
+                    v-bind="bulk.selection.model?{'select-all':'primary'}:null"
+                    @pagination="datasetbox().pagination($event)"
+                >
+                    <template slot="items" scope="{prop}">
+                        <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
+                            <td v-if="bulk.selection.model">
+                                <v-checkbox
+                                    color="primary"
+                                    primary
+                                    hide-details
+                                    :input-value="prop.selected"
+                                ></v-checkbox>
+                            </td>
+                            <td v-html="prop.item.id"></td>
+                            <td>
+                                <v-avatar size="35px">
+                                    <img :src="prop.item.thumbnail">
+                                </v-avatar>
+                                <span v-html="prop.item.name"></span>
+                            </td>
+                            <td><v-chip class="red lighten-3 white--text"><v-icon left class="white--text" v-html="prop.item.icon"></v-icon><span v-html="prop.item.mimetype"></span></v-chip></td>
+                            <td v-html="prop.item.filesize"></td>
+                            <td v-html="prop.item.created"></td>
+                            <td v-html="prop.item.modified"></td>
+                        </tr>
+                    </template>
+                    <template slot="card" scope="{prop}">
+                        <v-card-media height="250px" :src="prop.item.thumbnail" class="grey lighten-4">
+                            <v-container fill-height class="pa-0 white--text">
+                                <v-layout fill-height wrap column>
+                                    {{-- <v-scale-transition>
+                                        <v-btn v-show="bulk.selection.model" icon small class="white success--text" ripple @click.stop="prop.selected = !prop.selected">
+                                            <v-icon v-if="prop.selected" ripple small class="success--text">check_circle</v-icon>
+                                            <v-icon v-else ripple small class="success--text">radio_button_unchecked</v-icon>
+                                        </v-btn>
+                                    </v-scale-transition> --}}
+                                    <v-spacer></v-spacer>
+                                </v-layout>
+                            </v-container>
+                        </v-card-media>
+                        <v-divider></v-divider>
+                        <v-toolbar card dense class="transparent">
+                            <v-toolbar-title class="subheading" v-html="prop.item.name"></v-toolbar-title>
+                            <v-spacer></v-spacer>
+                            <v-btn small absolute fab top right class="info darken-1 elevation-1"><v-icon class="white--text" v-html="prop.item.icon"></v-icon></v-btn>
+                        </v-toolbar>
+                        <v-card-actions class="grey--text px-2">
+                            <span class="caption" v-html="prop.item.mimetype"></span>
+                            <v-spacer></v-spacer>
+                            <span class="caption" v-html="prop.item.filesize"></span>
+                        </v-card-actions>
+                    </template>
+                </v-dataset>
+            </v-flex>
+            {{-- <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
                 <v-card tile class="elevation-1" @click.stop="item.active = !item.active">
                     <v-card-media height="250px" :src="item.thumbnail" class="grey lighten-4">
                         <v-container fill-height class="pa-0 white--text">
@@ -97,7 +194,6 @@
                             </v-layout>
                         </v-container>
                     </v-card-media>
-                    <v-divider></v-divider>
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="subheading" v-html="item.name"></v-toolbar-title>
 
@@ -110,16 +206,18 @@
                         <span class="caption" v-html="item.filesize"></span>
                     </v-card-actions>
                 </v-card>
-            </v-flex>
+            </v-flex> --}}
         </v-layout>
     </v-container>
 @endsection
 
 @push('css')
+    <link rel="stylesheet" href="{{ 'http://localhost:8080/dist/vuetify-dataset.min.css' }}">
     <link rel="stylesheet" href="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.css') }}">
 @endpush
 
 @push('pre-scripts')
+    <script src="{{ 'http://localhost:8080/dist/vuetify-dataset.min.js' }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.js') }}"></script>
     <script>
@@ -132,6 +230,9 @@
                         upload: {
                             model: false,
                         },
+                        toggle: {
+                            model: false,
+                        },
                         selection: {
                             model: false,
                         },
@@ -139,11 +240,12 @@
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
+                            // { text: '{{ __("Thumbnail") }}', align: 'left', value: 'thumbnail' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
-                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
-                            { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
+                            { text: '{{ __("File Type") }}', align: 'left', value: 'mimetype' },
+                            { text: '{{ __("File Size") }}', align: 'left', value: 'size' },
+                            { text: '{{ __("Uploaded") }}', align: 'left', value: 'created_at' },
+                            { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
                         loading: true,
@@ -156,7 +258,6 @@
                             query: '',
                         },
                         selected: [],
-                        totalItems: 0,
                     },
                     suppliments: {
                         catalogues: {
@@ -181,28 +282,69 @@
                 };
             },
 
+            watch: {
+                'dataset.searchform.query': function (q) {
+                    // console.log('se', q)
+                    this.search('{{ route('api.library.search') }}', q)
+                }
+            },
+
             methods: {
-                get (url) {
+                search (url, q) {
                     let self = this;
 
-                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
-                    let query = {
-                        descending: descending?descending:true,
-                        page: page?page:1,
-                        sort: sortBy?sortBy:'name',
-                        take: rowsPerPage,
-                        _token: '{{ csrf_token() }}'
-                    };
+                    setTimeout(function () {
+                        self.dataset.loading = true
 
-                    this.api().get(url, query)
+                        const { sortBy, descending, page, rowsPerPage } = self.dataset.pagination;
+                        let query = {
+                            descending: descending?descending:true,
+                            page: page?page:1,
+                            sort: sortBy?sortBy:'id',
+                            take: rowsPerPage,
+                            _token: '{{ csrf_token() }}',
+                            q: q
+                        };
+
+                        self.api().search(url, query)
+                            .then((data) => {
+                                self.dataset.items = data.items.data ? data.items.data : data.items;
+                                self.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                                self.dataset.loading = false;
+                                self.dataset.items.map(item => {
+                                    self.$set(item, 'active', false);
+                                });
+                                self.dataset.loading = false;
+                                // console.log('searc',self.dataset)
+                            });
+                    }, 1000)
+                },
+                get (url, query) {
+                    let self = this;
+                    // self.dataset.loading = true;
+
+                    if (! query) {
+                        const { sortBy, descending, page, rowsPerPage } = self.dataset.pagination;
+                        let query = {
+                            descending: descending?descending:true,
+                            page: page?page:1,
+                            sort: sortBy?sortBy:'id',
+                            take: rowsPerPage,
+                            _token: '{{ csrf_token() }}'
+                        };
+                    }
+
+                    self.api().get(url, query)
                         .then((data) => {
-                            this.dataset.items = data.items.data ? data.items.data : data.items;
-                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
-                            this.dataset.loading = false;
-                            this.dataset.items.map(item => {
+                            self.dataset.items = data.items.data ? data.items.data : data.items;
+                            self.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                            self.dataset.loading = false;
+                            self.dataset.items.map(item => {
                                 self.$set(item, 'active', false);
                             });
-                            this.mountSuppliments();
+                            self.mountSuppliments();
+                            // self.dataset.loading = false;
+                            // console.log(self.dataset)
                         });
                 },
 
@@ -253,6 +395,38 @@
                                 self.get(self.route(self.urls.library.catalogue, item.id));
                             } else {
                                 self.get('{{ route('api.library.all') }}');
+                            }
+                        }
+                    }
+                },
+
+                datasetbox () {
+                    let self = this
+                    return {
+                        pagination (pagination) {
+                            const { sortBy, descending, page, rowsPerPage } = pagination;
+                            console.log('pagination', self.dataset.pagination);
+                            let query = {
+                                descending: descending?descending:false,
+                                page: page,
+                                sort: sortBy?sortBy:'id',
+                                take: rowsPerPage,
+                            };
+
+                            self.get('{{ route('api.library.all') }}', query);
+                        }
+                    }
+                },
+
+                searchbox () {
+                    let self = this
+
+                    return {
+                        close () {
+                            self.dataset.searchform.model = !self.dataset.searchform.model
+
+                            if (! self.dataset.searchform.model) {
+                                self.supplimentary().select(self.suppliments.catalogues.current);
                             }
                         }
                     }
