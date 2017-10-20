@@ -22,30 +22,31 @@ return [
             'view-library' => [
                 'name' => 'view-library',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/library'),
+                'slug' => route('library.index'),
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('All Library'),
+                    'title' => __('Library'),
                     'description' => __('View the list of all collections in library'),
                 ],
             ],
-            'create-library' => [
-                'name' => 'create-library',
-                'order' => 2,
-                'slug' => url(config('path.admin').'/library/create'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Create Library'),
-                    'description' => __('Create a Library'),
-                ],
-            ],
+            // 'create-library' => [
+            //     'name' => 'create-library',
+            //     'order' => 2,
+            //     'slug' => url(config('path.admin').'/library/create'),
+            //     'always_viewable' => false,
+            //     'labels' => [
+            //         'title' => __('Create Library'),
+            //         'description' => __('Create a Library'),
+            //     ],
+            // ],
             'trashed-library' => [
                 'name' => 'trashed-library',
                 'order' => 3,
-                'slug' => url(config('path.admin').'/library/trashed'),
+                'slug' => route('library.trash'),
                 'always_viewable' => false,
+                'icon' => 'archive',
                 'labels' => [
-                    'title' => __('Trashed Library'),
+                    'title' => __('Archived'),
                     'description' => __('View list of all collections in library moved to trash'),
                 ],
             ],

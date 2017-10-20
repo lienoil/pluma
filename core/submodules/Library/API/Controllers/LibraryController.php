@@ -51,7 +51,35 @@ class LibraryController extends APIController
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $resources->paginate($take);
+        $resources = $resources->get();
+
+        return response()->json($resources);
+    }
+
+    /**
+     * Get the paginated resources.
+     *
+     * @param  Illuminate\Http\Request $request [description]
+     * @return Illuminate\Http\Response
+     */
+    public function paginated(Request $request)
+    {
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
+        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
+
+        $resources = Library::search($search)->orderBy($sort, $order);
+        if ($onlyTrashed) {
+            $resources->onlyTrashed();
+        }
+
+        if ($request->input('catalogue_id') && $request->input('catalogue_id') != 'undefined' && $request->input('catalogue_id') != 0) {
+            $resources->where('catalogue_id', $request->input('catalogue_id'));
+        }
+
+        $resources = $take ? $resources->paginate($take) : $resources->get();
 
         return response()->json($resources);
     }
@@ -209,7 +237,20 @@ class LibraryController extends APIController
     public function fromCatalogue(Request $request, $catalogue_id)
     {
         $catalogue = Catalogue::findOrFail($catalogue_id);
+        $resources = $catalogue->libraries();
 
-        return response()->json($catalogue->libraries);
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
+        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
+
+        $resources = $resources->search($search)->orderBy($sort, $order);
+        if ($onlyTrashed) {
+            $resources->onlyTrashed();
+        }
+        $resources = $take ? $resources->paginate($take) : $resources->get();
+
+        return response()->json($resources);
     }
 }

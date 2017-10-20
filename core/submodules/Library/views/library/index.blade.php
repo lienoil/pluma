@@ -48,27 +48,69 @@
             {{-- /Search --}}
         </template>
 
+        <v-btn icon v-tooltip:left="{ html: 'Upload files' }" :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="setStorage('bulk.upload.model', (bulk.upload.model = !bulk.upload.model))">
+            <v-icon>fa-cloud-upload</v-icon>
+        </v-btn>
+
         {{-- Selection --}}
         <v-btn v-model="bulk.selection.model" :class="{'primary': bulk.selection.model}" ripple @click="bulk.selection.model = !bulk.selection.model; bulk.selection.model?bulk.toggle.model = true : null" icon v-tooltip:left="{ html: 'Toggle Bulk Selection' }">
             <v-icon>check_circle</v-icon>
         </v-btn>
         <template v-if="bulk.selection.model && dataset.selected.length > 1">
-            <v-btn small icon v-tooltip:left="{html:'{{ __('Move to Trash') }}'}"><v-icon class="error--text">delete</v-icon></v-btn>
-            <v-btn small icon v-tooltip:left="{html:'{{ __('Download') }}'}"><v-icon>cloud_download</v-icon></v-btn>
+            <form action="{{ route('library.many.destroy') }}" method="POST">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <input type="hidden" name="library[]" v-for="(selected, i) in dataset.selected" :key="i" :value="selected.id">
+                <v-btn type="submit" small ripple @click="datasetbox().trash()" icon class="white" v-tooltip:left="{html:'{{ __('Move to Trash') }}'}"><v-icon class="error--text">delete</v-icon></v-btn>
+            </form>
+            {{-- <v-btn small icon v-tooltip:left="{html:'{{ __('Download') }}'}"><v-icon>cloud_download</v-icon></v-btn> --}}
         </template>
         {{-- /Selection --}}
 
-        <v-btn icon v-tooltip:left="{ html: 'Upload files' }" :class="bulk.upload.model ? 'btn--active primary' : ''" @click.native.stop="setStorage('bulk.upload.model', (bulk.upload.model = !bulk.upload.model))">
-            <v-icon>fa-cloud-upload</v-icon>
+        <v-btn icon v-tooltip:left="{html: 'Grid / List'}" @click="bulk.toggle.model = !bulk.toggle.model">
+            <v-icon small v-if="!bulk.toggle.model">view_module</v-icon>
+            <v-icon small v-else>list</v-icon>
         </v-btn>
 
-        <v-btn icon v-tooltip:left="{html: 'Grid / List'}" @click="bulk.toggle.model = !bulk.toggle.model">
-            <v-icon small v-if="bulk.toggle.model">view_module</v-icon>
-            <v-icon small v-else>fa-list</v-icon>
+        <v-menu transition="slide-y-transition" v-if="!bulk.toggle.model">
+            <v-btn icon slot="activator" v-tooltip:left="{html: 'Filter'}">
+                <v-icon>filter_list</v-icon>
+            </v-btn>
+            <v-card>
+                <v-list>
+                    <v-list-tile
+                        href="" ripple @click="datasetbox().sortBy(header)"
+                        v-for="(header, i) in dataset.headers"
+                        :disabled="typeof header.sortable != 'undefined' && !header.sortable"
+                        :key="i"
+                    >
+                        <v-list-tile-title v-html="header.text"></v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-card>
+        </v-menu>
+        <v-btn ripple v-if="!bulk.toggle.model" icon v-tooltip:left="{html: 'Sort'}" @click="datasetbox().sort()">
+            <v-icon class="subheading" v-if="dataset.pagination.descending">fa-sort-amount-desc</v-icon>
+            <v-icon class="subheading" v-else>fa-sort-amount-asc</v-icon>
         </v-btn>
-        <v-btn icon v-tooltip:left="{html: 'Filter'}">
-            <v-icon>filter_list</v-icon>
-        </v-btn>
+        {{-- v-if="!bulk.toggle.model" --}}
+        <v-menu :nudge-width="100" transition="slide-y-transition" >
+            <span flat class="px-2" slot="activator" v-tooltip:left="{html: 'Rows per page'}">
+                <span v-html="dataset.pagination.rowsPerPageText"></span>
+                <v-icon dark>arrow_drop_down</v-icon>
+            </span>
+            <v-card>
+                <v-list>
+                    <v-list-tile
+                        href="" ripple @click="datasetbox().rowsPerPage(row)"
+                        v-for="(row, i) in dataset.rowsPerPageItems"
+                        :key="i"
+                    >
+                        <v-list-tile-title class="text-xs-right" v-html="typeof row.text != 'undefined' ? row.text : row"></v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-card>
+        </v-menu>
     </v-toolbar>
 
     <v-slide-y-transition>
@@ -117,13 +159,16 @@
                     :card="!bulk.toggle.model"
                     :headers="dataset.headers"
                     :items="dataset.items"
-                    :total-items="dataset.pagination.totalItems"
-                    :pagination.sync="dataset.pagination"
+                    :pagination="dataset.pagination"
+                    :rows-per-page-items="dataset.rowsPerPageItems"
                     :table="bulk.toggle.model"
+                    :total-items="dataset.pagination.totalItems"
                     item-key="id"
                     item-name="name"
-                    v-model="dataset.selected"
+                    pagination-both
+                    pagination-circle
                     v-bind="bulk.selection.model?{'select-all':'primary'}:null"
+                    v-model="dataset.selected"
                     @pagination="datasetbox().pagination($event)"
                 >
                     <template slot="items" scope="{prop}">
@@ -163,16 +208,19 @@
                                 </v-layout>
                             </v-container>
                         </v-card-media>
-                        <v-divider></v-divider>
+                        {{-- <v-divider></v-divider> --}}
                         <v-toolbar card dense class="transparent">
-                            <v-toolbar-title class="subheading" v-html="prop.item.name"></v-toolbar-title>
+                            <v-toolbar-title class="subheading">
+                                <span v-html="prop.item.name"></span>
+                                <div class="caption grey--text" v-html="prop.item.filesize"></div>
+                            </v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-btn small absolute fab top right class="info darken-1 elevation-1"><v-icon class="white--text" v-html="prop.item.icon"></v-icon></v-btn>
                         </v-toolbar>
                         <v-card-actions class="grey--text px-2">
                             <span class="caption" v-html="prop.item.mimetype"></span>
                             <v-spacer></v-spacer>
-                            <span class="caption" v-html="prop.item.filesize"></span>
+                            <div class="caption text-xs-right" v-html="prop.item.created"></div>
                         </v-card-actions>
                     </template>
                 </v-dataset>
@@ -212,12 +260,12 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{ 'http://localhost:8080/dist/vuetify-dataset.min.css' }}">
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.css') }}">
     <link rel="stylesheet" href="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.css') }}">
 @endpush
 
 @push('pre-scripts')
-    <script src="{{ 'http://localhost:8080/dist/vuetify-dataset.min.js' }}"></script>
+    <script src="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('library/vuetify-dropzone/dist/vuetify-dropzone.min.js') }}"></script>
     <script>
@@ -244,15 +292,19 @@
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("File Type") }}', align: 'left', value: 'mimetype' },
                             { text: '{{ __("File Size") }}', align: 'left', value: 'size' },
-                            { text: '{{ __("Uploaded") }}', align: 'left', value: 'created_at' },
+                            { text: '{{ __("Upload Date") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
                         loading: true,
                         pagination: {
                             rowsPerPage: 10,
+                            rowsPerPageText: 10,
                             totalItems: 0,
+                            sortBy: 'id',
+                            descending: false,
                         },
+                        rowsPerPageItems: [5, 10, 15, 25, { text: "All", value: -1 }],
                         searchform: {
                             model: false,
                             query: '',
@@ -323,17 +375,20 @@
                     let self = this;
                     // self.dataset.loading = true;
 
-                    if (! query) {
+                    if (typeof query == 'undefined') {
                         const { sortBy, descending, page, rowsPerPage } = self.dataset.pagination;
                         let query = {
                             descending: descending?descending:true,
                             page: page?page:1,
                             sort: sortBy?sortBy:'id',
-                            take: rowsPerPage,
+                            take: rowsPerPage?rowsPerPage:10,
                             _token: '{{ csrf_token() }}'
                         };
                     }
 
+                    // self.$set(self.dataset, 'pagination', query)
+
+                    console.log('url', url, query)
                     self.api().get(url, query)
                         .then((data) => {
                             self.dataset.items = data.items.data ? data.items.data : data.items;
@@ -370,7 +425,7 @@
                 },
 
                 complete (file, dropzone) {
-                    this.get('{{ route('api.library.all') }}');
+                    self.supplimentary().select(self.suppliments.catalogues.current);
                 },
 
                 supplimentary () {
@@ -391,10 +446,19 @@
                         select (item) {
                             self.suppliments.catalogues.current = item;
 
+                            const { sortBy, descending, page, rowsPerPage } = self.dataset.pagination;
+                            let query = {
+                                descending: descending?descending:true,
+                                page: 1,
+                                sort: sortBy?sortBy:'id',
+                                take: rowsPerPage?rowsPerPage:10,
+                                _token: '{{ csrf_token() }}'
+                            };
+
                             if (item.id) {
-                                self.get(self.route(self.urls.library.catalogue, item.id));
+                                self.get(self.route(self.urls.library.catalogue, item.id), query);
                             } else {
-                                self.get('{{ route('api.library.all') }}');
+                                self.get('{{ route('api.library.paginated') }}', query);
                             }
                         }
                     }
@@ -404,16 +468,43 @@
                     let self = this
                     return {
                         pagination (pagination) {
+                            self.dataset.pagination = pagination;
+                            // console.log('paginate', self.dataset.pagination)
                             const { sortBy, descending, page, rowsPerPage } = pagination;
-                            console.log('pagination', self.dataset.pagination);
+                            // console.log('pagination', self.dataset.pagination);
                             let query = {
                                 descending: descending?descending:false,
                                 page: page,
                                 sort: sortBy?sortBy:'id',
                                 take: rowsPerPage,
+                                catalogue_id: typeof self.suppliments.catalogues.current.id == 'undefined' ? 0 : self.suppliments.catalogues.current.id
                             };
 
-                            self.get('{{ route('api.library.all') }}', query);
+                            self.get('{{ route('api.library.paginated') }}', query);
+                        },
+
+                        sort () {
+                            self.dataset.pagination.descending = !self.dataset.pagination.descending;
+                            // self.datasetbox().pagination(self.dataset.pagination);
+                        },
+
+                        sortBy (header) {
+                            if (typeof header.value != 'undefined' && header.value) {
+                                let index = self.dataset.headers.findIndex(h => h.value === header.value);
+                                self.dataset.pagination.sortBy = self.dataset.headers[index].value;
+
+                                // self.datasetbox().pagination(self.dataset.pagination);
+                            }
+                        },
+
+                        rowsPerPage (row) {
+                            let pagination = {
+                                rowsPerPage: typeof row.value != 'undefined' ? row.value : row,
+                                rowsPerPageText: typeof row.text != 'undefined' ? row.text : row
+                            }
+                            self.dataset.pagination = Object.assign(self.dataset.pagination, pagination)
+                            console.log('app.rowsPerPage', self.dataset.pagination)
+                            // self.datasetbox().pagination(self.dataset.pagination);
                         }
                     }
                 },
@@ -448,7 +539,7 @@
             },
 
             mounted () {
-                this.get('{{ route('api.library.all') }}');
+                this.get('{{ route('api.library.paginated') }}');
                 this.storage();
                 this.supplimentary().mount({!! json_encode($catalogues) !!});
             },
