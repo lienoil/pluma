@@ -2,6 +2,7 @@
 
 namespace Library\Models;
 
+use Catalogue\Support\Scopes\OfCatalogue;
 use Catalogue\Support\Traits\BelongsToCatalogue;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Library\Support\Mutators\LibraryMutator;
@@ -9,7 +10,7 @@ use Pluma\Models\Model;
 
 class Library extends Model
 {
-    use SoftDeletes, LibraryMutator, BelongsToCatalogue;
+    use SoftDeletes, LibraryMutator, BelongsToCatalogue, OfCatalogue;
 
     protected $table = 'library';
 

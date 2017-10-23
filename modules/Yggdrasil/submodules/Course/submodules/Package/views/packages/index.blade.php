@@ -2,8 +2,14 @@
 
 @section("content")
 
+    <v-toolbar dark class="elevation-1 brown">
+        <v-toolbar-title class="">{{ __('Packages') }}</v-toolbar-title>
+    </v-toolbar>
+
     <v-container fluid grid-list-lg>
-        <span>Packages [packages.index] Layout here. <v-icon>tag_faces</v-icon></span>
+        <v-flex sm12>
+            <v-dataset></v-dataset>
+        </v-flex>
     </v-container>
 
 @endsection

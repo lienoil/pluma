@@ -48,9 +48,9 @@ class TestController extends AdminController
      */
     public function create()
     {
-        //
+        $resources = Library::ofCatalogue('package')->paginate();
 
-        return view("Theme::tests.create");
+        return view("Theme::tests.create")->with(compact('resources'));
     }
 
     /**

@@ -3,7 +3,8 @@
     <v-app>
       <v-container fluid grid-list-lg>
         <v-flex sm9>
-          <v-dataset :table="toggle" :card="!toggle" v-model="selected" :items="items" :headers="headers" @change="change" @infinite="listen">
+          <span v-html="`Selected ${selected.length} of ${items.length}`"></span>
+          <v-dataset select-all="primary" :table="toggle" :card="!toggle" v-model="selected" :items="items" :headers="headers" @change="change" @infinite="listen">
             <!-- <template slot="items" scope="prop">
               <span v-html="prop"></span>
               <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
@@ -61,7 +62,7 @@ export default {
     return {
       toggle: !false,
       selected: [],
-      headers: [{ text: 'Thumbnail', align: 'left', value: 'thumbnail' }, { text: 'ID', align: 'left', value: 'id' },{ text: 'Name', align: 'left', value: 'name' }],
+      headers: [{ text: 'ID', align: 'left', value: 'id' },{ text: 'Name', align: 'left', value: 'name' }],
       items: [],
       msg: 'Welcome to Your Vue.js App'
     }

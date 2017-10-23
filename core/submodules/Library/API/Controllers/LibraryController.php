@@ -182,9 +182,6 @@ class LibraryController extends APIController
      */
     public function save($request, $file)
     {
-        // echo "<pre>";
-        //     var_dump( $request->all() ); die();
-        // echo "</pre>";
         $originalName = $file->getClientOriginalName();
         $date = date('Y-m-d');
         $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/$date";

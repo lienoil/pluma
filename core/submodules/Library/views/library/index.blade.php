@@ -2,7 +2,6 @@
 
 @section("content")
     <v-toolbar class="light-blue elevation-1 sticky" dark>
-
         <template v-if="dataset.searchform.model">
             <v-text-field
                 prepend-icon="search"

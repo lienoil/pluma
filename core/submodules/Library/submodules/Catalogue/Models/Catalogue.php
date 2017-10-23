@@ -14,6 +14,8 @@ class Catalogue extends Category
 
     protected $with = ['libraries'];
 
+    protected $fillable = ['name', 'code', 'alias', 'description', 'icon'];
+
     protected $searchables = ['name', 'code', 'alias', 'description', 'icon', 'created_at', 'updated_at'];
 
     public static function mediabox()

@@ -77,13 +77,13 @@
 @endsection
 
 @push('css')
-    {{-- <link rel="stylesheet" href="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.css') }}"> --}}
-    <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-dataset.min.css">
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.css') }}">
+    {{-- <link rel="stylesheet" href="http://localhost:8080/dist/vuetify-dataset.min.css"> --}}
 @endpush
 
 @push('pre-scripts')
-    <script src="http://localhost:8080/dist/vuetify-dataset.min.js"></script>
-    {{-- <script src="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.js') }}"></script> --}}
+    {{-- <script src="http://localhost:8080/dist/vuetify-dataset.min.js"></script> --}}
+    <script src="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
