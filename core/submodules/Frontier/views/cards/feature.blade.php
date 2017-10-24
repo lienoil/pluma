@@ -4,7 +4,19 @@
         <v-toolbar-title class="subheading accent--text">{{ __('Featured Image') }}</v-toolbar-title>
     </v-toolbar>
 
-    <v-mediabox search="mime:image" :multiple="false" close-on-click :categories="resource.feature.catalogues" v-model="resource.feature.model" :old="resource.item.feature ? [resource.item.feature] : []" @selected="value => { resource.item.feature = value[0] }">
+    <v-mediabox
+        :categories="resource.feature.catalogues"
+        :multiple="false"
+        :old="resource.item.feature ? [resource.item.feature] : []"
+        close-on-click
+        search="mime:image"
+        toolbar-label="{{ __('Featured Image') }}"
+        v-model="resource.feature.model"
+        dropzone
+        :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
+        :dropzone-params="{_token: '{{ csrf_token() }}'}"
+        @selected="value => { resource.item.feature = value[0] }"
+    >
         <template slot="media" scope="props">
             <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
                 <v-card-media height="250px" :src="props.item.thumbnail">

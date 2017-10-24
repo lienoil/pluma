@@ -32,9 +32,9 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{ assets('test/packages/dist/packages.min.css') }}">
+    <link rel="stylesheet" href="{{ assets('package/packages/dist/packages.min.css') }}">
 @endpush
 
 @push('pre-scripts')
-    <script src="{{ assets('test/packages/dist/packages.min.js') }}"></script>
+    <script src="{{ assets('package/packages/dist/packages.min.js') }}"></script>
 @endpush

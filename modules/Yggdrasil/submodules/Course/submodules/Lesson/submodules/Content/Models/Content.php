@@ -15,7 +15,7 @@ class Content extends Model
 
     protected $with = ['library', 'lesson', 'unlocks'];
 
-    protected $appends = ['url', 'completed', 'locked', 'unlocked', 'current'];
+    protected $appends = ['url', 'started', 'completed', 'locked', 'unlocked', 'current', 'interactive'];
 
     protected $searchables = ['title', 'body', 'created_at', 'updated_at'];
 }

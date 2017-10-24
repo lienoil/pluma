@@ -2,10 +2,11 @@
 
 namespace Content\Controllers;
 
-use Frontier\Controllers\AdminController;
-use Illuminate\Http\Request;
 use Content\Models\Content;
 use Content\Requests\ContentRequest;
+use Course\Models\Course;
+use Frontier\Controllers\AdminController;
+use Illuminate\Http\Request;
 
 class ContentController extends AdminController
 {
@@ -32,8 +33,9 @@ class ContentController extends AdminController
     public function show(Request $request, $course, $lesson, $id)
     {
         $resource = Content::findOrFail($id);
+        $contents = $resource->lesson->contents;
 
-        return view("Theme::contents.show")->with(compact('resource'));
+        return view("Theme::contents.show")->with(compact('resource', 'contents'));
     }
 
     /**

@@ -73,7 +73,7 @@ class CourseController extends AdminController
         $course->backdrop = $request->input('backdrop');
         $course->body = $request->input('body');
         $course->delta = $request->input('delta');
-        $course->lockable = $request->input('lockable');
+        $course->lockable = $request->input('lockable') ? $request->input('lockable') : false;
         $course->category()->associate(Category::find($request->input('category_id')));
         $course->user()->associate(user());
         $course->save();
@@ -86,7 +86,7 @@ class CourseController extends AdminController
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;
             $lesson->icon = $input->icon;
-            $lesson->lockable = $input->lockable;
+            $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
             $lesson->course()->associate($course);
             if (! empty($input->assignment->title)) {
                 $lesson->assignment()->associate(Assignment::create((array) $input->assignment));
@@ -101,7 +101,7 @@ class CourseController extends AdminController
                     $content->title = $input->title;
                     $content->body = $input->body;
                     $content->delta = $input->delta;
-                    $content->lockable = $input->lockable;
+                    $content->lockable = isset($input->lockable) ? $input->lockable : false;
                     $content->lesson()->associate($lesson);
                     $content->library()->associate(Library::find($input->library_id));
                     $content->save();

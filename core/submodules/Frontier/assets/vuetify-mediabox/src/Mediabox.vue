@@ -9,14 +9,15 @@
         <v-card flat tile class="grey lighten-4">
             <v-navigation-drawer v-if="drawer" v-model="drawernav.model" absolute persistent overflow class="grey lighten-3">
                 <v-toolbar class="accent lighten-3 white--text">
+                    <v-icon dark v-if="toolbarIcon" left v-html="toolbarIcon"></v-icon>
                     <v-toolbar-title class="subheading" v-if="toolbarLabel" v-html="toolbarLabel"></v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-btn dark icon @click="drawernav.model = !drawernav.model"><v-icon>chevron_left</v-icon></v-btn>
                 </v-toolbar>
                 <v-list dense class="transparent">
-                    <v-list-tile v-for="(item, i) in toolbar.items.category.items" :key="i" @click="toolbarbox().category().select(item)" v-model="item.active">
+                    <v-list-tile ripple v-for="(item, i) in toolbar.items.category.items" :key="i" @click="toolbarbox().category().select(item)" v-model="item.active">
                         <v-list-tile-action>
-                            <v-icon left v-html="item.icon"></v-icon>
+                            <v-icon :class="{}" left v-html="item.icon"></v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>{{ item.name }}</v-list-tile-title>
@@ -29,31 +30,33 @@
             </v-navigation-drawer>
             <v-toolbar class="accent white--text">
                 <v-toolbar-side-icon dark class="grey--text" @click="drawernav.model = !drawernav.model"></v-toolbar-side-icon>
-                <slot name="toolbar">
-                    <v-menu transition="slide-y-transition" v-if="!drawernav.model">
-                        <v-btn flat slot="activator" class="white--text">
-                            <v-icon left v-html="toolbar.items.category.selected.icon"></v-icon>
-                            <span v-html="toolbar.items.category.selected.name"></span>
-                            <v-icon right>arrow_drop_down</v-icon>
-                        </v-btn>
-                        <v-card>
-                            <v-list>
-                                <v-list-tile v-for="(item, i) in toolbar.items.category.items" :key="i" @click="toolbarbox().category().select(item)">
-                                    <v-list-tile-action>
-                                        <v-icon left v-html="item.icon"></v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                                    </v-list-tile-content>
-                                    <v-list-tile-action v-if="item.count">
-                                        <span class="grey--text" v-html="item.count"></span>
-                                    </v-list-tile-action>
-                                </v-list-tile>
-                            </v-list>
-                        </v-card>
-                    </v-menu>
-                </slot>
+                <v-menu transition="slide-y-transition" v-if="!drawernav.model">
+                    <v-btn flat slot="activator" class="white--text">
+                        <v-icon left v-html="toolbar.items.category.selected.icon"></v-icon>
+                        <span v-html="toolbar.items.category.selected.name"></span>
+                        <v-icon right>arrow_drop_down</v-icon>
+                    </v-btn>
+                    <v-card>
+                        <v-list>
+                            <v-list-tile v-for="(item, i) in toolbar.items.category.items" :key="i" @click="toolbarbox().category().select(item)">
+                                <v-list-tile-action>
+                                    <v-icon left v-html="item.icon"></v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                                </v-list-tile-content>
+                                <v-list-tile-action v-if="item.count">
+                                    <span class="grey--text" v-html="item.count"></span>
+                                </v-list-tile-action>
+                            </v-list-tile>
+                        </v-list>
+                    </v-card>
+                </v-menu>
+
                 <v-spacer></v-spacer>
+
+                <slot name="toolbar">
+                </slot>
 
                 <slot name="searchform" :searchform="searchform.query">
                     <v-scale-transition>
@@ -73,7 +76,14 @@
                     <v-btn transition="scale-transition" v-show="!searchform.model" icon dark @click="searchform.model = !searchform.model"><v-icon>search</v-icon></v-btn>
                 </slot>
 
-                <v-btn dark icon @click.stop="dialogbox().close()"><v-icon>close</v-icon></v-btn>
+                <v-btn
+                    ripple dark icon
+                    :class="{'btn--active': dropzoneform.model}"
+                    @click.stop="dropzonebox().toggle(dropzoneform.model)">
+                    <v-icon>cloud_upload</v-icon>
+                </v-btn>
+
+                <v-btn ripple dark icon @click.stop="dialogbox().close()"><v-icon>close</v-icon></v-btn>
 
                 <v-progress-circular v-if="loading.model" indeterminate class="primary--text"></v-progress-circular>
             </v-toolbar>
@@ -81,11 +91,29 @@
             <!-- <v-divider></v-divider> -->
 
             <main>
+                <v-container fluid v-if="dropzone">
+                    <v-slide-y-transition>
+                        <v-layout row wrap v-show="dropzoneform.model">
+                            <v-flex sm12>
+                                <v-dropzone :auto-remove-files="autoRemoveFiles" v-model="dropzoneParams" :options="dropzoneOptions" :params="dropzoneParams" @complete="dropzonebox().completed($event)" @sending="dropzonebox().sending($event)" @addedfile="dropzonebox().addedfile($event)">
+                                    <template>
+                                        <slot name="dropzone">
+                                            <!--  -->
+                                        </slot>
+                                    </template>
+                                </v-dropzone>
+                            </v-flex>
+                        </v-layout>
+                    </v-slide-y-transition>
+                </v-container>
+
+                <v-divider v-show="dropzoneform.model"></v-divider>
+
                 <v-container fluid fill-height grid-list-lg>
                     <template v-if="dataset.items.length === 0">
                         <slot name="empty-result">
                             <v-layout row wrap fill-height>
-                                <v-flex>
+                                <v-flex sm12>
                                     <div class="text-xs-center grey--text">
                                         <v-icon class="display-4 grey--text">fa-frown-o</v-icon>
                                         <div>There seems to be only loneliness here</div>
@@ -138,19 +166,27 @@
 </template>
 
 <script>
+    import Dropzone from 'vuetify-dropzone'
+
     export default {
         name: 'Mediabox',
+        components: { 'v-dropzone': Dropzone },
         model: {
             prop: 'open'
         },
         props: {
             categories: { type: Array, default: () => { return [] } },
+            dropzone: { type: Boolean, default: true },
+            autoRemoveFiles: { type: Boolean, default: false },
+            dropzoneOptions: { type: Object, default: () => { return {autoProcessQueue: true} } },
+            dropzoneParams: { type: Object, default: () => {} },
             height: { type: String, default: '250px' },
             closeOnClick: { type: Boolean, default: false },
             multiple: { type: Boolean, default: true },
             drawer: { type: Boolean, default: true },
             old: { type: [Array, Object], default: () => { return [] } },
             open: true,
+            toolbarIcon: { type: String, default: '' },
             toolbarLabel: { type: String, default: '' },
             search: { type: String, default: '' },
             selected: {},
@@ -195,6 +231,9 @@
                             }]
                         }
                     }
+                },
+                dropzoneform: {
+                    model: false
                 }
             }
         },
@@ -220,6 +259,7 @@
 
             this.toolbar.items.category.items = this.categories
             this.toolbar.items.category.selected = this.toolbar.items.category.items.length ? this.toolbar.items.category.items[0] : null
+            this.toolbar.items.category.selected.active = true
 
             // Searchform mount
             this.searchform.query = this.search
@@ -352,10 +392,13 @@
                                 self.api().get(item.url, item.query).then(data => {
                                     self.api().dataset().set(data.items)
                                 })
-                                self.$emit('category-change', item)
+                                self.$emit('category-change', item, self.toolbar.items.category.items)
+                            },
+                            refresh () {
+                                // self.toolbar.items.category.items
                             }
                         }
-                    }
+                    },
                 }
             },
 
@@ -441,6 +484,43 @@
                         self.loading.model = false
                     }
                 }
+            },
+
+            dropzonebox () {
+                let self = this
+
+                return {
+                    completed (file) {
+                        if (file.status !== 'error') {
+                            self.toolbarbox().category().select(self.toolbar.items.category.selected)
+                            self.toolbar.items.category.selected.count += 1
+                            self.toolbar.items.category.items.map(item => {
+                                if (item.name == 'All' || item.name == 'Uncategorised') {
+                                    item.count += 1
+                                }
+                            })
+                            // self.dropzonebox.
+                            // self.toolbarbox().category().refresh()
+                        }
+
+                        self.$emit('upload-completed', self.toolbar.items.category.items, file)
+                        // console.log('drrrrrr', file)
+                    },
+
+                    addedfile (file) {
+                        // console.log(file)
+                        self.$emit('addedfile', file)
+                    },
+
+                    sending ({file, xhr, formData}) {
+                        // console.log('sending.mediabox', file)
+                        self.$emit('sending', {file, params: self.dropzoneParams})
+                    },
+
+                    toggle (model) {
+                        self.dropzoneform.model = !self.dropzoneform.model
+                    }
+                }
             }
         },
         watch: {
@@ -471,6 +551,9 @@
             'search': function (value) {
                 this.searchform.query = value
                 this.$emit('search', value, this.searchform)
+            },
+            'dropzoneParams': function (value) {
+                // this.$emit('params', value)
             }
         }
     }

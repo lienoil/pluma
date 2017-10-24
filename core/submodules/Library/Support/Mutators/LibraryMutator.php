@@ -2,6 +2,7 @@
 
 namespace Library\Support\Mutators;
 
+use Chumper\Zipper\Zipper;
 use Illuminate\Support\Facades\File;
 use Parchment\Helpers\Word;
 
@@ -50,10 +51,9 @@ trait LibraryMutator
             switch ($mime) {
                 case 'application/zip':
                 case 'application/rar':
-                    $archivePath = settings('library.extracted_files_path', 'public/archives');
-                    $archive = storage_path("$archivePath/$this->filename");
-                    if (file_exists("$archive/thumbnail.png")) {
-                        $url = url("storage/$archivePath/$this->filename/thumbnail.png");
+                    $archivePath = settings('package.storage_path', 'public/package').'/'.date('Y-m-d', strtotime($this->created_at))."/{$this->id}";
+                    if (file_exists(storage_path("$archivePath/thumbnail.png"))) {
+                        $url = url("storage/$archivePath/thumbnail.png");
                     } else {
                         // Brownish Monokai
                         $url = config("thumbnails.thumbnails.$mime");
@@ -96,15 +96,19 @@ trait LibraryMutator
      * Extracts file on a given path.
      *
      * @param  string $path
-     * @param  string $output
+     * @param  string $outputPath
      * @return void
      */
-    public static function extract($path, $output)
+    public static function extract($path, $outputPath)
     {
         try {
-            if (File::exists(storage_path($path))) {
+            if (File::exists($path)) {
                 $zipper = new Zipper;
-                $zipper->zip(storage_path($path))->extractTo($output);
+
+                if (! file_exists($outputPath)) {
+                    File::makeDirectory($outputPath, $mode = 0777, true, true);
+                }
+                $zipper->zip($path)->extractTo($outputPath);
             }
         } catch (Exception $e) {
             return $e->getMessage();

@@ -16,8 +16,10 @@
               :multiple="multiple"
               :close-on-click="closeOnClick"
               @selected="getValue"
+              dropzone
+              :dropzoneOptions="{url:'http://local.localhost:8080/api/library/upload', autoProcessQueue: true}"
+              :dropzoneParams="{'_token':'eyJpdiI6IkFSQmZRVVwvNnhOYnBjMStjNFhlT3BBPT0iLCJ2YWx1ZSI6IlFHbUFrdjljenFMTWZYaTAzQUh0XC9ROExoNVh3NmQ5QVBMM25sbHlhTHI0dVgrcDN5cDgrcUlva29cL0h0NERBa1NibkRLUFREWWw0REh5UEs2MzUyU1E9PSIsIm1hYyI6IjI5NDcyNzY2YjM2OTU3NTE5YTJhMWQyYmM0OTM2ZmMyN2Q1NzU5NjAzOTJjYmU4ZDdhMDc5MjRhMDIzMjJlNGIifQ%3D%3D'}"
             ></v-mediabox>
-
             <pre>
               <span v-html="dataset"></span>
             </pre>

@@ -1,15 +1,33 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-
-    <v-toolbar dark class="elevation-1 brown">
-        <v-toolbar-title class="">{{ __('Packages') }}</v-toolbar-title>
-    </v-toolbar>
-
-    <v-container fluid grid-list-lg>
-        <v-flex sm12>
-            <v-dataset></v-dataset>
-        </v-flex>
+    <v-container fluid class="pa-0">
+        <pluma-packages
+            :headers="[
+                {text: '{{ __('ID') }}', value: 'id', align: 'left'},
+                {text: '{{ __('Name') }}', value: 'name', align: 'left'},
+                {text: '{{ __("File Type") }}', value: 'mimetype', align: 'left'},
+                {text: '{{ __("File Size") }}', value: 'size', align: 'left'},
+                {text: '{{ __("Uploaded") }}', value: 'created_at', align: 'left'},
+                {text: '{{ __("Modified") }}', value: 'updated_at', align: 'left'},
+            ]"
+            :url="{
+                GET: '{{ route('api.packages.paginated') }}',
+                UPLOAD: '{{ route('api.packages.upload') }}',
+            }"
+            :dropzone-options="{url: '{{ route('api.packages.upload') }}', timeout: '120s', autoProcessQueue: true, parallelUploads: 1, acceptedFiles: 'application/zip,application/rar'}"
+            :dropzone-params="{_token: '{{ csrf_token() }}'}"
+            :items="{{ json_encode($resources->toArray()) }}"
+            catalogue="package"
+            title="{{ __('Packages') }}"
+        ></pluma-packages>
     </v-container>
-
 @endsection
+
+@push('css')
+    <link rel="stylesheet" href="{{ assets('package/packages/dist/packages.min.css') }}">
+@endpush
+
+@push('pre-scripts')
+    <script src="{{ assets('package/packages/dist/packages.min.js') }}"></script>
+@endpush

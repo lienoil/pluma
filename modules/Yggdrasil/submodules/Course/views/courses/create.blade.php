@@ -43,20 +43,22 @@
                             ></v-text-field>
                         </v-card-text>
 
+                        <v-divider></v-divider>
+                        {{-- Editor --}}
+                        <v-quill class="elevation-0" source :options="{placeholder: '{{ __('Describe this course...') }}'}" v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Default', 'Montserrat', 'Roboto']">
+                            <template>
+                                <input type="hidden" name="body" :value="quill.values.html">
+                                <input type="hidden" name="delta" :value="JSON.stringify(quill.values.delta)">
+                            </template>
+                        </v-quill>
+                        {{-- /Editor --}}
+
+                        <v-divider></v-divider>
+
+                        {{-- Lessons --}}
+                        @include("Course::cards.lessons")
+                        {{-- /Lessons --}}
                     </v-card>
-
-                    {{-- Editor --}}
-                    <v-quill source :options="{placeholder: '{{ __('Describe this course...') }}'}" v-model="quill.values" class="mb-3 white elevation-1" :fonts="['Default', 'Montserrat', 'Roboto']">
-                        <template>
-                            <input type="hidden" name="body" :value="quill.values.html">
-                            <input type="hidden" name="delta" :value="JSON.stringify(quill.values.delta)">
-                        </template>
-                    </v-quill>
-                    {{-- /Editor --}}
-
-                    {{-- Lessons --}}
-                    @include("Course::cards.lessons")
-                    {{-- /Lessons --}}
                 </v-flex>
 
                 <v-flex sm3>

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="elevation-1 grey lighten-4" :class="lessons.toolbar.modes.distraction.model?'mode-distraction-free mb-0':'mb-3'">
+    <v-card class="elevation-0 grey lighten-4" :class="lessons.toolbar.modes.distraction.model?'mode-distraction-free mb-0':'mb-3'">
         <v-toolbar card class="white lighten-3 sticky" :class="lessons.toolbar.modes.distraction.model?'mode-distraction-free--toolbar elevation-3':''">
             <v-icon class="green--text text--darken-3">fa-leaf</v-icon>
             <v-toolbar-title class="subheading green--text text--darken-3">{{ __('Lessons') }}</v-toolbar-title>
@@ -57,6 +57,7 @@
                         <div class="green lighten-4" style="height: 3px;"></div>
                         <v-toolbar card slot="header" class="sortable-handle parent-handle white lighten-3" dense @click.native.stop="draggable.active = !draggable.active">
                             <v-icon>drag_handle</v-icon>
+                            <span v-if="draggable.resource.lockable" v-tooltip:right="{html:'{{ __('This Lesson is lockable') }}'}"><v-icon>lock</v-icon></span>
                             <v-spacer></v-spacer>
                             <v-toolbar-title class="subheading">@{{ draggable.resource.title }}</v-toolbar-title>
                             <v-spacer></v-spacer>
@@ -275,6 +276,10 @@
         </v-card-text>
     </v-card>
 </template>
+
+@push('css')
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}">
+@endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>

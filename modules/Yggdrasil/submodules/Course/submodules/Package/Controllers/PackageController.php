@@ -4,6 +4,7 @@ namespace Package\Controllers;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Library\Models\Library;
 use Package\Models\Package;
 use Package\Requests\PackageRequest;
 
@@ -17,9 +18,9 @@ class PackageController extends AdminController
      */
     public function index(Request $request)
     {
-        //
+        $resources = Library::ofCatalogue('package')->paginate();
 
-        return view("Theme::packages.index");
+        return view("Theme::packages.index")->with(compact('resources'));
     }
 
     /**

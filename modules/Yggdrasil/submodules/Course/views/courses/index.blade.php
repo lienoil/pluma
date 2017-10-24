@@ -63,7 +63,7 @@
                             <strong class="title td-n accent--text" v-html="card.title"></strong>
                         </v-card-title>
 
-                        <v-footer class="transparent">
+                        <v-card-actions class="transparent">
                             <v-chip label small class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">class</v-icon><span v-html="card.code"></span></v-chip>
 
                             <v-chip label small class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${card.lessons.length} Parts`"></span></v-chip>
@@ -71,7 +71,7 @@
                             <v-chip v-if="card.category" label class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">label</v-icon><span v-html="card.category.name"></span></v-chip>
 
                             <v-chip label small class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-clock-o</v-icon><span v-html="card.created"></span></v-chip>
-                        </v-footer>
+                        </v-card-actions>
 
                         <v-card-text class="grey--text text--darken-1" v-html="card.excerpt"></v-card-text>
 
