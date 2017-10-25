@@ -107,6 +107,7 @@
                         },
                         feature: {
                             model: false,
+                            current: {},
                             catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
                         },
                         cover: {

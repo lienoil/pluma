@@ -2,6 +2,7 @@
 
 namespace Registrar\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Pluma\Support\Providers\ServiceProvider;
 
 class RegistrarServiceProvider extends ServiceProvider
@@ -33,6 +34,23 @@ class RegistrarServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bootObservables();
+
+        $this->bootDirectives();
+    }
+
+    /**
+     * Boots the Blade Directives.
+     *
+     * @return void
+     */
+    public function bootDirectives()
+    {
+        Blade::directive('enrolled', function ($param) {
+            return "<?php if (false) : ?>";
+        });
+        Blade::directive('endenrolled', function ($param) {
+            return "<?php endif; ?>";
+        });
     }
 
     /**

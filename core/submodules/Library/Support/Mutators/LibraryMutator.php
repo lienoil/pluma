@@ -65,6 +65,14 @@ trait LibraryMutator
                     $url = config("thumbnails.thumbnails.$mime");
                     break;
 
+                case 'video/*':
+                case 'video/ogv':
+                case 'video/ogg':
+                case 'video/wmv':
+                case 'video/mp4':
+                    $url = config("thumbnails.thumbnails.video/mp4");
+                    break;
+
                 case null:
                 default:
                     $url = url("storage/$url");

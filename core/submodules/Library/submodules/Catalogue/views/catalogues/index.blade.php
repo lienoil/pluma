@@ -91,7 +91,7 @@
             <v-flex sm7 md8 xs12>
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Roles') }}</v-toolbar-title>
+                        <v-toolbar-title class="accent--text">{{ __('Catalogues') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
 
                         {{-- Batch Commands --}}

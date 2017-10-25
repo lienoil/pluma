@@ -67,37 +67,16 @@
               </tr>
             </template>
             <template slot="card" scope="{prop}">
-              <v-card-media :src="prop.item.thumbnail" height="150px">
-                <v-layout column wrap>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn ripple icon><v-icon class="white--text text--darken-2" v-html="prop.item.icon"></v-icon></v-btn>
-                  </v-card-actions>
-                </v-layout>
-              </v-card-media>
-              <v-card-title dark>
-                <div>
-                  <span class="subheading brown--text" v-html="prop.item.name"></span>
-                </div>
-              </v-card-title>
-              <v-card-actions class="grey--text">
-                <span class="caption" v-html="prop.item.mimetype"></span>
-                <v-spacer></v-spacer>
-                <span class="caption" v-html="prop.item.filesize"></span>
-              </v-card-actions>
-              <!-- <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-dialog width="80vw">
-                  <v-btn slot="activator" ripple dark class="brown elevation-1">Info</v-btn>
-                  <v-card>
-                    <v-card-title primary-title v-html="prop.item.name"></v-card-title>
-                    <v-card-text>
-                      <p><strong>Original Name: </strong><span v-html="prop.item.originalname"></span></p>
-                      <p><strong>Original Name: </strong><span v-html="prop.item.originalname"></span></p>
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
-              </v-card-actions> -->
+              <v-card flat class="white">
+                <v-card-media class="white" height="250px" :src="prop.item.thumbnail"></v-card-media>
+                <v-card-title primary-title class="subheading white brown--text" v-html="prop.item.originalname"></v-card-title>
+                <v-card-text class="px-2 white brown--text">
+                  <p><v-icon left class="brown--text" v-html="prop.item.icon"></v-icon><span v-html="prop.item.mimetype"></span></p>
+                  <p><span v-html="prop.item.mime"></span></p>
+                  <p><span v-html="prop.item.filesize"></span></p>
+                </v-card-text>
+                <slot name="card.actions" :prop="prop.item"></slot>
+              </v-card>
             </template>
           </v-dataset>
         </v-flex>
@@ -196,7 +175,7 @@
 
           pagination (pagination) {
             const { sortBy, descending, page, rowsPerPage } = pagination
-            console.log(pagination)
+            // console.log(pagination)
             let query = {
               descending: descending ? descending : false,
               page: page,
@@ -207,7 +186,7 @@
             self.api().get(self.url.GET, query).then(response => {
               self.dataset.items = response.items.data ? response.items.data : response.items
               self.dataset.pagination.totalItems = response.items.total ? response.items.total : response.total
-              console.log('pagination', self.dataset.items)
+              // console.log('pagination', self.dataset.items)
             })
           }
         }

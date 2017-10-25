@@ -23,7 +23,7 @@ return [
                 'name' => 'view-library',
                 'order' => 1,
                 'slug' => route('library.index'),
-                'always_viewable' => false,
+                // 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Library'),
                     'description' => __('View the list of all collections in library'),
@@ -43,7 +43,7 @@ return [
                 'name' => 'trashed-library',
                 'order' => 3,
                 'slug' => route('library.trash'),
-                'always_viewable' => false,
+                // 'always_viewable' => false,
                 'icon' => 'archive',
                 'labels' => [
                     'title' => __('Archived'),

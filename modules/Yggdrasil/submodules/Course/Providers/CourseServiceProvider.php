@@ -2,6 +2,7 @@
 
 namespace Course\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Pluma\Support\Providers\ServiceProvider;
 
 class CourseServiceProvider extends ServiceProvider

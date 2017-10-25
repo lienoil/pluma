@@ -91,7 +91,7 @@
                     <v-card-text>
                         {!! $resource->body !!}
 
-                        <template v-if="resource.unlocked">
+                        <template v>
                             <v-card v-if="! resource.started" flat class="grey lighten-4 grey--text text-xs-center">
                                 <v-card-media height="480px">
                                     <v-container fill-height class="pa-0">
@@ -120,7 +120,7 @@
                             </v-fade-transition>
                             {{-- <iframe width="100%" height="450px" src="{{ $resource->interactive }}" frameborder="0"></iframe> --}}
                         </template>
-                        <template v-else>
+                        <template v>
                             <v-card flat class="grey lighten-4 grey--text text-xs-center">
                                 <v-card-media height="480px">
                                     <v-container fill-height class="pa-0">
@@ -148,6 +148,10 @@
         </v-layout>
     </v-container>
 @endsection
+
+@push('css')
+    <link rel="manifest" href="{{ url('manifest.json') }}">
+@endpush
 
 @push('pre-scripts')
     <script>

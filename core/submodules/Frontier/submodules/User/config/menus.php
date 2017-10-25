@@ -23,7 +23,7 @@ return [
                 'name' => 'view-user',
                 'order' => 1,
                 'slug' => url(config('path.admin').'/users'),
-                'always_viewable' => false,
+                // 'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.index',
                     'children' => [
@@ -41,7 +41,7 @@ return [
                 'name' => 'create-user',
                 'order' => 2,
                 'slug' => url(config('path.admin').'/users/create'),
-                'always_viewable' => false,
+                // 'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.create',
                 ],

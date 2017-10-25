@@ -122,8 +122,10 @@ class CourseController extends AdminController
     public function edit(Request $request, $id)
     {
         $resource = Course::lockForUpdate()->findOrFail($id);
+        $catalogues = Catalogue::mediabox();
+        $categories = Category::all();
 
-        return view("Theme::courses.edit")->with(compact('resource'));
+        return view("Theme::courses.edit")->with(compact('resource', 'catalogues', 'categories'));
     }
 
     /**

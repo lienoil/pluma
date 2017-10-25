@@ -126,6 +126,8 @@
                         <span>{{ __('You may drag 20 files at a time.') }}</span>
                         <em class="caption" v-html="`{{ __('Uploads will be catalogued as') }} <strong>${suppliments.catalogues.current.name}</strong>`"></em>
                     </div>
+                    <v-switch label="Extract archive files" persistent-hint v-model="dropzone.extract" value="true"></v-switch>
+                    <input type="hidden" name="extract" :value="dropzone.extract">
                 </template>
             </v-dropzone>
         </v-card>
@@ -326,6 +328,7 @@
 
                     dropzone: {
                         currentfile: {},
+                        extract: true,
                         params: {
                             _token: '{{ csrf_token() }}',
                         },
@@ -530,6 +533,7 @@
                         },
 
                         sending ({file, xhr, formData}) {
+                            self.dropzone.params.extract = self.dropzone.extract;
                             self.dropzone.params.originalname = file.upload.filename;
                             self.dropzone.params.catalogue_id = self.suppliments.catalogues.current.id ? self.suppliments.catalogues.current.id : 0;
                         },

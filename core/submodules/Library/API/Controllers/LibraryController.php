@@ -208,7 +208,8 @@ class LibraryController extends APIController
             $library->save();
 
             if ($request->input('extract')) {
-                Library::extract($fullFilePath);
+                $output = storage_path(settings('package.storage_path', 'public/package'))."/$date/{$library->id}";
+                Library::extract($fullFilePath, $output);
             }
         }
     }

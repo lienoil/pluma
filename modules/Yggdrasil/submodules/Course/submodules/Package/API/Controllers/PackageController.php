@@ -82,15 +82,12 @@ class PackageController extends APIController
         $fullFilePath = "$filePath/$fileName";
 
         if ($file->move($filePath, $fileName)) {
-            $output = storage_path(settings('package.storage_path', 'public/package'))."/$date/{$library->id}";
-            Library::extract($fullFilePath, $output);
 
             $library = new Library();
             $library->name = $name;
             $library->originalname = $originalName;
             $library->pathname = $fullFilePath;
             $library->mimetype = $file->getClientMimeType();
-            $library->thumbnail = settings('package.storage_path', 'public/package') . "/$date/{$library->id}/thumbnail.png";
             $library->size = $file->getClientSize();
             $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
             if ((bool) $request->input('catalogue')) {
@@ -103,6 +100,10 @@ class PackageController extends APIController
                 ]));
             }
             $library->save();
+            // $library->thumbnail = settings('package.storage_path', 'public/package') . "/$date/{$library->id}/thumbnail.png";
+
+            $output = storage_path(settings('package.storage_path', 'public/package'))."/$date/{$library->id}";
+            Library::extract($fullFilePath, $output);
         }
     }
 }
