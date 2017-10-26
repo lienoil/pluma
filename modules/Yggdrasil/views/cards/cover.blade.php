@@ -28,7 +28,7 @@
         </template>
         <template slot="media" scope="props">
             <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
-                <v-card-media height="250px" :src="props.item.thumbnail">
+                <v-card-media height="380px" :src="props.item.thumbnail">
                     <v-container fill-height class="pa-0 white--text">
                         <v-layout fill-height wrap column>
                             <v-spacer></v-spacer>
@@ -63,7 +63,7 @@
     <v-card-media
         v-else
         :src="resource.item.cover ? resource.item.cover.thumbnail : ''"
-        height="200px"
+        height="280px"
         role="button"
         @click.stop="resource.cover.model = !resource.cover.model">
         <v-container fill-height fluid class="pa-0 white--text">
@@ -79,7 +79,8 @@
     </v-card-media>
 
     <v-card-actions>
+        <v-btn v-if="resource.item.cover" flat ripple @click.stop="resource.item.cover = null">{{ __('Remove') }}</v-btn>
         <v-spacer></v-spacer>
-        <v-btn flat @click.stop="resource.cover.model = !resource.cover.model" v-html="resource.item.cover ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></v-btn>
+        <v-btn flat ripple @click.stop="resource.cover.model = !resource.cover.model"><span v-html="resource.item.cover ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
     </v-card-actions>
 </v-card>

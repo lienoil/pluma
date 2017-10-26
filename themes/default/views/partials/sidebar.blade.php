@@ -14,7 +14,7 @@
 
     <v-list>
         <v-list-tile>
-            <v-list-tile-avatar tile>
+            <v-list-tile-avatar tile size="40px">
                 @include("Frontier::partials.brand")
             </v-list-tile-avatar>
             <v-list-tile-content>

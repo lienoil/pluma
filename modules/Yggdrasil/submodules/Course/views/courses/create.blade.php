@@ -36,7 +36,7 @@
 
                             <v-text-field
                                 :error-messages="resource.errors.code"
-                                :value="resource.item.title ? resource.item.title : '{{ old('code') }}' | slugify"
+                                value="{{ old('code') }}"
                                 hint="{{ __('Will be used as an ID for Roles. Make sure the code is unique.') }}"
                                 label="{{ _('Code') }}"
                                 name="code"
@@ -64,11 +64,11 @@
                 <v-flex sm3>
                     @include("Theme::cards.saving")
 
-                    @include("Theme::cards.category")
-
                     @include("Yggdrasil::cards.cover")
 
                     @include("Theme::cards.feature")
+
+                    @include("Theme::cards.category")
                 </v-flex>
             </v-layout>
 

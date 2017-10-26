@@ -66,11 +66,11 @@
                 <v-flex sm3>
                     @include("Theme::cards.saving")
 
-                    @include("Theme::cards.category")
-
                     @include("Yggdrasil::cards.cover")
 
                     @include("Theme::cards.feature")
+
+                    @include("Theme::cards.category")
                 </v-flex>
             </v-layout>
 
@@ -99,12 +99,17 @@
                     },
                     resource: {
                         item: {
+                            id: '',
                             title: '',
                             slug: '',
                             code: '',
                             body: '',
-                            cover: '{!! $resource->cover_obj !!}' ? JSON.parse('{!! $resource->cover_obj !!}') : null,
-                            feature: '{!! $resource->feature_obj !!}' ? JSON.parse('{!! $resource->feature_obj !!}') : null,
+                            cover: {
+                                thumbnail: '{!! $resource->backdrop !!}',
+                            },
+                            feature: {
+                                thumbnail: '{!! $resource->feature !!}',
+                            },
                             category: JSON.parse({!! json_encode($resource->category) !!}),
                         },
                         feature: {

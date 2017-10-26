@@ -98,5 +98,32 @@ return [
         'group' => 'course',
     ],
 
-    //
+    // My
+    'view-my-courses' => [
+        'name' => 'my.courses.index',
+        'code' => 'view-my-courses',
+        'description' => 'Ability to view enrolled courses',
+        'group' => 'course',
+    ],
+    'show-my-courses' => [
+        'name' => 'my.courses.show',
+        'code' => 'show-my-courses',
+        'description' => 'Ability to view enrolled courses',
+        'group' => 'course',
+    ],
+
+    // Misc
+    'enroll-course' => [
+        'name' => 'courses.enroll',
+        'code' => 'enroll-course',
+        'description' => 'Ability to enroll to a course',
+        'group' => 'course',
+    ],
+
+    'bookmark-course' => [
+        'name' => 'courses.bookmark',
+        'code' => 'bookmark-course',
+        'description' => 'Ability to bookmark a course',
+        'group' => 'course',
+    ],
 ];

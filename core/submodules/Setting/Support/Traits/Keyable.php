@@ -22,4 +22,19 @@ trait Keyable
 
         return json_decode(json_encode($d));
     }
+
+    /**
+     * Get's the row's value via key.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $builder
+     * @param  string $key
+     * @param  string $column
+     * @param  strinf $comlumn_value
+     * @return string
+     */
+    public function scopeValueFromKey($builder, $key, $column = 'key', $column_value = 'value')
+    {
+        $setting = $builder->where($column, $key)->first();
+        return is_null($setting) ? false : $setting->{$column_value};
+    }
 }

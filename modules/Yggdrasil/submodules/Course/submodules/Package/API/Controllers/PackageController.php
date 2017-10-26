@@ -100,7 +100,7 @@ class PackageController extends APIController
                 ]));
             }
             $library->save();
-            // $library->thumbnail = settings('package.storage_path', 'public/package') . "/$date/{$library->id}/thumbnail.png";
+            $library->thumbnail = settings('package.storage_path', 'public/package') . "/$date/{$library->id}/thumbnail.png";
 
             $output = storage_path(settings('package.storage_path', 'public/package'))."/$date/{$library->id}";
             Library::extract($fullFilePath, $output);

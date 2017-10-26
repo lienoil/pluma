@@ -14,7 +14,7 @@
         <v-switch persistent-hint hint="{{ __('Recommended set to false if this is the first Lesson in the Course.') }}" label="{{ __('Lock from users until previous lesson is finished') }}" v-model="draggable.resource.lockable" :value="1"></v-switch>
         <input type="hidden" :name="`lessons[${key}][lockable]`" :value="draggable.resource.lockable?draggable.resource.lockable:false">
         <span v-if="resource.errors[`lessons.${key}.lockable`]" class="caption" v-html="resource.errors[`lessons.${key}.lockable`]"></span>
-        <span v-html="draggable.resource.lockable"></span>
+        {{-- <span v-html="draggable.resource.lockable"></span> --}}
         {{-- /Lockable --}}
     </v-card-text>
 </v-card>

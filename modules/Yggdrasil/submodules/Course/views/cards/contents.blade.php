@@ -41,6 +41,7 @@
                         {{-- <v-slide-y-transition> --}}
                         <div v-show="content.active" transition="slide-y-transition">
                             <v-card-text>
+                                <input v-if="content.resource.id" type="hidden" :name="`lessons[${key}][contents][${c}][id]`" :value="content.resource.id">
                                 <input type="hidden" :name="`lessons[${key}][contents][${c}][sort]`" :value="c">
                                 <v-text-field
                                     :name="`lessons[${key}][contents][${c}][title]`"
@@ -64,7 +65,7 @@
                                 <p class="subheading grey--text" @click.stop="content.mediabox = !content.mediabox">{{ __('Interactive Content') }}</p>
                                 <input type="hidden" :name="`lessons[${key}][contents][${c}][interactive]`" :value="JSON.stringify(content.resource.interactive)">
                                 <input type="hidden" :name="`lessons[${key}][contents][${c}][library_id]`" :value="content.resource.interactive && content.resource.interactive.length ? content.resource.interactive[0].id : null">
-                                <template v-if="content.resource.interactive && !content.resource.interactive.length">
+                                <template v-if="!content.resource.interactive.length">
                                     <v-card-text
                                         class="grey lighten-3 text-xs-center grey--text py-5"
                                         ripple
@@ -80,7 +81,7 @@
                                     <v-spacer></v-spacer>
                                     <v-scale-transition>
                                         <v-card class="mt-3" v-show="content.resource.interactive.length" :key="i" v-for="(o, i) in content.resource.interactive" @click.stop="content.mediabox = true" role="button">
-                                            <v-card-media :src="o.thumbnail" height="250px">
+                                            <v-card-media :src="o.thumbnail" height="380px">
                                                 <v-layout column wrap>
                                                     <v-toolbar flat class="transparent">
                                                         <v-spacer></v-spacer>
@@ -106,10 +107,29 @@
                             </v-card-text>
                             <v-card-actions class="grey lighten-4">
                                 <v-spacer></v-spacer>
-                                <v-mediabox :multiple="false" close-on-click :categories="mediabox.catalogues" v-model="content.mediabox" :old="content.resource.interactive ? content.resource.interactive : []" @selected="value => { content.resource.interactive = value }">
+                                <v-mediabox
+                                    :multiple="false"
+                                    close-on-click
+                                    :categories="mediabox.catalogues"
+                                    v-model="content.mediabox"
+                                    dropzone
+                                    :old="content.resource.interactive.length?content.resource.interactive:[]"
+                                    auto-remove-files
+                                    :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
+                                    :dropzone-params="{_token: '{{ csrf_token() }}'}"
+                                    @selected="value => { content.resource.interactive = value }"
+                                    @category-change="val => resource.feature.current = val"
+                                    @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename; params.extract = true}"
+                                >
+                                    <template slot="dropzone">
+                                        <span class="caption">{{ __('Uploads will be catalogued as ') }}<em>@{{ resource.feature.current ? resource.feature.current.name : 'Uncategorized' }}</em></span>
+                                        {{-- <v-card-text>
+                                            <span v-if="resource.feature.current" v-html="`Currently uploading ${resource.feature.current}`"></span>
+                                        </v-card-text> --}}
+                                    </template>
                                     <template slot="media" scope="prop">
                                         <v-card transition="scale-transition" class="accent" :class="prop.item.active?'elevation-10':'elevation-1'">
-                                            <v-card-media class="white" height="250px" :src="prop.item.thumbnail">
+                                            <v-card-media class="white" height="380px" :src="prop.item.thumbnail">
                                                 <v-container fill-height class="pa-0 white--text">
                                                     <v-layout fill-height wrap column>
                                                         <v-spacer></v-spacer>

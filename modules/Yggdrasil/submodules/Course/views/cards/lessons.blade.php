@@ -224,7 +224,7 @@
                             icon: '',
                             code: '',
                             quill: {},
-                            interactive: null,
+                            interactive: [],
                             lockable: false,
                             assignment: {
                                 title: '', code: '', quill: {}, attachment: null,

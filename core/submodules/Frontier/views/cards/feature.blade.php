@@ -29,7 +29,7 @@
         </template>
         <template slot="media" scope="props">
             <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
-                <v-card-media height="250px" :src="props.item.thumbnail">
+                <v-card-media height="380px" :src="props.item.thumbnail">
                     <v-container fill-height class="pa-0 white--text">
                         <v-layout fill-height wrap column>
                             <v-spacer></v-spacer>
@@ -61,10 +61,20 @@
         </v-fade-transition>
     </v-card-text>
 
-    <v-card-media
+    <img
+        v-else
+        width="100%"
+        height="auto"
+        :src="resource.item.feature ? resource.item.feature.thumbnail : ''"
+        role="button"
+        @click.stop="resource.feature.model = !resource.feature.model"
+    >
+    <input type="hidden" name="feature_obj" :value="JSON.stringify(resource.item.feature)">
+    <input type="hidden" name="feature" :value="resource.item.feature ? resource.item.feature.thumbnail : ''">
+    {{-- <v-card-media
         v-else
         :src="resource.item.feature ? resource.item.feature.thumbnail : ''"
-        height="200px"
+        height="280px"
         role="button"
         @click.stop="resource.feature.model = !resource.feature.model">
         <v-container fill-height fluid class="pa-0 white--text">
@@ -78,10 +88,11 @@
                 </v-card-title>
             </v-layout>
         </v-container>
-    </v-card-media>
+    </v-card-media> --}}
 
     <v-card-actions>
+        <v-btn v-if="resource.item.feature" flat @click.stop="resource.item.feature = null">{{ __('Remove') }}</v-btn>
         <v-spacer></v-spacer>
-        <v-btn flat @click.stop="resource.feature.model = !resource.feature.model" v-html="resource.item.feature ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></v-btn>
+        <v-btn flat @click.stop="resource.feature.model = !resource.feature.model"><span v-html="resource.item.feature ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
     </v-card-actions>
 </v-card>

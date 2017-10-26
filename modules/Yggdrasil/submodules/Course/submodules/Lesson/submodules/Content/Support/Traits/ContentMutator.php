@@ -100,8 +100,8 @@ trait ContentMutator
     {
         $entrypoint = "";
         try {
-            $date = date('Y-m-d', strtotime($this->created_at));
-            $path = settings('package.storage_path', 'public/package') . "/$date/{$this->id}";
+            $date = date('Y-m-d', strtotime($this->library->created_at));
+            $path = settings('package.storage_path', 'public/package') . "/$date/{$this->library->id}";
 
             $xml = File::get(storage_path("$path/imsmanifest.xml"));
             $xml = new SimpleXMLElement($xml);

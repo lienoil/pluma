@@ -22,7 +22,7 @@ trait LessonMutator
      */
     public function getProgressAttribute()
     {
-        return 0;
+        return $this->contents->count();
     }
 
     /**

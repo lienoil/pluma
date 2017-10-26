@@ -39,6 +39,7 @@
             :card="!bulk.toggleview.model"
             item-key="id"
             v-model="dataset.selected"
+            sm6
             @pagination="mDataset().pagination($event)"
           >
             <template slot="items" scope="{prop}">

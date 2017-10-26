@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Migration\Migration;
 use Phinx\Migration\AbstractMigration;
 
-class CreateCourseUserTable extends Migration
+class CreateBookmarksTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $tablename = 'course_user';
+    protected $tablename = 'bookmarks';
 
     /**
      * Run the migrations.
@@ -26,10 +26,11 @@ class CreateCourseUserTable extends Migration
         }
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            $table->integer('course_id')->unsigned();
+            $table->integer('bookmarkable_id')->unsigned();
+            $table->string('bookmarkable_type')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->timestamps();
 
-            $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

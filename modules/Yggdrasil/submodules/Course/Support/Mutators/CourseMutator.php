@@ -27,4 +27,25 @@ trait CourseMutator
 
         return 100;
     }
+
+    /**
+     * Check if currently logged in user is enrolled
+     * to this course.
+     *
+     * @return boolean
+     */
+    public function getEnrolledAttribute()
+    {
+        return \Course\Models\User::find(user()->id)->courses()->where('id', $this->id)->exists();
+    }
+
+    /**
+     * Check if this course is bookmarked by user.
+     *
+     * @return boolean
+     */
+    public function getBookmarkedAttribute()
+    {
+        return $this->bookmarks()->where('user_id', user()->id)->exists();
+    }
 }

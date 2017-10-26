@@ -23,9 +23,9 @@ class CourseController extends AdminController
      */
     public function index(Request $request)
     {
-        $courses = Course::all();
+        $resources = Course::all();
 
-        return view("Theme::courses.index")->with(compact('courses'));
+        return view("Theme::courses.index")->with(compact('resources'));
     }
 
     /**
@@ -138,7 +138,47 @@ class CourseController extends AdminController
     public function update(CourseRequest $request, $id)
     {
         $course = Course::findOrFail($id);
-        dd($request->all());
+        $course->title = $request->input('title');
+        $course->slug = $request->input('slug');
+        $course->code = $request->input('code');
+        $course->feature = $request->input('feature');
+        $course->backdrop = $request->input('backdrop');
+        $course->body = $request->input('body');
+        $course->delta = $request->input('delta');
+        $course->lockable = $request->input('lockable') ? $request->input('lockable') : false;
+        $course->category()->associate(Category::find($request->input('category_id')));
+        $course->user()->associate(user());
+        $course->save();
+
+        // Lessons
+        collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
+            $lesson = Lesson::findOrNew($input->id);
+            $lesson->sort = $input->sort;
+            $lesson->title = $input->title;
+            $lesson->body = $input->body;
+            $lesson->delta = $input->delta;
+            $lesson->icon = $input->icon;
+            $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
+            if (! empty($input->assignment->title)) {
+                $lesson->assignment()->associate(Assignment::updateorCreate(['id' => $input->assignment], (array) $input->assignment));
+            }
+            $lesson->save();
+
+            // Contents
+            if (isset($input->contents)) {
+                foreach ($input->contents as $input) {
+                    $content = Content::findOrNew(isset($input->id) ? $input->id : -1);
+                    $content->sort = $input->sort;
+                    $content->title = $input->title;
+                    $content->body = $input->body;
+                    $content->delta = $input->delta;
+                    $content->lockable = isset($input->lockable) ? $input->lockable : false;
+                    $content->lesson()->associate($lesson);
+                    $content->library()->associate(Library::find($input->library_id));
+                    $content->save();
+                }
+            }
+        });
 
         return back();
     }

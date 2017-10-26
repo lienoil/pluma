@@ -1,0 +1,104 @@
+<?php
+/**
+ * -----------------------------------------------------------------------------
+ * Permissions Array
+ * -----------------------------------------------------------------------------
+ *
+ * Here we define our permissions that you can attach to roles.
+ *
+ * These permissions corresponds to a counterpart
+ * route (found in <this module>/routes/<route-files>.php).
+ * All permissionable routes should have a `name` (e.g. 'roles.store')
+ * for the role authentication middleware to work.
+ *
+ */
+return [
+    /**
+     * -------------------------------------------------------------------------
+     * Bookmark Permissions
+     * -------------------------------------------------------------------------
+     *
+     */
+    'view-bookmark' => [
+        'name' =>  'bookmarks.index',
+        'code' => 'view-bookmark',
+        'description' => 'Ability to view list of bookmarks',
+        'group' => 'bookmark',
+    ],
+    'show-bookmark' => [
+        'name' => 'bookmarks.show',
+        'code' => 'show-bookmark',
+        'description' => 'Ability to show a single bookmark',
+        'group' => 'bookmark',
+    ],
+    'create-bookmark' => [
+        'name' => 'bookmarks.create',
+        'code' => 'create-bookmark',
+        'description' => 'Ability to show the form to create bookmark',
+        'group' => 'bookmark',
+    ],
+    'store-bookmark' => [
+        'name' => 'bookmarks.store',
+        'code' => 'store-bookmark',
+        'description' => 'Ability to save the bookmark',
+        'group' => 'bookmark',
+    ],
+    'edit-bookmark' => [
+        'name' => 'bookmarks.edit',
+        'code' => 'edit-bookmark',
+        'description' => 'Ability to show the form to edit bookmark',
+        'group' => 'bookmark',
+    ],
+    'update-bookmark' => [
+        'name' => 'bookmarks.update',
+        'code' => 'update-bookmark',
+        'description' => 'Ability to update the bookmark',
+        'group' => 'bookmark',
+    ],
+    'destroy-bookmark' => [
+        'name' =>  'bookmarks.destroy',
+        'code' => 'destroy-bookmark',
+        'description' => 'Ability to move the bookmark to trash',
+        'group' => 'bookmark',
+    ],
+    'delete-bookmark' => [
+        'name' =>  'bookmarks.delete',
+        'code' => 'delete-bookmark',
+        'description' => 'Ability to permanently delete the bookmark',
+        'group' => 'bookmark',
+    ],
+    'trash-bookmark' => [
+        'name' =>  'bookmarks.trash',
+        'code' => 'trash-bookmark',
+        'description' => 'Ability to view the list of all trashed bookmark',
+        'group' => 'bookmark',
+    ],
+    'restore-bookmark' => [
+        'name' => 'bookmarks.restore',
+        'code' => 'restore-bookmark',
+        'description' => 'Ability to restore the bookmark',
+        'group' => 'bookmark',
+    ],
+
+    // Many
+    'destroy-many-bookmark' => [
+        'name' =>  'bookmarks.many.destroy',
+        'code' => 'destroy-many-bookmark',
+        'description' => 'Ability to destroy many bookmarks',
+        'group' => 'bookmark',
+    ],
+    'delete-many-bookmark' => [
+        'name' =>  'bookmarks.many.delete',
+        'code' => 'delete-many-bookmark',
+        'description' => 'Ability to permanently delete many bookmarks',
+        'group' => 'bookmark',
+    ],
+    'restore-many-bookmark' => [
+        'name' => 'bookmarks.many.restore',
+        'code' => 'restore-many-bookmark',
+        'description' => 'Ability to restore many bookmarks',
+        'group' => 'bookmark',
+    ],
+
+    //
+];

@@ -4,8 +4,10 @@ namespace Frontier\Composers;
 
 use Frontier\Models\Page;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 use Pluma\Support\Composers\BaseViewComposer;
+use Setting\Models\Setting;
 
 /**
  * Page View Composer
@@ -94,7 +96,7 @@ class PageViewComposer extends BaseViewComposer
     {
         return json_decode(json_encode([
             'title' => settings('site_title', env("APP_NAME", "Pluma CMS")),
-            'tagline' => settings('site_tagline', env("APP_TAGLINE")),
+            'tagline' => $this->guessTagline(),
             'author' => settings('site_author', env("APP_AUTHOR")),
             'logo' => settings('site_logo', $this->getBrandLogoUrl()),
             'copyright' => $this->guessCopyright(),
@@ -196,10 +198,36 @@ class PageViewComposer extends BaseViewComposer
         $segments = collect(explode("/", $this->getCurrentUrl()));
 
         if (empty($segments->first())) {
-            return "| " . settings('site_subtitle', env("APP_TAGLINE"));
+            return empty(settings('site_subtitle', env("APP_TAGLINE")))
+                ? ''
+                : "| " . settings('site_subtitle', env("APP_TAGLINE"));
         }
 
         return '| ' . settings('site_title', env("APP_NAME"));
+    }
+
+    /**
+     * Guesses the site's tagline.
+     * Looks in the database first,
+     * if nothing found, then will look
+     * in the .env file.
+     *
+     * @return void
+     */
+    public function guessTagline()
+    {
+        try {
+            if (Schema::hasTable('settings')) {
+                $value = Setting::valueFromKey('site_tagline');
+                if ($value && ! empty($value)) {
+                    return $value;
+                }
+            }
+        } catch (Exception $e) {
+            // Silence is golden
+        }
+
+        return settings('site_tagline', env("APP_TAGLINE"));
     }
 
     /**

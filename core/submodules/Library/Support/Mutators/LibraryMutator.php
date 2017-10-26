@@ -51,6 +51,8 @@ trait LibraryMutator
             switch ($mime) {
                 case 'application/zip':
                 case 'application/rar':
+                case 'application/x-zip-compressed':
+                case 'application/x-rar-compressed':
                     $archivePath = settings('package.storage_path', 'public/package').'/'.date('Y-m-d', strtotime($this->created_at))."/{$this->id}";
                     if (file_exists(storage_path("$archivePath/thumbnail.png"))) {
                         $url = url("storage/$archivePath/thumbnail.png");
@@ -98,6 +100,22 @@ trait LibraryMutator
         }
 
         return $icon;
+    }
+
+    /**
+     * Check if mimetype of file is extractable.
+     *
+     * @param  string  $mimetype
+     * @return boolean
+     */
+    public static function isExtractable($mimetype)
+    {
+        $extractables = config("extractables", []);
+        if (in_array($mimetype, $extractables)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

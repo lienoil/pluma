@@ -22,7 +22,7 @@ return [
             'view-course' => [
                 'name' => 'view-course',
                 'order' => 1,
-                'slug' => url('courses'),
+                'slug' => route('courses.index'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Courses'),
@@ -31,7 +31,7 @@ return [
             ],
             'create-course' => [
                 'name' => 'create-course',
-                'order' => 2,
+                'order' => 4,
                 'slug' => url(config('path.admin').'/courses/create'),
                 'always_viewable' => false,
                 'labels' => [
@@ -41,12 +41,23 @@ return [
             ],
             'trashed-course' => [
                 'name' => 'trashed-course',
-                'order' => 3,
+                'order' => 6,
                 'slug' => url(config('path.admin').'/courses/trashed'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Trashed Courses'),
                     'description' => __('View list of all courses moved to trash'),
+                ],
+            ],
+
+            'view-my-courses' => [
+                'name' => 'view-my-courses',
+                'order' => 8,
+                'slug' => route('my.courses.index'),
+                'always_viewable' => true,
+                'labels' => [
+                    'title' => __('My Courses'),
+                    'description' => __('View your currently enrolled courses'),
                 ],
             ],
 

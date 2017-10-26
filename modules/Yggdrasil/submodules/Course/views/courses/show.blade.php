@@ -2,11 +2,6 @@
 
 @section("head-title", __($resource->title))
 @section("utilitybar", '')
-@php
-    echo "<pre>";
-        // var_dump( $resource->lessons[0]->percentage ); die();
-    echo "</pre>";
-@endphp
 @section("content")
     <v-parallax class="elevation-1 mb-3" :src="resource.backdrop" height="350">
         <v-layout row wrap align-end justify-center>
@@ -14,21 +9,45 @@
                 <v-card tile flat class="mt-5">
                     <v-toolbar dense card class="white">
                         <v-spacer></v-spacer>
-                        <v-chip small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
-                        <v-btn icon ripple v-tooltip:left="{ html: 'Add to Bookmark' }">
-                            <v-icon light>bookmark_border</v-icon>
-                        </v-btn>
 
-                        @can('edit-course')
-                        <v-btn icon><v-icon>more_vert</v-icon></v-btn>
-                        @endcan
+                        <v-chip v-if="resource.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
+
+                        <form v-if="resource.bookmarked" action="{{ route('courses.unbookmark', $resource->id) }}" method="POST">
+                            {{ csrf_field() }}
+                            <v-btn type="submit" icon ripple v-tooltip:left="{ html: 'Remove from your Bookmarks' }">
+                                <v-icon light class="red--text">bookmark</v-icon>
+                            </v-btn>
+                        </form>
+
+                        <v-menu full-width>
+                            <v-btn slot="activator" icon><v-icon>more_vert</v-icon></v-btn>
+                            <v-list>
+                                @can('bookmark-course')
+                                <v-list-tile avatar v-if="!resource.bookmarked" ripple @click="post(route(urls.courses.bookmark, resource.id), {_token: '{{ csrf_token() }}'})">
+                                    <v-list-tile-avatar>
+                                        <v-icon class="red--text">bookmark_outline</v-icon>
+                                    </v-list-tile-avatar>
+                                    <v-list-tile-title>{{ __('Bookmark this Course') }}</v-list-tile-title>
+                                </v-list-tile>
+                                <v-list-tile avatar v-else ripple @click="post(route(urls.courses.unbookmark, resource.id), {_token: '{{ csrf_token() }}'})">
+                                    <v-list-tile-avatar>
+                                        <v-icon class="red--text">bookmark</v-icon>
+                                    </v-list-tile-avatar>
+                                    <v-list-tile-title>{{ __('Remove from your Bookmarks') }}</v-list-tile-title>
+                                </v-list-tile>
+                                @endcan
+                            </v-list>
+                            @can('edit-course')
+                            @endcan
+                        </v-menu>
                     </v-toolbar>
                     <v-card-text>
                         <v-container fluid grid-list-lg>
                             <v-flex sm12>
                                 <v-layout row wrap>
                                     <v-flex md3 sm2>
-                                        <v-card-media ripple :src="resource.feature" height="150px" cover class="elevation-1"></v-card-media>
+                                        <img :src="resource.feature" width="100%" height="auto">
+                                        {{-- <v-card-media ripple :src="resource.feature" height="150px" cover class="elevation-1"></v-card-media> --}}
                                     </v-flex>
                                     <v-flex md9 sm10>
                                         <v-card-title primary-title class="pa-0">
@@ -43,7 +62,7 @@
                                         </v-chip>
 
                                         <v-footer class="transparent">
-                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${resource.lessons.length} {{ __('Parts') }}`"></span></v-chip>
+                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${resource.lessons.length} ${resource.lessons.length>1?'{{ __('Parts') }}':'{{ __('Part') }}'}`"></span></v-chip>
 
                                             <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">class</v-icon><span v-html="resource.code"></span></v-chip>
 
@@ -83,7 +102,7 @@
                         </v-card-text>
                     </template>
                     {{-- Lessons --}}
-                    <template v-for="(lesson, i) in resource.lessons">
+                    <template v-for="(lesson, i) in lessons">
                         <v-card-text :class="{'grey lighten-4': lesson.locked}">
                             <v-card flat tile class="transparent elevation-0" :key="i">
                                 <v-toolbar card class="transparent">
@@ -93,7 +112,7 @@
                                     </v-toolbar-title>
                                     <v-spacer></v-spacer>
                                     <v-chip label class="success white--text" v-if="lesson.icon"><v-icon class="white--text" v-html="lesson.icon"></v-icon></v-chip>
-                                    <v-chip label class="success white--text" v-else>1/10</v-chip>
+                                    <v-chip label class="success white--text" v-else v-html="`${lesson.progress}/${lesson.contents.length}`"></v-chip>
                                 </v-toolbar>
                                 <v-card-text class="grey--text text--darken-2" v-html="lesson.body"></v-card-text>
                                 <v-card-actions v-if="lesson.contents.length">
@@ -101,21 +120,23 @@
                                     <v-dialog v-if="lesson.unlocked" lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
                                         <v-btn slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
                                         <v-card flat tile class="bg--light">
-                                            <v-parallax class="elevation-0" src="http://source.unsplash.com/800x400?night" height="400">
-                                                <v-layout row wrap align-center justify-center>
-                                                    <div class="overlay-bg-black"></div>
-                                                    <v-layout column class="media">
-                                                        <v-card-title class="pa-0">
-                                                            <v-spacer></v-spacer>
-                                                            <v-btn dark flat ripple @click.stop="lesson.dialog = !lesson.dialog">{{ __('Done') }}</v-btn>
-                                                        </v-card-title>
-                                                        <v-card-text class="white--text text-xs-center mb-5">
-                                                            <div class="pb-3"><strong class="display-2" v-html="lesson.title"></strong></div>
-                                                            <v-flex md6 offset-md3 class="subheading mb-5" v-html="lesson.body">{{ __('Loading content...') }}</v-flex>
-                                                        </v-card-text>
-                                                        <v-card>
-                                                    </v-layout>
+                                            <v-parallax jumbotron class="elevation-0" src="http://source.unsplash.com/1000x600?nature" height="400">
+                                                <div class="media-overlay"></div>
+                                                <v-layout row wrap>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn dark flat ripple @click.stop="lesson.dialog = !lesson.dialog">{{ __('Done') }}</v-btn>
                                                 </v-layout>
+                                                <v-layout column wrap align-center justify-center>
+                                                    <v-flex sm12>
+                                                        <v-card flat class="transparent">
+                                                            <v-card-text class="white--text text-xs-center mb-5">
+                                                                <div><strong class="display-2" v-html="lesson.title"></strong></div>
+                                                            </v-card-text>
+                                                        </v-card>
+                                                    </v-flex>
+                                                    <v-spacer></v-spacer>
+                                                </v-layout>
+                                                <v-spacer></v-spacer>
                                             </v-parallax>
 
                                             <v-container fluid grid-list-lg class="theme--light pb-5">
@@ -160,6 +181,7 @@
                                                             <v-divider></v-divider>
                                                             <v-card-text>
                                                                 <v-card class="elevation-1 mb-3" v-for="(content, i) in lesson.contents" :key="i">
+                                                                    <span v-html="content.order"></span>
                                                                     <v-list two-line subheader class="pb-0">
                                                                         <v-list-tile avatar :ripple="content.unlocked" :href="content.unlocked?content.url:null" target="__blank" >
                                                                             <v-list-tile-avatar>
@@ -254,21 +276,58 @@
             </v-flex>
         </v-layout>
     </v-container>
+
+    @foreach ($resource->lessons as $lesson)
+        <p>{{ $lesson->progress }}</p>
+        @foreach ($lesson->contents as $content)
+            <p><strong>{{ $content->title }}</strong></p>
+        @endforeach
+    @endforeach
 @endsection
 
+@push('css')
+    <style>
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.09);
+        }
+    </style>
+@endpush
+
 @push('pre-scripts')
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
+        Vue.use(VueResource);
+
         mixins.push({
             data () {
                 return {
-                    resource: {!! json_encode($resource->toArray()) !!},
+                    resource: {!! json_encode($resource) !!},
+                    lessons: {!! json_encode($resource->lessons) !!},
                     urls: {
+                        courses: {
+                            unbookmark: '{{ route('api.courses.unbookmark', 'null') }}',
+                            bookmark: '{{ route('api.courses.bookmark', 'null') }}',
+                        },
                         profile: {
                             show: '{{ route('profile.show', 'null') }}'
                         }
                     },
                     {{-- resource: {!! json_encode($resource->with(['lessons', 'lessons.contents'])->first()->toArray()) !!} --}}
                 }
+            },
+
+            methods: {
+                post (url, query) {
+                    let self = this;
+                    this.api().post(url, query).then(response => {
+                        self.resource.bookmarked = !self.resource.bookmarked;
+                    });
+                },
             },
 
             mounted () {

@@ -43,16 +43,55 @@
                                 <v-layout column>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn dark icon><v-icon>more_vert</v-icon></v-btn>
+                                        @can('bookmark-course')
+                                        <v-menu full-width bottom left>
+                                            <v-btn slot='activator' dark icon><v-icon>more_vert</v-icon></v-btn>
+                                            <v-card>
+                                                <v-list>
+                                                    @can('bookmark-course')
+                                                    <v-list-tile avatar v-if="!card.bookmarked" ripple @click="post(route(urls.bookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
+                                                        <v-list-tile-avatar>
+                                                            <v-icon class="red--text">bookmark_outline</v-icon>
+                                                        </v-list-tile-avatar>
+                                                        <v-list-tile-title>{{ __('Bookmark this course') }}</v-list-tile-title>
+                                                    </v-list-tile>
+                                                    <v-list-tile avatar v-else ripple @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
+                                                        <v-list-tile-avatar>
+                                                            <v-icon class="red--text">bookmark</v-icon>
+                                                        </v-list-tile-avatar>
+                                                        <v-list-tile-title>{{ __('Remove from Bookmarked') }}</v-list-tile-title>
+                                                    </v-list-tile>
+                                                    @endcan
+                                                    @can('edit-course')
+                                                    <v-list-tile avatar ripple :href="route(urls.edit, (card.id))">
+                                                        <v-list-tile-avatar>
+                                                            <v-icon>edit</v-icon>
+                                                        </v-list-tile-avatar>
+                                                        <v-list-tile-title>{{ __('Edit') }}</v-list-tile-title>
+                                                    </v-list-tile>
+                                                    @endcan
+
+                                                    @can('delete-course')
+                                                    <v-list-tile avatar ripple @click="">
+                                                        <v-list-tile-avatar>
+                                                            <v-icon class="warning--text">delete</v-icon>
+                                                        </v-list-tile-avatar>
+                                                        <v-list-tile-title>{{ __('Move to Trash') }}</v-list-tile-title>
+                                                    </v-list-tile>
+                                                    @endcan
+                                                </v-list>
+                                            </v-card>
+                                        </v-menu>
+                                        @endcan
                                     </v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-card-actions>
                                         {{-- If Bookmarked --}}
-                                        <v-avatar small v-if="true" class="red darken-1" v-tooltip:right="{html:'{{ __('Bookmarked') }}'}"><v-icon small class="white--text">fa-bookmark</v-icon></v-avatar>
+                                        <v-btn icon v-if="card.bookmarked" class="red darken-1" v-tooltip:right="{html:'{{ __('Remove from Bookmarked') }}'}" @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})"><v-icon small class="white--text">fa-bookmark</v-icon></v-btn>
                                         {{-- /If Bookmarked --}}
                                         <v-spacer></v-spacer>
                                         {{-- If Enrolled --}}
-                                        <v-chip small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
+                                        <v-chip v-if="card.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
                                         {{-- /If Enrolled --}}
                                     </v-card-actions>
                                 </v-layout>
@@ -64,13 +103,22 @@
                         </v-card-title>
 
                         <v-card-actions class="transparent">
-                            <v-chip label small class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">class</v-icon><span v-html="card.code"></span></v-chip>
-
-                            <v-chip label small class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${card.lessons.length} Parts`"></span></v-chip>
-
-                            <v-chip v-if="card.category" label class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">label</v-icon><span v-html="card.category.name"></span></v-chip>
-
-                            <v-chip label small class="pl-1 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-clock-o</v-icon><span v-html="card.created"></span></v-chip>
+                            <span class="text-xs-center caption pa-1 grey--text">
+                                <v-icon class="caption" left>class</v-icon>
+                                <span v-html="card.code"></span>
+                            </span>
+                            <span class="text-xs-center caption pa-1 grey--text">
+                                <v-icon class="caption" left>fa-tasks</v-icon>
+                                <span v-html="`${card.lessons.length} Parts`"></span>
+                            </span>
+                            <span v-if="card.category" class="caption pa-1 grey--text">
+                                <v-icon class="caption" left>label</v-icon>
+                                <span v-html="card.category.name"></span>
+                            </span>
+                            <span class="text-xs-center caption pa-1 grey--text">
+                                <v-icon class="caption" left>fa-clock-o</v-icon>
+                                <span v-html="card.created"></span>
+                            </span>
                         </v-card-actions>
 
                         <v-card-text class="grey--text text--darken-1" v-html="card.excerpt"></v-card-text>
@@ -80,11 +128,17 @@
                             <v-spacer></v-spacer>
 
                             @can('show-course')
-                            <v-btn flat primary :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
+                            <v-btn flat primary ripple :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
+                            @endcan
+
+                            @can('enroll-course')
+                            {{-- if user is not enrolled yet, let user have the option
+                            to enroll --}}
+                            <v-btn v-if="!card.enrolled" flat primary ripple @click="">{{ __('Enroll') }}</v-btn>
                             @endcan
 
                             @can('edit-course')
-                            <v-btn flat success :href="route(urls.edit, card.id)">{{ __('Edit') }}</v-btn>
+                            <v-btn flat success ripple :href="route(urls.edit, card.id)">{{ __('Edit') }}</v-btn>
                             @endcan
                         </v-card-actions>
                     </v-card>
@@ -115,6 +169,8 @@
                         },
                     },
                     urls: {
+                        unbookmark: '{{ route('api.courses.unbookmark', 'null') }}',
+                        bookmark: '{{ route('api.courses.bookmark', 'null') }}',
                         show: '{{ route('courses.show', 'null') }}',
                         edit: '{{ route('courses.edit', 'null') }}',
                     },
@@ -131,7 +187,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 10,
+                            rowsPerPage: 5,
                             totalItems: 0,
                             page: 1,
                         },
@@ -160,10 +216,17 @@
                             this.dataset.loading = false;
                         });
                 },
+
+                post (url, query) {
+                    this.api().post(url, query).then(response => {
+                        this.get();
+                    });
+                }
             },
 
             mounted () {
-                this.get();
+                this.dataset.items = {!! json_encode($resources->toArray()) !!}
+                // this.get();
             },
         })
     </script>

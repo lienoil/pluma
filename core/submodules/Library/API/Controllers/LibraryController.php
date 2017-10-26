@@ -207,7 +207,7 @@ class LibraryController extends APIController
             }
             $library->save();
 
-            if ($request->input('extract')) {
+            if ($request->input('extract') && Library::isExtractable($library->mimetype)) {
                 $output = storage_path(settings('package.storage_path', 'public/package'))."/$date/{$library->id}";
                 Library::extract($fullFilePath, $output);
             }
