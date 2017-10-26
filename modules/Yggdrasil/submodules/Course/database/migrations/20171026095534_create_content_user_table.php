@@ -31,7 +31,7 @@ class CreateContentUserTable extends Migration
             $table->integer('content_id')->unsigned();
             $table->timestamps();
 
-            $table->
+            // $table->
         });
     }
 
