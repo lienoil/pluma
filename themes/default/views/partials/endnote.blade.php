@@ -1,4 +1,7 @@
 <v-footer class="white bt-1 grey--text">
     @yield('endnote')
-    @include("Theme::partials.back-to-top-button")
+
+    @section("back-to-top")
+        @include("Theme::partials.back-to-top-button")
+    @show
 </v-footer>

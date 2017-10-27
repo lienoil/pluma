@@ -18,6 +18,19 @@ use Library\Models\Library;
 class BookmarkCourseController extends AdminController
 {
     /**
+     * Display list of bookmarked resource.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $resources = Course::onlyBookmarkedBy(user()->id)->get();
+
+        return view("Theme::bookmarked.index")->with(compact("resources"));
+    }
+
+    /**
      * Bookmark the course.
      *
      * @param  Request $request

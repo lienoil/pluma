@@ -2,19 +2,11 @@
 
 namespace Course\Controllers;
 
-use Assignment\Models\Assignment;
-use Catalogue\Models\Catalogue;
-use Category\Models\Category;
-use Content\Models\Content;
-use Course\Models\Course;
 use Course\Models\User;
-use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use Lesson\Models\Lesson;
-use Library\Models\Library;
 
-class MyCourseController extends AdminController
+class EnrollController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -36,22 +28,41 @@ class MyCourseController extends AdminController
 
         // dd($resources[0]->bookmarked);
 
-        return view("Theme::my.index")->with(compact('resources'));
+        return view("Theme::enrolled.index")->with(compact('resources'));
     }
 
     /**
-     * Display the specified resource.
-     *
+     * Show the detail form of the course to be enrolled.
      * @param  \Illuminate\Http\Request $request
-     * @param  string  $slug
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $slug)
+    public function show(Request $request, $id)
     {
-        $resource = Course::whereSlug($slug)
-            ->with('lessons.contents')
-            ->firstOrFail();
+        $resource = Course::findOrFail($id);
 
-        return view("Theme::courses.show")->with(compact('resource'));
+        return view("Theme::enroll.show")->with(compact('resource'));
+    }
+
+    /**
+     * Request for an Enrollment to a given Course.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function request(Request $request, $id)
+    {
+        # code...
+    }
+
+    /**
+     * Enrolls the user into a resource (e.g. Course).
+     *
+     * @return \Illuminate\Auth\Access\Response
+     */
+    public function enroll()
+    {
+        // $
     }
 }

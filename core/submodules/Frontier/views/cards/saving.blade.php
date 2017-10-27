@@ -11,6 +11,8 @@
 
     <v-card-text class="grey--text">
 
+        <div class="caption grey--text">{{ __("You are editing as") }} <strong>{{ user()->username }}</strong></div>
+
         @stack("cards.saving.pre-fields")
 
         @section("cards.saving.fields")

@@ -13,10 +13,12 @@
 
 @push('pre-scripts')
     <script>
+        @if (isset($navigation))
         mixins.push({
             data: {
                 breadcrumbs: {!! json_encode($navigation->breadcrumbs->collect) !!},
             }
         });
+        @endif
     </script>
 @endpush

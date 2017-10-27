@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="mb-3 elevation-1 info sticky">
+    <v-toolbar dark class="elevation-1 info sticky" :class="{'mb-0': !dataset.items.length, 'mb-3': dataset.items.length}">
         <v-toolbar-title>{{ __('My Courses') }}</v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -23,23 +23,24 @@
         <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
     </v-toolbar>
 
+    <v-container v-if="!dataset.items.length" grid-list-lg class="pa-0">
+        {{-- Empty --}}
+        <v-card flat class="grey lighten-4 text-xs-center">
+            <v-card-actions class="white">
+                <v-spacer></v-spacer>
+                <img src="{{ assets('course/images/no-courses.png') }}" width="500px" height="auto">
+                <v-spacer></v-spacer>
+            </v-card-actions>
+            <div class="headline mt-4 text-xs-center grey--text text--darken-1"><strong>{{ __('Oh noes...') }}</strong></div>
+            <v-card-text class="pa-4 grey--text">
+                <p class="subheading"><strong>{{ __("It seems you're not enrolled to any course.") }}</strong></p>
+                <p><v-btn dark class="blue elevation-1" href="{{ route('courses.index') }}">{{ __('Browse Courses') }}</v-btn></p>
+            </v-card-text>
+        </v-card>
+        {{-- /Empty --}}
+    </v-container>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-
-            {{-- Empty --}}
-            <template v-if="!dataset.items.length">
-                <v-flex sm6 offset-sm3 class="text-xs-center grey--text">
-                    <v-card class="elevation-1">
-                        <img src="{{ assets('course/images/no-courses.png') }}" width="100%" height="auto">
-                        <div class="headline text-xs-center grey--text text--darken-1"><strong>{{ __('Oh noes...') }}</strong></div>
-                        <v-card-text class="pa-4 grey--text">
-                            <p class="subheading"><strong>{{ __("It seems you're not enrolled to any course.") }}</strong></p>
-                            <p><v-btn dark class="blue elevation-1" href="{{ route('courses.index') }}">{{ __('Browse Courses') }}</v-btn></p>
-                        </v-card-text>
-                    </v-card>
-                </v-flex>
-            </template>
-            {{-- /Empty --}}
 
             <template>
                 <v-flex
@@ -170,8 +171,8 @@
                         },
                     },
                     urls: {
-                        unbookmark: '{{ route('api.courses.unbookmark', 'null') }}',
-                        bookmark: '{{ route('api.courses.bookmark', 'null') }}',
+                        unbookmark: '{{ route('api.courses.bookmark.unbookmark', 'null') }}',
+                        bookmark: '{{ route('api.courses.bookmark.bookmark', 'null') }}',
                         show: '{{ route('courses.show', 'null') }}',
                         edit: '{{ route('courses.edit', 'null') }}',
                     },
@@ -210,7 +211,7 @@
                         sort: sortBy ? sortBy : null,
                         take: rowsPerPage,
                     };
-                    this.api().get('{{ route('api.my.courses') }}', query)
+                    this.api().get('{{ route('api.courses.enrolled.index') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;

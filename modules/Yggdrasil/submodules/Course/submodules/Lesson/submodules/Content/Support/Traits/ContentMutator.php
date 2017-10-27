@@ -103,13 +103,19 @@ trait ContentMutator
             $date = date('Y-m-d', strtotime($this->library->created_at));
             $path = settings('package.storage_path', 'public/package') . "/$date/{$this->library->id}";
 
-            $xml = File::get(storage_path("$path/imsmanifest.xml"));
-            $xml = new SimpleXMLElement($xml);
-            $entrypoint = isset($xml->resources->resource['href'])
-                            ? $xml->resources->resource['href']
-                            : 'index.html';
+            if (file_exists(storage_path("$path/imsmanifest.xml"))) {
+                $xml = File::get(storage_path("$path/imsmanifest.xml"));
+                $xml = new SimpleXMLElement($xml);
+                $entrypoint = isset($xml->resources->resource['href'])
+                                ? $xml->resources->resource['href']
+                                : 'index.html';
 
-            $entrypoint = url("storage/$path/$entrypoint");
+                $entrypoint = url("storage/$path/$entrypoint");
+            } elseif (file_exists(storage_path("$path/multiscreen.html"))) {
+                $entrypoint = url("storage/$path/multiscreen.html");
+            } else {
+                $entrypoint = url("storage/$path/index.html");
+            }
 
         } catch (Exception $e) {
             return $e->getMessage();

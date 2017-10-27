@@ -1,14 +1,8 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="mb-3 elevation-1 info sticky">
-        <v-menu transition="slide-y-transition">
-            <v-btn flat slot="activator" class="white--text">
-                <v-icon left>perm_media</v-icon>
-                <span>All</span>
-                <v-icon right>arrow_drop_down</v-icon>
-            </v-btn>
-        </v-menu>
+    <v-toolbar dark class="elevation-1 info sticky" :class="{'mb-0': !dataset.items.length, 'mb-3': dataset.items.length}">
+        <v-toolbar-title>{{ __('Bookmarked Courses') }}</v-toolbar-title>
 
         <v-spacer></v-spacer>
         <template>
@@ -29,6 +23,22 @@
         <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
     </v-toolbar>
 
+    <v-container v-if="!dataset.items.length" grid-list-lg class="pa-0">
+        {{-- Empty --}}
+        <v-card flat class="grey lighten-4 text-xs-center">
+            <v-card-actions class="white">
+                <v-spacer></v-spacer>
+                <img src="{{ assets('course/images/no-courses.png') }}" width="500px" height="auto">
+                <v-spacer></v-spacer>
+            </v-card-actions>
+            <div class="headline mt-4 text-xs-center grey--text text--darken-1"><strong>{{ __('No Bookmarks...') }}</strong></div>
+            <v-card-text class="pa-4 grey--text">
+                <p class="subheading"><strong>{{ __("Courses you bookmarked will appear here.") }}</strong></p>
+                <p><v-btn dark class="blue elevation-1" href="{{ route('courses.index') }}">{{ __('Browse Courses') }}</v-btn></p>
+            </v-card-text>
+        </v-card>
+        {{-- /Empty --}}
+    </v-container>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
 
@@ -45,8 +55,8 @@
                                         {{-- If Bookmarked --}}
                                         <v-btn icon v-if="card.bookmarked" class="red darken-1" v-tooltip:right="{html:'{{ __('Remove from Bookmarked') }}'}" @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})"><v-icon small class="white--text">fa-bookmark</v-icon></v-btn>
                                         {{-- /If Bookmarked --}}
+
                                         <v-spacer></v-spacer>
-                                        @can('bookmark-course')
                                         <v-menu full-width bottom left>
                                             <v-btn slot='activator' dark icon><v-icon>more_vert</v-icon></v-btn>
                                             <v-card>
@@ -66,7 +76,7 @@
                                                     </v-list-tile>
                                                     @endcan
                                                     @can('edit-course')
-                                                    <v-list-tile avatar ripple :href="route(urls.edit, (card.id))">
+                                                    <v-list-tile avatar :href="route(urls.edit, (card.id))">
                                                         <v-list-tile-avatar>
                                                             <v-icon>edit</v-icon>
                                                         </v-list-tile-avatar>
@@ -75,7 +85,7 @@
                                                     @endcan
 
                                                     @can('delete-course')
-                                                    <v-list-tile avatar ripple @click="">
+                                                    <v-list-tile avatar @click="">
                                                         <v-list-tile-avatar>
                                                             <v-icon class="warning--text">delete</v-icon>
                                                         </v-list-tile-avatar>
@@ -85,7 +95,6 @@
                                                 </v-list>
                                             </v-card>
                                         </v-menu>
-                                        @endcan
                                     </v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-card-actions>
@@ -132,17 +141,11 @@
                             <v-spacer></v-spacer>
 
                             @can('show-course')
-                            <v-btn flat primary ripple :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
-                            @endcan
-
-                            @can('enroll-course')
-                            {{-- if user is not enrolled yet, let user have the option
-                            to enroll --}}
-                            <v-btn v-if="!card.enrolled" flat primary ripple @click="">{{ __('Enroll') }}</v-btn>
+                            <v-btn flat primary :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
                             @endcan
 
                             @can('edit-course')
-                            <v-btn flat success ripple :href="route(urls.edit, card.id)">{{ __('Edit') }}</v-btn>
+                            <v-btn flat success :href="route(urls.edit, card.id)">{{ __('Edit') }}</v-btn>
                             @endcan
                         </v-card-actions>
                     </v-card>
@@ -213,7 +216,7 @@
                         sort: sortBy ? sortBy : null,
                         take: rowsPerPage,
                     };
-                    this.api().get('{{ route('api.courses.all') }}', query)
+                    this.api().get('{{ route('api.courses.enrolled.index') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;

@@ -23,5 +23,7 @@ return [
      */
     'disabled' => [
         'Single',
+        'Chronos',
+        'Page'
     ],
 ];

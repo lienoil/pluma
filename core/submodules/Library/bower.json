@@ -18,6 +18,5 @@
   ],
   "dependencies": {
     "vuetify-dropzone": "pluma-cms/vuetify-dropzone#^1.0.11",
-    "vuetify-dataset": "pluma-cms/vuetify-dataset#^1.1.1"
   }
 }

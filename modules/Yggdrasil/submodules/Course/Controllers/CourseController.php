@@ -147,7 +147,7 @@ class CourseController extends AdminController
         $course->delta = $request->input('delta');
         $course->lockable = $request->input('lockable') ? $request->input('lockable') : false;
         $course->category()->associate(Category::find($request->input('category_id')));
-        $course->user()->associate(user());
+        // $course->user()->associate(user()); // Don't Change the original author
         $course->save();
 
         // Lessons
@@ -159,6 +159,7 @@ class CourseController extends AdminController
             $lesson->delta = $input->delta;
             $lesson->icon = $input->icon;
             $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
+            $lesson->course()->associate($course);
             if (! empty($input->assignment->title)) {
                 $lesson->assignment()->associate(Assignment::updateorCreate(['id' => $input->assignment], (array) $input->assignment));
             }

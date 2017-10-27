@@ -1,11 +1,11 @@
 <?php
 
 // Bookmark
-Route::post('courses/unbookmark/{course}', 'Course\API\Controllers\BookmarkCourseController@unbookmark')->name('courses.unbookmark');
-Route::post('courses/bookmark/{course}', 'Course\API\Controllers\BookmarkCourseController@bookmark')->name('courses.bookmark');
+Route::post('courses/unbookmark/{course}', 'Course\API\Controllers\BookmarkCourseController@unbookmark')->name('courses.bookmark.unbookmark');
+Route::post('courses/bookmark/{course}', 'Course\API\Controllers\BookmarkCourseController@bookmark')->name('courses.bookmark.bookmark');
 
 // My
-Route::get('my/courses', 'Course\API\Controllers\MyCourseController@all')->name('my.courses');
+Route::get('courses/enrolled', 'Course\API\Controllers\MyCourseController@all')->name('courses.enrolled.index');
 
 Route::delete('courses/destroy/{course}', 'Course\API\Controllers\CourseController@destroy')->name('courses.destroy');
 Route::delete('courses/delete/{course}', 'Course\API\Controllers\CourseController@delete')->name('courses.delete');

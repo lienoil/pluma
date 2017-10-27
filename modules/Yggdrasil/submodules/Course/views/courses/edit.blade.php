@@ -64,6 +64,13 @@
                 </v-flex>
 
                 <v-flex sm3>
+                    @push('cards.saving.pre-fields')
+                        @if (isset($resource->user) && $resource->user->id === user()->id)
+                            <div class="mt-2 caption grey--text">{{ __("You are the original author of this Course.") }}</div>
+                        @else
+                            <div class="mt-2 caption grey--text"><a href="{{ route('profile.show', $resource->user->handlename) }}"><strong>{{ $resource->user->username }}</strong></a> {!! __("is the original author of this Course.") !!}</div>
+                        @endif
+                    @endpush
                     @include("Theme::cards.saving")
 
                     @include("Yggdrasil::cards.cover")

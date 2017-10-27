@@ -50,20 +50,39 @@ return [
                 ],
             ],
 
-            'view-my-courses' => [
-                'name' => 'view-my-courses',
+            'view-enrolled-courses' => [
+                'name' => 'view-enrolled-courses',
                 'order' => 8,
-                'slug' => route('my.courses.index'),
+                'slug' => route('courses.enrolled.index'),
                 'always_viewable' => true,
                 'labels' => [
                     'title' => __('My Courses'),
                     'description' => __('View your currently enrolled courses'),
                 ],
             ],
+            'view-bookmarked-courses' => [
+                'name' => 'view-bookmarked-courses',
+                'order' => 10,
+                'icon' => 'bookmark',
+                'slug' => route('courses.bookmark.index'),
+                'always_viewable' => true,
+                'labels' => [
+                    'title' => __('Bookmarked'),
+                    'description' => __('View all your bookmarked courses'),
+                ],
+            ],
+
+            'divider-for-course-category' => [
+                'name' => 'divider-for-course-category',
+                'is_header' => true,
+                'is_divider' => true,
+                'parent' => 'course',
+                'order' => 12,
+            ],
 
             'course-category' => [
                 'name' => 'course-category',
-                'order' => 11,
+                'order' => 13,
                 'slug' => route('courses.categories.index'),
                 'always_viewable' => false,
                 'icon' => 'label',

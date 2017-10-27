@@ -1,9 +1,9 @@
 {
   "name": "vuetify-dataset",
   "description": "A Vuetify component to toggle card and table view for a given dataset",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "author": "John Lioneil Dionisio <john.dionisio1@gmail.com>",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

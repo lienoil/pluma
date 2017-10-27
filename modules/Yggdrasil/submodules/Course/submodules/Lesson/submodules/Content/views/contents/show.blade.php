@@ -14,14 +14,14 @@
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
-        <v-list class="pt-0" dense>
-            <v-divider></v-divider>
+        <v-divider></v-divider>
+        <v-list>
             <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'primary white--text': (resource.id == item.id)}">
-                <v-list-tile-content>
+                <v-list-tile-action>
                     <v-icon v-if="item.completed">check</v-icon>
                     <v-icon v-else-if="item.current">play</v-icon>
                     <v-icon v-else-if="item.locked">lock</v-icon>
-                </v-list-tile-content>
+                </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title v-html="item.title"></v-list-tile-title>
                 </v-list-tile-content>
@@ -57,7 +57,6 @@
             @else
                 <v-btn disabled flat>
                     {{ __('End of Lesson') }}
-                    {{-- <v-icon left dark>arrow_forward</v-icon> --}}
                 </v-btn>
             @endif
         </v-layout>
@@ -91,7 +90,30 @@
                     <v-card-text>
                         {!! $resource->body !!}
 
-                        <template v>
+                        <template v-if="!resource.lesson.course.enrolled">
+                            <div class="text-xs-center">
+                                <img src="{{ assets('course/images/no-courses.png') }}" alt="{{ __('Not enrolled') }}">
+                            </div>
+                            <v-card-media height="auto">
+                                <v-container fill-height class="pa-0">
+                                        <v-layout fill-height wrap column>
+                                            <v-spacer></v-spacer>
+                                            <div class="subheading text-xs-center grey--text">
+                                                <div class="mb-3">{{ __("You are not enrolled to this course.") }}</div>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn class="primary primary--text" outline ripple @click="">{{ __("Request Course") }}</v-btn>
+                                                    <v-btn class="red red--text" outline ripple @click=""><v-icon left>bookmark_outline</v-icon>{{ __("Bookmark") }}</v-btn>
+                                                    <v-spacer></v-spacer>
+                                                </v-card-actions>
+                                            </div>
+                                            <v-spacer></v-spacer>
+                                        </v-layout>
+                                    </v-container>
+                                </v-card-media>
+                            </v-card-media>
+                        </template>
+                        <template v-else>
                             <v-card v-if="! resource.started" flat class="grey lighten-4 grey--text text-xs-center">
                                 <v-card-media height="480px">
                                     <v-container fill-height class="pa-0">
@@ -120,44 +142,26 @@
                             </v-fade-transition>
                             {{-- <iframe width="100%" height="450px" src="{{ $resource->interactive }}" frameborder="0"></iframe> --}}
                         </template>
-                        <template v>
-                            <v-card flat class="grey lighten-4 grey--text text-xs-center">
-                                <v-card-media height="480px">
-                                    <v-container fill-height class="pa-0">
-                                        <v-layout fill-height wrap column>
-                                            <v-spacer></v-spacer>
-                                            <v-icon class="display-1">lock</v-icon>
-                                            <div>{{ __('Finish all prerequisites to unlock.') }}</div>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                @if ($resource->previous)
-                                                    <v-btn dark class="indigo" href="{{ $resource->previous->url }}">{{ __('Go to Previous Lesson') }}</v-btn>
-                                                @endif
-                                                <v-spacer></v-spacer>
-                                            </v-card-actions>
-                                            <v-spacer></v-spacer>
-                                        </v-layout>
-                                    </v-container>
-                                </v-card-media>
-                            </v-card>
-                        </template>
 
                     </v-card-text>
                 </v-card>
             </v-flex>
         </v-layout>
     </v-container>
+
+    <link v-if="fullscreen.model" rel="manifest" href="{{ url('manifest.json') }}">
 @endsection
 
-@push('css')
-    <link rel="manifest" href="{{ url('manifest.json') }}">
-@endpush
+@section("back-to-top", "")
 
 @push('pre-scripts')
     <script>
         mixins.push({
             data () {
                 return {
+                    fullscreen: {
+                        model: true
+                    },
                     drawer: {
                         model: false,
                         items: {!! $contents !!}

@@ -3,7 +3,7 @@
 @section("head-title", __($resource->title))
 @section("utilitybar", '')
 @section("content")
-    <v-parallax class="elevation-1 mb-3" :src="resource.backdrop" height="350">
+    <v-parallax jumbotron class="elevation-1 mb-3" :src="resource.backdrop" height="350">
         <v-layout row wrap align-end justify-center>
             <v-flex md8 xs12 pa-0>
                 <v-card tile flat class="mt-5">
@@ -12,14 +12,14 @@
 
                         <v-chip v-if="resource.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
 
-                        <form v-if="resource.bookmarked" action="{{ route('courses.unbookmark', $resource->id) }}" method="POST">
+                        <form v-if="resource.bookmarked" action="{{ route('courses.bookmark.unbookmark', $resource->id) }}" method="POST">
                             {{ csrf_field() }}
-                            <v-btn type="submit" icon ripple v-tooltip:left="{ html: 'Remove from your Bookmarks' }">
+                            <v-btn type="submit" icon ripple v-tooltip:left="{ html: 'Remove from Bookmarked' }">
                                 <v-icon light class="red--text">bookmark</v-icon>
                             </v-btn>
                         </form>
 
-                        <v-menu full-width>
+                        <v-menu full-width bottom left>
                             <v-btn slot="activator" icon><v-icon>more_vert</v-icon></v-btn>
                             <v-list>
                                 @can('bookmark-course')
@@ -33,7 +33,7 @@
                                     <v-list-tile-avatar>
                                         <v-icon class="red--text">bookmark</v-icon>
                                     </v-list-tile-avatar>
-                                    <v-list-tile-title>{{ __('Remove from your Bookmarks') }}</v-list-tile-title>
+                                    <v-list-tile-title>{{ __('Remove from Bookmarked') }}</v-list-tile-title>
                                 </v-list-tile>
                                 @endcan
                             </v-list>
@@ -45,11 +45,11 @@
                         <v-container fluid grid-list-lg>
                             <v-flex sm12>
                                 <v-layout row wrap>
-                                    <v-flex md3 sm2>
+                                    <v-flex md3 sm2 v-if="resource.feature">
                                         <img :src="resource.feature" width="100%" height="auto">
                                         {{-- <v-card-media ripple :src="resource.feature" height="150px" cover class="elevation-1"></v-card-media> --}}
                                     </v-flex>
-                                    <v-flex md9 sm10>
+                                    <v-flex :class="{'md9 sm10': resource.feature, 'md12': !resource.feature}">
                                         <v-card-title primary-title class="pa-0">
                                             <strong class="headline td-n accent--text" v-html="resource.title"></strong>
                                         </v-card-title>
@@ -106,7 +106,7 @@
                         <v-card-text :class="{'grey lighten-4': lesson.locked}">
                             <v-card flat tile class="transparent elevation-0" :key="i">
                                 <v-toolbar card class="transparent">
-                                    <v-icon left v-if="lesson.locked">lock</v-icon>
+                                    <v-icon left v-if="!resource.enrolled && lesson.locked">lock</v-icon>
                                     <v-toolbar-title class="accent--text" :class="{'grey--text': lesson.locked}">
                                         <span v-html="lesson.title"></span>
                                     </v-toolbar-title>
@@ -117,8 +117,10 @@
                                 <v-card-text class="grey--text text--darken-2" v-html="lesson.body"></v-card-text>
                                 <v-card-actions v-if="lesson.contents.length">
                                     <v-spacer></v-spacer>
-                                    <v-dialog v-if="lesson.unlocked" lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
-                                        <v-btn slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
+                                    {{-- v-if="lesson.unlocked" --}}
+                                    <v-dialog lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
+                                        <v-btn v-if="lesson.unlocked" slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
+                                        <v-btn v-else slot="activator" round outline class="success success--text">{{ __('View') }}</v-btn>
                                         <v-card flat tile class="bg--light">
                                             <v-parallax jumbotron class="elevation-0" src="http://source.unsplash.com/1000x600?nature" height="400">
                                                 <div class="media-overlay"></div>
@@ -276,13 +278,6 @@
             </v-flex>
         </v-layout>
     </v-container>
-
-    @foreach ($resource->lessons as $lesson)
-        <p>{{ $lesson->progress }}</p>
-        @foreach ($lesson->contents as $content)
-            <p><strong>{{ $content->title }}</strong></p>
-        @endforeach
-    @endforeach
 @endsection
 
 @push('css')
@@ -310,8 +305,8 @@
                     lessons: {!! json_encode($resource->lessons) !!},
                     urls: {
                         courses: {
-                            unbookmark: '{{ route('api.courses.unbookmark', 'null') }}',
-                            bookmark: '{{ route('api.courses.bookmark', 'null') }}',
+                            unbookmark: '{{ route('api.courses.bookmark.unbookmark', 'null') }}',
+                            bookmark: '{{ route('api.courses.bookmark.bookmark', 'null') }}',
                         },
                         profile: {
                             show: '{{ route('profile.show', 'null') }}'

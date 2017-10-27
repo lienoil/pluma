@@ -8,13 +8,6 @@ return [
      * Specify here the menus to appear on the sidebar.
      *
      */
-    'divider-for-course-registrar' => [
-        'name' => 'divider-for-course-registrar',
-        'is_header' => true,
-        'is_divider' => true,
-        'parent' => 'course',
-        'order' => 9,
-    ],
 
     // 'view-registrar' => [
     //     'name' => 'view-registrar',

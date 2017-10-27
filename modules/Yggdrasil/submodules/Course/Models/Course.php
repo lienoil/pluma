@@ -2,6 +2,7 @@
 
 namespace Course\Models;
 
+use Bookmark\Support\Scopes\OnlyBookmarkedBy;
 use Bookmark\Support\Traits\Bookmarkable;
 use Category\Support\Traits\BelongsToCategory;
 use Course\Support\Mutators\CourseMutator;
@@ -15,7 +16,7 @@ use User\Support\Traits\BelongsToUser;
 class Course extends Model
 {
     use BelongsToCategory, BelongsToUser, CourseMutator, HasManyLessons,
-        MorphManyUnlocks, SoftDeletes, Unlock, Bookmarkable;
+        MorphManyUnlocks, SoftDeletes, Unlock, Bookmarkable, OnlyBookmarkedBy;
 
     protected $with = ['lessons', 'user', 'category'];
 

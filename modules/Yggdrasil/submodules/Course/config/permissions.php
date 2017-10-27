@@ -21,13 +21,13 @@ return [
         'name' =>  'courses.index',
         'code' => 'view-course',
         'description' => 'Ability to view list of courses',
-        'group' => 'course',
+        'group' => ['course', 'student'],
     ],
     'show-course' => [
         'name' => 'courses.show',
         'code' => 'show-course',
         'description' => 'Ability to show a single course',
-        'group' => 'course',
+        'group' => ['course', 'student'],
     ],
     'create-course' => [
         'name' => 'courses.create',
@@ -98,32 +98,43 @@ return [
         'group' => 'course',
     ],
 
-    // My
-    'view-my-courses' => [
-        'name' => 'my.courses.index',
-        'code' => 'view-my-courses',
+    // Enrolled
+    'view-enrolled-courses' => [
+        'name' => 'courses.enrolled.index',
+        'code' => 'view-enrolled-courses',
         'description' => 'Ability to view enrolled courses',
-        'group' => 'course',
+        'group' => ['course', 'student'],
     ],
-    'show-my-courses' => [
-        'name' => 'my.courses.show',
-        'code' => 'show-my-courses',
+    'show-enrolled-courses' => [
+        'name' => 'courses.enrolled.show',
+        'code' => 'show-enrolled-courses',
         'description' => 'Ability to view enrolled courses',
-        'group' => 'course',
+        'group' => ['course', 'student'],
     ],
-
-    // Misc
     'enroll-course' => [
         'name' => 'courses.enroll',
         'code' => 'enroll-course',
         'description' => 'Ability to enroll to a course',
-        'group' => 'course',
+        'group' => ['course', 'student'],
     ],
 
+    // Bookmarked
+    'view-bookmarked-courses' => [
+        'name' => 'courses.bookmark.index',
+        'code' => 'view-bookmarked-courses',
+        'description' => 'Ability to view bookmarked courses',
+        'group' => ['course', 'student'],
+    ],
     'bookmark-course' => [
-        'name' => 'courses.bookmark',
+        'name' => 'courses.bookmark.bookmark',
         'code' => 'bookmark-course',
         'description' => 'Ability to bookmark a course',
-        'group' => 'course',
+        'group' => ['course', 'student'],
+    ],
+    'unbookmark-course' => [
+        'name' => 'courses.bookmark.unbookmark',
+        'code' => 'unbookmark-course',
+        'description' => 'Ability to remove from bookmarks list a course',
+        'group' => ['course', 'student'],
     ],
 ];

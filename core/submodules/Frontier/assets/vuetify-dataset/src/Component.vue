@@ -45,9 +45,9 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap style="min-height: 200px">
-          <v-spacer></v-spacer>
-          <v-flex lg2 md3 sm6 v-for="(item, i) in dataset.items" :key="i">
-            <v-card class="elevation-1 mb-3">
+          <!-- <v-spacer></v-spacer> -->
+          <v-flex xs12 sm6 md3 v-for="(item, i) in dataset.items" :key="i">
+            <v-card class="elevation-1">
               <slot name="card" :prop="{item, index: i, selected: computedSelected }">
                 <v-card-media v-if="item.thumbnail" :src="item.thumbnail" height="250"></v-card-media>
                 <v-card-text v-html="item.name"></v-card-text>
@@ -61,7 +61,7 @@
               </slot>
             </template>
           </infinite-loading>
-          <v-spacer></v-spacer>
+          <!-- <v-spacer></v-spacer> -->
         </v-layout>
         <slot name="pagination" :prop="{pagination: dataset.pagination}">
           <v-layout row wrap v-if="(!paginationTop || paginationBoth) && pages > 1">
@@ -170,7 +170,7 @@
         this.$set(this.dataset, 'pagination', val)
       },
       'dataset.pagination': function (val) {
-        console.log('pag', this.dataset.pagination)
+        // console.log('pag', this.dataset.pagination)
         this.$emit('pagination', val)
       },
       'pagination.descending': function (val) {
@@ -226,7 +226,7 @@
         this.dataset.selected.forEach(i => {
           selected[i[this.itemKey]] = true
         })
-        return selected
+        return typeof selected[this.itemKey] != 'undefined'
       }
     }
   }
