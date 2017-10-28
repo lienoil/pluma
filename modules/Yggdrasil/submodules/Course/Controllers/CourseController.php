@@ -112,7 +112,7 @@ class CourseController extends AdminController
         return back();
     }
 
-    /**
+   /**
      * Show the form for editing the specified resource.
      *
      * @param  \Illuminate\Http\Request $request
@@ -151,6 +151,7 @@ class CourseController extends AdminController
         $course->save();
 
         // Lessons
+        $course->lessons()->delete();
         collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
             $lesson = Lesson::findOrNew($input->id);
             $lesson->sort = $input->sort;
@@ -166,6 +167,7 @@ class CourseController extends AdminController
             $lesson->save();
 
             // Contents
+            $lesson->contents()->delete();
             if (isset($input->contents)) {
                 foreach ($input->contents as $input) {
                     $content = Content::findOrNew(isset($input->id) ? $input->id : -1);

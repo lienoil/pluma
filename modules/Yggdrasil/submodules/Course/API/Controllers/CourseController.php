@@ -82,10 +82,14 @@ class CourseController extends APIController
      */
     public function destroy(Request $request, $id)
     {
-        $course = Course::findOrFail($id);
-
-        $this->successResponse['text'] = "{$course->title} moved to trash.";
-        $course->delete();
+        try {
+            $course = Course::findOrFail($id);
+            $course->delete();
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        } finally {
+            $this->successResponse['text'] = "{$course->title} moved to trash.";
+        }
 
         return response()->json($this->successResponse);
     }

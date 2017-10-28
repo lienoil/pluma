@@ -30,15 +30,15 @@
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
-        <v-layout row wrap>
+        <v-layout row wrap fill-height>
+            <v-flex
+                lg3 md4
+                v-for="(card, i) in dataset.items"
+                :key="card.id">
+                <v-card ripple class="elevation-1 flex pa-0" height="100%">
 
-            <template>
-                <v-flex
-                    md4
-                    v-for="(card, i) in dataset.items"
-                    :key="card.id">
-                    <v-card class="elevation-1">
-                        <v-card-media :src="card.backdrop" height="250px">
+                    <v-layout column wrap fill-height class="ma-0">
+                        <v-card-media class="accent lighten-3" :src="card.backdrop" height="250px">
                             <v-container fill-height fluid class="pa-0 white--text">
                                 <v-layout column>
                                     <v-card-actions>
@@ -75,7 +75,7 @@
                                                     @endcan
 
                                                     @can('delete-course')
-                                                    <v-list-tile avatar ripple @click="">
+                                                    <v-list-tile avatar ripple @click="destroy(route(urls.destroy, (card.id)), {_token: '{{ csrf_token() }}'})">
                                                         <v-list-tile-avatar>
                                                             <v-icon class="warning--text">delete</v-icon>
                                                         </v-list-tile-avatar>
@@ -90,7 +90,7 @@
                                     <v-spacer></v-spacer>
                                     <v-card-actions>
                                         <v-avatar v-if="card.feature" size="80px">
-                                            <img :src="card.feature" :alt="card.title">
+                                            <img v-if="card.feature" :src="card.feature" :alt="card.title">
                                         </v-avatar>
 
                                         <v-spacer></v-spacer>
@@ -102,18 +102,26 @@
                             </v-container>
                         </v-card-media>
 
-                        <v-card-title primary-title>
-                            <strong class="title td-n accent--text" v-html="card.title"></strong>
+                        <v-card-title primary-title class="pb-0">
+                            <a :href="route(urls.show, card.slug)" class="accent--text td-n"><strong class="title accent--text" v-html="card.title"></strong></a>
                         </v-card-title>
 
+                        <v-card-actions>
+                            <v-avatar v-if="card.user.avatar" size="30px">
+                                <img v-if="card.user.avatar" :src="card.user.avatar" :alt="card.user.handlename">
+                            </v-avatar>
+                            <a :href="`{{ url('/admin/profile/' . v('card.user.handlename', true)) }}`" class="caption grey--text td-n" v-html="card.user.fullname"></a>
+                        </v-card-actions>
+
                         <v-card-actions class="transparent">
+
                             <span class="text-xs-center caption pa-1 grey--text">
                                 <v-icon class="caption" left>class</v-icon>
                                 <span v-html="card.code"></span>
                             </span>
                             <span class="text-xs-center caption pa-1 grey--text">
                                 <v-icon class="caption" left>fa-tasks</v-icon>
-                                <span v-html="`${card.lessons.length} Parts`"></span>
+                                <span v-html="`${card.lessons.length} ${(card.lessons.length <= 1 ? '{{ __('Part') }}' : '{{ __('Parts') }}')}`"></span>
                             </span>
                             <span v-if="card.category" class="caption pa-1 grey--text">
                                 <v-icon class="caption" left>label</v-icon>
@@ -127,6 +135,7 @@
 
                         <v-card-text class="grey--text text--darken-1" v-html="card.excerpt"></v-card-text>
 
+                        <v-spacer></v-spacer>
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -145,16 +154,16 @@
                             <v-btn flat success ripple :href="route(urls.edit, card.id)">{{ __('Edit') }}</v-btn>
                             @endcan
                         </v-card-actions>
-                    </v-card>
-                </v-flex>
-            </template>
-
+                    </v-layout>
+                </v-card>
+            </v-flex>
         </v-layout>
     </v-container>
 @endsection
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+
     <script>
         Vue.use(VueResource);
 
@@ -177,6 +186,7 @@
                         bookmark: '{{ route('api.courses.bookmark.bookmark', 'null') }}',
                         show: '{{ route('courses.show', 'null') }}',
                         edit: '{{ route('courses.edit', 'null') }}',
+                        destroy: '{{ route('api.courses.destroy', 'null') }}',
                     },
                     dataset: {
                         headers: [
@@ -223,6 +233,12 @@
 
                 post (url, query) {
                     this.api().post(url, query).then(response => {
+                        this.get();
+                    });
+                },
+
+                destroy (url, query) {
+                    this.api().delete(url, query).then(response => {
                         this.get();
                     });
                 }

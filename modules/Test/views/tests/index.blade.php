@@ -7,6 +7,8 @@
         <v-layout row wrap>
             <v-flex sm12>
 
+                <canvas id="myChart" width="400" height="400"></canvas>
+
                 <v-switch v-model="dataset.toggle" label="toggle view"></v-switch>
                 {{-- <span v-html="dataset.items"></span> --}}
 
@@ -99,12 +101,18 @@
 
 @push('post-css')
     {{-- <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}"> --}}
-    <link rel="stylesheet" href="{{ assets('library/vuetify-dataset/dist/vuetify-dataset.min.css') }}">
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.css') }}">
+@endpush
+
+@push('js')
+    <script>
+        alert('ad')
+    </script>
 @endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vue-resource/dist/vue-resource.min.js') }}"></script>
-    <script src="{{ assets('library/vuetify-dataset/dist/vuetify-dataset.min.js') }}"></script>
+    <script src="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.js') }}"></script>
     {{-- <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
     <script>
         Vue.use(VueResource);

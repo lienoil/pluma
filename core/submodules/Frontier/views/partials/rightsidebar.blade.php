@@ -116,19 +116,17 @@
                 <v-icon :dark.sync="light" :light.sync="dark">save</v-icon>
             </v-subheader>
             <v-list-tile
-                @click.native.stop="showDialog({
-                    icon: 'delete',
-                    title: '{{ __("Delete Storage Data") }}',
-                    description: '{{ __("You are about to reset settings for Sidebar Mode, Theme, and any other features settings stored on your Local Storage. Are you sure you want to proceed?") }}',
+                @click="showDialog({
+                    {{-- icon: 'delete', --}}
+                    title: '{{ __("Reset Application Settings") }}',
+                    description: '{{ __("You are about to reset settings for Sidebar Mode, Theme, and any other features settings stored on your Local Storage. This will revert all user interface in its default state. Proceed?") }}',
                     confirmHandler: () => { clearStorage() },
                 })">
                 <v-list-tile-action>
                     <v-icon>delete</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>
-                        Clear Local Storage
-                    </v-list-tile-title>
+                    <v-list-tile-title>{{ __("Reset Application Settings") }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>

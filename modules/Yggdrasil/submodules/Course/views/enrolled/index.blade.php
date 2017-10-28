@@ -23,7 +23,7 @@
         <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
     </v-toolbar>
 
-    <v-container v-if="!dataset.items.length" grid-list-lg class="pa-0">
+    <v-container v-if="!dataset.items.length" fluid grid-list-lg class="pa-0">
         {{-- Empty --}}
         <v-card flat class="grey lighten-4 text-xs-center">
             <v-card-actions class="white">

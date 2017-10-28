@@ -16,8 +16,12 @@ class ProfileController extends AdminController
      * @param  string  $handle
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $handle)
+    public function show(Request $request, $handle = "")
     {
+        if (empty($handle)) {
+            return back();
+        }
+
         $resource = User::whereUsername(ltrim($handle, '@'))->first();
 
         return view("Theme::profiles.show")->with(compact('resource'));

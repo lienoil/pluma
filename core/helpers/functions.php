@@ -540,3 +540,22 @@ if (! function_exists('get_menu')) {
         return json_decode(json_encode([]));;
     }
 }
+
+if (! function_exists('v')) {
+    /**
+     * Render a Vue.js "{{  }}" marks inside
+     * Blade's own "{{  }}".
+     *
+     * @param  string $string
+     * @param  boolean $variable
+     * @return string
+     */
+    function v($string, $variable = false)
+    {
+        if ($variable) {
+            return '${'.$string.'}';
+        }
+
+        return '{{'.$string.'}}';
+    }
+}

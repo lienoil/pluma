@@ -23,6 +23,13 @@ return [
                 'name' => 'view-course',
                 'order' => 1,
                 'slug' => route('courses.index'),
+                'routes' => [
+                    'name' => 'courses.index',
+                    'children' => [
+                        'courses.edit',
+                        'courses.show',
+                    ]
+                ],
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Courses'),

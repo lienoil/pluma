@@ -21,7 +21,7 @@ trait UserMutator
      */
     public function getHandlenameAttribute()
     {
-        return "@" . (isset($this->username) ? $this->username : studly_case("$this->firstname $this->lastname"));
+        return (isset($this->username) ? $this->username : studly_case("$this->firstname $this->lastname"));
     }
 
     /**

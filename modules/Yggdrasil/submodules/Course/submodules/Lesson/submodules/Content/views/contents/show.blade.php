@@ -113,7 +113,7 @@
                                 </v-card-media>
                             </v-card-media>
                         </template>
-                        <template v-else>
+                        <template >
                             <v-card v-if="! resource.started" flat class="grey lighten-4 grey--text text-xs-center">
                                 <v-card-media height="480px">
                                     <v-container fill-height class="pa-0">
@@ -156,6 +156,7 @@
 
 @push('pre-scripts')
     <script>
+        screen.orientation.lock('landscape');
         mixins.push({
             data () {
                 return {
