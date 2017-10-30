@@ -14,6 +14,6 @@ trait HasManyContentsThroughLesson
      */
     public function contents()
     {
-        return $this->hasManyThrough(Content::class, Lesson::class);
+        return $this->hasManyThrough(Content::class, Lesson::class)->orderBy('lessons.sort', 'ASC')->orderBy('contents.sort', 'ASC');
     }
 }

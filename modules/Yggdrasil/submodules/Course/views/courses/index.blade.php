@@ -141,13 +141,14 @@
                             <v-spacer></v-spacer>
 
                             @can('show-course')
-                            <v-btn flat primary ripple :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
+                            <v-btn v-if="!card.enrolled" flat primary ripple :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
                             @endcan
 
                             @can('enroll-course')
                             {{-- if user is not enrolled yet, let user have the option
                             to enroll --}}
                             <v-btn v-if="!card.enrolled" flat primary ripple @click="">{{ __('Enroll') }}</v-btn>
+                            <v-btn v-else flat primary ripple :href="route(urls.enrolled, card.slug)">{{ __('Learn More') }}</v-btn>
                             @endcan
 
                             @can('edit-course')
@@ -187,6 +188,7 @@
                         show: '{{ route('courses.show', 'null') }}',
                         edit: '{{ route('courses.edit', 'null') }}',
                         destroy: '{{ route('api.courses.destroy', 'null') }}',
+                        enrolled: '{{ route('courses.enrolled.show', 'null') }}',
                     },
                     dataset: {
                         headers: [

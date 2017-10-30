@@ -59,7 +59,7 @@
                             <v-icon>drag_handle</v-icon>
                             <span v-if="draggable.resource.lockable" v-tooltip:right="{html:'{{ __('This Lesson is lockable') }}'}"><v-icon>lock</v-icon></span>
                             <v-spacer></v-spacer>
-                            <v-toolbar-title class="subheading">@{{ draggable.resource.title }}</v-toolbar-title>
+                            <v-toolbar-title v-tooltip:left="{html:`{{ __("Sort order: ") . v('key', true) }}`}" class="subheading">@{{ draggable.resource.title }}</v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-icon>@{{ draggable.active ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                             <v-btn icon @click.native.stop="draggables.items.splice(key, 1)"><v-icon>close</v-icon></v-btn>
@@ -68,6 +68,38 @@
                         {{-- lessons --}}
                         {{-- <v-scale-transition> --}}
                             <v-card flat tile v-show="draggable.active" transition="slide-y-transition">
+                                <v-card dark flat class="grey lighten-4 mb-3">
+                                    <v-toolbar dense card class="grey lighten-4">
+                                        <v-toolbar-title class="grey--text text--darken-1 subheading">{{ __("Lesson Banner") }}</v-toolbar-title>
+                                    </v-toolbar>
+                                    <v-card-media class="grey lighten-3" v-if="draggable.resource.feature" height="200px" :src="draggable.resource.feature.thumbnail"></v-card-media>
+                                    <v-mediabox
+                                        :categories="resource.feature.catalogues"
+                                        :multiple="false"
+                                        :old="draggable.resource.feature ? [draggable.resource.feature] : []"
+                                        close-on-click
+                                        search="mime:image"
+                                        toolbar-icon="perm_media"
+                                        toolbar-label="{{ __('Lesson Banner') }}"
+                                        v-model="draggable.options.feature.model"
+                                        dropzone
+                                        auto-remove-files
+                                        :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
+                                        :dropzone-params="{_token: '{{ csrf_token() }}'}"
+                                        @selected="value => { draggable.resource.feature = value[0] }"
+                                        @category-change="val => draggable.options.feature.current = val"
+                                        @sending="({file, params}) => { params.catalogue_id = draggable.options.feature.current.id; params.originalname = file.upload.filename}"
+                                    ></v-mediabox>
+                                    <v-card-actions>
+                                        <v-btn v-if="draggable.resource.feature" flat ripple @click="draggable.resource.feature = null">{{ __("Remove") }}</v-btn>
+                                        <v-spacer></v-spacer>
+                                        <v-btn flat ripple @click="draggable.options.feature.model = !draggable.options.feature.model">{{ __("Browse") }}</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                                <input v-if="draggable.resource.feature" type="hidden" :name="`lessons[${key}][feature]`" :value="draggable.resource.feature.thumbnail">
+
+                                <v-divider></v-divider>
+
                                 <v-layout row wrap>
                                     <v-flex sm12>
                                         <v-card-text>
@@ -227,6 +259,7 @@
                             code: '',
                             quill: {},
                             interactive: [],
+                            feature: null,
                             lockable: false,
                             assignment: {
                                 title: '', code: '', quill: {}, attachment: null,
@@ -242,6 +275,10 @@
                         options: {
                             view: false,
                             model: false,
+                            feature: {
+                                model: false,
+                                current: null,
+                            },
                         },
                         sections: [],
                     }
@@ -263,6 +300,9 @@
                                 html: values.body,
                                 delta: JSON.parse(values.delta),
                             },
+                            feature: values.feature ? {
+                                thumbnail: values.feature
+                            } : null,
                             oldInteractive: values.library ? [values.library] : [],
                             interactive: values.library ? [values.library] : [],
                             lockable: values.lockable,
@@ -285,6 +325,10 @@
                         options: {
                             view: false,
                             model: false,
+                            feature: {
+                                model: false,
+                                current: null,
+                            },
                         },
                         sections: [],
                     });

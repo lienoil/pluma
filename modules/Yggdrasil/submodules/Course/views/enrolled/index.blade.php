@@ -173,7 +173,7 @@
                     urls: {
                         unbookmark: '{{ route('api.courses.bookmark.unbookmark', 'null') }}',
                         bookmark: '{{ route('api.courses.bookmark.bookmark', 'null') }}',
-                        show: '{{ route('courses.show', 'null') }}',
+                        show: '{{ route('courses.enrolled.show', 'null') }}',
                         edit: '{{ route('courses.edit', 'null') }}',
                     },
                     dataset: {

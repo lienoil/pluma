@@ -13,7 +13,7 @@ use Pluma\Models\Model;
 
 class Lesson extends Model
 {
-    use SoftDeletes, BelongsToCourse, Unlock, HasManyContents, BelongsToAssignment, LessonMutator, MorphManyUnlocks;
+    use BelongsToCourse, Unlock, HasManyContents, BelongsToAssignment, LessonMutator, MorphManyUnlocks;
 
     protected $with = ['assignment'];
 

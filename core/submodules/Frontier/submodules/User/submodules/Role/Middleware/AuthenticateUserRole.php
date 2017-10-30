@@ -92,7 +92,7 @@ class AuthenticateUserRole
 
         $action = $request->route()->getAction();
         foreach ($this->permissions() as $permission) {
-            if ($action['as'] === $permission->name) {
+            if (isset($action['as']) && $action['as'] === $permission->name) {
                 foreach ($permission->grants as $grants) {
                     foreach ($grants->roles as $role) {
                         $this->roles[] = $role->code;

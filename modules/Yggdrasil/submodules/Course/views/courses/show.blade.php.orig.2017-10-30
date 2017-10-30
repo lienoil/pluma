@@ -1,24 +1,25 @@
 @extends("Theme::layouts.admin")
 
-@section("head-title", $resource->title)
+@section("head-title", __($resource->title))
 @section("utilitybar", '')
 @section("content")
-    <v-parallax class="elevation-1" :src="resource.backdrop" height="auto">
+    <v-parallax jumbotron class="elevation-1 mb-3" :src="resource.backdrop" height="350">
         <v-layout row wrap align-end justify-center>
             <v-flex md8 xs12 pa-0>
-                <v-card tile flat class="mt-5" height="100%">
+                <v-card tile flat class="mt-5">
                     <v-toolbar dense card class="white">
                         <v-spacer></v-spacer>
+
                         <v-chip v-if="resource.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
 
                         <form v-if="resource.bookmarked" action="{{ route('courses.bookmark.unbookmark', $resource->id) }}" method="POST">
                             {{ csrf_field() }}
-                            <v-btn type="submit" icon ripple v-tooltip:left="{ html: 'Remove from your Bookmarks' }">
+                            <v-btn type="submit" icon ripple v-tooltip:left="{ html: 'Remove from Bookmarked' }">
                                 <v-icon light class="red--text">bookmark</v-icon>
                             </v-btn>
                         </form>
 
-                        <v-menu full-width>
+                        <v-menu full-width bottom left>
                             <v-btn slot="activator" icon><v-icon>more_vert</v-icon></v-btn>
                             <v-list>
                                 @can('bookmark-course')
@@ -32,7 +33,7 @@
                                     <v-list-tile-avatar>
                                         <v-icon class="red--text">bookmark</v-icon>
                                     </v-list-tile-avatar>
-                                    <v-list-tile-title>{{ __('Remove from your Bookmarks') }}</v-list-tile-title>
+                                    <v-list-tile-title>{{ __('Remove from Bookmarked') }}</v-list-tile-title>
                                 </v-list-tile>
                                 @endcan
                             </v-list>
@@ -44,20 +45,20 @@
                         <v-container fluid grid-list-lg>
                             <v-flex sm12>
                                 <v-layout row wrap>
-                                    <v-flex md3 sm2>
+                                    <v-flex md3 sm2 v-if="resource.feature">
                                         <img :src="resource.feature" width="100%" height="auto">
                                         {{-- <v-card-media ripple :src="resource.feature" height="150px" cover class="elevation-1"></v-card-media> --}}
                                     </v-flex>
-                                    <v-flex md9 sm10>
+                                    <v-flex :class="{'md9 sm10': resource.feature, 'md12': !resource.feature}">
                                         <v-card-title primary-title class="pa-0">
-                                            <strong class="headline accent--text" v-html="resource.title"></strong>
+                                            <strong class="headline td-n accent--text" v-html="resource.title"></strong>
                                         </v-card-title>
 
                                         <v-avatar size="30px">
-                                            <img :src="resource.author.avatar" :alt="resource.author.fullname">
+                                            <img :src="resource.user.avatar" :alt="resource.user.fullname">
                                         </v-avatar>
                                         <v-chip label small class="pl-0 caption transparent grey--text elevation-0">
-                                            <a :href="route(urls.profile.show, resource.author.handlename)" v-html="resource.author.displayname"></a>
+                                            <a :href="route(urls.profile.show, resource.user.handlename)" v-html="resource.user.displayname"></a>
                                         </v-chip>
 
                                         <v-footer class="transparent">
@@ -81,18 +82,16 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex flex md3 xs12 order-lg1>
-                <v-card class="mb-3 elevation-1">
+                <v-card class="elevation-1">
                     <v-toolbar card class="transparent">
                         <v-toolbar-title class="accent--text">{{ __('Overview') }}</v-toolbar-title>
                     </v-toolbar>
                     <v-divider></v-divider>
                     <v-card-text class="grey--text text--darken-2" v-html="resource.body"></v-card-text>
                 </v-card>
-
-                @include("Dashboard::widgets.badge")
             </v-flex>
             <v-flex flex md6 xs12 order-lg2>
-                <v-card class="elevation-1 mb-3">
+                <v-card class="elevation-1">
                     <v-toolbar class="purple lighten-3 white--text transparent elevation-1">
                         <v-toolbar-title class="white--text">{{ __('Course Content') }}</v-toolbar-title>
                     </v-toolbar>
@@ -107,22 +106,23 @@
                         <v-card-text :class="{'grey lighten-4': lesson.locked}">
                             <v-card flat tile class="transparent elevation-0" :key="i">
                                 <v-toolbar card class="transparent">
-                                    <v-icon left v-if="lesson.locked">lock</v-icon>
+                                    <v-icon left v-if="!resource.enrolled && lesson.locked">lock</v-icon>
                                     <v-toolbar-title class="accent--text" :class="{'grey--text': lesson.locked}">
                                         <span v-html="lesson.title"></span>
                                     </v-toolbar-title>
                                     <v-spacer></v-spacer>
                                     <v-chip label class="success white--text" v-if="lesson.icon"><v-icon class="white--text" v-html="lesson.icon"></v-icon></v-chip>
-                                    <v-chip label class="success white--text" v-else v-html="`0/${lesson.contents.length}`"></v-chip>
+                                    <v-chip label class="success white--text" v-else v-html="`${lesson.progress}/${lesson.contents.length}`"></v-chip>
                                 </v-toolbar>
                                 <v-card-text class="grey--text text--darken-2" v-html="lesson.body"></v-card-text>
                                 <v-card-actions v-if="lesson.contents.length">
                                     <v-spacer></v-spacer>
-                                    <v-dialog v-if="lesson.unlocked" lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
-                                        <v-btn v-if="resource.enrolled" slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
+                                    {{-- v-if="lesson.unlocked" --}}
+                                    <v-dialog lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
+                                        <v-btn v-if="lesson.unlocked" slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
                                         <v-btn v-else slot="activator" round outline class="success success--text">{{ __('View') }}</v-btn>
                                         <v-card flat tile class="bg--light">
-                                            <v-parallax jumbotron class="elevation-0" :src="lesson.feature" height="400">
+                                            <v-parallax jumbotron class="elevation-0" src="http://source.unsplash.com/1000x600?nature" height="400">
                                                 <div class="media-overlay"></div>
                                                 <v-layout row wrap>
                                                     <v-spacer></v-spacer>
@@ -153,7 +153,7 @@
                                                             <v-divider></v-divider>
                                                             <v-card-text v-if="! lesson.assignment" class="pa-5">
                                                                 <v-layout row wrap justify-center>
-                                                                    <img height="150" src="http://192.168.1.213/pluma/~assets/frontier/images/placeholder/empty_assignment.jpg" alt="">
+                                                                    <img height="auto" src="http://192.168.1.213/pluma/~assets/frontier/images/placeholder/empty_assignment.jpg" alt="">
                                                                 </v-layout>
                                                                 <div label class="body-1 text-xs-center red--text text--lighten-3">{{ __('No assignment for this lesson.') }}</div>
                                                             </v-card-text>
@@ -185,32 +185,24 @@
                                                                 <v-card class="elevation-1 mb-3" v-for="(content, i) in lesson.contents" :key="i">
                                                                     <span v-html="content.order"></span>
                                                                     <v-list two-line subheader class="pb-0">
-                                                                        {{-- If User is Enrolled --}}
-                                                                        <template v-if="resource.enrolled">
-                                                                            <v-list-tile avatar ripple :href="content.url" target="__blank">
-                                                                                <v-list-tile-avatar>
-                                                                                    <v-icon v-if="resource.progress.current === content.id" primary>play_circle_outline</v-icon>
-                                                                                    <v-icon v-else-if="resource.progress.previous === content.id" class="grey--text">check</v-icon>
-                                                                                    <v-icon v-else class="grey--text">lock</v-icon>
-                                                                                </v-list-tile-avatar>
-                                                                                <v-list-tile-content>
-                                                                                    <v-list-tile-title class="title" v-html="content.title"></v-list-tile-title>
-                                                                                    <v-list-tile-sub-title v-if="resource.enrolled" class="caption">
-                                                                                        <span v-if="resource.progress.current == content.id">{{ __('Start') }}</span>
-                                                                                        <span v-else-if="resource.progress.previous === content.id">{{ __('Finished') }}</span>
-                                                                                        <span v-else>{{ __('Lock') }}</span>
-                                                                                    </v-list-tile-sub-title>
-                                                                                    <v-list-tile-sub-title v-else>
-                                                                                        <em>{{ __("You are not enrolled to this course") }}</em>
-                                                                                    </v-list-tile-sub-title>
-                                                                                </v-list-tile-content>
-                                                                                <v-list-tile-action v-if="content.unlocked">
-                                                                                    <v-icon class="grey--text text--lighten-1">chevron_right</v-icon>
-                                                                                </v-list-tile-action>
-                                                                            </v-list-tile>
-                                                                        </template>
-                                                                        {{-- /If User is Enrolled --}}
-
+                                                                        <v-list-tile avatar :ripple="content.unlocked" :href="content.unlocked?content.url:null" target="__blank" >
+                                                                            <v-list-tile-avatar>
+                                                                                <v-icon v-if="content.current" primary>play_circle_outline</v-icon>
+                                                                                <v-icon v-else-if="content.completed" success>check</v-icon>
+                                                                                <v-icon v-else class="grey--text">lock</v-icon>
+                                                                            </v-list-tile-avatar>
+                                                                            <v-list-tile-content :class="{'grey--text': content.locked}">
+                                                                                <v-list-tile-title class="title" v-html="content.title"></v-list-tile-title>
+                                                                                <v-list-tile-sub-title class="caption">
+                                                                                    <span v-if="content.current">{{ __('Continue') }}</span>
+                                                                                    <span v-else-if="content.completed">{{ __('Finished') }}</span>
+                                                                                    <span v-else>{{ __('Locked') }}</span>
+                                                                                </v-list-tile-sub-title>
+                                                                            </v-list-tile-content>
+                                                                            <v-list-tile-action v-if="content.unlocked">
+                                                                                <v-icon class="grey--text text--lighten-1">chevron_right</v-icon>
+                                                                            </v-list-tile-action>
+                                                                        </v-list-tile>
                                                                     </v-list>
                                                                 </v-card>
                                                             </v-card-text>
@@ -226,7 +218,7 @@
                                                                 <v-spacer></v-spacer>
                                                             </v-toolbar>
                                                             <v-divider></v-divider>
-                                                            <v-card-text class="text-xs-center">
+                                                            <v-card-actions>
                                                                 <v-spacer></v-spacer>
                                                                 <v-progress-circular
                                                                     v-if="lesson.contents.length"
@@ -238,14 +230,12 @@
                                                                     @{{ lesson.progress }}
                                                                 </v-progress-circular>
                                                                 <v-spacer></v-spacer>
-                                                            </v-card-text>
-                                                            <v-card-text class="deep-purple white--text lighten-2 text-xs-center">
+                                                            </v-card-actions>
+                                                            <v-card-text class="deep-purple--text text--lighten-2 text-xs-center">
                                                                 <div>{{ __('Content Completed:') }}</div>
                                                                 <div>@{{ lesson.completed }}</div>
                                                             </v-card-text>
                                                         </v-card>
-
-
                                                     </v-flex>
                                                 </v-layout>
                                             </v-container>
@@ -260,22 +250,9 @@
                     </template>
                     {{-- /Lessons --}}
                 </v-card>
-
-                @include("Forum::widgets.comments")
             </v-flex>
-
             <v-flex flex md3 xs12 order-lg3>
-                <v-card v-if="!resource.enrolled" class="mb-3 elevation-1">
-                    <v-card-media contain height="350px" src="{{ assets("course/images/no-courses.png") }}"></v-card-media>
-                    <v-card-text class="text-xs-center grey--text">{{ __("You are not enrolled to this course") }}</v-card-text>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn primary outline ripple>{{ __("Request Course") }}</v-btn>
-                        <v-spacer></v-spacer>
-                    </v-card-actions>
-                </v-card>
-
-                <v-card v-else class="mb-3 elevation-1">
+                <v-card class="elevation-1">
                     <v-toolbar card class="transparent">
                         <v-toolbar-title class="accent--text">{{ __('Progress') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -298,8 +275,6 @@
                         <div v-html="resource.percentage"></div>
                     </v-card-text>
                 </v-card>
-
-                @include("Course::widgets.students")
             </v-flex>
         </v-layout>
     </v-container>
@@ -313,7 +288,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.30);
+            background-color: rgba(0,0,0,0.09);
         }
     </style>
 @endpush

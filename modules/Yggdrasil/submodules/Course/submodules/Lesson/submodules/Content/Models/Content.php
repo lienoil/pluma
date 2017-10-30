@@ -12,11 +12,11 @@ use Pluma\Models\Model;
 
 class Content extends Model
 {
-    use SoftDeletes, BelongsToLesson, BelongsToLibrary, Unlock, MorphManyUnlocks, ContentMutator;
+    use BelongsToLesson, BelongsToLibrary, Unlock, MorphManyUnlocks, ContentMutator;
 
     protected $with = ['library', 'lesson', 'unlocks'];
 
-    protected $appends = ['url', 'started', 'completed', 'locked', 'unlocked', 'current', 'interactive'];
+    protected $appends = ['url', 'started', 'completed', 'locked', 'unlocked', 'interactive'];
 
     protected $searchables = ['title', 'body', 'created_at', 'updated_at'];
 }

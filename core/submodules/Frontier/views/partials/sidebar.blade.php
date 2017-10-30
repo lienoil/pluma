@@ -138,11 +138,11 @@
                     <v-list-tile
                         ripple
                         :key="i"
-                        :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''"
+                        :class="{'list__tile--active': (child.child && child.child.active) || child.active}"
                         :href="child.slug"
                         v-for="(child, i) in menu.children"
                         :title="child.labels.description"
-                        {{-- v-model="child.active" --}}
+                        v-model="child.active"
                     >
                         <v-list-tile-action>
                             <v-icon

@@ -157,7 +157,7 @@
                         ripple
                         v-else
                         :key="i"
-                        {{-- :class="{'active--primary': (child.child && child.child.active) || child.active}" --}}
+                        :class="{'list__tile--active': (child.child && child.child.active) || child.active}"
                         :href="child.slug"
                         :title="child.labels && child.labels.description"
                         v-model="child.active"

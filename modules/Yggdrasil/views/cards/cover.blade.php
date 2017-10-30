@@ -1,7 +1,7 @@
 <v-card class="mb-3 elevation-1">
     <v-toolbar card dense class="transparent">
         <v-icon class="accent--text">landscape</v-icon>
-        <v-toolbar-title class="subheading accent--text">{{ __('Cover') }}</v-toolbar-title>
+        <v-toolbar-title class="subheading accent--text">{{ __('Cover Image') }}</v-toolbar-title>
     </v-toolbar>
 
     <v-mediabox
@@ -14,7 +14,7 @@
         close-on-click
         dropzone
         toolbar-icon="landscape"
-        toolbar-label="{{ __('Cover Photo') }}"
+        toolbar-label="{{ __('Cover Image') }}"
         v-model="resource.cover.model"
         @selected="value => { resource.item.cover = value[0] }"
         @category-change="val => resource.feature.current = val"

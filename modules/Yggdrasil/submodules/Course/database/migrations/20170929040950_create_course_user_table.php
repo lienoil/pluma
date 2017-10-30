@@ -26,10 +26,14 @@ class CreateCourseUserTable extends Migration
         }
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('previous')->unsigned()->nullable();
+            $table->integer('current')->unsigned()->nullable();
+            $table->integer('next')->unsigned()->nullable();
             $table->integer('status')->unsigned()->nullable();
-            $table->integer('author')->unsigned()->nullable();
+            $table->integer('meta')->unsigned()->nullable();
 
             $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('user_id')->references('id')->on('users');

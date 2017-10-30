@@ -15,4 +15,14 @@ trait Bookmarkable
     {
         return $this->morphMany(Bookmark::class, 'bookmarkable');
     }
+
+    /**
+     * Check if this course is bookmarked by user.
+     *
+     * @return boolean
+     */
+    public function getBookmarkedAttribute()
+    {
+        return $this->bookmarks()->where('user_id', user()->id)->exists();
+    }
 }

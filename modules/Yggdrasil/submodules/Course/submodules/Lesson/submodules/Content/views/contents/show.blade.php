@@ -88,22 +88,28 @@
                         </v-dialog>
                     </v-toolbar>
                     <v-card-text>
-                        {!! $resource->body !!}
+                        <div class="grey--text text--darken-2">{!! $resource->body !!}</div>
+                        <v-btn @click="next">Next</v-btn>
+                        <span>Score: @{{ score }}</span>
 
                         <template v-if="!resource.lesson.course.enrolled">
                             <div class="text-xs-center">
                                 <img src="{{ assets('course/images/no-courses.png') }}" alt="{{ __('Not enrolled') }}">
                             </div>
                             <v-card-media height="auto">
-                                <v-container fill-height class="pa-0">
+                                <v-container fill-height class="pa-0 pb-4">
                                         <v-layout fill-height wrap column>
                                             <v-spacer></v-spacer>
                                             <div class="subheading text-xs-center grey--text">
-                                                <div class="mb-3">{{ __("You are not enrolled to this course.") }}</div>
+                                                {{-- <div><v-icon class="display-4 grey--text pa-5">lock</v-icon></div> --}}
+                                                <div class="mb-3 headline">{{ __("You are not enrolled to this course.") }}</div>
                                                 <v-card-actions>
                                                     <v-spacer></v-spacer>
                                                     <v-btn class="primary primary--text" outline ripple @click="">{{ __("Request Course") }}</v-btn>
-                                                    <v-btn class="red red--text" outline ripple @click=""><v-icon left>bookmark_outline</v-icon>{{ __("Bookmark") }}</v-btn>
+                                                    <form v-if="!resource.lesson.course.bookmarked" action="{{ route("courses.bookmark.bookmark", $resource->lesson->course->id) }}" method="POST">
+                                                        {{ csrf_field() }}
+                                                        <v-btn type="submit" class="red red--text" outline ripple><v-icon left>bookmark_outline</v-icon>{{ __("Bookmark") }}</v-btn>
+                                                    </form>
                                                     <v-spacer></v-spacer>
                                                 </v-card-actions>
                                             </div>
@@ -113,7 +119,7 @@
                                 </v-card-media>
                             </v-card-media>
                         </template>
-                        <template >
+                        <template v-else>
                             <v-card v-if="! resource.started" flat class="grey lighten-4 grey--text text-xs-center">
                                 <v-card-media height="480px">
                                     <v-container fill-height class="pa-0">
@@ -155,8 +161,11 @@
 @section("back-to-top", "")
 
 @push('pre-scripts')
+    <script src="{{ assets('course/scorm/scorm.6.0.0.js') }}"></script>
+    {{-- <script src="{{ assets('course/scorm/scorm.js') }}"></script> --}}
     <script>
-        screen.orientation.lock('landscape');
+        // window.API = pipwerks.SCORM.API;
+        // screen.orientation.lock('landscape');
         mixins.push({
             data () {
                 return {
@@ -167,25 +176,71 @@
                         model: false,
                         items: {!! $contents !!}
                     },
-                    resource: {!! json_encode($resource) !!}
+                    resource: {!! json_encode($resource) !!},
+                    score: 0,
                 }
             },
-            mounted () {
-                // console.log('as', this.drawer.items);
-            }
-        })
-    </script>
-@endpush
+            methods: {
+                next() {
+                    window.API.LMSSetValue("cmi.core.lesson_location", 'Slide_2')
+                    window.API.LMSCommit();
+                },
 
-@push('js')
-    <script src="{{ assets('course/scorm/scorm.js') }}"></script>
-    <script>
-        window.API.apiLogLevel = 4 //Error only
-        // var simplifiedObject = JSON.parse(JSON.stringify(window.API.cmi));
-        window.API.on('LMSInitialize', function() {
-            @if (env('APP_DEBUG'))
-                console.log('[LMS]','initialized');
-            @endif
+                lms () {
+                    let self = this
+
+                    return {
+                        mounted () {
+                            pipwerks.SCORM.connection.initialize();
+
+                            // window.API.apiLogLevel = 0 // Error only
+
+                            // window.API.on('LMSInitialize', function() {
+                            //     console.log("[LMS]");
+                            //     console.log("asdasdadad", window.API.LMSSetValue("cmi.core.lesson_location", 'Slide_2'));
+                            //     self.score = window.API.LMSGetValue("cmi.core.score.raw");
+                            // });
+                        },
+
+                        listen () {
+                            window.API.on('LMSFinish', function() {
+                                // window.API.LMSGetValue("");
+                                console.log('[LMS]', "Finished")
+
+                                return "true";
+                            });
+
+                            window.API.on("LMSGetValue", function (cmiElement) {
+                                console.log('[LMS]', "GetValue")
+                                console.info(cmiElement);
+                                // ret =
+                                // return ret;
+                            });
+
+                            window.API.on("LMSCommit", function () {
+                                window.API.LMSGetValue("");
+                                return "true";
+                            })
+                        }
+                    }
+                },
+            },
+
+            mounted () {
+                if (this.resource.started) {
+                    this.lms().mounted();
+                    // this.lms().listen();
+                }
+            },
+
+            watch: {
+                'resource.started': function (value) {
+                    if (value) {
+                        this.lms().mounted();
+                        this.lms().listen();
+                    }
+                },
+            }
         })
     </script>
 @endpush

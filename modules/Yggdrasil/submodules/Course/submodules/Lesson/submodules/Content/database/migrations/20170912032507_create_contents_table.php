@@ -36,7 +36,6 @@ class CreateContentsTable extends Migration
             $table->integer('library_id')->unsigned()->nullable();
             $table->boolean('lockable')->nullable()->default(false);
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('lesson_id')->references('id')->on('lessons')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('library_id')->references('id')->on('library');

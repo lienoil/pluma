@@ -8,7 +8,6 @@
         </v-btn>
     </v-toolbar>
 
-    <v-slide-y-transition>
     <v-card-text v-show="draggable.options.view">
         {{-- Lockable --}}
         <v-switch persistent-hint hint="{{ __('Recommended set to false if this is the first Lesson in the Course.') }}" label="{{ __('Lock from users until previous lesson is finished') }}" v-model="draggable.resource.lockable" :value="1"></v-switch>

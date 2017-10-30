@@ -6,6 +6,7 @@ Route::post('courses/bookmark/{course}', 'Course\Controllers\BookmarkCourseContr
 Route::get('courses/bookmarked', 'Course\Controllers\BookmarkCourseController@index')->name('courses.bookmark.index');
 
 // Enroll
+Route::get('testXX/enroll/{course_id}/{user_id}', 'Course\Controllers\EnrollController@enroll');
 Route::get('courses/enrolled/{course}', 'Course\Controllers\EnrollController@show')->name('courses.enrolled.show');
 Route::get('courses/enrolled', 'Course\Controllers\EnrollController@index')->name('courses.enrolled.index');
 

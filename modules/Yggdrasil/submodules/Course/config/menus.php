@@ -19,9 +19,26 @@ return [
             'description' => __('Manage courses'),
         ],
         'children' => [
+            'view-enrolled-courses' => [
+                'name' => 'view-enrolled-courses',
+                'order' => 1,
+                'slug' => route('courses.enrolled.index'),
+                'always_viewable' => true,
+                'routes' => [
+                    'name' => 'courses.enrolled.index',
+                    'children' => [
+                        'courses.enrolled.show',
+                    ]
+                ],
+                'labels' => [
+                    'title' => __('My Courses'),
+                    'description' => __('View your currently enrolled courses'),
+                ],
+            ],
+
             'view-course' => [
                 'name' => 'view-course',
-                'order' => 1,
+                'order' => 2,
                 'slug' => route('courses.index'),
                 'routes' => [
                     'name' => 'courses.index',
@@ -57,16 +74,6 @@ return [
                 ],
             ],
 
-            'view-enrolled-courses' => [
-                'name' => 'view-enrolled-courses',
-                'order' => 8,
-                'slug' => route('courses.enrolled.index'),
-                'always_viewable' => true,
-                'labels' => [
-                    'title' => __('My Courses'),
-                    'description' => __('View your currently enrolled courses'),
-                ],
-            ],
             'view-bookmarked-courses' => [
                 'name' => 'view-bookmarked-courses',
                 'order' => 10,

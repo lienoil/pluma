@@ -13,6 +13,6 @@ trait HasManyContents
      */
     public function contents()
     {
-        return $this->hasMany(Content::class);
+        return $this->hasMany(Content::class)->orderBy('sort', 'ASC');
     }
 }

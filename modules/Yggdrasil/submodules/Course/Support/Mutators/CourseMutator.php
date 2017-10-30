@@ -2,8 +2,21 @@
 
 namespace Course\Support\Mutators;
 
+use Course\Models\Course;
+use Course\Models\User;
+
 trait CourseMutator
 {
+    /**
+     * Alias for BelongsToUser.
+     *
+     * @return \User\Models\User
+     */
+    public function getAuthorAttribute()
+    {
+        return $this->user;
+    }
+
     /**
      * Get the lesson count
      *
@@ -15,37 +28,29 @@ trait CourseMutator
             ($this->lessons->count() > 1 ? __('Lessons') : __('Lesson'));
     }
 
-    public function getPercentageAttribute()
-    {
-        // echo "<pre>";
-        // $total = $this->lessons->count();
-        // $completed = $this->lessons->map(function ($lesson) {
-        //     return $lesson->lockable;
-        // });
-
-        // dd($completed);
-
-        return 100;
-    }
-
     /**
-     * Check if currently logged in user is enrolled
-     * to this course.
+     * Enrolls a user as student.
      *
-     * @return boolean
+     * @param  int $course_id
+     * @param  User   $user_id
+     * @return void
      */
-    public function getEnrolledAttribute()
+    public static function enrollUser($course_id, User $user_id)
     {
-        return \Course\Models\User::find(user()->id)->courses()->where('id', $this->id)->exists();
-    }
+        $course = Course::findOrFail($course_id);
+        $contents = array_column($course->contents->toArray(), 'id');
 
-    /**
-     * Check if this course is bookmarked by user.
-     *
-     * @return boolean
-     */
-    public function getBookmarkedAttribute()
-    {
-        return $this->bookmarks()->where('user_id', user()->id)->exists();
+        $course->users()->where('user_id', $user_id)->detach();
+        foreach ($course->contents as $content) {
+            $prev = Content::where('sort', '<', $content->sort)->whereIn('id', $contents)->max('id');
+            $current = $content->id;
+            $next = Content::where('sort', '>', $content->sort)->whereIn('id', $contents)->min('id');
+            $course->users()->attach(User::find($user_id), [
+                'previous' => $prev,
+                'current' => $current,
+                'next' => $next,
+                'status' => ! $prev ? 1 : 0,
+            ]);
+        }
     }
 }

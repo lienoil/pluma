@@ -2,6 +2,8 @@
 
 namespace Course\Controllers;
 
+use Content\Models\Content;
+use Course\Models\Course;
 use Course\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
@@ -34,14 +36,16 @@ class EnrollController extends AdminController
     /**
      * Show the detail form of the course to be enrolled.
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $slug)
     {
-        $resource = Course::findOrFail($id);
+        $resource = Course::whereSlug($slug)
+            ->with('lessons.contents')
+            ->firstOrFail();
 
-        return view("Theme::enroll.show")->with(compact('resource'));
+        return view("Theme::courses.show")->with(compact('resource'));
     }
 
     /**
@@ -59,10 +63,17 @@ class EnrollController extends AdminController
     /**
      * Enrolls the user into a resource (e.g. Course).
      *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int  $course_id
+     * @param  int $user_id
      * @return \Illuminate\Auth\Access\Response
      */
-    public function enroll()
+    public function enroll(Request $request, $course_id, $user_id)
     {
-        // $
+        $course = Course::findOrFail($course_id);
+        Course::enrollUser($course_id, $user_id);
+
+
+        die("OKAY");
     }
 }
