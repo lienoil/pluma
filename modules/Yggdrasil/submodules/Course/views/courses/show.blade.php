@@ -185,32 +185,27 @@
                                                                 <v-card class="elevation-1 mb-3" v-for="(content, i) in lesson.contents" :key="i">
                                                                     <span v-html="content.order"></span>
                                                                     <v-list two-line subheader class="pb-0">
-                                                                        {{-- If User is Enrolled --}}
-                                                                        <template v-if="resource.enrolled">
-                                                                            <v-list-tile avatar ripple :href="content.url" target="__blank">
-                                                                                <v-list-tile-avatar>
-                                                                                    <v-icon v-if="resource.progress.current === content.id" primary>play_circle_outline</v-icon>
-                                                                                    <v-icon v-else-if="resource.progress.previous === content.id" class="grey--text">check</v-icon>
-                                                                                    <v-icon v-else class="grey--text">lock</v-icon>
-                                                                                </v-list-tile-avatar>
-                                                                                <v-list-tile-content>
-                                                                                    <v-list-tile-title class="title" v-html="content.title"></v-list-tile-title>
-                                                                                    <v-list-tile-sub-title v-if="resource.enrolled" class="caption">
-                                                                                        <span v-if="resource.progress.current == content.id">{{ __('Start') }}</span>
-                                                                                        <span v-else-if="resource.progress.previous === content.id">{{ __('Finished') }}</span>
-                                                                                        <span v-else>{{ __('Lock') }}</span>
-                                                                                    </v-list-tile-sub-title>
-                                                                                    <v-list-tile-sub-title v-else>
-                                                                                        <em>{{ __("You are not enrolled to this course") }}</em>
-                                                                                    </v-list-tile-sub-title>
-                                                                                </v-list-tile-content>
-                                                                                <v-list-tile-action v-if="content.unlocked">
-                                                                                    <v-icon class="grey--text text--lighten-1">chevron_right</v-icon>
-                                                                                </v-list-tile-action>
-                                                                            </v-list-tile>
-                                                                        </template>
-                                                                        {{-- /If User is Enrolled --}}
-
+                                                                        <v-list-tile avatar ripple :href="content.url" target="__blank">
+                                                                            <v-list-tile-avatar>
+                                                                                <v-icon v-if="resource.progress && resource.progress.current === content.id" primary>play_circle_outline</v-icon>
+                                                                                <v-icon v-else-if="resource.progress && resource.progress.previous === content.id" class="grey--text">check</v-icon>
+                                                                                <v-icon v-else class="grey--text">lock</v-icon>
+                                                                            </v-list-tile-avatar>
+                                                                            <v-list-tile-content>
+                                                                                <v-list-tile-title class="title" v-html="content.title"></v-list-tile-title>
+                                                                                <v-list-tile-sub-title v-if="resource.enrolled" class="caption">
+                                                                                    <span v-if="resource.progress.current == content.id">{{ __('Start') }}</span>
+                                                                                    <span v-else-if="resource.progress.previous === content.id">{{ __('Finished') }}</span>
+                                                                                    <span v-else>{{ __('Lock') }}</span>
+                                                                                </v-list-tile-sub-title>
+                                                                                <v-list-tile-sub-title v-else>
+                                                                                    <em>{{ __("You are not enrolled to this course") }}</em>
+                                                                                </v-list-tile-sub-title>
+                                                                            </v-list-tile-content>
+                                                                            <v-list-tile-action v-if="content.unlocked">
+                                                                                <v-icon class="grey--text text--lighten-1">chevron_right</v-icon>
+                                                                            </v-list-tile-action>
+                                                                        </v-list-tile>
                                                                     </v-list>
                                                                 </v-card>
                                                             </v-card-text>
@@ -342,6 +337,9 @@
             },
 
             methods: {
+                get () {
+                    // this.api().post('')
+                },
                 post (url, query) {
                     let self = this;
                     this.api().post(url, query).then(response => {

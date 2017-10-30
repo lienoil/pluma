@@ -26,7 +26,7 @@ class EnrollController extends AdminController
          * @var \Course\Models\User $user
          */
         $user = User::find(user()->id);
-        $resources = $user->courses;
+        $resources = $user->courses()->groupBy('course_id')->get();
 
         // dd($resources[0]->bookmarked);
 
@@ -71,7 +71,20 @@ class EnrollController extends AdminController
     public function enroll(Request $request, $course_id, $user_id)
     {
         $course = Course::findOrFail($course_id);
-        Course::enrollUser($course_id, $user_id);
+        $contents = array_column($course->contents->toArray(), 'id');
+
+        $course->users()->where('user_id', $user_id)->detach();
+        foreach ($course->contents as $content) {
+            $prev = Content::where('sort', '<', $content->sort)->whereIn('id', $contents)->max('id');
+            $current = $content->id;
+            $next = Content::where('sort', '>', $content->sort)->whereIn('id', $contents)->min('id');
+            $course->users()->attach(User::find($user_id), [
+                'previous' => $prev,
+                'current' => $current,
+                'next' => $next,
+                'status' => ! $prev ? 1 : 0,
+            ]);
+        }
 
 
         die("OKAY");

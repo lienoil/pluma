@@ -44,7 +44,7 @@
 
             <template>
                 <v-flex
-                    md4
+                    lg3 md4
                     v-for="(card, i) in dataset.items"
                     :key="card.id">
                     <v-card class="elevation-1">

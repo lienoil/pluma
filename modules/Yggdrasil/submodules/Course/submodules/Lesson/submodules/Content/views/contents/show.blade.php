@@ -90,7 +90,6 @@
                     <v-card-text>
                         <div class="grey--text text--darken-2">{!! $resource->body !!}</div>
                         <v-btn @click="next">Next</v-btn>
-                        <span>Score: @{{ score }}</span>
 
                         <template v-if="!resource.lesson.course.enrolled">
                             <div class="text-xs-center">
@@ -161,8 +160,9 @@
 @section("back-to-top", "")
 
 @push('pre-scripts')
+    {{-- <script src="{{ assets('course/scorm/scormdriver.js') }}"></script> --}}
     <script src="{{ assets('course/scorm/scorm.6.0.0.js') }}"></script>
-    {{-- <script src="{{ assets('course/scorm/scorm.js') }}"></script> --}}
+    <script src="{{ assets('course/scorm/scorm.js') }}"></script>
     <script>
         // window.API = pipwerks.SCORM.API;
         // screen.orientation.lock('landscape');
@@ -177,13 +177,17 @@
                         items: {!! $contents !!}
                     },
                     resource: {!! json_encode($resource) !!},
-                    score: 0,
+                    SCORM: null,
                 }
             },
             methods: {
                 next() {
-                    window.API.LMSSetValue("cmi.core.lesson_location", 'Slide_2')
-                    window.API.LMSCommit();
+                    alert(this.SCORM.get("cmi.core.lesson_location"));
+                    // this.SCORM.init();
+                    this.SCORM.set("cmi.core.lesson_location", 'Slide_2')
+                    this.SCORM.save();
+                    // this.SCORM.quit();
+                    // window.API.LMSCommit();
                 },
 
                 lms () {
@@ -191,36 +195,35 @@
 
                     return {
                         mounted () {
-                            pipwerks.SCORM.connection.initialize();
+                            self.SCORM = pipwerks.SCORM;
 
-                            // window.API.apiLogLevel = 0 // Error only
-
-                            // window.API.on('LMSInitialize', function() {
-                            //     console.log("[LMS]");
-                            //     console.log("asdasdadad", window.API.LMSSetValue("cmi.core.lesson_location", 'Slide_2'));
-                            //     self.score = window.API.LMSGetValue("cmi.core.score.raw");
-                            // });
+                            window.API.on('LMSInitialize', function() {
+                            self.SCORM.version = "1.2";
+                                if(self.SCORM.init()) {
+                                    alert("yeah")
+                                }
+                            });
                         },
 
                         listen () {
-                            window.API.on('LMSFinish', function() {
-                                // window.API.LMSGetValue("");
-                                console.log('[LMS]', "Finished")
+                        //     window.API.on('LMSFinish', function() {
+                        //         // window.API.LMSGetValue("");
+                        //         console.log('[LMS]', "Finished")
 
-                                return "true";
-                            });
+                        //         return "true";
+                        //     });
 
-                            window.API.on("LMSGetValue", function (cmiElement) {
-                                console.log('[LMS]', "GetValue")
-                                console.info(cmiElement);
-                                // ret =
-                                // return ret;
-                            });
+                        //     window.API.on("LMSGetValue", function (cmiElement) {
+                        //         console.log('[LMS]', "GetValue")
+                        //         console.info(cmiElement);
+                        //         // ret =
+                        //         // return ret;
+                        //     });
 
-                            window.API.on("LMSCommit", function () {
-                                window.API.LMSGetValue("");
-                                return "true";
-                            })
+                        //     window.API.on("LMSCommit", function () {
+                        //         window.API.LMSGetValue("");
+                        //         return "true";
+                        //     })
                         }
                     }
                 },
