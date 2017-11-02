@@ -4,6 +4,7 @@ namespace Frontier\Composers;
 
 use Crowfeather\Traverser\Traverser;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use Pluma\Support\Composers\BaseViewComposer;
 use Pluma\Support\Modules\Traits\Module;
@@ -108,6 +109,9 @@ class NavigationViewComposer extends BaseViewComposer
         foreach ($url as &$segment) {
             $old .= "/$segment";
             $segment = $this->swapWord($segment);
+            if (is_numeric($segment)) {
+                $segment = $this->guessStringFromNumeric($segment, $old);
+            }
 
             $segment = [
                 'active' => end($url) === $segment,
@@ -241,5 +245,23 @@ class NavigationViewComposer extends BaseViewComposer
         }
 
         return $menus;
+    }
+
+    /**
+     * Try to get the column `code` from the database.
+     *
+     * @param  int $segment
+     * @param  string $url
+     * @return string
+     */
+    public function guessStringFromNumeric($segment, $url)
+    {
+        try {
+            $segment = $segment;
+        } catch (\Exception $e) {
+            return $segment;
+        }
+
+        return $segment;
     }
 }

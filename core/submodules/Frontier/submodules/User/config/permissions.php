@@ -78,6 +78,14 @@ return [
         'group' => 'user',
     ],
 
+    // Password
+    'change-password' => [
+        'name' =>  'users.password.change',
+        'code' => 'change-password',
+        'description' => 'Ability to change the user password without using the old password',
+        'group' => 'user',
+    ],
+
     // Many
     'destroy-many-user' => [
         'name' =>  'users.many.destroy',

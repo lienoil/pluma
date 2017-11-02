@@ -75,17 +75,17 @@
                                     <v-card-media class="grey lighten-3" v-if="draggable.resource.feature" height="200px" :src="draggable.resource.feature.thumbnail"></v-card-media>
                                     <v-mediabox
                                         :categories="resource.feature.catalogues"
+                                        :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
+                                        :dropzone-params="{_token: '{{ csrf_token() }}'}"
                                         :multiple="false"
                                         :old="draggable.resource.feature ? [draggable.resource.feature] : []"
+                                        auto-remove-files
                                         close-on-click
+                                        dropzone
                                         search="mime:image"
                                         toolbar-icon="perm_media"
                                         toolbar-label="{{ __('Lesson Banner') }}"
                                         v-model="draggable.options.feature.model"
-                                        dropzone
-                                        auto-remove-files
-                                        :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
-                                        :dropzone-params="{_token: '{{ csrf_token() }}'}"
                                         @selected="value => { draggable.resource.feature = value[0] }"
                                         @category-change="val => draggable.options.feature.current = val"
                                         @sending="({file, params}) => { params.catalogue_id = draggable.options.feature.current.id; params.originalname = file.upload.filename}"
@@ -178,7 +178,8 @@
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
-    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
+    {{-- <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
+    <script src="http://localhost:8080/dist/vuetify-mediabox.min.js"></script>
     <script>
         mixins.push({
             data () {

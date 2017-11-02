@@ -108,15 +108,15 @@
                             <v-card-actions class="grey lighten-4">
                                 <v-spacer></v-spacer>
                                 <v-mediabox
-                                    :multiple="false"
-                                    close-on-click
                                     :categories="mediabox.catalogues"
-                                    v-model="content.mediabox"
-                                    dropzone
-                                    :old="content.resource.interactive.length?content.resource.interactive:[]"
-                                    auto-remove-files
                                     :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
                                     :dropzone-params="{_token: '{{ csrf_token() }}'}"
+                                    :multiple="false"
+                                    :old="content.resource.interactive.length?content.resource.interactive:[]"
+                                    auto-remove-files
+                                    close-on-click
+                                    dropzone
+                                    v-model="content.mediabox"
                                     @selected="value => { content.resource.interactive = value }"
                                     @category-change="val => resource.feature.current = val"
                                     @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename; params.extract = true}"

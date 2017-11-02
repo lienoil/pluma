@@ -50,7 +50,7 @@ class PasswordChangeRequest extends FormRequest
         $id = $this->route('id');
 
         return [
-            'old_password' => "required|old_password:$id,$this->old_password",
+            'old_password' => "sometimes|required|old_password:$id,$this->old_password",
             'password' => 'required|min:6|confirmed',
         ];
     }

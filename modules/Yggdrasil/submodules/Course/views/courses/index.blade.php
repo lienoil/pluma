@@ -38,7 +38,7 @@
                 <v-card ripple class="elevation-1 flex pa-0" height="100%">
 
                     <v-layout column wrap fill-height class="ma-0">
-                        <v-card-media class="accent lighten-3" :src="card.backdrop" height="250px">
+                        <v-card-media class="accent lighten-3" :src="card.backdrop" height="250px" style="max-width:100%">
                             <v-container fill-height fluid class="pa-0 white--text">
                                 <v-layout column>
                                     <v-card-actions>

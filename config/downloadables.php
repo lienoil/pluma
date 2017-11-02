@@ -23,6 +23,7 @@ return [
     'mpga',
     'ogg',
     'ogv',
+    'pdf',
     'png',
     'ppt',
     'pptx',
@@ -32,6 +33,7 @@ return [
     'wmv',
     'xls',
     'xlsx',
+    'xml',
     'zip',
 
     // Uppercase
@@ -52,6 +54,7 @@ return [
     'MPGA',
     'OGG',
     'OGV',
+    'PDF',
     'PNG',
     'PPT',
     'PPTX',
@@ -61,5 +64,6 @@ return [
     'WMV',
     'XLS',
     'XLSX',
+    'XML',
     'ZIP',
 ];

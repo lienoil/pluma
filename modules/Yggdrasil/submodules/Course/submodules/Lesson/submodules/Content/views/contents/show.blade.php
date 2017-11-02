@@ -137,12 +137,12 @@
                             </v-card>
                             <v-fade-transition>
                                 <template v-if="resource.started">
-                                    <object data="{{ $resource->interactive }}" width="100%" height="560px">
-                                        <param name="src" value="{{ $resource->interactive }}">
-                                        <param name="autoplay" value="false">
-                                        <param name="autoStart" value="0">
-                                        <embed type="text/html" src="{{ $resource->interactive }}">
-                                    </object>
+                                    {{-- {!! $resource->html !!} --}}
+                                    <div>
+                                        <object width="100%" height="640px" data="{{ $resource->interactive }}">
+                                            <embed src="{{ $resource->interactive }}">
+                                        </object>
+                                    </div>
                                 </template>
                             </v-fade-transition>
                             {{-- <iframe width="100%" height="450px" src="{{ $resource->interactive }}" frameborder="0"></iframe> --}}
@@ -153,19 +153,32 @@
             </v-flex>
         </v-layout>
     </v-container>
-
-    <link v-if="fullscreen.model" rel="manifest" href="{{ url('manifest.json') }}">
 @endsection
 
 @section("back-to-top", "")
 
+@push('css')
+    <style>
+        .interactive-content {
+            width: 100%;
+            max-height: 100vh;
+            min-height: 240px;
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+        }
+    </style>
+@endpush
+
 @push('pre-scripts')
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     {{-- <script src="{{ assets('course/scorm/scormdriver.js') }}"></script> --}}
-    <script src="{{ assets('course/scorm/scorm.6.0.0.js') }}"></script>
-    <script src="{{ assets('course/scorm/scorm.js') }}"></script>
+    {{-- <script src="{{ assets('course/scorm/scorm.6.0.0.js') }}"></script> --}}
+    {{-- <script src="{{ assets('course/scorm/scorm.js') }}"></script> --}}
+    <script src="{{ assets('course/scorm/scormapi.js') }}"></script>
     <script>
-        // window.API = pipwerks.SCORM.API;
-        // screen.orientation.lock('landscape');
+        Vue.use(VueResource);
+
         mixins.push({
             data () {
                 return {
@@ -177,32 +190,55 @@
                         items: {!! $contents !!}
                     },
                     resource: {!! json_encode($resource) !!},
-                    SCORM: null,
+                    scorm: null,
                 }
             },
             methods: {
                 next() {
-                    alert(this.SCORM.get("cmi.core.lesson_location"));
-                    // this.SCORM.init();
-                    this.SCORM.set("cmi.core.lesson_location", 'Slide_2')
-                    this.SCORM.save();
-                    // this.SCORM.quit();
-                    // window.API.LMSCommit();
+                    // this.scorm.init();
+                    // alert(this.scorm.get("cmi.core.lesson_location"));
+                    // this.scorm.save();
+                    // this.scorm.quit();
+                    // pipwerks.SCORM.set("cmi.core.lesson_location", 'a001_quiz_q3.html')
+                    window.API.LMSSetValue("cmi.core.lesson_location", 'a001_quiz_q3.html');
                 },
 
                 lms () {
                     let self = this
 
                     return {
-                        mounted () {
-                            self.SCORM = pipwerks.SCORM;
+                        mountedXX () {
+                            window.API.on("LMSGetValue", function (varname) {
+                                self.$http.get('{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}'+'?varname='+varname+'&_token='+'{{ csrf_token() }}').then(response => {
+                                    console.log(response);
+                                    return response.bodyText;
+                                });
+                            })
 
-                            window.API.on('LMSInitialize', function() {
-                            self.SCORM.version = "1.2";
-                                if(self.SCORM.init()) {
-                                    alert("yeah")
-                                }
-                            });
+                            window.API.on("LMSSetValue", function (varname, value) {
+                                self.$http.post('{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}', {varname: varname, _token: '{{ csrf_token() }}'});
+                            })
+                        },
+                        mounted () {
+                            window.API.setOptions({
+                                GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
+                                POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
+                                _token: '{{ csrf_token() }}',
+                                done: false,
+                            })
+                            // screen.orientation && screen.orientation.lock('landscape');
+
+                            // alert();
+                            // self.scorm.init('');
+                            // window.API.LMSInitialize("");
+                            // pipwerks.SCORM.init('');
+
+                            // window.API.on('LMSInitialize', function() {
+                                // alert("Us");
+                                // if(self.scorm.init()) {
+                                    // alert("yeah")
+                                // }
+                            // });
                         },
 
                         listen () {
@@ -243,6 +279,10 @@
                         this.lms().listen();
                     }
                 },
+                'window.API.done': function (value) {
+                    console.log('value', value);
+                }
+
             }
         })
     </script>

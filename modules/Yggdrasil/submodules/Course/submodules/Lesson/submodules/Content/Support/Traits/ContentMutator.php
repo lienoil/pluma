@@ -101,21 +101,36 @@ trait ContentMutator
         $entrypoint = "";
         try {
             if ($this->library) {
-                $date = date('Y-m-d', strtotime($this->library->created_at));
-                $path = settings('package.storage_path', 'public/package') . "/$date/{$this->library->id}";
+                switch ($this->library->mimetype) {
+                    case 'application/zip':
+                    case 'application/rar':
+                    case 'application/x-zip-compressed':
+                    case 'application/x-rar-compressed':
+                    case 'application/*':
+                        $date = date('Y-m-d', strtotime($this->library->created_at));
+                        $path = settings('package.storage_path', 'public/package') . "/$date/{$this->library->id}";
 
-                if (file_exists(storage_path("$path/imsmanifest.xml"))) {
-                    $xml = File::get(storage_path("$path/imsmanifest.xml"));
-                    $xml = new SimpleXMLElement($xml);
-                    $entrypoint = isset($xml->resources->resource['href'])
-                                    ? $xml->resources->resource['href']
-                                    : 'index.html';
+                        if (file_exists(storage_path("$path/imsmanifest.xml"))) {
+                            $xml = File::get(storage_path("$path/imsmanifest.xml"));
+                            $xml = new SimpleXMLElement($xml);
+                            $entrypoint = isset($xml->resources->resource['href'])
+                                            ? rawurlencode($xml->resources->resource['href'])
+                                            : 'index.html';
 
-                    $entrypoint = url("storage/$path/$entrypoint");
-                } elseif (file_exists(storage_path("$path/multiscreen.html"))) {
-                    $entrypoint = url("storage/$path/multiscreen.html");
-                } else {
-                    $entrypoint = url("storage/$path/index.html");
+                            $entrypoint = url("storage/$path/$entrypoint");
+                        } elseif (file_exists(storage_path("$path/multiscreen.html"))) {
+                            $entrypoint = url("storage/$path/multiscreen.html");
+                        } else {
+                            $entrypoint = url("storage/$path/index.html");
+                        }
+                        break;
+
+                    case 'video/ogg':
+                    case 'video/mp4':
+                    case 'video/wmv':
+                    default:
+                        $entrypoint = url("storage/{$this->library->url}");
+                        break;
                 }
             }
         } catch (Exception $e) {
@@ -123,5 +138,55 @@ trait ContentMutator
         }
 
         return $entrypoint;
+    }
+
+    /**
+     * Returns the interactive content with
+     * appropriate HTML tags.
+     *
+     * @return string
+     */
+    public function getHtmlAttribute()
+    {
+        $html = "";
+        switch ($this->library->mimetype) {
+            case 'application/zip':
+            case 'application/rar':
+            case 'application/x-zip-compressed':
+            case 'application/x-rar-compressed':
+            case 'application/*':
+                $html = "<object data={$this->interactive} class='interactive-content'>
+                            <param name='src' value={$this->interactive}>
+                            <param name='autoplay' value=false>
+                            <param name='autoStart' value=0>
+                            <embed src={$this->interactive}>
+                        </object>";
+                break;
+
+            case 'video/ogg':
+            case 'video/mp4':
+            case 'video/wmv':
+                $html = "<video autobuffer controls>
+                            <source src='{$this->interactive}'>
+                            <source src='{$this->interactive}'>
+                            <object type='{$this->library->mimetype}' data='{$this->interactive}'>
+                                <param name='src' value='{$this->interactive}'>
+                                <param name='autoplay' value='false'>
+                                <param name='autoStart' value='0'>
+                            </object>
+                        </video>";
+                break;
+
+            default:
+                $html = "<object data={$this->interactive} width=100% height=auto>
+                            <param name='src' value={$this->interactive}>
+                            <param name='autoplay' value=false>
+                            <param name='autoStart' value=0>
+                            <embed type='{$this->library->mimetype}' src={$this->interactive}>
+                        </object>";
+                break;
+        }
+
+        return $html;
     }
 }

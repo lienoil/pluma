@@ -1,5 +1,9 @@
 <?php
 
+// Scormvar
+Route::get('courses/{course}/{content}', 'Course\API\Controllers\ScormvarController@LMSGetValue')->name('scorm.lmsgetvalue');
+Route::post('courses/{course}/{content}', 'Course\API\Controllers\ScormvarController@LMSSetValue')->name('scorm.lmssetvalue');
+
 // Bookmark
 Route::post('courses/unbookmark/{course}', 'Course\API\Controllers\BookmarkCourseController@unbookmark')->name('courses.bookmark.unbookmark');
 Route::post('courses/bookmark/{course}', 'Course\API\Controllers\BookmarkCourseController@bookmark')->name('courses.bookmark.bookmark');
