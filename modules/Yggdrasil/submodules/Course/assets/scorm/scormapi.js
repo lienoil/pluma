@@ -1,49 +1,59 @@
-var debug = false;
 window.API = {
+  on (event, callback) {
+    window.addEventListener(event, function (e) {
+      let firstParam = e.detail.varname;
+      let secondParam = (typeof e.detail.value === "undefined") ? e : e.detail.value;
+      callback(firstParam, secondParam, e);
+    });
+  },
+
   setOptions(options) {
     this.options = Object.assign({
       GET: '',
       POST: '',
       _token: '',
       done: false,
+      debug: false,
+      timeout: 800,
     }, options);
   },
 
   LMSInitialize(dummyString) {
-    if (debug) { console.log("[LMS]", 'initializing') };
+    if (this.options.debug) { console.log("[SCORMAPI]", 'initializing...') };
 
     return "true";
   },
 
   LMSGetValue(varname) {
-    if (debug) { console.log("[LMS]", 'getting...' + varname) };
-    let req = createRequest();
 
-    req.open('GET', this.options.GET+"?varname="+varname+"&_token="+this.options._token, false);
-    req.send(null);
+    // let req = createRequest();
+    // req.open('GET', this.options.GET+"?varname="+varname+"&_token="+this.options._token, true);
+    // req.timeout = this.options.timeout;
+    // req.send(null);
 
-    // console.log(req);
-    if (req.status != 200) {
-      return req.responseText;
-    }
+    var event = new CustomEvent('LMSGetValue', { detail: {varname} });
+    let e = window.dispatchEvent(event);
 
-    return req.responseText;
+    // if (this.options.debug) { console.log("[SCORMAPI]", 'getting...' + varname + ', ' + req.responseText) };
+
+    // if (req.status === 200) {
+    //   return req.responseText;
+    // }
+
+    // return "";
   },
 
   LMSSetValue(varname, value) {
-    if (debug) { console.log("[LMS]", 'setValue', varname, value) };
 
-    let req = createRequest();
-    req.open('POST', this.options.POST+"?varname="+varname+"&_token="+this.options._token, false);
-    var params = 'value='+value;
-    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    req.setRequestHeader("Content-length", params.length);
-    req.setRequestHeader("Connection", "close");
-    req.send(params);
+    if (this.options.debug) { console.log("[SCORMAPI]", 'setting...', varname, value) };
 
-    if (req.status != 200) {
-      return "false";
-    }
+    // let req = createRequest();
+    // req.open('POST', this.options.POST+"?varname="+varname+"&_token="+this.options._token, true);
+    // req.timeout = this.options.timeout;
+    // req.send("value="+value);
+
+    var event = new CustomEvent('LMSSetValue', { detail: {varname, value} });
+    window.dispatchEvent(event);
 
     return "true";
   },
@@ -57,6 +67,9 @@ window.API = {
   LMSFinish(dummyString) {
     // this.LMSGetValue('');
     this.LMSCommit('');
+
+    var event = new CustomEvent('LMSFinish', { detail: {dummyString: dummyString} });
+    window.dispatchEvent(event);
 
     return "true";
   },

@@ -139,6 +139,7 @@
                                 <template v-if="resource.started">
                                     {{-- {!! $resource->html !!} --}}
                                     <div>
+                                        <div class="grey--text" v-if="lesson_status_completed">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</div>
                                         <object width="100%" height="640px" data="{{ $resource->interactive }}">
                                             <embed src="{{ $resource->interactive }}">
                                         </object>
@@ -191,6 +192,7 @@
                     },
                     resource: {!! json_encode($resource) !!},
                     scorm: null,
+                    lesson_status_completed: false,
                 }
             },
             methods: {
@@ -225,20 +227,27 @@
                                 POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
                                 _token: '{{ csrf_token() }}',
                                 done: false,
+                                // debug: true,
+                            });
+
+                            window.API.on('LMSGetValue', function (varname) {
+                                self.api().get('{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}', {varname: varname, user_id: {{ user()->id }}, _token: '{{ csrf_token() }}'}).then(response => {
+                                    if (varname !== "cmi.suspend_data") console.info('[LMS] on.get', varname, response.items);
+
+                                    return response.items;
+                                });
                             })
+
+                            window.API.on('LMSSetValue', function (varname, value) {
+                                self.api().post('{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}', {varname: varname, value: value, user_id: {{ user()->id }}, _token: '{{ csrf_token() }}'}).then(response => {
+                                    console.info("[SCORMAPI LMSSetValue Listener]", varname, value, response.bodyText);
+                                    return "true";
+                                }, (response) => {
+
+                                    return "false";
+                                });
+                            });
                             // screen.orientation && screen.orientation.lock('landscape');
-
-                            // alert();
-                            // self.scorm.init('');
-                            // window.API.LMSInitialize("");
-                            // pipwerks.SCORM.init('');
-
-                            // window.API.on('LMSInitialize', function() {
-                                // alert("Us");
-                                // if(self.scorm.init()) {
-                                    // alert("yeah")
-                                // }
-                            // });
                         },
 
                         listen () {
