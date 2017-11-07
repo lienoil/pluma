@@ -114,7 +114,7 @@ trait ContentMutator
                             $xml = File::get(storage_path("$path/imsmanifest.xml"));
                             $xml = new SimpleXMLElement($xml);
                             $entrypoint = isset($xml->resources->resource['href'])
-                                            ? rawurlencode($xml->resources->resource['href'])
+                                            ? utf8_decode(urldecode($xml->resources->resource['href']))
                                             : 'index.html';
 
                             $entrypoint = url("storage/$path/$entrypoint");
@@ -166,7 +166,7 @@ trait ContentMutator
             case 'video/ogg':
             case 'video/mp4':
             case 'video/wmv':
-                $html = "<video autobuffer controls>
+                $html = "<video class='interactive-content' autobuffer controls width='100%'>
                             <source src='{$this->interactive}'>
                             <source src='{$this->interactive}'>
                             <object type='{$this->library->mimetype}' data='{$this->interactive}'>
@@ -178,7 +178,7 @@ trait ContentMutator
                 break;
 
             default:
-                $html = "<object data={$this->interactive} width=100% height=auto>
+                $html = "<object class='interactive-content' data={$this->interactive} width=100% height=auto>
                             <param name='src' value={$this->interactive}>
                             <param name='autoplay' value=false>
                             <param name='autoStart' value=0>

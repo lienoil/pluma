@@ -49,6 +49,7 @@
         @if (env('APP_ENV', 'production') == 'development')
             {{-- <script src="https://unpkg.com/vue/dist/vue.js"></script> --}}
             <script src="{{ assets('frontier/vendors/vue/dist/vue.js') }}?v={{ $application->version }}"></script>
+            {{-- <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script> --}}
         @else
             <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>
         @endif

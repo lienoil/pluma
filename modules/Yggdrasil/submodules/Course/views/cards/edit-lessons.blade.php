@@ -178,8 +178,8 @@
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
-    {{-- <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
-    <script src="http://localhost:8080/dist/vuetify-mediabox.min.js"></script>
+    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
+    {{-- <script src="http://localhost:8080/dist/vuetify-mediabox.min.js"></script> --}}
     <script>
         mixins.push({
             data () {
@@ -346,7 +346,6 @@
                             let current = olds[i];
                             this.updateSection(this.draggables.items, current);
 
-                            console.log('CPOP',current.contents);
                             if (current.contents) {
                                 for (var j = 0; j < current.contents.length; j++) {
                                     let c = current.contents[j];

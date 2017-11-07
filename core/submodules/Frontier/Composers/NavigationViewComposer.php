@@ -107,18 +107,18 @@ class NavigationViewComposer extends BaseViewComposer
         $url = explode('/', $currentUrl);
         $old = "";
         foreach ($url as &$segment) {
-            $old .= "/$segment";
-            $segment = $this->swapWord($segment);
             if (is_numeric($segment)) {
                 $segment = $this->guessStringFromNumeric($segment, $old);
             }
+            $old .= "/$segment";
+            $segment = $this->swapWord($segment);
 
             $segment = [
                 'active' => end($url) === $segment,
                 'label' => ucfirst($segment),
                 'name' => $segment,
                 'slug' => $old,
-                'url' => url($old),
+                'url' => strtolower(url($old)),
             ];
         }
 
@@ -256,8 +256,22 @@ class NavigationViewComposer extends BaseViewComposer
      */
     public function guessStringFromNumeric($segment, $url)
     {
+
         try {
-            $segment = $segment;
+            $action = app('request')->route()->getAction();
+            $controller = class_basename($action['controller']);
+            $table = strtolower(str_plural(explode("Controller", $controller)[0]));
+            $result = \Illuminate\Support\Facades\DB::table($table)->find($segment);
+
+            if (isset($result->title)) {
+                $segment = $result->title;
+            } elseif (isset($result->name)) {
+                $segment = $result->title;
+            } elseif (isset($result->code)) {
+                $segment = $result->code;
+            } else {
+                $segment = $segment;
+            }
         } catch (\Exception $e) {
             return $segment;
         }

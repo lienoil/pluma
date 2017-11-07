@@ -70,7 +70,7 @@
                                                         <v-list-tile-avatar>
                                                             <v-icon>edit</v-icon>
                                                         </v-list-tile-avatar>
-                                                        <v-list-tile-title>{{ __('Edit') }}</v-list-tile-title>
+                                                        <v-list-tile-title>{{ __('Edit Course') }}</v-list-tile-title>
                                                     </v-list-tile>
                                                     @endcan
 
@@ -149,10 +149,6 @@
                             to enroll --}}
                             <v-btn v-if="!card.enrolled" flat primary ripple @click="">{{ __('Enroll') }}</v-btn>
                             <v-btn v-else flat primary ripple :href="route(urls.enrolled, card.slug)">{{ __('Learn More') }}</v-btn>
-                            @endcan
-
-                            @can('edit-course')
-                            <v-btn flat success ripple :href="route(urls.edit, card.id)">{{ __('Edit') }}</v-btn>
                             @endcan
                         </v-card-actions>
                     </v-layout>

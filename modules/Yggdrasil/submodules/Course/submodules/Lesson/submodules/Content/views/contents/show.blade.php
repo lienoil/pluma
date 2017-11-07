@@ -1,5 +1,11 @@
 @extends("Theme::layouts.course")
 
+@section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
+
+@push('post-css')
+    <link rel="manifest" href="{{ url('manifest.json') }}">
+@endpush
+
 @section("content")
     <v-navigation-drawer
         temporary
@@ -69,7 +75,7 @@
                     <v-toolbar card prominent class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-dialog width="600px">
+                        <v-dialog max-width="90vw" width="80vw">
                             <v-btn icon slot="activator" v-tooltip:left="{html: 'Show Description'}">
                                 <v-icon>info</v-icon>
                             </v-btn>
@@ -77,8 +83,8 @@
                                 <v-card-title>
                                     <span class="headline">{{ $resource->title }}</span>
                                 </v-card-title>
-                                <v-card-text>
-                                    {!! $resource->description ? $resource->description : __('No description available') !!}
+                                <v-card-text class="grey--text text--darken-2">
+                                    {!! $resource->body ? $resource->body : __('No description available') !!}
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -88,8 +94,6 @@
                         </v-dialog>
                     </v-toolbar>
                     <v-card-text>
-                        <div class="grey--text text--darken-2">{!! $resource->body !!}</div>
-                        <v-btn @click="next">Next</v-btn>
 
                         <template v-if="!resource.lesson.course.enrolled">
                             <div class="text-xs-center">
@@ -121,13 +125,13 @@
                         <template v-else>
                             <v-card v-if="! resource.started" flat class="grey lighten-4 grey--text text-xs-center">
                                 <v-card-media height="480px">
-                                    <v-container fill-height class="pa-0">
+                                    <v-container fill-height fluid>
                                         <v-layout fill-height wrap column>
                                             <v-spacer></v-spacer>
                                             <p>{{ __('You are about to start this lesson. Click below to continue. Good luck!') }}</p>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
-                                                <v-btn dark class="indigo" @click="resource.started = !resource.started">{{ __('Start') }}</v-btn>
+                                                <v-btn dark class="indigo" @click="goFullscreen">{{ __('Start') }}</v-btn>
                                                 <v-spacer></v-spacer>
                                             </v-card-actions>
                                             <v-spacer></v-spacer>
@@ -137,12 +141,28 @@
                             </v-card>
                             <v-fade-transition>
                                 <template v-if="resource.started">
-                                    {{-- {!! $resource->html !!} --}}
                                     <div>
                                         <div class="grey--text" v-if="lesson_status_completed">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</div>
-                                        <object width="100%" height="640px" data="{{ $resource->interactive }}">
+                                        {!! $resource->html !!}
+                                        {{-- <object
+                                            class="interactive-content"
+                                            width="100%" height="640px" data="{{ $resource->interactive }}"
+                                            onbeforeunload="API.LMSFinish('')"
+                                            onunload="API.LMSFinish('')"
+                                            ended="API.ended()"
+                                        >
                                             <embed src="{{ $resource->interactive }}">
-                                        </object>
+                                        </object> --}}
+
+                                        {{-- <v-dialog v-model="messagebox.model" width="60vw">
+                                            <v-card flat tile class="text-xs-center pa-4">
+                                                <v-card-text class="headline primary--text text-xs-center">{{ __("Completed") }}</v-card-text>
+                                                <v-icon class="display-4 success--text">check</v-icon>
+                                                <v-card-text>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum debitis aliquid, cupiditate veniam doloribus nemo assumenda tempore id reiciendis repellendus obcaecati, voluptatibus ea, voluptatum veritatis ad qui dicta iure libero.
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-dialog> --}}
                                     </div>
                                 </template>
                             </v-fade-transition>
@@ -160,6 +180,20 @@
 
 @push('css')
     <style>
+        .lms.lms-fullscreen {
+            overflow: hidden;
+        }
+
+        .lms.lms-fullscreen .interactive-content {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 64px;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .interactive-content {
             width: 100%;
             max-height: 100vh;
@@ -190,61 +224,86 @@
                         model: false,
                         items: {!! $contents !!}
                     },
+                    messagebox: {
+                        model: false,
+                        type: 'success',
+                    },
                     resource: {!! json_encode($resource) !!},
                     scorm: null,
                     lesson_status_completed: false,
                 }
             },
             methods: {
-                next() {
-                    // this.scorm.init();
-                    // alert(this.scorm.get("cmi.core.lesson_location"));
-                    // this.scorm.save();
-                    // this.scorm.quit();
-                    // pipwerks.SCORM.set("cmi.core.lesson_location", 'a001_quiz_q3.html')
-                    window.API.LMSSetValue("cmi.core.lesson_location", 'a001_quiz_q3.html');
+                goFullscreen() {
+                    this.resource.started = !this.resource.started;
+                    // window.API.stage.fullscreen(document.querySelector(".interactive-content"));
                 },
 
                 lms () {
                     let self = this
 
                     return {
-                        mountedXX () {
-                            window.API.on("LMSGetValue", function (varname) {
-                                self.$http.get('{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}'+'?varname='+varname+'&_token='+'{{ csrf_token() }}').then(response => {
-                                    console.log(response);
-                                    return response.bodyText;
+                        get () {
+                            window.API.on('BeforeInitialize', function (cache) {
+                                // Start getting the initial values from the LMS.
+                                // This is done in the custom (non-SCORM) function BeforeInitialize, because the request
+                                // is asynchronous.
+                                self.$http.post('{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}', {_token: '{{ csrf_token() }}'}).then(response => {
+                                    window.API.Cache().setMultiple(response.body);
+                                    window.API.Cache().set("cmi.core.student_name", '{{ user()->displayname }}');
+                                    window.API.Cache().set("cmi.core.student_id", '{{ user()->id }}');
                                 });
-                            })
-
-                            window.API.on("LMSSetValue", function (varname, value) {
-                                self.$http.post('{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}', {varname: varname, _token: '{{ csrf_token() }}'});
-                            })
-                        },
-                        mounted () {
-                            window.API.setOptions({
-                                GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
-                                POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
-                                _token: '{{ csrf_token() }}',
-                                done: false,
-                                // debug: true,
                             });
 
-                            window.API.on('LMSGetValue', function (varname) {
-                                self.api().get('{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}', {varname: varname, user_id: {{ user()->id }}, _token: '{{ csrf_token() }}'}).then(response => {
-                                    if (varname !== "cmi.suspend_data") console.info('[LMS] on.get', varname, response.items);
+                            // Initialize the API with options.
+                            window.API.init({
+                                GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
+                                POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
+                                INIT: '{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}',
+                                COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
+                                _token: '{{ csrf_token() }}',
+                                done: false,
+                                debug: true,
+                            });
+                        },
+                        mounted () {
+                            // window.API.setOptions({
+                            //     GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
+                            //     SET: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
+                            //     INIT: '{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}',
+                            //     COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
+                            //     FINISH: '{{ route('api.scorm.lmsfinish', [$resource->lesson->course->id, $resource->id]) }}',
+                            //     _token: '{{ csrf_token() }}',
+                            //     // debug: true,
+                            // });
 
-                                    return response.items;
-                                });
+                            window.API.on('LMSInitialize', function (dummyString, cache) {
+                               //
                             })
 
-                            window.API.on('LMSSetValue', function (varname, value) {
-                                self.api().post('{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}', {varname: varname, value: value, user_id: {{ user()->id }}, _token: '{{ csrf_token() }}'}).then(response => {
-                                    console.info("[SCORMAPI LMSSetValue Listener]", varname, value, response.bodyText);
-                                    return "true";
-                                }, (response) => {
+                            window.API.on('LMSGetValue', function (varname, cache) {
+                                //
+                            });
 
-                                    return "false";
+                            window.API.on('LMSCommit', function (string, cache, query) {
+                                console.log("Commit", JSON.parse(JSON.stringify(cache)));
+                                setTimeout(function () {
+                                    self.$http.post(window.API.options.COMMIT, cache).then(response => {
+                                        if (response.status === 200) {
+                                            // self.messagebox.model = true;
+                                            return "true";
+                                        }
+                                        return response.bodyText;
+                                    });
+                                }, 999)
+                            });
+
+                            window.API.on('LMSFinish', function (string, cache, query) {
+                                self.$http.post(window.API.options.FINISH, {_token: '{{ csrf_token() }}'}).then(response => {
+                                    // alert('asd');
+                                    // if (response.bodyText === "true") {
+                                    //     // self.messagebox.model = true;
+                                    // }
                                 });
                             });
                             // screen.orientation && screen.orientation.lock('landscape');
@@ -275,6 +334,7 @@
             },
 
             mounted () {
+                this.lms().get();
                 if (this.resource.started) {
                     this.lms().mounted();
                     // this.lms().listen();

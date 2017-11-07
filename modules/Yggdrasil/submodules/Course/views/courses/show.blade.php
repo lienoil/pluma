@@ -2,6 +2,7 @@
 
 @section("head-title", $resource->title)
 @section("utilitybar", '')
+
 @section("content")
     <v-parallax class="elevation-1" :src="resource.backdrop" height="auto">
         <v-layout row wrap align-end justify-center>

@@ -488,6 +488,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Lesson\\Requests\\LessonRequest' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Requests/LessonRequest.php',
         'Lesson\\Support\\Mutators\\LessonMutator' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Support/Mutators/LessonMutator.php',
         'Lesson\\Support\\Traits\\BelongsToLesson' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Support/Traits/BelongsToLesson.php',
+        'Lesson\\Support\\Traits\\HasCourseThroughLesson' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Support/Traits/HasCourseThroughLesson.php',
         'Lesson\\Support\\Traits\\HasManyContentsThroughLesson' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Support/Traits/HasManyContentsThroughLesson.php',
         'Lesson\\Support\\Traits\\HasManyLessons' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Support/Traits/HasManyLessons.php',
         'Library\\API\\Controllers\\LibraryController' => __DIR__ . '/../..' . '/core/submodules/Library/API/Controllers/LibraryController.php',
