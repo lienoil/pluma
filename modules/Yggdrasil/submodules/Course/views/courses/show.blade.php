@@ -119,7 +119,7 @@
                                 <v-card-text class="grey--text text--darken-2" v-html="lesson.body"></v-card-text>
                                 <v-card-actions v-if="lesson.contents.length">
                                     <v-spacer></v-spacer>
-                                    <v-dialog v-if="lesson.unlocked" lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
+                                    <v-dialog lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
                                         <v-btn v-if="resource.enrolled" slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
                                         <v-btn v-else slot="activator" round outline class="success success--text">{{ __('View') }}</v-btn>
                                         <v-card flat tile class="bg--light">
@@ -179,24 +179,23 @@
                                                     <v-flex order-lg2 order-md2 order-sm1 order-xs1 md6 xs12>
                                                         <v-card class="elevation-1 card--filed-on-top">
                                                             <v-toolbar card class="deep-purple lighten-2">
-                                                                <v-toolbar-title class="white--text">{{ __('Lesson Content') }}</v-toolbar-title>
+                                                                <v-toolbar-title class="white--text" v-html="lesson.title">{{ __('Lesson Content') }}</v-toolbar-title>
                                                             </v-toolbar>
                                                             <v-divider></v-divider>
                                                             <v-card-text>
                                                                 <v-card class="elevation-1 mb-3" v-for="(content, i) in lesson.contents" :key="i">
-                                                                    <span v-html="content.order"></span>
                                                                     <v-list two-line subheader class="pb-0">
-                                                                        <v-list-tile avatar ripple :href="content.url" target="__blank">
+                                                                        <v-list-tile avatar ripple :href="content.url">
                                                                             <v-list-tile-avatar>
-                                                                                <v-icon v-if="resource.progress && resource.progress.current === content.id" primary>play_circle_outline</v-icon>
-                                                                                <v-icon v-else-if="resource.progress && resource.progress.previous === content.id" class="grey--text">check</v-icon>
+                                                                                <v-icon v-if="content.current" primary>play_circle_outline</v-icon>
+                                                                                <v-icon v-else-if="content.completed" class="grey--text">check</v-icon>
                                                                                 <v-icon v-else class="grey--text">lock</v-icon>
                                                                             </v-list-tile-avatar>
                                                                             <v-list-tile-content>
                                                                                 <v-list-tile-title class="title" v-html="content.title"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title v-if="resource.enrolled" class="caption">
-                                                                                    <span v-if="resource.progress.current == content.id">{{ __('Start') }}</span>
-                                                                                    <span v-else-if="resource.progress.previous === content.id">{{ __('Finished') }}</span>
+                                                                                    <span v-if="content.current">{{ __('Start') }}</span>
+                                                                                    <span v-else-if="content.completed">{{ __('Finished') }}</span>
                                                                                     <span v-else>{{ __('Lock') }}</span>
                                                                                 </v-list-tile-sub-title>
                                                                                 <v-list-tile-sub-title v-else>
@@ -347,6 +346,9 @@
                         self.resource.bookmarked = !self.resource.bookmarked;
                     });
                 },
+                newWindow (url) {
+                    window.open(url, 'newwindow', 'width=1028,height=730');
+                }
             },
 
             mounted () {

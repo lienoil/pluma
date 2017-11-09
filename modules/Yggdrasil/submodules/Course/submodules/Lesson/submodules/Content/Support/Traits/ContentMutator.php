@@ -2,6 +2,8 @@
 
 namespace Content\Support\Traits;
 
+use Course\Models\Scormvar;
+use Course\Models\Status;
 use Illuminate\Support\Facades\File;
 use SimpleXMLElement;
 
@@ -18,16 +20,6 @@ trait ContentMutator
     }
 
     /**
-     * Alias for unlock.
-     *
-     * @return boolean
-     */
-    public function getCompletedAttribute()
-    {
-        return $this->unlocked;
-    }
-
-    /**
      * Gets the next content via sort order.
      *
      * @return \Illuminate\Database\Eloquent\Model
@@ -35,7 +27,7 @@ trait ContentMutator
     public function getNextAttribute()
     {
         $sort = $this->sort;
-        $contents = $this->lesson->contents()->orderBy('sort', 'ASC')->get();
+        $contents = $this->course->contents()->orderBy('sort', 'ASC')->get();
 
         $next = null;
         foreach ($contents as $i => $content) {
@@ -57,7 +49,7 @@ trait ContentMutator
     public function getPreviousAttribute()
     {
         $sort = $this->sort;
-        $contents = $this->lesson->contents()->orderBy('sort', 'ASC')->get();
+        $contents = $this->course->contents()->orderBy('sort', 'ASC')->get();
 
         $next = null;
         foreach ($contents as $i => $content) {
@@ -79,16 +71,6 @@ trait ContentMutator
     public function getOrderAttribute()
     {
         return (int) $this->sort+1;
-    }
-
-    /**
-     * Check if content has already been started before.
-     *
-     * @return boolean
-     */
-    public function getStartedAttribute()
-    {
-        return false;
     }
 
     /**
@@ -155,7 +137,7 @@ trait ContentMutator
             case 'application/x-zip-compressed':
             case 'application/x-rar-compressed':
             case 'application/*':
-                $html = "<object data={$this->interactive} class='interactive-content'>
+                $html = "<object data={$this->interactive} class='interactive-content' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
                             <param name='src' value={$this->interactive}>
                             <param name='autoplay' value=false>
                             <param name='autoStart' value=0>
@@ -166,7 +148,7 @@ trait ContentMutator
             case 'video/ogg':
             case 'video/mp4':
             case 'video/wmv':
-                $html = "<video class='interactive-content' autobuffer controls width='100%'>
+                $html = "<video class='interactive-content' autobuffer autoplay controls width='100%' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
                             <source src='{$this->interactive}'>
                             <source src='{$this->interactive}'>
                             <object type='{$this->library->mimetype}' data='{$this->interactive}'>
@@ -178,7 +160,7 @@ trait ContentMutator
                 break;
 
             default:
-                $html = "<object class='interactive-content' data={$this->interactive} width=100% height=auto>
+                $html = "<object class='interactive-content' data={$this->interactive} width=100% height=auto onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
                             <param name='src' value={$this->interactive}>
                             <param name='autoplay' value=false>
                             <param name='autoStart' value=0>

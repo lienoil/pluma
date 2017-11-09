@@ -35,7 +35,6 @@ class CreateLessonsTable extends Migration
             $table->string('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
-            $table->boolean('lockable')->nullable()->default(false);
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses')->onUpdate('cascade')->onDelete('cascade');

@@ -4,6 +4,8 @@ namespace Course\Controllers;
 
 use Content\Models\Content;
 use Course\Models\Course;
+use Course\Models\Scormvar;
+use Course\Models\Status;
 use Course\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
@@ -73,20 +75,24 @@ class EnrollController extends AdminController
         $course = Course::findOrFail($course_id);
         $contents = array_column($course->contents->toArray(), 'id');
 
-        $course->users()->where('user_id', $user_id)->detach();
-        foreach ($course->contents as $content) {
-            $prev = Content::where('sort', '<', $content->sort)->whereIn('id', $contents)->max('id');
-            $current = $content->id;
-            $next = Content::where('sort', '>', $content->sort)->whereIn('id', $contents)->min('id');
+        if (! $course->users()->where('user_id', $user_id)->exists()) {
             $course->users()->attach(User::find($user_id), [
-                'previous' => $prev,
-                'current' => $current,
-                'next' => $next,
-                'status' => ! $prev ? 1 : 0,
+                'previous' => null,
+                'current' => $course->contents->first() ? $course->contents->first()->id : null,
+                'next' => $course->contents->first()->next ? $course->contents->first()->next->id : null,
+                'status' => 1,
             ]);
+
+            foreach ($course->contents as $sort => $content) {
+                $status = $sort == 0 ? 'current' : null;
+                Status::updateOrCreate([
+                    'course_id' => $course->id,
+                    'content_id' => $content->id,
+                    'user_id' => $user_id,
+                ], ['status' => $status]);
+            }
         }
 
-
-        die("OKAY");
+        return back();
     }
 }

@@ -24,9 +24,9 @@
         <v-list>
             <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'primary white--text': (resource.id == item.id)}">
                 <v-list-tile-action>
-                    <v-icon v-if="item.completed">check</v-icon>
-                    <v-icon v-else-if="item.current">play</v-icon>
-                    <v-icon v-else-if="item.locked">lock</v-icon>
+                    <v-icon left v-if="item.completed">check</v-icon>
+                    <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
+                    <v-icon left v-else>lock</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title v-html="item.title"></v-list-tile-title>
@@ -36,43 +36,47 @@
     </v-navigation-drawer>
     <v-toolbar dark extended class="text-xs-center indigo elevation-0">
         <v-layout wrap justify-space-around align-center hidden-xs-only>
-            @if ($resource->previous)
+            <template v-if="previous">
                 <v-btn
-                    href="{{ $resource->previous->url }}"
+                    v-if="previous"
+                    :href="previous.url"
                     ripple
                     flat
                 >
-                    <v-icon left dark>arrow_back</v-icon>
-                    {{ $resource->previous ? $resource->previous->title : '' }}
+                    <v-icon left dark v-if="previous.completed">check</v-icon>
+                    <v-icon left dark v-else-if="previous.locked">lock</v-icon>
+                    <v-icon left dark v-else-if="previous.current">play_circle_outline</v-icon>
+                    <v-icon left dark v-else>arrow_back</v-icon>
+                    <span v-html="previous.title"></span>
                 </v-btn>
-            @else
-                <v-btn disabled flat>
-                    {{ __('Start of Lesson') }}
-                </v-btn>
-            @endif
+            </template>
+            <v-btn v-else disabled flat><span v-html="resource.lesson.title"></span></v-btn>
+
             <span class="caption">{{ "$resource->order/{$resource->lesson->contents->count()}" }}</span>
-            @if ($resource->next)
+
+            <template v-if="next">
                 <v-btn
-                    href="{{ $resource->next->url }}"
+                    v-if="next"
+                    :href="next.url"
                     ripple
                     flat
                 >
-                    {{ $resource->next ? $resource->next->title : '' }}
-                    <v-icon right dark>arrow_forward</v-icon>
+                    <span v-html="next.title"></span>
+                    <v-icon right dark v-if="next.completed">check</v-icon>
+                    <v-icon right dark v-else-if="next.locked">lock</v-icon>
+                    <v-icon right dark v-else-if="next.current">play_circle_outline</v-icon>
+                    <v-icon right dark v-else>arrow_forward</v-icon>
                 </v-btn>
-            @else
-                <v-btn disabled flat>
-                    {{ __('End of Lesson') }}
-                </v-btn>
-            @endif
+            </template>
+            <v-btn v-else disabled flat>{{ __('End of Lesson') }}</v-btn>
         </v-layout>
     </v-toolbar>
-    <v-container fluid grid-list-lg>
+    <v-container grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
                 <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn>
-                <v-card class="card--flex-toolbar card--filed-on-top">
-                    <v-toolbar card prominent class="transparent">
+                <v-card id="interactive-container" class="card--flex-toolbar card--filed-on-top">
+                    <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-dialog max-width="90vw" width="80vw">
@@ -88,88 +92,134 @@
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    {{-- <v-btn class="green--text lighten-2" flat="flat" @click="start = false">Got it</v-btn> --}}
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                        <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
+                        <v-dialog max-width="90vw" width="80vw">
+                            <v-btn slot="activator" icon v-tooltip:left="{html: 'Close this window'}"><v-icon>close</v-icon></v-btn>
+                            <v-card>
+                                <v-card-title>
+                                    <span class="headline">{{ __("Close this window?") }}</span>
+                                </v-card-title>
+                                <v-card-text>
+                                    <p>{!! __("You are about to close this entire window. The LMS will try and save you're progress but it is <strong>not guaranteed</strong>.") !!}</p>
+                                    <p>{{ __("Do you want to proceed? Click anywhere to cancel.") }}</p>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn primary class="elevation-1" @click="lms().exit()">Try Save &amp; Exit</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
                     </v-toolbar>
-                    <v-card-text>
+                    <v-alert
+                        icon="check"
+                        class="success ma-0"
+                        dismissible
+                        v-model="resource.completed"
+                        transition="slide-y-transition"
+                        :timeout="2000"
+                        style="z-index: 2"
+                    >
+                        <v-card style="margin-bottom: -2rem" class="elevation-1 mb--2">
+                            <v-card-text class="grey--text text--darken-1 text-xs-center">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</v-card-text>
+                        </v-card>
+                    </v-alert>
 
-                        <template v-if="!resource.lesson.course.enrolled">
-                            <div class="text-xs-center">
-                                <img src="{{ assets('course/images/no-courses.png') }}" alt="{{ __('Not enrolled') }}">
-                            </div>
-                            <v-card-media height="auto">
-                                <v-container fill-height class="pa-0 pb-4">
-                                        <v-layout fill-height wrap column>
+                    <template v-if="! resource.lesson.course.enrolled">
+                        <div class="text-xs-center">
+                            <img src="{{ assets('course/images/no-courses.png') }}" alt="{{ __('Not enrolled') }}">
+                        </div>
+                        <v-container fill-height class="pa-0 pb-4">
+                            <v-layout fill-height wrap column>
+                                <v-spacer></v-spacer>
+                                <div class="subheading text-xs-center grey--text">
+                                    <div class="mb-3 headline">{{ __("You are not enrolled to this course.") }}</div>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn class="primary primary--text" outline ripple @click="">{{ __("Request Course") }}</v-btn>
+                                        <form v-if="!resource.lesson.course.bookmarked" action="{{ route("courses.bookmark.bookmark", $resource->lesson->course->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <v-btn type="submit" class="red red--text" outline ripple><v-icon left>bookmark_outline</v-icon>{{ __("Bookmark") }}</v-btn>
+                                        </form>
+                                        <v-spacer></v-spacer>
+                                    </v-card-actions>
+                                </div>
+                                <v-spacer></v-spacer>
+                            </v-layout>
+                        </v-container>
+                    </template>
+                    <template v-else>
+                        <v-card flat class="grey--text text--darken-1" v-if="resource.locked">
+                            <v-card-media height="480px">
+                                <v-container fill-height fluid>
+                                    <v-layout fill-height wrap column>
+                                        <v-spacer></v-spacer>
+                                        <v-icon class="display-4">lock</v-icon>
+                                        <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
+                                        <v-card-actions class="pa-0">
                                             <v-spacer></v-spacer>
-                                            <div class="subheading text-xs-center grey--text">
-                                                {{-- <div><v-icon class="display-4 grey--text pa-5">lock</v-icon></div> --}}
-                                                <div class="mb-3 headline">{{ __("You are not enrolled to this course.") }}</div>
-                                                <v-card-actions>
-                                                    <v-spacer></v-spacer>
-                                                    <v-btn class="primary primary--text" outline ripple @click="">{{ __("Request Course") }}</v-btn>
-                                                    <form v-if="!resource.lesson.course.bookmarked" action="{{ route("courses.bookmark.bookmark", $resource->lesson->course->id) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <v-btn type="submit" class="red red--text" outline ripple><v-icon left>bookmark_outline</v-icon>{{ __("Bookmark") }}</v-btn>
-                                                    </form>
-                                                    <v-spacer></v-spacer>
-                                                </v-card-actions>
-                                            </div>
+                                            <v-btn dark class="indigo" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
                                             <v-spacer></v-spacer>
-                                        </v-layout>
-                                    </v-container>
-                                </v-card-media>
+                                        </v-card-actions>
+                                        <v-spacer></v-spacer>
+                                    </v-layout>
+                                </v-container>
                             </v-card-media>
-                        </template>
+                        </v-card>
                         <template v-else>
-                            <v-card v-if="! resource.started" flat class="grey lighten-4 grey--text text-xs-center">
+                            <v-card v-if="! course.started" flat class="grey--text text--darken-1">
                                 <v-card-media height="480px">
                                     <v-container fill-height fluid>
                                         <v-layout fill-height wrap column>
+                                            {!! $resource->body !!}
                                             <v-spacer></v-spacer>
-                                            <p>{{ __('You are about to start this lesson. Click below to continue. Good luck!') }}</p>
-                                            <v-card-actions>
+                                            <v-card-actions class="pa-0">
                                                 <v-spacer></v-spacer>
-                                                <v-btn dark class="indigo" @click="goFullscreen">{{ __('Start') }}</v-btn>
-                                                <v-spacer></v-spacer>
+                                                <v-btn dark class="indigo" @click="course.started = !course.started">
+                                                    <v-icon left>play_circle_outline</v-icon>
+                                                    <template v-if="resource.completed">{{ __('Play Again') }}</template>
+                                                    <template v-else>{{ __('Start') }}</template>
+                                                </v-btn>
                                             </v-card-actions>
-                                            <v-spacer></v-spacer>
                                         </v-layout>
                                     </v-container>
                                 </v-card-media>
                             </v-card>
-                            <v-fade-transition>
-                                <template v-if="resource.started">
-                                    <div>
-                                        <div class="grey--text" v-if="lesson_status_completed">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</div>
-                                        {!! $resource->html !!}
-                                        {{-- <object
-                                            class="interactive-content"
-                                            width="100%" height="640px" data="{{ $resource->interactive }}"
-                                            onbeforeunload="API.LMSFinish('')"
-                                            onunload="API.LMSFinish('')"
-                                            ended="API.ended()"
-                                        >
-                                            <embed src="{{ $resource->interactive }}">
-                                        </object> --}}
-
-                                        {{-- <v-dialog v-model="messagebox.model" width="60vw">
-                                            <v-card flat tile class="text-xs-center pa-4">
-                                                <v-card-text class="headline primary--text text-xs-center">{{ __("Completed") }}</v-card-text>
-                                                <v-icon class="display-4 success--text">check</v-icon>
-                                                <v-card-text>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum debitis aliquid, cupiditate veniam doloribus nemo assumenda tempore id reiciendis repellendus obcaecati, voluptatibus ea, voluptatum veritatis ad qui dicta iure libero.
-                                                </v-card-text>
-                                            </v-card>
-                                        </v-dialog> --}}
-                                    </div>
-                                </template>
-                            </v-fade-transition>
-                            {{-- <iframe width="100%" height="450px" src="{{ $resource->interactive }}" frameborder="0"></iframe> --}}
                         </template>
+                        <v-fade-transition>
+                            <template v-if="course.started">
+                                <div>
+                                    {!! $resource->html !!}
+                                    {{-- <object
+                                        class="interactive-content"
+                                        width="100%" height="640px" data="{{ $resource->interactive }}"
+                                        onbeforeunload="unloadSCO()"
+                                        onunload="unloadSCO()"
+                                    >
+                                        <embed src="{{ $resource->interactive }}">
+                                    </object> --}}
 
-                    </v-card-text>
+                                    <v-dialog v-model="messagebox.model" width="60vw" persistent>
+                                        <v-card flat tile class="text-xs-center">
+                                            <v-icon class="display-4 success--text">check</v-icon>
+                                            <v-card-text class="headline success--text text-xs-center">{{ __("Completed") }}</v-card-text>
+                                            <v-card-text class="grey--text text--darken-1">
+                                                {{ __("You have finished this Interaction. Click below to continue.") }}
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
+                                                <v-spacer></v-spacer>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                </div>
+                            </template>
+                        </v-fade-transition>
+                    </template>
+
                 </v-card>
             </v-flex>
         </v-layout>
@@ -180,24 +230,21 @@
 
 @push('css')
     <style>
-        .lms.lms-fullscreen {
-            overflow: hidden;
+        .lms.lms-fullscreen .card:-webkit-full-screen,
+        .lms.lms-fullscreen .card:-moz-full-screen
+        .lms.lms-fullscreen .card:fullscreen {
+            max-height: 100vh;
+            overflow-y: auto;
+            cursor: zoom-out;
+            /*overflow: hidden;*/
         }
 
         .lms.lms-fullscreen .interactive-content {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            top: 64px;
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            max-height: calc(100vh - 48px);
         }
         .interactive-content {
             width: 100%;
             max-height: 100vh;
-            min-height: 240px;
             display: block;
             text-align: center;
             margin: 0 auto;
@@ -227,32 +274,54 @@
                     messagebox: {
                         model: false,
                         type: 'success',
+                        exit: false,
+                        btnDiabled: false,
+                    },
+                    course: {
+                        started: false,
                     },
                     resource: {!! json_encode($resource) !!},
+                    previous: {!! json_encode($resource->previous) !!},
+                    next: {!! json_encode($resource->next) !!},
                     scorm: null,
                     lesson_status_completed: false,
                 }
             },
             methods: {
+                unloadSCO () {
+                    window.API.LMSCommit("");
+                    return window.API.LMSFinish("");
+                },
+
                 goFullscreen() {
-                    this.resource.started = !this.resource.started;
+                    this.fullscreen.model = !this.fullscreen.model;
+                    window.API.stage.fullscreen(document.querySelector('#interactive-container'));
                     // window.API.stage.fullscreen(document.querySelector(".interactive-content"));
                 },
+
 
                 lms () {
                     let self = this
 
                     return {
+                        exit () {
+                            self.messagebox.btnDiabled = !self.messagebox.btnDiabled;
+                            window.API.LMSFinish('');
+                            // window.close();
+                        },
+
                         get () {
                             window.API.on('BeforeInitialize', function (cache) {
                                 // Start getting the initial values from the LMS.
                                 // This is done in the custom (non-SCORM) function BeforeInitialize, because the request
                                 // is asynchronous.
-                                self.$http.post('{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}', {_token: '{{ csrf_token() }}'}).then(response => {
-                                    window.API.Cache().setMultiple(response.body);
-                                    window.API.Cache().set("cmi.core.student_name", '{{ user()->displayname }}');
-                                    window.API.Cache().set("cmi.core.student_id", '{{ user()->id }}');
-                                });
+                                if (! self.resource.locked) {
+                                    self.$http.post('{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}', {_token: '{{ csrf_token() }}'}).then(response => {
+                                        window.API.Cache().setMultiple(response.body);
+                                        window.API.Cache().set("cmi.core.student_name", '{{ user()->displayname }}');
+                                        window.API.Cache().set("cmi.core.student_id", '{{ user()->id }}');
+                                    });
+                                }
                             });
 
                             // Initialize the API with options.
@@ -261,6 +330,7 @@
                                 POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
                                 INIT: '{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}',
                                 COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
+                                FINISH: '{{ route('api.scorm.lmsfinish', [$resource->lesson->course->id, $resource->id]) }}',
                                 _token: '{{ csrf_token() }}',
                                 done: false,
                                 debug: true,
@@ -278,11 +348,14 @@
                             // });
 
                             window.API.on('LMSInitialize', function (dummyString, cache) {
-                               //
+                               // window.API.LMSCommit('');
                             })
 
-                            window.API.on('LMSGetValue', function (varname, cache) {
+                            window.API.on('LMSSetValue', function (varname, value, cache) {
                                 //
+                            });
+                            window.API.on('LMSGetValue', function (varname, cache) {
+                                // console.log("CACHED-----", JSON.parse(JSON.stringify(cache)));
                             });
 
                             window.API.on('LMSCommit', function (string, cache, query) {
@@ -300,11 +373,15 @@
 
                             window.API.on('LMSFinish', function (string, cache, query) {
                                 self.$http.post(window.API.options.FINISH, {_token: '{{ csrf_token() }}'}).then(response => {
-                                    // alert('asd');
-                                    // if (response.bodyText === "true") {
-                                    //     // self.messagebox.model = true;
-                                    // }
+                                    self.drawer.items = response.body;
+                                    //
                                 });
+                            });
+
+                            window.API.on('VideoEnded', function (video, e) {
+                                if (window.API.Cache().set("cmi.core.lesson_status", 'completed')) {
+                                    window.API.LMSFinish('');
+                                }
                             });
                             // screen.orientation && screen.orientation.lock('landscape');
                         },
@@ -335,14 +412,14 @@
 
             mounted () {
                 this.lms().get();
-                if (this.resource.started) {
+                if (this.course.started) {
                     this.lms().mounted();
                     // this.lms().listen();
                 }
             },
 
             watch: {
-                'resource.started': function (value) {
+                'course.started': function (value) {
                     if (value) {
                         this.lms().mounted();
                         this.lms().listen();

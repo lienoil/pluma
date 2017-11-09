@@ -3,21 +3,23 @@
 namespace Content\Models;
 
 use Content\Support\Traits\ContentMutator;
+use Course\Support\Traits\Status;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Lesson\Support\Traits\BelongsToLesson;
 use Lesson\Support\Traits\HasCourseThroughLesson;
 use Library\Support\Traits\BelongsToLibrary;
-use Lock\Support\Traits\MorphManyUnlocks;
-use Lock\Support\Traits\Unlock;
 use Pluma\Models\Model;
 
 class Content extends Model
 {
-    use BelongsToLesson, HasCourseThroughLesson, BelongsToLibrary, Unlock, MorphManyUnlocks, ContentMutator;
+    use BelongsToLesson, HasCourseThroughLesson, BelongsToLibrary, ContentMutator, Status;
 
-    protected $with = ['library', 'lesson', 'unlocks'];
+    protected $with = ['library', 'lesson'];
 
-    protected $appends = ['url', 'started', 'completed', 'locked', 'unlocked', 'interactive'];
+    protected $appends = [
+        'current', 'locked', 'completed',
+        'url', 'interactive'
+    ];
 
     protected $searchables = ['title', 'body', 'created_at', 'updated_at'];
 }

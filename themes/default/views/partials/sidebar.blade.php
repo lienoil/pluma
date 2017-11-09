@@ -10,6 +10,7 @@
     overflow
     persistent
     v-model="sidebar.drawer"
+    app
 >
 
     <v-list>

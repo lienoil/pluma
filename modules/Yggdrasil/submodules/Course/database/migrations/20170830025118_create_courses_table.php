@@ -36,7 +36,6 @@ class CreateCoursesTable extends Migration
             $table->text('delta')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();
-            $table->boolean('lockable')->nullable()->default(false);
             $table->timestamps();
             $table->softDeletes();
 

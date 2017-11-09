@@ -103,7 +103,8 @@
                         </v-card-media>
 
                         <v-card-title primary-title class="pb-0">
-                            <a :href="route(urls.show, card.slug)" class="accent--text td-n"><strong class="title accent--text" v-html="card.title"></strong></a>
+                            <a v-if="!card.enrolled" :href="route(urls.show, card.slug)" class="accent--text td-n"><strong class="title accent--text" v-html="card.title"></strong></a>
+                            <a v-else :href="route(urls.enrolled, card.slug)" class="accent--text td-n"><strong class="title accent--text" v-html="card.title"></strong></a>
                         </v-card-title>
 
                         <v-card-actions>
