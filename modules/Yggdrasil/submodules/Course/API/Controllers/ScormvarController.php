@@ -248,10 +248,11 @@ class ScormvarController extends APIController
                     'user_id' => $request->input('user_id') ? $request->input('user_id') : user()->id,
                 ]);
 
-        if ($state->exists && $state->status !== 'completed') {
+        if ($state->exists) {
             $state->status = $status;
             $state->save();
-            if ($content->next) {
+
+            if ($content->next && $status !== 'incomplete') {
                 Status::updateOrCreate([
                         'course_id' => $course_id,
                         'content_id' => $content->next->id,

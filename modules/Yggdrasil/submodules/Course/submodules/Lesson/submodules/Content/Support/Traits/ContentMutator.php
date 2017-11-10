@@ -93,8 +93,7 @@ trait ContentMutator
                         $path = settings('package.storage_path', 'public/package') . "/$date/{$this->library->id}";
 
                         if (file_exists(storage_path("$path/imsmanifest.xml"))) {
-                            $xml = File::get(storage_path("$path/imsmanifest.xml"));
-                            $xml = new SimpleXMLElement($xml);
+                            $xml = $this->imsmanifest;
                             $entrypoint = isset($xml->resources->resource['href'])
                                             ? utf8_decode(urldecode($xml->resources->resource['href']))
                                             : 'index.html';
@@ -120,6 +119,33 @@ trait ContentMutator
         }
 
         return $entrypoint;
+    }
+
+    /**
+     * Try to get the imsmanifest.xml file as a
+     * SimpleXMLElement.
+     *
+     * @return mixed
+     */
+    public function getImsmanifestAttribute()
+    {
+        $imsmanifest = false;
+
+        try {
+            if ($this->library) {
+                $date = date('Y-m-d', strtotime($this->library->created_at));
+                $path = settings('package.storage_path', 'public/package') . "/$date/{$this->library->id}";
+
+                if (file_exists(storage_path("$path/imsmanifest.xml"))) {
+                    $xml = File::get(storage_path("$path/imsmanifest.xml"));
+                    $imsmanifest = new SimpleXMLElement($xml);
+                }
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return $imsmanifest;
     }
 
     /**
@@ -170,5 +196,25 @@ trait ContentMutator
         }
 
         return $html;
+    }
+
+    /**
+     * Get the SCORM version.
+     *
+     * @return string
+     */
+    public function getVersionAttribute()
+    {
+        if ($this->imsmanifest) {
+            if ($this->imsmanifest->metadata->schemaversion) {
+                return $this->imsmanifest->metadata->schemaversion;
+            } elseif ($this->imsmanifest->attributes()->version) {
+                return $this->imsmanifest->attributes()->version;
+            }
+
+            return "";
+        }
+
+        return null;
     }
 }

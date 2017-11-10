@@ -17,7 +17,7 @@ class Content extends Model
     protected $with = ['library', 'lesson'];
 
     protected $appends = [
-        'current', 'locked', 'completed',
+        'current', 'locked', 'completed', 'incomplete',
         'url', 'interactive'
     ];
 

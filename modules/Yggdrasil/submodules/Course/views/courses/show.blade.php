@@ -185,7 +185,7 @@
                                                             <v-card-text>
                                                                 <v-card class="elevation-1 mb-3" v-for="(content, i) in lesson.contents" :key="i">
                                                                     <v-list two-line subheader class="pb-0">
-                                                                        <v-list-tile avatar ripple :href="content.url">
+                                                                        <v-list-tile avatar ripple @click="openWindow(content.url)">
                                                                             <v-list-tile-avatar>
                                                                                 <v-icon v-if="content.current" primary>play_circle_outline</v-icon>
                                                                                 <v-icon v-else-if="content.completed" class="grey--text">check</v-icon>
@@ -346,7 +346,7 @@
                         self.resource.bookmarked = !self.resource.bookmarked;
                     });
                 },
-                newWindow (url) {
+                openWindow (url) {
                     window.open(url, 'newwindow', 'width=1028,height=730');
                 }
             },

@@ -1,4 +1,6 @@
-window.API = {
+let scormAPI = {
+  version: '1.2',
+
   on (events, callback) {
     let self = this;
 
@@ -13,8 +15,10 @@ window.API = {
     })
   },
 
-  init (options) {
+  init (version, options) {
     this.setOptions(options);
+    this.setVersion(version);
+
     this.misc.debug(true, "init(options)", 'setOptions() was called');
 
     this.Cache().init();
@@ -51,14 +55,13 @@ window.API = {
   setOptions(options) {
     this.done = false;
     this.status = 'not-attempted';
-
     this.options = Object.assign({
       GET: '',
       POST: '',
       _token: '',
-      done: false,
       debug: false,
       timeout: 800,
+      version: '1.2',
     }, options);
   },
 
@@ -109,8 +112,8 @@ window.API = {
     // and we call it only once a page load.
     this.misc.debug(true, JSON.parse(JSON.stringify(this.Cache().get())));
     if (this.Cache().get('cmi.core.lesson_status') === 'completed' && this.status !== 'completed') {
-      window.API.LMSCommit('');
-      // window.API.LMSFinish('');
+      scormAPI.LMSCommit('');
+      scormAPI.LMSFinish('');
       this.status = 'completed';
       this.misc.debug(true, "LMSSetValue", '------------------------------------');
       this.misc.debug(true, "LMSSetValue", 'LMSCommit() called from LMSSetValue', 'status:', this.status);
@@ -148,7 +151,7 @@ window.API = {
     }
 
     // Commit values
-    window.API.LMSCommit(''); // commit the cached values to database.
+    scormAPI.LMSCommit(''); // commit the cached values to database.
     let event2 = new CustomEvent('CourseEnded', { detail: {dummyString: dummyString} });
     window.dispatchEvent(event2);
 
@@ -265,15 +268,15 @@ window.API = {
         }
       }
 
-      window.API.misc.debug(true, "misc.style()", interactive, interactive.offsetWidth, interactive.offsetHeight);
+      scormAPI.misc.debug(true, "misc.style()", interactive, interactive.offsetWidth, interactive.offsetHeight);
     },
 
     debug (timestampped, ...args) {
-      if (window.API.options && window.API.options.debug) {
+      if (scormAPI.options && scormAPI.options.debug) {
         let d = new Date();
-        let H = window.API.misc.pad(d.getHours());
-        let i = window.API.misc.pad(d.getMinutes());
-        let s = window.API.misc.pad(d.getSeconds());
+        let H = scormAPI.misc.pad(d.getHours());
+        let i = scormAPI.misc.pad(d.getMinutes());
+        let s = scormAPI.misc.pad(d.getSeconds());
         let timestamp = [H, i, s].join(":");
 
         if (timestampped) {
@@ -294,7 +297,7 @@ window.API = {
   stage: {
     fullscreen (el) {
       el = el || document.documentElement;
-      window.API.misc.debug("You went fullscreen");
+      scormAPI.misc.debug("You went fullscreen");
 
       if (!document.fullscreenElement && !document.mozFullScreenElement &&
         !document.webkitFullscreenElement && !document.msFullscreenElement) {
@@ -323,20 +326,39 @@ window.API = {
         // alert('clocked');
       }
     },
-    unfullscreen () {
-      alert('asd');
-      if (document.exitFullScreen) {
-        document.exitFullScreen();
-      } else if (document.webkitExitFullScreen) {
-        document.webkitExitFullScreen();
-      } else if (document.mozExitFullScreen) {
-        document.mozExitFullScreen();
-      } else if (document.msExitFullScreen) {
-        document.msExitFullScreen();
-      }
+  },
+
+  // Version
+  setVersion (version) {
+    this.version = version;
+    this.options.version = version;
+
+    switch (this.version) {
+      case "1484_11":
+      case "2004":
+      case "2004 3rd Edition":
+        window.API_1484_11 = this;
+        window.API_1484_11.Initialize = scormAPI.LMSInitialize;
+        window.API_1484_11.GetValue = scormAPI.GetValue;
+        window.API_1484_11.SetValue = scormAPI.SetValue;
+        window.API_1484_11.Terminate = scormAPI.Terminate;
+        window.API_1484_11.GetLastError = scormAPI.LMSGetLastError;
+        window.API_1484_11.GetErrorString = scormAPI.LMSGetErrorString;
+        window.API_1484_11.GetDiagnostic = scormAPI.LMSGetDiagnostic;
+        this.misc.debug(true, "the [SCORM] version is:", this.version, window.API_1484_11);
+        break;
+
+      case "1.2":
+      default:
+        window.API = this;
+        this.misc.debug(true, "the [SCORM] version is:", this.version, window.API);
+        break;
     }
-  }
+
+    // Alias
+  },
 }
 
-window.onunload = window.API.LMSFinish('');
-window.onbeforeunload = window.API.LMSFinish('');
+window.API = window.API_1484_11 || scormAPI;
+window.onunload = scormAPI.LMSFinish('');
+window.onbeforeunload = scormAPI.LMSFinish('');

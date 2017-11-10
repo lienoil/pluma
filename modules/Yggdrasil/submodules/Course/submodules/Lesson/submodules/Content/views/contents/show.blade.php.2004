@@ -103,7 +103,7 @@
                                     <span class="headline">{{ __("Close this window?") }}</span>
                                 </v-card-title>
                                 <v-card-text>
-                                    <p>{!! __("You are about to close this entire window. The LMS will try and save you're progress but it is <strong>not guaranteed</strong>.") !!}</p>
+                                    <p>{!! __("You are about to close this entire window. The application will try and save you're progress but it is <strong>not guaranteed</strong>.") !!}</p>
                                     <p>{{ __("Do you want to proceed? Click anywhere to cancel.") }}</p>
                                 </v-card-text>
                                 <v-card-actions>
@@ -170,7 +170,7 @@
                         </v-card>
                         <template v-else>
                             <v-card v-if="! course.started" flat class="grey--text text--darken-1">
-                                {{-- <v-card-media height="480px"> --}}
+                                <v-card-media height="480px">
                                     <v-container fill-height fluid>
                                         <v-layout fill-height wrap column>
                                             {!! $resource->body !!}
@@ -186,21 +186,19 @@
                                             </v-card-actions>
                                         </v-layout>
                                     </v-container>
-                                {{-- </v-card-media> --}}
+                                </v-card-media>
                             </v-card>
                         </template>
                         <v-fade-transition>
                             <template v-if="course.started">
                                 <div>
-                                    {!! $resource->html !!}
-                                    {{-- <object
+                                    {{-- {!! $resource->html !!} --}}
+                                    <object
                                         class="interactive-content"
                                         width="100%" height="640px" data="{{ $resource->interactive }}"
-                                        onbeforeunload="unloadSCO()"
-                                        onunload="unloadSCO()"
                                     >
                                         <embed src="{{ $resource->interactive }}">
-                                    </object> --}}
+                                    </object>
 
                                     <v-dialog v-model="messagebox.model" width="60vw" persistent>
                                         <v-card flat tile class="text-xs-center">
@@ -290,11 +288,6 @@
                 }
             },
             methods: {
-                unloadSCO () {
-                    window.API.LMSCommit("");
-                    return window.API.LMSFinish("");
-                },
-
                 goFullscreen() {
                     this.fullscreen.model = !this.fullscreen.model;
                     window.API.stage.fullscreen(document.querySelector('#interactive-container'));
@@ -308,13 +301,13 @@
                     return {
                         exit () {
                             self.messagebox.btnDiabled = !self.messagebox.btnDiabled;
-                            window.API.LMSFinish('');
+                            window.API.Terminate('');
                             // window.close();
                         },
 
                         get () {
                             window.API.on('BeforeInitialize', function (cache) {
-                                // Start getting the initial values from the LMS.
+                                // Start getting the initial values from the .
                                 // This is done in the custom (non-SCORM) function BeforeInitialize, because the request
                                 // is asynchronous.
                                 if (! self.resource.locked) {
@@ -327,7 +320,7 @@
                             });
 
                             // Initialize the API with options.
-                            window.API.init('{{ $resource->version }}', {
+                            window.API.init({
                                 GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
                                 POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
                                 INIT: '{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}',
@@ -349,18 +342,18 @@
                             //     // debug: true,
                             // });
 
-                            window.API.on('LMSInitialize', function (dummyString, cache) {
-                               // window.API.LMSCommit('');
+                            window.API.on('Initialize', function (dummyString, cache) {
+                               // window.API.Commit('');
                             })
 
-                            window.API.on('LMSSetValue', function (varname, value, cache) {
-                                //
+                            window.API.on('SetValue', function (varname, value, cache) {
+                                console.log(cache);
                             });
-                            window.API.on('LMSGetValue', function (varname, cache) {
+                            window.API.on('GetValue', function (varname, cache) {
                                 // console.log("CACHED-----", JSON.parse(JSON.stringify(cache)));
                             });
 
-                            window.API.on('LMSCommit', function (string, cache, query) {
+                            window.API.on('Commit', function (string, cache, query) {
                                 console.log("Commit", JSON.parse(JSON.stringify(cache)));
                                 setTimeout(function () {
                                     self.$http.post(window.API.options.COMMIT, cache).then(response => {
@@ -373,7 +366,7 @@
                                 }, 999)
                             });
 
-                            window.API.on('LMSFinish', function (string, cache, query) {
+                            window.API.on('Terminate', function (string, cache, query) {
                                 self.$http.post(window.API.options.FINISH, {_token: '{{ csrf_token() }}'}).then(response => {
                                     self.drawer.items = response.body;
                                     for (var i = self.drawer.items.length - 1; i >= 0; i--) {
@@ -387,30 +380,30 @@
 
                             window.API.on('VideoEnded', function (video, e) {
                                 if (window.API.Cache().set("cmi.core.lesson_status", 'completed')) {
-                                    window.API.LMSCommit('');
-                                    window.API.LMSFinish('');
+                                    window.API.Commit('');
+                                    window.API.Terminate('');
                                 }
                             });
                             // screen.orientation && screen.orientation.lock('landscape');
                         },
 
                         listen () {
-                        //     window.API.on('LMSFinish', function() {
-                        //         // window.API.LMSGetValue("");
-                        //         console.log('[LMS]', "Finished")
+                        //     window.API.on('Terminate', function() {
+                        //         // window.API.GetValue("");
+                        //         console.log('[]', "Terminateed")
 
                         //         return "true";
                         //     });
 
-                        //     window.API.on("LMSGetValue", function (cmiElement) {
-                        //         console.log('[LMS]', "GetValue")
+                        //     window.API.on("GetValue", function (cmiElement) {
+                        //         console.log('[]', "GetValue")
                         //         console.info(cmiElement);
                         //         // ret =
                         //         // return ret;
                         //     });
 
-                        //     window.API.on("LMSCommit", function () {
-                        //         window.API.LMSGetValue("");
+                        //     window.API.on("Commit", function () {
+                        //         window.API.GetValue("");
                         //         return "true";
                         //     })
                         }
