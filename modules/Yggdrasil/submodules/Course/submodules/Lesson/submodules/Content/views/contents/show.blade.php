@@ -96,7 +96,7 @@
                             </v-card>
                         </v-dialog>
                         <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
-                        <v-dialog max-width="90vw" width="80vw">
+                        {{-- <v-dialog max-width="90vw" width="80vw">
                             <v-btn slot="activator" icon v-tooltip:left="{html: 'Close this window'}"><v-icon>close</v-icon></v-btn>
                             <v-card>
                                 <v-card-title>
@@ -111,7 +111,7 @@
                                     <v-btn primary class="elevation-1" @click="lms().exit()">Try Save &amp; Exit</v-btn>
                                 </v-card-actions>
                             </v-card>
-                        </v-dialog>
+                        </v-dialog> --}}
                     </v-toolbar>
                     <v-alert
                         icon="check"
@@ -328,34 +328,25 @@
 
                             // Initialize the API with options.
                             window.API.init('{{ $resource->version }}', {
-                                GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
-                                POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
-                                INIT: '{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}',
+                                _token: '{{ csrf_token() }}',
+                                debug: true,
                                 COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
                                 FINISH: '{{ route('api.scorm.lmsfinish', [$resource->lesson->course->id, $resource->id]) }}',
-                                _token: '{{ csrf_token() }}',
-                                done: false,
-                                debug: true,
+                                GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
+                                INIT: '{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}',
+                                POST: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
                             });
                         },
                         mounted () {
-                            // window.API.setOptions({
-                            //     GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
-                            //     SET: '{{ route('api.scorm.lmssetvalue', [$resource->lesson->course->id, $resource->id]) }}',
-                            //     INIT: '{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}',
-                            //     COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
-                            //     FINISH: '{{ route('api.scorm.lmsfinish', [$resource->lesson->course->id, $resource->id]) }}',
-                            //     _token: '{{ csrf_token() }}',
-                            //     // debug: true,
-                            // });
-
+                            //
                             window.API.on('LMSInitialize', function (dummyString, cache) {
-                               // window.API.LMSCommit('');
-                            })
+                                // window.API.LMSCommit('');
+                            });
 
                             window.API.on('LMSSetValue', function (varname, value, cache) {
-                                //
+                                // //
                             });
+
                             window.API.on('LMSGetValue', function (varname, cache) {
                                 // console.log("CACHED-----", JSON.parse(JSON.stringify(cache)));
                             });
@@ -365,7 +356,6 @@
                                 setTimeout(function () {
                                     self.$http.post(window.API.options.COMMIT, cache).then(response => {
                                         if (response.status === 200) {
-                                            // self.messagebox.model = true;
                                             return "true";
                                         }
                                         return response.bodyText;
@@ -386,6 +376,7 @@
                             });
 
                             window.API.on('VideoEnded', function (video, e) {
+                                window.API.LMSSetValue("cmi.core.lesson_status", 'completed');
                                 if (window.API.Cache().set("cmi.core.lesson_status", 'completed')) {
                                     window.API.LMSCommit('');
                                     window.API.LMSFinish('');

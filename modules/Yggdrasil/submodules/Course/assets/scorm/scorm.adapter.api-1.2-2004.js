@@ -22,6 +22,7 @@ let scormAPI = {
     this.misc.debug(true, "init(options)", 'setOptions() was called');
 
     this.Cache().init();
+    this.Error().init();
     this.misc.debug(true, "init(options)", 'Cache().init() was called');
 
     this.BeforeInitialize('');
@@ -53,8 +54,7 @@ let scormAPI = {
   },
 
   setOptions(options) {
-    this.done = false;
-    this.status = 'not-attempted';
+    this.status = 'not attempted';
     this.options = Object.assign({
       GET: '',
       POST: '',
@@ -87,10 +87,18 @@ let scormAPI = {
 
     self.misc.style();
 
+    self.flags().set('initialized', true);
+    console.warn('------------------------------', self.flags);
+
     return "true";
   },
 
   LMSGetValue (varname) {
+    if (! this.flags().get('initialized') || this.flags().get('finished')) {
+      this.Error().set('301');
+      return '';
+    }
+
     let event = new CustomEvent('LMSGetValue', { detail: {varname, value: this.Cache().get(varname), cache: this.Cache().get()} });
     let e = window.dispatchEvent(event);
 
@@ -140,10 +148,10 @@ let scormAPI = {
   },
 
   LMSFinish (dummyString) {
-    if (this.done) {
+    if (this.flags().get('finished')) {
       // already finished - prevent repeat call
       this.misc.debug(true, "[LMSFinish]", "-----------");
-      this.misc.debug(true, "[LMSFinish]", "LMSFinish.done was flagged: ", this.done);
+      this.misc.debug(true, "[LMSFinish]", "LMSFinish.done was flagged: ", this.flags().get('finished'));
       this.misc.debug(true, "[LMSFinish]", "Will prematurely exit.");
       this.misc.debug(true, "[LMSFinish]", "-----------");
 
@@ -158,9 +166,9 @@ let scormAPI = {
     let event = new CustomEvent('LMSFinish', { detail: {dummyString: dummyString} });
     window.dispatchEvent(event);
     // It's done.
-    this.done = true;
+    this.flags().set('finished', true);
     this.misc.debug(true, "[LMSFinish]", "-----------");
-    this.misc.debug(true, "[LMSFinish]", "LMSFinish.done was flagged: ", this.done);
+    this.misc.debug(true, "[LMSFinish]", "LMSFinish.done was flagged: ", this.flags().get('finished'));
     this.misc.debug(true, "[LMSFinish]", "True exit.");
     this.misc.debug(true, "[LMSFinish]", "-----------");
 
@@ -181,7 +189,48 @@ let scormAPI = {
   LMSGetErrorString (errorCode) {
     return "error string";
   },
+  // Error Cache
+  Error () {
+    let self = this;
 
+    return {
+      init () {
+        /**
+         * The current Error Code.
+         * @type {String}
+         */
+        self.currentErrorCode = '0';
+
+        /**
+         * Error Codes can be found here.
+         * https://scorm.com/scorm-explained/technical-scorm/run-time/run-time-reference/
+         * @type {Object}
+         */
+        self.errorMessages = new Object();
+        self.errorMessages = {
+          '0'  : 'No Error',
+          '101': 'General Exception',
+          '201': 'Invalid Argument',
+          '202': 'Element Cannot Have Children',
+          '203': 'Element Not an Array - Cannot Have Children',
+          '301': 'API Not Initialized',
+          '401': 'Undefined Data Model Element',
+          '402': 'Invalid Set Value - Element is a Keyword',
+          '403': 'Invalid Set Value - Element is Read Only',
+          '404': 'Invalid Get Value - Element is Write Only',
+          '405': 'Invalid Set Value - Incorrect Data Type',
+        }
+      },
+
+      set (value) {
+        self.currentErrorCode = value;
+      },
+
+      get () {
+        return self.currentErrorCode;
+      }
+    }
+  },
 
   // Cache
   Cache () {
@@ -246,6 +295,23 @@ let scormAPI = {
         self.misc.debug(false, "");
       },
     }
+  },
+
+  flags () {
+    let self = this;
+
+    return {
+      initialized: false,
+      finished: false,
+
+      set (key, value) {
+        self.flags[key] = value;
+      },
+
+      get (key) {
+        return self.flags[key];
+      },
+    };
   },
 
   misc: {
@@ -332,6 +398,7 @@ let scormAPI = {
   setVersion (version) {
     this.version = version;
     this.options.version = version;
+    this.misc.debug(true, "[VERSION]", "------------------------------------- setting version...");
 
     switch (this.version) {
       case "1484_11":
@@ -339,22 +406,24 @@ let scormAPI = {
       case "2004 3rd Edition":
         window.API_1484_11 = this;
         window.API_1484_11.Initialize = scormAPI.LMSInitialize;
-        window.API_1484_11.GetValue = scormAPI.GetValue;
-        window.API_1484_11.SetValue = scormAPI.SetValue;
-        window.API_1484_11.Terminate = scormAPI.Terminate;
+        window.API_1484_11.GetValue = scormAPI.LMSGetValue;
+        window.API_1484_11.SetValue = scormAPI.LMSSetValue;
+        window.API_1484_11.Commit = scormAPI.LMSCommit;
+        window.API_1484_11.Terminate = scormAPI.LMSFinish;
         window.API_1484_11.GetLastError = scormAPI.LMSGetLastError;
         window.API_1484_11.GetErrorString = scormAPI.LMSGetErrorString;
         window.API_1484_11.GetDiagnostic = scormAPI.LMSGetDiagnostic;
-        this.misc.debug(true, "the [SCORM] version is:", this.version, window.API_1484_11);
+        window.API = window.API_1484_11;
+        this.misc.debug(true, "The [SCORM] version is:", this.version, window.API_1484_11);
         break;
 
       case "1.2":
       default:
         window.API = this;
-        this.misc.debug(true, "the [SCORM] version is:", this.version, window.API);
+        this.misc.debug(true, "The [SCORM] version is:", this.version, window.API);
         break;
     }
-
+    this.misc.debug(true, "[VERSION]", "------------------------------------- version set.");
     // Alias
   },
 }
