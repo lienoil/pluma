@@ -13,9 +13,9 @@ class Lesson extends Model
 {
     use BelongsToCourse, HasManyContents, BelongsToAssignment, LessonMutator;
 
-    protected $with = ['assignment'];
+    protected $with = [];
 
-    protected $appends = ['dialog'];
+    protected $appends = [];
 
     protected $searchables = ['created_at', 'updated_at'];
 }

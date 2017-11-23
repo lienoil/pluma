@@ -2,7 +2,7 @@
 
 @section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
 
-@push('post-css')
+@push('post-meta')
     <link rel="manifest" href="{{ url('manifest.json') }}">
 @endpush
 
@@ -75,26 +75,10 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn>
-                <v-card id="interactive-container" class="card--flex-toolbar card--filed-on-top">
+                <v-card class="card--flex-toolbar card--filed-on-top">
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-dialog max-width="90vw" width="80vw">
-                            <v-btn icon slot="activator" v-tooltip:left="{html: 'Show Description'}">
-                                <v-icon>info</v-icon>
-                            </v-btn>
-                            <v-card>
-                                <v-card-title>
-                                    <span class="headline">{{ $resource->title }}</span>
-                                </v-card-title>
-                                <v-card-text class="grey--text text--darken-2">
-                                    {!! $resource->body ? $resource->body : __('No description available') !!}
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
                         <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
                         {{-- <v-dialog max-width="90vw" width="80vw">
                             <v-btn slot="activator" icon v-tooltip:left="{html: 'Close this window'}"><v-icon>close</v-icon></v-btn>
@@ -177,7 +161,7 @@
                                             <v-spacer></v-spacer>
                                             <v-card-actions class="pa-0">
                                                 <v-spacer></v-spacer>
-                                                <v-btn dark class="indigo" @click="course.started = !course.started">
+                                                <v-btn dark class="indigo" @click="playInteraction()">
                                                     <v-icon left>play_circle_outline</v-icon>
                                                     <template v-if="resource.incomplete">{{ __('Continue') }}</template>
                                                     <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
@@ -189,36 +173,38 @@
                                 {{-- </v-card-media> --}}
                             </v-card>
                         </template>
-                        <v-fade-transition>
-                            <template v-if="course.started">
-                                <div>
-                                    {!! $resource->html !!}
-                                    {{-- <object
-                                        class="interactive-content"
-                                        width="100%" height="640px" data="{{ $resource->interactive }}"
-                                        onbeforeunload="unloadSCO()"
-                                        onunload="unloadSCO()"
-                                    >
-                                        <embed src="{{ $resource->interactive }}">
-                                    </object> --}}
+                        <div id="interactive-container">
+                            <v-fade-transition>
+                                <template v-if="course.started">
+                                    <div>
+                                        {!! $resource->html !!}
+                                        {{-- <object
+                                            class="interactive-content"
+                                            width="100%" height="640px" data="{{ $resource->interactive }}"
+                                            onbeforeunload="unloadSCO()"
+                                            onunload="unloadSCO()"
+                                        >
+                                            <embed src="{{ $resource->interactive }}">
+                                        </object> --}}
 
-                                    <v-dialog v-model="messagebox.model" width="60vw" persistent>
-                                        <v-card flat tile class="text-xs-center">
-                                            <v-icon class="display-4 success--text">check</v-icon>
-                                            <v-card-text class="headline success--text text-xs-center">{{ __("Completed") }}</v-card-text>
-                                            <v-card-text class="grey--text text--darken-1">
-                                                {{ __("You have finished this Interaction. Click below to continue.") }}
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
-                                                <v-spacer></v-spacer>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </div>
-                            </template>
-                        </v-fade-transition>
+                                        <v-dialog v-model="messagebox.model" width="60vw" persistent>
+                                            <v-card flat tile class="text-xs-center">
+                                                <v-icon class="display-4 success--text">check</v-icon>
+                                                <v-card-text class="headline success--text text-xs-center">{{ __("Completed") }}</v-card-text>
+                                                <v-card-text class="grey--text text--darken-1">
+                                                    {{ __("You have finished this Interaction. Click below to continue.") }}
+                                                </v-card-text>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
+                                                    <v-spacer></v-spacer>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </div>
+                                </template>
+                            </v-fade-transition>
+                        </div>
                     </template>
 
                 </v-card>
@@ -231,25 +217,42 @@
 
 @push('css')
     <style>
-        .lms.lms-fullscreen .card:-webkit-full-screen,
-        .lms.lms-fullscreen .card:-moz-full-screen
-        .lms.lms-fullscreen .card:fullscreen {
-            max-height: 100vh;
+        .card::-webkit-full-screen,
+        .card::-moz-full-screen
+        .card::fullscreen {
+            /*max-height: 100vh;
+            width: 100vw;
+            height: 100vh;
             overflow-y: auto;
             cursor: zoom-out;
-            /*overflow: hidden;*/
+            top: 0;
+            left: 0;
+            background: red !important;*/
         }
 
-        .lms.lms-fullscreen .interactive-content,
-        .lms.lms-fullscreen #interactive-content .card__media {
-            max-height: calc(100vh - 48px);
-        }
         .interactive-content {
             width: 100%;
             max-height: 100vh;
             display: block;
             text-align: center;
             margin: 0 auto;
+        }
+        .interactive-container--landscape .toolbar ~ div .interactive-content {
+            height: calc(100vh - 48px);
+        }
+        .interactive-container--landscape .interactive-content {
+            height: 100vh;
+        }
+        .interactive-container--landscape {
+            /*position: fixed;*/
+            /*max-height: 100vh;*/
+            width: 100vw;
+            height: 100vh !important;
+            overflow: auto !important;
+            top: 0;
+            left: 0;
+            padding: 0;
+            margin: 0;
         }
     </style>
 @endpush
@@ -290,6 +293,10 @@
                 }
             },
             methods: {
+                playInteraction () {
+                    this.goFullscreen();
+                    this.course.started = !this.course.started
+                },
                 unloadSCO () {
                     window.API.LMSCommit("");
                     return window.API.LMSFinish("");
@@ -297,13 +304,14 @@
 
                 goFullscreen() {
                     this.fullscreen.model = !this.fullscreen.model;
+                    // document.querySelector('#interactive-container')
+                    // window.API.stage.fullscreen();
                     window.API.stage.fullscreen(document.querySelector('#interactive-container'));
-                    // window.API.stage.fullscreen(document.querySelector(".interactive-content"));
                 },
 
 
                 lms () {
-                    let self = this
+                    let self = this;
 
                     return {
                         exit () {
@@ -329,7 +337,7 @@
                             // Initialize the API with options.
                             window.API.init('{{ $resource->version }}', {
                                 _token: '{{ csrf_token() }}',
-                                debug: true,
+                                debug: {{ env('APP_DEBUG') }},
                                 COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
                                 FINISH: '{{ route('api.scorm.lmsfinish', [$resource->lesson->course->id, $resource->id]) }}',
                                 GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',

@@ -2,6 +2,7 @@
 
 namespace Page\Controllers;
 
+use Crowfeather\Traverser\Traverser;
 use Frontier\Controllers\AdminController as Controller;
 use Illuminate\Http\Request;
 use Page\Models\Page;
@@ -38,9 +39,9 @@ class PageController extends Controller
 
     public function edit(Request $request, $id)
     {
-        \Illuminate\Support\Facades\DB::beginTransaction();
-        $resource = Page::sharedLock()->findOrFail($id);
-        \Illuminate\Support\Facades\DB::commit();
+        // \Illuminate\Support\Facades\DB::beginTransaction();
+        // $resource = Page::sharedLock()->findOrFail($id);
+        // \Illuminate\Support\Facades\DB::commit();
 
         return view("Page::pages.edit")->with(compact('resource'));
     }
@@ -68,7 +69,11 @@ class PageController extends Controller
      */
     public function create(Request $request)
     {
-        return view("Page::pages.create");
+        $pages = Page::select(['title', 'slug', 'id', 'parent_id'])->get();
+        $pages = new Traverser($pages->toArray(), ['root' => ['id' => 'root']], ['name' => 'id', 'parent' => 'parent_id']);
+        $pages = Traverser::recursiveArrayValues($pages->reorderViaChildKnowsParent(), 'children');
+
+        return view("Page::pages.create")->with(compact('pages'));
     }
 
     /**

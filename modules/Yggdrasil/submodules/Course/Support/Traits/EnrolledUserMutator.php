@@ -38,10 +38,16 @@ trait EnrolledUserMutator
     /**
      * Alias for the course_user pivot.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return float
      */
     public function getProgressAttribute()
     {
-        return $this->student ? $this->student->pivot : null;
+        $count = \Course\Models\Status::where('user_id', user()->id)
+            ->where('course_id', $this->id)
+            ->where('status', 'completed')
+            ->count();
+
+        return (float) number_format((float)(($count * 100) / $this->contents->count()), 2);
+        // return $this->student ? $this->student->pivot : null;
     }
 }

@@ -22,7 +22,7 @@ trait LessonMutator
      */
     public function getProgressAttribute()
     {
-        return $this->contents->count();
+        return (float) number_format((float)(($this->completed * 100) / $this->contents->count()), 2);
     }
 
     /**
@@ -32,11 +32,13 @@ trait LessonMutator
      */
     public function getCompletedAttribute()
     {
-        // if ($this->contents) {
-            // return $this->contents->count();
-        // }
+        $count = \Course\Models\Status::where('user_id', user()->id)
+            ->where('course_id', $this->course->id)
+            ->whereIn('content_id', $this->contents()->pluck('id')->toArray())
+            ->where('status', 'completed')
+            ->count();
 
-        return 0;
+        return $count;
     }
 
     /**

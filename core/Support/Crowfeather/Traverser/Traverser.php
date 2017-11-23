@@ -32,7 +32,7 @@ class Traverser implements TraverserContract
      *
      * @var array
      */
-    protected $options = ['id' => 'id', 'name' => 'name', 'parent' => 'parent', 'left' => 'left', 'right' => 'right'];
+    protected $options = ['id' => 'id', 'name' => 'name', 'parent' => 'parent', 'left' => 'left', 'right' => 'right', 'children' => 'children'];
 
     /**
      * The Root parent of all traversables.
@@ -41,11 +41,13 @@ class Traverser implements TraverserContract
      */
     protected $root = ['root' => ['name' => 'root', 'parent' => '', 'left' => '0', 'right' => '0']];
 
-    public function __construct(array $traversables = [], $root = [])
+    public function __construct(array $traversables = [], $root = [], $options = [])
     {
         $this->root = array_merge($this->root, $root);
 
         $this->set($traversables);
+
+        $this->options = array_merge($this->options, $options);
     }
 
     /**
@@ -301,5 +303,48 @@ class Traverser implements TraverserContract
 
             $right[] = $traversable['right'];
         }
+    }
+
+    /**
+     * Reorder the traversables using the child's $key ('parent') attribute.
+     * This is the inverse of $this->reorder as that orders the traversables
+     * with parents knowing their children.
+     *
+     * This function assumes the parent doesn't know their children.
+     * The children knows their parent.
+     *
+     * @param  string $key  The 'parent' key attribute.
+     * @return array
+     */
+    public function reorderViaChildKnowsParent($key = null)
+    {
+        $traversables = [];
+        $key = is_null($key) ? $this->options['parent'] : $key;
+
+        $this->flatten();
+        $this->prepare();
+
+        foreach ($this->traversables as $traversable) {
+            if (isset($traversable[$key])) {
+                return $this->rechild($traversable[$key]);
+                // return $this;
+            }
+        }
+
+        return $this->traversables;
+    }
+
+    public static function recursiveArrayValues($array, $key = 'children')
+    {
+        foreach ($array as $i => &$traversable) {
+            if (isset($traversable[$key])) {
+                $traversable[$key] = array_values($traversable[$key]);
+
+            }
+
+            $traversable[$key] = self::recursiveArrayValues($traversable[$key], $key);
+        }
+
+        return $array;
     }
 }

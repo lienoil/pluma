@@ -104,36 +104,41 @@
                         </v-card-text>
                     </template>
                     {{-- Lessons --}}
-                    <template v-for="(lesson, i) in lessons">
-                        <v-card-text :class="{'grey lighten-4': lesson.locked}">
-                            <v-card flat tile class="transparent elevation-0" :key="i">
+
+
+                    @foreach ($resource->lessons as $lesson)
+                        <v-card-text :class="{'grey lighten-4': '{{ $lesson->locked }}' }">
+                            <v-card flat tile class="transparent elevation-0">
                                 <v-toolbar card class="transparent">
-                                    <v-icon left v-if="lesson.locked">lock</v-icon>
-                                    <v-toolbar-title class="accent--text" :class="{'grey--text': lesson.locked}">
-                                        <span v-html="lesson.title"></span>
+                                    <v-icon left v-if="'{{ $lesson->locked }}'">lock</v-icon>
+                                    <v-toolbar-title class="accent--text" :class="{'grey--text': '{{ $lesson->locked }}'}">
+                                        <span>{{ $lesson->title }}</span>
                                     </v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-chip label class="success white--text" v-if="lesson.icon"><v-icon class="white--text" v-html="lesson.icon"></v-icon></v-chip>
-                                    <v-chip label class="success white--text" v-else v-html="`0/${lesson.contents.length}`"></v-chip>
+                                    <v-chip label class="success white--text" v-if="'{{ $lesson->icon }}'"><v-icon class="white--text">{{ $lesson->icon }}</v-icon></v-chip>
+                                    <v-chip label class="success white--text" v-else>{{ "{$lesson->completed}/{$lesson->contents->count()}" }}</v-chip>
                                 </v-toolbar>
-                                <v-card-text class="grey--text text--darken-2" v-html="lesson.body"></v-card-text>
-                                <v-card-actions v-if="lesson.contents.length">
+                                <v-card-text class="grey--text text--darken-2">
+                                    {!! $lesson->body !!}
+                                </v-card-text>
+                                <v-card-actions v-if="'{{ $lesson->contents->count() }}'">
                                     <v-spacer></v-spacer>
-                                    <v-dialog lazy v-model="lesson.dialog" fullscreen transition="dialog-bottom-transition" :overlay=false>
-                                        <v-btn v-if="resource.enrolled" slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
-                                        <v-btn v-else slot="activator" round outline class="success success--text">{{ __('View') }}</v-btn>
+                                    {{-- {{ $lesson->dialog }} --}}
+                                    <v-dialog lazy fullscreen transition="dialog-bottom-transition" :overlay=false>
+                                        <v-btn ref="dialog-{{ $lesson->id }}" v-if="'{{ $resource->enrolled }}'" slot="activator" round outline class="success success--text">{{ __('Start') }}</v-btn>
+                                        <v-btn ref="dialog-{{ $lesson->id }}" v-else slot="activator" round outline class="success success--text">{{ __('View') }}</v-btn>
                                         <v-card flat tile class="bg--light">
-                                            <v-parallax jumbotron class="elevation-0" :src="lesson.feature" height="400">
+                                            <v-parallax jumbotron class="elevation-0" src="{{ $lesson->feature }}" height="400">
                                                 <div class="media-overlay"></div>
                                                 <v-layout row wrap>
                                                     <v-spacer></v-spacer>
-                                                    <v-btn dark flat ripple @click.stop="lesson.dialog = !lesson.dialog">{{ __('Done') }}</v-btn>
+                                                    <v-btn dark flat ripple @click.stop="closeDialog('dialog-{{ $lesson->id }}')">{{ __('Done') }}</v-btn>
                                                 </v-layout>
                                                 <v-layout column wrap align-center justify-center>
                                                     <v-flex sm12>
                                                         <v-card flat class="transparent">
                                                             <v-card-text class="white--text text-xs-center mb-5">
-                                                                <div><strong class="display-2" v-html="lesson.title"></strong></div>
+                                                                <div><strong class="display-2">{{ $lesson->title }}</strong></div>
                                                             </v-card-text>
                                                         </v-card>
                                                     </v-flex>
@@ -149,73 +154,81 @@
                                                             <v-toolbar card class="transparent">
                                                                 <v-toolbar-title class="accent--text">{{ __('Assignment') }}</v-toolbar-title>
                                                                 <v-spacer></v-spacer>
-                                                                <v-btn icon ripple v-if="lesson.assignment"><v-icon>file_download</v-icon></v-btn>
+                                                                <v-btn icon ripple v-if="'{{ is_null($lesson->assignment) }}'"><v-icon>file_download</v-icon></v-btn>
                                                             </v-toolbar>
                                                             <v-divider></v-divider>
-                                                            <v-card-text v-if="! lesson.assignment" class="pa-5">
+                                                            @if (is_null($lesson->assignment))
+                                                            <v-card-text class="pa-5">
                                                                 <v-layout row wrap justify-center>
-                                                                    <img height="150" src="http://192.168.1.213/pluma/~assets/frontier/images/placeholder/empty_assignment.jpg" alt="">
+                                                                    <img class="text-xs-center" width="100%" height="auto" src="{{ assets('assignment/images/empty_assignment.jpg') }}" alt="{{ __('No Assignment') }}">
                                                                 </v-layout>
                                                                 <div label class="body-1 text-xs-center red--text text--lighten-3">{{ __('No assignment for this lesson.') }}</div>
                                                             </v-card-text>
-                                                            <template v-else>
-                                                                <v-card-text class="pa-3 grey--text text--darken-2">
-                                                                    <div class="mb-4"><strong v-html="lesson.assignment.title"></strong></div>
-                                                                    <div v-html="lesson.assignment.body"></div>
-                                                                    <div class="text-xs-right"><v-icon left class="subheading">fa-edit</v-icon>Deadline: October 30, 2017</div>
+
+                                                            @else
+
+                                                            <v-card-text class="pa-3 grey--text text--darken-2">
+                                                                <div class="mb-4"><strong>{{ $lesson->assignment->title }}</strong></div>
+                                                                <div>{!! $lesson->assignment->body !!}</div>
+                                                                <div class="text-xs-right"><v-icon left class="subheading">fa-edit</v-icon>{{ __('Deadline') }}: {{ $lesson->assignment->deadline }}</div>
                                                                     <v-card flat tile>
                                                                         llasd
                                                                     </v-card>
                                                                 </v-card-text>
-                                                                <v-card-actions>
-                                                                    <v-spacer></v-spacer>
-                                                                    <v-btn dark class="red lighten-3 elevation-1">{{ __('Submit your assignment') }}</v-btn>
-                                                                    <v-spacer></v-spacer>
-                                                                </v-card-actions>
-                                                            </template>
+                                                            </v-card-text>
+                                                            <v-card-actions>
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn dark class="red lighten-3 elevation-1">{{ __('Submit your assignment') }}</v-btn>
+                                                                <v-spacer></v-spacer>
+                                                            </v-card-actions>
+
+                                                            @endif
                                                         </v-card>
                                                     </v-flex>
 
                                                     <v-flex order-lg2 order-md2 order-sm1 order-xs1 md6 xs12>
                                                         <v-card class="elevation-1 card--filed-on-top">
                                                             <v-toolbar card class="deep-purple lighten-2">
-                                                                <v-toolbar-title class="white--text" v-html="lesson.title">{{ __('Lesson Content') }}</v-toolbar-title>
+                                                                <v-toolbar-title class="white--text">{{ __('Lesson Contents') }}</v-toolbar-title>
                                                             </v-toolbar>
                                                             <v-divider></v-divider>
+
                                                             <v-card-text>
-                                                                <v-card class="elevation-1 mb-3" v-for="(content, i) in lesson.contents" :key="i">
+                                                                @foreach ($lesson->contents as $content)
+
+                                                                <v-card class="elevation-1 mb-3">
                                                                     <v-list two-line subheader class="pb-0">
-                                                                        <v-list-tile avatar ripple @click="openWindow(content.url)">
+                                                                        <v-list-tile avatar ripple @click="openWindow('{{ $content->url }}')">
                                                                             <v-list-tile-avatar>
-                                                                                <v-icon v-if="content.current" primary>play_circle_outline</v-icon>
-                                                                                <v-icon v-else-if="content.completed" class="grey--text">check</v-icon>
+                                                                                <v-icon v-if="'{{ $content->current }}'" primary>play_circle_outline</v-icon>
+                                                                                <v-icon v-else-if="'{{ $content->completed }}'" class="grey--text">check</v-icon>
                                                                                 <v-icon v-else class="grey--text">lock</v-icon>
                                                                             </v-list-tile-avatar>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title class="title" v-html="content.title"></v-list-tile-title>
-                                                                                <v-list-tile-sub-title v-if="resource.enrolled" class="caption">
-                                                                                    <span v-if="content.current">{{ __('Start') }}</span>
-                                                                                    <span v-else-if="content.completed">{{ __('Finished') }}</span>
+                                                                                <v-list-tile-title class="title">{{ $content->title }}</v-list-tile-title>
+                                                                                <v-list-tile-sub-title v-if="'{{ $resource->enrolled }}'" class="caption">
+                                                                                    <span v-if="'{{ $content->current }}'">{{ __('Start') }}</span>
+                                                                                    <span v-else-if="'{{ $content->completed }}'">{{ __('Finished') }}</span>
                                                                                     <span v-else>{{ __('Lock') }}</span>
                                                                                 </v-list-tile-sub-title>
                                                                                 <v-list-tile-sub-title v-else>
                                                                                     <em>{{ __("You are not enrolled to this course") }}</em>
                                                                                 </v-list-tile-sub-title>
                                                                             </v-list-tile-content>
-                                                                            <v-list-tile-action v-if="content.unlocked">
+                                                                            <v-list-tile-action v-if="'{{ $content->unlocked }}'">
                                                                                 <v-icon class="grey--text text--lighten-1">chevron_right</v-icon>
                                                                             </v-list-tile-action>
                                                                         </v-list-tile>
                                                                     </v-list>
                                                                 </v-card>
+
+                                                                @endforeach
                                                             </v-card-text>
-
-
                                                         </v-card>
                                                     </v-flex>
 
                                                     <v-flex order-lg3 order-md3 order-sm2 order-xs2 md3 xs12>
-                                                        <v-card class="elevation-1 card--filed-on-top">
+                                                        <v-card v-if="'{{ $lesson->contents->count() }}'" class="elevation-1 card--filed-on-top">
                                                             <v-toolbar card class="transparent">
                                                                 <v-toolbar-title class="accent--text">{{ __('Progress') }}</v-toolbar-title>
                                                                 <v-spacer></v-spacer>
@@ -224,27 +237,24 @@
                                                             <v-card-text class="text-xs-center">
                                                                 <v-spacer></v-spacer>
                                                                 <v-progress-circular
-                                                                    v-if="lesson.contents.length"
                                                                     :size="150"
                                                                     :width="20"
-                                                                    :value="lesson.progress"
+                                                                    :value="{{ $lesson->progress }}"
                                                                     class="deep-purple--text text--lighten-2"
                                                                 >
-                                                                    @{{ lesson.progress }}
+                                                                    <span>{{ $lesson->progress }}%</span>
                                                                 </v-progress-circular>
                                                                 <v-spacer></v-spacer>
                                                             </v-card-text>
                                                             <v-card-text class="deep-purple white--text lighten-2 text-xs-center">
-                                                                <div>{{ __('Content Completed:') }}</div>
-                                                                <div>@{{ lesson.completed }}</div>
+                                                                <div class="headline">{{ $lesson->completed . __(" of ") . $lesson->contents->count() }}</div>
+                                                                <div class="subheading">{{ __('contents completed') }}</div>
                                                             </v-card-text>
                                                         </v-card>
-
-
                                                     </v-flex>
+
                                                 </v-layout>
                                             </v-container>
-
                                         </v-card>
                                     </v-dialog>
                                     <v-spacer></v-spacer>
@@ -252,7 +262,8 @@
                             </v-card>
                         </v-card-text>
                         <v-divider></v-divider>
-                    </template>
+                    @endforeach
+
                     {{-- /Lessons --}}
                 </v-card>
 
@@ -281,16 +292,16 @@
                         <v-progress-circular
                             :size="150"
                             :width="20"
-                            :value="resource.percentage"
+                            :value="{{ $resource->progress }}"
                             class="purple--text text--lighten-4"
                         >
-                            <span v-html="resource.percentage"></span>
+                            <span>{{ $resource->progress }}%</span>
                         </v-progress-circular>
                         <v-spacer></v-spacer>
                     </v-card-actions>
                     <v-card-text class="purple--text text--lighten-4 text-xs-center">
                         <div>{{ __('Lesson Completed:') }}</div>
-                        <div v-html="resource.percentage"></div>
+                        <div>{{ $resource->progress }}%</div>
                     </v-card-text>
                 </v-card>
 
@@ -337,6 +348,10 @@
             },
 
             methods: {
+                closeDialog (ref) {
+                    this.$refs[ref].$el.click();
+                },
+
                 get () {
                     // this.api().post('')
                 },

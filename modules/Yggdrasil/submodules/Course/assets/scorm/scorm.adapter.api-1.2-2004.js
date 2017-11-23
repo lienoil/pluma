@@ -364,6 +364,7 @@ let scormAPI = {
     fullscreen (el) {
       el = el || document.documentElement;
       scormAPI.misc.debug("You went fullscreen");
+      el.classList.toggle('interactive-container--landscape');
 
       if (!document.fullscreenElement && !document.mozFullScreenElement &&
         !document.webkitFullscreenElement && !document.msFullscreenElement) {
@@ -376,6 +377,7 @@ let scormAPI = {
         } else if (el.webkitRequestFullscreen) {
           el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
         }
+        screen.orientation && screen.orientation.lock('landscape');
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen();
@@ -386,11 +388,9 @@ let scormAPI = {
         } else if (document.webkitExitFullscreen) {
           document.webkitExitFullscreen();
         }
+        // screen.orientation && screen.orientation.lock('portrait');
       }
 
-      if (screen.orientation && screen.orientation.lock('landscape')) {
-        // alert('clocked');
-      }
     },
   },
 

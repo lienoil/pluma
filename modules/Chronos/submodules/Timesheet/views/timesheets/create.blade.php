@@ -16,7 +16,7 @@
                 </v-card-actions>
 
                 <v-card-text class="grey--text text--darken-2">
-                    <p class="headline accent--text">From @{{ formatDate(resource.daterange.from) }} to @{{ formatDate(resource.daterange.to) }}</p>
+                    <p class="headline accent--text">{{ __('From') }} @{{ formatDate(resource.daterange.from) }} {{ __('to') }} @{{ formatDate(resource.daterange.to) }}</p>
                     <input type="hidden" name="daterange" :value="resource.daterange.total">
                     {{-- <v-text-field name="daterange" v-model="resource.daterange.total" label="{{ __('Date Range') }}"></v-text-field> --}}
                 </v-card-text>

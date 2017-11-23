@@ -1,5 +1,5 @@
 <v-card class="elevation-1">
-    <v-card-media src="{{ assets('frontier/images/placeholder/polygon.jpg') }}">
+    <v-card-media src="{{ assets('course/images/polygon.jpg') }}">
         <div class="overlay-bg"></div>
         <v-layout column class="media">
             <v-card-title class="pa-0">

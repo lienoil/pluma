@@ -41,6 +41,8 @@ class CourseController extends AdminController
             ->with('lessons.contents')
             ->firstOrFail();
 
+
+
         return view("Theme::courses.show")->with(compact('resource'));
     }
 

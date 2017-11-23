@@ -20,9 +20,9 @@ class Course extends Model
         SoftDeletes, Bookmarkable, OnlyBookmarkedBy, EnrolledUserMutator,
         HasManyContentsThroughLesson;
 
-    protected $with = ['lessons', 'user', 'users', 'category'];
+    protected $with = ['lessons', 'user'];
 
-    protected $appends = ['author', 'bookmarked', 'progress', 'enrolled', 'created', 'excerpt', 'modified'];
+    protected $appends = ['author', 'bookmarked', 'enrolled', 'created', 'excerpt', 'modified'];
 
     protected $searchables = ['title', 'code', 'slug', 'feature', 'body', 'created_at', 'updated_at'];
 }
