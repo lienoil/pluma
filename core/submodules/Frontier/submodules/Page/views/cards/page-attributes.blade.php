@@ -1,24 +1,51 @@
 {{-- Inline template --}}
 <script type="text/x-template" id="template-draggable">
     <draggable :move="moved" @change="move" :list="items" :options="options" class="sortable-container">
-        <div :key="i" v-for="(t,i) in items" class="mb-3 draggable" :class="{'sortable-handle': (t.new?t.new:false)}">
-            <v-card tile class="elevation-1" :class="{'accent white--text': t.new}">
+        <div :key="i" v-for="(t,i) in items" class="draggable" :class="{'sortable-handle': (t.new?t.new:false)}">
+            <v-card tile class="elevation-1" :dark="t.new" :class="{'accent white--text': t.new}">
                 <v-card-text>
-                    <input type="hidden" name="parent_id" :value="t.parent_id">
-                    <strong class="subheading" v-html="`${t.title}`"></strong>
-                    <div class="caption"><span v-html="`{{ __('Parent:') }} ${t.parent_name}`"></span></div>
-                    <div class="caption">{{ url('/') }}/<span v-html="t.slug"></span></div>
+                    <input type="hidden" v-if="t.new" name="parent_id" :value="t.parent_id">
+                    <input type="hidden" v-if="t.new" name="sort" :value="i">
+                    <input type="hidden" v-if="t.new" :value="t.slug">
+                    <strong class="subheading"><v-icon dark left>drag_handle</v-icon><span v-html="`${t.title?t.title:'No Title'}`"></span></strong>
+                    <div v-if="t.new" class="caption"><span v-html="`{{ __('Parent:') }} ${t.parent_name}`"></span></div>
+                    <em v-if="t.new" class="caption">{{ __("Drag to set parent") }}</em>
                 </v-card-text>
             </v-card>
             <div class="bordered--ant ml-4">
-                {{-- <span v-html="t.children"></span> --}}
-                <local-draggable @changed="changed" :items="t.children" :options="options"></local-draggable>
+                <local-draggable @changed="changed" :resource="resource" :items="t.children" :options="options"></local-draggable>
             </div>
         </div>
     </draggable>
 </script>
 
-<local-draggable @changed="changed" :items="items" :options="options"></local-draggable>
+<v-card class="elevation-1 mb-3">
+    <v-toolbar card class="transparent">
+        <v-toolbar-title class="subheading accent--text">{{ __('Page Attributes') }}</v-toolbar-title>
+    </v-toolbar>
+    <v-expansion-panel class="grey lighten-4 elevation-0">
+        <v-expansion-panel-content>
+            <div slot="header" class="subheading">{{ __('Parent and Order') }}</div>
+            <v-card-text class="grey lighten-4">
+                <local-draggable @changed="changed" :resource="resource" :items="items" :options="options"></local-draggable>
+                <template v-if="!items.length">
+                    <div class="grey--text caption text-xs-center">{{ __('No other pages yet') }}</div>
+                </template>
+            </v-card-text>
+        </v-expansion-panel-content>
+
+        <v-expansion-panel-content>
+            <div slot="header" class="subheading">{{ __('Page Template') }}</div>
+            <v-card-text>
+                <v-select v-model="resource.template" item-value="value" item-text="name" label="{{ __('Template') }}" :items="templates"></v-select>
+                <input type="hidden" name="template" :value="resource.template">
+            </v-card-text>
+        </v-expansion-panel-content>
+    </v-expansion-panel>
+    {{-- <v-card-text class="grey lighten-4">
+
+    </v-card-text> --}}
+</v-card>
 
 @push('css')
     <style>
@@ -28,7 +55,7 @@
 
         .bordered--ant {
             border-left: 1px dashed rgba(0,0,0, 0.2) !important;
-            border-bottom: 1px dashed rgba(0,0,0, 0.2) !important;
+            /*border-bottom: 1px dashed rgba(0,0,0, 0.2) !important;*/
         }
     </style>
 @endpush
@@ -41,7 +68,7 @@
             name: 'local-draggable',
             model: {prop: 'items'},
             template: '#template-draggable',
-            props: ['items', 'options'],
+            props: ['items', 'options', 'resource'],
             methods: {
                 moved (evt) {
                     if (! evt.draggedContext.element.new) {
@@ -70,6 +97,7 @@
                         forceFallback: true,
                     },
                     items: [],
+                    templates: [],
                 }
             },
             methods: {
@@ -99,9 +127,13 @@
                 },
             },
             mounted () {
-                let items = [this.resource].concat({!! json_encode($items) !!});
+                let items = {!! json_encode($items) !!};
+                items = items.length ? [this.resource].concat(items) : [];
                 this.items = this.update(items);
-            }
+
+                // templates
+                this.templates = {!! json_encode($templates) !!};
+            },
         });
     </script>
 @endpush

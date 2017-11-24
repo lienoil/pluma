@@ -158,7 +158,7 @@ if (! function_exists('get_module')) {
 
         foreach ($modules as $name => $module) {
             if (! is_array($module)) {
-                if (basename($module) == $retrieve) {
+                if (strtolower(basename($module)) == strtolower($retrieve)) {
                     return realpath($module);
                 }
             } else {

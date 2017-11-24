@@ -6,6 +6,8 @@ use Crowfeather\Traverser\Traverser;
 use Frontier\Controllers\AdminController as Controller;
 use Illuminate\Http\Request;
 use Page\Models\Page;
+use Template\Models\Template;
+use User\Models\User;
 
 class PageController extends Controller
 {
@@ -39,9 +41,9 @@ class PageController extends Controller
 
     public function edit(Request $request, $id)
     {
-        // \Illuminate\Support\Facades\DB::beginTransaction();
-        // $resource = Page::sharedLock()->findOrFail($id);
-        // \Illuminate\Support\Facades\DB::commit();
+        \Illuminate\Support\Facades\DB::beginTransaction();
+        $resource = Page::sharedLock()->findOrFail($id);
+        \Illuminate\Support\Facades\DB::commit();
 
         return view("Page::pages.edit")->with(compact('resource'));
     }
@@ -69,11 +71,13 @@ class PageController extends Controller
      */
     public function create(Request $request)
     {
-        $pages = Page::select(['title', 'slug', 'id', 'parent_id'])->get();
+        $pages = Page::select(['title', 'slug', 'code', 'id', 'parent_id'])->get();
         $pages = new Traverser($pages->toArray(), ['root' => ['id' => 'root']], ['name' => 'id', 'parent' => 'parent_id']);
         $pages = Traverser::recursiveArrayValues($pages->reorderViaChildKnowsParent(), 'children');
 
-        return view("Page::pages.create")->with(compact('pages'));
+        $templates = Template::getTemplatesFromFiles();
+
+        return view("Page::pages.create")->with(compact('pages', 'templates'));
     }
 
     /**
@@ -87,8 +91,14 @@ class PageController extends Controller
         $page = new Page();
         $page->title = $request->input('title');
         $page->slug = $request->input('slug');
+        $page->code = $request->input('code');
+        $page->feature = $request->input('feature');
         $page->body = $request->input('body');
         $page->delta = $request->input('delta');
+        $page->template = $request->input('template');
+        $page->sort = $request->input('sort');
+        $page->user()->associate(User::find(user()->id));
+        $page->page()->associate(Page::find($request->input('parent_id')));
         $page->save();
 
         return back();

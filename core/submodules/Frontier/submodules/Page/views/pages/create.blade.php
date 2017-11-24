@@ -16,16 +16,20 @@
                                 name="title"
                                 label="{{ __('Title') }}"
                                 v-model="resource.title"
-                                @input="() => { resource.slug = resource.title}"
+                                @input="() => { resource.code = $options.filters.slugify(resource.title); }"
                             ></v-text-field>
 
+                            <input type="hidden" name="code" v-model="resource.code">
+
                             <v-text-field
+                                prefix="{{ url('/') }}/"
                                 :append-icon-cb="() => (resource.readonly.slug = !resource.readonly.slug)"
-                                :append-icon="resource.readonly.slug ? 'fa-link' : 'fa-unlink'"
+                                :append-icon="resource.readonly.slug ? 'fa-lock' : 'fa-unlock'"
                                 :readonly="resource.readonly.slug"
-                                :value="resource.slug?resource.slug:'' | slugify"
-                                label="{{ __('Slug') }}"
+                                :value="resource.slug?resource.slug:resource.code | slugify"
+                                {{-- label="{{ __('Slug') }}" --}}
                                 name="slug"
+                                hint="{{ __("To customize the URL of this page, toggle the lock icon on this field.") }}"
                             ></v-text-field>
 
                         </v-card-text>
@@ -45,31 +49,13 @@
 
                 <v-flex md3>
                     @include("Theme::cards.saving")
+
+                    {{-- @include("Page::cards.page-type") --}}
+
+                    @include("Page::cards.page-attributes", ['items' => $pages])
                 </v-flex>
 
                 <v-flex sm6>
-                    <v-card class="elevation-1 mb-3">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ __('Page Attributes') }}</v-toolbar-title>
-                        </v-toolbar>
-
-                        {{-- <v-card-text>
-                            <v-select
-                                v-model="resource.parent"
-                                :items="supplimentary.pages.items"
-                                label="{{ __('Parent Page') }}"
-                                class="input-group--focused"
-                                item-text="title"
-                                item-value="id"
-                            ></v-select>
-                            <input name="parent_id" type="hidden" :value="resource.parent">
-                        </v-card-text> --}}
-
-                        <v-card-text class="grey lighten-4">
-                            @include("Page::interactive.pages", ['items' => $pages])
-                        </v-card-text>
-
-                    </v-card>
                 </v-flex>
 
             </v-layout>
@@ -90,18 +76,22 @@
                     resource: {
                         title: '',
                         slug: '',
+                        code: '',
                         parent: null,
                         parent_id: '',
+                        template: 'generic',
                         quill: {
                             body: '',
                             delta: '',
                         },
+                        children: [],
                         readonly: {
                             slug: true,
                         },
                         toggle: {
                             parent_id: false,
                         },
+                        new: true,
                         misc: {
                             parent: {
                                 title: 'None',

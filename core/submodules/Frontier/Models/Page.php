@@ -2,8 +2,8 @@
 
 namespace Frontier\Models;
 
-use Pluma\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Pluma\Models\Model;
 
 class Page extends Model
 {

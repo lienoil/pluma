@@ -8,7 +8,7 @@ use Page\Models\Page;
 
 class PublicController
 {
-    use CheckView;
+    // use CheckView;
 
     /**
      * Show list of resources.
@@ -35,11 +35,20 @@ class PublicController
         $page = Page::whereSlug($slug)->first();
 
         if ($page && $page->exists()) {
-            if (view()->exists("Theme::pages.{$page->slug}")) {
-                return view("Theme::pages.{$page->slug}")->with(compact('page'));
+            // Page exists, look for a template.
+            if (view()->exists("Template::templates.{$page->template}")) {
+                // Disco.
+                // remove this menus, put in ViewComposer
+                $menus = Page::
+                $menus = Page::select(['title', 'slug', 'code', 'id', 'parent_id'])->get();
+                $menus = new \Crowfeather\Traverser\Traverser($menus->toArray(), ['root' => ['id' => 'root']], ['name' => 'id', 'parent' => 'parent_id']);
+                $menus = \Crowfeather\Traverser\Traverser::recursiveArrayValues($menus->reorderViaChildKnowsParent(), 'children');
+                $menus = json_decode(json_encode($menus));
+
+                return view("Template::templates.{$page->template}")->with(compact('page', 'menus'));
             }
 
-            return view("Theme::index")->with(compact('page'));
+            return view("Template::templates.index")->with(compact('page'));
         }
 
         // Static
