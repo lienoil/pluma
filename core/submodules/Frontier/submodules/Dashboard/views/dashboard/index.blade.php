@@ -27,7 +27,7 @@
                             class="sortable-container"
                             :options="{animation: 150, handle: '.sortable-handle', group: 'lessons', draggable: '.draggable-lesson', forceFallback: true}">
                                <v-card class="draggable-lesson elevation-0 transparent mb-3" v-for="(draggable, key) in draggables.items">
-                                    @include("Assignment::widgets.assignment")
+                                    {{-- @include("Assignment::widgets.assignment") --}}
                                </v-card>
                        </draggable>
                     </v-flex>

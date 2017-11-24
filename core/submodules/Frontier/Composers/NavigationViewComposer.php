@@ -171,10 +171,6 @@ class NavigationViewComposer extends BaseViewComposer
     {
         $this->menus = $this->unsetForbiddenRoutes($this->menus);
 
-        // ------------------------------------------------------
-        // Note to future self:
-        // This will remove the headers if no menus are under it.
-        // TODO: refactor this.
         foreach ($this->menus as $i => &$current) {
             // This will remove all parent where the only child is a header/divider.
             if (count($current['children']) == 1) {
@@ -197,10 +193,8 @@ class NavigationViewComposer extends BaseViewComposer
                 }
             }
         }
-        // ------------------------------------------------------
 
         return json_decode(json_encode([
-            // 'generate' => $this->generateSidebar(collect(json_decode(json_encode($this->menus)))),
             'collect' => collect(json_decode(json_encode($this->menus))),
         ]));
     }
@@ -256,7 +250,6 @@ class NavigationViewComposer extends BaseViewComposer
      */
     public function guessStringFromNumeric($segment, $url)
     {
-
         try {
             $action = app('request')->route()->getAction();
             $controller = class_basename($action['controller']);

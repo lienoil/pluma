@@ -327,19 +327,24 @@ class Traverser implements TraverserContract
         foreach ($this->traversables as $traversable) {
             if (isset($traversable[$key])) {
                 return $this->rechild($traversable[$key]);
-                // return $this;
             }
         }
 
         return $this->traversables;
     }
 
+    /**
+     * Performs array_values recursively.
+     *
+     * @param  array $array
+     * @param  string $key
+     * @return array
+     */
     public static function recursiveArrayValues($array, $key = 'children')
     {
         foreach ($array as $i => &$traversable) {
             if (isset($traversable[$key])) {
                 $traversable[$key] = array_values($traversable[$key]);
-
             }
 
             $traversable[$key] = self::recursiveArrayValues($traversable[$key], $key);

@@ -2,6 +2,8 @@
 
 @section("content")
     <v-container fluid grid-list-lg>
+        @include("Theme::partials.banner")
+
         <form action="{{ route('pages.store') }}" method="POST">
             {{ csrf_field() }}
             <v-layout row wrap>
@@ -33,7 +35,6 @@
                             ></v-text-field>
 
                         </v-card-text>
-
 
                         <v-divider></v-divider>
                         {{-- Editor --}}

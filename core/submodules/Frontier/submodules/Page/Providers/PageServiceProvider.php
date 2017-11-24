@@ -25,6 +25,10 @@ class PageServiceProvider extends ServiceProvider
         //
     ];
 
+    protected $composers = [
+        //
+    ];
+
     /**
      * Bootstrap any application services.
      *
@@ -32,7 +36,9 @@ class PageServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->bootObservables();
+        $this->bootComposers();
+
+        parent::boot();
     }
 
     /**
@@ -43,5 +49,17 @@ class PageServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    /**
+     * Boots the composers variable
+     *
+     * @return void
+     */
+    public function bootComposers()
+    {
+        if (file_exists(__DIR__."/../config/composers.php")) {
+            $this->composers = require_once __DIR__."/../config/composers.php";
+        }
     }
 }

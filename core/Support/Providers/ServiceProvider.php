@@ -39,6 +39,27 @@ class ServiceProvider extends BaseServiceProvider
     ];
 
     /**
+     * Array of view composers to register.
+     *
+     * @var array
+     */
+    protected $composers = [
+        //
+    ];
+
+    /**
+     * Boot the service provider
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->bootObservables();
+        $this->bootRouterMiddlewares();
+        $this->bootViewComposers();
+    }
+
+    /**
      * Bootstraps the Observables.
      *
      * @return void
@@ -66,6 +87,20 @@ class ServiceProvider extends BaseServiceProvider
         $router = $this->app['router'];
         foreach ($this->middlewares() as $name => $class) {
             $router->aliasMiddleware($name, $class);
+        }
+    }
+
+    /**
+     * Boots the view composers.
+     *
+     * @return void
+     */
+    public function bootViewComposers()
+    {
+        $composers = $this->composers;
+
+        foreach ($composers as $composer) {
+            view()->composer($composer['appears'], $composer['class']);
         }
     }
 
