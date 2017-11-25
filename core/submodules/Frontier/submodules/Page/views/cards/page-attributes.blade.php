@@ -31,6 +31,11 @@
                 <template v-if="!items.length">
                     <div class="grey--text caption text-xs-center">{{ __('No other pages yet') }}</div>
                 </template>
+                <template v-else>
+                    <div class="grey--text caption text-xs-right">
+                        <a target="_blank" href="{{ route('menus.index') }}">{{ __('Manage Menus') }}</a>
+                    </div>
+                </template>
             </v-card-text>
         </v-expansion-panel-content>
 
