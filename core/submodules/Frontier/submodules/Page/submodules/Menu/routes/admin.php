@@ -1,3 +1,3 @@
 <?php
 
-Route::get('pages/menus', 'Menu\Controllers\MenuController@index')->name('menus.index');
+Route::resource('pages/menus', 'Menu\Controllers\MenuController');

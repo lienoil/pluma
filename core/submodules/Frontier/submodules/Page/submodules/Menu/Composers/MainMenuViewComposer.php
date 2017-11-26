@@ -1,10 +1,10 @@
 <?php
 
-namespace Page\Composers;
+namespace Menu\Composers;
 
 use Crowfeather\Traverser\Traverser;
 use Illuminate\View\View;
-use Page\Models\Page;
+use Menu\Models\Menu;
 use Pluma\Support\Composers\BaseViewComposer;
 
 class MainMenuViewComposer extends BaseViewComposer
@@ -16,6 +16,13 @@ class MainMenuViewComposer extends BaseViewComposer
     protected $traverser;
 
     /**
+     * The menu location.
+     *
+     * @var string
+     */
+    protected $location = 'main-menu';
+
+    /**
      * Main function to tie everything together.
      *
      * @param  Illuminate\View\View   $view
@@ -25,7 +32,7 @@ class MainMenuViewComposer extends BaseViewComposer
     {
         parent::compose($view);
 
-        $this->setVariablename("menus");
+        $this->setVariablename('menus');
 
         $view->with($this->getVariablename(), $this->handle());
     }
@@ -48,13 +55,11 @@ class MainMenuViewComposer extends BaseViewComposer
     private function menus()
     {
         try {
-            $pages = Page::all();
-            $this->traverser = new Traverser($pages->toArray(), ['root' => ['id' => 'root']], ['name' => 'id', 'parent' => 'parent_id']);
-            $menus = $this->traverser->reorderViaChildKnowsParent();
-            // $menus = Traverser::recursiveArrayValues($this->traverser->reorderViaChildKnowsParent(), 'children');
+            $menus = Menu::menus($this->location);
             $menus = $this->setupRouting($menus);
         } catch (\Exception $e) {
-            return [];
+            // dd($e->getMessage());
+            return abort(500);
         }
 
         return $menus;
@@ -69,12 +74,16 @@ class MainMenuViewComposer extends BaseViewComposer
     private function setupRouting($menus)
     {
         foreach ($menus as &$menu) {
-            if (! is_null($menu['slug'])) {
-                $menu['url'] = url($menu['slug']);
+            if (! is_null($menu['slug']) && ! empty($menu['slug'])) {
+                $menu['url'] = $menu['slug'];
             } else {
                 $menu['slug'] = "";
-                $menu['url'] = url('/');
+                $menu['url'] = '/';
             }
+
+            $menu['url'] = isset($menu['is_absolute_slug']) && $menu['is_absolute_slug']
+                         ? $menu['url']
+                         : url($menu['url']);
 
             if ($this->getCurrentUrl() === $menu['slug']) {
                 $menu['active'] = true;

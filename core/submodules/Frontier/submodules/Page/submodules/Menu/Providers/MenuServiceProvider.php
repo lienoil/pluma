@@ -32,7 +32,11 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->bootComposers();
+
         $this->bootObservables();
+
+        parent::boot();
     }
 
     /**
@@ -43,5 +47,17 @@ class MenuServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    /**
+     * Boots the composers variable
+     *
+     * @return void
+     */
+    public function bootComposers()
+    {
+        if (file_exists(__DIR__."/../config/composers.php")) {
+            $this->composers = require_once __DIR__."/../config/composers.php";
+        }
     }
 }

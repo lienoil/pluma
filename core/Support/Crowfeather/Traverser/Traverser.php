@@ -199,10 +199,6 @@ class Traverser implements TraverserContract
             return -1;
         });
 
-        // echo "<pre>";
-        //     var_dump( $traversables ); die();
-        // echo "</pre>";
-
         return $traversables;
     }
 
@@ -277,7 +273,9 @@ class Traverser implements TraverserContract
     {
         $depth += $depth;
         foreach ($traversables as $traversable) {
-            echo str_repeat('------| ', $depth) . " - {$traversable['order']} {$traversable['name']} \n<br/>";
+            $order = isset($traversable['order']) ? $traversable['order'] : 'o';
+            $name = isset($traversable[$this->options['name']]) ? $traversable[$this->options['name']] : '';
+            echo str_repeat('------| ', $depth) . " - $order $name \n<br/>";
             if (isset($traversable['children'])) {
                 $this->dd($traversable['children'], $depth);
             }
@@ -299,7 +297,7 @@ class Traverser implements TraverserContract
             $l = str_pad($traversable['left'], 2, '0', STR_PAD_LEFT);
             $r = str_pad($traversable['right'], 2, '0', STR_PAD_LEFT);
             $value = ! isset($traversable[$key]) ? '-/-' : $traversable[$key];
-            echo str_repeat('------| ', count($right)) . $l . " - " . $traversable['name'] . " [$value] - " . $r . "\n<br/>";
+            echo str_repeat('------| ', count($right)) . $l . " - " . $traversable[$this->options['name']] . " [$value] - " . $r . "\n<br/>";
 
             $right[] = $traversable['right'];
         }
@@ -313,10 +311,11 @@ class Traverser implements TraverserContract
      * This function assumes the parent doesn't know their children.
      * The children knows their parent.
      *
-     * @param  string $key  The 'parent' key attribute.
+     * @param  string  $key           The 'parent' key attribute.
+     * @param  boolean $rechildable   If allowed to rearrange the arrays
      * @return array
      */
-    public function reorderViaChildKnowsParent($key = null)
+    public function reorderViaChildKnowsParent($key = null, $rechildable = true)
     {
         $traversables = [];
         $key = is_null($key) ? $this->options['parent'] : $key;
@@ -324,9 +323,15 @@ class Traverser implements TraverserContract
         $this->flatten();
         $this->prepare();
 
-        foreach ($this->traversables as $traversable) {
-            if (isset($traversable[$key])) {
-                return $this->rechild($traversable[$key]);
+        if ($rechildable) {
+            foreach ($this->traversables as $traversable) {
+                if (isset($traversable[$key])) {
+                    return $this->rechild($traversable[$key]);
+                }
+            }
+        } else {
+            foreach ($this->traversables as &$traversable) {
+                $traversable['children'] = [];
             }
         }
 
@@ -345,11 +350,10 @@ class Traverser implements TraverserContract
         foreach ($array as $i => &$traversable) {
             if (isset($traversable[$key])) {
                 $traversable[$key] = array_values($traversable[$key]);
+                $traversable[$key] = self::recursiveArrayValues($traversable[$key], $key);
             }
-
-            $traversable[$key] = self::recursiveArrayValues($traversable[$key], $key);
         }
 
-        return $array;
+        return array_values($array);
     }
 }

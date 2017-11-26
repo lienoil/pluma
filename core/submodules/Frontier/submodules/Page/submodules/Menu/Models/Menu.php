@@ -2,12 +2,13 @@
 
 namespace Menu\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Menu\Support\Traits\BelongsToMenu;
+use Menu\Support\Traits\MenuBuilderTrait;
 use Pluma\Models\Model;
 
 class Menu extends Model
 {
-    use SoftDeletes;
+    use MenuBuilderTrait, BelongsToMenu;
 
     protected $with = [];
 

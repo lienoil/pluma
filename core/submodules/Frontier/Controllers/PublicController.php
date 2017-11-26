@@ -2,8 +2,9 @@
 
 namespace Frontier\Controllers;
 
-use Illuminate\Http\Request;
 use Frontier\Support\View\CheckView;
+use Illuminate\Http\Request;
+use Menu\Models\Menu;
 use Page\Models\Page;
 
 class PublicController
@@ -30,29 +31,52 @@ class PublicController
      */
     public function show(Request $request, $slug = null)
     {
-        // First check database.
+        // Trial 1: Database check.
         $slug = is_null($slug) ? config('path.home', 'home') : $slug;
-        $page = Page::whereSlug($slug)->orWhere('code', $slug)->first();
-
-        if ($page && $page->exists()) {
+        $menu = Menu::whereSlug($slug)->first();
+        if ($menu && $page = $this->page($menu->page_id)) {
             // Page exists, look for a template.
             $page->template = isset($page->template) && ! is_null($page->template)
                             ? $page->template
                             : 'generic';
 
-            if (view()->exists("Template::templates.{$page->template}")) {
+            if (view()->exists("Theme::templates.{$page->template}")) {
                 // Disco.
-                return view("Template::templates.{$page->template}")->with(compact('page'));
+                return view("Theme::templates.{$page->template}")->with(compact('page'));
             }
 
-            return view("Template::templates.index")->with(compact('page'));
+            return view("Theme::templates.index")->with(compact('page'));
         }
+        // Trail 1.1: redirect, but not really needed since the app won't process
+        // a url with different domain. ^_^
+        /*else {
+             return redirect($slug);
+        }*/
 
-        // Static
+
+        // Trial 2: Check static files.
         if (view()->exists("Static::$slug")) {
             return view("Static::$slug")->with(compact('page'));
         }
 
+        // Give up.
         return abort(404);
+    }
+
+    /**
+     * Gets the page of a given id.
+     *
+     * @param  int $id
+     * @return mixed
+     */
+    public function page($id)
+    {
+        if (is_null($id)) {
+            return false;
+        }
+
+        $page = Page::find($id);
+
+        return $page;
     }
 }

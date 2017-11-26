@@ -8,47 +8,33 @@ return [
      * Specify here the menus to appear on the sidebar.
      *
      */
-    'menu' => [
-        'name' => 'menu',
+    'divider-page-menu' => [
+        'name' => 'divider-page-menu',
+        'is_header' => true,
+        'is_divider' => true,
+        'parent' => 'page',
+        'order' => 50,
+    ],
+
+    'view-menu' => [
+        'name' => 'view-menu',
         'order' => 51,
-        'slug' => url(config('path.admin').'/menus'),
+        'slug' => route('menus.index'),
+        'routes' => [
+            'name' => 'menus.index',
+            'children' => [
+                'menus.create',
+                'menus.edit',
+                'menus.show',
+                'menus.trash',
+            ]
+        ],
         'always_viewable' => false,
-        'icon' => '',
+        'icon' => 'menu',
+        'parent' => 'page',
         'labels' => [
             'title' => __('Menus'),
-            'description' => __('Manage menus'),
-        ],
-        'children' => [
-            'view-menu' => [
-                'name' => 'view-menu',
-                'order' => 1,
-                'slug' => url(config('path.admin').'/menus'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('All Menus'),
-                    'description' => __('View the list of all menus'),
-                ],
-            ],
-            'create-menu' => [
-                'name' => 'create-menu',
-                'order' => 2,
-                'slug' => url(config('path.admin').'/menus/create'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Create Menu'),
-                    'description' => __('Create a Menu'),
-                ],
-            ],
-            'trashed-menu' => [
-                'name' => 'trashed-menu',
-                'order' => 3,
-                'slug' => url(config('path.admin').'/menus/trashed'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Trashed Menus'),
-                    'description' => __('View list of all menus moved to trash'),
-                ],
-            ],
+            'description' => __('Manage public menus'),
         ],
     ],
 ];

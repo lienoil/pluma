@@ -8,12 +8,8 @@ Version: 1.0
 @extends("Template::layouts.public")
 
 @section("content")
+    @include("Template::partials.main-menu")
     <v-container grid-list-lg>
-        <v-layout row wrap>
-            <v-flex xs12>
-                @include("Template::partials.main-menu")
-            </v-flex>
-        </v-layout>
         <v-layout row wrap>
             <v-flex sm8>
                 <h4 class="grey--text text--darken-1">{{ $page->title }}</h4>

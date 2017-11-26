@@ -58,7 +58,7 @@ class TemplateServiceProvider extends ServiceProvider
     {
         $templateModule = get_module('template');
         $templateTheme = themes_path(settings('active_theme'), 'default');
-        $this->loadViewsFrom("$templateModule/views/templates", $this->viewNamespace);
         $this->loadViewsFrom("$templateTheme/views/templates", $this->viewNamespace);
+        $this->loadViewsFrom("$templateModule/views/templates", $this->viewNamespace);
     }
 }

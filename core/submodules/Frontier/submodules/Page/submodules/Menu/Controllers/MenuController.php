@@ -4,8 +4,10 @@ namespace Menu\Controllers;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Menu\Models\Menu;
 use Menu\Requests\MenuRequest;
+use Page\Models\Page;
 
 class MenuController extends AdminController
 {
@@ -17,9 +19,9 @@ class MenuController extends AdminController
      */
     public function index(Request $request)
     {
-        //
+        $locations = Menu::locations();
 
-        return view("Theme::menus.index");
+        return view("Theme::menus.index")->with(compact('locations'));
     }
 
     /**
@@ -56,7 +58,23 @@ class MenuController extends AdminController
      */
     public function store(MenuRequest $request)
     {
-        //
+        Menu::where('location', $request->input('location'))->delete();
+        // echo "<pre>";
+        //     var_dump( $request->all() ); die();
+        // echo "</pre>";
+        foreach ($request->input('menus') as $key => $menus) {
+            $menu = new Menu();
+            $menu->title = $menus['title'];
+            $menu->location = $request->input('location');
+            $menu->slug = is_null($menus['slug']) ? "" : $menus['slug'];
+            $menu->code = $menus['code'];
+            $menu->sort = $menus['sort'];
+            $menu->parent = $menus['parent'];
+            $menu['page_id'] = $menus['page_id'];
+            $menu->key = $key;
+            $menu->save();
+        }
+
 
         return back();
     }
@@ -65,14 +83,17 @@ class MenuController extends AdminController
      * Show the form for editing the specified resource.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  string  $code
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $code)
     {
-        //
+        $menus = Menu::menus($code);
+        $pages = Menu::pages();
+        $location = Menu::location($code);
+        $social = Menu::social();
 
-        return view("Theme::menus.edit");
+        return view("Theme::menus.edit")->with(compact('menus', 'pages', 'social', 'location'));
     }
 
     /**

@@ -12,6 +12,12 @@ return [
         'is_parent' => true,
         'order' => 1000,
         'slug' => url(config('path.admin').'/settings'),
+        'routes' => [
+            'name' => 'settings',
+            'children' => [
+                'settings.social',
+            ]
+        ],
         'always_viewable' => false,
         'icon' => 'settings',
         'labels' => [

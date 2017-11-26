@@ -50,6 +50,17 @@ class SettingController extends AdminController
     }
 
     /**
+     * Display the Social Settings Form.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getSocialForm(Request $request)
+    {
+        return view("Theme::settings.social");
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Setting\Requests\SettingRequest  $request
