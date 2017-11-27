@@ -135,6 +135,8 @@ trait MenuBuilderTrait
 
         $menus = unserialize(settings('social_links', ''));
 
+        if (empty($menus)) return [];
+
         foreach ($menus as $key => $menu) {
             $menus[$key] = [
                 'name' => $key,

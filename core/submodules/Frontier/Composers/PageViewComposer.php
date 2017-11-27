@@ -65,7 +65,7 @@ class PageViewComposer extends BaseViewComposer
             'footer' => $this->footer(),
             'head' => $this->head(),
             'page' => $this->page(),
-            // 'model' => $this->model(),
+            'model' => $this->model(),
             'site' => $this->site(),
             'token' => csrf_token(),
             'version' => "v" . app()->version(),
@@ -87,8 +87,8 @@ class PageViewComposer extends BaseViewComposer
         $url = explode("/", $this->getCurrentUrl());
         $slug = end($url);
 
-        return Page::whereSlug(end($url))->exists()
-            ? Page::whereSlug(end($url))->first()
+        return Page::whereCode($slug)->exists()
+            ? Page::whereCode($slug)->first()
             : json_decode(json_encode([]));;
     }
 
@@ -106,6 +106,18 @@ class PageViewComposer extends BaseViewComposer
 
     private function head()
     {
+        if ($model = $this->model()) {
+            return json_decode(json_encode([
+                'title' => isset($model->title) ? $model->title : $this->guessTitle(),
+                'subtitle' => isset($model->subtitle) ? $model->subtitle : $this->guessSubtitle(),
+                'separator' => isset($model->separator) ? $model->separator : settings('site_title_separator', '|'),
+                'description' => strip_tags(isset($model->excerpt) ? $model->excerpt : $this->guessDescription()),
+                'name' => isset($model->name) ? $model->name : settings('site_title', env("APP_NAME", "Pluma CMS")),
+                'tagline' => isset($model->tagline) ? $model->tagline : settings('site_subtitle', env("APP_TAGLINE")),
+                'fulltitle' => $this->guessTitle() . " " . $this->guessSubtitle(),
+            ]));
+        }
+
         return json_decode(json_encode([
             'title' => $this->guessTitle(),
             'subtitle' => $this->guessSubtitle(),

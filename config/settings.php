@@ -9,5 +9,5 @@ return [
      *
      */
     'active_theme' => 'default',
-    'social_links' => [],
+    'social_links' => '',
 ];

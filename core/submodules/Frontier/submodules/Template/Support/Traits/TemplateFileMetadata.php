@@ -6,7 +6,19 @@ use Illuminate\Support\Facades\File;
 
 trait TemplateFileMetadata
 {
+    /**
+     * Allowed keys in headers.
+     *
+     * @var array
+     */
     protected static $headers = ["Template Name", "Author", "Description", "Version"];
+
+    /**
+     * Array of view templates.
+     *
+     * @var array
+     */
+    protected $templates;
 
     /**
      * Retrieve metadata from a file.
@@ -45,6 +57,8 @@ trait TemplateFileMetadata
      */
     public static function getTemplatesFromFiles()
     {
+        $instance = new static;
+
         $theme_path = themes_path(settings('active_theme', 'default'))."/views/templates";
         $templates = [];
         if (file_exists($theme_path)) {
@@ -53,17 +67,16 @@ trait TemplateFileMetadata
         $templatesTemplates = File::files(get_module('template')."/views/templates");
         $templates = array_merge($templatesTemplates, $templates);
 
-        $themeTemplates = [];
         foreach ($templates as $i => $template) {
             $meta = self::getFileData($template->getPathName());
-            $themeTemplates[basename($template->getFileName())] = [
+            $instance->templates[basename($template->getFileName())] = [
                 'path' => $template->getPathName(),
                 'name' => $meta['templateName'],
                 'value' => str_replace(".blade.php", "", $template->getFileName()),
-                // 'metadata' => $meta,
+                'metadata' => $meta,
             ];
         }
 
-        return array_values($themeTemplates);
+        return array_values($instance->templates);
     }
 }

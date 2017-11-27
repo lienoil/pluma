@@ -2,12 +2,12 @@
 
 namespace Theme\Controllers;
 
-use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Setting\Controllers\SettingController;
 use Theme\Models\Theme;
 use Theme\Requests\ThemeRequest;
 
-class ThemeController extends AdminController
+class ThemeController extends SettingController
 {
     /**
      * Display a listing of the resource.
