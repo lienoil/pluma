@@ -10,7 +10,7 @@
                 <v-flex md9>
                     <v-card class="mb-3 elevation-1">
                         <v-toolbar card class="transparent">
-                            <v-toolbar-title>{{ __('New Page') }}</v-toolbar-title>
+                            <v-toolbar-title class="accent--text">{{ __('New Page') }}</v-toolbar-title>
                             <v-spacer></v-spacer>
                         </v-toolbar>
                         <v-card-text>
@@ -24,16 +24,15 @@
                             <input type="hidden" name="code" v-model="resource.code">
 
                             <v-text-field
-                                prefix="{{ url('/') }}/"
                                 :append-icon-cb="() => (resource.readonly.slug = !resource.readonly.slug)"
                                 :append-icon="resource.readonly.slug ? 'fa-lock' : 'fa-unlock'"
                                 :readonly="resource.readonly.slug"
                                 :value="resource.slug?resource.slug:resource.code | slugify"
-                                {{-- label="{{ __('Slug') }}" --}}
-                                name="slug"
-                                hint="{{ __("To customize the URL of this page, toggle the lock icon on this field.") }}"
+                                label="{{ __('Code') }}"
+                                name="code"
+                                persistent-hint
+                                hint="{{ __("Code is used in generating URL. To customize the code, toggle the lock icon on this field.") }}"
                             ></v-text-field>
-
                         </v-card-text>
 
                         <v-divider></v-divider>
@@ -51,9 +50,9 @@
                 <v-flex md3>
                     @include("Theme::cards.saving")
 
-                    {{-- @include("Page::cards.page-type") --}}
+                    @include("Theme::interactives.featured-image")
 
-                    @include("Page::cards.page-attributes", ['items' => $pages])
+                    @include("Page::cards.page-attributes")
                 </v-flex>
 
                 <v-flex sm6>

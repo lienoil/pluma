@@ -115,7 +115,7 @@ class NavigationViewComposer extends BaseViewComposer
 
             $segment = [
                 'active' => end($url) === $segment,
-                'label' => ucfirst($segment),
+                'label' => $this->transformStringToHumanPresentable($segment),
                 'name' => $segment,
                 'slug' => $old,
                 'url' => strtolower(url($old)),
@@ -270,5 +270,21 @@ class NavigationViewComposer extends BaseViewComposer
         }
 
         return $segment;
+    }
+
+    /**
+     * Performs a string transformation to
+     * huma-readable word(s).
+     *
+     * @param  string $string
+     * @return string
+     */
+    public function transformStringToHumanPresentable($string)
+    {
+        $string = str_replace('-', " ", $string);
+        $string = str_replace('.', " ", $string);
+        $string = str_replace('_', " ", $string);
+
+        return ucwords($string);
     }
 }

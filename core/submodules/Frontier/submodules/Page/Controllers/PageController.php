@@ -53,10 +53,12 @@ class PageController extends Controller
         \Illuminate\Support\Facades\DB::beginTransaction();
         $page = Page::findOrFail($id);
         $page->title = $request->input('title');
-        $page->slug = $request->input('slug');
+        $page->code = $request->input('code');
+        $page->feature = $request->input('feature');
         $page->body = $request->input('body');
         $page->delta = $request->input('delta');
-        $page->feature = $request->input('feature');
+        $page->template = $request->input('template');
+        $page->user()->associate(User::find(user()->id));
         $page->save();
         \Illuminate\Support\Facades\DB::commit();
 
@@ -71,13 +73,9 @@ class PageController extends Controller
      */
     public function create(Request $request)
     {
-        $pages = Page::select(['title', 'slug', 'code', 'id', 'parent_id'])->get();
-        $pages = new Traverser($pages->toArray(), ['root' => ['id' => 'root']], ['name' => 'id', 'parent' => 'parent_id']);
-        $pages = Traverser::recursiveArrayValues($pages->reorderViaChildKnowsParent(), 'children');
-
         $templates = Template::getTemplatesFromFiles();
 
-        return view("Page::pages.create")->with(compact('pages', 'templates'));
+        return view("Page::pages.create")->with(compact('templates'));
     }
 
     /**
@@ -90,15 +88,12 @@ class PageController extends Controller
     {
         $page = new Page();
         $page->title = $request->input('title');
-        $page->slug = $request->input('slug');
         $page->code = $request->input('code');
         $page->feature = $request->input('feature');
         $page->body = $request->input('body');
         $page->delta = $request->input('delta');
         $page->template = $request->input('template');
-        $page->sort = $request->input('sort');
         $page->user()->associate(User::find(user()->id));
-        $page->page()->associate(Page::find($request->input('parent_id')));
         $page->save();
 
         return back();

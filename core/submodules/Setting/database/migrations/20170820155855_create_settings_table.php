@@ -22,12 +22,9 @@ class CreateSettingsTable extends Migration
     public function up()
     {
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('key')->nullable();
-            $table->string('value')->nullable();
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
             $table->string('status')->default(1);
-            $table->integer('settingable_id')->unsigned()->nullable();
-            $table->string('settingable_type')->nullable();
             $table->timestamps();
         });
     }

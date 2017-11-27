@@ -30,9 +30,7 @@ class SettingController extends AdminController
      */
     public function getGeneralForm(Request $request)
     {
-        $resource = General::key();
-
-        return view("Theme::settings.general")->with(compact('resource'));
+        return view("Theme::settings.general");
     }
 
     /**
@@ -43,10 +41,10 @@ class SettingController extends AdminController
      */
     public function getThemesForm(Request $request)
     {
-        // dd("asd", get_themes());
-        $resources = get_themes();
+        $active = Setting::theme(settings('active_theme', 'default'));
+        $resources = Setting::themes(false);
 
-        return view("Theme::settings.themes")->with(compact('resources'));
+        return view("Theme::settings.themes")->with(compact('resources', 'active'));
     }
 
     /**
@@ -57,7 +55,10 @@ class SettingController extends AdminController
      */
     public function getSocialForm(Request $request)
     {
-        return view("Theme::settings.social");
+        $setting = Setting::where('key', 'social_links')->first();
+        $resources = $setting ? unserialize($setting->value) : [];
+
+        return view("Theme::settings.social")->with(compact('resources'));
     }
 
     /**
@@ -69,12 +70,7 @@ class SettingController extends AdminController
     public function store(Request $request)
     {
         foreach ($request->except(['_token']) as $key => $value) {
-            $setting = General::updateOrCreate(
-                ['key' => $key], [
-                    'value' => $value,
-                    'settingable_type' => get_class(new General),
-                ]
-            );
+            Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
         }
 
         return back();

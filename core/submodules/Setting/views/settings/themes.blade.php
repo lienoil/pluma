@@ -1,51 +1,93 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    @include("Theme::partials.banner")
 
-    <v-container fluid grid-list-lg>
+    <v-toolbar dark class="primary elevation-1 sticky">
+        <v-toolbar-title>{{ __('Themes Settings') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+    </v-toolbar>
+
+    <v-card tile class="elevation-1">
+        <v-card-media class="primary" height="180" src="{{ $active->preview }}">
+            <v-layout column wrap flex-end fill-height>
+                <v-flex sm12 fill-height>
+                    <v-card flat dark class="transparent">
+                        <v-card-title primary-title>
+                            <h3 class="headline">
+                                {{ $active->name }}
+                            </h3>
+                            <v-spacer></v-spacer>
+                        </v-card-title>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-card-media>
+        <v-card-actions>
+            <v-chip label class="primary white--text"><v-icon left>format_paint</v-icon>{{ __('Currently applied') }}</v-chip>
+        </v-card-actions>
+        <v-card-text class="grey--text text--darken-1 subheading">
+            <div class="caption mb-3"><strong>{{ __("Authored by: ") }}</strong>{{ $active->author->name }} ({{ $active->author->email }})</div>
+            {!! $active->description !!}
+        </v-card-text>
+    </v-card>
+
+    <v-container fluid grid-list-lg class="grey lighten-4">
         <v-layout row wrap>
             <v-flex xs12>
+                @include("Theme::partials.banner")
 
-                <v-toolbar class="transparent elevation-0">
-                    <v-toolbar-title class="grey--text">{{ __('Themes') }}</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    {{-- Search --}}
-                    <v-slide-y-transition>
-                        <v-text-field
-                            append-icon="search"
-                            label="{{ _('Search Themes') }}"
-                            single-line
-                            hide-details
-                            v-if="dataset.searchform.model"
-                            v-model="dataset.searchform.query"
-                            light
-                        ></v-text-field>
-                    </v-slide-y-transition>
-                    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
-                        <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
-                    </v-btn>
-                    {{-- /Search --}}
-                </v-toolbar>
+                <v-layout row wrap fill-height>
+                    <v-toolbar flat class="transparent">
+                        <v-toolbar-title class="grey--text text--darken-1">{{ __('Installed Themes') }}</v-toolbar-title>
+                    </v-toolbar>
 
-                <v-layout row wrap>
                     @foreach ($resources as $resource)
-                    <v-flex sm4>
-                        <v-card class="mb-3 elevation-1">
-                            <v-card-media src="{{ $resource->preview }}" height="180px"></v-card-media>
-                            <v-card-title primary-title>
-                                <h3 class="headline accent--text">{{ @$resource->theme->name }}</h3>
-                                <p>{{ @$resource->theme->description }}</p>
-                            </v-card-title>
-                            <form action="{{ route('settings.store') }}" method="POST">
-                                {{ csrf_field() }}
-                                <v-card-text>
-                                    <v-btn accent>{{ __('Set as Active') }}</v-btn>
-                                </v-card-text>
-                            </form>
-                        </v-card>
+                    <v-flex md4 sm6 fill-height>
+                        <form action="{{ route('settings.store') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="active_theme" value="{{ $resource->code }}">
+                            <v-card class="mb-3 elevation-1">
+                                <v-card-media src="{{ $resource->preview }}" height="200px">
+                                    <v-layout column wrap flex-end fill-height>
+                                        <v-flex sm12 fill-height>
+                                            <v-card flat dark class="transparent">
+                                                <v-card-title primary-title>
+                                                    <h3 class="headline">{{ $resource->name }}</h3>
+                                                </v-card-title>
+                                                <v-card-text class="subheading">
+                                                    {{ $resource->description }}
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-flex>
+                                    </v-layout>
+                                </v-card-media>
+                                <v-card-actions>
+                                    {{-- @click.native.stop="loadPreview('{{ json_encode($resource) }}')" --}}
+                                    <v-btn ripple class="accent white--text elevation-1"><v-icon left>search</v-icon>{{ __('Preview') }}</v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn type="submit" primary class="elevation-1"><v-icon left>format_paint</v-icon>{{ __('Apply') }}</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </form>
                     </v-flex>
                     @endforeach
+
+                    {{-- <v-dialog v-model="preview.model" lazy fullscreen transition="dialog-bottom-transition">
+                        <v-card flat tile>
+                            <template v-if="preview.model">
+                                <link href="{{ url('anytheme/frontman/css/app.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+                            </template>
+                            <v-toolbar dark card class="elevation-1 primary">
+                                <v-toolbar-title>{{ __('Preview') }} <span v-html="preview.item.name"></span></v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon ripple @click="preview.model = !preview.model"><v-icon>close</v-icon></v-btn>
+                            </v-toolbar>
+                            <v-card-text>
+                                <span v-html="preview.item"></span>
+                            </v-card-text>
+                        </v-card>
+                    </v-dialog> --}}
+
                 </v-layout>
             </v-flex>
         </v-layout>
@@ -53,34 +95,23 @@
 
 @endsection
 
-
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
-        Vue.use(VueResource);
-
         mixins.push({
             data () {
                 return {
-                    dataset: {
-                        searchform: {
-                            model: true,
-                            query: '',
-                        },
-                        selected: [],
-                        totalItems: 0,
-                    },
-                    resource: {
-                        item: {
-                            name: '',
-                            code: '',
-                            description: '',
-                            grants: '',
-                        },
-                        errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
-                    },
-                };
+                    preview: {
+                        item: {},
+                        model: false,
+                    }
+                }
             },
+            methods: {
+                loadPreview (item) {
+                    this.preview.model = !this.preview.model;
+                    this.preview.item = JSON.parse(item);
+                }
+            }
         });
     </script>
 @endpush

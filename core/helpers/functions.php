@@ -67,10 +67,25 @@ if (! function_exists('get_themes')) {
         foreach ($directories as $i => $directory) {
             $themes[$i]['theme'] = [];
             if (file_exists(dirname($directory).'/theme.json')) {
-                $themes[$i]['theme'] = json_decode(file_get_contents(dirname($directory).'/theme.json'));
+                $json = json_decode(file_get_contents(dirname($directory).'/theme.json'));
+                $themes[$i] = [
+                    'name' => isset($json->name) ? $json->name : '',
+                    'description' => isset($json->description) ? $json->description : '',
+                    'code' => isset($json->code) ? $json->code : strtolower(str_slug($json->name)),
+                    'author' => [
+                        'name' => isset($json->author->name) ? $json->author->name : '',
+                        'email' => isset($json->author->email) ? $json->author->email : '',
+                    ],
+                ];
             }
+
             $themes[$i]['path'] = dirname($directory);
-            $themes[$i]['preview'] = url('anytheme/'.basename(dirname($directory)).'/preview.png');
+
+            if (file_exists(dirname($directory)."/preview.jpg")) {
+                $themes[$i]['preview'] = url('anytheme/'.basename(dirname($directory)).'/preview.jpg');
+            } else {
+                $themes[$i]['preview'] = url('anytheme/'.basename(dirname($directory)).'/preview.png');
+            }
         }
 
         return json_decode(json_encode($themes));
@@ -315,8 +330,30 @@ if (! function_exists('require_config')) {
 }
 
 if (! function_exists("settings")) {
-    function settings($key = null, $default = null)
+    function settings($key = null, $default = null, $serialized = false)
     {
+        try {
+            $settings = \Illuminate\Support\Facades\DB::table('settings');
+            $settings = $settings->where('key', $key)->first();
+            if ($settings) {
+
+                if ($serialized) {
+                    $array = [];
+
+                    foreach (unserialize($settings->value) as $key => $value) {
+                        array_set($array, $key, $value);
+                    }
+                    $array = array_dot($array);
+
+                    return $array[$serialized];
+                }
+
+                return $settings->value;
+            }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
         return config("settings.$key", $default);
     }
 }
@@ -557,5 +594,20 @@ if (! function_exists('v')) {
         }
 
         return '{{'.$string.'}}';
+    }
+}
+
+if (! function_exists('get_menu_location')) {
+    /**
+     * Get all menus from location.
+     *
+     * @param  string $location
+     * @return array|object|mixed
+     */
+    function get_navmenus($location)
+    {
+        $menus = \Menu\Models\Menu::menus($location);
+
+        return json_decode(json_encode($menus));
     }
 }

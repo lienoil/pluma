@@ -1,22 +1,12 @@
 {{-- Inline template --}}
 <script type="text/x-template" id="template-draggable">
-    <draggable @change="move" :list="items" :options="options" class="sortable-container" :class="{'top-level grey lighten-2': topLevel}">
+    <draggable @change="move" :list="items" :options="options" class="sortable-container" :class="{'top-level grey lighten-3': topLevel}">
         <div :key="i" v-for="(t,i) in items" class="mb-0 draggable sortable-handle">
             <v-card tile class="elevation-1" :class="{'accent white--text': t.new}">
                 <v-toolbar card dense class="transparent">
-                    <v-toolbar-title class="subheading" v-html="`${t.title}`"></v-toolbar-title>
+                    <v-icon v-if="t.icon" left v-html="t.icon"></v-icon>
+                    <v-toolbar-title class="subheading" v-html="t.title"></v-toolbar-title>
                     <v-spacer></v-spacer>
-                    {{-- <v-btn
-                        v-if="i == 0 && topLevel"
-                        icon
-                        small
-                        v-model="t.is_home"
-                        :class="{'primary': t.is_home}"
-                        v-tooltip.bottom="{'html': '{{ __('Toggle as the home page') }}'}"
-                        @click="t.is_home = !t.is_home"
-                    >
-                        <v-icon small>home</v-icon>
-                    </v-btn> --}}
                     <v-btn
                         icon
                         small
@@ -37,6 +27,7 @@
                 </v-card-text>
                 {{-- fields --}}
                 <input type="hidden" :name="`menus[${t.key}][id]`" :value="t.id">
+                <input type="hidden" v-if="t.icon" :name="`menus[${t.key}][icon]`" :value="t.icon">
                 <input type="hidden" :name="`menus[${t.key}][title]`" :value="t.title">
                 <input type="hidden" :name="`menus[${t.key}][slug]`" :value="t.slug">
                 <input type="hidden" :name="`menus[${t.key}][code]`" :value="t.code">
@@ -92,10 +83,17 @@
                             @endif
                             <draggable :list="social" :clone="clone" :options="{animation: 150,draggable: '.draggable',forceFallback: true,group:{name:'pages',pull:'clone'}}">
                                 <v-card flat tile :key="t.id" v-for="(t,i) in social" class="elevation-1 draggable sortable-handle">
-                                    <v-card-title class="subheading">
-                                        <div v-html="t.title"></div>
-                                        <div class="caption" v-html="t.slug"></div>
-                                    </v-card-title>
+                                    <v-list dense two-line>
+                                        <v-list-tile class="sortable-handle">
+                                            <v-list-tile-avatar>
+                                                <v-icon v-html="t.icon"></v-icon>
+                                            </v-list-tile-avatar>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title v-html="t.title"></v-list-tile-title>
+                                                <div class="grey--text caption" v-html="t.slug"></div>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
                                 </v-card>
                             </draggable>
                         </v-card-text>
@@ -126,7 +124,7 @@
                     <v-toolbar card class="transparent">
                         <v-toolbar-title class="subheading">{{ $location->name }}</v-toolbar-title>
                     </v-toolbar>
-                    <v-card-text class="grey lighten-2">
+                    <v-card-text class="grey lighten-4">
                         <p class="caption grey--text text--darken-1">{{ __('Drag menus in the area below.') }}</p>
                         <p class="caption error--text" v-if="'{{ $errors->first('menus') }}'">{{ $errors->first('menus') }}</p>
                         <local-draggable @changed="changed" :top-level="1" :items="items" :options="options"></local-draggable>

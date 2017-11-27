@@ -8,7 +8,6 @@ Version: 1.0
 @extends("Template::layouts.public")
 
 @section("content")
-    @include("Template::partials.main-menu")
     <v-container grid-list-lg>
         <v-layout row wrap>
             <v-flex sm12>
