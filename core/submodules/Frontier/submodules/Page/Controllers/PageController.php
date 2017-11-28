@@ -2,6 +2,7 @@
 
 namespace Page\Controllers;
 
+use Catalogue\Models\Catalogue;
 use Crowfeather\Traverser\Traverser;
 use Frontier\Controllers\AdminController as Controller;
 use Illuminate\Http\Request;
@@ -74,8 +75,9 @@ class PageController extends Controller
     public function create(Request $request)
     {
         $templates = Template::getTemplatesFromFiles();
+        $catalogues = Catalogue::mediabox();
 
-        return view("Page::pages.create")->with(compact('templates'));
+        return view("Page::pages.create")->with(compact('templates', 'catalogues'));
     }
 
     /**

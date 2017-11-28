@@ -523,6 +523,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Package\\Requests\\PackageRequest' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Package/Requests/PackageRequest.php',
         'Page\\API\\Controllers\\PageController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Page/API/Controllers/PageController.php',
         'Page\\Controllers\\PageController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Page/Controllers/PageController.php',
+        'Page\\Controllers\\PageManyController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Page/Controllers/PageManyController.php',
         'Page\\Models\\Page' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Page/Models/Page.php',
         'Page\\Observers\\PageObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Page/Observers/PageObserver.php',
         'Page\\Providers\\PageServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Page/Providers/PageServiceProvider.php',

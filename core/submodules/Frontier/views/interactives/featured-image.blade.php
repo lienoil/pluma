@@ -5,56 +5,26 @@
     </v-toolbar>
 
     <v-mediabox
-        :categories="resource.feature.catalogues"
+        {{-- :categories="featuredImage.categories" --}}
+        :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
+        :dropzone-params="{_token: '{{ csrf_token() }}'}"
         :multiple="false"
-        :old="resource.item.feature ? [resource.item.feature] : []"
+        {{-- :old="featuredImage.old" --}}
+        :open="featuredImage.model"
+        auto-remove-files
         close-on-click
+        dropzone
         search="mime:image"
         toolbar-icon="perm_media"
         toolbar-label="{{ __('Featured Image') }}"
-        v-model="resource.feature.model"
-        dropzone
-        auto-remove-files
-        :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
-        :dropzone-params="{_token: '{{ csrf_token() }}'}"
-        @selected="value => { resource.item.feature = value[0] }"
-        @category-change="val => resource.feature.current = val"
-        @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename}"
-    >
-        <template slot="dropzone">
-            <span class="caption">{{ __('Uploads will be catalogued as ') }}<em>@{{ resource.feature.current ? resource.feature.current.name : 'Uncategorized' }}</em></span>
-            {{-- <v-card-text>
-                <span v-if="resource.feature.current" v-html="`Currently uploading ${resource.feature.current}`"></span>
-            </v-card-text> --}}
-        </template>
-        <template slot="media" scope="props">
-            <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
-                <v-card-media height="380px" :src="props.item.thumbnail">
-                    <v-container fill-height class="pa-0 white--text">
-                        <v-layout fill-height wrap column>
-                            <v-spacer></v-spacer>
-                            <v-slide-y-transition>
-                                <v-icon ripple class="display-4 pa-1 text-xs-center white--text" v-show="props.item.active">check</v-icon>
-                            </v-slide-y-transition>
-                            <v-spacer></v-spacer>
-                        </v-layout>
-                    </v-container>
-                </v-card-media>
-                <v-card-title primary-title class="subheading white--text" v-html="props.item.originalname"></v-card-title>
-                <v-card-actions class="px-2 white--text">
-                    <v-icon class="white--text" v-html="props.item.icon"></v-icon>
-                    <span v-html="props.item.mimetype"></span>
-                    <v-spacer></v-spacer>
-                    <span v-html="props.item.mime"></span>
-                    <span v-html="props.item.filesize"></span>
-                </v-card-actions>
-            </v-card>
-        </template>
-    </v-mediabox>
+        @selected="value => { featuredImage.new = value[0] }"
+        @category-change="val => featuredImage.category.current = val"
+        @sending="({file, params}) => { params.catalogue_id = featuredImage.category.current.id; params.originalname = file.upload.filename}"
+    ></v-mediabox>
 
-    <v-card-text v-if="!Object.keys(resource.item.feature?resource.item.feature:{}).length" class="text-xs-center">
+    <v-card-text v-if="!featuredImage.new" class="text-xs-center">
         <v-fade-transition>
-            <div v-show="!resource.item.feature" class="my-2">
+            <div v-show="!featuredImage.new" class="my-2">
                 <v-icon x-large class="grey--text text--lighten-2">perm_media</v-icon>
                 <p class="ma-0 caption grey--text text--lighten-2">{{ __('No Image') }}</p>
             </div>
@@ -65,34 +35,56 @@
         <img
             width="100%"
             height="auto"
-            :src="resource.item.feature ? resource.item.feature.thumbnail : ''"
+            :src="featuredImage.new ? featuredImage.new.thumbnail : ''"
             role="button"
-            @click.stop="resource.feature.model = !resource.feature.model"
+            @click.stop="featuredImage.model = !featuredImage.model"
         >
     </div>
-    <input type="hidden" name="feature_obj" :value="JSON.stringify(resource.item.feature)">
-    <input type="hidden" name="feature" :value="resource.item.feature ? resource.item.feature.thumbnail : ''">
+    <input type="hidden" name="feature_obj" :value="JSON.stringify(featuredImage.new)">
+    <input type="hidden" name="feature" :value="featuredImage.new ? featuredImage.new.thumbnail : ''">
     <v-card-actions>
-        <v-btn v-if="resource.item.feature" flat @click.stop="resource.item.feature = null">{{ __('Remove') }}</v-btn>
+        <v-btn v-if="featuredImage.new" flat @click.stop="featuredImage.new = null">{{ __('Remove') }}</v-btn>
         <v-spacer></v-spacer>
-        <v-btn flat @click.stop="resource.feature.model = !resource.feature.model"><span v-html="resource.item.feature ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
+        <v-btn flat @click.stop="featuredImage.model = !featuredImage.model"><span v-html="featuredImage.new ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
     </v-card-actions>
 </v-card>
 
+@push('css')
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}">
+@endpush
+
 @push('pre-scripts')
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
+    <script src="{{ assets('frontier/js/mixins/featured-image.js?v=23s') }}"></script>
     <script>
+        let fm = FeaturedImage.init({
+            categories: {!! json_encode($catalogues) !!},
+            old: '{!! old('feature_obj') !!}' ? JSON.parse('{!! old('feature_obj') !!}') : [],
+        });
+
+        Vue.use(VueResource);
+        // mixins.push(fm);
         mixins.push({
             data () {
                 return {
-                    resource: {
-                        item: {},
-                        feature: {
-                            model: false,
-                            catalogues: [],
-                        }
+                    featuredImage: {
+                        categories: [],
+                        current: null,
+                        new: null,
+                        old: [],
+                        category: {
+                            current: {},
+                        },
+                        model: false,
                     }
                 }
-            }
-        });
+            },
+
+            mounted () {
+                this.featuredImage.categories = JSON.parse(JSON.stringify({!! json_encode($catalogues) !!}));
+                this.featuredImage.old = '{!! old('feature_obj') !!}' ? JSON.parse('{!! old('feature_obj') !!}') : [];
+            },
+        })
     </script>
 @endpush

@@ -7,13 +7,10 @@
         <v-layout row wrap>
             <v-flex sm12>
 
-                <canvas id="myChart" width="400" height="400"></canvas>
-
                 <v-switch v-model="dataset.toggle" label="toggle view"></v-switch>
                 {{-- <span v-html="dataset.items"></span> --}}
 
-                <v-dataset
-                    {{-- infinite --}}
+                {{-- <v-dataset
                     :table="dataset.toggle"
                     :card="!dataset.toggle"
                     :headers="dataset.headers"
@@ -22,7 +19,6 @@
                     :total-items="dataset.pagination.totalItems"
                     v-model="dataset.selected"
                     select-all="primary"
-                    {{-- @infinite="listen" --}}
                     @pagination="pagination"
                 >
                     <template slot="items" scope="{prop}">
@@ -53,13 +49,10 @@
                             <span v-html="prop.filesize"></span>
                         </v-card-actions>
                     </template>
-                    {{-- <template slot="pagination">
-                        <div class="subheading grey--text">asdas</div>
-                    </template> --}}
 
-                </v-dataset>
+                </v-dataset> --}}
 
-                {{-- <v-card tile>
+                <v-card tile>
                     <v-card-actions><v-icon left class="subheading">fa-flask</v-icon>Mediabox Test</v-card-actions>
                     <v-card-media height="250" :src="mediabox.selected?mediabox.selected.thumbnail:''"></v-card-media>
                     <v-card-actions>
@@ -90,7 +83,7 @@
                             </template>
                         </v-mediabox>
                     </v-card-actions>
-                </v-card> --}}
+                </v-card>
 
 
             </v-flex>
@@ -100,20 +93,13 @@
 @endsection
 
 @push('post-css')
-    {{-- <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.css') }}">
-@endpush
-
-@push('js')
-    <script>
-        alert('ad')
-    </script>
 @endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vue-resource/dist/vue-resource.min.js') }}"></script>
     <script src="{{ assets('frontier/vuetify-dataset/dist/vuetify-dataset.min.js') }}"></script>
-    {{-- <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
+    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js?v=12') }}"></script>
     <script>
         Vue.use(VueResource);
 

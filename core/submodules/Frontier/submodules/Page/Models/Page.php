@@ -11,4 +11,6 @@ use User\Support\Traits\BelongsToUser;
 class Page extends Model
 {
     use BelongsToPage, PageHasManyPages, BelongsToUser, PageMutators;
+
+    protected $searchables = ['title', 'code', 'created_at', 'updated_at'];
 }

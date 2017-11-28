@@ -2,76 +2,69 @@
 
 @section("content")
     <v-container fluid grid-list-lg>
-        <v-flex sm6></v-flex>
-        <v-flex md8>
-            <v-card class="elevation-1">
-                <v-card-title primary-title>{{ __('Test') }}</v-card-title>
+        <v-layout row wrap>
+            <v-flex md4>
+                <v-card class="elevation-1">
+                    <v-toolbar card class="transparent">
+                        <v-toolbar-title primary-title class="subheading">{{ __('Calendar') }}</v-toolbar-title>
+                    </v-toolbar>
 
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-date-picker first-day-of-week="1" scrollable no-title class="elevation-0" v-model="resource.daterange.from"></v-date-picker>
-                    <v-spacer></v-spacer>
-                    <v-date-picker first-day-of-week="1" scrollable no-title class="elevation-0" v-model="resource.daterange.to"></v-date-picker>
-                    <v-spacer></v-spacer>
-                </v-card-actions>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
 
-                <v-card-text class="grey--text text--darken-2">
-                    <p class="headline accent--text">{{ __('From') }} @{{ formatDate(resource.daterange.from) }} {{ __('to') }} @{{ formatDate(resource.daterange.to) }}</p>
-                    <input type="hidden" name="daterange" :value="resource.daterange.total">
-                    {{-- <v-text-field name="daterange" v-model="resource.daterange.total" label="{{ __('Date Range') }}"></v-text-field> --}}
-                </v-card-text>
-            </v-card>
-        </v-flex>
+                        <daterange :first-day-of-week="{{ settings('first_day_of_the_week', 1) }}" class="calendar" v-model="vueDateRange.range" :lang="vueDateRange.lang" @change="onVueDateRangeChange"></daterange>
+
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+            <v-flex sm8>
+                <v-card class="elevation-1">
+                    <v-toolbar card class="transparent">
+                        <v-toolbar-title primary-title class="subheading">{{ __('Selected Dates') }}</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <p class="subheading"><span v-html="`{{ __('You have selected ') }}${vueDateRange.range.startDate.format('MMMM Do')} - ${vueDateRange.range.endDate.format('MMMM Do')} ${vueDateRange.range.endDate.format('YYYY')}`"></span></p>
+                    </v-card-text>
+                    <template v-for="(date, i) in vueDateRange.dates">
+                        <v-card flat tile>
+                            <input type="hidden" :name="`dates[${i}]`" :value="date.value">
+                            <v-card-title class="py-1 grey--text">
+                                <span v-html="`${date.moment.format('YYYY-MM-DD')}`"></span>
+                                <span class="px-2" v-html="`${date.moment.format('ddd')}`"></span>
+                                <v-spacer></v-spacer>
+                                <v-btn icon @click="remove(vueDateRange.dates, i)"><v-icon>close</v-icon></v-btn>
+                            </v-card-title>
+                            <v-divider></v-divider>
+                        </v-card>
+                    </template>
+                    <v-card-text>
+                        <v-text-field name="start_time" label="{{ __('Start Time') }}"></v-text-field>
+                        <v-text-field name="end_time" label="{{ __('End Time') }}"></v-text-field>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="primary white--text">{{ __('Save') }}</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+        </v-layout>
     </v-container>
 @endsection
 
 @push('pre-scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.min.js"></script>
+    <script src="{{ assets('timesheet/vue-date-range/vue-date-range.js') }}"></script>
+    <script src="{{ assets('timesheet/vue-date-range/moment.min.js') }}"></script>
+    <script src="{{ assets('timesheet/mixins/vue-date-range.js?v=ds') }}"></script>
     <script>
-        mixins.push({
-            data () {
-                return {
-                    resource: {
-                        daterange: {
-                            from: '',
-                            to: '',
-                        },
-                    },
-                }
+        mixins.push(VueDateRange.init({
+            lang: 'en',
+            range: {
+                startDate: moment(),
+                endDate: moment(),
             },
-
-            methods: {
-                mResource () {
-                    let self = this;
-
-                    return {
-                        init () {
-                            self.resource = {
-                                daterange: {
-                                    from: '{{ date('Y-m-d') }}',
-                                    to: '{{ date('Y-m-d') }}',
-                                },
-                            };
-
-                            self.resource.daterange.total = self.resource.daterange.from + '-' + self.resource.daterange.to;
-                        }
-                    }
-                },
-
-                formatDate (date) {
-                    return moment(date).format('MMM Do YYYY');
-                }
-            },
-
-            mounted () {
-                this.mResource().init();
-            },
-
-            watch: {
-                'resource.daterange.from': function (value) {
-                    this.resource.daterange.total = this.resource.daterange.from + ' to ' + this.resource.daterange.to;
-                },
-            }
-        })
+            dates: [],
+            format: '{{ settings('js_date_format') }}',
+        }));
     </script>
 @endpush

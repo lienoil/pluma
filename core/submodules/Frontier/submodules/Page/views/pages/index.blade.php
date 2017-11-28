@@ -22,11 +22,11 @@
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                <form action="{{ route('roles.many.destroy') }}" method="POST" class="inline">
+                                <form action="{{ route('pages.many.destroy') }}" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <template v-for="item in dataset.selected">
-                                        <input type="hidden" name="roles[]" :value="item.id">
+                                        <input type="hidden" name="pages[]" :value="item.id">
                                     </template>
                                     <v-btn
                                         flat
@@ -59,7 +59,7 @@
                         <v-btn
                             icon
                             flat
-                            href="{{ route('roles.trash') }}"
+                            href="{{ route('pages.trash') }}"
                             light
                             v-tooltip:left="{'html': `View trashed items`}"
                         ><v-icon class="grey--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn>
@@ -207,7 +207,7 @@
                             take: rowsPerPage,
                         };
 
-                        this.api().search('{{ route('api.roles.search') }}', query)
+                        this.api().search('{{ route('api.pages.search') }}', query)
                             .then((data) => {
                                 this.dataset.items = data.items.data ? data.items.data : data.items;
                                 this.dataset.totalItems = data.items.total ? data.items.total : data.total;

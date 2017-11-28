@@ -19,6 +19,33 @@ return [
             'description' => __('Manage timesheets'),
         ],
         'children' => [
+            'show-timesheets' => [
+                'name' => 'show-timesheets',
+                'order' => 1,
+                'slug' => route('timesheets.show', user()->id),
+                'always_viewable' => true,
+                'routes' => [
+                    'name' => 'timesheets.my.index',
+                    'children' => [
+                        'timesheets.my.show',
+                    ]
+                ],
+                'labels' => [
+                    'title' => __('My Timesheets'),
+                    'description' => __('View your timesheets'),
+                ],
+            ],
+
+            'view-timesheet' => [
+                'name' => 'view-timesheet',
+                'order' => 1,
+                'slug' => url(config('path.admin').'/timesheets'),
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('All Timesheets'),
+                    'description' => __('View the list of all timesheets'),
+                ],
+            ],
             'view-timesheet' => [
                 'name' => 'view-timesheet',
                 'order' => 1,

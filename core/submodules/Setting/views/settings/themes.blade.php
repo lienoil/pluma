@@ -2,7 +2,7 @@
 
 @section("content")
 
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    <v-toolbar dark class="accent elevation-1 sticky">
         <v-toolbar-title>{{ __('Themes Settings') }}</v-toolbar-title>
         <v-spacer></v-spacer>
     </v-toolbar>
@@ -26,13 +26,13 @@
             {!! $active->description !!}
         </v-card-text>
         <v-card-actions>
-            <v-chip label class="primary white--text"><v-icon left>format_paint</v-icon>{{ __('Currently applied') }}</v-chip>
+            <v-chip label class="primary white--text"><v-icon left>format_paint</v-icon>{{ __('currently applied as the site theme') }}</v-chip>
             <v-spacer></v-spacer>
             @if (settings('active_theme', 'default') !== settings('default_theme', 'default'))
                 <form action="{{ route('settings.store') }}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="active_theme" value="{{ settings('default_theme', 'default') }}">
-                    <v-btn type="submit" class="pink accent-4 primary elevation-1">{{ __('Restore Default Theme') }}</v-btn>
+                    <v-btn v-tooltip:left="{html: `{{ __("This will revert the theme back to Pluma's Default theme") }}`}" type="submit" class="pink accent-4 primary elevation-1">{{ __('Restore Default Theme') }}</v-btn>
                 </form>
             @endif
         </v-card-actions>
