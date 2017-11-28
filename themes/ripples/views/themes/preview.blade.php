@@ -1,7 +1,7 @@
 @extends("Theme::layouts.public")
 
 @section("theme-css")
-    <link rel="stylesheet" href="{{ theme("{$resource->code}/css/styles.css", true) }}?test={{ date('Y-m-d_H:i:s') }}">
+    <link rel="stylesheet" href="{{ theme("{$resource->code}/assets/css/app.min.css", true) }}?test={{ date('Y-m-d_H:i:s') }}">
 @endsection
 
 @section("pre-content")
@@ -79,7 +79,7 @@
                     :value="true"
                 >
                     <v-card class="elevation-1 mb--2" style="margin-bottom: -2rem">
-                        <v-card-text class="text-xs-center">{!! __("This is a banner was called to notify you that you are <strong>awesome</strong>.") !!} <v-icon class="caption" right>fa-glass</v-icon></v-card-text>
+                        <v-card-text class="text-xs-center">{{ __("This is a banner called to notify you.") }}</v-card-text>
                     </v-card>
                 </v-alert>
                 <v-card class="mt-4">

@@ -34,11 +34,11 @@ trait Themes
     public static function theme($theme)
     {
         foreach (self::themes() as $item) {
-            if (strtolower($item->name) === strtolower($theme)) {
+            if (strtolower($item->name) === strtolower($theme) && is_dir($item->path)) {
                 return $item;
             }
         }
 
-        return false;
+        return self::theme('default', false);
     }
 }

@@ -80,7 +80,7 @@ Route::get('~p/{module?}/{file?}', function ($module = null, $file = null) {
 })->where('file', '.*');
 
 Route::get('themes/{file?}', function ($file = null) {
-    $path = base_path(config('path.themes', 'themes').'/'.config('settings.active_theme', 'default'))."/assets/$file";
+    $path = base_path(config('path.themes', 'themes').'/'.settings('active_theme', 'default'))."/$file";
     $fileArray = explode('/', $file);
     $lastFile = end($fileArray);
     $extension = explode(".", $lastFile);
