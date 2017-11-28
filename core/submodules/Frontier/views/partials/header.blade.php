@@ -55,6 +55,12 @@
     @show
 
     @stack("post-css")
+
+    {{-- Theme Specific --}}
+    @section("theme-css")
+    <link href="{{ theme('css/app.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+    @show
+    {{-- /Theme Specific --}}
 </head>
 <body>
     @include("Theme::warnings.general")

@@ -63,7 +63,7 @@
                                 </v-card-media>
                                 <v-card-actions>
                                     {{-- @click.native.stop="loadPreview('{{ json_encode($resource) }}')" --}}
-                                    <v-btn ripple class="accent white--text elevation-1"><v-icon left>search</v-icon>{{ __('Preview') }}</v-btn>
+                                    <v-btn ripple href="{{ route('themes.preview', $resource->code) }}" class="accent white--text elevation-1"><v-icon left>search</v-icon>{{ __('Preview') }}</v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn type="submit" primary class="elevation-1"><v-icon left>format_paint</v-icon>{{ __('Apply') }}</v-btn>
                                 </v-card-actions>

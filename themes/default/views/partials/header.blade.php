@@ -40,10 +40,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    {{-- Theme Specific --}}
-    <link href="{{ theme('css/app.min.css') }}?v={{ $application->version }}" rel="stylesheet">
-    {{-- /Theme Specific --}}
-
     @stack("css")
         {{-- compile this --}}
         @if (env('APP_ENV', 'production') == 'development')
@@ -58,6 +54,12 @@
     @show
 
     @stack("post-css")
+
+    {{-- Theme Specific --}}
+    @section("theme-css")
+    <link href="{{ theme('css/app.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+    @show
+    {{-- /Theme Specific --}}
 </head>
 <body class="with-backdrop">
     @include("Theme::warnings.general")

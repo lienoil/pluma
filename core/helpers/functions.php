@@ -431,7 +431,7 @@ if (! function_exists('theme')) {
     function theme($file, $any = false)
     {
         if ($any) {
-            return url("anytheme/file");
+            return url("anytheme/$file");
         }
 
         return url("themes/$file");
