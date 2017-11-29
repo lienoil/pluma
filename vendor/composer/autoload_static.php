@@ -44,6 +44,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Pluma\\' => 6,
+            'PhpOffice\\PhpSpreadsheet\\' => 25,
             'Phinx\\' => 6,
         ),
         'M' => 
@@ -175,6 +176,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Pluma\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core',
+        ),
+        'PhpOffice\\PhpSpreadsheet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
         'Phinx\\' => 
         array (
@@ -388,6 +393,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Category\\Providers\\CategoryServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Category/Providers/CategoryServiceProvider.php',
         'Category\\Requests\\CategoryRequest' => __DIR__ . '/../..' . '/core/submodules/Category/Requests/CategoryRequest.php',
         'Category\\Support\\Traits\\BelongsToCategory' => __DIR__ . '/../..' . '/core/submodules/Category/Support/Traits/BelongsToCategory.php',
+        'Category\\Support\\Traits\\CategoryMutators' => __DIR__ . '/../..' . '/core/submodules/Category/Support/Traits/CategoryMutators.php',
         'Chronos\\Providers\\ChronosServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/Providers/ChronosServiceProvider.php',
         'Comment\\Controllers\\API\\CommentController' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Controllers/API/CommentController.php',
         'Comment\\Controllers\\CommentController' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Controllers/CommentController.php',
@@ -438,6 +444,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'CreateContentsTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/database/migrations/20170912032507_create_contents_table.php',
         'CreateCourseUserTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20170929040950_create_course_user_table.php',
         'CreateCoursesTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20170830025118_create_courses_table.php',
+        'CreateDailiesTable' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/database/migrations/20171129062136_create_dailies_table.php',
         'CreateDetailsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170825065924_create_details_table.php',
         'CreateFailedJobsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/20170812142355_create_failed_jobs_table.php',
         'CreateForumsTable' => __DIR__ . '/../..' . '/modules/Forum/database/migrations/20170829031334_create_forums_table.php',
@@ -679,10 +686,14 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Theme\\Providers\\ThemeServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Theme/Providers/ThemeServiceProvider.php',
         'Theme\\Requests\\ThemeRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Theme/Requests/ThemeRequest.php',
         'Timesheet\\Controllers\\TimesheetController' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Controllers/TimesheetController.php',
+        'Timesheet\\Models\\Daily' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Models/Daily.php',
         'Timesheet\\Models\\Timesheet' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Models/Timesheet.php',
         'Timesheet\\Observers\\TimesheetObserver' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Observers/TimesheetObserver.php',
         'Timesheet\\Providers\\TimesheetServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Providers/TimesheetServiceProvider.php',
         'Timesheet\\Requests\\TimesheetRequest' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Requests/TimesheetRequest.php',
+        'Timesheet\\Support\\Traits\\BelongsToTimesheet' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/BelongsToTimesheet.php',
+        'Timesheet\\Support\\Traits\\HasManyDailies' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/HasManyDailies.php',
+        'Timesheet\\Support\\Traits\\TimesheetMutator' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/TimesheetMutator.php',
         'User\\API\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/LoginController.php',
         'User\\API\\Controllers\\UserController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/UserController.php',
         'User\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/LoginController.php',
@@ -701,6 +712,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'User\\Policies\\UserPolicy' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Policies/UserPolicy.php',
         'User\\Providers\\PasswordServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Providers/PasswordServiceProvider.php',
         'User\\Providers\\UserServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Providers/UserServiceProvider.php',
+        'User\\Requests\\OwnerRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Requests/OwnerRequest.php',
         'User\\Requests\\PasswordChangeRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Requests/PasswordChangeRequest.php',
         'User\\Requests\\UserRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Requests/UserRequest.php',
         'User\\Scopes\\Avatar' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Scopes/Avatar.php',

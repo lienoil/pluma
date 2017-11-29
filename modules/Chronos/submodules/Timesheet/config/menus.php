@@ -22,7 +22,7 @@ return [
             'show-timesheets' => [
                 'name' => 'show-timesheets',
                 'order' => 1,
-                'slug' => route('timesheets.show', user()->id),
+                'slug' => route('timesheets.show', user()->username),
                 'always_viewable' => true,
                 'routes' => [
                     'name' => 'timesheets.my.index',

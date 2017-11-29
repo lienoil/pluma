@@ -35,20 +35,21 @@ class PublicController
         $slug = is_null($slug) ? config('path.home', 'home') : $slug;
         $menu = Menu::whereSlug($slug)->first();
         if ($menu && $page = $this->page($menu->page_id)) {
+            // Trial 1.1: Look for slug specific views
+            if (view()->exists("Theme::pages.{$page->code}")) {
+                return view("Theme::pages.{$page->code}")->with(compact('page'));
+            }
+
+            // Trial 1.2: Look for templates
             // Page exists, look for a template.
             $page->template = isset($page->template) && ! is_null($page->template)
                             ? $page->template
                             : 'generic';
-
             if (view()->exists("Theme::templates.{$page->template}")) {
                 // Disco.
                 return view("Theme::templates.{$page->template}")->with(compact('page'));
             }
 
-            // Trial 1.1: Look for slug specific views
-            if (vuew()->exists("Theme::pages.{$page->code}")) {
-                return view("Theme::pages.{$page->code}")->with(compact('page'));
-            }
 
             return view("Theme::templates.index")->with(compact('page'));
         }

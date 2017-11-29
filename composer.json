@@ -37,7 +37,8 @@
         "illuminate/pagination": "^5.5@dev",
         "illuminate/bus": "^5.5@dev",
         "swiftmailer/swiftmailer": "^6.0@dev",
-        "chumper/zipper": "dev-master"
+        "chumper/zipper": "dev-master",
+        "phpoffice/phpspreadsheet": "dev-master"
     },
     "autoload": {
         "classmap": [

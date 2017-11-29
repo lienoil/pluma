@@ -94,6 +94,16 @@ trait UserMutator
     }
 
     /**
+     * Get the mutated nickname.
+     *
+     * @return string
+     */
+    public function getNicknameAttribute()
+    {
+        return isset($this->details->nickname) ? $this->details->nickname : $this->firstname;
+    }
+
+    /**
      * Gets the mutated bio of the resource.
      *
      * @return string

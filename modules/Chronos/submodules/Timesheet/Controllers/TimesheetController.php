@@ -2,11 +2,16 @@
 
 namespace Timesheet\Controllers;
 
+use Category\Models\Category;
+use DateTime;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory as Spreadsheet;
+use Timesheet\Models\Daily;
 use Timesheet\Models\Timesheet;
 use Timesheet\Requests\TimesheetRequest;
-use DateTime;
+use User\Models\User;
+use User\Requests\OwnerRequest;
 
 class TimesheetController extends AdminController
 {
@@ -26,15 +31,16 @@ class TimesheetController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  \User\Requests\OwnerRequest $request
+     * @param  string  $handlename
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(OwnerRequest $request, $handlename)
     {
-        //
+        $user = User::whereUsername($handlename)->firstOrFail();
+        $resources = Timesheet::belongsToUser($user->id)->get();
 
-        return view("Theme::timesheets.show");
+        return view("Theme::timesheets.show")->with(compact('resources', 'user'));
     }
 
     /**
@@ -44,9 +50,9 @@ class TimesheetController extends AdminController
      */
     public function create()
     {
-        //
+        $categories = Category::type('timesheets')->pluck('name', 'id');
 
-        return view("Theme::timesheets.create");
+        return view("Theme::timesheets.create")->with(compact('categories'));
     }
 
     /**
@@ -57,27 +63,38 @@ class TimesheetController extends AdminController
      */
     public function store(TimesheetRequest $request)
     {
-        echo "<pre>";
-            var_dump( $request->all() ); die();
-        echo "</pre>";
-        $timeIn = DateTime::createFromFormat('H:i:s', date('H:i:s', strtotime($request->input('time_in'))));
-        $timeOut = DateTime::createFromFormat('H:i:s', date('H:i:s', strtotime($request->input('time_out'))));
-        $dateStart = DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime($request->input('from_date'))));
-        $dateEnd = DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime($request->input('to_date'))));
+        $timesheet = new Timesheet();
+        $timesheet->name = $request->input('name');
+        $timesheet->code = $request->input('code');
+        $timesheet->description = $request->input('description');
+        $timesheet->user()->associate($request->input('user_id')?User::find($request->input('user_id')):user()->id);
+        $timesheet->save();
 
-        $current = clone $dateStart;
+        foreach ($request->input('dates') as $date) {
+            $timeIn = DateTime::createFromFormat('H:i:s', date('H:i:s', strtotime($date['time_in'])));
+            $timeOut = DateTime::createFromFormat('H:i:s', date('H:i:s', strtotime($date['time_out'])));
 
-        while ($current < $dateEnd) {
-            $timesheet = new Timesheet();
-            $timesheet->date = $current;
-            $timesheet->in = $timeIn;
-            $timesheet->out = $timeOut;
-            $hours = $timeOut->diff($timeIn);
-            $timesheet->hours = ($timeOut->diff($timeIn))->format('%h:%i:%s');
-            $timesheet->user()->associate(user());
-            $timesheet->save();
-
-            $current = $current->modify('+1 day');
+            $daily = new Daily();
+            $daily->work = $request->input('work');
+            $daily->month = date('m', strtotime($date['date']));
+            $daily->date = date('Y-m-d', strtotime($date['date']));
+            $daily->time_in = $timeIn;
+            $daily->time_out = $timeOut;
+            $daily->hours = ($timeOut->diff($timeIn))->format('%h:%i:%s');
+            $daily->category()->associate(
+                Category::firstOrCreate(
+                    ['code' => str_slug($request->input('category_name'))],
+                    [
+                        'name' => $request->input('category_name'),
+                        'alias' => $request->input('category_name'),
+                        'code' => str_slug($request->input('category_name')),
+                        'icon' => 'label',
+                        'categorable_type' => Timesheet::categorable(),
+                    ]
+                )
+            );
+            $daily->timesheet()->associate($timesheet);
+            $daily->save();
         }
 
         return back();
@@ -163,5 +180,41 @@ class TimesheetController extends AdminController
         //
 
         return redirect()->route('timesheets.trash');
+    }
+
+    /**
+     * Generate report from resource.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function generate(Request $request, $id)
+    {
+        $timesheet = Timesheet::findOrFail($id);
+
+        $spreadsheet = Spreadsheet::load(module_path('timesheet/templates/spreadsheets/test.xlsx'));
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->setOffice2003Compatibility(true);
+        $worksheet = $spreadsheet->getActiveSheet(); // setSheetIndex(0);
+
+        $worksheet->getCell('B5')->setValue($timesheet->user->fullname);
+
+        foreach ($timesheet->dailies as $daily) {
+            foreach ($worksheet->getRowIterator(10) as $row) {
+                $cellIterator = $row->getCellIterator();
+                $cellIterator->setIterateOnlyExistingCells(false);
+                foreach ($cellIterator as $cell) {
+                    $cell->setValue(date('h', strtotime($daily->hours)));
+                }
+            }
+        }
+
+        // // We'll be outputting an excel file
+        header('Content-type: application/vnd.ms-excel');
+        // It will be called file.xls
+        header('Content-Disposition: attachment; filename="file.xls"');
+        $writer->save('php://output');
     }
 }

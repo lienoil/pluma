@@ -223,6 +223,23 @@ if (! function_exists('get_modules_path')) {
     }
 }
 
+if (! function_exists('module_path')) {
+    /**
+     * Gets the all migrations path.
+     *
+     * @param  boolean $path
+     * @param  boolean $includeCoreModules
+     * @param  string  $modulesPath
+     * @return array
+     */
+    function module_path($path)
+    {
+        $array = explode('/', $path);
+        $module = array_shift($array);
+        return get_module($module) . "/" . implode("/", $array);
+    }
+}
+
 if (! function_exists('get_migrations')) {
     /**
      * Gets the all migrations path.

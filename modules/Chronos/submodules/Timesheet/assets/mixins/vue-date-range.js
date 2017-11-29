@@ -50,16 +50,46 @@ let VueDateRange = {
           }
         },
         removeSundays (dates) {
-          let d = dates.filter(date => {
-            // 0 = Sunday
-            return (date.moment.format('d') != 0);
+          let d = dates.filter((date, i) => {
+            // 0 = Sunday, if firstDayOfWeekIsSunday
+            if (date.moment.format('d') == 0) {
+              dates.splice(i, 1);
+            }
           });
 
           return d;
-        }
+        },
+        allowedHours (h, ampm) {
+          console.log(h, ampm);
+
+          return true;
+        },
+        search (query, set) {
+          var results = [];
+          var toSearch = query;
+          var objects = set;
+
+          for(var i=0; i<objects.length; i++) {
+            for(key in objects[i]) {
+              if(objects[i][key].indexOf(toSearch)!=-1) {
+                results.push(objects[i]);
+              }
+            }
+          }
+
+          set = results;
+        },
       },
       mounted () {
         this.vueDateRange.dates = this.setDates(this.vueDateRange.range);
+      },
+      watch: {
+        'vueDateRange.dates': function (val) {
+          if (val.length) {
+            this.vueDateRange.startDate = val[0].moment;
+            this.vueDateRange.endDate = val[val.length-1].moment;
+          }
+        }
       }
     }
   }

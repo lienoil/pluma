@@ -23,11 +23,9 @@ class CreateTimesheetsTable extends Migration
     {
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('month');
-            $table->date('date');
-            $table->time('in');
-            $table->time('out');
-            $table->time('hours');
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();

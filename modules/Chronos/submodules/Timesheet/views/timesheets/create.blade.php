@@ -33,91 +33,192 @@
                         <v-toolbar card class="transparent">
                             <v-toolbar-title primary-title class="subheading">{{ __('New Timesheet') }}</v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <v-btn flat class="error error--text" ripple @click="removeSundays(vueDateRange.dates)">{{ __('Remove Sundays') }}</v-btn>
                         </v-toolbar>
                         <v-card-text>
+                            <input type="hidden" name="user_id" value="{{ user()->id }}">
                             <v-text-field
                                 label="{{ __('Name') }}"
                                 name="name"
                                 :error-messages="vueDateRange.resource.errors.name"
-                                :value="`{{ old('name') ? old('name') : __(v('vueDateRange.range.startDate.format("MMMM")', true) . ' Time Sheet') }}`"
+                                :value="`{{ old('name') ? old('name') : __(v('vueDateRange.range.startDate.format("MMMM YYYY")', true) . ' Time Sheet') }}`"
                             ></v-text-field>
 
-                            <p class="subheading grey--text">{{ __('Dates ') }}<em v-html="`from ${vueDateRange.range.startDate.format('MMMM Do')} to ${vueDateRange.range.endDate.format('MMMM Do')} ${vueDateRange.range.endDate.format('YYYY')}`"></em></p>
-                            <p v-if="vueDateRange.resource.errors.dates" class="caption error--text" v-html="vueDateRange.resource.errors.dates.join(',')"></p>
+                            <template>
+                                {{-- Code --}}
+                                <v-text-field
+                                    label="{{ __('Month-Year Code') }}"
+                                    prepend-icon="lock"
+                                    name="code"
+                                    :error-messages="vueDateRange.resource.errors.code"
+                                    :value="`{{ old('code') ? old('code') : __(v('vueDateRange.range.startDate.format("MM-YYYY")', true)) }}`"
+                                    persistent-hint
+                                    hint="{{ __('You will not be able to edit this field') }}"
+                                    readonly
+                                ></v-text-field>
+                            </template>
                         </v-card-text>
-                        <template v-for="(date, i) in vueDateRange.dates">
-                            <v-card flat tile>
-                                <input type="hidden" :name="`dates[${i}][date]`" :value="date.value">
-                                <input type="hidden" :name="`dates[${i}][time_start]`" :value="vueDateRange.time.start">
-                                <input type="hidden" :name="`dates[${i}][time_end]`" :value="vueDateRange.time.end">
-                                <v-card-title class="py-1 grey--text">
-                                    <v-chip label class="white--text px-2" :class="{'green accent-4': date.moment.format('d') != 0 && date.moment.format('d') != 6, 'error lighten-2': date.moment.format('d') == 0, 'blue lighten-2': date.moment.format('d') == 6}" v-html="`${date.moment.format('YYYY-MM-DD')} | ${date.moment.format('dddd')}`"></v-chip>
-                                    <v-spacer></v-spacer>
-                                    <v-btn icon @click="remove(vueDateRange.dates, i)"><v-icon>close</v-icon></v-btn>
-                                </v-card-title>
-                                <v-divider></v-divider>
-                            </v-card>
-                        </template>
                         <v-card-text>
-                            <v-menu
-                                lazy
-                                :close-on-content-click="false"
-                                transition="slide-y-transition"
-                                offset-y
-                                full-width
-                                :nudge-right="40"
-                                max-width="290px"
-                                min-width="290px"
-                            >
-                                <v-text-field
-                                    slot="activator"
-                                    label="{{ __('Time in') }}"
-                                    name="start_time"
-                                    v-model="vueDateRange.time.start"
-                                    :error-messages="vueDateRange.resource.errors.time_start"
-                                    prepend-icon="access_time"
-                                    readonly
-                                ></v-text-field>
-                                <v-time-picker actions scrollable v-model="vueDateRange.time.start">
-                                    <template scope="{ save, cancel }">
-                                        <v-card-actions>
-                                            <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                                            <v-btn flat primary @click.native="save()">Save</v-btn>
-                                        </v-card-actions>
+                            <v-text-field
+                                label="{{ __('Dates') }}"
+                                :error-messages="vueDateRange.resource.errors.dates"
+                                prepend-icon="date_range"
+                                persistent-hint
+                                hint="{{ __('Click to display all dates') }}"
+                                append-icon="keyboard_arrow_down"
+                                :append-icon-cb="() => (vueDateRange.revealDates = !vueDateRange.revealDates)"
+                                @click="vueDateRange.revealDates = !vueDateRange.revealDates"
+                                :value="`from ${vueDateRange.startDate?vueDateRange.startDate.format('MMM Do'):''} to ${vueDateRange.endDate?vueDateRange.endDate.format('MMM Do YYYY'):''}`"
+                                readonly
+                            ></v-text-field>
+                        </v-card-text>
+                        <v-slide-y-transition>
+                            <div v-show="vueDateRange.revealDates">
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn flat class="error error--text" ripple @click="removeSundays(vueDateRange.dates)">{{ __('Remove Sundays') }}</v-btn>
+                                </v-card-actions>
+                                <v-list class="pa-0" dense>
+                                    <template v-for="(date, i) in vueDateRange.dates">
+                                        <v-list-tile>
+                                            <v-list-tile-avatar>
+                                                <v-icon>fa-calendar-o</v-icon>
+                                            </v-list-tile-avatar>
+                                            <v-list-tile-content>
+                                                <input type="hidden" :name="`dates[${i}][date]`" :value="date.value">
+                                                <input type="hidden" :name="`dates[${i}][time_in]`" :value="vueDateRange.time.start">
+                                                <input type="hidden" :name="`dates[${i}][time_out]`" :value="vueDateRange.time.end">
+                                                <v-chip label class="white--text px-2" :class="{'green accent-4': date.moment.format('d') != 0 && date.moment.format('d') != 6, 'error lighten-2': date.moment.format('d') == 0, 'blue lighten-2': date.moment.format('d') == 6}" v-html="`${date.moment.format('YYYY-MM-DD')} | ${date.moment.format('dddd')}`"></v-chip>
+                                            </v-list-tile-content>
+                                            <v-list-tile-action>
+                                                <v-btn icon @click="remove(vueDateRange.dates, i)"><v-icon>close</v-icon></v-btn>
+                                            </v-list-tile-action>
+                                        </v-list-tile>
+                                        <v-divider></v-divider>
                                     </template>
-                                </v-time-picker>
-                            </v-menu>
-                            <v-menu
-                                lazy
-                                :close-on-content-click="false"
-                                transition="slide-y-transition"
-                                offset-y
-                                full-width
-                                :nudge-right="40"
-                                max-width="290px"
-                                min-width="290px"
-                            >
-                                <v-text-field
-                                    slot="activator"
-                                    label="{{ __('Time out') }}"
-                                    name="end_time"
-                                    v-model="vueDateRange.time.end"
-                                    prepend-icon="timelapse"
-                                    :error-messages="vueDateRange.resource.errors.time_end"
-                                    readonly
-                                ></v-text-field>
-                                <v-time-picker actions scrollable v-model="vueDateRange.time.end">
-                                    <template scope="{ save, cancel }">
+                                </v-list>
+                            </div>
+                        </v-slide-y-transition>
+
+                        <v-card-text>
+                            <template>
+                                {{-- Time in --}}
+                                <v-menu
+                                    :close-on-content-click="false"
+                                    transition="slide-y-transition"
+                                    offset-y
+                                    full-width
+                                    :nudge-right="40"
+                                    max-width="290px"
+                                    min-width="290px"
+                                >
+                                    <div slot="activator">
+                                        <v-text-field
+                                            {{-- slot="activator" --}}
+                                            label="{{ __('Time in') }}"
+                                            name="start_time"
+                                            v-model="vueDateRange.time.start"
+                                            :error-messages="vueDateRange.resource.errors.time_in"
+                                            prepend-icon="access_time"
+                                            persistent-hint
+                                            :hint="vueDateRange.time.start"
+                                            :value="vueDateRange.time.start"
+                                            readonly
+                                        ></v-text-field>
+                                    </div>
+                                    <v-time-picker format="ampm" actions scrollable v-model.sync="vueDateRange.time.start">
+                                        <template scope="{ save, cancel }">
+                                            <v-card-actions>
+                                                <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                                <v-btn flat primary @click.native="save()">Save</v-btn>
+                                            </v-card-actions>
+                                        </template>
+                                    </v-time-picker>
+                                </v-menu>
+                                <input type="hidden" name="time_in" :value="vueDateRange.time.start">
+                            </template>
+
+                            <template>
+                                {{-- Time out --}}
+                                <v-menu
+                                    :close-on-content-click="false"
+                                    transition="slide-y-transition"
+                                    offset-y
+                                    full-width
+                                    :nudge-right="40"
+                                    max-width="290px"
+                                    min-width="290px"
+                                >
+                                    <v-text-field
+                                        slot="activator"
+                                        label="{{ __('Time out') }}"
+                                        name="end_time"
+                                        {{-- v-model="vueDateRange.time.end" --}}
+                                        prepend-icon="timelapse"
+                                        :error-messages="vueDateRange.resource.errors.time_out"
+                                        persistent-hint
+                                        :hint="vueDateRange.time.end"
+                                        :value="vueDateRange.time.end"
+                                        {{-- readonly --}}
+                                    ></v-text-field>
+                                    <v-time-picker format="ampm" actions scrollable v-model="vueDateRange.time.end">
+                                        <template scope="{ save, cancel }">
+                                            <v-card-actions>
+                                                <v-btn flat primary @click.native="cancel">Cancel</v-btn>
+                                                <v-btn flat primary @click.native="save">Save</v-btn>
+                                            </v-card-actions>
+                                        </template>
+                                    </v-time-picker>
+                                </v-menu>
+                                <input type="hidden" name="time_out" :value="vueDateRange.time.end">
+                            </template>
+
+                            <template>
+                                {{-- Category --}}
+                                <v-menu
+                                    transition="slide-y-transition"
+                                    offset-y
+                                    full-width
+                                    max-width="290px"
+                                    min-width="290px"
+                                >
+                                    <v-text-field
+                                        {{-- hide-details --}}
+                                        slot="activator"
+                                        prepend-icon="label"
+                                        label="{{ __('Category') }}"
+                                        v-model="vueDateRange.resource.category.name"
+                                        :error-messages="vueDateRange.resource.errors.name"
+                                        @input="(val) => {vueDateRange.resource.category.id = null}"
+                                    ></v-text-field>
+                                    <v-card>
                                         <v-card-actions>
-                                            <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                                            <v-btn flat primary @click.native="save()">Save</v-btn>
+                                            <span class="caption grey--text">{{ __('Suggestions') }}</span>
                                         </v-card-actions>
-                                    </template>
-                                </v-time-picker>
-                            </v-menu>
-                            <input type="hidden" name="time_start" :value="vueDateRange.time.start">
-                            <input type="hidden" name="time_end" :value="vueDateRange.time.end">
+                                        <v-list>
+                                            <template v-for="(name,id) in vueDateRange.categories">
+                                                <v-list-tile @click="vueDateRange.resource.category = {name, id}">
+                                                    <v-list-tile-content>
+                                                        <v-list-tile-title v-html="name"></v-list-tile-title>
+                                                    </v-list-tile-content>
+                                                </v-list-tile>
+                                            </template>
+                                        </v-list>
+                                    </v-card>
+                                </v-menu>
+                                <input type="hidden" name="category_name" :value="vueDateRange.resource.category.name">
+                                <input type="hidden" name="category_id" :value="vueDateRange.resource.category.id">
+                            </template>
+
+                            <template>
+                                {{-- Work --}}
+                                <v-text-field
+                                    label="{{ __('Work') }}"
+                                    name="work"
+                                    prepend-icon="work"
+                                    placeholder="{{ __('e.g. compiled reports, reviewed document, shredded evidence...') }}"
+                                    :error-messages="vueDateRange.resource.errors.work"
+                                ></v-text-field>
+                            </template>
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
@@ -133,7 +234,7 @@
 @push('pre-scripts')
     <script src="{{ assets('timesheet/vue-date-range/vue-date-range.js') }}"></script>
     <script src="{{ assets('timesheet/vue-date-range/moment.min.js') }}"></script>
-    <script src="{{ assets('timesheet/mixins/vue-date-range.js?v=12UssuOssP') }}"></script>
+    <script src="{{ assets('timesheet/mixins/vue-date-range.js?v=13s') }}"></script>
     <script>
         mixins.push(VueDateRange.init({
             lang: '{{ settings('site_language') }}',
@@ -143,15 +244,18 @@
             },
             disableStart: moment(),
             disableEnd: moment(),
-            dates: [],
+            dates: {!! json_encode(old('dates')) !!} ? {!! json_encode(old('dates')) !!} : [],
             format: '{{ settings('js_date_format') }}',
             time: {
                 start: null,
                 end: null,
             },
             resource: {
+                category: {name:'', id:''},
                 errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
-            }
+            },
+            revealDates: false,
+            categories: {!! json_encode($categories->toArray()) !!},
         }));
     </script>
 @endpush

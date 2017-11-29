@@ -50,9 +50,11 @@ class TimesheetRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
+            'name' => 'required',
+            'work' => 'required',
             'dates' => 'required',
-            'time_start' => 'required',
-            'time_end' => 'required',
+            'time_in' => 'required',
+            'time_out' => 'required',
             // 'name' => 'required|max:255',
             // 'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:timesheets'.$isUpdating,
         ];
