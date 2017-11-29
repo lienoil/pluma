@@ -45,9 +45,14 @@ class PublicController
                 return view("Theme::templates.{$page->template}")->with(compact('page'));
             }
 
+            // Trial 1.1: Look for slug specific views
+            if (vuew()->exists("Theme::pages.{$page->code}")) {
+                return view("Theme::pages.{$page->code}")->with(compact('page'));
+            }
+
             return view("Theme::templates.index")->with(compact('page'));
         }
-        // Trail 1.1: redirect, but not really needed since the app won't process
+        // Trail 2: redirect, but not really needed since the app won't process
         // a url with different domain. ^_^
         /*else {
              return redirect($slug);

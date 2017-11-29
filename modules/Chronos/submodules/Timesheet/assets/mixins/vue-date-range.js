@@ -49,7 +49,18 @@ let VueDateRange = {
             this.vueDateRange.dates = this.setDates(this.vueDateRange.range);
           }
         },
+        removeSundays (dates) {
+          let d = dates.filter(date => {
+            // 0 = Sunday
+            return (date.moment.format('d') != 0);
+          });
+
+          return d;
+        }
       },
+      mounted () {
+        this.vueDateRange.dates = this.setDates(this.vueDateRange.range);
+      }
     }
   }
 }

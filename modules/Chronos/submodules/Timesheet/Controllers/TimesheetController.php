@@ -57,6 +57,9 @@ class TimesheetController extends AdminController
      */
     public function store(TimesheetRequest $request)
     {
+        echo "<pre>";
+            var_dump( $request->all() ); die();
+        echo "</pre>";
         $timeIn = DateTime::createFromFormat('H:i:s', date('H:i:s', strtotime($request->input('time_in'))));
         $timeOut = DateTime::createFromFormat('H:i:s', date('H:i:s', strtotime($request->input('time_out'))));
         $dateStart = DateTime::createFromFormat('Y-m-d', date('Y-m-d', strtotime($request->input('from_date'))));
