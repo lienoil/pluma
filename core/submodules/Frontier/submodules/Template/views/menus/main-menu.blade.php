@@ -1,4 +1,4 @@
-<v-toolbar dark class="accent elevation-1">
+<v-toolbar dark class="primary elevation-1">
     <v-avatar tile>
         <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
     </v-avatar>

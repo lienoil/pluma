@@ -27,20 +27,11 @@ return [
         'children' => [
             'general-settings' => [
                 'name' => 'general-settings',
-                'slug' => url(config('path.admin').'/settings/general'),
+                'slug' => route('settings.general'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('General'),
                     'description' => __('Manage General site settings'),
-                ],
-            ],
-            'themes-settings' => [
-                'name' => 'themes-settings',
-                'slug' => url(config('path.admin').'/settings/themes'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Themes'),
-                    'description' => __('Manage Themes for the site and application'),
                 ],
             ],
         ],

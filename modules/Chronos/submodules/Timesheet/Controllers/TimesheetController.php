@@ -185,11 +185,11 @@ class TimesheetController extends AdminController
     /**
      * Generate report from resource.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Timesheet\Requests\GenerateRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function generate(Request $request, $id)
+    public function generate(\User\Requests\OwnerRequest $request, $id)
     {
         $timesheet = Timesheet::findOrFail($id);
 
@@ -202,7 +202,7 @@ class TimesheetController extends AdminController
         $worksheet->getCell('B5')->setValue($timesheet->user->fullname);
 
         foreach ($timesheet->dailies as $daily) {
-            foreach ($worksheet->getRowIterator(10) as $row) {
+            foreach ($worksheet->getRowIterator(9) as $row) {
                 $cellIterator = $row->getCellIterator();
                 $cellIterator->setIterateOnlyExistingCells(false);
                 foreach ($cellIterator as $cell) {

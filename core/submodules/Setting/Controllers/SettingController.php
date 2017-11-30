@@ -6,6 +6,7 @@ use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Setting\Models\General;
 use Setting\Models\Setting;
+use Setting\Requests\SettingRequest;
 
 class SettingController extends AdminController
 {
@@ -67,10 +68,12 @@ class SettingController extends AdminController
      * @param  \Setting\Requests\SettingRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
         foreach ($request->except(['_token']) as $key => $value) {
-            Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
+            if (! empty($value)) {
+                Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
+            }
         }
 
         return back();

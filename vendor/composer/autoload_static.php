@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
+class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -663,6 +663,7 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
         'Setting\\Controllers\\SettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/SettingController.php',
         'Setting\\Models\\General' => __DIR__ . '/../..' . '/core/submodules/Setting/Models/General.php',
         'Setting\\Models\\Setting' => __DIR__ . '/../..' . '/core/submodules/Setting/Models/Setting.php',
+        'Setting\\Requests\\SettingRequest' => __DIR__ . '/../..' . '/core/submodules/Setting/Requests/SettingRequest.php',
         'Setting\\Support\\Traits\\Keyable' => __DIR__ . '/../..' . '/core/submodules/Setting/Support/Traits/Keyable.php',
         'Setting\\Support\\Traits\\Themes' => __DIR__ . '/../..' . '/core/submodules/Setting/Support/Traits/Themes.php',
         'SettingsTableSeeder' => __DIR__ . '/../..' . '/core/submodules/Setting/database/seeds/SettingsTableSeeder.php',
@@ -726,10 +727,10 @@ class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$classMap;
 
         }, null, ClassLoader::class);
     }

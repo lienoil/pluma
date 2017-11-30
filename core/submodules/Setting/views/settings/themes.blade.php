@@ -2,7 +2,8 @@
 
 @section("content")
 
-    <v-toolbar dark class="accent elevation-1 sticky">
+    <v-toolbar dark class="primary elevation-1 sticky">
+        <v-icon dark left>format_paint</v-icon>
         <v-toolbar-title>{{ __('Themes Settings') }}</v-toolbar-title>
         <v-spacer></v-spacer>
     </v-toolbar>
@@ -22,7 +23,12 @@
             </v-layout>
         </v-card-media>
         <v-card-text class="grey--text text--darken-1 subheading">
-            <div class="caption mb-3"><strong>{{ __("Authored by: ") }}</strong>{{ $active->author->name }} ({{ $active->author->email }})</div>
+            <div class="caption mb-3">
+                <strong>{{ __("Author: ") }}</strong>{{ $active->author->name }}
+                @if ($active->author->email)
+                    <em>({{ $active->author->email }})</em>
+                @endif
+            </div>
             {!! $active->description !!}
         </v-card-text>
         <v-card-actions>
@@ -80,22 +86,6 @@
                         </form>
                     </v-flex>
                     @endforeach
-
-                    {{-- <v-dialog v-model="preview.model" lazy fullscreen transition="dialog-bottom-transition">
-                        <v-card flat tile>
-                            <template v-if="preview.model">
-                                <link href="{{ url('anytheme/frontman/css/app.min.css') }}?v={{ $application->version }}" rel="stylesheet">
-                            </template>
-                            <v-toolbar dark card class="elevation-1 primary">
-                                <v-toolbar-title>{{ __('Preview') }} <span v-html="preview.item.name"></span></v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon ripple @click="preview.model = !preview.model"><v-icon>close</v-icon></v-btn>
-                            </v-toolbar>
-                            <v-card-text>
-                                <span v-html="preview.item"></span>
-                            </v-card-text>
-                        </v-card>
-                    </v-dialog> --}}
 
                 </v-layout>
             </v-flex>

@@ -1,10 +1,8 @@
 <?php
 
-namespace User\Requests;
+namespace Timesheet\Requests;
 
-use Pluma\Requests\FormRequest;
-
-class OwnerRequest extends FormRequest
+class GenerateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +11,7 @@ class OwnerRequest extends FormRequest
      */
     public function authorize()
     {
-        if (user()->isRoot() || $this->route('handlename') === user()->username) {
+        if (user()->isRoot()) {
             return true;
         }
 
@@ -27,6 +25,20 @@ class OwnerRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            //
+        ];
+    }
+
+    /**
+     * The array of override messages to use.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            //
+        ];
     }
 }

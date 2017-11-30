@@ -30,19 +30,19 @@
                             <v-toolbar-title class="subheading">{{ __('Social Links') }}</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
-                            <v-text-field value="{{ settings('social_links', '', 'facebook.url') }}" prepend-icon="fa-facebook" label="{{ __('Facebook') }}" name="social_links[facebook][url]"></v-text-field>
+                            <v-text-field :error-messages="errors.social_links" value="{{ settings('social_links', '', 'facebook.url') }}" prepend-icon="fa-facebook" label="{{ __('Facebook') }}" name="social_links[facebook][url]"></v-text-field>
                             <input type="hidden" name="social_links[facebook][name]" value="Facebook">
                             <input type="hidden" name="social_links[facebook][icon]" value="fa-facebook">
 
-                            <v-text-field value="{{ settings('social_links', '', 'twitter.url') }}" prepend-icon="fa-twitter" label="{{ __('Twitter') }}" name="social_links[twitter][url]"></v-text-field>
+                            <v-text-field :error-messages="errors.social_links" value="{{ settings('social_links', '', 'twitter.url') }}" prepend-icon="fa-twitter" label="{{ __('Twitter') }}" name="social_links[twitter][url]"></v-text-field>
                             <input type="hidden" name="social_links[twitter][name]" value="Twitter">
                             <input type="hidden" name="social_links[twitter][icon]" value="fa-twitter">
 
-                            <v-text-field value="{{ settings('social_links', '', 'youtube.url') }}" prepend-icon="fa-youtube" label="{{ __('YouTube') }}" name="social_links[youtube][url]"></v-text-field>
+                            <v-text-field :error-messages="errors.social_links" value="{{ settings('social_links', '', 'youtube.url') }}" prepend-icon="fa-youtube" label="{{ __('YouTube') }}" name="social_links[youtube][url]"></v-text-field>
                             <input type="hidden" name="social_links[youtube][name]" value="YouTube">
                             <input type="hidden" name="social_links[youtube][icon]" value="fa-youtube">
 
-                            <v-text-field value="{{ settings('social_links', '', 'linkedin.url') }}" prepend-icon="fa-linkedin" label="{{ __('Linkedin') }}" name="social_links[linkedin][url]"></v-text-field>
+                            <v-text-field :error-messages="errors.social_links" value="{{ settings('social_links', '', 'linkedin.url') }}" prepend-icon="fa-linkedin" label="{{ __('Linkedin') }}" name="social_links[linkedin][url]"></v-text-field>
                             <input type="hidden" name="social_links[linkedin][name]" value="Linkedin">
                             <input type="hidden" name="social_links[linkedin][icon]" value="fa-linkedin">
 
@@ -72,6 +72,7 @@
                 return {
                     links: {!! json_encode(collect($resources)->except(['facebook', 'twitter', 'youtube', 'linkedin'])->toArray()) !!},
                     custom: {name:'',icon:'',url:''},
+                    errors: {!! json_encode($errors->getMessages()) !!}
                 }
             }
         })
