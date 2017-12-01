@@ -192,12 +192,17 @@ class TimesheetController extends AdminController
     public function generate(\User\Requests\OwnerRequest $request, $id)
     {
         $timesheet = Timesheet::findOrFail($id);
+        $month = date('F Y', strtotime('01-'.$timesheet->code));
 
         $spreadsheet = Spreadsheet::load(module_path('timesheet/templates/spreadsheets/test.xlsx'));
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->setOffice2003Compatibility(true);
         $worksheet = $spreadsheet->getActiveSheet(); // setSheetIndex(0);
+
+        $worksheet->getCell('B3')->setValue(settings('site_title'));
+        // $worksheet->getCell('B4')->setValue();
+        $worksheet->getCell('B5')->setValue($month);
 
         $worksheet->getCell('B5')->setValue($timesheet->user->fullname);
 

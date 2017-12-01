@@ -20,7 +20,7 @@ class ThemeController extends SettingController
         $active = Theme::theme(settings('active_theme', 'default'));
         $resources = Theme::themes(false);
 
-        return view("Theme::settings.themes")->with(compact('resources', 'active'));
+        return view("Theme::themes.index")->with(compact('resources', 'active'));
     }
 
     /**
@@ -35,5 +35,17 @@ class ThemeController extends SettingController
         $resource = Theme::theme($theme);
 
         return view("Theme::themes.preview")->with(compact('resource'));
+    }
+
+    /**
+     * Uploads a Theme File for processing.
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function upload(Request $request)
+    {
+        echo "<pre>";
+            var_dump( $request->all() ); die();
+        echo "</pre>";
     }
 }

@@ -35,20 +35,6 @@ class SettingController extends AdminController
     }
 
     /**
-     * Display the Theme Settings Form.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function getThemesForm(Request $request)
-    {
-        $active = Setting::theme(settings('active_theme', 'default'));
-        $resources = Setting::themes(false);
-
-        return view("Theme::settings.themes")->with(compact('resources', 'active'));
-    }
-
-    /**
      * Display the Social Settings Form.
      *
      * @param  \Illuminate\Http\Request $request

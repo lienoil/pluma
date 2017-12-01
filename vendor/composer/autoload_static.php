@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
+class ComposerStaticInit17e9b3578c19cffddc00a439b445eadd
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -691,6 +691,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Timesheet\\Models\\Timesheet' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Models/Timesheet.php',
         'Timesheet\\Observers\\TimesheetObserver' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Observers/TimesheetObserver.php',
         'Timesheet\\Providers\\TimesheetServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Providers/TimesheetServiceProvider.php',
+        'Timesheet\\Requests\\GenerateRequest' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Requests/GenerateRequest.php',
         'Timesheet\\Requests\\TimesheetRequest' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Requests/TimesheetRequest.php',
         'Timesheet\\Support\\Traits\\BelongsToTimesheet' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/BelongsToTimesheet.php',
         'Timesheet\\Support\\Traits\\HasManyDailies' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/HasManyDailies.php',
@@ -727,10 +728,10 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit17e9b3578c19cffddc00a439b445eadd::$classMap;
 
         }, null, ClassLoader::class);
     }

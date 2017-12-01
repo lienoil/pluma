@@ -254,7 +254,7 @@
                 category: {name:'', id:''},
                 errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
             },
-            revealDates: false,
+            revealDates: true,
             categories: {!! json_encode($categories->toArray()) !!},
         }));
     </script>
