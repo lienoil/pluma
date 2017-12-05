@@ -14,6 +14,13 @@ class NavigationViewComposer extends BaseViewComposer
     use Module;
 
     /**
+     * The view's variable.
+     *
+     * @var string
+     */
+    protected $name = 'navigation';
+
+    /**
      * Starting depth of the traversables.
      *
      * @var integer
@@ -49,13 +56,14 @@ class NavigationViewComposer extends BaseViewComposer
      */
     public function compose(View $view)
     {
-        parent::compose($view);
+        $this->setCurrentUrl(Request::path());
+        $this->setCurrentRouteName(Route::currentRouteName());
 
         $this->setMenus($this->requireFileFromModules('config/menus.php', modules(true, null, false)));
         $this->setBreadcrumbs($this->getCurrentUrl());
-        $this->setVariablename("navigation");
 
-        $view->with($this->getVariablename(), $this->handle());
+        $this->setName($this->name);
+        $view->with($this->name(), $this->handle());
     }
 
     /**
@@ -130,7 +138,7 @@ class NavigationViewComposer extends BaseViewComposer
      *
      * @return Object|StdClass
      */
-    private function handle()
+    public function handle()
     {
         return json_decode(json_encode([
             'menu' => $this->menu(),

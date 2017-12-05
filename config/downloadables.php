@@ -36,6 +36,8 @@ return [
     'xlsx',
     'xml',
     'zip',
+    'woff',
+    'ttf',
 
     // Uppercase
     '7Z',
@@ -68,4 +70,6 @@ return [
     'XLSX',
     'XML',
     'ZIP',
+    'WOFF',
+    'TTF',
 ];

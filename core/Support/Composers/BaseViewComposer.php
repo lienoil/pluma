@@ -6,13 +6,6 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
-/**
- * Base View Composer
- * -------------------------
- * A class to which other view
- * composers can extend to.
- *
- */
 class BaseViewComposer
 {
     /**
@@ -34,7 +27,7 @@ class BaseViewComposer
      *
      * @var string
      */
-    protected $variablename;
+    protected $name;
 
     /**
      * Main function to tie everything together.
@@ -46,6 +39,9 @@ class BaseViewComposer
     {
         $this->setCurrentUrl(Request::path());
         $this->setCurrentRouteName(Route::currentRouteName());
+        $this->setName($this->name);
+
+        $view->with($this->name(), $this->handle());
     }
 
     /**
@@ -93,9 +89,9 @@ class BaseViewComposer
      *
      * @param string $name
      */
-    protected function setVariablename($name)
+    protected function setName($name)
     {
-        $this->variablename = $name;
+        $this->name = $name;
     }
 
     /**
@@ -103,9 +99,19 @@ class BaseViewComposer
      *
      * @return string
      */
-    public function getVariablename()
+    public function getName()
     {
-        return $this->variablename;
+        return $this->name;
+    }
+
+    /**
+     * Alias for getName
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return $this->name;
     }
 
     /**

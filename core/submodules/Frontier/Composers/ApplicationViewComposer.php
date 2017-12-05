@@ -16,8 +16,15 @@ use Setting\Models\Setting;
  * subheading, and other content on page.
  *
  */
-class PageViewComposer extends BaseViewComposer
+class ApplicationViewComposer extends BaseViewComposer
 {
+    /**
+     * The view's variable.
+     *
+     * @var string
+     */
+    protected $name = 'application';
+
     /**
      * Array of banned words.
      * Banned words will help filter out
@@ -43,21 +50,11 @@ class PageViewComposer extends BaseViewComposer
     protected $singles = ['create', 'new', 'edit', 'destroy', 'trash'];
 
     /**
-     * Main function to tie everything together.
+     * Handles the view to compose.
      *
-     * @param  Illuminate\View\View   $view
-     * @return void
+     * @return Object|StdClass
      */
-    public function compose(View $view)
-    {
-        parent::compose($view);
-
-        $this->setVariablename("application");
-
-        $view->with($this->getVariablename(), $this->handle());
-    }
-
-    private function handle()
+    public function handle()
     {
         return json_decode(json_encode([
             'pluma' => $this->pluma(),

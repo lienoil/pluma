@@ -1,2 +1,11 @@
 Installation:
   ☐ Move migrating of database before saving user credentials
+
+Frontend Management:
+  ☐ Have a frontend management system
+    @pref bower
+      - Make a gulpfile that iterates over given folder to look for bower.json, then installs them.
+
+Backend Management:
+  ✔ Implement Composer-merge-plugin @done (17-12-05 12:28)
+    @link https://github.com/wikimedia/composer-merge-plugin

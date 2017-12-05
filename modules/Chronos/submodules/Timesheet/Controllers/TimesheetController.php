@@ -201,10 +201,11 @@ class TimesheetController extends AdminController
         $worksheet = $spreadsheet->getActiveSheet(); // setSheetIndex(0);
 
         $worksheet->getCell('B3')->setValue(settings('site_title'));
-        // $worksheet->getCell('B4')->setValue();
+        // $worksheet->getCell('B4')->setValue($department); // department
         $worksheet->getCell('B5')->setValue($month);
 
-        $worksheet->getCell('B5')->setValue($timesheet->user->fullname);
+        $worksheet->getCell('B7')->setValue($timesheet->user->fullname);
+        // $worksheet->getCell('B8')->setValue($position); // position
 
         foreach ($timesheet->dailies as $daily) {
             foreach ($worksheet->getRowIterator(9) as $row) {

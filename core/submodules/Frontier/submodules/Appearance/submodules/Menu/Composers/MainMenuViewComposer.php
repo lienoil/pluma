@@ -10,6 +10,13 @@ use Pluma\Support\Composers\BaseViewComposer;
 class MainMenuViewComposer extends BaseViewComposer
 {
     /**
+     * The view's variable.
+     *
+     * @var string
+     */
+    protected $name = 'menus';
+
+    /**
      * The Traverser instance.
      * @var Crowfeather\Traverser\Traverser
      */
@@ -30,26 +37,11 @@ class MainMenuViewComposer extends BaseViewComposer
     protected $menus;
 
     /**
-     * Main function to tie everything together.
-     *
-     * @param  Illuminate\View\View   $view
-     * @return void
-     */
-    public function compose(View $view)
-    {
-        parent::compose($view);
-
-        $this->setVariablename('menus');
-
-        $view->with($this->getVariablename(), $this->handle());
-    }
-
-    /**
      * Handles the view to compose.
      *
      * @return Object|StdClass
      */
-    private function handle()
+    public function handle()
     {
         return json_decode(json_encode($this->menus()));
     }

@@ -52,7 +52,29 @@ Route::get('~assets/{module?}/{file?}', function ($module = null, $file = null) 
     }
 
     if (\File::exists($path)) {
-        return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : []);
+        $mime = \File::mimeType($path);
+        return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : array('Content-Type' => $mime));
+    }
+
+    return abort(404);
+})->where('file', '.*');
+
+Route::get('a/assets/{module?}/{file?}', function ($module = null, $file = null) {
+    $module = ucfirst($module);
+    $path = get_module($module)."/assets/$file";
+    $fileArray = explode('/', $file);
+    $lastFile = end($fileArray);
+    $extension = explode(".", $lastFile);
+    $fileExtension = end($extension);
+    $isCss = 'css' === $fileExtension ? true : false;
+
+    if (! in_array($fileExtension, config('downloadables', []))) {
+        return abort(403);
+    }
+
+    if (\File::exists($path)) {
+        $mime = \File::mimeType($path);
+        return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : array('Content-Type' => $mime));
     }
 
     return abort(404);
