@@ -30,7 +30,7 @@ Artisan::command('route:list', function () {
         ];
     }
 
-    $data = collect($data)->sortBy('module')->toArray();
+    $data = collect($data)->toArray();
 
     $this->table($headers, (array) $data);
 });

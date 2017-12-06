@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Console\Migrations\InstallCommand;
+
 /**
  *---------------------------------------------------------------------------
  * Start your Engines
@@ -26,7 +28,7 @@ $app->singleton(
 
 $app->singleton(
     \Illuminate\Contracts\Debug\ExceptionHandler::class,
-    \Pluma\Exceptions\Handler::class
+    \Blacksmith\Support\Debug\ExceptionHandler::class
 );
 
 /*

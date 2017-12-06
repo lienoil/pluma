@@ -5,6 +5,7 @@ namespace Blacksmith\Console\Commands\Furnace;
 use Blacksmith\Support\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
+use Exception;
 
 class PurgeModuleCommand extends Command
 {
@@ -30,27 +31,21 @@ class PurgeModuleCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        try {
-            $option = $this->option();
-            $module = $this->argument('name');
+        $option = $this->option();
+        $module = $this->argument('name');
 
-            if ('yes' === $this->ask("Are you sure you want to completely delete the module $module? Type yes if you want to proceed.", 'no')) {
-                $this->info("Deleting...");
-                if (! $this->delete(get_module($module))) {
-                    $this->error("Module not found!");
-                }
+        if ('yes' === $this->ask("Are you sure you want to completely delete the module $module? Type yes if you want to proceed.", 'no')) {
+            $this->info("Deleting...");
+            if (! $this->delete(get_module($module))) {
+                $this->error("Module not found!");
             }
+        }
 
-        } catch (\Symfony\Component\Console\Exception\RuntimeException $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-        } catch (\Exception $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-        } finally {
-            $this->info("Done.");
+        $this->info("Done.");
+        try {
+
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
