@@ -52,6 +52,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        require core_path('routes/console.php');
+        $this->load(core_path('routes/console.php'));
     }
 }

@@ -16,6 +16,7 @@ class Kernel extends BaseKernel
         Commands\DB\DBDropCommand::class,
         Commands\DB\DBEmptyCommand::class,
         Commands\DB\DBMigrateCommand::class,
+        Commands\Furnace\ForgeAccountCommand::class,
         Commands\Furnace\ForgeControllerCommand::class,
         Commands\Furnace\ForgeModelCommand::class,
         Commands\Furnace\ForgeModuleCommand::class,
@@ -23,6 +24,7 @@ class Kernel extends BaseKernel
         Commands\Furnace\ForgePermissionsCommand::class,
         Commands\Furnace\ForgeWeaponCommand::class,
         Commands\Furnace\PurgeCacheCommand::class,
+        Commands\Furnace\PurgeModuleCommand::class,
         Commands\Furnace\PurgeStorageCommand::class,
         Commands\Phinx\PhinxMigrateCreateCommand::class,
         Commands\Phinx\PhinxMigrateRunCommand::class,
@@ -40,4 +42,26 @@ class Kernel extends BaseKernel
         \Phinx\Console\Command\SeedCreate::class,
         \Phinx\Console\Command\SeedRun::class,
     ];
+
+    /**
+     * Register the Closure based commands for the application.
+     *
+     * @return void
+     */
+    protected function commands()
+    {
+        parent::commands();
+        $this->load(base_path('blacksmith/routes/console.php'));
+    }
+
+    /**
+     * Require a file.
+     *
+     * @param  string $command
+     * @return void
+     */
+    public function load($command)
+    {
+        require $command;
+    }
 }

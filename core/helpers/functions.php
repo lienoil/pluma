@@ -240,6 +240,27 @@ if (! function_exists('module_path')) {
     }
 }
 
+if (! function_exists('guess_module')) {
+    /**
+     * Gets the pathname of the module specified
+     *
+     * @param  string $retrieve
+     * @param  string $delimiter
+     * @return mixed
+     */
+    function guess_module($retrieve, $delimiter = ".")
+    {
+        $retrieve = explode($delimiter, $retrieve);
+        foreach ($retrieve as $r) {
+            if (is_dir(get_module(str_singular($r)))) {
+                return basename(get_module(str_singular($r)));
+            }
+        }
+
+        return false;
+    }
+}
+
 if (! function_exists('get_migrations')) {
     /**
      * Gets the all migrations path.

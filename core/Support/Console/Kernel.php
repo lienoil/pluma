@@ -59,7 +59,7 @@ class Kernel implements KernelContract
     protected $bootstrappers = [
         \Pluma\Support\Bootstrap\LoadEnvironmentVariables::class,
         \Pluma\Support\Bootstrap\LoadConfiguration::class,
-        // \Pluma\Support\Bootstrap\HandleExceptions::class,
+        \Pluma\Support\Bootstrap\HandleExceptions::class,
         \Pluma\Support\Bootstrap\RegisterFacades::class,
         \Pluma\Support\Bootstrap\SetRequestForConsole::class,
         \Pluma\Support\Bootstrap\RegisterProviders::class,

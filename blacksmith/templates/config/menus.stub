@@ -11,7 +11,7 @@ return [
     '$code' => [
         'name' => '$code',
         'order' => 51,
-        'slug' => url(config('path.admin').'/$slug'),
+        'slug' => route('$slug.index'),
         'always_viewable' => false,
         'icon' => '',
         'labels' => [
@@ -22,7 +22,7 @@ return [
             'view-$code' => [
                 'name' => 'view-$code',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/$slug'),
+                'slug' => route('$slug.index'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All $names'),
@@ -32,23 +32,23 @@ return [
             'create-$code' => [
                 'name' => 'create-$code',
                 'order' => 2,
-                'slug' => url(config('path.admin').'/$slug/create'),
+                'slug' => route('$slug.create'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Create $name'),
                     'description' => __('Create a $name'),
                 ],
             ],
-            'trashed-$code' => [
-                'name' => 'trashed-$code',
-                'order' => 3,
-                'slug' => url(config('path.admin').'/$slug/trashed'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Trashed $names'),
-                    'description' => __('View list of all $slug moved to trash'),
-                ],
-            ],
+            // 'trash-$code' => [
+            //     'name' => 'trash-$code',
+            //     'order' => 3,
+            //     'slug' => route('$slug.trash'),
+            //     'always_viewable' => false,
+            //     'labels' => [
+            //         'title' => __('Trashed $names'),
+            //         'description' => __('View list of all $slug moved to trash'),
+            //     ],
+            // ],
         ],
     ],
 ];
