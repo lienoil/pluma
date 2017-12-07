@@ -13,31 +13,8 @@ class TestRequest extends FormRequest
      */
     public function authorize()
     {
-        switch ($this->method()) {
-            case 'POST':
-                if ($this->user()->can('store-test')) {
-                    return true;
-                }
-                break;
-
-            case 'PUT':
-                if ($this->user()->can('update-test')) {
-                    return true;
-                }
-                break;
-
-            case 'DELETE':
-                if ($this->user()->can('destroy-test')) {
-                    return true;
-                }
-                break;
-
-            default:
-                return false;
-                break;
-        }
-
-        return false;
+        // Free tests
+        return true;
     }
 
     /**
@@ -47,11 +24,8 @@ class TestRequest extends FormRequest
      */
     public function rules()
     {
-        $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
-
         return [
-            'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:tests'.$isUpdating,
+            //
         ];
     }
 
@@ -63,7 +37,7 @@ class TestRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
+            //
         ];
     }
 }

@@ -361,9 +361,16 @@ if (! function_exists("include_file")) {
 }
 
 if (! function_exists('require_config')) {
+    /**
+     * Shortcut to requiring a config file.
+     *
+     * @param  string $file
+     * @param  string $path
+     * @return void
+     */
     function require_config($file, $path = __DIR__.'/../config')
     {
-        return require "$path/$file";
+        require_once "$path/$file";
     }
 }
 

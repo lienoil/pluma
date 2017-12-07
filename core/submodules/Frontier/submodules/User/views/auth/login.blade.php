@@ -52,36 +52,39 @@
                             ></v-checkbox>
                             <input v-if="resource.remember" type="hidden" name="remember" value="true">
 
-                            {{-- Template --}}
-                            {{-- <template inline-template>
-                                <div class="hr">
-                                    <strong class="hr-text grey--text text--lighten-2">or</strong>
-                                </div>
-                                <v-layout>
-                                    <v-flex md6 class="text-xs-center">
-                                        <v-btn block class="grey--text elevation-0">
-                                            <i class="fa fa-google">&nbsp;</i>
-                                            Google
-                                        </v-btn>
-                                    </v-flex>
-                                    <v-flex md6 class="text-xs-center">
-                                        <v-spacer></v-spacer>
-                                        <v-btn block class="grey--text elevation-0">
-                                            <i class="fa fa-facebook">&nbsp;</i>
-                                            Facebook
-                                        </v-btn>
-                                    </v-flex>
-                                </v-layout>
-                            </template> --}}
-                            {{-- /Template --}}
 
                             <v-card-actions>
-                                <v-btn class="ma-0" role="button" secondary outline href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
+                                @setting('site_membership' > 0)
+                                    <v-btn class="ma-0" role="button" secondary outline href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
+                                @endsetting
                                 <v-spacer></v-spacer>
                                 <v-btn class="ma-0 elevation-1" primary type="submit">{{ __("Login") }}</v-btn>
                             </v-card-actions>
                         </form>
                     </v-container>
+
+                    {{-- Template --}}
+                    {{-- <template inline-template>
+                        <div class="hr">
+                            <strong class="hr-text grey--text text--lighten-2">or</strong>
+                        </div>
+                        <v-layout>
+                            <v-flex md6 class="text-xs-center">
+                                <v-btn block class="grey--text elevation-0">
+                                    <i class="fa fa-google">&nbsp;</i>
+                                    Google
+                                </v-btn>
+                            </v-flex>
+                            <v-flex md6 class="text-xs-center">
+                                <v-spacer></v-spacer>
+                                <v-btn block class="grey--text elevation-0">
+                                    <i class="fa fa-facebook">&nbsp;</i>
+                                    Facebook
+                                </v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </template> --}}
+                    {{-- /Template --}}
 
                     <v-divider></v-divider>
 

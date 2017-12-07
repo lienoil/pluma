@@ -49,8 +49,9 @@ class TestController extends AdminController
     public function create()
     {
         $resources = Library::ofCatalogue('package')->paginate();
+        $catalogues = Catalogue::mediabox();
 
-        return view("Theme::tests.create")->with(compact('resources'));
+        return view("Theme::tests.create")->with(compact('resources', 'catalogues'));
     }
 
     /**
@@ -61,7 +62,10 @@ class TestController extends AdminController
      */
     public function store(TestRequest $request)
     {
-        //
+        return response()->json(['url' => url('storage/public/library/2017-10-27/math-badge.png')]);
+        echo "<pre>";
+            var_dump( $request->all() ); die();
+        echo "</pre>";
 
         return back();
     }

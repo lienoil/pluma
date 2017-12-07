@@ -86,7 +86,7 @@ class ApplicationViewComposer extends BaseViewComposer
 
         return Page::whereCode($slug)->exists()
             ? Page::whereCode($slug)->first()
-            : json_decode(json_encode([]));;
+            : false;
     }
 
     private function site()
@@ -249,9 +249,9 @@ class ApplicationViewComposer extends BaseViewComposer
      */
     public function guessDescription()
     {
-        $description = "";
-        // else check database....
-        // TODO: perform a try > $description = Page::whereSlug($this->getCurrentUrl())->first()->description...
+        if ($this->model()) {
+            return $this->model()->excerpt;
+        }
 
         if (empty($this->getCurrentUrl()) || empty($description)) {
             $description = env("APP_TAGLINE");

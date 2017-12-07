@@ -11,121 +11,76 @@
 
         <v-container fluid>
             <v-flex sm12>
-                <script type="text/x-template" id="template-dra">
-                    <draggable :list="items" :options="options" class="sortable-container">
-                        {{-- <transition-group> --}}
-                        <div :key="i" v-for="(t,i) in items" class="mb-3 draggable sortable-handle">
-                            <v-card tile class="mb-1">
-                                <v-card-text>
-                                    <div class="headline" v-html="t.slug"></div>
-                                    <div class="caption" v-html="t.title"></div>
-                                </v-card-text>
-                            </v-card>
-                            <v-card tile class="bordered--ant transparent ml-4 sortable-container">
-                                <local v-if="t.children" v-model="t.children" :options="options"></local>
-                            </v-card>
-                        </div>
-                        {{-- </transition-group> --}}
-                    </draggable>
-                </script>
+                {{-- Editor --}}
+                <v-quill class="elevation-0" source :upload-params="{_token: '{{ csrf_token() }}', 'return': 1}" :options="{urlPrefix: '{{ url('storage') }}/', uploadUrl: '{{ route('api.library.upload') }}', placeholder: '{{ __('Write something...') }}'}" v-model="resource.quill" class="mb-3 card--flat white elevation-1" :fonts="['Default', 'Ubuntu', 'Roboto']" @mediabox="mediaboxbox">
+                    <template>
+                        <input type="hidden" name="body" :value="resource.quill.html">
+                        <input type="hidden" name="delta" :value="JSON.stringify(resource.quill.delta)">
+                    </template>
+                </v-quill>
+                {{-- /Editor --}}
 
-                <v-card flat class="transparent">
-                    <draggable v-model="items" :options="options" class="sortable-container">
-                        <transition-group name="page1">
-                            <div :key="i" v-for="(t,i) in items" class="mb-3 draggable sortable-handle">
-                                <v-card tile class="mb-2">
-                                    <v-card-text>
-                                        <div class="headline" v-html="t.slug"></div>
-                                        <div class="caption" v-html="t.title"></div>
-                                    </v-card-text>
-                                </v-card>
-                                <v-card flat tile class="bordered--ant transparent ml-4 sortable-container">
-                                    <local v-if="t.children" v-model="t.children" :options="options"></local>
-                                </v-card>
-                            </div>
-                        </transition-group>
-                    </draggable>
-                    {{-- <local v-model="items" :options="{animation: 150, group: 'pages'}"></local> --}}
-                </v-card>
+                <v-btn @click="mediabox.model = !mediabox.model">asd</v-btn>
+                <v-mediabox :multiple="false" close-on-click :categories="mediabox.catalogues" v-model="mediabox.model" @selected="value => { mediabox.resource = value }">
+                    <template slot="media" scope="props">
+                        <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
+                            {{-- <span v-html="props"></span> --}}
+                            <v-card-media height="250px" :src="props.item.thumbnail">
+                                <v-container fill-height class="pa-0 white--text">
+                                    <v-layout fill-height wrap column>
+                                        <v-card-title class="subheading" v-html="props.item.originalname"></v-card-title>
+                                        <v-slide-y-transition>
+                                            <v-icon ripple class="display-4 pa-1 text-xs-center white--text" v-show="props.item.active">check</v-icon>
+                                        </v-slide-y-transition>
+                                        <v-spacer></v-spacer>
+                                        <v-card-actions class="px-2 white--text">
+                                            <v-icon class="white--text" v-html="props.item.icon"></v-icon>
+                                            <v-spacer></v-spacer>
+                                            <span v-html="props.item.mime"></span>
+                                            <span v-html="props.item.filesize"></span>
+                                        </v-card-actions>
+                                    </v-layout>
+                                </v-container>
+                            </v-card-media>
+                        </v-card>
+                    </template>
+                </v-mediabox>
+
             </v-flex>
         </v-container>
     </v-container>
 @endsection
 
 @push('css')
-    <style>
-        .mh-100,
-        .mh-100 div > span {
-            min-height: 50px;
-        }
-        .odd {
-            background-color: rgba(255,0,0,0.5) !important;
-        }
-        .even {
-            background-color: rgba(0,0,255,0.5) !important;
-        }
-        .bordered--ant {
-            max-width: 100%;
-            padding: 10px;
-            border: 2px dashed rgba(0,20,88,0.3) !important;
-        }
-        .sortable-container {
-            padding-bottom: 30px;
-        }
-        .sortable-container > span,
-        .sortable-container > div > span {
-            display: block;
-            padding: 10px;
-            min-height: 50px;
-            /*background-color: rgba(255,0,0,0.2);*/
-        }
-    </style>
-    {{-- <link rel="stylesheet" href="{{ assets('page/traverser/dist/traverser.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css?v='.date('H_i_s')) }}">
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css?v='.date('H_i_s')) }}">
 @endpush
 
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
-    <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
-    {{-- <script src="{{ assets('page/traverser/dist/traverser.min.js') }}"></script> --}}
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js?v='.date('H_i_s')) }}"></script>
+    <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js?v='.date('H_i_s')) }}"></script>
     <script>
-        var local = {
-            name: 'local',
-            model: { prop: 'items' },
-            template: '#template-dra',
-            props: ['items', 'options']
-        }
+        Vue.use(VueResource);
+
         mixins.push({
-            components: {local: local},
             data () {
                 return {
-                    options: {
-                        animation: 150,
-                        draggable: '.draggable',
-                        group: {name: 'page1'},
-                        forceFallback: true,
+                    resource: {
+                        quill: {delta: '', html: ''}
                     },
-
-
-                    items: [
-                        {slug:'1', title:'One', children:[]},
-                        {slug:'2', title:'Two', children:[]},
-                        {slug:'3', title:'Three', children:[]},
-                    ],
-                    items2: [
-                        {slug:'1', title:'One', children:[]},
-                        {slug:'2', title:'Two', children:[
-                            {slug:'2.1', title:'Two.1', children:[
-                                {slug:'2.1.1', title:'Two.1.1', children:[]},
-                                {slug:'2.1.2', title:'Two.1.2', children:[]},
-                                {slug:'2.1.3', title:'Two.1.3', children:[
-                                    {slug:'2.1.3.1', title:'Two.1.3.1'},
-                                    {slug:'2.1.3.2', title:'Two.1.3.2'},
-                                ]},
-                            ]},
-                            {slug:'2.2', title:'Two.2', children:[]},
-                        ]},
-                        {slug:'3', title:'Three', children:[]},
-                    ],
+                    mediabox: {
+                        catalogues: {!! json_encode($catalogues) !!},
+                        model: false,
+                        resource: {},
+                    },
+                }
+            },
+            methods: {
+                mediaboxbox (quill) {
+                    this.mediabox.model = !this.mediabox.model;
+                    // console.log(quill)
+                    console.log(this.mediabox.catalogues)
                 }
             }
         })

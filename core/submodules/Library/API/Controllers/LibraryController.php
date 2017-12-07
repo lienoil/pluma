@@ -156,8 +156,6 @@ class LibraryController extends APIController
      */
     public function upload(LibraryRequest $request)
     {
-        // dd($request->all());
-        // return response()->json('Yeap, luv', 200);
         try {
             $file = $request->file('file');
             if (is_array($file) && $files = $file) {
@@ -165,11 +163,15 @@ class LibraryController extends APIController
                     $this->save($request, $file);
                 }
             } else {
-                $this->save($request, $file);
+                $library = $this->save($request, $file);
+                if ($request->input('return')) {
+                    return response()->json($library);
+                }
             }
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
+
 
         return response()->json($this->successResponse);
     }
@@ -211,6 +213,8 @@ class LibraryController extends APIController
                 $output = storage_path(settings('package.storage_path', 'public/package'))."/$date/{$library->id}";
                 Library::extract($fullFilePath, $output);
             }
+
+            return $library;
         }
     }
 

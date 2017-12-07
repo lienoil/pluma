@@ -102,10 +102,10 @@ return [
     'registration' => [
         'default' => 2,
         'modes' => [
-            '-1' => 'No one can register',
-            '0' => 'Register via email request',
-            '1' => 'Register as Subscriber',
-            '2' => 'Register as Guest',
+            '0' => 'No one can register',
+            '1' => 'Register via email request',
+            '2' => 'Register as Subscriber',
+            '3' => 'Register as Guest',
         ],
     ],
 
