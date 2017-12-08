@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/fonts.php';
+
 if (! function_exists('core_path')) {
     function core_path($path = '')
     {
@@ -517,7 +519,7 @@ if (! function_exists('user')) {
      */
     function user()
     {
-        return auth()->user();
+        return auth()->user() ? auth()->user() : json_decode(json_encode([]));
     }
 }
 

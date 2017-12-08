@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="dialog.model"
+    v-model="cmOpen"
     fullscreen
     lazy
     transition="dialog-bottom-transition"

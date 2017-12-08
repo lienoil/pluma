@@ -1,7 +1,8 @@
 {
     "name": "pluma/cms",
     "description": "Pluma - A Web CMS",
-    "version": "0.1.0",
+    "version": "2.0.1",
+    "homepage": "https://github.com/lioneil/pluma",
     "type": "project",
     "license": "MIT",
     "authors": [

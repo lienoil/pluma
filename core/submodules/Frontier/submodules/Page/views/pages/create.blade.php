@@ -16,6 +16,7 @@
                         <v-card-text>
                             <v-text-field
                                 name="title"
+                                :error-messages="errors.title"
                                 label="{{ __('Title') }}"
                                 v-model="resource.title"
                                 @input="() => { resource.code = $options.filters.slugify(resource.title); }"
@@ -31,18 +32,15 @@
                                 label="{{ __('Code') }}"
                                 name="code"
                                 persistent-hint
+                                :error-messages="errors.code"
                                 hint="{{ __("Code is used in generating URL. To customize the code, toggle the lock icon on this field.") }}"
                             ></v-text-field>
                         </v-card-text>
 
                         <v-divider></v-divider>
+
                         {{-- Editor --}}
-                        <v-quill class="elevation-0" source :options="{placeholder: '{{ __('Write something...') }}'}" v-model="resource.quill" class="mb-3 card--flat white elevation-1" :fonts="['Default', 'Montserrat', 'Roboto']">
-                            <template>
-                                <input type="hidden" name="body" :value="resource.quill.html">
-                                <input type="hidden" name="delta" :value="JSON.stringify(resource.quill.delta)">
-                            </template>
-                        </v-quill>
+                        @include("Page::interactive.editor")
                         {{-- /Editor --}}
                     </v-card>
                 </v-flex>
@@ -53,9 +51,6 @@
                     @include("Theme::interactives.featured-image")
 
                     @include("Page::cards.page-attributes")
-                </v-flex>
-
-                <v-flex sm6>
                 </v-flex>
 
             </v-layout>
@@ -98,7 +93,7 @@
                             }
                         }
                     },
-
+                    errors: {!! json_encode($errors->getMessages()) !!}
                 }
             },
         })

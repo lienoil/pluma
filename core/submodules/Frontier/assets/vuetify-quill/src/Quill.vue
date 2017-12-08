@@ -52,7 +52,8 @@
       uploadParams: { type: Object, default: () => { return {} } },
       fonts: { type: Array, default: () => { return [] } },
       statusBar: { type: Boolean, default: true },
-      paper: { type: Boolean, default: false }
+      paper: { type: Boolean, default: false },
+      mediabox: { type: String, default: '' },
     },
     data () {
       return {
@@ -98,7 +99,7 @@
 
                   // [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
 
-                  ['link', 'image', 'mediabox'],
+                  ['link', 'image'],
 
                   ['clean'],                                         // remove formatting button
 
@@ -108,8 +109,8 @@
                 ],
                 handlers: {
                   'codemirror': this.toolbarCodemirror,
-                  'image': this.imageHandler,
-                  'mediabox': this.mediaboxHandler,
+                  // 'image': this.imageHandler,
+                  'image': this.mediaboxHandler,
                 }
               }
             }
@@ -316,8 +317,8 @@
           if (xhr.status === 200) {
             // this is callback data: url
             // console.log(xhr.responseText);
-            const url = JSON.parse(xhr.responseText).url;
-            self.insertToEditor(self.options.urlPrefix+url);
+            const thumbnail = JSON.parse(xhr.responseText).thumbnail;
+            self.insertToEditor(thumbnail);
           }
         };
         xhr.send(fd);
@@ -325,12 +326,15 @@
 
       insertToEditor (url) {
         // push image url to rich editor.
+        if (! this.quill.instance.hasFocus()) {
+          this.quill.instance.focus();
+        }
         const range = this.quill.instance.getSelection();
         this.quill.instance.insertEmbed(range.index, 'image', url);
       },
 
       mediaboxHandler () {
-        this.$emit('mediabox', this.quill);
+        this.$emit('toggle-mediabox', this.quill);
         // alert('asd');
       },
     },
@@ -342,6 +346,12 @@
       this.listen()
     },
     watch: {
+      'mediabox': function (val) {
+        if (val) {
+          let url = JSON.parse(JSON.stringify(val));
+          this.insertToEditor(url);
+        }
+      },
       'content': function (value) {
         // this.quill.content = value
       },
@@ -377,6 +387,10 @@
     pre.ql-syntax {
       font-family: 'Ubuntu Mono', monospace;
     }
+  }
+
+  .ql-editor.ql-blank {
+    max-height: 300px;
   }
 
   .ql-snow.ql-toolbar, .ql-snow.ql-container {

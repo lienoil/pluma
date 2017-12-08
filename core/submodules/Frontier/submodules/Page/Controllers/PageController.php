@@ -7,6 +7,7 @@ use Crowfeather\Traverser\Traverser;
 use Frontier\Controllers\AdminController as Controller;
 use Illuminate\Http\Request;
 use Page\Models\Page;
+use Page\Requests\PageRequest;
 use Template\Models\Template;
 use User\Models\User;
 
@@ -83,11 +84,14 @@ class PageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Page\Requests\PageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
+        echo "<pre>";
+            var_dump( $request->all() ); die();
+        echo "</pre>";
         $page = new Page();
         $page->title = $request->input('title');
         $page->code = $request->input('code');

@@ -35,7 +35,7 @@ return [
             'show-profile' => [
                 'name' => 'show-profile',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/profile/'.user()->handlename),
+                'slug' => route('profile.show', user()->handlename),
                 'always_viewable' => true,
                 'icon' => 'account_circle',
                 'routes' => [

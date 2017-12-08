@@ -45,7 +45,7 @@
                                     <input type="hidden" name="site_membership" :value="resource.radios.membership.model">
                                     <v-radio-group v-model="resource.radios.membership.model" :mandatory="true">
                                         <template v-for="(radio, i) in resource.radios.membership.items">
-                                            <v-radio hide-details :input-value="i" :value="i" :label="radio"></v-radio>
+                                            <v-radio hide-details :input-value="i.toString()" :value="i.toString()" :label="radio"></v-radio>
                                         </template>
                                     </v-radio-group>
                                 </v-flex>
@@ -121,7 +121,7 @@
                         radios: {
                             membership: {
                                 items: {!! json_encode(config('auth.registration.modes', [])) !!},
-                                model: '{{ @$resource->site_membership ? $resource->site_membership : settings('site_membership', 2) }}',
+                                model: '{{ settings('site_membership', 2) }}',
                             },
                             date_format: {
                                 custom: 'm/d/Y',
