@@ -242,9 +242,14 @@
         return this.dataset
       },
 
-      cmOpen () {
-        this.dialog.model = this.open
-        return this.dialog.model
+      cmOpen: {
+        get: function () {
+          this.dialog.model = this.open
+          return this.dialog.model
+        },
+        set: function () {
+          // body...
+        }
       },
 
       cmUrl () {

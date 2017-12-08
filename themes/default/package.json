@@ -1,7 +1,7 @@
 {
-  "name": "frontman",
+  "name": "pluma/themes/default",
   "version": "1.0.0",
-  "description": "Frontman Theme for Pluma CMS",
+  "description": "Default theme for Pluma CMS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

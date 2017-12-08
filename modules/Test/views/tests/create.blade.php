@@ -11,21 +11,22 @@
 
         <v-container fluid>
             <v-flex sm12>
+                {{-- <v-dialog v-model="mediabox.model">
+                    <v-card>ad</v-card>
+                </v-dialog> --}}
+                <v-btn @click.stop="mediabox.model = !mediabox.model">Mediabox: @{{ mediabox.model }}</v-btn>
+
                 <form action="{{ route('tests.store') }}" method="POST">
                     {{ csrf_field() }}
-                    {{-- Editor --}}
-                    <v-quill class="elevation-0" source :upload-params="{_token: '{{ csrf_token() }}', 'return': 1}" :options="{urlPrefix: '{{ url('storage') }}/', uploadUrl: '{{ route('api.library.upload') }}', placeholder: '{{ __('Write something...') }}'}" v-model="resource.quill" class="mb-3 card--flat white elevation-1" :fonts="['Default', 'Ubuntu', 'Roboto']" @toggle-mediabox="mediaboxbox" :mediabox.sync="mediabox.url">
+                    <v-quill class="elevation-0" source :upload-params="{_token: '{{ csrf_token() }}', 'return': 1}" :options="{urlPrefix: '{{ url('storage') }}/', uploadUrl: '{{ route('api.library.upload') }}', placeholder: '{{ __('Write something...') }}'}" v-model="resource.quill" class="mb-3 card--flat white elevation-1" :fonts="['Default', 'Ubuntu', 'Roboto']" @toggle-mediabox="mediaboxbox($event)" :mediabox.sync="mediabox.url">
                         <template>
                             <input type="hidden" name="body" :value="resource.quill.html">
                             <input type="hidden" name="delta" :value="JSON.stringify(resource.quill.delta)">
                         </template>
                     </v-quill>
-                    {{-- /Editor --}}
                     <v-btn type="submit" class="primary">Save</v-btn>
                 </form>
 
-                <v-btn @click="mediabox.model = !mediabox.model">Mediabox: @{{ mediabox.model }}</v-btn>
-                {{-- <img :src="mediabox.url"> --}}
                 <v-mediabox
                     dropzone
                     :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
@@ -91,9 +92,10 @@
                 }
             },
             methods: {
-                mediaboxbox (quill) {
-                    this.mediabox.model = !this.mediabox.model;
-                    // console.log(quill)
+                mediaboxbox (event, quill) {
+                    // event
+                    console.log('htm', event)
+                    this.mediabox.model = true;
                     // console.log(this.mediabox.catalogues)
                 }
             }

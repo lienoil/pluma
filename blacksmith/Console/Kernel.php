@@ -12,6 +12,9 @@ class Kernel extends BaseKernel
      * @var array
      */
     public $commands = [
+        // Key
+        Commands\Key\KeyGenerateCommand::class,
+
         // Blacksmith
         Commands\DB\DBDropCommand::class,
         Commands\DB\DBEmptyCommand::class,
@@ -30,6 +33,9 @@ class Kernel extends BaseKernel
         Commands\Phinx\PhinxMigrateRunCommand::class,
         Commands\Phinx\PhinxSeedCreateCommand::class,
         Commands\Phinx\PhinxSeedRunCommand::class,
+
+        // Misc
+        Commands\Misc\FurnaceCommand::class,
 
         // vendor
         \Phinx\Console\Command\Init::class,

@@ -1,0 +1,2 @@
+# December 08 2017
+    * Added Blacksmith Command `key:generate`

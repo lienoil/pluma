@@ -225,17 +225,6 @@ class ApplicationViewComposer extends BaseViewComposer
      */
     public function guessTagline()
     {
-        try {
-            if (Schema::hasTable('settings')) {
-                $value = Setting::valueFromKey('site_tagline');
-                if ($value && ! empty($value)) {
-                    return $value;
-                }
-            }
-        } catch (Exception $e) {
-            // Silence is golden
-        }
-
         return settings('site_tagline', env("APP_TAGLINE"));
     }
 

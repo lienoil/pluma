@@ -1,7 +1,7 @@
-@extends("Theme::layouts.public")
+@extends("Theme::layouts.blank")
 
 @section("theme-css")
-    <link rel="stylesheet" href="{{ theme("{$resource->code}/css/styles.css", true) }}?test={{ date('Y-m-d_H:i:s') }}">
+    <link rel="stylesheet" href="{{ theme("{$resource->code}/css/style.css", true) }}?random={{ date('Y-m-d_H:i:s') }}">
 @endsection
 
 @section("pre-content")

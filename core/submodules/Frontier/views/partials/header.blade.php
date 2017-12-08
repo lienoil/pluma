@@ -57,8 +57,8 @@
     @stack("post-css")
 
     {{-- Theme Specific --}}
-    @stack("theme-css")
-    <link href="{{ theme('css/app.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+    @section("theme-css")
+    <link href="{{ theme('css/style.css') }}?v={{ $application->version }}" rel="stylesheet">
     @show
     {{-- /Theme Specific --}}
 </head>

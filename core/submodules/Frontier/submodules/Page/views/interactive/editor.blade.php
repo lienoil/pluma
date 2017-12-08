@@ -1,5 +1,5 @@
 {{-- Editor --}}
-<v-quill class="elevation-0" source :upload-params="{_token: '{{ csrf_token() }}', 'return': 1}" :options="{urlPrefix: '{{ url('storage') }}/', uploadUrl: '{{ route('api.library.upload') }}', placeholder: '{{ __('Write something...') }}'}" v-model="resource.quill" class="mb-3 card--flat white elevation-1" :fonts="['Default', 'Ubuntu', 'Roboto']" @toggle-mediabox="mediaboxbox" :mediabox.sync="mediabox.url">
+<v-quill class="elevation-0" source :upload-params="{_token: '{{ csrf_token() }}', 'return': 1}" :options="{uploadUrl: '{{ route('api.library.upload') }}', placeholder: '{{ __('Write something...') }}'}" v-model="resource.quill" class="mb-3 card--flat white elevation-1" :fonts="mediabox.fonts" @toggle-mediabox="() => { mediabox.model = ! mediabox.model }" :mediabox.sync="mediabox.url">
     <template>
         <input type="hidden" name="body" :value="resource.quill.html">
         <input type="hidden" name="delta" :value="JSON.stringify(resource.quill.delta)">
@@ -61,6 +61,7 @@
                     mediabox: {
                         catalogues: {!! json_encode($catalogues) !!},
                         model: false,
+                        fonts: {!! json_encode(config('editor.fonts.enabled', [])) !!},
                         url: '',
                         resource: {
                             thumbnail: '',
@@ -68,13 +69,6 @@
                     },
                 }
             },
-            methods: {
-                mediaboxbox (quill) {
-                    this.mediabox.model = ! this.mediabox.model;
-                    // console.log(quill)
-                    // console.log(this.mediabox.catalogues)
-                }
-            }
         })
     </script>
 @endpush

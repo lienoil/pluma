@@ -75,10 +75,6 @@
                         parent: null,
                         parent_id: '',
                         template: 'generic',
-                        quill: {
-                            body: '',
-                            delta: '',
-                        },
                         children: [],
                         readonly: {
                             slug: true,

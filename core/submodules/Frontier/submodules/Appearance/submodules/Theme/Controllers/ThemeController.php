@@ -20,7 +20,7 @@ class ThemeController extends SettingController
         $active = Theme::theme(settings('active_theme', 'default'));
         $resources = Theme::themes(false);
 
-        return view("Theme::themes.index")->with(compact('resources', 'active'));
+        return view("Theme::theme.index")->with(compact('resources', 'active'));
     }
 
     /**
@@ -34,7 +34,11 @@ class ThemeController extends SettingController
     {
         $resource = Theme::theme($theme);
 
-        return view("Theme::themes.preview")->with(compact('resource'));
+        if (view()->exists("{$resource->hintpath}::theme.preview")) {
+            return view("{$resource->hintpath}::theme.preview")->with(compact('resource'));
+        }
+
+        return view("Theme::theme.preview")->with(compact('resource'));
     }
 
     /**

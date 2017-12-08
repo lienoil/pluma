@@ -59,7 +59,7 @@ Route::get('~assets/{module?}/{file?}', function ($module = null, $file = null) 
     return abort(404);
 })->where('file', '.*');
 
-Route::get('a/assets/{module?}/{file?}', function ($module = null, $file = null) {
+Route::get('assets/{module?}/{file?}', function ($module = null, $file = null) {
     $module = ucfirst($module);
     $path = get_module($module)."/assets/$file";
     $fileArray = explode('/', $file);

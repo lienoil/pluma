@@ -89,9 +89,6 @@ class PageController extends Controller
      */
     public function store(PageRequest $request)
     {
-        echo "<pre>";
-            var_dump( $request->all() ); die();
-        echo "</pre>";
         $page = new Page();
         $page->title = $request->input('title');
         $page->code = $request->input('code');

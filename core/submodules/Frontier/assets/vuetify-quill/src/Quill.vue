@@ -35,6 +35,7 @@
   import CodeMirror from './CodeMirror.vue'
   import Countable from 'countable'
   import ImageResize from 'quill-image-resize-module/image-resize.min.js'
+  // import {ImageResize, Resize, DisplaySize, Toolbar} from 'quill-image-resize-module'
   import {ImageDrop} from 'quill-image-drop-module'
 
   export default {
@@ -122,14 +123,12 @@
       register () {
         let Font = Quill.import('formats/font')
         let Size = Quill.import('attributors/style/size')
-
         Font.whitelist = this.fonts
-
-        Quill.register(Font, true)
-        Quill.register(Size, true)
 
         Quill.register('modules/imageDrop', ImageDrop)
         Quill.register('modules/imageResize', ImageResize)
+        Quill.register(Font, true)
+        Quill.register(Size, true)
       },
 
       prototypes () {
@@ -203,6 +202,10 @@
             }
           })
         })
+
+        document.querySelector('.ql-formats .ql-image').addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
       },
 
       listen () {
@@ -329,12 +332,18 @@
         if (! this.quill.instance.hasFocus()) {
           this.quill.instance.focus();
         }
+
         const range = this.quill.instance.getSelection();
         this.quill.instance.insertEmbed(range.index, 'image', url);
       },
 
-      mediaboxHandler () {
-        this.$emit('toggle-mediabox', this.quill);
+      mediaboxHandler ($bool) {
+        let self = this;
+        // console.log(this);
+        // console.log('quill', self.$event);
+        self.$emit('toggle-mediabox', self.quill);
+
+        return;
         // alert('asd');
       },
     },

@@ -72,6 +72,7 @@ if (! function_exists('get_themes')) {
                 $json = json_decode(file_get_contents(dirname($directory).'/theme.json'));
                 $themes[$i] = [
                     'name' => isset($json->name) ? $json->name : '',
+                    'hintpath' => isset($json->name) ? ucfirst($json->name) : 'Theme',
                     'description' => isset($json->description) ? $json->description : '',
                     'code' => isset($json->code) ? $json->code : strtolower(str_slug($json->name)),
                     'author' => [
@@ -494,7 +495,7 @@ if (! function_exists('assets')) {
      */
     function assets($file)
     {
-        return url("a/assets/$file");
+        return url("assets/$file");
     }
 }
 

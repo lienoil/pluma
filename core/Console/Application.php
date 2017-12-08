@@ -59,7 +59,14 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     public function __construct(Container $webApp, Dispatcher $events, $version)
     {
-        parent::__construct("Blacksmith's Furnace, an Artisan clone", $version);
+        $caption = "Blacksmith's Furnace $version";
+        $text  = "╭".str_repeat("─", strlen($caption)+6)."╮\n";
+        $text .= "│".str_repeat(" ", strlen($caption)+6)."│\n";
+        $text .= "│   $caption   │\n";
+        $text .= "│".str_repeat(" ", strlen($caption)+6)."│\n";
+        $text .= "╰".str_repeat("─", strlen($caption)+6)."╯\n";
+        $text .= "Version";
+        parent::__construct("<comment>$text</comment>", $version);
 
         $this->webApp = $webApp;
         $this->events = $events;

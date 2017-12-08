@@ -80,7 +80,7 @@ class ForgeWeaponCommand extends Command
         sleep(1);
 
         $this->line("Breakdown:");
-        $headers = ['[]', 'Weapon/Armor', 'Price', 'Quantity', 'Total'];
+        $headers = ['[ ]', 'Weapon/Armor', 'Price', 'Quantity', 'Total'];
         $items = $this->items;
         $this->table($headers, $items);
 

@@ -60,6 +60,16 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
+     * Register the services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerProviders();
+    }
+
+    /**
      * Bootstraps the Observables.
      *
      * @return void

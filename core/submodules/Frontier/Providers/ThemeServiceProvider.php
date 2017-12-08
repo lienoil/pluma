@@ -87,8 +87,19 @@ class ThemeServiceProvider extends ServiceProvider
         $activeTheme = basename($this->activeTheme);
         $themePath = config('path.themes', 'themes');
 
+        // Load views from themes, available in hint path
+        // Theme::*, e.g. view("Theme::partials.header")
         if (is_dir(base_path("$themePath/$activeTheme/views"))) {
+            // Load generic hint path, Theme
             $this->loadViewsFrom(base_path("$themePath/$activeTheme/views"), $this->basename);
+        }
+
+        // Load all themes in their own hint path
+        foreach (get_themes() as $theme) {
+            // Load hint path same as theme's name
+            if (is_dir($theme->path)) {
+                $this->loadViewsFrom("{$theme->path}/views", ucfirst($theme->hintpath));
+            }
         }
 
         // Default is loaded after the themes.
