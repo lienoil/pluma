@@ -94,6 +94,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         ),
         'C' => 
         array (
+            'Cron\\' => 5,
             'Chumper\\Zipper\\' => 15,
             'Carbon\\' => 7,
         ),
@@ -312,6 +313,10 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
+        'Cron\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
+        ),
         'Chumper\\Zipper\\' => 
         array (
             0 => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper',
@@ -341,12 +346,17 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
 
     public static $classMap = array (
         'Announcement\\API\\Controllers\\AnnouncementController' => __DIR__ . '/../..' . '/modules/Announcement/API/Controllers/AnnouncementController.php',
+        'Announcement\\Composers\\AnnouncementViewComposer' => __DIR__ . '/../..' . '/modules/Announcement/Composers/AnnouncementViewComposer.php',
+        'Announcement\\Console\\Commands\\Broadcast\\BroadcastAnnouncementCommand' => __DIR__ . '/../..' . '/modules/Announcement/Console/Commands/Broadcast/BroadcastAnnouncementCommand.php',
         'Announcement\\Controllers\\AnnouncementController' => __DIR__ . '/../..' . '/modules/Announcement/Controllers/AnnouncementController.php',
         'Announcement\\Controllers\\AnnouncementManyController' => __DIR__ . '/../..' . '/modules/Announcement/Controllers/AnnouncementManyController.php',
+        'Announcement\\Jobs\\DeleteAnnouncement' => __DIR__ . '/../..' . '/modules/Announcement/Jobs/DeleteAnnouncement.php',
+        'Announcement\\Jobs\\PublishAnnouncement' => __DIR__ . '/../..' . '/modules/Announcement/Jobs/PublishAnnouncement.php',
         'Announcement\\Models\\Announcement' => __DIR__ . '/../..' . '/modules/Announcement/Models/Announcement.php',
         'Announcement\\Observers\\AnnouncementObserver' => __DIR__ . '/../..' . '/modules/Announcement/Observers/AnnouncementObserver.php',
         'Announcement\\Providers\\AnnouncementServiceProvider' => __DIR__ . '/../..' . '/modules/Announcement/Providers/AnnouncementServiceProvider.php',
         'Announcement\\Requests\\AnnouncementRequest' => __DIR__ . '/../..' . '/modules/Announcement/Requests/AnnouncementRequest.php',
+        'Announcement\\Support\\Traits\\AnnouncementMutator' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementMutator.php',
         'Appearance\\Providers\\AppearanceServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/Providers/AppearanceServiceProvider.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
@@ -569,6 +579,9 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Pluma\\Application\\EnvironmentDetector' => __DIR__ . '/../..' . '/core/Application/EnvironmentDetector.php',
         'Pluma\\Application\\ProviderRepository' => __DIR__ . '/../..' . '/core/Application/ProviderRepository.php',
         'Pluma\\Console\\Application' => __DIR__ . '/../..' . '/core/Console/Application.php',
+        'Pluma\\Console\\Commands\\Scheduling\\Schedule' => __DIR__ . '/../..' . '/core/Console/Commands/Scheduling/Schedule.php',
+        'Pluma\\Console\\Commands\\Scheduling\\ScheduleFinishCommand' => __DIR__ . '/../..' . '/core/Console/Commands/Scheduling/ScheduleFinishCommand.php',
+        'Pluma\\Console\\Commands\\Scheduling\\ScheduleRunCommand' => __DIR__ . '/../..' . '/core/Console/Commands/Scheduling/ScheduleRunCommand.php',
         'Pluma\\Console\\Kernel' => __DIR__ . '/../..' . '/core/Console/Kernel.php',
         'Pluma\\Controllers\\Controller' => __DIR__ . '/../..' . '/core/Controllers/Controller.php',
         'Pluma\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Exceptions/Handler.php',
@@ -589,6 +602,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Pluma\\Providers\\FormRequestServiceProvider' => __DIR__ . '/../..' . '/core/Providers/FormRequestServiceProvider.php',
         'Pluma\\Providers\\ModuleServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ModuleServiceProvider.php',
         'Pluma\\Providers\\PlumaServiceProvider' => __DIR__ . '/../..' . '/core/Providers/PlumaServiceProvider.php',
+        'Pluma\\Providers\\QueueServiceProvider' => __DIR__ . '/../..' . '/core/Providers/QueueServiceProvider.php',
         'Pluma\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/core/Providers/RouteServiceProvider.php',
         'Pluma\\Providers\\TranslationServiceProvider' => __DIR__ . '/../..' . '/core/Providers/TranslationServiceProvider.php',
         'Pluma\\Providers\\ViewServiceProvider' => __DIR__ . '/../..' . '/core/Providers/ViewServiceProvider.php',

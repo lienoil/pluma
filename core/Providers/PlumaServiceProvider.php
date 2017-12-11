@@ -3,6 +3,7 @@
 namespace Pluma\Providers;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Queue\Capsule\Manager as Queue;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Support\Handlers\ExceptionHandler;
@@ -19,6 +20,13 @@ class PlumaServiceProvider extends ServiceProvider
     protected $capsule;
 
     /**
+     * Queue instance.
+     *
+     * @var \Illuminate\Queue\Capsule\Manager
+     */
+    protected $queue;
+
+    /**
      * The array of view composers.
      *
      * @var array
@@ -33,7 +41,9 @@ class PlumaServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bootCapsule();
+
         $this->bootComposers();
+
         $this->bootViewsExtensions();
 
         $router = $this->app['router'];

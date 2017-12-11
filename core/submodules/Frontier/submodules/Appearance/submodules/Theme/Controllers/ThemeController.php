@@ -2,12 +2,15 @@
 
 namespace Theme\Controllers;
 
+use Frontier\Controllers\AdminController;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
-use Setting\Controllers\SettingController;
+use Library\Models\Library;
+use Setting\Requests\SettingRequest;
 use Theme\Models\Theme;
 use Theme\Requests\ThemeRequest;
 
-class ThemeController extends SettingController
+class ThemeController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -42,14 +45,19 @@ class ThemeController extends SettingController
     }
 
     /**
-     * Uploads a Theme File for processing.
-     * @param  \Illuminate\Http\Request $request
+     * Store a newly created resource in storage.
+     *
+     * @param  \Setting\Requests\SettingRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function upload(Request $request)
+    public function upload(SettingRequest $request)
     {
-        echo "<pre>";
-            var_dump( $request->all() ); die();
-        echo "</pre>";
+        $file = $request->file('theme');
+
+        if ($file) {
+            Library::extract($file->getPathName(), themes_path());
+        }
+
+        return back();
     }
 }

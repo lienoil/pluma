@@ -10,19 +10,20 @@
     6 => 'Illuminate\\Mail\\MailServiceProvider',
     7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     8 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
-    9 => 'Illuminate\\Session\\SessionServiceProvider',
-    10 => 'Illuminate\\Validation\\ValidationServiceProvider',
-    11 => 'Pluma\\Providers\\ViewServiceProvider',
-    12 => 'Pluma\\Providers\\ApplicationServiceProvider',
-    13 => 'Pluma\\Providers\\DatabaseServiceProvider',
-    14 => 'Pluma\\Providers\\EncryptionServiceProvider',
-    15 => 'Pluma\\Providers\\EventServiceProvider',
-    16 => 'Pluma\\Providers\\ModuleServiceProvider',
-    17 => 'Pluma\\Providers\\RouteServiceProvider',
-    18 => 'Pluma\\Providers\\TranslationServiceProvider',
-    19 => 'Pluma\\Providers\\FormRequestServiceProvider',
-    20 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
-    21 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
+    9 => 'Illuminate\\Queue\\QueueServiceProvider',
+    10 => 'Illuminate\\Session\\SessionServiceProvider',
+    11 => 'Illuminate\\Validation\\ValidationServiceProvider',
+    12 => 'Pluma\\Providers\\ViewServiceProvider',
+    13 => 'Pluma\\Providers\\ApplicationServiceProvider',
+    14 => 'Pluma\\Providers\\DatabaseServiceProvider',
+    15 => 'Pluma\\Providers\\EncryptionServiceProvider',
+    16 => 'Pluma\\Providers\\EventServiceProvider',
+    17 => 'Pluma\\Providers\\ModuleServiceProvider',
+    18 => 'Pluma\\Providers\\RouteServiceProvider',
+    19 => 'Pluma\\Providers\\TranslationServiceProvider',
+    20 => 'Pluma\\Providers\\FormRequestServiceProvider',
+    21 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    22 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
   ),
   'eager' => 
   array (
@@ -54,6 +55,11 @@
     'swift.transport' => 'Illuminate\\Mail\\MailServiceProvider',
     'Illuminate\\Mail\\Markdown' => 'Illuminate\\Mail\\MailServiceProvider',
     'Illuminate\\Contracts\\Pipeline\\Hub' => 'Illuminate\\Pipeline\\PipelineServiceProvider',
+    'queue' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.worker' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.listener' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.failer' => 'Illuminate\\Queue\\QueueServiceProvider',
+    'queue.connection' => 'Illuminate\\Queue\\QueueServiceProvider',
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'translator' => 'Pluma\\Providers\\TranslationServiceProvider',
@@ -74,6 +80,9 @@
     array (
     ),
     'Illuminate\\Pipeline\\PipelineServiceProvider' => 
+    array (
+    ),
+    'Illuminate\\Queue\\QueueServiceProvider' => 
     array (
     ),
     'Illuminate\\Validation\\ValidationServiceProvider' => 

@@ -1,0 +1,273 @@
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\FatalThrowableError: Parse error: syntax error, unexpected '}' in /home/lioneil/Projects/pluma/modules/Announcement/Jobs/DeleteAnnouncement.php:36
+Stack trace:
+#0 /home/lioneil/Projects/pluma/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/home/lioneil/P...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('Announcement\\Jo...')
+#2 /home/lioneil/Projects/pluma/core/Console/Kernel.php(111): spl_autoload_call('Announcement\\Jo...')
+#3 /home/lioneil/Projects/pluma/core/Console/Kernel.php(27): Pluma\Console\Kernel->scheduledJobs(Object(Pluma\Console\Commands\Scheduling\Schedule))
+#4 /home/lioneil/Projects/pluma/blacksmith/Console/Kernel.php(73): Pluma\Console\Kernel->schedule(Object(Pluma\Console\Commands\Scheduling\Schedule))
+#5 /home/lioneil/Projects/pluma/core/Support/Console/Kernel.php(105): Blacksmith\Console\Kernel->schedule(Object(Pluma\Console\Commands\Scheduling\Schedule))
+#6 /home/lioneil/Projects/pluma/core/Support/Consol in /home/lioneil/Projects/pluma/modules/Announcement/Jobs/DeleteAnnouncement.php on line 36
+PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\FatalErrorException: Uncaught Symfony\Component\Debug\Exception\FatalThrowableError: Parse error: syntax error, unexpected '}' in /home/lioneil/Projects/pluma/modules/Announcement/Jobs/DeleteAnnouncement.php:36
+Stack trace:
+#0 /home/lioneil/Projects/pluma/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/home/lioneil/P...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('Announcement\\Jo...')
+#2 /home/lioneil/Projects/pluma/core/Console/Kernel.php(111): spl_autoload_call('Announcement\\Jo...')
+#3 /home/lioneil/Projects/pluma/core/Console/Kernel.php(27): Pluma\Console\Kernel->scheduledJobs(Object(Pluma\Console\Commands\Scheduling\Schedule))
+#4 /home/lioneil/Projects/pluma/blacksmith/Console/Kernel.php(73): Pluma\Console\Kernel->schedule(Object(Pluma\Console\Commands\Scheduling\Schedule))
+#5 /home/lioneil/Projects/pluma/core/Support/Console/Kernel.php(105): Blacksmith\Console\Kernel->schedule(Object(Pluma\Console\Commands\Schedulin in /home/lioneil/Projects/pluma/modules/Announcement/Jobs/DeleteAnnouncement.php on line 36
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+object(Illuminate\Database\Eloquent\Collection)#1426 (1) {
+  ["items":protected]=>
+  array(1) {
+    [0]=>
+    object(Announcement\Models\Announcement)#1427 (29) {
+      ["with":protected]=>
+      array(0) {
+      }
+      ["appends":protected]=>
+      array(3) {
+        [0]=>
+        string(6) "starts"
+        [1]=>
+        string(7) "expires"
+        [2]=>
+        string(8) "modified"
+      }
+      ["searchables":protected]=>
+      array(6) {
+        [0]=>
+        string(4) "name"
+        [1]=>
+        string(4) "code"
+        [2]=>
+        string(11) "description"
+        [3]=>
+        string(8) "schedule"
+        [4]=>
+        string(10) "created_at"
+        [5]=>
+        string(10) "updated_at"
+      }
+      ["perPage":protected]=>
+      int(10)
+      ["connection":protected]=>
+      string(7) "default"
+      ["table":protected]=>
+      NULL
+      ["primaryKey":protected]=>
+      string(2) "id"
+      ["keyType":protected]=>
+      string(3) "int"
+      ["incrementing"]=>
+      bool(true)
+      ["withCount":protected]=>
+      array(0) {
+      }
+      ["exists"]=>
+      bool(true)
+      ["wasRecentlyCreated"]=>
+      bool(false)
+      ["attributes":protected]=>
+      array(10) {
+        ["id"]=>
+        int(1)
+        ["name"]=>
+        string(8) "Test Ann"
+        ["code"]=>
+        string(8) "test-ann"
+        ["body"]=>
+        string(26) "<p>asdasd</p><p>asdasd</p>"
+        ["delta"]=>
+        string(39) "{"ops":[{"insert":"asdasd\nasdasd\n"}]}"
+        ["starts_at"]=>
+        string(19) "2017-12-11 17:27:00"
+        ["expires_at"]=>
+        string(19) "2017-12-23 01:00:00"
+        ["created_at"]=>
+        string(19) "2017-12-11 16:00:24"
+        ["updated_at"]=>
+        string(19) "2017-12-11 16:00:24"
+        ["deleted_at"]=>
+        NULL
+      }
+      ["original":protected]=>
+      array(10) {
+        ["id"]=>
+        int(1)
+        ["name"]=>
+        string(8) "Test Ann"
+        ["code"]=>
+        string(8) "test-ann"
+        ["body"]=>
+        string(26) "<p>asdasd</p><p>asdasd</p>"
+        ["delta"]=>
+        string(39) "{"ops":[{"insert":"asdasd\nasdasd\n"}]}"
+        ["starts_at"]=>
+        string(19) "2017-12-11 17:27:00"
+        ["expires_at"]=>
+        string(19) "2017-12-23 01:00:00"
+        ["created_at"]=>
+        string(19) "2017-12-11 16:00:24"
+        ["updated_at"]=>
+        string(19) "2017-12-11 16:00:24"
+        ["deleted_at"]=>
+        NULL
+      }
+      ["changes":protected]=>
+      array(0) {
+      }
+      ["casts":protected]=>
+      array(0) {
+      }
+      ["dates":protected]=>
+      array(0) {
+      }
+      ["dateFormat":protected]=>
+      NULL
+      ["dispatchesEvents":protected]=>
+      array(0) {
+      }
+      ["observables":protected]=>
+      array(0) {
+      }
+      ["relations":protected]=>
+      array(0) {
+      }
+      ["touches":protected]=>
+      array(0) {
+      }
+      ["timestamps"]=>
+      bool(true)
+      ["hidden":protected]=>
+      array(0) {
+      }
+      ["visible":protected]=>
+      array(0) {
+      }
+      ["fillable":protected]=>
+      array(0) {
+      }
+      ["guarded":protected]=>
+      array(1) {
+        [0]=>
+        string(1) "*"
+      }
+      ["wordCount":protected]=>
+      int(30)
+      ["forceDeleting":protected]=>
+      bool(false)
+    }
+  }
+}
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement
+#!/usr/bin/env php
+Running scheduled command: Announcement\Jobs\PublishAnnouncement
+Running scheduled command: Announcement\Jobs\DeleteAnnouncement

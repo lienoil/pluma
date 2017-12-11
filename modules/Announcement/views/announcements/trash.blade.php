@@ -9,8 +9,6 @@
 
 @section("content")
     @include("Theme::partials.banner")
-
-
     <v-container fluid>
         <v-layout row wrap>
             <v-flex xs12>
@@ -119,10 +117,9 @@
                             </td>
                             <td>@{{ prop.item.id }}</td>
                             <td width="20%"><strong>@{{ prop.item.name }}</strong></td>
-                            <td class="text-xs-center">
-                                <v-chip avatar class="ma-0 transparent elevation-0">
-                                    <v-icon class="mr-2 green--text">access_time</v-icon>September 12, 2017
-                                </v-chip>
+                            <td>
+                                <v-icon class="green--text">access_time</v-icon>
+                                <span class="caption ml-2">Oct. 03, 2017</span>
                             </td>
                             <td>@{{ prop.item.created }}</td>
                             <td class="text-xs-center">

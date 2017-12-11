@@ -4,13 +4,13 @@ namespace Pluma\Support\Console;
 
 use Closure;
 use Exception;
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Pluma\Application\Application;
 use Pluma\Console\Application as Artisan;
+use Pluma\Console\Commands\Scheduling\Schedule;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
@@ -75,8 +75,12 @@ class Kernel implements KernelContract
      */
     public function __construct(Application $app, Dispatcher $events)
     {
+        if (! defined('PLUMA_BINARY')) {
+            define('PLUMA_BINARY', 'pluma');
+        }
+
         if (! defined('ARTISAN_BINARY')) {
-            define('ARTISAN_BINARY', 'artisan');
+            define('ARTISAN_BINARY', 'pluma');
         }
 
         $this->app = $app;

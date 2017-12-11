@@ -70,6 +70,10 @@
                                             <v-card flat dark class="transparent">
                                                 <v-card-title primary-title>
                                                     <h3 class="headline">{{ $resource->name }}</h3>
+                                                    <v-spacer></v-spacer>
+                                                    @if ($resource->timestamp >= date(strtotime('1 day ago')))
+                                                        <v-chip label class="pink white--text">{{ __('NEW') }}</v-chip>
+                                                    @endif
                                                 </v-card-title>
                                                 <v-card-text class="subheading">
                                                     {{ $resource->description }}

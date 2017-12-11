@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('announcements', 'Announcement\Controllers\AnnouncementController');
+// Route::resource('announcements', 'Announcement\Controllers\AnnouncementController');

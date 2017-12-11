@@ -115,7 +115,7 @@ class Application extends SymfonyApplication implements ApplicationContract
      */
     public static function artisanBinary()
     {
-        return defined('ARTISAN_BINARY') ? ProcessUtils::escapeArgument(ARTISAN_BINARY) : 'artisan';
+        return defined('PLUMA_BINARY') ? ProcessUtils::escapeArgument(PLUMA_BINARY) : 'pluma';
     }
 
     /**

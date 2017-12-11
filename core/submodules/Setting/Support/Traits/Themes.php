@@ -22,7 +22,7 @@ trait Themes
             }
         }
 
-        return $themes;
+        return collect($themes)->sortBy('timestamp')->reverse();
     }
 
     /**

@@ -93,6 +93,7 @@ class AnnouncementController extends APIController
         $announcement->delete();
 
         return response()->json($this->successResponse);
+        // return redirect()->route('announcements.index');
     }
 
     /**

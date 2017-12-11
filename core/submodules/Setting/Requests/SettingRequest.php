@@ -52,6 +52,7 @@ class SettingRequest extends FormRequest
 
         return [
             '*' => 'required|max:255',
+            'theme' => 'sometimes|file|required',
         ];
     }
 

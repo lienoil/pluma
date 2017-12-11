@@ -22,7 +22,7 @@
             v-model="dataset.searchform.query"
             v-show="dataset.searchform.model"
         ></v-text-field>
-       {{--  <v-select
+        {{--  <v-select
             label="Search"
             chips
             tags
@@ -38,11 +38,7 @@
     {{-- /Search --}}
 
     <v-btn icon v-tooltip:left="{ html: 'Filter' }">
-        <v-icon>filter_list</v-icon>
-    </v-btn>
-
-    <v-btn icon v-tooltip:left="{ html: 'Sort' }">
-        <v-icon>sort</v-icon>
+        <v-icon class="subheading">fa fa-filter</v-icon>
     </v-btn>
 
     {{-- Batch Commands --}}
@@ -120,17 +116,17 @@
                             ></v-checkbox>
                         </td>
                         <td><p>@{{ prop.item.id }}</p></td>
-                        <td width="20%">
+                        <td width="40%">
                             <a class="black--text ripple no-decoration" :href="route(urls.announcements.show, prop.item.id)">
                                <strong v-tooltip:bottom="{ html: 'Show Detail' }">@{{ prop.item.name }}</strong>
                             </a>
                         </td>
-                        <td class="text-xs-center">
-                            <v-chip avatar class="ma-0 transparent elevation-0">
-                                <v-icon class="mr-2 green--text">access_time</v-icon>September 12, 2017
-                            </v-chip>
+                        <td>
+                            <v-icon class="green--text">access_time</v-icon>
+                            <span v-tooltip:bottom="{html:prop.item.starts_at}">@{{ prop.item.starts }}</span>
                         </td>
-                        <td>@{{ prop.item.created }}</td>
+                        <td><span v-tooltip:bottom="{html:prop.item.expires_at}">@{{ prop.item.expires }}</span></td>
+                        <td>@{{ prop.item.modified }}</td>
                         <td class="text-xs-center">
                             <v-menu bottom left>
                                 <v-btn icon flat slot="activator" v-tooltip:bottom="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
@@ -182,9 +178,6 @@
 
 @push('css')
     <style>
-        td {
-            font-size: 14px !important;
-        }
         .no-decoration {
             text-decoration: none;
         }
@@ -214,9 +207,10 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Title") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Schedule") }}', align: 'center', value: 'schedule' },
+                            { text: '{{ __("Publish Date") }}', align: 'left', value: 'starts_at' },
+                            { text: '{{ __("Expiration Date") }}', align: 'left', value: 'expires_at' },
                             { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
-                            { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
+                            { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
                         loading: true,

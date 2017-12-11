@@ -2,10 +2,11 @@
 
 namespace Announcement\Controllers;
 
-use Frontier\Controllers\AdminController;
-use Illuminate\Http\Request;
 use Announcement\Models\Announcement;
 use Announcement\Requests\AnnouncementRequest;
+use Catalogue\Models\Catalogue;
+use Frontier\Controllers\AdminController;
+use Illuminate\Http\Request;
 
 class AnnouncementController extends AdminController
 {
@@ -32,10 +33,11 @@ class AnnouncementController extends AdminController
      */
     public function show(Request $request, $id)
     {
-        $resource = Announcement::findOrFail($id);
-        $trashed = Announcement::onlyTrashed()->count();
+        Announcement::publish(1);
 
-        return view("Theme::announcements.show")->with(compact('resource', 'trashed'));
+        $resource = Announcement::findOrFail($id);
+
+        return view("Theme::announcements.show")->with(compact('resource'));
     }
 
     /**
@@ -45,9 +47,9 @@ class AnnouncementController extends AdminController
      */
     public function create()
     {
-        //
+        $catalogues = Catalogue::mediabox();
 
-        return view("Theme::announcements.create");
+        return view("Theme::announcements.create")->with(compact('catalogues'));
     }
 
     /**
@@ -61,10 +63,10 @@ class AnnouncementController extends AdminController
         $announcement = new Announcement();
         $announcement->name = $request->input('name');
         $announcement->code = $request->input('code');
-        $announcement->description = $request->input('description');
-        if (null !== $request->input('schedule')) {
-            $announcement->schedule = date('Y-m-d H:i:s', strtotime($request->input('schedule')));
-        }
+        $announcement->body = $request->input('body');
+        $announcement->delta = $request->input('delta');
+        $announcement->starts_at = date('Y-m-d H:i:s', strtotime($request->input('starts_at') . " " . $request->input('start_time')));
+        $announcement->expires_at = date('Y-m-d H:i:s', strtotime($request->input('expires_at') . " " . $request->input('expire_time')));
         $announcement->save();
 
         return back();
@@ -80,8 +82,9 @@ class AnnouncementController extends AdminController
     public function edit(Request $request, $id)
     {
         $resource = Announcement::findOrFail($id);
+        $catalogues = Catalogue::mediabox();
 
-        return view("Theme::announcements.edit")->with(compact('resource'));
+        return view("Theme::announcements.edit")->with(compact('resource', 'catalogues'));
     }
 
     /**

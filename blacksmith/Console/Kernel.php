@@ -2,6 +2,7 @@
 
 namespace Blacksmith\Console;
 
+use Pluma\Console\Commands\Scheduling\Schedule;
 use Pluma\Console\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
@@ -56,8 +57,20 @@ class Kernel extends BaseKernel
      */
     protected function commands()
     {
-        parent::commands();
         $this->load(base_path('blacksmith/routes/console.php'));
+
+        parent::commands();
+    }
+
+    /**
+     * Define the application's command schedule.
+     *
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule)
+    {
+        parent::schedule($schedule);
     }
 
     /**

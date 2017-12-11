@@ -3,6 +3,7 @@
 namespace Pluma\Providers;
 
 use Illuminate\Support\AggregateServiceProvider;
+use Pluma\Providers\QueueServiceProvider;
 
 class ApplicationServiceProvider extends AggregateServiceProvider
 {
@@ -20,5 +21,6 @@ class ApplicationServiceProvider extends AggregateServiceProvider
      */
     protected $providers = [
         FormRequestServiceProvider::class,
+        // QueueServiceProvider::class,
     ];
 }

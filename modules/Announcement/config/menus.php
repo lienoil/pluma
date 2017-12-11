@@ -42,8 +42,8 @@ return [
                 'slug' => url(config('path.admin').'/announcements/create'),
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Create'),
-                    'description' => __('Create a Announcement'),
+                    'title' => __('Create Announcement'),
+                    'description' => __('Create a new announcement'),
                 ],
             ],
             'trashed-announcements' => [

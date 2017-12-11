@@ -2,7 +2,6 @@
 
 namespace Frontier\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Pluma\Support\Providers\ServiceProvider;
 
 class FrontierServiceProvider extends ServiceProvider
@@ -64,7 +63,7 @@ class FrontierServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function bootViewComposers()
+    public function bootViewComposers()
     {
         $composers = require __DIR__.'/../config/composers.php';
 

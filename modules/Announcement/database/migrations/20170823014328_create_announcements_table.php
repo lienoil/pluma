@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
 use Phinx\Migration\AbstractMigration;
+use Pluma\Support\Migration\Migration;
 
 class CreateAnnouncementsTable extends Migration
 {
@@ -25,8 +26,10 @@ class CreateAnnouncementsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('code');
-            $table->text('description')->nullable();
-            $table->timestamp('schedule')->default( \DB::raw('CURRENT_TIMESTAMP') )->nullable();
+            $table->text('body')->nullable();
+            $table->text('delta')->nullable();
+            $table->timestamp('starts_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
+            $table->timestamp('expires_at')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

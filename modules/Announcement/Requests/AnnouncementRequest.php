@@ -13,31 +13,31 @@ class AnnouncementRequest extends FormRequest
      */
     public function authorize()
     {
-        // switch ($this->method()) {
-        //     case 'POST':
-        //         if ($this->user()->can('store-announcement')) {
-        //             return true;
-        //         }
-        //         break;
+        switch ($this->method()) {
+            case 'POST':
+                if ($this->user()->can('store-announcement')) {
+                    return true;
+                }
+                break;
 
-        //     case 'PUT':
-        //         if ($this->user()->can('update-announcement')) {
-        //             return true;
-        //         }
-        //         break;
+            case 'PUT':
+                if ($this->user()->can('update-announcement')) {
+                    return true;
+                }
+                break;
 
-        //     case 'DELETE':
-        //         if ($this->user()->can('destroy-announcement')) {
-        //             return true;
-        //         }
-        //         break;
+            case 'DELETE':
+                if ($this->user()->can('destroy-announcement')) {
+                    return true;
+                }
+                break;
 
-        //     default:
-        //         return false;
-        //         break;
-        // }
+            default:
+                return false;
+                break;
+        }
 
-        return true;
+        return false;
     }
 
     /**

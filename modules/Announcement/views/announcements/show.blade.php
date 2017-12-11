@@ -25,74 +25,49 @@
                                 <v-toolbar card prominent class="transparent">
                                     <v-toolbar-title class="title">{{ __($resource->name) }}</v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-menu bottom left>
-                                        <v-btn icon flat slot="activator" v-tooltip:bottom="{'html': 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
-                                        <v-list>
-                                            <v-list-tile ripple :href="route(urls.announcements.edit, ('{{ $resource->id }}'))">
-                                                <v-list-tile-action>
-                                                    <v-icon accent>edit</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>
-                                                        {{ __('Edit') }}
-                                                    </v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                            <v-list-tile ripple
-                                                @click="destroy(route(urls.announcements.api.destroy),
-                                                {
-                                                    '_token': '{{ csrf_token() }}'
-                                                })">
-                                                <v-list-tile-action>
-                                                    <v-icon warning>delete</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>
-                                                        {{ __('Move to Trash') }}
-                                                    </v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                        </v-list>
-                                    </v-menu>
+
+                                    {{-- btn actions --}}
+                                    <v-btn v-tooltip:left="{'html': 'Edit'}" :href="route(urls.announcements.edit, ('{{ $resource->id }}'))" icon>
+                                        <v-icon>mode_edit</v-icon>
+                                    </v-btn>
+                                    <form action="{{ route('announcements.destroy', $resource->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <v-btn type="submit" v-tooltip:left="{'html': 'Move to Trash'}" icon>
+                                            <v-icon>delete</v-icon>
+                                        </v-btn>
+                                    </form>
+                                    {{-- //btn actions --}}
                                 </v-toolbar>
                                 <v-divider></v-divider>
                                 <v-card-text>
                                     <v-layout row wrap>
                                         <v-flex xs4>
-                                            <div class="grey--text">Schedule</div>
+                                            <div class="grey--text">{{ __('Schedule') }}</div>
                                         </v-flex>
                                         <v-flex xs8>
-                                            September 12, 2017
+                                            {{ $resource->starts_at }}
                                         </v-flex>
                                     </v-layout>
                                 </v-card-text>
                                 <v-card-text>
                                     <v-layout row wrap>
                                         <v-flex xs4>
-                                            <div class="grey--text">Created</div>
+                                            <div class="grey--text">{{ __('Expires') }}</div>
                                         </v-flex>
                                         <v-flex xs8>
-                                            September 01, 2017
+                                            {{ $resource->expires_at }}
                                         </v-flex>
                                     </v-layout>
                                 </v-card-text>
+
                                 <v-card-text>
                                     <v-layout row wrap>
                                         <v-flex xs4>
-                                            <div class="grey--text">Last Modified</div>
+                                            <div class="grey--text">{{ __('Description') }}</div>
                                         </v-flex>
                                         <v-flex xs8>
-                                            September 05, 2017
-                                        </v-flex>
-                                    </v-layout>
-                                </v-card-text>
-                                <v-card-text>
-                                    <v-layout row wrap>
-                                        <v-flex xs4>
-                                            <div class="grey--text">Description</div>
-                                        </v-flex>
-                                        <v-flex xs8>
-                                            <div>{{ $resource->description }}</div>
+                                            <div>{!! $resource->body !!}</div>
                                         </v-flex>
                                     </v-layout>
                                 </v-card-text>
@@ -148,12 +123,17 @@
                 };
             },
             methods: {
+                get () {
+                    //
+                },
+
                 destroy (url, query) {
                     var self = this;
                     this.api().delete(url, query)
                         .then((data) => {
-                            self.get('{{ route('api.announcements.all') }}');
-                            self.snackbar = Object.assign(self.snackbar, data.response.body);
+                            console.log('lops',data);
+                            // self.get('{{ route('api.announcements.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data);
                             self.snackbar.model = true;
                         });
                 },

@@ -2,20 +2,17 @@
 
 namespace Announcement\Models;
 
+use Announcement\Support\Traits\AnnouncementMutator;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 
 class Announcement extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, AnnouncementMutator;
 
     protected $with = [];
 
-    protected $searchables = ['name', 'code', 'description', 'schedule', 'created_at', 'updated_at'];
+    protected $appends = ['starts', 'expires', 'modified'];
 
-    // public function getPrettyScheduleAttribute()
-    // {
-    //     return date(settings('date_format', 'F d, Y'), strtotime($this->schedule) );
-    //     protected $appends = ['schedule'];
-    // }
+    protected $searchables = ['name', 'code', 'description', 'schedule', 'created_at', 'updated_at'];
 }
