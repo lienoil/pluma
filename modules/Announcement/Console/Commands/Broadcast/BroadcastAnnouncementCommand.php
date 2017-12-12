@@ -31,6 +31,6 @@ class BroadcastAnnouncementCommand extends Command
     {
         $this->line("Test");
         $date = date('H_i_s');
-        file_put_contents(base_path("ztestfile-{$date}.txt"), 'woot');
+        // file_put_contents(base_path("ztestfile-{$date}.txt"), 'woot');
     }
 }

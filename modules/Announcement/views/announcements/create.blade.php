@@ -5,12 +5,13 @@
 
 
 @section("content")
-    @include("Theme::partials.banner")
-    <v-container fluid>
-        <v-layout row wrap>
-            <v-flex xs12>
-                <form action="{{ route('announcements.store') }}" method="POST">
-                    {{ csrf_field() }}
+    <form action="{{ route('announcements.store') }}" method="POST">
+        {{ csrf_field() }}
+        <v-container fluid grid-list-lg>
+            @include("Theme::partials.banner")
+
+            <v-layout row wrap>
+                <v-flex sm7 md9>
                     <v-card class="elevation-1">
                         <v-toolbar class="transparent elevation-0">
                             <v-toolbar-title class="accent--text">{{ __('Create Announcement') }}</v-toolbar-title>
@@ -18,7 +19,7 @@
 
                         <v-card-text>
                             <v-text-field
-                                :error-message="resource.errors.name"
+                                :error-messages="resource.errors.name"
                                 label="{{ _('Name') }}"
                                 name="name"
                                 value="{{ old('name') }}"
@@ -33,131 +34,95 @@
                                 name="code"
                             ></v-text-field>
 
-                            <v-layout row wrap>
-                                <v-flex sm4 xs12>
-                                    <v-subheader>{{ __('Schedule') }}</v-subheader>
-                                </v-flex>
-                                <v-flex sm8 xs12>
-                                    <v-dialog
-                                        persistent
-                                        lazy
-                                        full-width
-                                    >
-                                        <v-text-field
-                                            slot="activator"
-                                            :error-messages="resource.errors.starts_at"
-                                            label="{{ _('Start date') }}"
-                                            v-model="resource.starts_at"
-                                            name="starts_at"
-                                            value="{{ old('starts_at') }}"
-                                            hint="{{ __('The date to publish this announcement') }}"
-                                            persistent-hint
-                                            readonly
-                                        ></v-text-field>
-                                        <v-date-picker v-model="resource.starts_at" scrollable>
-                                            <template scope="{ save, cancel }">
-                                                <v-card-actions>
-                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
-                                                </v-card-actions>
-                                            </template>
-                                        </v-date-picker>
-                                    </v-dialog>
-
-                                    <v-dialog
-                                        persistent
-                                        lazy
-                                        full-width
-                                    >
-                                        <v-text-field
-                                            slot="activator"
-                                            :error-messages="resource.errors.start_time"
-                                            label="{{ _('Start Time') }}"
-                                            v-model="resource.start_time"
-                                            name="start_time"
-                                            value="{{ old('start_time') }}"
-                                            hint="{{ __('The time to publish this announcement') }}"
-                                            persistent-hint
-                                            readonly
-                                        ></v-text-field>
-                                        <v-time-picker v-model="resource.start_time" scrollable>
-                                            <template scope="{ save, cancel }">
-                                                <v-card-actions>
-                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
-                                                </v-card-actions>
-                                            </template>
-                                        </v-time-picker>
-                                    </v-dialog>
-
-                                    <v-dialog
-                                        persistent
-                                        lazy
-                                        full-width
-                                    >
-                                        <v-text-field
-                                            slot="activator"
-                                            :error-messages="resource.errors.expires_at"
-                                            label="{{ _('Expire date') }}"
-                                            v-model="resource.expires_at"
-                                            name="expires_at"
-                                            value="{{ old('expires_at') }}"
-                                            hint="{{ __('The date of expiration') }}"
-                                            persistent-hint
-                                            readonly
-                                        ></v-text-field>
-                                        <v-date-picker :allowed-dates.sync="allowedDates" v-model="resource.expires_at" scrollable>
-                                            <template scope="{ save, cancel }">
-                                                <v-card-actions>
-                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
-                                                </v-card-actions>
-                                            </template>
-                                        </v-date-picker>
-                                    </v-dialog>
-
-                                    <v-dialog
-                                        persistent
-                                        v-model="modal"
-                                        lazy
-                                        full-width
-                                    >
-                                        <v-text-field
-                                            slot="activator"
-                                            :error-messages="resource.errors.expire_time"
-                                            label="{{ _('Expire Time') }}"
-                                            v-model="resource.expire_time"
-                                            name="expire_time"
-                                            value="{{ old('expire_time') }}"
-                                            hint="{{ __('The time to expire this announcement') }}"
-                                            persistent-hint
-                                            readonly
-                                        ></v-text-field>
-                                        <v-time-picker v-model="resource.expire_time" scrollable>
-                                            <template scope="{ save, cancel }">
-                                                <v-card-actions>
-                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
-                                                </v-card-actions>
-                                            </template>
-                                        </v-time-picker>
-                                    </v-dialog>
-                                </v-flex>
-                            </v-layout>
-
                         </v-card-text>
 
                         @include("Theme::interactive.editor")
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn type="submit" class="primary elevation-1">{{ __('Submit') }}</v-btn>
-                        </v-card-actions>
                     </v-card>
-                </form>
-            </v-flex>
-        </v-layout>
-    </v-container>
+
+                </v-flex>
+
+                <v-flex sm5 md3>
+                    @section("cards.saving.fields")
+                        <v-switch label="{{ __('Publish Now') }}" v-model="resource.publish_now"></v-switch>
+
+                        <template>
+                            <v-dialog persistent lazy full-width>
+                                <v-text-field
+                                    slot="activator"
+                                    :error-messages="resource.errors.published_at"
+                                    label="{{ _('Publication Date') }}"
+                                    v-model="resource.item.published_at"
+                                    name="published_at"
+                                    hint="{{ __('This announcement will appear at the Announcement Boards at this specified date') }}"
+                                    persistent-hint
+                                    readonly
+                                    prepend-icon="fa-calendar"
+                                ></v-text-field>
+                                <div>
+                                    <v-date-picker v-if="resource.publish_toggle" v-model="resource.publish_date" scrollable>
+                                        <template scope="{ save, cancel }">
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn icon @click.native="resource.publish_toggle = !resource.publish_toggle"><v-icon>access_time</v-icon></v-btn>
+                                            </v-card-actions>
+                                        </template>
+                                    </v-date-picker>
+                                    <v-time-picker v-else v-model="resource.publish_time" scrollable>
+                                        <template scope="{ save, cancel }">
+                                            <v-card-actions>
+                                                <v-btn icon @click.native="resource.publish_toggle = !resource.publish_toggle"><v-icon>date_range</v-icon></v-btn>
+                                                <v-spacer></v-spacer>
+                                                <v-btn flat primary @click.native.stop="cancel">{{ __('Cancel') }}</v-btn>
+                                                <v-btn flat primary @click.native="save();resource.publish_now=false;">{{ __('Save') }}</v-btn>
+                                            </v-card-actions>
+                                        </template>
+                                    </v-time-picker>
+                                </div>
+                            </v-dialog>
+                        </template>
+
+                        <v-dialog persistent lazy full-width>
+
+                            <v-text-field
+                                slot="activator"
+                                :error-messages="resource.errors.expired_at"
+                                label="{{ _('Expiration Date') }}"
+                                v-model="resource.item.expired_at"
+                                {{-- :value="`${resource.expire_date} ${resource.expire_time}`" --}}
+                                name="expired_at"
+                                hint="{{ __('If date is specified, this announcement will automatically be removed from the Announcement Boards') }}"
+                                persistent-hint
+                                readonly
+                                prepend-icon="delete"
+                            ></v-text-field>
+                            <div>
+                                <v-date-picker v-if="resource.expire_toggle" :allowed-dates.sync="allowedDates" v-model="resource.expire_date" scrollable>
+                                    <template scope="{ save, cancel }">
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn icon @click.native="resource.expire_toggle = !resource.expire_toggle"><v-icon>access_time</v-icon></v-btn>
+                                        </v-card-actions>
+                                    </template>
+                                </v-date-picker>
+                                <v-time-picker v-else v-model="resource.expire_time" scrollable>
+                                    <template scope="{ save, cancel }">
+                                        <v-card-actions>
+                                            <v-btn icon @click.native="resource.expire_toggle = !resource.expire_toggle"><v-icon>date_range</v-icon></v-btn>
+                                            <v-spacer></v-spacer>
+                                            <v-btn flat primary @click.native.stop="cancel">{{ __('Cancel') }}</v-btn>
+                                            <v-btn flat primary @click.native="save()">{{ __('Save') }}</v-btn>
+                                        </v-card-actions>
+                                    </template>
+                                </v-time-picker>
+                            </div>
+                        </v-dialog>
+                    @endsection
+
+                    @include("Theme::cards.saving")
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </form>
 @endsection
 
 @push('css')
@@ -176,31 +141,49 @@
                     menu: false,
                     modal: false,
                     resource: {
-                        item: {
-                            name: '',
-                            code: '',
-                            description: '',
-                            schedule: '',
-                        },
-                        starts_at: '',
-                        start_time: '',
-                        expires_at: '',
+                        item: {!! json_encode(old()) !!},
+                        publish_now: false,
+                        publish_date: '',
+                        publish_time: '',
+                        publish_toggle: true,
+                        expire_date: '',
                         expire_time: '',
+                        expire_toggle: true,
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                     },
                 };
             },
 
             mounted () {
-                //
+                console.log(this.resource.item);
             },
             methods: {
                 'allowedDates': function (date) {
-                    if (this.resource.starts_at) {
-                        return moment(date).format('YYYY-MM-DD') >= moment(new Date(this.resource.starts_at)).format('YYYY-MM-DD');
+                    if (this.resource.publish_date) {
+                        console.log(moment(date).format('YYYY-MM-DD'), '>=',moment(new Date(this.resource.publish_date)).format('YYYY-MM-DD'));
+                        return moment(date).format('YYYY-MM-DD') >= moment(new Date(this.resource.publish_date)).format('YYYY-MM-DD');
                     }
 
                     return true;
+                }
+            },
+            watch: {
+                'resource.expire_date': function (val) {
+                    this.resource.item.expired_at = val + " " + this.resource.expire_time;
+                },
+                'resource.expire_time': function (val) {
+                    this.resource.item.expired_at = this.resource.expire_date + " " + val;
+                },
+                'resource.publish_date': function (val) {
+                    this.resource.item.published_at = val + " " + this.resource.publish_time;
+                },
+                'resource.publish_time': function (val) {
+                    this.resource.item.published_at = this.resource.publish_date + " " + val;
+                },
+                'resource.publish_now': function (val) {
+                    if (val) {
+                        this.resource.item.published_at = moment(new Date()).format('YYYY-MM-DD hh:mma');
+                    }
                 }
             }
         })

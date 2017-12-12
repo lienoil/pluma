@@ -31,6 +31,6 @@ class PublishAnnouncement implements ShouldQueue
      */
     public function handle()
     {
-        $announcements = Announcement::where('starts_at', '<=', Carbon::now()->toDateTimeString())->get();
+        $announcements = Announcement::where('published_at', '<=', Carbon::now()->toDateTimeString())->get();
     }
 }

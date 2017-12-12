@@ -52,6 +52,7 @@ class AnnouncementRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:announcements'.$isUpdating,
+            'published_at' => 'required',
         ];
     }
 
@@ -64,6 +65,7 @@ class AnnouncementRequest extends FormRequest
     {
         return [
             'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
+            'published_at' => 'The publication date is required.'
         ];
     }
 }

@@ -28,8 +28,8 @@ class CreateAnnouncementsTable extends Migration
             $table->string('code');
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
-            $table->timestamp('starts_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
-            $table->timestamp('expires_at')->nullable();
+            $table->timestamp('published_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
+            $table->timestamp('expired_at')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

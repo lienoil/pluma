@@ -3,7 +3,7 @@
 namespace Announcement\Providers;
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\ServiceProvider;
+use Pluma\Support\Providers\ServiceProvider;
 
 class AnnouncementServiceProvider extends ServiceProvider
 {
@@ -33,8 +33,9 @@ class AnnouncementServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->bootObservables();
-        $this->bootRouterMiddlewares();
+        $this->bootComposers();
+
+        parent::boot();
     }
 
     /**
@@ -44,55 +45,18 @@ class AnnouncementServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        parent::register();
     }
 
     /**
-     * Bootstraps the Observables.
+     * Boots the composers variable
      *
      * @return void
      */
-    public function bootObservables()
+    public function bootComposers()
     {
-        foreach ($this->observables() as $observable) {
-            if (Schema::hasTable(with($this->app->make($observable[0]))->getTable())) {
-                $model = $this->app->make($observable[0]);
-                $observer = $this->app->make($observable[1]);
-                $model::observe(new $observer);
-            }
+        if (file_exists(__DIR__."/../config/composers.php")) {
+            $this->composers = require_once __DIR__."/../config/composers.php";
         }
-    }
-
-    /**
-     * Boots the router middleware.
-     *
-     * @return void
-     */
-    public function bootRouterMiddlewares()
-    {
-        $router = $this->app['router'];
-        foreach ($this->middlewares() as $key => $class) {
-            $router->aliasMiddleware($key, $class);
-        }
-    }
-
-    /**
-     * Gets the array of observables.
-     *
-     * @return array
-     */
-    protected function observables()
-    {
-        return $this->observables;
-    }
-
-    /**
-     * Gets the array of middlewares.
-     *
-     * @return array
-     */
-    protected function middlewares()
-    {
-        return $this->middlewares;
     }
 }

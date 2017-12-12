@@ -3,6 +3,7 @@
 namespace Announcement\Support\Traits;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 trait AnnouncementMutator
 {
@@ -21,13 +22,24 @@ trait AnnouncementMutator
     }
 
     /**
+     * get all published resources.
+     *
+     * @param  \Illuminate\Database\Query\Builder $builder
+     * @return void
+     */
+    public function scopePublished(Builder $builder)
+    {
+        $builder->where('published_at', '<=', Carbon::now()->toDateTimeString());
+    }
+
+    /**
      * Formatted string of starts_at
      *
      * @return string
      */
-    public function getStartsAttribute()
+    public function getPublishedAttribute()
     {
-        return Carbon::createFromTimeStamp(strtotime($this->starts_at))->diffForHumans();
+        return Carbon::createFromTimeStamp(strtotime($this->published_at))->diffForHumans();
     }
 
     /**
@@ -35,8 +47,8 @@ trait AnnouncementMutator
      *
      * @return string
      */
-    public function getExpiresAttribute()
+    public function getExpiredAttribute()
     {
-        return Carbon::createFromTimeStamp(strtotime($this->expires_at))->diffForHumans();
+        return Carbon::createFromTimeStamp(strtotime($this->expired_at))->diffForHumans();
     }
 }

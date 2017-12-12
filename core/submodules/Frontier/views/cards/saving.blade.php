@@ -3,15 +3,19 @@
 
         @stack("cards.saving.pre-title")
 
+        @section("cards.saving.title")
         <v-toolbar-title class="accent--text">{{ __('Saving') }}</v-toolbar-title>
+        @show
 
         @stack("cards.saving.post-title")
 
     </v-toolbar>
 
     <v-card-text class="grey--text">
-
         <div class="caption grey--text">{{ __("You are editing as") }} <strong>{{ user()->username }}</strong></div>
+    </v-card-text>
+
+    <v-card-text class="grey--text">
 
         @stack("cards.saving.pre-fields")
 
@@ -32,6 +36,7 @@
         @stack("cards.saving.post-fields")
 
     </v-card-text>
+
     <v-card-actions>
         @stack("cards.saving.pre-actions")
 

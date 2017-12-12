@@ -65,8 +65,8 @@ class AnnouncementController extends AdminController
         $announcement->code = $request->input('code');
         $announcement->body = $request->input('body');
         $announcement->delta = $request->input('delta');
-        $announcement->starts_at = date('Y-m-d H:i:s', strtotime($request->input('starts_at') . " " . $request->input('start_time')));
-        $announcement->expires_at = date('Y-m-d H:i:s', strtotime($request->input('expires_at') . " " . $request->input('expire_time')));
+        $announcement->published_at = date('Y-m-d H:i:s', strtotime($request->input('published_at')));
+        $announcement->expired_at = date('Y-m-d H:i:s', strtotime($request->input('expired_at')));
         $announcement->save();
 
         return back();
@@ -99,10 +99,10 @@ class AnnouncementController extends AdminController
         $announcement = Announcement::findOrFail($id);
         $announcement->name = $request->input('name');
         $announcement->code = $request->input('code');
-        $announcement->description = $request->input('description');
-        if (null !== $request->input('schedule')) {
-            $announcement->schedule = date('Y-m-d H:i:s', strtotime($request->input('schedule')));
-        }
+        $announcement->body = $request->input('body');
+        $announcement->delta = $request->input('delta');
+        $announcement->published_at = date('Y-m-d H:i:s', strtotime($request->input('published_at')));
+        $announcement->expired_at = date('Y-m-d H:i:s', strtotime($request->input('expired_at')));
         $announcement->save();
 
         return back();

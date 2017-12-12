@@ -123,9 +123,9 @@
                         </td>
                         <td>
                             <v-icon class="green--text">access_time</v-icon>
-                            <span v-tooltip:bottom="{html:prop.item.starts_at}">@{{ prop.item.starts }}</span>
+                            <span v-tooltip:bottom="{html:prop.item.published_at}">@{{ prop.item.published }}</span>
                         </td>
-                        <td><span v-tooltip:bottom="{html:prop.item.expires_at}">@{{ prop.item.expires }}</span></td>
+                        <td><span v-tooltip:bottom="{html:prop.item.expired_at}">@{{ prop.item.expired }}</span></td>
                         <td>@{{ prop.item.modified }}</td>
                         <td class="text-xs-center">
                             <v-menu bottom left>
@@ -207,8 +207,8 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Title") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Publish Date") }}', align: 'left', value: 'starts_at' },
-                            { text: '{{ __("Expiration Date") }}', align: 'left', value: 'expires_at' },
+                            { text: '{{ __("Publish Date") }}', align: 'left', value: 'published_at' },
+                            { text: '{{ __("Expiration Date") }}', align: 'left', value: 'expired_at' },
                             { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],

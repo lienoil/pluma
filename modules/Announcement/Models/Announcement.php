@@ -12,7 +12,7 @@ class Announcement extends Model
 
     protected $with = [];
 
-    protected $appends = ['starts', 'expires', 'modified'];
+    protected $appends = ['published', 'expired', 'modified'];
 
     protected $searchables = ['name', 'code', 'description', 'schedule', 'created_at', 'updated_at'];
 }

@@ -3,7 +3,6 @@
         v-show="!removeannouncement"
         transition="slide-y-transition">
         <v-card-media class="sortable-handle" src="{{ assets('frontier/images/placeholder/9.png') }}">
-            {{-- <div class="insert-overlay" style="background: rgba(102, 78, 144, 0.54); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
             <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.54); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
             <v-layout column class="media">
                 <v-card-title class="pa-0 subheading white--text">
@@ -36,28 +35,24 @@
                 </v-card-title>
                 <v-spacer></v-spacer>
                 <v-card-text v-show="!hideannouncement" class="white--text text-xs-center">
-                    <div class="title pb-3">Announcements</div>
-                    <div class="display-2 weight-600"> 8 </div>
-                    <div class="body-2 white--text mb-3">Total</div>
-                    <v-btn round dark outline dark href="">View All</v-btn>
+                    <div class="title pb-3">{{ __('Announcements') }}</div>
+                    <div class="display-2 weight-600">{{ $announcements->count() }}</div>
+                    <div class="body-2 white--text mb-3">{{ __('Total') }}</div>
+                    <v-btn round dark outline dark href="">{{ __('View All') }}</v-btn>
                 </v-card-text>
             </v-layout>
         </v-card-media>
         <v-card-text class="pa-0" v-show="!hideannouncement">
             <v-list three-line class="pa-0">
-                <v-list-tile avatar ripple  @click="">
-                    <v-list-tile-content>
-                        <v-list-tile-title>No Classes on 01 September 2017 - Eid Al-Adha</v-list-tile-title>
-                        <v-list-tile-sub-title>Happy holidays to all students!</v-list-tile-sub-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile avatar ripple  @click="">
-                    <v-list-tile-content>
-                        <v-list-tile-title>No Classes on 26 June 2017 - Hari Raya</v-list-tile-title>
-                        <v-list-tile-sub-title>Happy Ramadan to all Muslim Students!</v-list-tile-sub-title>
-                    </v-list-tile-content>
-                </v-list-tile>
+                @foreach ($announcements as $announcement)
+                    <v-list-tile avatar ripple @click="">
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $announcement->name }}</v-list-tile-title>
+                            <v-list-tile-sub-title>{!! $announcement->excerpt !!}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-divider></v-divider>
+                @endforeach
             </v-list>
         </v-card-text>
     </v-card>

@@ -1,0 +1,193 @@
+@extends("Theme::layouts.admin")
+
+@section("head-title", __('Edit Announcement'))
+@section("page-title", __('Edit Announcement'))
+
+@section("content")
+    @include('Theme::partials.banner')
+    <v-container fluid>
+        <v-layout row wrap>
+            <v-flex xs12>
+                <form action="{{ route('announcements.update', $resource->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('PUT') }}
+                    <v-card class="elevation-1">
+                        <v-toolbar class="transparent elevation-0">
+                            <v-toolbar-title class="accent--text">{{ __('Edit Announcement') }}</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-card-text>
+                            <v-text-field
+                                :error-messages="resource.errors.name"
+                                label="{{ __('Title') }}"
+                                name="name"
+                                v-model="resource.item.name"
+                                @input="(val) => { resource.item.name = val; }"
+                            ></v-text-field>
+
+                            <v-text-field
+                                :error-messages="resource.errors.code"
+                                hint="{{ __('Will be used as a slug for Announcement. Make sure the code is unique.') }}"
+                                label="{{ __('Code') }}"
+                                name="code"
+                                :value="resource.item.code ? resource.item.code : '{{ $resource->code }}' | slugify"
+                            ></v-text-field>
+
+                            <v-layout row wrap>
+                                <v-flex sm4 xs12>
+                                    <v-subheader>{{ __('Schedule') }}</v-subheader>
+                                </v-flex>
+                                <v-flex sm8 xs12>
+                                    <v-dialog
+                                        persistent
+                                        lazy
+                                        full-width
+                                    >
+                                        <v-text-field
+                                            slot="activator"
+                                            :error-messages="resource.errors.starts_at"
+                                            label="{{ _('Start date') }}"
+                                            v-model="resource.item.starts_at"
+                                            name="starts_at"
+                                            value="{{ old('starts_at') }}"
+                                            hint="{{ __('The date to publish this announcement') }}"
+                                            persistent-hint
+                                            readonly
+                                        ></v-text-field>
+                                        <v-date-picker v-model="resource.item.starts_at" scrollable>
+                                            <template scope="{ save, cancel }">
+                                                <v-card-actions>
+                                                    <v-btn flat primary @click.native="cancel()">{{ __('Cancel') }}</v-btn>
+                                                    <v-btn flat primary @click.native="save()">{{ __('Save') }}</v-btn>
+                                                </v-card-actions>
+                                            </template>
+                                        </v-date-picker>
+                                    </v-dialog>
+
+                                    <v-dialog
+                                        persistent
+                                        lazy
+                                        full-width
+                                    >
+                                        <v-text-field
+                                            slot="activator"
+                                            :error-messages="resource.errors.start_time"
+                                            label="{{ _('Start Time') }}"
+                                            v-model="resource.item.start_time"
+                                            name="start_time"
+                                            value="{{ old('start_time') }}"
+                                            hint="{{ __('The time to publish this announcement') }}"
+                                            persistent-hint
+                                            readonly
+                                        ></v-text-field>
+                                        <v-time-picker v-model="resource.item.start_time" scrollable>
+                                            <template scope="{ save, cancel }">
+                                                <v-card-actions>
+                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
+                                                </v-card-actions>
+                                            </template>
+                                        </v-time-picker>
+                                    </v-dialog>
+
+                                    <v-dialog
+                                        persistent
+                                        lazy
+                                        full-width
+                                    >
+                                        <v-text-field
+                                            slot="activator"
+                                            :error-messages="resource.errors.expires_at"
+                                            label="{{ _('Expire date') }}"
+                                            v-model="resource.item.expires_at"
+                                            name="expires_at"
+                                            value="{{ old('expires_at') }}"
+                                            hint="{{ __('The date of expiration') }}"
+                                            persistent-hint
+                                            readonly
+                                        ></v-text-field>
+                                        <v-date-picker :allowed-dates.sync="allowedDates" v-model="resource.item.expires_at" scrollable>
+                                            <template scope="{ save, cancel }">
+                                                <v-card-actions>
+                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
+                                                </v-card-actions>
+                                            </template>
+                                        </v-date-picker>
+                                    </v-dialog>
+
+                                    <v-dialog
+                                        persistent
+                                        v-model="modal"
+                                        lazy
+                                        full-width
+                                    >
+                                        <v-text-field
+                                            slot="activator"
+                                            :error-messages="resource.errors.expire_time"
+                                            label="{{ _('Expire Time') }}"
+                                            v-model="resource.item.expire_time"
+                                            name="expire_time"
+                                            value="{{ old('expire_time') }}"
+                                            hint="{{ __('The time to expire this announcement') }}"
+                                            persistent-hint
+                                            readonly
+                                        ></v-text-field>
+                                        <v-time-picker v-model="resource.item.expire_time" scrollable>
+                                            <template scope="{ save, cancel }">
+                                                <v-card-actions>
+                                                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                                    <v-btn flat primary @click.native="save()">Save</v-btn>
+                                                </v-card-actions>
+                                            </template>
+                                        </v-time-picker>
+                                    </v-dialog>
+                                </v-flex>
+                            </v-layout>
+
+                        </v-card-text>
+
+                        @include("Theme::interactive.editor")
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn type="submit" class="primary">{{ __('Update') }}</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </form>
+            </v-flex>
+        </v-layout>
+    </v-container>
+@endsection
+
+@push('css')
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}">
+@endpush
+
+@push('pre-scripts')
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
+    <script>
+        mixins.push({
+            data () {
+                return {
+                    schedule: "{{ $resource->schedule }}",
+                    menu: false,
+                    modal: false,
+                    resource: {
+                        item: {!! json_encode($resource->toArray()) !!},
+                        quill: {
+                            delta: {!! json_encode($resource->delta) !!},
+                            html: {!! json_encode($resource->body) !!},
+                        },
+                        errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
+                    },
+                };
+            },
+
+            mounted () {
+                // this.mountSuppliments();
+            }
+        })
+    </script>
+@endpush
