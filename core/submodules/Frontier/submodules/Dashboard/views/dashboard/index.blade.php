@@ -87,9 +87,7 @@
                 return {
                     draggables: {
                         items: [
-                        {
-                            name: 'yas', active: 'true'
-                        }
+                            { name: 'yas', active: 'true' },
                         ],
                     },
                 }

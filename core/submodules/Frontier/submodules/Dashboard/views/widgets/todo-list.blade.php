@@ -127,12 +127,9 @@
     </v-toolbar>
 
     <v-card-text class="pa-0">
-        <v-layout row wrap class="pa-0">
-            <v-flex xs12 class="pa-0">
-                <v-date-picker class="elevation-0 white lighten-5 cyan--text" color="cyan--text" v-model="picker" no-title="true" width="100%"></v-date-picker>
-            </v-flex>
-        </v-layout>
+        {{-- <v-date-picker class="elevation-0 white lighten-5 cyan--text" color="cyan--text" v-model="picker" no-title="true" width="100%"></v-date-picker> --}}
     </v-card-text>
+
     <v-divider></v-divider>
     <v-card-text class="pt-4 pl-4 pr-4 pb-0">
         <v-list two-line subheader class="elevation-1">
