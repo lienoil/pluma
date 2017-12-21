@@ -1,15 +1,33 @@
 LEGEND:
   *NOTES:
    - @3 = Scheduled for Version 3.0.0
-     - The updates for `@3` are changes that may break previous version
+     - The updates for `@3` are changes that may break previous versions. Full upgrade is recommended.
 
    - @2.* = changes should be compatible in any v2.* version of Pluma
 
 --- ✄ -----------------------
 
-
 Installation:
   ☐ Move migrating of database before saving user credentials
+  ☐ Remove the middleware checking if app is installed
+     _instead opt for a file-based approach when checking if app_
+     _is installed._
+     _ideas: have a file called install.php_
+  ☐ Install from console
+
+Core/Controllers:
+  ☐ Move API/Controllers/* to Controllers/
+
+Core/Models:
+  ☐ Remove User model, make the User\Models\User the default User model
+  ☐ Mutators, fix namespaces
+
+Core/Routing:
+  Fuzzy:
+    ☐ move core/ routes to admin
+    ☐ rename /~assets to /assets
+    ☐ remove /~p
+    ☐ rename /anytheme to /theme
 
 Blacksmith:
   ☐ add forge:module params
@@ -23,12 +41,15 @@ Blacksmith:
 
   ☐ add forge:api command
     - will produce:
-      - API/Controllers/{ModuleName}Controller.php
-      - API/routes/api.php
+      - Controllers/{ModuleName}APIController.php
+      - routes/api.php
 
   ☐ @3 > Move ./blacksmith folder to ./consoles/Blacksmith
     - add to composer.json psr-4 entry: "Blacksmith\\": consoles/Blacksmith/
     - update namespaces that may break application
+
+  ☐ Add `forge:category --module ${Module}`
+    _produces a Category submodule for the given module_
 
 Frontend [Presentation Logic]:
   ☐ @critical | @3 > assets deployment
@@ -64,12 +85,18 @@ Backend [Programming Logic]:
   ☐ @3 > Make the backend frontend-agnostic
   ☐ @3 > develop a Handler Class to manage Programming-Presentation Logic (a.k.a. Backend-Frontend data exchange)
 
---- ✄ -----------------------
+
 Modules:
+  ☐ /config/menus.php : avoid using the user() object in the menus
 
-  Menu:
-    ☐ Enable modules to add widgets to the menu generator, similar to wordpress
 
-  User:
-    * add attributes
-      ☐ getAuthorAttribute
+
+Models:
+  Category:
+    ☐ rename `categorable_type` to `type`
+
+
+Themes:
+  ☐ Core: add ability to configure menus, custom permissions, jobs, etc like a module.
+
+--- ✄ -----------------------

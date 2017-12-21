@@ -1,0 +1,97 @@
+The following Modules are recommended for v3^.
+
+
+Core Modules (MUST DEVELOP):
+  Dashboard:
+    @upgrade
+    ☐ Widgets Management
+    ☐ support charts
+
+  Page:
+    @upgrade
+    ☐ Section submodule: add support for sectioning content
+    ☐ Add live edit support
+       _inline edit or edit button on Single Page (if logged in)_
+
+  Blog:
+    @develop
+    ☐ Develop Pluma's default Blog Module
+
+  Search:
+    @develop
+    ☐ Develop Search Engine module
+    ☐ (Optional integrate third-party app e.g. Algolia)
+
+  Menu:
+    @upgrade
+    ☐ Enable modules to add widgets to the menu generator, similar to wordpress
+
+  Mailman:
+    @create
+    ☐ CRUD, Able to send/receive emails
+    * Library/Plugins
+      ☐ Mailable
+
+  Category:
+    @create
+    @definition create Global
+    ☐ CRUD
+
+  User:
+    @upgrade
+    * Scopes
+       ☐ add `is` function; Checks if user has that given array of roles
+         _e.g. $user = User::withRole(['admin'])->get();_
+    ☐ Registration
+       * oAuth Integration
+       ☐ support for google login
+       ☐ (OPTIONAL) for fb, linkedin, etc.
+
+
+Pre-develop Modules (OPTIONAL MODULES):
+
+  Rating:
+    @develop
+    @definition Module
+
+  Review:
+    @develop
+    @definition Module
+
+  Yggdrasil:
+    @upgrade
+    @definition LMS Solution
+    * submodules
+      ☐ Course
+         * to upgrade
+         ☐ support ExperienceAPI
+      ☐ Others... (list to be refined)
+
+  Mercury (or Shop):
+    @develop
+    @definition eCommerce Solution
+    * Supported Payment Gateways
+      ☐ PayPal Integration
+        ☐ PHP via PayPal PHP SDK
+        ☐ Client (JS) via PayPal ExpressCheckout
+      ☐ Others...
+
+    * Library/Plugins
+      ☐ Sellable - Make any module sellable
+                  - e.g. able to sell courses from Course Module
+
+    * submodules:
+      ☐ Shopkeeper [empty module]
+        ☐ Order
+          ☐ History (or OrderHistory)
+        ☐ Invoice (bill)
+          ☐ Email
+          ☐ Report
+      ☐ Product
+        ☐ Variant
+        ☐ Amenity
+        ☐ Rating
+      ☐ Cart
+      ☐ Customer
+        ☐ Shipping
+        ☐ Address

@@ -583,6 +583,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Pluma\\Console\\Commands\\Scheduling\\ScheduleFinishCommand' => __DIR__ . '/../..' . '/core/Console/Commands/Scheduling/ScheduleFinishCommand.php',
         'Pluma\\Console\\Commands\\Scheduling\\ScheduleRunCommand' => __DIR__ . '/../..' . '/core/Console/Commands/Scheduling/ScheduleRunCommand.php',
         'Pluma\\Console\\Kernel' => __DIR__ . '/../..' . '/core/Console/Kernel.php',
+        'Pluma\\Controllers\\BlogController' => __DIR__ . '/../..' . '/core/Controllers/BlogController.php',
         'Pluma\\Controllers\\Controller' => __DIR__ . '/../..' . '/core/Controllers/Controller.php',
         'Pluma\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Exceptions/Handler.php',
         'Pluma\\Http\\Kernel' => __DIR__ . '/../..' . '/core/Http/Kernel.php',
