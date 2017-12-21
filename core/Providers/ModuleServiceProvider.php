@@ -68,24 +68,9 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerFuzzyRoutes();
-
         $this->registerModules();
 
         $this->registerStaticViews();
-    }
-
-    /**
-     * Define the "fuzzy" routes for the application.
-     *
-     * These routes are typically for assets fetching.
-     *
-     * @return void
-     */
-    protected function registerFuzzyRoutes()
-    {
-        Route::middleware('web')
-            ->group(core_path('routes/fuzzy.php'));
     }
 
     /**
@@ -110,6 +95,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function registerModules()
     {
         $this->loadModules($this->modules);
+
         $this->loadPublicRoutes($this->modules);
     }
 
@@ -185,7 +171,8 @@ class ModuleServiceProvider extends ServiceProvider
             Route::group([
                 'middleware' => ['api'],
                 'as' => 'api.',
-                'prefix' => config('routes.api.slug', 'api')
+                'prefix' => config('routes.api.slug', 'api'),
+                'namespace' => "$basename\Controllers",
             ], function () use ($module) {
                 include_file("$module/API/routes", "api.php");
             });
@@ -193,9 +180,10 @@ class ModuleServiceProvider extends ServiceProvider
 
         if (file_exists("$module/routes/admin.php")) {
             Route::group([
-                'middleware' => ['web'],
+                'middleware' => ['web', 'auth.admin', 'auth.roles'],
                 'prefix' => config('routes.admin.slug', 'admin'),
                 'suffix' => '{locale?}',
+                'namespace' => "$basename\Controllers",
             ], function () use ($module) {
                 include_file("$module/routes", "admin.php");
             });
@@ -204,7 +192,8 @@ class ModuleServiceProvider extends ServiceProvider
         if (file_exists("$module/routes/web.php")) {
             Route::group([
                 'middleware' => ['web'],
-                'prefix' => config('routes.web.slug', '')
+                'prefix' => config('routes.web.slug', ''),
+                'namespace' => "$basename\Controllers",
             ], function () use ($module) {
                 include_file("$module/routes", "web.php");
             });
@@ -220,9 +209,12 @@ class ModuleServiceProvider extends ServiceProvider
     public function loadPublicRoutes($modules)
     {
         foreach ($modules as $module) {
+            $basename = basename($module);
+
             if ($this->appIsInstalled() && file_exists("$module/routes/public.php")) {
                 Route::group([
                     'middleware' => ['web'],
+                    'namespace' => "$basename\Controllers",
                 ], function () use ($module) {
                     include_file("$module/routes", "public.php");
                 });

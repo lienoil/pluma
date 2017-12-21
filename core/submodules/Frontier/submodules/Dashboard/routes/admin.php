@@ -1,6 +1,7 @@
 <?php
-Route::get('/', function () {
+
+Route::get(settings('path.admin', 'admin'), function () {
     return redirect()->route('dashboard');
 });
 
-Route::get('dashboard', 'Dashboard\Controllers\DashboardController@index')->name('dashboard');
+Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');

@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
     }
 
+
     /**
      * Define the routes for the application.
      *
@@ -36,6 +37,12 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
+
+        $this->mapAssetsRoutes();
+
+        $this->mapFuzzyRoutes();
+
+        $this->mapPublicRoutes();
 
         $this->mapWebRoutes();
     }
@@ -49,9 +56,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(core_path('routes/web.php'));
+        if (file_exists(core_path('routes/web.php'))) {
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(core_path('routes/web.php'));
+        }
     }
 
     /**
@@ -63,9 +72,56 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(core_path('routes/api.php'));
+        if (file_exists(core_path('routes/api.php'))) {
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(core_path('routes/api.php'));
+        }
+    }
+
+    /**
+     * Define the "assets" routes for the application.
+     *
+     * These routes are typically for assets fetching.
+     *
+     * @return void
+     */
+    protected function mapAssetsRoutes()
+    {
+        if (file_exists(core_path('routes/assets.php'))) {
+            Route::middleware('web')
+                ->group(core_path('routes/assets.php'));
+        }
+    }
+
+    /**
+     * Define the "fuzzy" routes for the application.
+     *
+     * These routes are typically for assets fetching.
+     *
+     * @return void
+     */
+    protected function mapFuzzyRoutes()
+    {
+        if (file_exists(core_path('routes/fuzzy.php'))) {
+            Route::middleware('web')
+                ->group(core_path('routes/fuzzy.php'));
+        }
+    }
+
+    /**
+     * Define the public routes for the application.
+     *
+     * These routes are typically not authenticated.
+     *
+     * @return void
+     */
+    protected function mapPublicRoutes()
+    {
+        if (file_exists(core_path('routes/public.php'))) {
+            Route::middleware('web')
+                ->group(core_path('routes/public.php'));
+        }
     }
 }

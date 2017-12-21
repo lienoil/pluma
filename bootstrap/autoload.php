@@ -1,6 +1,7 @@
 <?php
 
 define('PLUMA_START', microtime(true));
+define('PLUMA_VERSION', 'v2.0.1');
 
 /*
 |--------------------------------------------------------------------------

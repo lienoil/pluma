@@ -4,15 +4,18 @@ namespace Page\Controllers;
 
 use Catalogue\Models\Catalogue;
 use Crowfeather\Traverser\Traverser;
-use Frontier\Controllers\AdminController as Controller;
+use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Page\Models\Page;
 use Page\Requests\PageRequest;
+use Page\Support\Traits\PagePublicResourceTrait;
 use Template\Models\Template;
 use User\Models\User;
 
-class PageController extends Controller
+class PageController extends GeneralController
 {
+    use PagePublicResourceTrait;
+
     /**
      * Show list of resources.
      *

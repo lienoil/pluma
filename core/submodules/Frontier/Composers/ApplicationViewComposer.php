@@ -2,7 +2,7 @@
 
 namespace Frontier\Composers;
 
-use Frontier\Models\Page;
+use Page\Models\Page;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;

@@ -10,10 +10,10 @@ class DashboardController extends Controller
     /**
      * Show list of resources.
      *
-     * @param  Request $request
+     * @param  Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function dashboard(Request $request)
     {
         return view("Dashboard::dashboard.index");
     }

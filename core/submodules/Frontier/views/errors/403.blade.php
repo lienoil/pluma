@@ -1,4 +1,4 @@
-@extends("Theme::layouts.admin")
+@extends("Theme::layouts.public")
 
 @section("head-title", '403 Error')
 @section("head-subtitle", 'Forbidden')

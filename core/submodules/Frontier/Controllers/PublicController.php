@@ -2,28 +2,27 @@
 
 namespace Frontier\Controllers;
 
-use Frontier\Support\View\CheckView;
 use Illuminate\Http\Request;
 use Menu\Models\Menu;
 use Page\Models\Page;
+use Pluma\Controllers\Controller;
 
-class PublicController
+class PublicController extends Controller
 {
-    // use CheckView;
-
     /**
-     * Show list of resources.
+     * Create a new controller instance.
      *
-     * @param  Request $request
-     * @return Illuminate\Http\Response
+     * @return void
      */
-    public function index(Request $request)
+    public function __construct()
     {
-        return abort(404);
+        parent::__construct();
+
+        $this->middleware('web');
     }
 
     /**
-     * Show a given page resource.
+     * Display the page.
      *
      * @param  Request $request
      * @param  string  $slug
