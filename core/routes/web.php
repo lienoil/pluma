@@ -1,9 +1,4 @@
 <?php
 
-// Get array of submodules, if any.
-$submodules = submodules("Pluma", true);
-
-include_files($submodules, "routes/web.php");
-
-// Load local admin and public routes, if any.
-include_file(__DIR__, '/admin.php');
+$modules = get_modules_path();
+include_files($modules, "routes/web.php");

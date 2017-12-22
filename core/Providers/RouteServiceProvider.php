@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAssetsRoutes();
 
+        $this->mapStorageRoutes();
+
         $this->mapFuzzyRoutes();
 
         $this->mapPublicRoutes();
@@ -92,6 +94,22 @@ class RouteServiceProvider extends ServiceProvider
         if (file_exists(core_path('routes/assets.php'))) {
             Route::middleware('web')
                 ->group(core_path('routes/assets.php'));
+        }
+    }
+
+    /**
+     * Define the "storage" routes for the application.
+     *
+     * These routes are typically for fetching resource from the
+     * local storage folder.
+     *
+     * @return void
+     */
+    protected function mapStorageRoutes()
+    {
+        if (file_exists(core_path('routes/storage.php'))) {
+            Route::middleware('web')
+                ->group(core_path('routes/storage.php'));
         }
     }
 

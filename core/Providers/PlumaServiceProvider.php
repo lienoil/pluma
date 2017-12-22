@@ -42,8 +42,6 @@ class PlumaServiceProvider extends ServiceProvider
     {
         $this->bootCapsule();
 
-        $this->bootComposers();
-
         $this->bootViewsExtensions();
 
         $router = $this->app['router'];
@@ -77,11 +75,6 @@ class PlumaServiceProvider extends ServiceProvider
         $this->capsule->bootEloquent();
     }
 
-    private function bootComposers()
-    {
-        //
-    }
-
     /**
      * Boots blade extensions
      *
@@ -99,6 +92,6 @@ class PlumaServiceProvider extends ServiceProvider
      */
     public function registerBindings()
     {
-        $this->registerExceptionHandlers();
+        // $this->registerExceptionHandlers();
     }
 }

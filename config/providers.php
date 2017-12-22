@@ -10,6 +10,7 @@
  */
 return [
     'providers' => [
+        // Vendor
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
@@ -22,7 +23,11 @@ return [
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Pluma\Providers\ViewServiceProvider::class, // Should be above [ModuleServiceProvider, RouteServiceProvider]
+
+
+        // Application
+        // Should be above [ModuleServiceProvider, RouteServiceProvider],
+        Pluma\Providers\ViewServiceProvider::class,
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
@@ -32,6 +37,8 @@ return [
         Pluma\Providers\RouteServiceProvider::class,
         Pluma\Providers\FormRequestServiceProvider::class,
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
+
+        // Console
         Blacksmith\Providers\ConsoleSupportServiceProvider::class,
     ],
 

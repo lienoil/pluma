@@ -95,8 +95,6 @@ class ModuleServiceProvider extends ServiceProvider
     public function registerModules()
     {
         $this->loadModules($this->modules);
-
-        $this->loadPublicRoutes($this->modules);
     }
 
     /**
@@ -158,7 +156,7 @@ class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load routes.
+     * Load each modules defined routes.
      *
      * @param  array $module
      * @return void
@@ -167,6 +165,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $basename = basename($module);
 
+        // TODO: Scheduled for deprecation
         if (file_exists("$module/API/routes/api.php")) {
             Route::group([
                 'middleware' => ['api'],
@@ -178,10 +177,23 @@ class ModuleServiceProvider extends ServiceProvider
             });
         }
 
+        // API routes
+        if (file_exists("$module/routes/api.php")) {
+            Route::group([
+                'middleware' => ['api'],
+                'as' => 'api.',
+                'prefix' => config('routes.api.slug', 'api'),
+                'namespace' => "$basename\Controllers",
+            ], function () use ($module) {
+                include_file("$module/routes", "api.php");
+            });
+        }
+
+        // Admin routes
         if (file_exists("$module/routes/admin.php")) {
             Route::group([
-                'middleware' => ['web', 'auth.admin', 'auth.roles'],
-                'prefix' => config('routes.admin.slug', 'admin'),
+                'middleware' => ['web'],
+                'prefix' => config('path.admin', 'admin'),
                 'suffix' => '{locale?}',
                 'namespace' => "$basename\Controllers",
             ], function () use ($module) {
@@ -189,6 +201,7 @@ class ModuleServiceProvider extends ServiceProvider
             });
         }
 
+        // General purpose routes
         if (file_exists("$module/routes/web.php")) {
             Route::group([
                 'middleware' => ['web'],
@@ -197,28 +210,6 @@ class ModuleServiceProvider extends ServiceProvider
             ], function () use ($module) {
                 include_file("$module/routes", "web.php");
             });
-        }
-    }
-
-    /**
-     * Load public routes.
-     *
-     * @param  array $modules
-     * @return void
-     */
-    public function loadPublicRoutes($modules)
-    {
-        foreach ($modules as $module) {
-            $basename = basename($module);
-
-            if ($this->appIsInstalled() && file_exists("$module/routes/public.php")) {
-                Route::group([
-                    'middleware' => ['web'],
-                    'namespace' => "$basename\Controllers",
-                ], function () use ($module) {
-                    include_file("$module/routes", "public.php");
-                });
-            }
         }
     }
 }

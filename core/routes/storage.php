@@ -4,15 +4,15 @@ use Illuminate\Support\Facades\File;
 
 /**
  * -----------------------------------------------------------------------------
- * Assets Routes
+ * Storage Routes
  * -----------------------------------------------------------------------------
  *
  * This file is where you may define all of your Assets based urls.
  *
  */
 
-Route::get('assets/{module?}/{file?}', function ($module = null, $file = null) {
-    $path = get_module($module) . "/assets/$file";
+Route::get('storage/{file?}', function ($file = '/') {
+    $path = storage_path($file);
     $extension = File::extension($path);
 
     if (in_array($extension, config('download.restricted', []))) {

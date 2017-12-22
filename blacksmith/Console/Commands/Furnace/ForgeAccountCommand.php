@@ -32,56 +32,36 @@ class ForgeAccountCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        try {
-            // You're already on the terminal, so why this?
-            // Because we can.
-            $token = $this->secret("Database password");
-            if ($token !== env('DB_PASSWORD')) {
-                $this->error("Incorrect. Exiting...");
-                exit();
-            }
+        $role = $this->choice("Role", Role::pluck('name', 'code')->toArray());
+        $firstname = $this->ask("First name");
+        $lastname = $this->ask("Last name");
+        $email = $this->ask("Email");
+        $username = $this->ask("User name", $email);
+        $password = $this->secret("Password (hidden)");
 
-            $role = $this->choice("Role", Role::pluck('name', 'code')->toArray());
-            $firstname = $this->ask("First name");
-            $lastname = $this->ask("Last name");
-            $email = $this->ask("Email");
-            $username = $this->ask("User name", $email);
-            $password = $this->secret("Password (hidden)");
+        $this->info("==================");
+        $this->info("REVIEW NEW ACCOUNT");
+        $this->info("==================");
+        $this->info("Name: $firstname $lastname");
+        $this->info("Email: $email");
+        $this->info("");
+        $this->info("Username: $username");
+        $this->info("Password: ". str_repeat("*", strlen($password)));
+        $this->info("Role: $role");
+        $this->info("");
+        $proceed = $this->ask("Proceed to create this account?", 'yes');
 
-            $this->info("==================");
-            $this->info("REVIEW NEW ACCOUNT");
-            $this->info("==================");
-            $this->info("Name: $firstname $lastname");
-            $this->info("Email: $email");
-            $this->info("");
-            $this->info("Username: $username");
-            $this->info("Password: ". str_repeat("*", strlen($password)));
-            $this->info("Role: $role");
-            $this->info("");
-            $proceed = $this->ask("Proceed to create this account?", 'yes');
-
-            if ($proceed == 'yes') {
-                $user = new User();
-                $user->firstname = $firstname;
-                $user->lastname = $lastname;
-                $user->email = $email;
-                $user->username = $username;
-                $user->password = Hash::make($password);
-                $user->save();
-                $user->roles()->save(Role::whereCode($role)->first());
-            } else {
-                $this->error("Cancelled.");
-            }
-        } catch (\Symfony\Component\Console\Exception\RuntimeException $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-        } catch (\Exception $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-        } finally {
-            $this->info("Done.");
+        if ($proceed == 'yes') {
+            $user = new User();
+            $user->firstname = $firstname;
+            $user->lastname = $lastname;
+            $user->email = $email;
+            $user->username = $username;
+            $user->password = Hash::make($password);
+            $user->save();
+            $user->roles()->save(Role::whereCode($role)->first());
+        } else {
+            $this->error("Cancelled.");
         }
     }
 

@@ -25,8 +25,6 @@ return [
     'restricted' => [
         'php',
         'html',
-        'js',
-        'css',
         'env',
     ],
 ];

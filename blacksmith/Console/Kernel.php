@@ -13,6 +13,9 @@ class Kernel extends BaseKernel
      * @var array
      */
     public $commands = [
+        // App
+        Commands\App\AppInstallCommand::class,
+
         // Key
         Commands\Key\KeyGenerateCommand::class,
 
@@ -29,7 +32,9 @@ class Kernel extends BaseKernel
         Commands\Furnace\ForgeWeaponCommand::class,
         Commands\Furnace\PurgeCacheCommand::class,
         Commands\Furnace\PurgeModuleCommand::class,
+        Commands\Furnace\PurgeSessionCommand::class,
         Commands\Furnace\PurgeStorageCommand::class,
+        Commands\Furnace\PurgeViewCommand::class,
         Commands\Phinx\PhinxMigrateCreateCommand::class,
         Commands\Phinx\PhinxMigrateRunCommand::class,
         Commands\Phinx\PhinxSeedCreateCommand::class,
