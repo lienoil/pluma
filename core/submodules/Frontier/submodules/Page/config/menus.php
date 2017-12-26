@@ -5,20 +5,26 @@ return [
         'name' => 'page',
         'is_parent' => true,
         'order' => 30,
-        'slug' => url(config('path.admin').'/pages'),
+        'slug' => route('pages.index'),
         'always_viewable' => false,
         'icon' => 'insert_drive_file',
         'labels' => [
             'title' => __('Pages'),
         ],
         'children' => [
-            'view-pages' => [
-                'name' => 'view-pages',
+            'view-page' => [
+                'name' => 'view-page',
                 'parent' => 'page',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/pages'),
+                'slug' => route('pages.index'),
                 'always_viewable' => false,
-                // 'icon' => 'web',
+                'routes' => [
+                    'name' => 'pages.index',
+                    'children' => [
+                        'pages.edit',
+                        'pages.show',
+                    ]
+                ],
                 'labels' => [
                     'title' => __('All Pages'),
                 ],
@@ -29,16 +35,15 @@ return [
                 'order' => 2,
                 'slug' => url(config('path.admin').'/pages/create'),
                 'always_viewable' => false,
-                // 'icon' => '<span class="material-icon">insert drive file</span>',
                 'labels' => [
                     'title' => __('Create Page'),
                 ],
             ],
-            'trash-page' => [
-                'name' => 'trash-page',
+            'trashed-page' => [
+                'name' => 'trashed-page',
                 'parent' => 'page',
                 'order' => 3,
-                'slug' => url(config('path.admin').'/pages/trashed'),
+                'slug' => route('pages.trashed'),
                 'always_viewable' => false,
                 'icon' => 'delete',
                 'labels' => [

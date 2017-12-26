@@ -1,4 +1,5 @@
 <?php
+
 /**
  * -----------------------------------------------------------------------------
  * Permissions Array
@@ -12,13 +13,8 @@
  * for the role authentication middleware to work.
  *
  */
+
 return [
-    /**
-     * -------------------------------------------------------------------------
-     * Page Permissions
-     * -------------------------------------------------------------------------
-     *
-     */
     'view-page' => [
         'name' =>  'pages.index',
         'code' => 'view-page',
@@ -61,16 +57,16 @@ return [
         'description' => 'Ability to move the page to trash',
         'group' => 'page',
     ],
+    'trashed-page' => [
+        'name' =>  'pages.trashed',
+        'code' => 'trashed-page',
+        'description' => 'Ability to view the list of all trashed page',
+        'group' => 'page',
+    ],
     'delete-page' => [
         'name' =>  'pages.delete',
         'code' => 'delete-page',
         'description' => 'Ability to permanently delete the page',
-        'group' => 'page',
-    ],
-    'trash-page' => [
-        'name' =>  'pages.trash',
-        'code' => 'trash-page',
-        'description' => 'Ability to view the list of all trashed page',
         'group' => 'page',
     ],
     'restore-page' => [
@@ -79,26 +75,4 @@ return [
         'description' => 'Ability to restore the page',
         'group' => 'page',
     ],
-
-    // Many
-    'destroy-many-page' => [
-        'name' =>  'pages.many.destroy',
-        'code' => 'destroy-many-page',
-        'description' => 'Ability to destroy many pages',
-        'group' => 'page',
-    ],
-    'delete-many-page' => [
-        'name' =>  'pages.many.delete',
-        'code' => 'delete-many-page',
-        'description' => 'Ability to permanently delete many pages',
-        'group' => 'page',
-    ],
-    'restore-many-page' => [
-        'name' => 'pages.many.restore',
-        'code' => 'restore-many-page',
-        'description' => 'Ability to restore many pages',
-        'group' => 'page',
-    ],
-
-    //
 ];

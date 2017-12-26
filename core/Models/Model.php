@@ -4,15 +4,15 @@ namespace Pluma\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Pluma\Scopes\ExceptScope;
-use Pluma\Support\Database\Scopes\Exceptable;
-use Pluma\Support\Database\Scopes\Searchable;
+use Pluma\Support\Database\Scopes\ExceptableTrait;
+use Pluma\Support\Database\Scopes\SearchableTrait;
 use Pluma\Support\Mutators\BaseMutator;
 use Support\Database\Traits\BaseRelation;
 use Support\Database\Traits\Relationships;
 
 class Model extends BaseModel
 {
-    use BaseMutator, BaseRelation, Searchable, Exceptable;
+    use BaseMutator, BaseRelation, SearchableTrait, ExceptableTrait;
 
     /**
      * Accessors to append on every request.

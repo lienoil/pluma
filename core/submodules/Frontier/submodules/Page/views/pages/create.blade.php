@@ -16,23 +16,21 @@
                         <v-card-text>
                             <v-text-field
                                 name="title"
-                                :error-messages="errors.title"
+                                :error-messages="resource.errors.title"
                                 label="{{ __('Title') }}"
-                                v-model="resource.title"
-                                @input="() => { resource.code = $options.filters.slugify(resource.title); }"
+                                v-model="resource.item.title"
+                                @input="() => { resource.item.code = $options.filters.slugify(resource.item.title); }"
                             ></v-text-field>
-
-                            <input type="hidden" name="code" v-model="resource.code">
 
                             <v-text-field
                                 :append-icon-cb="() => (resource.readonly.slug = !resource.readonly.slug)"
                                 :append-icon="resource.readonly.slug ? 'fa-lock' : 'fa-unlock'"
                                 :readonly="resource.readonly.slug"
-                                :value="resource.slug?resource.slug:resource.code | slugify"
+                                :value="resource.item.code | slugify"
                                 label="{{ __('Code') }}"
                                 name="code"
                                 persistent-hint
-                                :error-messages="errors.code"
+                                :error-messages="resource.errors.code"
                                 hint="{{ __("Code is used in generating URL. To customize the code, toggle the lock icon on this field.") }}"
                             ></v-text-field>
                         </v-card-text>
@@ -69,13 +67,14 @@
             data () {
                 return {
                     resource: {
-                        title: '',
-                        slug: '',
-                        code: '',
-                        parent: null,
-                        parent_id: '',
-                        template: 'generic',
-                        children: [],
+                        item: {
+                            title: '{{ old('title') }}',
+                            code: '{{ old('code') }}',
+                            delta: '{!! old('delta') !!}',
+                            body: '{!! old('body') !!}',
+                            template: '{{ old('template') }}',
+                        },
+                        errors: {!! json_encode($errors->getMessages()) !!},
                         readonly: {
                             slug: true,
                         },

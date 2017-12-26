@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Auth;
 class AuthenticateAdmin
 {
     /**
-     * The redirect route for guests.
+     * The redirect route name for guests.
+     *
      * @var string
      */
-    protected $redirectGuest = 'login';
+    protected $redirectGuest = 'login.show';
 
     /**
      * Handle an incoming request.
@@ -28,16 +29,9 @@ class AuthenticateAdmin
                 return response('Unauthorized.', 401);
             }
 
-            $this->flashSession();
-
-            return redirect()->guest($this->redirectGuest);
+            return redirect()->guest(route($this->redirectGuest));
         }
 
         return $next($request);
-    }
-
-    public function flashSession()
-    {
-        session()->flash('message', 'You need to login.');
     }
 }

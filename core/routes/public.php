@@ -2,4 +2,11 @@
 
 
 $modules = get_modules_path();
-include_files($modules, "routes/public.php");
+
+foreach ($modules as $module) {
+    $basename = basename($module);
+
+    Route::group(['namespace' => "$basename\Controllers"], function () use ($module) {
+        include_file($module, "routes/public.php");
+    });
+}

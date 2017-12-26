@@ -20,21 +20,21 @@ GET                       GET                     GET
 @index                    @all                    @getAllBlogs
 Blog::blogs.index         Blog::blogs.all         Blog::blogs.index
 
-blogs.create              -                       api.blogs.create                    :
-GET                       -                       GET
-@create                   -                       @getCreateBlog
+blogs.show                blogs.single            api.blogs.show                      :
+GET                       GET                     GET
+@show                     @single                 @getShowBlog
+
+blogs.create              -                                                           :
+GET                       -
+@create                   -
 
 blogs.store               -                       api.blogs.store                     :
 POST                      -                       POST
 @store                    -                       @postStoreBlog
 
-blogs.show                blogs.single            api.blogs.show                      :
-GET                       GET                     GET
-@show                     @single                 @getShowBlog
-
-blogs.edit                -                       api.blogs.edit                      :
-GET                       -                       GET
-@edit                     -                       @getEditBlog
+blogs.edit                -                                                           :
+GET                       -
+@edit                     -
 
 blogs.update              -                       api.blogs.update                    :
 POST|PUT|PATCH            -                       PUT|PATCH
@@ -45,12 +45,12 @@ POST|DELETE               -                       DELETE
 @destroy                  -                       @deleteDestroyBlog
 
 _Extra_
-blogs.trashed             -                       api.blogs.trashed                   :
-GET                       -                       GET
-@trashed                  -                       @getTrashedBlogs
+blogs.trashed             -                                                           :
+GET                       -
+@trashed                  -
 
 blogs.restore             -                       api.blogs.restore                   :
-POST                      -                       POST
+POST|PATCH                      -                 PATCH
 @restore                  -                       @postRestoreBlog
 
 blogs.delete              -                       api.blogs.delete                    :

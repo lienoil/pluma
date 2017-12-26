@@ -33,7 +33,7 @@ class CreatePagesTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'pages';
+    protected $table = 'pages';
 
     /**
      * Run the migrations.
@@ -42,11 +42,11 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->tablename)) {
+        if ($this->schema->hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        $this->schema->create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('code')->unique();
@@ -69,6 +69,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        $this->schema->dropIfExists($this->table);
     }
 }

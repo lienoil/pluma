@@ -36,6 +36,8 @@ class UserRequest extends FormRequest
                 return false;
                 break;
         }
+
+        return false;
     }
 
     /**

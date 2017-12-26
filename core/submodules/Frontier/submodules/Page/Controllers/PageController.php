@@ -6,15 +6,18 @@ use Catalogue\Models\Catalogue;
 use Crowfeather\Traverser\Traverser;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Page\Models\Page;
 use Page\Requests\PageRequest;
-use Page\Support\Traits\PagePublicResourceTrait;
+use Page\Support\Traits\PageResourceApiTrait;
+use Page\Support\Traits\PageResourcePublicTrait;
+use Page\Support\Traits\PageResourceSoftDeleteTrait;
 use Template\Models\Template;
 use User\Models\User;
 
 class PageController extends GeneralController
 {
-    use PagePublicResourceTrait;
+    use PageResourcePublicTrait, PageResourceSoftDeleteTrait, PageResourceApiTrait;
 
     /**
      * Show list of resources.
@@ -24,10 +27,9 @@ class PageController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Page::paginate();
-        $trashed = Page::onlyTrashed()->count();
+        $resources = Page::search($request->all())->paginate();
 
-        return view("Page::pages.index")->with(compact('resources', 'trashed'));
+        return view("Page::pages.index")->with(compact('resources'));
     }
 
     /**
@@ -35,39 +37,14 @@ class PageController extends GeneralController
      *
      * @param  Request $request
      * @param  string  $slug
+     * @param  int     $id
      * @return Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
-        $resource = Page::findOrFail($request->get('page'));
+        $resource = Page::findOrFail($id);
 
         return view("Page::pages.show")->with(compact('resource'));
-    }
-
-    public function edit(Request $request, $id)
-    {
-        \Illuminate\Support\Facades\DB::beginTransaction();
-        $resource = Page::sharedLock()->findOrFail($id);
-        \Illuminate\Support\Facades\DB::commit();
-
-        return view("Page::pages.edit")->with(compact('resource'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        \Illuminate\Support\Facades\DB::beginTransaction();
-        $page = Page::findOrFail($id);
-        $page->title = $request->input('title');
-        $page->code = $request->input('code');
-        $page->feature = $request->input('feature');
-        $page->body = $request->input('body');
-        $page->delta = $request->input('delta');
-        $page->template = $request->input('template');
-        $page->user()->associate(User::find(user()->id));
-        $page->save();
-        \Illuminate\Support\Facades\DB::commit();
-
-        return back();
     }
 
     /**
@@ -101,6 +78,56 @@ class PageController extends GeneralController
         $page->template = $request->input('template');
         $page->user()->associate(User::find(user()->id));
         $page->save();
+
+        return back();
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        $resource = Page::lockForUpdate()->findOrFail($id);
+        $templates = Template::getTemplatesFromFiles();
+        $catalogues = Catalogue::mediabox();
+
+        return view("Page::pages.edit")->with(compact('resource', 'templates', 'catalogues'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  Page\Models\Page  $page
+     * @return Illuminate\Http\Response
+     */
+    public function update(PageRequest $request, Page $page)
+    {
+        $page->title = $request->input('title');
+        $page->code = $request->input('code');
+        $page->feature = $request->input('feature');
+        $page->body = $request->input('body');
+        $page->delta = $request->input('delta');
+        $page->template = $request->input('template');
+        $page->save();
+
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id = null)
+    {
+        Page::destroy($request->has('id') ? $request->input('id') : $id);
 
         return back();
     }

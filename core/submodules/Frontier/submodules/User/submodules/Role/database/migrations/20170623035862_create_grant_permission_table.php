@@ -46,10 +46,11 @@ class CreateGrantPermissionTable extends Migration
         }
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('permission_id')->unsigned();
             $table->integer('grant_id')->unsigned();
-            $table->timestamps();
+
+            $table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('grant_id')->references('id')->on('grants')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

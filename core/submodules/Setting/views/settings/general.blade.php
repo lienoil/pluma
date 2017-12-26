@@ -15,6 +15,7 @@
                     <form action="{{ route('settings.store') }}" method="POST">
                         {{ csrf_field() }}
                         <v-card-text>
+                            <input type="hidden" name="site_logo" value="{{ old('site_logo') ? old('site_logo') : settings('site_logo') }}">
                             <v-text-field
                                 label="{{ __('Site Title') }}"
                                 name="site_title"

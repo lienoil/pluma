@@ -49,7 +49,9 @@ class CreateGrantRoleTable extends Migration
             $table->increments('id');
             $table->integer('role_id')->unsigned();
             $table->integer('grant_id')->unsigned();
-            $table->timestamps();
+
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('grant_id')->references('id')->on('grants');
         });
     }
 

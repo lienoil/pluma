@@ -2,6 +2,7 @@
 
 namespace Pluma\Support\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Pluma\Support\Installation\Traits\AppIsInstalled;
@@ -11,11 +12,11 @@ class ServiceProvider extends BaseServiceProvider
     use AppIsInstalled;
 
     /**
-     * Array of observable models.
+     * Array of view composers to register.
      *
      * @var array
      */
-    protected $observables = [
+    protected $composers = [
         //
     ];
 
@@ -30,20 +31,29 @@ class ServiceProvider extends BaseServiceProvider
     ];
 
     /**
+     * Array of observable models.
+     *
+     * @var array
+     */
+    protected $observables = [
+        //
+    ];
+
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        //
+    ];
+
+    /**
      * Array of providers to register.
      *
      * @var array
      */
     protected $providers = [
-        //
-    ];
-
-    /**
-     * Array of view composers to register.
-     *
-     * @var array
-     */
-    protected $composers = [
         //
     ];
 
@@ -55,7 +65,11 @@ class ServiceProvider extends BaseServiceProvider
     public function boot()
     {
         $this->bootObservables();
+
+        $this->bootPolicies();
+
         $this->bootRouterMiddlewares();
+
         $this->bootViewComposers();
     }
 
@@ -95,6 +109,7 @@ class ServiceProvider extends BaseServiceProvider
     public function bootRouterMiddlewares()
     {
         $router = $this->app['router'];
+
         foreach ($this->middlewares() as $name => $class) {
             $router->aliasMiddleware($name, $class);
         }
@@ -111,6 +126,18 @@ class ServiceProvider extends BaseServiceProvider
 
         foreach ($composers as $composer) {
             view()->composer($composer['appears'], $composer['class']);
+        }
+    }
+
+    /**
+     * Register the application's policies.
+     *
+     * @return void
+     */
+    public function bootPolicies()
+    {
+        foreach ($this->policies as $model => $policy) {
+            Gate::policy($model, $policy);
         }
     }
 

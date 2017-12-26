@@ -2,13 +2,13 @@
 
 /**
  * -----------------------------------------------------------------------------
- * Main Public Route
+ * Public Page Route
  * -----------------------------------------------------------------------------
  *
  * Handles the public facing routes, e.g. Home, About Us, etc.
  *
  */
 
-Route::get('{slug?}', '\Page\Controllers\PageController@single')
+Route::get('{slug?}', 'PageController@single')
      ->name('page.single')
      ->where('slug', '.*');

@@ -1,14 +1,18 @@
 <?php
 
-// Many
-Route::delete('pages/delete/many', 'PageManyController@delete')->name('pages.many.delete');
-Route::delete('pages/destroy/many', 'PageManyController@destroy')->name('pages.many.destroy');
-Route::post('pages/restore/many', 'PageManyController@restore')->name('pages.many.restore');
+/**
+ * -----------------------------------------------------------------------------
+ * Admin Page Route
+ * -----------------------------------------------------------------------------
+ *
+ * Handles the admin routes.
+ *
+ */
 
-// Additionals
+// SoftDelete routes
+Route::get('pages/trashed', 'PageController@trashed')->name('pages.trashed');
+Route::patch('pages/restore/{page}', 'PageController@restore')->name('pages.restore');
 Route::delete('pages/delete/{page}', 'PageController@delete')->name('pages.delete');
-Route::get('pages/trash', 'PageController@trash')->name('pages.trash');
-Route::post('pages/{page}/restore', 'PageController@restore')->name('pages.restore');
 
-// Admin
+// Admin routes
 Route::resource('pages', 'PageController');

@@ -2,6 +2,8 @@
 
 namespace Page\Requests;
 
+use Illuminate\Http\Request;
+use Page\Models\Page;
 use Pluma\Requests\FormRequest;
 
 class PageRequest extends FormRequest
@@ -22,6 +24,12 @@ class PageRequest extends FormRequest
 
             case 'PUT':
                 if ($this->user()->can('update-page')) {
+                    return true;
+                }
+                break;
+
+            case 'PATCH':
+                if ($this->user()->can('restore-page')) {
                     return true;
                 }
                 break;
@@ -51,10 +59,15 @@ class PageRequest extends FormRequest
 
         return [
             'title' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:pages'.$isUpdating,
+            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:pages' . $isUpdating,
         ];
     }
 
+    /**
+     * The array of override messages to use.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [

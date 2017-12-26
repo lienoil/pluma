@@ -2,14 +2,15 @@
 
 return [
     'admin' => 'admin',
+    'dashboard' => 'dashboard',
+    'migrations' => 'database/migrations',
     'modules' => 'modules',
     'public' => 'public',
-    'migrations' => 'database/migrations',
     'themes' => 'themes',
 
     // url
-    'login' => 'login',
+    'login' => 'login.show',
     'logout' => 'logout',
+    'redirect_after_logout' => 'login.show',
     'register' => 'register',
-    'redirect_after_logout' => 'login',
 ];

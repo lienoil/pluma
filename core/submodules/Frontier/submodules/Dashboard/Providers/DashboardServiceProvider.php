@@ -2,7 +2,7 @@
 
 namespace Dashboard\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Pluma\Support\Providers\ServiceProvider;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -20,17 +20,6 @@ class DashboardServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->bootRouter();
-    }
-
-    /**
-     * Boot the router instance.
-     *
-     * @return void
-     */
-    public function bootRouter()
-    {
-        $this->router = $this->app['router'];
-        //
+        parent::boot();
     }
 }

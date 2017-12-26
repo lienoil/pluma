@@ -1,8 +1,7 @@
 <?php
 
-namespace Page\Support\Traits;
+namespace Page\Support\Relations;
 
-use Crowfeather\Traverser\Traverser;
 use Page\Models\Page;
 
 trait PageHasManyPages

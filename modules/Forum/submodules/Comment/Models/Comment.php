@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Course;
 use Pluma\Models\Model;
 use Pluma\Models\User;
-use Pluma\Support\Database\Scopes\Searchable;
 
 class Comment extends Model
 {
     // use SoftDeletes;
-    use Ownable, SoftDeletes, Searchable;
+    use Ownable, SoftDeletes;
 
     public function post()
     {

@@ -3,10 +3,10 @@
 @section("content")
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex>
+            <v-flex xs12 sm8 offset-sm2>
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Pages') }}</v-toolbar-title>
+                        <v-toolbar-title class="accent--text">{{ __($application->page->title) }}</v-toolbar-title>
                         <v-spacer></v-spacer>
 
                         {{-- Batch Commands --}}
@@ -14,15 +14,32 @@
                             v-show="dataset.selected.length < 2"
                             flat
                             icon
-                            v-model="bulk.destroy.model"
-                            :class="bulk.destroy.model ? 'btn--active error error--text' : ''"
-                            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checboxes') }}'}"
-                            @click.native="bulk.destroy.model = !bulk.destroy.model"
-                        ><v-icon>@{{ bulk.destroy.model ? 'indeterminate_check_box' : 'check_box_outline_blank' }}</v-icon></v-btn>
+                            v-model="bulk.commands.model"
+                            :class="bulk.commands.model ? 'btn--active error error--text' : ''"
+                            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checkboxes') }}'}"
+                            @click.native="bulk.commands.model = !bulk.commands.model"
+                        ><v-icon>@{{ bulk.commands.model ? 'indeterminate_check_box' : 'check_box_outline_blank' }}</v-icon></v-btn>
+
+                        {{-- Bulk Restore --}}
+                        <v-slide-y-transition>
+                            <template v-if="dataset.selected.length > 1">
+                                <form :action="route(urls.pages.restore, false)" method="POST" class="inline">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PATCH') }}
+                                    <template v-for="item in dataset.selected">
+                                        <input type="hidden" name="id[]" :value="item.id">
+                                    </template>
+                                    <v-btn flat icon type="submit" v-tooltip:left="{'html': `Restore ${dataset.selected.length} selected items`}"><v-icon success>restore</v-icon></v-btn>
+                                </form>
+                            </template>
+                        </v-slide-y-transition>
+                        {{-- Bulk Restore --}}
+
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                <form :action="route(urls.pages.destroy, false)" method="POST" class="inline">
+                                {{-- Delete --}}
+                                <form :action="route(urls.pages.delete, false)" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <template v-for="item in dataset.selected">
@@ -32,8 +49,9 @@
                                 </form>
                             </template>
                         </v-slide-y-transition>
-                        {{-- /Bulk Delete --}}
-                        {{-- /Batch Commands --}}
+                        {{-- Bulk Delete --}}
+
+                        {{-- Batch Commands --}}
 
                         {{-- Search --}}
                         <v-text-field
@@ -48,81 +66,57 @@
                         <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
                             <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
                         </v-btn>
-                        {{-- /Search --}}
+                        {{-- Search --}}
 
-                        {{-- Trashed --}}
-                        {{-- <v-btn
-                            icon
-                            flat
-                            href="{{ route('pages.trash') }}"
-                            light
-                            v-tooltip:left="{'html': `View trashed items`}"
-                        ><v-icon class="grey--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
-                        {{-- /Trashed --}}
                     </v-toolbar>
 
                     <v-data-table
                         :loading="dataset.loading"
-                        :total-items="dataset.totalItems"
-                        class="elevation-0"
-                        no-data-text="{{ _('No resource found') }}"
-                        v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
-                        {{-- selected-key="id" --}}
+                        :total-items="dataset.pagination.totalItems"
+                        class="elevation-0 grey--text"
+                        no-data-text="{{ __('No resource found') }}"
+                        v-bind="bulk.commands.model?{'select-all':'primary'}:{}"
                         v-bind:headers="dataset.headers"
                         v-bind:items="dataset.items"
                         v-bind:pagination.sync="dataset.pagination"
                         v-model="dataset.selected">
-                        <template slot="headerCell" scope="props">
-                            <span v-tooltip:bottom="{'html': props.header.text}">
-                                @{{ props.header.text }}
-                            </span>
-                        </template>
                         <template slot="items" scope="prop">
-                            <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
-                            <td v-html="prop.item.id"></td>
-                            <td><img height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.title"></td>
-                            <td><a :href="route(urls.pages.edit, (prop.item.id))"><strong v-html="prop.item.title"></strong></a></td>
-                            <td v-html="prop.item.code"></td>
-                            {{-- <td><a :href="`{{ route('pages.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td> --}}
-                            <td v-html="prop.item.author"></td>
-                            <td v-html="prop.item.template"></td>
-                            <td v-html="prop.item.created"></td>
-                            <td v-html="prop.item.modified"></td>
-                            <td class="text-xs-center">
+                            <td class="grey--text text--darken-1" v-show="bulk.commands.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
+                            <td class="grey--text text--darken-1" v-html="prop.item.id"></td>
+                            <td class="grey--text text--darken-1"><strong v-html="prop.item.title"></strong></td>
+                            <td class="grey--text text--darken-1" v-html="prop.item.code"></td>
+                            <td class="grey--text text--darken-1" v-html="prop.item.author"></td>
+                            <td class="grey--text text--darken-1" v-html="prop.item.template"></td>
+                            <td class="grey--text text--darken-1" v-html="prop.item.created"></td>
+                            <td class="grey--text text--darken-1" v-html="prop.item.removed"></td>
+                            <td class="grey--text text--darken-1 text-xs-center">
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
-                                        <v-list-tile :href="route(urls.pages.show, (prop.item.id))">
+                                        <v-list-tile ripple @click="$refs.restore.submit()">
                                             <v-list-tile-action>
-                                                <v-icon info>search</v-icon>
+                                                <v-icon class="success--text">restore</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    {{ __('View details') }}
+                                                    <form ref="restore" :action="route(urls.pages.restore, prop.item.id)" method="POST">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('PATCH') }}
+                                                        {{ __('Restore') }}
+                                                    </form>
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile :href="route(urls.pages.edit, (prop.item.id))">
-                                            <v-list-tile-action>
-                                                <v-icon accent>edit</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('Edit') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile ripple @click="$refs.destroy.submit()">
+                                        <v-list-tile ripple @click="$refs.delete.submit()">
                                             <v-list-tile-action>
                                                 <v-icon warning>delete</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form ref="destroy" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
+                                                    <form ref="delete" :action="route(urls.pages.delete, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
-                                                        {{ __('Move to Trash') }}
-                                                        {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
+                                                        {{ __('Delete Permanently') }}
                                                     </form>
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
@@ -147,33 +141,31 @@
             data () {
                 return {
                     bulk: {
-                        destroy: {
+                        commands: {
                             model: false,
                         },
                     },
                     urls: {
                         pages: {
-                            edit: '{{ route('pages.edit', 'null') }}',
-                            show: '{{ route('pages.show', 'null') }}',
-                            destroy: '{{ route('pages.destroy', 'null') }}',
+                            restore: '{{ route('pages.restore', 'null') }}',
+                            delete: '{{ route('pages.delete', 'null') }}',
                         }
                     },
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                            { text: '{{ __("Feature") }}', align: 'left', value: 'feature' },
                             { text: '{{ __("Title") }}', align: 'left', value: 'title' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
                             { text: '{{ __("Template") }}', align: 'left', value: 'template' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
-                            { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
+                            { text: '{{ __("Removed") }}', align: 'left', value: 'deleted_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 10,
+                            rowsPerPage: {{ settings('rows_per_page', 10) }},
                             totalItems: 0,
                         },
                         searchform: {
@@ -181,7 +173,6 @@
                             query: '',
                         },
                         selected: [],
-                        totalItems: 0,
                     },
                 };
             },
@@ -204,6 +195,7 @@
                             search: filter,
                             sort: sortBy,
                             take: rowsPerPage,
+                            only_trashed: true,
                         };
 
                         this.api().search('{{ route('api.pages.all') }}', query)
@@ -224,18 +216,19 @@
                         page: page,
                         sort: sortBy,
                         take: rowsPerPage,
+                        only_trashed: true,
                     };
                     this.api().get('{{ route('api.pages.all') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
-                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
                 },
             },
 
             mounted () {
-                // this.get();
+                this.get();
             }
         });
     </script>

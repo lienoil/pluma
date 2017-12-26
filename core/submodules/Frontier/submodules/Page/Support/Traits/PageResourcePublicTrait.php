@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Menu\Models\Menu;
 use Page\Models\Page;
 
-trait PagePublicResourceTrait
+trait PageResourcePublicTrait
 {
     /**
      * Retrieve list of all resources.
@@ -16,7 +16,7 @@ trait PagePublicResourceTrait
      */
     public function all(Request $request)
     {
-        $resources = Page::all();
+        $resources = Page::search($request->all())->all();
 
         return view("Theme::pages.all")->with(compact('resources'));
     }
@@ -41,14 +41,12 @@ trait PagePublicResourceTrait
             // Check if template exists.
             $template = is_null($page->template) ? 'generic' : $page->template;
             if (view()->exists("Theme::templates.$template")) {
-
                 return view("Theme::templates.$template")
                             ->with(compact('page'));
             }
 
             // Check if a page exists.
             if (view()->exists("Theme::pages.{$page->code}")) {
-
                 return view("Theme::pages.{$page->code}")
                             ->with(compact('page'));
             }
@@ -60,13 +58,11 @@ trait PagePublicResourceTrait
         // The $code does not exist on the app's menus.
         // Try if a static file exists for the $code.
         if (view()->exists("Theme::static.$code")) {
-
             return view("Theme::static.$code");
         }
 
         // Try the generic Static hintpath
         if (view()->exists("Static::$code")) {
-
             return view("Static::$code");
         }
 

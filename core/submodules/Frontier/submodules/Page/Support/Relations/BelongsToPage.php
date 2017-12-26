@@ -1,6 +1,6 @@
 <?php
 
-namespace Page\Support\Traits;
+namespace Page\Support\Relations;
 
 use Page\Models\Page;
 

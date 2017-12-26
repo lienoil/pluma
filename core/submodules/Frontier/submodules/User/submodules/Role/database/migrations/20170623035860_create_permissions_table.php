@@ -48,7 +48,7 @@ class CreatePermissionsTable extends Migration
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

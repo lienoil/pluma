@@ -2,6 +2,8 @@
 
 namespace Page\Providers;
 
+use Page\Models\Page;
+use Page\Policies\PagePolicy;
 use Pluma\Support\Providers\ServiceProvider;
 
 class PageServiceProvider extends ServiceProvider
@@ -16,17 +18,12 @@ class PageServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Registered middlewares on the
-     * Service Providers Level.
+     * The policy mappings for the application.
      *
-     * @var mixed
+     * @var array
      */
-    protected $middlewares = [
-        //
-    ];
-
-    protected $composers = [
-        //
+    protected $policies = [
+        Page::class => PagePolicy::class,
     ];
 
     /**
@@ -48,7 +45,7 @@ class PageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        parent::register();
     }
 
     /**
@@ -58,8 +55,10 @@ class PageServiceProvider extends ServiceProvider
      */
     public function bootComposers()
     {
-        if (file_exists(__DIR__."/../config/composers.php")) {
-            $this->composers = require_once __DIR__."/../config/composers.php";
+        $path = get_module('page') . '/config/composers.php';
+
+        if (file_exists($path)) {
+            $this->composers = require_once realpath($path);
         }
     }
 }
