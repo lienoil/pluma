@@ -2,7 +2,7 @@
 
 namespace Calendar\Support\Holidays;
 
-trait Holidays
+trait HolidaysTrait
 {
     /**
      * The array of holiday codes.
@@ -20,7 +20,7 @@ trait Holidays
         // March | Good Friday
         // March | Holy Saturday
         // March | Easter Sunday
-        '04-09', // Day of Valor
+        // '04-09', // Day of Valor
         '05-01', // Labor Day | A.K.A. Irony Day
         // '05-05', // Lailatul Isra Wal Mi Raj - Common Local holidays
         '06-12', // Independence Day

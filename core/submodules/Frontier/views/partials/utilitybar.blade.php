@@ -13,6 +13,7 @@
     </v-toolbar-side-icon>
 
     @stack("page-title")
+    @yield("page-title")
 
     <v-spacer></v-spacer>
 

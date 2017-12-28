@@ -50,6 +50,33 @@ return [
                     'title' => __('Trashed Pages'),
                 ],
             ],
+
+            'page-category-divider' => [
+                'name' => 'page-category-divider',
+                'is_header' => true,
+                'is_divider' => true,
+                'parent' => 'user',
+                'order' => 9,
+            ],
+
+            'view-pages-category' => [
+                'name' => 'view-pages-category',
+                'slug' => route('categories.index'),
+                'routes' => [
+                    'name' => 'categories.index',
+                    'children' => [
+                        'pages.categories.edit',
+                        'pages.categories.trash',
+                    ]
+                ],
+                'order' => 10,
+                'always_viewable' => false,
+                'icon' => 'label',
+                'labels' => [
+                    'title' => __('Categories'),
+                    'description' => __('View the list of all categories'),
+                ],
+            ],
         ],
     ],
 ];

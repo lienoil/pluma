@@ -2,61 +2,47 @@
 
 namespace Category\Controllers;
 
-use Frontier\Controllers\AdminController;
-use Illuminate\Http\Request;
 use Category\Models\Category;
 use Category\Requests\CategoryRequest;
+use Category\Support\Traits\CategoryResourceApiTrait;
+use Frontier\Controllers\GeneralController;
+use Illuminate\Http\Request;
 
-class CategoryController extends AdminController
+class CategoryController extends GeneralController
 {
+    use CategoryResourceApiTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @param  Request $request
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //
+        $type = ! $request->segment(count($request->segments())-1)
+                ?: $request->segment(count($request->segments())-1);
+        $resources = Category::type($type)->paginate();
 
-        return view("Theme::categories.index");
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $id)
-    {
-        //
-
-        return view("Theme::categories.show");
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-
-        return view("Theme::categories.create");
+        return view("Theme::categories.index")->with(compact('resources', 'type'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Category\Requests\CategoryRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  Category\Requests\CategoryRequest  $request
+     * @return Illuminate\Http\Response
      */
     public function store(CategoryRequest $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->alias = $request->input('alias');
+        $category->code = $request->input('code');
+        $category->description = $request->input('description');
+        $category->icon = $request->input('icon');
+        $category->type = $request->input('type');
+        $category->save();
 
         return back();
     }
@@ -64,27 +50,34 @@ class CategoryController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Illuminate\Http\Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
     {
-        //
+        $resource = Category::findOrFail($id);
 
-        return view("Theme::categories.edit");
+        return view("Theme::categories.edit")->with(compact('resource'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Category\Requests\CategoryRequest  $request
+     * @param  Category\Requests\CategoryRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->name = $request->input('name');
+        $category->alias = $request->input('alias');
+        $category->code = $request->input('code');
+        $category->description = $request->input('description');
+        $category->icon = $request->input('icon');
+        $category->type = $request->input('type');
+        $category->save();
 
         return back();
     }
@@ -92,54 +85,14 @@ class CategoryController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id = null)
     {
-        //
-
-        return redirect()->route('categories.index');
-    }
-
-    /**
-     * Display a listing of the trashed resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function trash()
-    {
-        //
-
-        return view("Theme::categories.trash");
-    }
-
-    /**
-     * Restore the specified resource from storage.
-     *
-     * @param  \Category\Requests\CategoryRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function restore(CategoryRequest $request, $id)
-    {
-        //
+        Category::destroy($request->has('id') ? $request->input('id') : $id);
 
         return back();
-    }
-
-    /**
-     * Delete the specified resource from storage permanently.
-     *
-     * @param  \Category\Requests\CategoryRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(CategoryRequest $request, $id)
-    {
-        //
-
-        return redirect()->route('categories.trash');
     }
 }

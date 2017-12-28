@@ -2,12 +2,12 @@
 
 namespace Calendar\Models;
 
-use Calendar\Support\Holidays\Holidays;
+use Calendar\Support\Holidays\HolidaysTrait;
 use Pluma\Models\Model;
 
 class Calendar extends Model
 {
-    use Holidays;
+    use HolidaysTrait;
 
     /**
      * Toggle timestamps.

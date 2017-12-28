@@ -5,7 +5,9 @@
 @section("content")
 
     <v-container fluid grid-list-lg>
+
         @include("Theme::partials.banner")
+
         <v-layout row wrap>
             <v-flex sm5 md4 xs12>
 

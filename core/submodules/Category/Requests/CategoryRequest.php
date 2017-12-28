@@ -51,7 +51,7 @@ class CategoryRequest extends FormRequest
 
         return [
             'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:categories'.$isUpdating,
+            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:categories' . $isUpdating,
         ];
     }
 

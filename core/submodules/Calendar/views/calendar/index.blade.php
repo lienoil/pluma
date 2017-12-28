@@ -1,24 +1,25 @@
 @extends("Frontier::layouts.admin")
 
+
+@push("utilitybar" )
+    <strong class="subheading">{{ __(date('F Y')) }}</strong>
+@endpush
+
 @section("content")
-    <v-container fluid grid-list-lg>
-        <v-card class="grey lighten-4 elevation-1">
-            <v-card-text>
-                <calendar>
-                    {{-- <template scope="props">
-                        <v-card class="elevation-1 mb-3" v-for="(event, index) in props.showEvents">
-                            <v-toolbar card class="">
-                                <v-toolbar-title class="subheading">@{{ event.title }}</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon><v-icon>close</v-icon></v-btn>
-                            </v-toolbar>
-                            <v-card-title class="grey--text"><v-icon>fa-calendar</v-icon>&nbsp;@{{ event.date }}</v-card-title>
-                            <v-card-text v-html="event.description"></v-card-text>
-                        </v-card>
-                    </template> --}}
-                </calendar>
-            </v-card-text>
-        </v-card>
+    <v-container fluid class="pa-0" fill-height>
+        <v-layout row wrap fill-height class="pink">
+            <v-flex xs12 sm3 fill-height class="white">
+                <v-card flat height="100vh">
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-date-picker no-title class="elevation-0"></v-date-picker>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+            <v-flex xs12 sm9>
+            </v-flex>
+        </v-layout>
     </v-container>
 @endsection
 

@@ -23,20 +23,20 @@ class CalendarTableSeeder extends AbstractSeed
         $current = clone $startDate;
 
         while ($current < $endDate) {
-            $date         = $current->format('Y-m-d');
-            $datetime     = $current->format('Y-m-d H:i:s');
+            $date = $current->format('Y-m-d');
+            $datetime = $current->format('Y-m-d H:i:s');
 
-            $weekend      = in_array($current->format('D'), ['Sat', 'Sun']);
 
-            $day          = $current->format('d');
-            $month        = $current->format('n'); // month num
-            $year         = $current->format('Y');
-            $week         = $current->format('W');
-            $weekday      = (int) $current->format('w'); // weekday num
+            $day = $current->format('d');
+            $week = $current->format('W');
+            $weekday = (int) $current->format('w'); // weekday num
+            $weekend = in_array($current->format('D'), ['Sat', 'Sun']);
+            $month = $current->format('n'); // month num
+            $year = $current->format('Y');
 
-            $month_name   = $current->format('F');
-            $weekday_name = $current->format('l');
-            $holiday      = in_array($current->format('m-d'), Calendar::holidays());
+            $monthName = $current->format('F');
+            $weekdayName = $current->format('l');
+            $holiday = in_array($current->format('m-d'), Calendar::holidays());
 
             $calendar = new Calendar();
             $calendar->date = $date;
@@ -47,8 +47,8 @@ class CalendarTableSeeder extends AbstractSeed
             $calendar->year = $year;
             $calendar->week = $week;
             $calendar->weekday = $weekday;
-            $calendar->month_name = $month_name;
-            $calendar->weekday_name = $weekday_name;
+            $calendar->month_name = $monthName;
+            $calendar->weekday_name = $weekdayName;
             $calendar->holiday = $holiday;
             $calendar->save();
 

@@ -2,14 +2,14 @@
 
 namespace Timesheet\Models;
 
-use Category\Support\Traits\BelongsToCategory;
-use Category\Support\Traits\CategoryMutators;
+use Category\Support\Relations\BelongsToCategory;
+use Category\Support\Traits\CategoryMutatorTrait;
 use Pluma\Models\Model;
 use Timesheet\Support\Traits\BelongsToTimesheet;
 
 class Daily extends Model
 {
-    use BelongsToTimesheet, BelongsToCategory, CategoryMutators;
+    use BelongsToTimesheet, BelongsToCategory, CategoryMutatorTrait;
 
     protected $with = [];
 

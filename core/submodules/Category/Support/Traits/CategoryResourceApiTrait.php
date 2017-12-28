@@ -1,21 +1,22 @@
 <?php
 
-namespace Page\Support\Traits;
+namespace Category\Support\Traits;
 
 use Illuminate\Http\Request;
-use Page\Models\Page;
-use Page\Requests\PageRequest;
+use Category\Models\Category;
+use Category\Requests\CategoryRequest;
 use User\Models\User;
 
-trait PageResourceApiTrait
+trait CategoryResourceApiTrait
 {
     /**
      * Retrieve the resource(s) with the parameters.
      *
      * @param  Illuminate\Http\Request $request
+     * @param  string $type
      * @return Illuminate\Http\Response
      */
-    public function postFind(Request $request)
+    public function postFind(Request $request, $type)
     {
         $searches = $request->get('search') !== 'null' && $request->get('search')
                         ? $request->get('search')
@@ -37,24 +38,25 @@ trait PageResourceApiTrait
                         ? $request->get('take')
                         : 0;
 
-        $resources = Page::search($searches)->orderBy($sort, $order);
+        $resources = Category::search($searches)->type($type)->orderBy($sort, $order);
 
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
 
-        $pages = $resources->paginate($take);
+        $categories = $resources->paginate($take);
 
-        return response()->json($pages);
+        return response()->json($categories);
     }
 
     /**
      * Retrieve list of resources.
      *
      * @param  Illuminate\Http\Request $request
+     * @param  string $type
      * @return Illuminate\Http\Response
      */
-    public function getAll(Request $request)
+    public function getAll(Request $request, $type)
     {
         $onlyTrashed = $request->get('only_trashed') !== 'null' && $request->get('only_trashed')
                         ? $request->get('only_trashed')
@@ -76,84 +78,86 @@ trait PageResourceApiTrait
                         ? $request->get('take')
                         : 0;
 
-        $resources = Page::search($searches)->orderBy($sort, $order);
+        $resources = Category::search($searches)->type($type)->orderBy($sort, $order);
 
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
 
-        $pages = $resources->paginate($take);
+        $categories = $resources->paginate($take);
 
-        return response()->json($pages);
+        return response()->json($categories);
     }
 
     /**
      * Store a newly created resource in storage
      *
-     * @param  Page\Requests\PageRequest $request
+     * @param  Category\Requests\CategoryRequest $request
+     * @param  string $type
      * @return Illuminate\Http\Response
      */
-    public function postStore(PageRequest $request)
+    public function postStore(CategoryRequest $request, $type)
     {
-        $page = new Page();
-        $page->title = $request->input('title');
-        $page->code = $request->input('code');
-        $page->feature = $request->input('feature');
-        $page->body = $request->input('body');
-        $page->delta = $request->input('delta');
-        $page->template = $request->input('template');
-        $page->user()->associate(User::find($request->input('user_id')));
-        $page->save();
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->alias = $request->input('alias');
+        $category->code = $request->input('code');
+        $category->description = $request->input('description');
+        $category->icon = $request->input('icon');
+        $category->type = $request->input('type');
+        $category->save();
 
-        return response()->json($page->id);
+        return response()->json($category->id);
     }
 
     /**
      * Retrieve the resource specified by the slug.
      *
      * @param  Illuminate\Http\Request $request
+     * @param  string $type
      * @param  string  $slug
      * @return Illuminate\Http\Response
      */
-    public function getShow(Request $request, $slug = null)
+    public function getShow(Request $request, $type, $slug = null)
     {
-        $page = Page::codeOrFail($slug);
+        $category = Category::type($type)->codeOrFail($slug);
 
-        return response()->json($page);
+        return response()->json($category);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Role\Requests\RoleRequest  $request
+     * @param  Role\Requests\RoleRequest  $request
+     * @param  string $type
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function putUpdate(Request $request, $id)
+    public function putUpdate(Request $request, $type, $id)
     {
-        $page = Page::findOrFail($id);
-        $page->title = $request->input('title');
-        $page->code = $request->input('code');
-        $page->feature = $request->input('feature');
-        $page->body = $request->input('body');
-        $page->delta = $request->input('delta');
-        $page->template = $request->input('template');
-        $page->user()->associate(User::find($request->input('user_id')));
-        $page->save();
+        $category = Category::type($type)->findOrFail($id);
+        $category->name = $request->input('name');
+        $category->alias = $request->input('alias');
+        $category->code = $request->input('code');
+        $category->description = $request->input('description');
+        $category->icon = $request->input('icon');
+        $category->type = $request->input('type');
+        $category->save();
 
-        return response()->json($page->id);
+        return response()->json($category->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
+     * @param  string $type
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function deleteDestroy(Request $request, $id = null)
+    public function deleteDestroy(Request $request, $type, $id = null)
     {
-        $success = Page::destroy($id ? $id : $request->input('id'));
+        $success = Category::destroy($id ? $id : $request->input('id'));
 
         return response()->json($success);
     }
@@ -161,19 +165,20 @@ trait PageResourceApiTrait
     /**
      * Restore the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
+     * @param  string $type
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function postRestore(Request $request, $id = null)
+    public function postRestore(Request $request, $type, $id = null)
     {
-        $page = Page::onlyTrashed()->find($id);
-        $page->exists() || $page->restore();
+        $category = Category::onlyTrashed()->find($id);
+        $category->exists() || $category->restore();
 
         if (is_array($request->input('id'))) {
             foreach ($request->input('id') as $id) {
-                $page = Page::onlyTrashed()->find($id);
-                $page->restore();
+                $category = Category::onlyTrashed()->find($id);
+                $category->restore();
             }
         }
 
@@ -183,13 +188,14 @@ trait PageResourceApiTrait
     /**
      * Delete the specified resource from storage permanently.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
+     * @param  string $type
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function deleteDelete(Request $request, $id = null)
+    public function deleteDelete(Request $request, $type, $id = null)
     {
-        $success = Page::forceDelete($id ? $id : $request->input('id'));
+        $success = Category::forceDelete($id ? $id : $request->input('id'));
 
         return response()->json($success);
     }

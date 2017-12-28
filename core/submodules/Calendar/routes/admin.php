@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('calendars', 'Calendar\Controllers\CalendarController');
+Route::resource('calendars', 'CalendarController');

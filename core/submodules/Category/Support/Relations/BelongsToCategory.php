@@ -1,6 +1,6 @@
 <?php
 
-namespace Category\Support\Traits;
+namespace Category\Support\Relations;
 
 use Category\Models\Category;
 
