@@ -85,6 +85,31 @@ class BaseViewComposer
     }
 
     /**
+     * Check if route exists.
+     *
+     * @param  string  $url
+     * @return boolean
+     */
+    public function hasRouteNameFromUrl($url)
+    {
+        return (bool) $this->getRouteNameFromUrl($url);
+    }
+
+    /**
+     * Try to guess the route name of the given url.
+     *
+     * @return string
+     */
+    public function getRouteNameFromUrl($url)
+    {
+        return app('router')
+                ->getRoutes()
+                ->match(
+                    app('request')->create($url)
+                )->getName();
+    }
+
+    /**
      * Sets the variable name.
      *
      * @param string $name

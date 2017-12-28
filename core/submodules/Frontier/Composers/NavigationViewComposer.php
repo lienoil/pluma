@@ -114,6 +114,7 @@ class NavigationViewComposer extends BaseViewComposer
     {
         $url = explode('/', $currentUrl);
         $old = "";
+
         foreach ($url as &$segment) {
             if (is_numeric($segment)) {
                 $segment = $this->guessStringFromNumeric($segment, $old);
@@ -122,11 +123,14 @@ class NavigationViewComposer extends BaseViewComposer
             $segment = $this->swapWord($segment);
 
             $segment = [
-                'active' => end($url) === $segment,
+                'last' => end($url) === $segment,
+                'active' => $this->hasRouteNameFromUrl(strtolower(url($old))),
                 'label' => $this->transformStringToHumanPresentable($segment),
                 'name' => $segment,
                 'slug' => $old,
-                'url' => strtolower(url($old)),
+                'url' => $this->hasRouteNameFromUrl(strtolower(url($old)))
+                            ? strtolower(url($old))
+                            : '',
             ];
         }
 

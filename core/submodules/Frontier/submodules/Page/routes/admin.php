@@ -10,8 +10,10 @@
  */
 
 // Page Category routes
-Route::resource('pages/categories', '\Category\Controllers\CategoryController')
-     ->except(['show', 'create']);
+Route::resource('pages/categories', '\Category\Controllers\CategoryController', [
+        'except' => ['show', 'create'],
+        'as' => 'pages',
+    ]);
 
 // SoftDelete routes
 Route::get('pages/trashed', 'PageController@trashed')

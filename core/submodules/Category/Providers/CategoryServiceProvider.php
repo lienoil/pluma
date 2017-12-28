@@ -33,6 +33,8 @@ class CategoryServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bootObservables();
+
+        parent::boot();
     }
 
     /**
@@ -42,6 +44,6 @@ class CategoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        parent::register();
     }
 }

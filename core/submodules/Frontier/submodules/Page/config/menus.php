@@ -61,9 +61,9 @@ return [
 
             'view-pages-category' => [
                 'name' => 'view-pages-category',
-                'slug' => route('categories.index'),
+                'slug' => route('pages.categories.index'),
                 'routes' => [
-                    'name' => 'categories.index',
+                    'name' => 'pages.categories.index',
                     'children' => [
                         'pages.categories.edit',
                         'pages.categories.trash',

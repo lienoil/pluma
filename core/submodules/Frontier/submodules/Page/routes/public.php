@@ -10,5 +10,4 @@
  */
 
 Route::get('{slug?}', 'PageController@single')
-     ->name('page.single')
      ->where('slug', '.*');

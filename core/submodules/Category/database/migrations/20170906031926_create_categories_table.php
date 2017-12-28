@@ -24,8 +24,8 @@ class CreateCategoriesTable extends Migration
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('alias')->nullable();
             $table->string('code')->unique();
+            $table->string('alias')->nullable();
             $table->text('description')->nullable();
             $table->string('icon')->nullable();
             $table->string('type')->nullable();

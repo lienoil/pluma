@@ -7,13 +7,13 @@
 
         <v-layout row wrap>
             <v-flex sm4 offset-sm4>
-                <form action="{{ route('categories.update', $resource->id) }}" method="POST">
+                <form action="{{ route('pages.categories.update', $resource->id) }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <v-card class="elevation-1">
                         <v-toolbar flat class="transparent">
                             <v-icon>label</v-icon>
-                            <v-toolbar-title class="subheading">{{ __("Edit Category") }}</v-toolbar-title>
+                            <v-toolbar-title class="subheading">{{ __("Edit Page Category") }}</v-toolbar-title>
                             <v-spacer></v-spacer>
                         </v-toolbar>
                         <v-card-text>
@@ -74,7 +74,7 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn flat href="{{ route('categories.index') }}">{{ __('Cancel') }}</v-btn>
+                            <v-btn flat href="{{ route('pages.categories.index') }}">{{ __('Cancel') }}</v-btn>
                             <v-btn type="submit" primary>{{ __('Update') }}</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -112,8 +112,8 @@
 
                     urls: {
                         categories: {
-                            edit: '{{ route('categories.edit', 'null') }}',
-                            destroy: '{{ route('categories.destroy', 'null') }}',
+                            edit: '{{ route('pages.categories.edit', 'null') }}',
+                            destroy: '{{ route('pages.categories.destroy', 'null') }}',
                         }
                     },
 

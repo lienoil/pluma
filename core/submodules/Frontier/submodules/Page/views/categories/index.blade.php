@@ -7,12 +7,12 @@
 
         <v-layout row wrap>
             <v-flex sm3>
-                <form action="{{ route('categories.store', 'pages') }}" method="POST">
+                <form action="{{ route('pages.categories.store', 'pages') }}" method="POST">
                     {{ csrf_field() }}
                     <v-card class="elevation-1">
                         <v-toolbar flat class="transparent">
                             <v-icon>label</v-icon>
-                            <v-toolbar-title class="subheading">{{ __("New Category") }}</v-toolbar-title>
+                            <v-toolbar-title class="subheading">{{ __("New Page Category") }}</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
                             <v-text-field
@@ -81,7 +81,7 @@
 
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar flat class="transparent">
-                        <v-toolbar-title class="subheading">{{ __('All Categories') }}</v-toolbar-title>
+                        <v-toolbar-title class="subheading">{{ __('All Page Categories') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
 
                         {{-- Batch Commands --}}
@@ -232,8 +232,8 @@
 
                     urls: {
                         categories: {
-                            edit: '{{ route('categories.edit', 'null') }}',
-                            destroy: '{{ route('categories.destroy', 'null') }}',
+                            edit: '{{ route('pages.categories.edit', 'null') }}',
+                            destroy: '{{ route('pages.categories.destroy', 'null') }}',
                         }
                     },
 
