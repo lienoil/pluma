@@ -20,6 +20,13 @@ class CategoryController extends GeneralController
     protected $hintpath;
 
     /**
+     * The category type of the resource.
+     *
+     * @var string
+     */
+    protected $type;
+
+    /**
      * Display a listing of the resource.
      *
      * @param  Request $request
@@ -27,12 +34,11 @@ class CategoryController extends GeneralController
      */
     public function index(Request $request)
     {
-        $type = ! $request->segment(count($request->segments())-1)
-                ?: $request->segment(count($request->segments())-1);
-        $this->hintpath = str_singular(ucfirst($type));
+        $type = $this->type;
+        $hintpath = $this->hintpath;
         $resources = Category::type($type)->paginate();
 
-        return view("{$this->hintpath}::categories.index")->with(compact('resources', 'type'));
+        return view("{$hintpath}::categories.index")->with(compact('resources', 'type'));
     }
 
     /**
@@ -64,12 +70,11 @@ class CategoryController extends GeneralController
      */
     public function edit(Request $request, $id)
     {
-        $type = ! $request->segment(count($request->segments())-3)
-                ?: $request->segment(count($request->segments())-3);
-        $this->hintpath = str_singular(ucfirst($type));
+        $type = $this->type;
+        $hintpath = $this->hintpath;
         $resource = Category::findOrFail($id);
 
-        return view("{$this->hintpath}::categories.edit")->with(compact('resource', 'type'));
+        return view("{$hintpath}::categories.edit")->with(compact('resource', 'type'));
     }
 
     /**

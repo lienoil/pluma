@@ -73,7 +73,10 @@
                             delta: '{!! old('delta') !!}',
                             body: '{!! old('body') !!}',
                             template: '{{ old('template') }}',
+                            category_id: '{{ old('category_id') }}',
                         },
+                        template: '{{ old('template') }}',
+                        category_id: '{{ old('category_id') }}',
                         errors: {!! json_encode($errors->getMessages()) !!},
                         readonly: {
                             slug: true,

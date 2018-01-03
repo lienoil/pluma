@@ -3,6 +3,7 @@
 namespace Page\Controllers;
 
 use Catalogue\Models\Catalogue;
+use Category\Models\Category;
 use Crowfeather\Traverser\Traverser;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
@@ -56,9 +57,10 @@ class PageController extends GeneralController
     public function create(Request $request)
     {
         $templates = Template::getTemplatesFromFiles();
+        $categories = Category::type('pages')->select(['name', 'icon', 'id'])->get();
         $catalogues = Catalogue::mediabox();
 
-        return view("Page::pages.create")->with(compact('templates', 'catalogues'));
+        return view("Page::pages.create")->with(compact('templates', 'categories', 'catalogues'));
     }
 
     /**
@@ -77,6 +79,7 @@ class PageController extends GeneralController
         $page->delta = $request->input('delta');
         $page->template = $request->input('template');
         $page->user()->associate(User::find(user()->id));
+        $page->category()->associate(Category::find($request->input('category_id')));
         $page->save();
 
         return back();
@@ -93,9 +96,10 @@ class PageController extends GeneralController
     {
         $resource = Page::lockForUpdate()->findOrFail($id);
         $templates = Template::getTemplatesFromFiles();
+        $categories = Category::type('pages')->select(['name', 'icon', 'id'])->get();
         $catalogues = Catalogue::mediabox();
 
-        return view("Page::pages.edit")->with(compact('resource', 'templates', 'catalogues'));
+        return view("Page::pages.edit")->with(compact('resource', 'templates', 'categories', 'catalogues'));
     }
 
     /**
@@ -113,6 +117,7 @@ class PageController extends GeneralController
         $page->body = $request->input('body');
         $page->delta = $request->input('delta');
         $page->template = $request->input('template');
+        $page->category()->associate(Category::find($request->input('category_id')));
         $page->save();
 
         return back();

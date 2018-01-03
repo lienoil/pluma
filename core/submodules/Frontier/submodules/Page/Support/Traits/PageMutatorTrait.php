@@ -13,6 +13,6 @@ trait PageMutatorTrait
      */
     public function getAuthorAttribute()
     {
-        return $this->user->displayname;
+        return ! $this->user ?: $this->user->displayname;
     }
 }

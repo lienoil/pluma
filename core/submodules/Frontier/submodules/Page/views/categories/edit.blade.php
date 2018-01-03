@@ -2,11 +2,10 @@
 
 @section("content")
     <v-container fluid grid-list-lg>
-
-        @include("Theme::partials.banner")
-
         <v-layout row wrap>
             <v-flex sm4 offset-sm4>
+                @include("Theme::partials.banner")
+
                 <form action="{{ route('pages.categories.update', $resource->id) }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}

@@ -96,6 +96,9 @@
                                     </v-list>
                                 </v-card>
                             </draggable>
+                            <div class="text-xs-right">
+                                <a target="_blank" class="caption" href="{{ route('settings.social') }}">{{ __('Manage social links.') }}</a><sup><v-icon right class="primary--text caption">fa-external-link</v-icon></sup>
+                            </div>
                         </v-card-text>
                     </v-expansion-panel-content>
 

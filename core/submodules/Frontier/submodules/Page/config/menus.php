@@ -41,13 +41,13 @@ return [
             ],
             'trashed-page' => [
                 'name' => 'trashed-page',
-                'parent' => 'page',
                 'order' => 3,
                 'slug' => route('pages.trashed'),
                 'always_viewable' => false,
                 'icon' => 'delete',
                 'labels' => [
                     'title' => __('Trashed Pages'),
+                    'description' => __('View the list of all trashed pages'),
                 ],
             ],
 

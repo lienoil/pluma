@@ -3,7 +3,7 @@
 @section("content")
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex>
+            <v-flex sm12>
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar class="transparent elevation-0">
                         <v-toolbar-title class="accent--text">{{ __('Pages') }}</v-toolbar-title>
@@ -80,12 +80,12 @@
                         <template slot="items" scope="prop">
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
-                            <td><img height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.title"></td>
+                            <td class="text-xs-center"><img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.title"></td>
                             <td><a :href="route(urls.pages.edit, (prop.item.id))"><strong v-html="prop.item.title"></strong></a></td>
                             <td v-html="prop.item.code"></td>
-                            {{-- <td><a :href="`{{ route('pages.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td> --}}
-                            <td v-html="prop.item.author"></td>
-                            <td v-html="prop.item.template"></td>
+                            <td><a :href="`{{ route('pages.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
+                            {{-- <td v-html="prop.item.author"></td> --}}
+                            <td><a :href="`{{ route('pages.index') }}?template=${prop.item.template}`" v-html="prop.item.template"></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
@@ -133,6 +133,9 @@
                         </template>
                     </v-data-table>
                 </v-card>
+                @if (\Illuminate\Support\Facades\Request::all())
+                    <p class="caption grey--text"><a href="{{ route('pages.index') }}">{{ __('Remove filters') }}</a></p>
+                @endif
             </v-flex>
         </v-layout>
     </v-container>
@@ -224,6 +227,7 @@
                         page: page,
                         sort: sortBy,
                         take: rowsPerPage,
+                        search: {!! @json_encode(\Illuminate\Support\Facades\Request::all()) !!},
                     };
                     this.api().get('{{ route('api.pages.all') }}', query)
                         .then((data) => {

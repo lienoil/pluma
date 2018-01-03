@@ -98,13 +98,13 @@
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                <form :action="route(urls.categories.destroy, false)" method="POST" class="inline">
+                                <form ref="deletemanyform" :action="route(urls.categories.destroy, false)" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <template v-for="item in dataset.selected">
                                         <input type="hidden" name="id[]" :value="item.id">
                                     </template>
-                                    <v-dialog full-width ref="permabox">
+                                    <v-dialog full-width ref="permamanybox">
                                         <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon error>delete_sweep</v-icon></v-btn>
                                         <v-card>
                                             <v-card-text>
@@ -112,8 +112,8 @@
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
-                                                <v-btn flat error type="submit">{{ __('Yes') }}</v-btn>
-                                                <v-btn flat @click="$refs.permabox.hide()">{{ __('Cancel') }}</v-btn>
+                                                <v-btn flat error @click="$refs.deletemanyform.submit()">{{ __('Yes') }}</v-btn>
+                                                <v-btn flat @click="$refs.permamanybox = null">{{ __('Cancel') }}</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
@@ -179,15 +179,27 @@
                                         </v-list-tile>
                                         <v-list-tile ripple @click="$refs.destroy.submit()">
                                             <v-list-tile-action>
-                                                <v-icon warning>delete</v-icon>
+                                                <v-icon warning>close</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form ref="destroy" :action="route(urls.categories.destroy, prop.item.id)" method="POST">
+                                                    {{-- <span v-html="prop.item.id"></span> --}}
+                                                    <form ref="deleteform" :action="route(urls.categories.destroy, prop.item.id)" method="POST" class="inline">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
-                                                        {{ __('Move to Trash') }}
-                                                        {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
+                                                        <v-dialog full-width ref="permabox">
+                                                            <span slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}">{{ __('Delete Permanently...') }}</span>
+                                                            <v-card>
+                                                                <v-card-text>
+                                                                    {{ __('You are about to permanently delete this resource. Are you sure you want to proceed?') }}
+                                                                </v-card-text>
+                                                                <v-card-actions>
+                                                                    <v-spacer></v-spacer>
+                                                                    <v-btn flat error @click="$refs.deleteform.submit()">{{ __('Yes') }}</v-btn>
+                                                                    <v-btn flat @click="$refs.permabox = false">{{ __('Cancel') }}</v-btn>
+                                                                </v-card-actions>
+                                                            </v-card>
+                                                        </v-dialog>
                                                     </form>
                                                 </v-list-tile-title>
                                             </v-list-tile-content>

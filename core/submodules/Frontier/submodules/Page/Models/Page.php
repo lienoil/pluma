@@ -2,6 +2,7 @@
 
 namespace Page\Models;
 
+use Category\Support\Relations\BelongsToCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Page\Support\Relations\BelongsToPage;
 use Page\Support\Relations\PageHasManyPages;
@@ -12,7 +13,9 @@ use User\Support\Traits\BelongsToUser;
 
 class Page extends Model
 {
-    use SoftDeletes, SlugOrFail, BelongsToPage, PageHasManyPages, BelongsToUser, PageMutatorTrait;
+    use SoftDeletes, SlugOrFail,
+        BelongsToPage, BelongsToUser, BelongsToCategory,
+        PageHasManyPages, PageMutatorTrait;
 
     protected $fillable = ['id', 'title', 'code', 'body', 'delta'];
 

@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('appearance/menus', 'Menu\Controllers\MenuController');
+Route::resource('appearance/menus', 'MenuController');

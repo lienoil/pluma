@@ -55,10 +55,14 @@ class CreatePagesTable extends Migration
             $table->text('delta')->nullable();
             $table->string('template')->default('generic')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('category_id')->references('id')->on('categories')
+                  ->onUpdate('CASCADE')
+                  ->onDelete('CASCADE');;
         });
     }
 

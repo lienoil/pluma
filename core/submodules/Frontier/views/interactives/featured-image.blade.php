@@ -72,6 +72,7 @@
     </v-card-actions>
 </v-card>
 
+
 @push('css')
     <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}">
 @endpush
@@ -88,7 +89,9 @@
                     featuredImage: {
                         categories: {!! json_encode($catalogues) !!},
                         current: null,
-                        new: null,
+                        new: {
+                            thumbnail: '{{ @(old('feature') ? old('feature') : $resource->feature) }}',
+                        },
                         old: [],
                         category: {
                             current: {},
@@ -100,7 +103,7 @@
 
             mounted () {
                 this.featuredImage.categories = {!! json_encode($catalogues) !!};
-                this.featuredImage.old = '{!! old('feature_obj') !!}' ? JSON.parse('{!! old('feature_obj') !!}') : [];
+                this.featuredImage.old = '{!! old('feature_obj') !!}' ? JSON.parse('{!! old('feature_obj') !!}') : [{thumbnail: '{{ @$resource->feature }}'}];
             },
         })
     </script>

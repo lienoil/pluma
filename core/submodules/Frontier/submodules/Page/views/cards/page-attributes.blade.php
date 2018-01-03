@@ -3,37 +3,50 @@
         <v-toolbar-title class="subheading accent--text">{{ __('Page Attributes') }}</v-toolbar-title>
     </v-toolbar>
     <v-card-text>
-        <v-select v-model="resource.template" item-value="value" item-text="name" label="{{ __('Page Template') }}" :items="templates"></v-select>
-        <input type="hidden" name="template" :value="resource.template">
+        <v-select v-model="resource.item.template" item-value="value" item-text="name" label="{{ __('Page Template') }}" :items="attributes.templates"></v-select>
+        <input type="hidden" name="template" :value="resource.item.template">
+
+        <v-select auto clearable v-model="resource.item.category_id" :input-value="resource.item.category_id" item-value="id" item-text="name" label="{{ __('Category') }}" :items="attributes.categories">
+
+            {{-- <template slot="selection" scope="data">
+                <v-chip
+                    :key="JSON.stringify(data.item)"
+                    :selected="data.selected"
+                    class="chip--select-multi"
+                    close
+                    @input="data.parent.selectItem(data.item)">
+                    <v-avatar>
+                        <v-icon v-html="data.item.icon"></v-icon>
+                    </v-avatar>
+                    <span v-html="data.item.name"></span>
+                </v-chip>
+            </template> --}}
+            {{-- <template slot="item" scope="data">
+                <template>
+                    <v-list-tile-avatar>
+                        <v-icon v-html="data.item.icon"></v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                    </v-list-tile-content>
+                </template>
+            </template> --}}
+
+        </v-select>
+        <input type="text" name="category_id" :value="resource.item.category_id">
     </v-card-text>
 </v-card>
 
-@push('css')
-    <style>
-        .sortable-container {
-            min-height: 20px !important;
-        }
-
-        .bordered--ant {
-            border-left: 1px dashed rgba(0,0,0, 0.2) !important;
-            /*border-bottom: 1px dashed rgba(0,0,0, 0.2) !important;*/
-        }
-    </style>
-@endpush
-
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
-    <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
     <script>
         mixins.push({
             data () {
                 return {
-                    templates: [],
+                    attributes: {
+                        templates: {!! json_encode($templates) !!},
+                        categories: JSON.parse('{!! json_encode($categories) !!}'),
+                    },
                 }
-            },
-            mounted () {
-                // templates
-                this.templates = {!! json_encode($templates) !!};
             },
         });
     </script>

@@ -71,6 +71,14 @@
         mixins.push({
             data () {
                 return {
+                    featuredImage: {
+                        new: {
+                            thumbnail: '{{ $resource->feature }}',
+                        },
+                        old: [{
+                            thumbnail: '{{ $resource->feature }}',
+                        }],
+                    },
                     resource: {
                         item: {
                             title: '{{ $resource->title }}',
@@ -78,12 +86,14 @@
                             delta: '{!! $resource->delta !!}',
                             body: '{!! $resource->body !!}',
                             template: '{{ $resource->template }}',
+                            category_id: '{{ $resource->category_id }}',
                         },
                         quill: {
                             html: '{!! $resource->body !!}',
                             delta: JSON.parse({!! json_encode($resource->delta) !!}),
                         },
                         template: '{{ $resource->template }}',
+                        category_id: '{!! json_encode($resource->category_id) !!}',
                         errors: {!! json_encode($errors->getMessages()) !!},
                         readonly: {
                             slug: true,
