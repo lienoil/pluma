@@ -1,7 +1,10 @@
 <?php
 
-$whoops = new \Whoops\Run();
-$whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
+
+$whoops = new Run();
+$whoops->pushHandler(new PrettyPageHandler());
 // ...add more, even custom ones.
 
 // Set Whoops as the default error and exception handler used by PHP:

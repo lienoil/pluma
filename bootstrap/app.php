@@ -9,7 +9,7 @@
 
 // Create the app instance
 $app = new Pluma\Application\Application(
-    realpath(__DIR__.'/../')
+    realpath(__DIR__ . '/../')
 );
 
 $app->singleton(

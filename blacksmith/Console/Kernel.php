@@ -14,7 +14,7 @@ class Kernel extends BaseKernel
      */
     public $commands = [
         // App
-        // Commands\App\AppInstallCommand::class,
+        Commands\App\AppInstallCommand::class,
 
         // Key
         Commands\Key\KeyGenerateCommand::class,

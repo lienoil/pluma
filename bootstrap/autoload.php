@@ -15,12 +15,11 @@ define('PLUMA_VERSION', 'v2.0.1');
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require realpath(__DIR__ . '/../vendor/autoload.php');
+require realpath(__DIR__ . '/../core/helpers/helpers.php');
+require realpath(__DIR__ . '/../core/helpers/functions.php');
 
-require __DIR__.'/../core/helpers/helpers.php';
-require __DIR__.'/../core/helpers/functions.php';
-
-$compiledPath = __DIR__.'/cache/compiled.php';
+$compiledPath = realpath(__DIR__ . '/cache/compiled.php');
 
 if (file_exists($compiledPath)) {
     require $compiledPath;

@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+use Blacksmith\Console\Commands\App\AppInstallCommand;
+use Symfony\Component\Console\Application;
+
+/**
+ *------------------------------------------------------------------------------
+ * Craftsman
+ *------------------------------------------------------------------------------
+ *
+ * A Standalone console application, meant for installing the actual app.
+ *
+ * Composer provides a convenient, automatically generated class loader
+ * for our application. We just need to utilize it! We'll require it
+ * into the script here so that we do not have to worry about the
+ * loading of any our classes "manually". Feels great to relax.
+ *
+ */
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once realpath(__DIR__ . '/helpers/helpers.php');
+
+// Bootstrap the Blacksmith's own app
+
+$app = new Application('Craftsman', '1.0.0');
+
+$command = new AppInstallCommand();
+
+$app->add($command);
+
+// $app->setDefaultCommand($command->getName(), true);
+$app->run();

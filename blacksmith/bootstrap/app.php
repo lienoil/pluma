@@ -3,17 +3,17 @@
 use Illuminate\Database\Console\Migrations\InstallCommand;
 
 /**
- * --------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Start your Engines
- * --------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  */
 
-include_once __DIR__.'/../helpers/helpers.php';
+include_once __DIR__ . '/../helpers/helpers.php';
 
 // Create the app instance
 $app = new Pluma\Application\Application(
-    realpath(__DIR__.'/../../')
+    realpath(__DIR__ . '/../../')
 );
 
 $app->singleton(
@@ -32,14 +32,14 @@ $app->singleton(
 );
 
 /*
-|--------------------------------------------------------------------------
-| Return The Application
-|--------------------------------------------------------------------------
-|
-| This script returns the application instance. The instance is given to
-| the calling script so we can separate the building of the instances
-| from the actual running of the application and sending responses.
-|
-*/
+ *------------------------------------------------------------------------------
+ * Return The Application
+ *------------------------------------------------------------------------------
+ *
+ * This script returns the application instance. The instance is given to
+ * the calling script so we can separate the building of the instances
+ * from the actual running of the application and sending responses.
+ *
+ */
 
 return $app;
