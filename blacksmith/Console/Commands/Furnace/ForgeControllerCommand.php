@@ -63,7 +63,7 @@ class ForgeControllerCommand extends Command
             $slug = strtolower(str_plural($name));
 
             $template = $filesystem->put(
-                blacksmith_path("templates/controllers/ControllerAdmin.stub"),
+                blacksmith_path("templates/controllers/Controller.stub"),
                 compact('namespace', 'name', 'class', 'model', 'slug')
             );
 
