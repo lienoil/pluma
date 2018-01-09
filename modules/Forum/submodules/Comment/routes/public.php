@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('comments', 'Comment\Controllers\CommentController');
+Route::resource('comments', '\Comment\Controllers\CommentController');
