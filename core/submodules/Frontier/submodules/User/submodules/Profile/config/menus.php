@@ -42,6 +42,7 @@ return [
                     'name' => 'profile.show',
                     'children' => [
                         'profile.show',
+                        'profile.edit',
                     ]
                 ],
                 'labels' => [

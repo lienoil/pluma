@@ -13,7 +13,6 @@ class SettingRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
         switch ($this->method()) {
             case 'POST':
                 if ($this->user()->can('store-setting')) {
@@ -51,7 +50,7 @@ class SettingRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
-            '*' => 'required|max:255',
+            // '*' => 'required|max:255',
             'theme' => 'sometimes|file|required',
         ];
     }

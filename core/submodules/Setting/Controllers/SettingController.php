@@ -51,8 +51,8 @@ class SettingController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Setting\Requests\SettingRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  Setting\Requests\SettingRequest  $request
+     * @return Illuminate\Http\Response
      */
     public function store(SettingRequest $request)
     {

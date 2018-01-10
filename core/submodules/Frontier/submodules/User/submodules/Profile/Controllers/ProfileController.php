@@ -4,8 +4,8 @@ namespace Profile\Controllers;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use Profile\Models\Profile;
-use User\Models\User;
+use Profile\Models\User;
+use Profile\Requests\ProfileRequest;
 
 class ProfileController extends AdminController
 {
@@ -16,64 +16,35 @@ class ProfileController extends AdminController
      * @param  string  $handle
      * @return Illuminate\Http\Response
      */
-    public function show(Request $request, $handle = "")
+    public function show(Request $request, $handle)
     {
-        if (empty($handle)) {
-            return back();
-        }
-
         $resource = User::whereUsername(ltrim($handle, '@'))->first();
 
         return view("Theme::profiles.show")->with(compact('resource'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-
-        return view("Theme::profiles.create");
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Profile\Requests\ProfileRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ProfileControllerRequest $request)
-    {
-        //
-
-        return back();
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Illuminate\Http\Request $request
+     * @param  string  $handle
+     * @return Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $handle)
     {
-        //
+        $resource = User::whereUsername(ltrim($handle, '@'))->firstOrFail();
 
-        return view("Theme::profiles.edit");
+        return view("Theme::profiles.edit")->with(compact('resource'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \ProfileController\Requests\ProfileControllerRequest  $request
+     * @param  Profile\Requests\ProfileRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function update(ProfileControllerRequest $request, $id)
+    public function update(ProfileRequest $request, $id)
     {
         //
 
@@ -83,9 +54,9 @@ class ProfileController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
@@ -97,7 +68,7 @@ class ProfileController extends AdminController
     /**
      * Display a listing of the trashed resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function trash()
     {
@@ -109,11 +80,11 @@ class ProfileController extends AdminController
     /**
      * Restore the specified resource from storage.
      *
-     * @param  \ProfileController\Requests\ProfileControllerRequest  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function restore(ProfileControllerRequest $request, $id)
+    public function restore(Request $request, $id)
     {
         //
 
@@ -123,11 +94,11 @@ class ProfileController extends AdminController
     /**
      * Delete the specified resource from storage permanently.
      *
-     * @param  \ProfileController\Requests\ProfileControllerRequest  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function delete(ProfileControllerRequest $request, $id)
+    public function delete(Request $request, $id)
     {
         //
 

@@ -14,5 +14,5 @@ class Announcement extends Model
 
     protected $appends = ['published', 'expired', 'modified'];
 
-    protected $searchables = ['name', 'code', 'description', 'schedule', 'created_at', 'updated_at'];
+    protected $searchables = ['name', 'code', 'body', 'created_at', 'updated_at'];
 }

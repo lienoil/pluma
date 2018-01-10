@@ -54,7 +54,9 @@
                             <img src="{{ user()->avatar }}" alt="{{ user()->handlename }}">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
-                            <strong><v-list-tile-title>{{ user()->displayname }}</v-list-tile-title></strong>
+                            <v-list-tile-title>
+                                <strong>{{ user()->displayname }}</strong>
+                            </v-list-tile-title>
                             <small>
                                 <v-icon :dark.sync="dark" :light.sync="light">supervisor_account</v-icon>
                                 {{ user()->displayrole }}
@@ -72,7 +74,6 @@
                     <v-list-tile
                         ripple
                         :key="i"
-                        {{-- :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''" --}}
                         :href="child.slug"
                         v-for="(child, i) in menu.children"
                         :title="child.labels.description"
@@ -80,15 +81,11 @@
                         light
                     >
                         <v-list-tile-action>
-                            <v-icon
-                                :dark.sync="dark"
-                                :light.sync="light"
-                            >@{{ child.icon }}</v-icon>
+                            <v-icon :dark.sync="dark" :light.sync="light" v-html="child.icon"></v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content >
-                            <v-list-tile-title>
-                                @{{ child.labels.title }}
-                            </v-list-tile-title>
+                            <v-list-tile-title v-html="child.labels.title"></v-list-tile-title>
+                            <v-list-tile-subtitle class="caption" v-html="child.labels.description"></v-list-tile-subtitle>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list-group>

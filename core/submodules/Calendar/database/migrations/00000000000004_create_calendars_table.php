@@ -42,6 +42,10 @@ class CreateCalendarsTable extends Migration
      */
     public function up()
     {
+        if ($this->schema->hasTable($this->tablename)) {
+            return;
+        }
+
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
             $table->date('date')->index();

@@ -22,10 +22,13 @@ class CreateSettingsTable extends Migration
     public function up()
     {
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            $table->string('key')->unique();
+            $table->string('key');
             $table->text('value')->nullable();
             $table->string('status')->default(1);
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
