@@ -10,7 +10,7 @@ class CreateFailedJobsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'jobs';
+    protected $tablename = 'failed_jobs';
 
     /**
      * Run the migrations.

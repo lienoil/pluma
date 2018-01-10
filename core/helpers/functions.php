@@ -443,7 +443,10 @@ if (! function_exists('write_to_env')) {
             if (strpos(trim($matches[1]), ' ') !== false) {
                 $line = trim($matches[1]) . "={$data[trim($matches[1])]}\n";
             } else {
-                $line = trim($matches[1]) . "=\"{$data[trim($matches[1])]}\"\n";
+                $value = preg_match('/\s/', $data[trim($matches[1])])
+                         ? "\"{$data[trim($matches[1])]}\""
+                         : $data[trim($matches[1])];
+                $line = trim($matches[1]) . "={$value}\n";
             }
             $newLines[] = $line;
         }

@@ -14,7 +14,7 @@ class Kernel extends BaseKernel
      */
     public $commands = [
         // App
-        Commands\App\AppInstallCommand::class,
+        Commands\App\AppVersionCommand::class,
 
         // Key
         Commands\Key\KeyGenerateCommand::class,
@@ -23,6 +23,7 @@ class Kernel extends BaseKernel
         Commands\DB\DBDropCommand::class,
         Commands\DB\DBEmptyCommand::class,
         Commands\DB\DBMigrateCommand::class,
+        Commands\DB\DBSeedCommand::class,
         Commands\Furnace\ForgeAccountCommand::class,
         Commands\Furnace\ForgeControllerCommand::class,
         Commands\Furnace\ForgeModelCommand::class,

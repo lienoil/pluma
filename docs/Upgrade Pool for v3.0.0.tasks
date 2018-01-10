@@ -90,7 +90,6 @@ Modules:
   ☐ /config/menus.php : avoid using the user() object in the menus
 
 
-
 Models:
   Category:
     ☐ rename `categorable_type` to `type`

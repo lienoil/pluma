@@ -24,10 +24,7 @@ class SettingsTableSeeder extends AbstractSeed
         ];
 
         foreach ($data as $key => $value) {
-            $setting = new Setting();
-            $setting->key = $key;
-            $setting->value = $value;
-            $setting->save();
+            Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
         }
     }
 }
