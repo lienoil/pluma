@@ -54,7 +54,7 @@ class PurgeCacheCommand extends Command
                     $this->warn("Unable to delete directory. Permission denied.");
                 }
             } else {
-                if (! in_array(basename($file), $restrictedFiles)) {
+                if (! in_array(basename($directory), $restrictedFiles)) {
                     if (! $filesystem->delete($directory)) {
                         @chmod($directory, 0777);
                         if (! @unlink($directory)) {

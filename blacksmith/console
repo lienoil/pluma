@@ -24,8 +24,5 @@ require_once dirname(__DIR__) . '/bootstrap/autoload.php';
 require_once realpath(__DIR__ . '/helpers/helpers.php');
 
 $console = new Application('Craftsman', '1.0.0');
-
-$command = new AppInstallCommand();
-$console->add($command);
-
+$console->add((new AppInstallCommand()));
 $console->run();

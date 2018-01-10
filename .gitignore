@@ -1,12 +1,10 @@
 **/*.zip
 *.sh
+! storage/**/*.gitkeep
 .env
 .php_cs.cache
 .sass-cache/
 bower_components/
 node_modules/
-storage/compiled/sessions/*
-storage/compiled/views/*
-storage/framework/cache/*
 storage/public
 vendor/

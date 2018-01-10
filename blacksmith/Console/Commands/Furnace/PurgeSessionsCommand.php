@@ -3,23 +3,24 @@
 namespace Blacksmith\Console\Commands\Furnace;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 use Pluma\Support\Console\Command;
 
-class PurgeViewCommand extends Command
+class PurgeSessionsCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'purge:view';
+    protected $signature = 'purge:sessions';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Purge the compiled views from storage';
+    protected $description = 'Purge the compiled sessions from storage';
 
     /**
      * Execute the console command.
@@ -28,13 +29,18 @@ class PurgeViewCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        $this->line("Clearing cached views from /storage/compiled/views...");
+        @session_destroy();
+        @session_unset();
+        session()->flush();
+        session()->regenerate();
 
-        $path = storage_path('compiled/views');
+        $this->line("Clearing cached views from /storage/compiled/sessions...");
+
+        $path = storage_path('compiled/sessions');
 
         $restrictedFiles = ['.gitignore', '.gitkeep'];
 
-        foreach (glob("$path/**") as $file) {
+        foreach (glob("$path/*") as $file) {
             if (! in_array(basename($file), $restrictedFiles)) {
                 $filesystem->delete($file);
             }
