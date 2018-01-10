@@ -1,11 +1,12 @@
+**/*.zip
+*.sh
 .env
 .php_cs.cache
 .sass-cache/
-*.sh
 bower_components/
 node_modules/
-storage/compiled/
-storage/compiled/
-storage/framework/cache/
+storage/compiled/sessions/*
+storage/compiled/views/*
+storage/framework/cache/*
 storage/public
 vendor/

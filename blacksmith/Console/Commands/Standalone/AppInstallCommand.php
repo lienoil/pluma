@@ -155,7 +155,7 @@ class AppInstallCommand extends Command
         sleep(1);
         $output->writeln([
             "",
-            '<comment>Almost done...</comment>',
+            '<comment>You are halfway through...</comment>',
             "",
         ]);
 
