@@ -66,6 +66,7 @@ class ApplicationViewComposer extends BaseViewComposer
             'site' => $this->site(),
             'token' => csrf_token(),
             'version' => "v" . app()->version(),
+            'timestamp' => @settings('site_timestamp', app()->version()),
         ]));
     }
 

@@ -12,9 +12,9 @@ class ProfileController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Illuminate\Http\Request $request
      * @param  string  $handle
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function show(Request $request, $handle = "")
     {

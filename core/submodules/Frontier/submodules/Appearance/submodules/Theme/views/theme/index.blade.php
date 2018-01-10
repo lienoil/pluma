@@ -63,6 +63,7 @@
                         <form action="{{ route('settings.store') }}" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" name="active_theme" value="{{ $resource->code }}">
+                            <input type="hidden" name="site_timestamp" value="{{ date('YmdHis') }}">
                             <v-card class="mb-3 elevation-1">
                                 <v-card-media src="{{ $resource->preview }}" height="200px">
                                     <v-layout column wrap flex-end fill-height>

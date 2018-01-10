@@ -43,14 +43,14 @@
     @show
 
     @stack("css")
-        <link href="{{ assets('frontier/vendors/vuetify/dist/vuetify.min.css') }}?v={{ $application->version }}" rel="stylesheet">
+        <link href="{{ assets('frontier/vendors/vuetify/dist/vuetify.min.css') }}?timestamp={{ $application->timestamp }}" rel="stylesheet">
         {{-- compile this --}}
         @if (env('APP_ENV', 'production') == 'development')
-            <script src="{{ assets('frontier/vendors/vue/dist/vue.js') }}?v={{ $application->version }}"></script>
+            <script src="{{ assets('frontier/vendors/vue/dist/vue.js') }}?timestamp={{ $application->timestamp }}"></script>
         @else
-            <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?v={{ $application->version }}"></script>
+            <script src="{{ assets('frontier/vendors/vue/dist/vue.min.js') }}?timestamp={{ $application->timestamp }}"></script>
         @endif
-        <script src="{{ assets('frontier/vendors/vuetify/dist/vuetify.min.js') }}?v={{ $application->version }}"></script>
+        <script src="{{ assets('frontier/vendors/vuetify/dist/vuetify.min.js') }}?timestamp={{ $application->timestamp }}"></script>
         {{-- ^complile this --}}
     @show
 
@@ -58,7 +58,7 @@
 
     {{-- Theme Specific --}}
     @section("theme-css")
-    <link href="{{ theme('css/style.css') }}?v={{ $application->version }}" rel="stylesheet">
+    <link href="{{ theme('css/style.css') }}?timestamp={{ $application->timestamp }}" rel="stylesheet">
     @show
     {{-- /Theme Specific --}}
 </head>

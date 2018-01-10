@@ -379,6 +379,14 @@ if (! function_exists('require_config')) {
 }
 
 if (! function_exists("settings")) {
+    /**
+     * Helper function to get values from the settings table.
+     *
+     * @param  string  $key
+     * @param  string  $default
+     * @param  boolean $serialized
+     * @return mixed
+     */
     function settings($key = null, $default = null, $serialized = false)
     {
         try {

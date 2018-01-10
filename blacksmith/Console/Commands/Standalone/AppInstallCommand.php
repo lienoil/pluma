@@ -266,6 +266,15 @@ class AppInstallCommand extends Command
         // Exit
         $output->writeln("<comment>All Done ;).</comment>");
         sleep(1);
+
+        $status = $kernel->handle(
+            $input = new \Symfony\Component\Console\Input\ArrayInput(
+                ["app:homepage"]
+            ),
+            new \Symfony\Component\Console\Output\ConsoleOutput
+        );
+
+
         $kernel->terminate($input, $status);
         exit($status);
     }
