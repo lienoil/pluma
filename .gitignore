@@ -4,8 +4,8 @@
 *.sh
 bower_components/
 node_modules/
-storage/compiled/sessions/
-storage/compiled/views/
+storage/compiled/
+storage/compiled/
 storage/framework/cache/
 storage/public
 vendor/
