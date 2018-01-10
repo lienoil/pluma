@@ -49,7 +49,6 @@ class AppInstallCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<comment>Initializing console...</comment>');
-        $this->loadEnvironmentFile();
 
         sleep(1);
         $output->writeln('<comment>Starting installation...</comment>');
@@ -58,6 +57,7 @@ class AppInstallCommand extends Command
         $output->writeln('<comment>Checking environment file...</comment>');
         sleep(1);
         $this->checkEnvironmentFile();
+        $this->loadEnvironmentFile();
         $output->writeln('<comment>Environment checked.</comment>');
 
         sleep(1);
@@ -169,7 +169,9 @@ class AppInstallCommand extends Command
      */
     protected function loadEnvironmentFile()
     {
-        (new \Dotenv\Dotenv(blacksmith_base_path()))->load();
+        if (file_exists(blacksmith_base_path('.env'))) {
+            (new \Dotenv\Dotenv(blacksmith_base_path()))->overload();
+        }
     }
 
     /**
@@ -204,6 +206,7 @@ class AppInstallCommand extends Command
     {
         sleep(1);
         $output->writeln("<comment>Initializing the application...</comment>");
+        $this->loadEnvironmentFile();
         sleep(1);
 
         $app = require blacksmith_path('bootstrap/app.php');
