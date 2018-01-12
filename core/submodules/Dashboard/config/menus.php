@@ -5,9 +5,9 @@ return [
         'name' => 'dashboard',
         'is_parent' => true,
         'order' => 5,
-        'slug' => url(config('path.admin').'/dashboard'),
+        'slug' => route('dashboard'),
         'always_viewable' => true,
-        'icon' => 'widgets',
+        'icon' => 'dashboard',
         'labels' => [
             'title' => __('Dashboard'),
             'description' => __('View summary and overview of the app.'),

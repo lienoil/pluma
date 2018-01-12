@@ -38,7 +38,7 @@
 
     {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
 
-    <v-list two-line>
+    <v-list>
         <template v-for="(menu, i) in navigation.sidebar">
             {{-- Avatar --}}
             <template v-if="menu.is_avatar">
@@ -49,17 +49,17 @@
                     v-model="menu.active"
                 >
                     {{-- headmenu --}}
-                    <v-list-tile ripple slot="item">
-                        <v-list-tile-avatar class="pt-0" v-tooltip:right="{html: '{{ user()->handlename }}'}">
-                            <img src="{{ user()->avatar }}" alt="{{ user()->handlename }}">
+                    <v-list-tile slot="item">
+                        <v-list-tile-avatar class="pt-0" size="30px" v-tooltip:right="{html: menu.labels.name}">
+                            <img :src="menu.labels.avatar" :alt="menu.labels.name">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
                             <v-list-tile-title>
-                                <strong>{{ user()->displayname }}</strong>
+                                <strong v-html="menu.labels.name"></strong>
                             </v-list-tile-title>
                             <small>
                                 <v-icon :dark.sync="dark" :light.sync="light">supervisor_account</v-icon>
-                                {{ user()->displayrole }}
+                                <span v-html="menu.labels.role"></span>
                             </small>
                         </v-list-tile-content>
                         <v-list-tile-action>
@@ -71,23 +71,27 @@
                     </v-list-tile>
 
                     {{-- childmenu --}}
-                    <v-list-tile
-                        ripple
-                        :key="i"
-                        :href="child.slug"
-                        v-for="(child, i) in menu.children"
-                        :title="child.labels.description"
-                        v-model="child.active"
-                        light
-                    >
-                        <v-list-tile-action>
-                            <v-icon :dark.sync="dark" :light.sync="light" v-html="child.icon"></v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content >
-                            <v-list-tile-title v-html="child.labels.title"></v-list-tile-title>
-                            <v-list-tile-subtitle class="caption" v-html="child.labels.description"></v-list-tile-subtitle>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                    <template v-for="(child, i) in menu.children">
+                        <v-divider v-if="child.is_divider"></v-divider>
+                        <v-list-tile
+                            v-else
+                            ripple
+                            :key="i"
+                            :href="child.slug"
+                            :title="child.labels.description"
+                            v-model="child.active"
+                            light
+                        >
+                            <v-list-tile-action>
+                                <v-icon :dark.sync="dark" :light.sync="light" v-html="child.icon"></v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content >
+                                <v-list-tile-title v-html="child.labels.title"></v-list-tile-title>
+                                {{-- <v-list-tile-subtitle class="caption" v-html="child.labels.description"></v-list-tile-subtitle> --}}
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </template>
+
                 </v-list-group>
             </template>
             {{-- /Avatar --}}
@@ -150,7 +154,7 @@
                 <template
                     v-for="(child, i) in menu.children"
                 >
-                    <v-divider class="my-2" v-if="child.is_divider"></v-divider>
+                    <v-divider v-if="child.is_divider"></v-divider>
                     <v-list-tile
                         ripple
                         v-else

@@ -1,10 +1,10 @@
 <?php
 
-namespace User\Requests;
+namespace Widget\Requests;
 
 use Pluma\Requests\FormRequest;
 
-class UserRequest extends FormRequest
+class WidgetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,25 +13,21 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->user()->id === $this->id) {
-            return true;
-        }
-
         switch ($this->method()) {
             case 'POST':
-                if ($this->user()->can('store-user')) {
+                if ($this->user()->can('store-widget')) {
                     return true;
                 }
                 break;
 
             case 'PUT':
-                if ($this->user()->can('update-user')) {
+                if ($this->user()->can('update-widget')) {
                     return true;
                 }
                 break;
 
             case 'DELETE':
-                if ($this->user()->can('destroy-user')) {
+                if ($this->user()->can('destroy-widget')) {
                     return true;
                 }
                 break;
@@ -54,12 +50,8 @@ class UserRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
-            'firstname' => 'sometimes|required|max:255',
-            'lastname' => 'sometimes|required|max:255',
-            'password' => 'sometimes|required|min:6|confirmed',
-            'username' => 'sometimes|required|regex:/^[\pL\s\-\.\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
-            'email' => 'required|email|unique:users'.$isUpdating,
-            'roles' => 'sometimes|required',
+            'name' => 'required|max:255',
+            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:widgets'.$isUpdating,
         ];
     }
 
@@ -72,7 +64,6 @@ class UserRequest extends FormRequest
     {
         return [
             'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
-            'description.regex' => 'Only letters, spaces, and hypens are allowed.',
         ];
     }
 }

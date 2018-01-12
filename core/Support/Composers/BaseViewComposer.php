@@ -155,4 +155,14 @@ class BaseViewComposer
 
         return $segment;
     }
+
+    /**
+     * Get all the modules.
+     *
+     * @return array
+     */
+    public function modules()
+    {
+        return get_modules_path();
+    }
 }

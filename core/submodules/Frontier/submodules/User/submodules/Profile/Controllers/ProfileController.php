@@ -6,6 +6,7 @@ use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Profile\Models\User;
 use Profile\Requests\ProfileRequest;
+use User\Requests\UserRequest;
 
 class ProfileController extends AdminController
 {
@@ -26,11 +27,11 @@ class ProfileController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Illuminate\Http\Request $request
+     * @param  Profile\Requests\ProfileRequest $request
      * @param  string  $handle
      * @return Illuminate\Http\Response
      */
-    public function edit(Request $request, $handle)
+    public function edit(ProfileRequest $request, $handle)
     {
         $resource = User::whereUsername(ltrim($handle, '@'))->firstOrFail();
 
@@ -40,68 +41,23 @@ class ProfileController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Profile\Requests\ProfileRequest  $request
-     * @param  int  $id
+     * @param  User\Requests\UserRequest  $request
+     * @param  string  $handle
      * @return Illuminate\Http\Response
      */
-    public function update(ProfileRequest $request, $id)
+    public function update(ProfileRequest $request, $handle)
     {
-        //
+        $user = User::whereUsername($handle)->firstOrFail();
+        $user->firstname = $request->input('firstname');
+        $user->middlename = $request->input('middlename');
+        $user->lastname = $request->input('lastname');
+        $user->email = $request->input('email');
+        $user->save();
+
+        foreach ($request->input('details') as $key => $value) {
+            $user->details()->updateOrCreate(['key' => $key], ['key' => $key, 'value' => $value]);
+        }
 
         return back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Illuminate\Http\Response
-     */
-    public function destroy(Request $request, $id)
-    {
-        //
-
-        return redirect()->route('ProfileController.index');
-    }
-
-    /**
-     * Display a listing of the trashed resource.
-     *
-     * @return Illuminate\Http\Response
-     */
-    public function trash()
-    {
-        //
-
-        return view("Theme::profiles.trash");
-    }
-
-    /**
-     * Restore the specified resource from storage.
-     *
-     * @param  Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Illuminate\Http\Response
-     */
-    public function restore(Request $request, $id)
-    {
-        //
-
-        return back();
-    }
-
-    /**
-     * Delete the specified resource from storage permanently.
-     *
-     * @param  Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Illuminate\Http\Response
-     */
-    public function delete(Request $request, $id)
-    {
-        //
-
-        return redirect()->route('ProfileController.trash');
     }
 }

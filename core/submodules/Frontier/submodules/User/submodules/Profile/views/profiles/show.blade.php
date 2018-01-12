@@ -5,14 +5,14 @@
 @section("content")
     @include("Frontier::partials.banner")
 
-    <v-parallax height="280" src="{{ $resource->setting('user_profile_banner', 'http://source.unsplash.com/800x400?galaxy') }}" class="elevation-0">
+    <v-parallax height="280" src="{{ $resource->setting('user_profile_banner', 'http://source.unsplash.com/1800x980?galaxy') }}" class="elevation-0">
         <div class="text-xs-right"><v-btn icon class="grey--text darken-1"><v-icon>photo_camera</v-icon></v-btn></div>
         <v-layout row wrap align-end justify-bottom>
             <v-flex xs12>
                 <v-card dark class="elevation-0 transparent" row>
                     <v-card-text>
-                        <v-avatar tile size="120px" class="elevation-1">
-                            <img src="{{ auth()->user()->avatar }}" alt="{{ $resource->fullname }}" height="120">
+                        <v-avatar tile size="120px" class="elevation-0">
+                            <img src="{{ $resource->avatar }}" alt="{{ $resource->fullname }}" height="120">
                         </v-avatar>
                         <div class="title pt-2">{{ $resource->fullname }}</div>
                         <div class="subheading pb-2">{{ $resource->displayrole }}</div>
@@ -25,7 +25,9 @@
     <v-card class="elevation-1">
         <v-toolbar class="white elevation-0">
             <v-spacer></v-spacer>
-            <v-btn round outline href="{{ route('profile.edit', $resource->handlename) }}" class="purple--text text--lighten-3">{{ __('Edit Profile') }}</v-btn>
+            @user($resource->id)
+                <v-btn round outline href="{{ route('profile.edit', $resource->handlename) }}" class="primary--text text--lighten-3">{{ __('Edit Profile') }}</v-btn>
+            @enduser
         </v-toolbar>
     </v-card>
 
@@ -33,17 +35,17 @@
         <v-layout row wrap>
             <v-flex md4 xs12>
                 <v-layout row wrap>
-                    <v-flex xs12>
+                    {{-- <v-flex xs12>
+
                         <v-card dark class="elevation-1" style="background: linear-gradient(141deg, #f2a8ff 0%, #c5a5ff 51%, #91a1f7 75%);">
-                            <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.38); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
-                            <v-layout row wrap class="media">
-                                <v-card-text class="subheading">
-                                    <div> 2 courses enrolled </div>
-                                </v-card-text>
-                            </v-layout>
+                            <v-card-text class="subheading">
+                                <div class="white--text">2 courses enrolled </div>
+                            </v-card-text>
                         </v-card>
-                    </v-flex>
+
+                    </v-flex> --}}
                     <v-flex xs12>
+                        {{ $widgets->co }}
                         @include("Dashboard::widgets.todo-list")
                     </v-flex>
                 </v-layout>
@@ -63,10 +65,10 @@
                                     <v-tabs-content id="about">
                                         <v-card flat>
                                             <v-card-text>
-                                                <v-subheader class="pl-0">Basic Information</v-subheader>
+                                                <v-subheader class="pl-0">{{ __('Basic Information') }}</v-subheader>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
-                                                        Full Name
+                                                        {{ __('Full Name') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
@@ -75,7 +77,7 @@
                                                 </v-layout>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
-                                                        Email Address
+                                                        {{ __('Email Address') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
@@ -84,48 +86,39 @@
                                                 </v-layout>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
-                                                        Username
+                                                        {{ __('Gender') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->username }}
+                                                        {{ $resource->setting('gender') }}
                                                     </v-flex>
                                                 </v-layout>
                                                 <v-subheader class="pl-0">Other Details</v-subheader>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
-                                                        Gender
+                                                        {{ __('Birthday') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->detail->gender }}
+                                                        {{ $resource->setting('birthday') }}
                                                     </v-flex>
                                                 </v-layout>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
-                                                        Birthday
+                                                        {{ __('Home Address') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->detail->birthday }}
+                                                        {{ $resource->setting('home_address') }}
                                                     </v-flex>
                                                 </v-layout>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
-                                                        Home Address
+                                                        {{ __('Phone Number') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->detail->address }}
-                                                    </v-flex>
-                                                </v-layout>
-                                                <v-layout row wrap>
-                                                    <v-flex xs4 class="grey--text body-1">
-                                                        Phone Number
-                                                    </v-flex>
-
-                                                    <v-flex xs8 class="body-1">
-                                                        {{ $resource->detail->phone }}
+                                                        {{ $resource->setting('phone_number') }}
                                                     </v-flex>
                                                 </v-layout>
                                             </v-card-text>
@@ -163,23 +156,6 @@
         </v-layout>
     </v-container>
 @endsection
-
-@push('css')
-    <style>
-        /*.overlay-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        .media .card__text {
-            z-index: 1;
-        }
-        .no--decoration {
-            text-decoration: none;
-        }*/
-    </style>
-@endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>

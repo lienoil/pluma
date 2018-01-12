@@ -33,7 +33,7 @@ trait UserMutator
     {
         if (isset($this->roles)) {
             foreach ($this->roles as $role) {
-                $this->rolesnames[] = $role->alias;
+                $this->rolesnames[$role->alias] = $role->alias;
             }
         } else {
             $this->rolesnames[] = __('Guest');

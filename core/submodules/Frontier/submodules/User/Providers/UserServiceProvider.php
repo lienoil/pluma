@@ -2,6 +2,7 @@
 
 namespace User\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Support\Auth\AuthServiceProvider;
 use User\Models\User;
@@ -44,10 +45,24 @@ class UserServiceProvider extends AuthServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+        parent::boot();
 
-        $this->bootObservables();
+        $this->bootBladeDirectives();
+    }
 
-        $this->registerProviders();
+    /**
+     * Registers additional Blade Directives in the context of this module.
+     *
+     * @return void
+     */
+    public function bootBladeDirectives()
+    {
+        Blade::directive('user', function ($expression) {
+            return "<?php if (user()->id === $expression) : ?>";
+        });
+
+        Blade::directive('enduser', function () {
+            return "<?php endif; ?>";
+        });
     }
 }

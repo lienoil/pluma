@@ -72,6 +72,7 @@
                     <v-list-tile
                         ripple
                         :key="i"
+                        :class="{'list__tile--active': (child.child && child.child.active) || child.active}"
                         {{-- :class="(child.child && child.child.active) || child.active ? 'active--primary' : ''" --}}
                         :href="child.slug"
                         v-for="(child, i) in menu.children"

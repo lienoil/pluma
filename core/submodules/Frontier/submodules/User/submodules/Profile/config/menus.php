@@ -13,15 +13,10 @@ return [
         'order' => 0,
         'name' => 'avatar',
         'always_viewable' => true,
-        'routes' => [
-            'name' => 'profile.index',
-            'children' => [
-                'profile.show',
-            ]
-        ],
         'labels' => [
-            'title' => __('Profile'),
-            'description' => __('Manage profile'),
+            'avatar' => user()->avatar,
+            'name' => user()->fullname,
+            'role' => user()->displayrole,
         ],
         'children' => [
             /**
@@ -41,14 +36,34 @@ return [
                 'routes' => [
                     'name' => 'profile.show',
                     'children' => [
-                        'profile.show',
                         'profile.edit',
+                        'profile.show',
                     ]
                 ],
                 'labels' => [
-                    'title' => __('Profile'),
+                    'title' => __('My Profile'),
                     'description' => __('Manage profile'),
                 ],
+            ],
+
+            'change-password' => [
+                'name' => 'change-password',
+                'order' => 2,
+                'slug' => route('profile.credential', user()->handlename),
+                'always_viewable' => true,
+                'icon' => 'vpn_key',
+                'labels' => [
+                    'title' => __('Credentials'),
+                    'description' => __('Update password and more'),
+                ],
+            ],
+
+            'profile-logout-divider' => [
+                'name' => 'profile-logout-divider',
+                'is_header' => true,
+                'is_divider' => true,
+                'parent' => 'profile',
+                'order' => 40,
             ],
 
             /**
@@ -61,7 +76,7 @@ return [
              */
             'logout' => [
                 'name' => 'logout',
-                'order' => 2,
+                'order' => 50,
                 'slug' => route('logout.logout'),
                 'always_viewable' => true,
                 'icon' => 'exit_to_app',

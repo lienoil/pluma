@@ -9,9 +9,7 @@ class Detail extends Model
 {
     use BelongsToUser;
 
-    protected $with = [];
+    protected $fillable = ['user_id', 'key', 'value'];
 
-    protected $fillable = ['user_id'];
-
-    protected $searchables = ['gender', 'sex', 'birthday', 'phone', 'address'];
+    protected $searchables = ['value'];
 }
