@@ -9,7 +9,6 @@ use User\Requests\PasswordChangeRequest;
 
 class PasswordController extends AdminController
 {
-
     /**
      * Display the form to change password.
      *

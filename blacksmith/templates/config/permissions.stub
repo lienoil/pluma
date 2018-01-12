@@ -67,9 +67,9 @@ return [
         'description' => 'Ability to permanently delete the $code',
         'group' => '$code',
     ],
-    'trash-$code' => [
-        'name' =>  '$slug.trash',
-        'code' => 'trash-$code',
+    'trashed-$code' => [
+        'name' =>  '$slug.trashed',
+        'code' => 'trashed-$code',
         'description' => 'Ability to view the list of all trashed $code',
         'group' => '$code',
     ],
@@ -79,26 +79,4 @@ return [
         'description' => 'Ability to restore the $code',
         'group' => '$code',
     ],
-
-    // Many
-    'destroy-many-$code' => [
-        'name' =>  '$slug.many.destroy',
-        'code' => 'destroy-many-$code',
-        'description' => 'Ability to destroy many $slug',
-        'group' => '$code',
-    ],
-    'delete-many-$code' => [
-        'name' =>  '$slug.many.delete',
-        'code' => 'delete-many-$code',
-        'description' => 'Ability to permanently delete many $slug',
-        'group' => '$code',
-    ],
-    'restore-many-$code' => [
-        'name' => '$slug.many.restore',
-        'code' => 'restore-many-$code',
-        'description' => 'Ability to restore many $slug',
-        'group' => '$code',
-    ],
-
-    //
 ];

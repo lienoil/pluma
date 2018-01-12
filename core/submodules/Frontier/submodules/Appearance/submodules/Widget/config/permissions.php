@@ -67,9 +67,9 @@ return [
         'description' => 'Ability to permanently delete the widget',
         'group' => 'widget',
     ],
-    'trash-widget' => [
-        'name' =>  'widgets.trash',
-        'code' => 'trash-widget',
+    'trashed-widget' => [
+        'name' =>  'widgets.trashed',
+        'code' => 'trashed-widget',
         'description' => 'Ability to view the list of all trashed widget',
         'group' => 'widget',
     ],
@@ -79,26 +79,4 @@ return [
         'description' => 'Ability to restore the widget',
         'group' => 'widget',
     ],
-
-    // Many
-    'destroy-many-widget' => [
-        'name' =>  'widgets.many.destroy',
-        'code' => 'destroy-many-widget',
-        'description' => 'Ability to destroy many widgets',
-        'group' => 'widget',
-    ],
-    'delete-many-widget' => [
-        'name' =>  'widgets.many.delete',
-        'code' => 'delete-many-widget',
-        'description' => 'Ability to permanently delete many widgets',
-        'group' => 'widget',
-    ],
-    'restore-many-widget' => [
-        'name' => 'widgets.many.restore',
-        'code' => 'restore-many-widget',
-        'description' => 'Ability to restore many widgets',
-        'group' => 'widget',
-    ],
-
-    //
 ];

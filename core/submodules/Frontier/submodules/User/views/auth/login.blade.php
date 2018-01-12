@@ -1,122 +1,106 @@
 @extends("Theme::layouts.auth")
 
 @section("content")
-    <v-card flat class="transparent ma-0">
-        {{-- <div class="primary" style="height: 3px;"></div> --}}
-        <v-toolbar class="accent elevation-0" extended></v-toolbar>
-        <v-layout>
-            <v-flex xs10 sm6 md4 offset-sm3 offset-md4 offset-xs1>
+    <main id="main" class="main">
+        <v-container fluid fill-height>
+            <v-layout fill-height column wrap justify-center align-center>
+                <v-flex lg6 md10 sm10 xs12 fill-height justify-center align-center>
 
-                @include("Theme::partials.banner")
+                    @include("Theme::partials.banner")
 
-                <v-card class="card--flex-toolbar card--flex-toolbar--stylized" transition="slide-x-transition">
-                    <v-toolbar card class="white text-xs-center" prominent>
-                        <v-spacer v-if="settings && settings.logo_is_centered"></v-spacer>
-                        <img class="brand-logo" width="40" avatar src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
-                        <v-toolbar-title class="brand-type accent--text">{{ __($application->site->title) }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                    </v-toolbar>
-                    <v-divider></v-divider>
-                    <v-container fluid>
-                        <form action="{{ route('login.login') }}" method="POST">
-                            {{ csrf_field() }}
-                            <v-text-field
-                                :error-messages="resource.errors.username"
-                                class="input-group"
-                                label="Email or username"
-                                name="username"
-                                type="text"
-                                hide-details
-                                value="{{ old('username') }}"
-                            ></v-text-field>
-                            <v-text-field
-                                :append-icon-cb="() => (resource.visible = !resource.visible)"
-                                :append-icon="resource.visible ? 'visibility' : 'visibility_off'"
-                                :error-messages="resource.errors.password"
-                                :type="resource.visible ? 'text': 'password'"
-                                class="input-group"
-                                label="Password"
-                                min="6"
-                                name="password"
-                                hide-details
-                                value="{{ old('password') }}"
-                            ></v-text-field>
-
-                            <v-checkbox
-                                :checked="resource.remember"
-                                label="Remember Me"
-                                light
-                                hide-details
-                                v-model="resource.remember"
-                                @click="() => {resource.remember = !resource.remember}"
-                            ></v-checkbox>
-                            <input v-if="resource.remember" type="hidden" name="remember" value="true">
-
-
-                            <v-card-actions>
-                                    <v-btn class="ma-0" role="button" secondary outline href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
-                                @setting('site_membership' > 0)
-                                @endsetting
-                                <v-spacer></v-spacer>
-                                <v-btn class="ma-0 elevation-1" primary type="submit">{{ __("Login") }}</v-btn>
-                            </v-card-actions>
-                        </form>
-                    </v-container>
-
-                    {{-- Template --}}
-                    {{-- <template inline-template>
-                        <div class="hr">
-                            <strong class="hr-text grey--text text--lighten-2">or</strong>
-                        </div>
-                        <v-layout>
-                            <v-flex md6 class="text-xs-center">
-                                <v-btn block class="grey--text elevation-0">
-                                    <i class="fa fa-google">&nbsp;</i>
-                                    Google
-                                </v-btn>
+                    <v-card class="elevation-1 mb-1">
+                        <v-layout row wrap>
+                            <v-flex md5 xs12 class="accent lighten-1">
+                                <v-layout row wrap justify-center align-center>
+                                    <v-flex xs12>
+                                        <v-card class="elevation-0 transparent white--text" height="100%">
+                                            <v-card-text class="text-xs-center">
+                                                <v-layout row wrap justify-center align-center>
+                                                    <v-flex xs12>
+                                                        <p><img src="{{ settings('login_logo', assets('frontier/images/placeholder/paper-pencil-magnifier.svg')) }}" alt="" width="150"></p>
+                                                        <h4>{{ $application->site->title }}</h4>
+                                                        <p>{{ __($application->site->tagline) }}</p>
+                                                    </v-flex>
+                                                </v-layout>
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-flex>
+                                </v-layout>
                             </v-flex>
-                            <v-flex md6 class="text-xs-center">
-                                <v-spacer></v-spacer>
-                                <v-btn block class="grey--text elevation-0">
-                                    <i class="fa fa-facebook">&nbsp;</i>
-                                    Facebook
-                                </v-btn>
+                            <v-flex md7 xs12>
+                                <form action="{{ route('login.login') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <v-card tile flat transition="slide-x-transition" height="500px">
+                                        <v-toolbar card class="white">
+                                            <img class="brand-logo" width="30" class="mt-2" avatar src="{{ $application->site->logo }}" alt="{{ $application->site->title }}"/>
+                                            <v-toolbar-title class="brand-type grey--text text--darken-1">
+                                                {{ $application->site->title }} <span class="grey--text">| {{ $application->page->title }}</span>
+                                            </v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                        </v-toolbar>
+                                        <v-divider></v-divider>
+                                        <v-card-text>
+                                            <v-card flat>
+                                                <v-card-text class="pa-0">
+                                                    <v-text-field
+                                                        :error-messages="resource.errors.username"
+                                                        class="input-group"
+                                                        label="Email or username"
+                                                        name="username"
+                                                        type="text"
+                                                        value="{{ old('username') }}"
+                                                    ></v-text-field>
+                                                    <v-text-field
+                                                        :append-icon-cb="() => (resource.visible = !resource.visible)"
+                                                        :append-icon="resource.visible ? 'visibility' : 'visibility_off'"
+                                                        :error-messages="resource.errors.password"
+                                                        :type="resource.visible ? 'text': 'password'"
+                                                        class="input-group"
+                                                        label="Password"
+                                                        min="6"
+                                                        name="password"
+                                                        value="{{ old('password') }}"
+                                                    ></v-text-field>
+
+                                                    <v-checkbox
+                                                        :checked="resource.remember"
+                                                        label="Remember Me"
+                                                        light
+                                                        class="mb-3"
+                                                        color="primary"
+                                                        hide-details
+                                                        v-model="resource.remember"
+                                                        @click="() => {resource.remember = !resource.remember}"
+                                                    ></v-checkbox>
+                                                    <input v-if="resource.remember" type="hidden" name="remember" value="true">
+                                                </v-card-text>
+                                                <v-card-actions>
+                                                    <v-btn primary role="button" class="elevation-1 mx-0" type="submit">{{ __("Login") }}</v-btn>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn info outline role="button" href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
+                                                </v-card-actions>
+                                                <v-card-actions>
+                                                    <a class="grey--text" href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>
+                                                </v-card-actions>
+                                            </v-card>
+
+                                        </v-card-text>
+                                    </v-card>
+                                </form>
+
+                                @stack('post-login')
                             </v-flex>
                         </v-layout>
-                    </template> --}}
-                    {{-- /Template --}}
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions class="pa-3">
+                    </v-card>
+                    <v-card-actions class="px-0">
                         <v-spacer></v-spacer>
-                        <a href="{{ route('register.show') }}">{{ __('Lost password?') }}</a>
+                        <small class="grey--text text--darken-1">{{ __($application->site->copyright) }}</small>
                     </v-card-actions>
-                </v-card>
-
-                @stack('post-login')
-
-                <div class="text-xs-center mt-1 mb-4">
-                    <small class="grey--text">{{ __($application->site->copyright) }}</small>
-                </div>
-
-            </v-flex>
-        </v-layout>
-    </v-card>
-
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </main>
 @endsection
-
-@push('post-css')
-    <style>
-        .card--flex-toolbar--stylized {
-            margin-top: -65px;
-        }
-    </style>
-    {{-- <style>
-        @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);.card--flex-toolbar--stylized{margin-top:-64px}.hr{text-align:center;position:relative}.hr:after,.hr:before{content:"";display:block;width:40%;height:1px;margin:2px 1rem;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);background-color:rgba(0,0,0,.15)}.hr:after{text-align:left;position:absolute;left:0}.hr:before{position:absolute;text-align:right;right:0}[class*=application-] .color--google:hover{background-color:#db3236;color:#fff}[class*=application-] .color--facebook:hover{background-color:#3a589e;color:#fff}
-        /*# sourceMappingURL=login.css.map*/
-    </style> --}}
-@endpush
 
 @push('pre-scripts')
     <script>
