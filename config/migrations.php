@@ -2,8 +2,8 @@
 
 return [
     'paths' => [
-        'seeds' => [__DIR__.'/database/seeds'],
-        'migrations' => [__DIR__.'/database/migrations'],
+        'seeds' => [__DIR__ . '/database/seeds'],
+        'migrations' => [__DIR__ . '/database/migrations'],
     ],
     'migration_base_class' => '\Pluma\Support\Migration\Migration',
     'environments' => [

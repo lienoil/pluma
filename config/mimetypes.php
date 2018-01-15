@@ -1,6 +1,18 @@
 <?php
 
 return [
+    /**
+     *--------------------------------------------------------------------------
+     * Mime Types
+     *--------------------------------------------------------------------------
+     *
+     * An attempt to document most of the file formats used frequently on the
+     * web. This is by no means definitive nor accurate, so use at your own risk.
+     *
+     * This file, we don't know why it's here. We just left it here in fear of
+     * breaking something somewhere in the app.
+     *
+     */
     'txt' => 'text/plain',
     'htm' => 'text/html',
     'html' => 'text/html',

@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Array of Downloadables.
+ *------------------------------------------------------------------------------
+ * Array of Downloadables
+ *------------------------------------------------------------------------------
+ * 
  * Useful if the file is not in the assets or storage folder.
  *
  */

@@ -1,13 +1,14 @@
 #!/usr/bin/env php
 <?php
-/*
-|--------------------------------------------------------------------------
-| Blacksmith
-|--------------------------------------------------------------------------
-|
-| Require the blacksmith/blacksmith Command.
-|
-| Try running `php pluma list` to view all available commands.
-*/
 
-require_once __DIR__.'/blacksmith/blacksmith';
+/**
+ *------------------------------------------------------------------------------
+ * Pluma Console
+ *------------------------------------------------------------------------------
+ *
+ * Require the blacksmith/blacksmith Command.
+ *
+ * Try running `php pluma list` to view all available commands.
+ */
+
+require_once __DIR__ . '/blacksmith/blacksmith';

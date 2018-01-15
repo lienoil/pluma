@@ -186,7 +186,8 @@ class ProviderRepository
     public function writeManifest($manifest)
     {
         $this->files->put(
-            $this->manifestPath, '<?php return '.var_export($manifest, true).';'
+            $this->manifestPath,
+            '<?php return ' . var_export($manifest, true) . ';'
         );
 
         return array_merge(['when' => []], $manifest);

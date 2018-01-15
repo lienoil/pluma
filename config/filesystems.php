@@ -2,10 +2,10 @@
 
 return [
     'ftp' => [
-        'driver' => 'ftp',
-        'host' => 'ftp.example.com',
-        'username' => 'your-username',
-        'password' => 'your-password',
+        'driver' => env('FTP_DRIVER', 'ftp'),
+        'host' => env('FTP_HOST', 'ftp.example.com'),
+        'username' => env('FTP_USERNAME', 'your-username'),
+        'password' => env('FTP_PASSWORD', 'your-password'),
 
         // Optional FTP Settings...
         // 'port'     => 21,

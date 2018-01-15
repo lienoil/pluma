@@ -27,25 +27,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 class Application extends Container implements ApplicationContract, HttpKernelInterface
 {
     /**
-     * The Pluma version.
+     * The Application version.
      *
      * @var string
      */
-    const VERSION = '2.0.1';
-
-    /**
-     * The base path for the installation.
-     *
-     * @var string
-     */
-    protected $basePath;
-
-    /**
-     * The core path for the installation.
-     *
-     * @var string
-     */
-    protected $corePath;
+    const VERSION = PLUMA_VERSION;
 
     /**
      * Indicates if the application has been bootstrapped before.
@@ -109,6 +95,20 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      * @var callable|null
      */
     protected $monologConfigurator;
+
+    /**
+     * The base path for the installation.
+     *
+     * @var string
+     */
+    protected $basePath;
+
+    /**
+     * The core path for the installation.
+     *
+     * @var string
+     */
+    protected $corePath;
 
     /**
      * The custom database path defined by the developer.
@@ -230,7 +230,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function afterLoadingEnvironment(Closure $callback)
     {
         return $this->afterBootstrapping(
-            'Pluma\Support\Bootstrap\DetectEnvironment', $callback
+            'Pluma\Support\Bootstrap\DetectEnvironment',
+            $callback
         );
     }
 
@@ -1195,5 +1196,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
      *
      * @return string
      */
-    public function getCachedPackagesPath() {}
+    public function getCachedPackagesPath()
+    {
+    }
 }

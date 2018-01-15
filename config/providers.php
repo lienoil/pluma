@@ -1,14 +1,14 @@
 <?php
 
-/**
- *--------------------------------------------------------------------------
- * Aliases
- *--------------------------------------------------------------------------
- * Here we register Pluma Facades.
- * The Main Facade for the app's instance
- * is `App`.
- */
 return [
+    /**
+     *--------------------------------------------------------------------------
+     * Service Providers
+     *--------------------------------------------------------------------------
+     *
+     * Array of all base service providers needed to run the application.
+     *
+     */
     'providers' => [
         // Vendor
         Illuminate\Auth\AuthServiceProvider::class,
@@ -26,7 +26,6 @@ return [
 
 
         // Application
-        // Should be above [ModuleServiceProvider, RouteServiceProvider],
         Pluma\Providers\ViewServiceProvider::class,
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
@@ -42,6 +41,15 @@ return [
         Blacksmith\Providers\ConsoleSupportServiceProvider::class,
     ],
 
+    /**
+     *--------------------------------------------------------------------------
+     * Aliases
+     *--------------------------------------------------------------------------
+     *
+     * Here we register the application Facades.
+     * The main Facade for the app's instance is `App`.
+     *
+     */
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

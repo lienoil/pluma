@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'available' => [
-        'test-widget' => [],
+    'enabled' => [
+        'test' => [
+        	'name' => 'test',
+        	'view' => 'Widget::widgets.test',
+        ],
     ],
 ];

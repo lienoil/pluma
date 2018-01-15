@@ -1,3 +1,4 @@
-# Pluma
+## Pluma/CMS
+Elegant and modular, out-of-the-box.
 
-## Do not install. Not ready.
+#### Introduction
