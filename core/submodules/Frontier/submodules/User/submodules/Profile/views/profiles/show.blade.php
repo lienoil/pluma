@@ -6,7 +6,7 @@
     @include("Frontier::partials.banner")
 
     <v-parallax height="280" src="{{ $resource->setting('user_profile_banner', 'http://source.unsplash.com/1800x980?galaxy') }}" class="elevation-0">
-        <div class="text-xs-right"><v-btn icon class="grey--text darken-1"><v-icon>photo_camera</v-icon></v-btn></div>
+        {{-- <div class="text-xs-right"><v-btn icon class="grey--text darken-1"><v-icon>photo_camera</v-icon></v-btn></div> --}}
         <v-layout row wrap align-end justify-bottom>
             <v-flex xs12>
                 <v-card dark class="elevation-0 transparent" row>
@@ -45,7 +45,6 @@
 
                     </v-flex> --}}
                     <v-flex xs12>
-                        {{ $widgets->co }}
                         @include("Dashboard::widgets.todo-list")
                     </v-flex>
                 </v-layout>
