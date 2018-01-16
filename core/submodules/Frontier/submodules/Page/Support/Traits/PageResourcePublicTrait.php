@@ -66,6 +66,11 @@ trait PageResourcePublicTrait
             return view("Static::$code");
         }
 
+        // If no home is set, then just render the login page.
+        if (is_null($code)) {
+            return redirect()->route("login.show");
+        }
+
         // Finally, give up your dreams.
         return abort(404);
     }

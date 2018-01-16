@@ -45,9 +45,8 @@
                                                     <v-text-field
                                                         :error-messages="resource.errors.username"
                                                         class="input-group"
-                                                        label="Email or username"
+                                                        label="{{ __('Email or username') }}"
                                                         name="username"
-                                                        type="text"
                                                         value="{{ old('username') }}"
                                                     ></v-text-field>
                                                     <v-text-field
@@ -56,7 +55,7 @@
                                                         :error-messages="resource.errors.password"
                                                         :type="resource.visible ? 'text': 'password'"
                                                         class="input-group"
-                                                        label="Password"
+                                                        label="{{ __('Password') }}"
                                                         min="6"
                                                         name="password"
                                                         value="{{ old('password') }}"

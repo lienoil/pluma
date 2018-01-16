@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/fonts.php';
+require_once __DIR__ . '/widgets.php';
 
 if (! function_exists('core_path')) {
     function core_path($path = '')

@@ -17,9 +17,9 @@ class WidgetController extends GeneralController
      */
     public function index(Request $request)
     {
-        // $widgets = Widget::bundled();
+        $widgets = Widget::all();
 
-        return view("Theme::widgets.index");
+        return view("Theme::widgets.index")->with(compact('widgets'));
     }
 
     /**
@@ -49,14 +49,25 @@ class WidgetController extends GeneralController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create or update the resources in storage.
      *
      * @param  \Widget\Requests\WidgetRequest  $request
      * @return Illuminate\Http\Response
      */
-    public function store(WidgetRequest $request)
+    public function refresh(Request $request)
     {
-        //
+        $ids = [];
+        foreach (get_widgets() as $registree) {
+            $widget = Widget::firstOrNew(['code' => $registree->code]);
+            $widget->name = $registree->name;
+            $widget->code = $registree->code;
+            $widget->icon = $registree->icon;
+            $widget->view = $registree->view;
+            $widget->description = $registree->description ?? "";
+            $widget->save();
+            $ids[] = $widget->id;
+        }
+        Widget::whereNotIn('id', $ids)->delete();
 
         return back();
     }
@@ -70,9 +81,9 @@ class WidgetController extends GeneralController
      */
     public function edit(Request $request, $id)
     {
-        //
+        $resource = Widget::findOrFail($id);
 
-        return view("Theme::widgets.edit");
+        return view("Theme::widgets.edit")->with(compact('resource'));
     }
 
     /**

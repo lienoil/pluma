@@ -51,7 +51,7 @@
                     {{-- headmenu --}}
                     <v-list-tile slot="item">
                         <v-list-tile-avatar class="pt-0" size="30px" v-tooltip:right="{html: menu.labels.name}">
-                            <img :src="menu.labels.avatar" :alt="menu.labels.name">
+                            <img :src="menu.labels.avatar">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
                             <v-list-tile-title>

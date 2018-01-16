@@ -2,14 +2,13 @@
 
 namespace Widget\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 
 class Widget extends Model
 {
-    use SoftDeletes;
-
     protected $with = [];
+
+    protected $fillable = ['name', 'code', 'description', 'icon'];
 
     protected $searchables = ['created_at', 'updated_at'];
 }

@@ -1,8 +1,11 @@
 <?php
 
-namespace Pluma\Controllers\Auth;
+namespace User\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Pluma\Controllers\Controller;
 use Pluma\Support\Auth\Password\Traits\ResetsPasswordsTrait;
 
@@ -26,7 +29,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'login.show';
 
     /**
      * Create a new controller instance.
@@ -36,6 +39,16 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * The redirect route.
+     *
+     * @return string
+     */
+    public function redirectTo()
+    {
+        return route($this->redirectTo);
     }
 
     /**
@@ -49,8 +62,29 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
+        $this->tokenValidation($request);
+
         return view('Theme::passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
+    }
+
+    public function tokenValidation($request)
+    {
+        $reset = DB::table(config('auth.passwords.users.table', 'password_resets'))
+            ->where('email', $request->email)
+            ->first();
+
+        if (! $reset || ! Hash::check($request->token, $reset->token)) {
+            return abort(404);
+        }
+
+        if (Carbon::parse($reset->created_at)
+                ->addSeconds(config('auth.passwords.users.expire', 60) * 60)
+                ->isPast()) {
+            return abort(404);
+        }
+
+        return true;
     }
 }

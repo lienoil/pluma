@@ -1,32 +1,32 @@
 <?php
 
-namespace User\Notifications;
+namespace User\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailVerification extends Mailable
+class ResetPasswordLink extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * The authenticated user.
+     * The token to validate against.
      *
-     * @var \Illuminate\Contracts\Auth\Authenticatable
+     * @var string
      */
-    public $user;
+    public $token;
 
     /**
      * Create a new event instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  string $token
      * @return void
      */
-    public function __construct($user)
+    public function __construct($token)
     {
-        $this->user = $user;
+        $this->token = $token;
     }
 
     /**
@@ -37,8 +37,8 @@ class EmailVerification extends Mailable
     public function build()
     {
         return $this->view("Theme::emails.reset.index")->with([
-            'token' => csrf_token(),
-            'url' => route('password.token', [csrf_token(), 'email' => $this->user->email]),
+            'token' => $this->token,
+            'url' => route('password.token', $this->token)
         ]);
     }
 }

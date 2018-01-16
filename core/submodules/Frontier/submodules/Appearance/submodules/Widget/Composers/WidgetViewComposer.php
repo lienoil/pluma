@@ -47,12 +47,6 @@ class WidgetViewComposer extends BaseViewComposer
      */
     protected function widgets()
     {
-        foreach ($this->modules() as $module) {
-            if (file_exists("$module/config/widgets.php")) {
-                $this->widgets = require_once "$module/config/widgets.php";
-            }
-        }
-
-        return $this->widgets;
+        return get_widgets();
     }
 }

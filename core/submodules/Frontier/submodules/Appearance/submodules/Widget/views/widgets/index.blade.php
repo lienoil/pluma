@@ -10,22 +10,29 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex sm4>
+
+                @include("Widget::cards.refresh-widgets")
+
+            </v-flex>
+            <v-flex sm8>
+
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar card class="transparent">
                         <v-toolbar-title class="subheading">{{ __('Available Widgets') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                     </v-toolbar>
-                    <v-card-text>
+                    <v-list>
                         @foreach ($widgets as $widget)
-                            @php
-                                dd($widget);
-                            @endphp
+                            <v-list-tile ripple href="{{ route('widgets.edit', $widget->id) }}">
+                                <v-list-tile-avatar>
+                                    <v-icon>{{ $widget->icon }}</v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-title>{{ $widget->name }}</v-list-tile-title>
+                            </v-list-tile>
                         @endforeach
-                    </v-card-text>
+                    </v-list>
                 </v-card>
-            </v-flex>
-            <v-flex sm8>
-                {{--  --}}
+
             </v-flex>
         </v-layout>
     </v-container>

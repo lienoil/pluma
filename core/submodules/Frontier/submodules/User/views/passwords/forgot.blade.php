@@ -10,7 +10,7 @@
 
                     <v-card class="elevation-1 mb-3">
                         <v-layout row wrap>
-                            <v-flex md5 xs12 class="teal accent-4">
+                            <v-flex md4 xs12 class="teal accent-4">
                                 <v-layout row wrap justify-center align-center>
                                     <v-flex xs12>
                                         <v-card class="elevation-0 transparent white--text" height="100%">
@@ -18,8 +18,8 @@
                                                 <v-layout row wrap justify-center align-center>
                                                     <v-flex xs12>
                                                         <p><img src="{{ settings('login_logo', assets('frontier/images/placeholder/paper-pencil-magnifier.svg')) }}" alt="" width="150"></p>
-                                                        <h4>{{ "Password Recovery" }}</h4>
-                                                        <p>{{ __("We need you to verify your email address so you can proceed in resetting your forgotten password.") }}</p>
+                                                        <h4>{{ __("Password Recovery") }}</h4>
+                                                        <p>{{ __("We need you to verify your email address so you can proceed in resetting your password.") }}</p>
                                                     </v-flex>
                                                 </v-layout>
                                             </v-card-text>
@@ -27,8 +27,8 @@
                                     </v-flex>
                                 </v-layout>
                             </v-flex>
-                            <v-flex md7 xs12>
-                                <form action="{{ route('login.login') }}" method="POST">
+                            <v-flex md8 xs12>
+                                <form action="{{ route('password.send') }}" method="POST">
                                     {{ csrf_field() }}
                                     <v-card tile flat transition="slide-x-transition" height="500px">
                                         <v-toolbar card class="white">
@@ -42,15 +42,23 @@
                                         <v-card-text>
                                             <v-card flat>
                                                 <v-card-text class="pa-0">
-                                                    {{--  --}}
+                                                    <v-text-field
+                                                        :error-messages="resource.errors.email"
+                                                        name="email"
+                                                        type="email"
+                                                        label="{{ __('Email') }}"
+                                                        :value="resource.item.email"
+                                                    ></v-text-field>
                                                 </v-card-text>
-                                                <v-card-actions>
-                                                    <v-btn primary role="button" class="elevation-1 mx-0" type="submit">{{ __("Login") }}</v-btn>
+                                                <v-card-actions class="px-0">
+                                                    <v-btn role="button" class="teal white--text elevation-1 mx-0" type="submit">{{ __("Send to email") }}</v-btn>
                                                     <v-spacer></v-spacer>
-                                                    <v-btn info outline role="button" href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
                                                 </v-card-actions>
                                                 <v-card-actions>
-                                                    <a class="grey--text" href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>
+                                                    <a class="grey--text" href="{{ route('login.show') }}">{{ __('Login') }}</a>
+                                                    <span>{{ __('or') }}</span>
+                                                    <a class="grey--text" href="{{ route('register.show') }}">{{ __('Signup') }}</a>
+                                                    <v-spacer></v-spacer>
                                                 </v-card-actions>
                                             </v-card>
 
@@ -68,72 +76,21 @@
         </v-container>
     </main>
 
-    {{-- <div class="container-fluid">
-        <div class="col-md-4 col-md-offset-4 m-t-4">
-
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('password.reset') }}">
-                {{ csrf_field() }}
-                <div class="card">
-                    <div class="card-header box-header with-border">
-                        <h3 class="card-title">Reset Password</h3>
-                    </div>
-
-                    <div class="panel-body">
-
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Reset Password
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
 @endsection
+
+@push('pre-scripts')
+    <script>
+        mixins.push({
+            data () {
+                return {
+                    resource: {
+                        item: {
+                            email: '{{ old('email') }}',
+                        },
+                        errors: {!! json_encode($errors->getMessages()) !!},
+                    }
+                }
+            }
+        })
+    </script>
+@endpush

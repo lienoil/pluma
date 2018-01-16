@@ -22,11 +22,14 @@ class EmailVerification extends Mailable
      * Create a new event instance.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  string $token
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $token)
     {
         $this->user = $user;
+
+        $this->token = $token;
     }
 
     /**

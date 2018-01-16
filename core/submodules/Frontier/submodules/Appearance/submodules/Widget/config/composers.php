@@ -2,7 +2,7 @@
 
 return [
     [
-        'appears' => ['*'],
+        'appears' => ['xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
         'class' => \Widget\Composers\WidgetViewComposer::class,
     ],
 ];

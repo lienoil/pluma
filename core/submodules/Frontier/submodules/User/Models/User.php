@@ -9,12 +9,18 @@ use Role\Support\Traits\BelongsToManyPermissionsThroughRoles;
 use Role\Support\Traits\BelongsToManyRoles;
 use User\Scopes\Avatar;
 use User\Support\Relations\HasManyDetails;
+use User\Support\Traits\CanResetPasswordTrait;
 use User\Support\Traits\DetailTrait;
 use User\Support\Traits\HasOneActivation;
 
 class User extends Authenticatable
 {
-    use HasOneActivation, BelongsToManyRoles, HasManyDetails, Avatar, DetailTrait;
+    use HasOneActivation,
+        BelongsToManyRoles,
+        HasManyDetails,
+        Avatar,
+        DetailTrait,
+        CanResetPasswordTrait;
 
     protected $with = ['roles'];
 
