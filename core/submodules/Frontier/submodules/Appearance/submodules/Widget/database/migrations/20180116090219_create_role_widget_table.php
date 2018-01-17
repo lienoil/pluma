@@ -30,8 +30,12 @@ class CreateRoleWidgetTable extends Migration
             $table->integer('role_id')->unsigned();
             $table->integer('widget_id')->unsigned();
 
-            $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('widget_id')->references('id')->on('widgets');
+            $table->foreign('role_id')->references('id')->on('roles')
+                  ->onUpdate('CASCADE')
+                  ->onDelete('CASCADE');
+            $table->foreign('widget_id')->references('id')->on('widgets')
+                  ->onUpdate('CASCADE')
+                  ->onDelete('CASCADE');
         });
     }
 

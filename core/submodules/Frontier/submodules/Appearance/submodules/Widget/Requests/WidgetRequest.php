@@ -50,8 +50,7 @@ class WidgetRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
-            'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:widgets'.$isUpdating,
+            'roles' => 'required|max:255',
         ];
     }
 
@@ -63,7 +62,7 @@ class WidgetRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
+            //
         ];
     }
 }

@@ -51,6 +51,9 @@ Blacksmith:
   ☐ Add `forge:category --module ${Module}`
     _produces a Category submodule for the given module_
 
+  ☐ add db:migrate params
+     _module_ : Only use the migrations in this module
+
 Frontend [Presentation Logic]:
   ☐ @critical | @3 > assets deployment
     - Find a solution to remove inline assets

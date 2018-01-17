@@ -3,48 +3,16 @@
 @section("content")
     @include("Theme::partials.banner")
 
-    @include("Dashboard::widgets.stat")
+    @include("Dashboard::widgets.glance")
+
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
-                <v-layout row wrap>
-                    <v-flex md6 xs12>
-                        <v-layout row wrap>
-                            <v-flex xs12>
-                                <draggable
-                                    class="sortable-container"
-                                    :options="{animation: 150, handle: '.sortable-handle', group: 'lessons', draggable: '.draggable-lesson', forceFallback: true}">
-                                   <v-card class="draggable-lesson elevation-0 transparent mb-3" v-for="(draggable, key) in draggables.items">
-                                       @include("Dashboard::widgets.todo-list")
-                                   </v-card>
-                                </draggable>
-                            </v-flex>
-                        </v-layout>
-                    </v-flex>
 
-                    <v-flex md3 xs12>
-                        <draggable
-                            class="sortable-container"
-                            :options="{animation: 150, handle: '.sortable-handle', group: 'lessons', draggable: '.draggable-lesson', forceFallback: true}">
-                               <v-card class="draggable-lesson elevation-0 transparent mb-3" v-for="(draggable, key) in draggables.items">
-                                    {{-- @include("Assignment::widgets.assignment") --}}
-                               </v-card>
-                       </draggable>
-                    </v-flex>
+                <v-card class="elevation-1 mb-3">
+                    ad
+                </v-card>
 
-                    <v-flex md3 xs12>
-                        <draggable
-                            class="sortable-container"
-                            :options="{animation: 150, handle: '.sortable-handle', group: 'lessons', draggable: '.draggable-lesson', forceFallback: true}">
-                               <v-card class="draggable-lesson elevation-0 transparent mb-3" v-for="(draggable, key) in draggables.items">
-                                    @include("Announcement::widgets.announcement")
-                               </v-card>
-                               <v-card class="draggable-lesson elevation-0 transparent mb-3" v-for="(draggable, key) in draggables.items">
-                                    @include("Dashboard::widgets.activities")
-                               </v-card>
-                       </draggable>
-                    </v-flex>
-                </v-layout>
             </v-flex>
         </v-layout>
     </v-container>

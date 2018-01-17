@@ -1,5 +1,7 @@
 <?php
 
+use Widget\Models\Widget;
+
 if (! function_exists('get_widgets')) {
     /**
      * Gets all the available widgets.
@@ -17,5 +19,23 @@ if (! function_exists('get_widgets')) {
         }
 
         return json_decode(json_encode($widgets));
+    }
+}
+
+if (! function_exists('widgets')) {
+    /**
+     * Get the specified widget.
+     *
+     * @param  string $code
+     * @param  string $column
+     * @return  \Illuminate\Database\Eloquent\Model
+     */
+    function widgets($code = null, $column = "code")
+    {
+        if (is_null($code)) {
+            return get_widgets();
+        }
+
+        return Widget::where($column, $code)->first();
     }
 }

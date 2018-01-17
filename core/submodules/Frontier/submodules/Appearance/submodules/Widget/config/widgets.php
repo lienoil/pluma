@@ -4,14 +4,16 @@ return [
     'enabled' => [
 
         'test' => [
-        	'name' => __('Test Widget'),
+        	'name' => __('Laboratory Widget'),
+            'description' => __("A test widget intended to showcase widgets."),
             'code' => 'test',
             'icon' => 'fa-flask',
-        	'view' => 'Widget::widgets.test',
+            'view' => 'Widget::widgets.test',
         ],
 
-        'activity' => [
-            'name' => __('Activity'),
+        'user-activity' => [
+            'name' => __('User Activities'),
+            'description' => __("Reads user's activities."),
             'code' => 'activity',
             'icon' => 'multiline_chart',
             'view' => 'Widget::widgets.activity',

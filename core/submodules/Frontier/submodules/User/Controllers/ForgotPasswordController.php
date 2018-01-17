@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Pluma\Controllers\Controller;
 use Pluma\Support\Auth\Password\Traits\SendsPasswordResetEmailsTrait;
+use User\Requests\EmailRequest;
 
 class ForgotPasswordController extends Controller
 {
@@ -45,10 +46,10 @@ class ForgotPasswordController extends Controller
     /**
      * Send a reset link to the given user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \User\Requests\EmailRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function sendResetLinkEmail(Request $request)
+    public function sendResetLinkEmail(EmailRequest $request)
     {
         $this->validate($request, ['email' => 'required|email']);
 
@@ -66,6 +67,7 @@ class ForgotPasswordController extends Controller
         // If an error was returned by the password broker, we will get this message
         // translated so we can notify a user of the problem. We'll redirect back
         // to where the users came from so they can attempt this process again.
+        dd($response);
         return back()->withErrors(
             ['email' => trans($response)]
         );

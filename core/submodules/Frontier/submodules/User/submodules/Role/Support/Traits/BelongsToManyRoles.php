@@ -66,12 +66,12 @@ trait BelongsToManyRoles
      */
     public function hasRole($roles)
     {
-        // If root, it passed.
+        // If root, allow.
         if ($this->isRoot()) {
             return true;
         }
 
-        // if nothing passed, skip.
+        // if $roles is NULL, skip.
         if (! $roles) {
             return false;
         }

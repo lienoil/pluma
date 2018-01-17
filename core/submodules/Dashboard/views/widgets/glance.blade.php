@@ -1,3 +1,6 @@
+@viewable(widgets('glance'))
+s
+@endviewable
 <v-card class="elevation-1">
     <v-card-media src="{{ assets('frontier/images/placeholder/sql.jpg') }}">
         <div class="insert-overlay" style="background: rgba(9, 53, 74, 0.94); position: absolute; width: 100%; height: 100%;"></div>

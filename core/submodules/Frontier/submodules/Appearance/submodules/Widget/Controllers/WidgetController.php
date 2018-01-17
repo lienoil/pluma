@@ -2,10 +2,11 @@
 
 namespace Widget\Controllers;
 
-use Widget\Models\Widget;
-use Widget\Requests\WidgetRequest;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
+use Role\Models\Role;
+use Widget\Models\Widget;
+use Widget\Requests\WidgetRequest;
 
 class WidgetController extends GeneralController
 {
@@ -82,20 +83,23 @@ class WidgetController extends GeneralController
     public function edit(Request $request, $id)
     {
         $resource = Widget::findOrFail($id);
+        $roles = Role::select(['name', 'id'])->get();
 
-        return view("Theme::widgets.edit")->with(compact('resource'));
+        return view("Theme::widgets.edit")->with(compact('resource', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Widget\Requests\WidgetRequest  $request
+     * @param  \Widget\Requests\WidgetRequest  $request
      * @param  int  $id
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function update(WidgetRequest $request, $id)
     {
-        //
+        $widget = Widget::findOrFail($id);
+        $widget->roles()->sync($request->input('roles'));
+        $widget->save();
 
         return back();
     }

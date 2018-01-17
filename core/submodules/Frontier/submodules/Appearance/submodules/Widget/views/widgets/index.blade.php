@@ -11,7 +11,7 @@
         <v-layout row wrap>
             <v-flex sm4>
 
-                @include("Widget::cards.refresh-widgets")
+                @include("Widget::cards.widgets")
 
             </v-flex>
             <v-flex sm8>
@@ -28,6 +28,9 @@
                                     <v-icon>{{ $widget->icon }}</v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-title>{{ $widget->name }}</v-list-tile-title>
+                                <v-list-tile-action>
+                                    <v-chip>{{ $widget->roles->count() }}</v-chip>
+                                </v-list-tile-action>
                             </v-list-tile>
                         @endforeach
                     </v-list>

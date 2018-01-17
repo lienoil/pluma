@@ -3,7 +3,8 @@
 @section("head-title", __('Menus'))
 
 @section("content")
-    <v-toolbar dense dark class="blue elevation-0">
+    <v-toolbar dark class="blue elevation-1 sticky">
+        <v-icon dark left>menu</v-icon>
         <v-toolbar-title class="subheading">{{ __('Menus') }}</v-toolbar-title>
     </v-toolbar>
     <v-container grid-list-lg>

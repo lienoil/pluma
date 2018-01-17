@@ -3,6 +3,7 @@
 namespace Widget\Composers;
 
 use Pluma\Support\Composers\BaseViewComposer;
+use Widget\Models\Widget;
 
 class WidgetViewComposer extends BaseViewComposer
 {
@@ -27,17 +28,7 @@ class WidgetViewComposer extends BaseViewComposer
      */
     public function handle()
     {
-        return json_decode(json_encode($this->compile()));
-    }
-
-    /**
-     * Compile all widgets.
-     *
-     * @return Object
-     */
-    protected function compile()
-    {
-        return json_decode(json_encode($this->widgets()));
+        return $this->widgets();
     }
 
     /**
@@ -47,6 +38,6 @@ class WidgetViewComposer extends BaseViewComposer
      */
     protected function widgets()
     {
-        return get_widgets();
+        return Widget::get();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Widget\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Pluma\Support\Providers\ServiceProvider;
 
 class WidgetServiceProvider extends ServiceProvider
@@ -35,6 +36,8 @@ class WidgetServiceProvider extends ServiceProvider
         $this->bootViewComposersConfigurationFile();
 
         parent::boot();
+
+        $this->bootBladeDirectives();
     }
 
     /**
@@ -54,8 +57,24 @@ class WidgetServiceProvider extends ServiceProvider
      */
     public function bootViewComposersConfigurationFile()
     {
-        if (file_exists(__DIR__."/../config/composers.php")) {
-            $this->composers = require_once __DIR__."/../config/composers.php";
+        if (file_exists(__DIR__ . "/../config/composers.php")) {
+            $this->composers = require_once __DIR__ . "/../config/composers.php";
         }
+    }
+
+    /**
+     * Registers additional Blade Directives in the context of this module.
+     *
+     * @return void
+     */
+    public function bootBladeDirectives()
+    {
+        Blade::directive('viewable', function ($expression) {
+            return "<?php if (($expression) && user()->hasRole(($expression)->roles()->pluck('code', 'name')->toArray())) : ?>";
+        });
+
+        Blade::directive('endviewable', function () {
+            return "<?php endif; ?>";
+        });
     }
 }
