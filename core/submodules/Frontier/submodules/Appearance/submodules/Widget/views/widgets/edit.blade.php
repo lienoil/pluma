@@ -33,6 +33,7 @@
                             <v-select
                                 :items="roles.items"
                                 autocomplete
+                                chips
                                 label="{{ __('Roles') }}"
                                 max-height="400"
                                 multiple

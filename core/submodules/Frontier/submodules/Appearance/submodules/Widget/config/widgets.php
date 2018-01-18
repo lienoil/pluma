@@ -9,6 +9,7 @@ return [
             'code' => 'test',
             'icon' => 'fa-flask',
             'view' => 'Widget::widgets.test',
+            'backdrop' => assets('frontier/images/placeholder/red2.jpg'),
         ],
 
         'user-activity' => [

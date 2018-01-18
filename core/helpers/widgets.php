@@ -13,9 +13,19 @@ if (! function_exists('get_widgets')) {
         $widgets = [];
         foreach (get_modules_path() as $module) {
             if (file_exists("$module/config/widgets.php")) {
-                $widget = require_once "$module/config/widgets.php";
-                $widgets = array_merge($widgets, ($widget['enabled'] ?? []));
+                $widget = require "$module/config/widgets.php";
+
+                $widgets = array_merge((array) $widgets, (array) ($widget['enabled'] ?? []));
             }
+        }
+
+        foreach ($widgets as $i => &$fileBased) {
+            // dd($fileBased['code']);
+            $dataBased = Widget::where("code", $fileBased['code'])->exists()
+                    ? Widget::where("code", $fileBased['code'])->first()->toArray()
+                    : [];
+
+            $fileBased = array_merge((array) $fileBased, (array) $dataBased);
         }
 
         return json_decode(json_encode($widgets));
@@ -36,6 +46,6 @@ if (! function_exists('widgets')) {
             return get_widgets();
         }
 
-        return Widget::where($column, $code)->first();
+        return get_widgets()->{$code};
     }
 }

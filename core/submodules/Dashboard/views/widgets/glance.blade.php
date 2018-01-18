@@ -1,18 +1,22 @@
 @viewable(widgets('glance'))
     <v-card class="elevation-1">
-        <v-card-media src="{{ assets('frontier/images/placeholder/sql.jpg') }}">
-            <div class="insert-overlay" style="background: rgba(9, 53, 74, 0.94); position: absolute; width: 100%; height: 100%;"></div>
+        <v-card-media src="{{ widgets()->glance->backdrop }}">
+            <div class="insert-overlay"
+                style="background: rgba(9, 53, 74, 0.3); position: absolute; width: 100%; height: 100%;"></div>
             <v-toolbar class="transparent elevation-0">
+
+                <v-select class="white--text" light :items="year" item-text="title" label="{{ __("Filter") }}" overflow></v-select>
+
                 <v-menu
                     transition="slide-y-transition"
                     bottom
                     dark
                     >
                     <v-btn round  slot="activator" flat class="white--text">
-                        Daily <v-icon class="white--text">arrow_drop_down</v-icon>
+                        <span>{{ __("Daily") }}</span><v-icon class="white--text" right>arrow_drop_down</v-icon>
                     </v-btn>
                     <v-list>
-                        <v-list-tile v-for="item in year" :key="item.title" @click="">
+                        <v-list-tile v-for="(item, i) in year" :key="i" @click>
                             <v-list-tile-title>@{{ item.title }}</v-list-tile-title>
                         </v-list-tile>
                     </v-list>

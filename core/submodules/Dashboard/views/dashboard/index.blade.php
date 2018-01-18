@@ -3,15 +3,18 @@
 @section("content")
     @include("Theme::partials.banner")
 
+    {{-- Location: dashboard.1.12 --}}
     @include("Dashboard::widgets.glance")
+    {{-- Location: glance --}}
 
+    {{-- Location: dashboard.2.12 --}}
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
 
-                <v-card class="elevation-1 mb-3">
-                    ad
-                </v-card>
+                @foreach (widgets()->from('dashboard.2.12') as $widget)
+
+                @endforeach
 
             </v-flex>
         </v-layout>
