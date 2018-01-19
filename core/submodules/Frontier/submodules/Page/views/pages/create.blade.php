@@ -49,6 +49,8 @@
                     @include("Theme::interactives.featured-image")
 
                     @include("Page::cards.page-attributes")
+
+                    @include("Category::cards.category")
                 </v-flex>
 
             </v-layout>
