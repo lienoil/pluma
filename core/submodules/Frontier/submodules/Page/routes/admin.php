@@ -9,7 +9,7 @@
  *
  */
 
-// Page Category routes
+// Category routes
 Route::resource('pages/categories', 'CategoryController', [
         'except' => ['show', 'create'],
         'as' => 'pages',

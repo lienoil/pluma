@@ -10,6 +10,7 @@ trait PageResourceSoftDeleteTrait
     /**
      * Display a listing of the trashed resource.
      *
+     * @param  Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
      */
     public function trashed(Request $request)
@@ -44,8 +45,9 @@ trait PageResourceSoftDeleteTrait
     /**
      * Delete the specified resource from storage permanently.
      *
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function delete(Request $request, $id)
     {
