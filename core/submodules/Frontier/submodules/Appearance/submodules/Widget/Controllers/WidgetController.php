@@ -58,14 +58,17 @@ class WidgetController extends GeneralController
     public function refresh(Request $request)
     {
         $ids = [];
-        foreach (get_widgets() as $registree) {
-            $widget = Widget::firstOrNew(['code' => $registree->code]);
-            $widget->name = $registree->name;
-            $widget->code = $registree->code;
-            $widget->icon = $registree->icon;
-            $widget->view = $registree->view;
-            $widget->description = $registree->description ?? "";
-            $widget->save();
+        foreach (get_raw_widgets() as $registree) {
+            $widget = Widget::updateOrCreate(
+                ['code' => $registree->code],
+                [
+                    'name' => $registree->name,
+                    'icon' => $registree->icon,
+                    'view' => $registree->view,
+                    'location' => $registree->location ?? null,
+                    'description' => $registree->description ?? "",
+                ]
+            );
             $ids[] = $widget->id;
         }
         Widget::whereNotIn('id', $ids)->delete();

@@ -12,7 +12,7 @@ class Widget extends Model
 
     protected $with = [];
 
-    protected $fillable = ['name', 'code', 'description', 'icon'];
+    protected $fillable = ['id', 'name', 'code', 'description', 'icon', 'location', 'view', 'status'];
 
     protected $searchables = ['created_at', 'updated_at'];
 }

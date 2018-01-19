@@ -4,19 +4,25 @@
     @include("Theme::partials.banner")
 
     {{-- Location: dashboard.1.12 --}}
-    @include("Dashboard::widgets.glance")
+    {{-- @include("Dashboard::widgets.glance") --}}
     {{-- Location: glance --}}
 
     {{-- Location: dashboard.2.12 --}}
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12>
+            {{-- <pre>
+                @php
 
-                @foreach (widgets()->from('dashboard.2.12') as $widget)
+                    dd(widgets("dashboard.2.12", "location"))
+                    ;
+                @endphp
+            </pre> --}}
+            @foreach (widgets("dashboard.2.12", "location") as $widget)
+                <v-flex xs4>
+                    @include($widget->view)
+                </v-flex>
+            @endforeach
 
-                @endforeach
-
-            </v-flex>
         </v-layout>
     </v-container>
 @endsection
@@ -64,7 +70,7 @@
                 }
             },
             beforeDestroy () {
-                clearInterval(this.interval)
+                // clearInterval(this.interval)
             },
         })
     </script>

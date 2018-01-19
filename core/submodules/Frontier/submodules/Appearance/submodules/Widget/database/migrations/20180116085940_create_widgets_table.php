@@ -30,6 +30,7 @@ class CreateWidgetsTable extends Migration
             $table->string('name');
             $table->string('code')->unique();
             $table->string('view');
+            $table->string('location')->nullable();
             $table->string('icon')->nullable();
             $table->boolean('status')->default(1);
             $table->text('description')->nullable();
