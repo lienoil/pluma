@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
+class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -367,7 +367,7 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
         'Announcement\\Composers\\AnnouncementViewComposer' => __DIR__ . '/../..' . '/modules/Announcement/Composers/AnnouncementViewComposer.php',
         'Announcement\\Console\\Commands\\Broadcast\\BroadcastAnnouncementCommand' => __DIR__ . '/../..' . '/modules/Announcement/Console/Commands/Broadcast/BroadcastAnnouncementCommand.php',
         'Announcement\\Controllers\\AnnouncementController' => __DIR__ . '/../..' . '/modules/Announcement/Controllers/AnnouncementController.php',
-        'Announcement\\Controllers\\AnnouncementManyController' => __DIR__ . '/../..' . '/modules/Announcement/Controllers/AnnouncementManyController.php',
+        'Announcement\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/modules/Announcement/Controllers/CategoryController.php',
         'Announcement\\Jobs\\DeleteAnnouncement' => __DIR__ . '/../..' . '/modules/Announcement/Jobs/DeleteAnnouncement.php',
         'Announcement\\Jobs\\PublishAnnouncement' => __DIR__ . '/../..' . '/modules/Announcement/Jobs/PublishAnnouncement.php',
         'Announcement\\Models\\Announcement' => __DIR__ . '/../..' . '/modules/Announcement/Models/Announcement.php',
@@ -375,6 +375,8 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
         'Announcement\\Providers\\AnnouncementServiceProvider' => __DIR__ . '/../..' . '/modules/Announcement/Providers/AnnouncementServiceProvider.php',
         'Announcement\\Requests\\AnnouncementRequest' => __DIR__ . '/../..' . '/modules/Announcement/Requests/AnnouncementRequest.php',
         'Announcement\\Support\\Traits\\AnnouncementMutator' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementMutator.php',
+        'Announcement\\Support\\Traits\\AnnouncementResourceApiTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementResourceApiTrait.php',
+        'Announcement\\Support\\Traits\\AnnouncementResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementResourceSoftDeleteTrait.php',
         'Appearance\\Providers\\AppearanceServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/Providers/AppearanceServiceProvider.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
@@ -819,6 +821,7 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
         'Widget\\Observers\\WidgetObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Observers/WidgetObserver.php',
         'Widget\\Providers\\WidgetServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Providers/WidgetServiceProvider.php',
         'Widget\\Requests\\WidgetRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Requests/WidgetRequest.php',
+        'Widget\\Support\\Scopes\\ScopeFromTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Support/Scopes/ScopeFromTrait.php',
         'Widget\\Support\\Scopes\\WidgetTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Support/Traits/WidgetTrait.php',
         'Yggdrasil\\Providers\\YggdrasilServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/Providers/YggdrasilServiceProvider.php',
     );
@@ -826,10 +829,10 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$classMap;
 
         }, null, ClassLoader::class);
     }
