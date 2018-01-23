@@ -1,6 +1,6 @@
 @extends("Theme::layouts.admin")
 
-@section("head-title", 'Edit User')
+@section("head-title", __("Edit User"))
 
 @section("content")
 
@@ -12,14 +12,14 @@
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <v-layout row wrap>
-                <v-flex sm2>
+                <v-flex sm2 fill-height>
                     <v-card class="elevation-1">
                         <v-toolbar card class="transparent">
                             <v-toolbar-title class="accent--text">{{ __('Options') }}</v-toolbar-title>
                             <v-spacer></v-spacer>
                         </v-toolbar>
                         <v-list>
-                            <v-list-tile dark class="active--primary" href="{{ route('users.edit', $resource->id) }}">
+                            <v-list-tile dark class="primary" href="{{ route('users.edit', $resource->id) }}">
                                 <v-list-tile-action>
                                     <v-icon dark>edit</v-icon>
                                 </v-list-tile-action>
@@ -223,7 +223,7 @@
                                             v-model="resource.birthday.formatted"
                                             prepend-icon="fa-birthday-cake"
                                             name="birthday"
-                                            value="{{ old('birthday') ? old('birthday') : @$resource->detail->birthday }}"
+                                            value="{{ old('birthday') ? old('birthday') : @$resource->detail('birthday') }}"
                                         ></v-text-field>
                                             <v-date-picker
                                                 v-model="resource.birthday.value"
@@ -241,7 +241,7 @@
                                         label="{{ _('Address') }}"
                                         prepend-icon="map"
                                         name="address"
-                                        value="{{ old('address') ? old('address') : @$resource->detail->address }}"
+                                        value="{{ old('address') ? old('address') : @$resource->detail('address') }}"
                                         input-group
                                     ></v-text-field>
                                     <v-text-field
@@ -250,7 +250,7 @@
                                         label="{{ _('Phone') }}"
                                         prepend-icon="phone"
                                         name="phone"
-                                        value="{{ old('phone') ? old('phone') : @$resource->detail->phone }}"
+                                        value="{{ old('phone') ? old('phone') : @$resource->detail('phone') }}"
                                         input-group
                                     ></v-text-field>
                                 </v-flex>
@@ -324,7 +324,7 @@
                         },
                         birthday: {
                             value: '',
-                            formatted: '{{ old('birthday') ? old('birthday') : @date($resource->detail->birthday) }}',
+                            formatted: '{{ old('birthday') ? old('birthday') : @date($resource->detail('birthday')) }}',
                         },
                         notify: {
                             model: false,
@@ -336,7 +336,7 @@
                             model: '',
                         },
                         gender: {
-                            model: '{{ isset($resource->detail) ? $resource->detail->gender : '' }}',
+                            model: '{{ @$resource->detail('gender') }}',
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                         dialog: {

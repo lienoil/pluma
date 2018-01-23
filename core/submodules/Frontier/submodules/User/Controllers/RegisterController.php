@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Pluma\Controllers\Controller as Controller;
 use Pluma\Support\Auth\Traits\RegistersUsers;
 use User\Jobs\ActivateUser;
-use User\Jobs\SendVerificationEmail;
+use User\Jobs\SendVerifyEmailNotification;
 use User\Models\Activation;
 use User\Models\User;
 
@@ -111,7 +111,7 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        // dispatch(new SendVerificationEmail($user));
+        dispatch(new SendVerifyEmailNotification($user, $user->activation->token));
 
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
@@ -121,10 +121,10 @@ class RegisterController extends Controller
      * Show the registered page.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
+     * @param  mixed  $token
      * @return mixed
      */
-    public function showRegisteredPage(Request $request)
+    public function showRegisteredPage(Request $request, $token)
     {
         $session = Session::get($this->sessionKey);
         if (isset($session->id)) {
@@ -148,7 +148,7 @@ class RegisterController extends Controller
     {
         $request->session()->put($this->sessionKey, $user);
 
-        return redirect()->route("register.registered");
+        return redirect()->route("register.registered", $user->activation->token);
     }
 
 

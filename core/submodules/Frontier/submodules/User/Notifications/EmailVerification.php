@@ -36,8 +36,9 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view("Theme::emails.reset.index")->with([
+        return $this->view("Theme::emails.verification.index")->with([
             'token' => csrf_token(),
+            'user' => $this->user,
             'url' => route('password.token', [csrf_token(), 'email' => $this->user->email]),
         ]);
     }

@@ -38,7 +38,7 @@ class SendVerifyEmailNotification implements ShouldQueue
      */
     public function handle()
     {
-        $email = new EmailVerification($this->user);
+        $email = new EmailVerification($this->user, $this->user->activation->token);
         Mail::to($this->user->email)->send($email);
     }
 }

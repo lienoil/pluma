@@ -176,7 +176,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 10,
+                            rowsPerPage: {{ settings('rows_per_page', 10) }},
                             totalItems: 0,
                         },
                         searchform: {
@@ -237,10 +237,6 @@
                         });
                 },
             },
-
-            mounted () {
-                // this.get();
-            }
         });
     </script>
 

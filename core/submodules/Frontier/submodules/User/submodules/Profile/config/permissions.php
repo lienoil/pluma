@@ -1,8 +1,8 @@
 <?php
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Permissions Array
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * Here we define our permissions that you can attach to roles.
  *
@@ -14,7 +14,9 @@
  */
 return [
     /**
+     *--------------------------------------------------------------------------
      * Profile Permissions
+     *--------------------------------------------------------------------------
      *
      */
     'view-profile' => [
@@ -45,6 +47,43 @@ return [
         'name' => 'profile.update',
         'code' => 'update-profile',
         'description' => 'Ability to update the profile',
+        'group' => 'profile',
+    ],
+
+    /**
+     *--------------------------------------------------------------------------
+     * Credentials Permissions
+     *--------------------------------------------------------------------------
+     *
+     */
+    'view-credential' => [
+        'name' => 'credentials.index',
+        'code' => 'view-credential',
+        'description' => 'Ability to view list of credentials',
+        'group' => 'profile',
+    ],
+    'show-credential' => [
+        'name' => 'credentials.show',
+        'code' => 'show-credential',
+        'description' => 'Ability to show a single credential',
+        'group' => 'profile',
+    ],
+    'store-credential' => [
+        'name' => 'credentials.store',
+        'code' => 'store-credential',
+        'description' => 'Ability to save the credential',
+        'group' => 'profile',
+    ],
+    'edit-credential' => [
+        'name' => 'credentials.edit',
+        'code' => 'edit-credential',
+        'description' => 'Ability to show the form to edit credential',
+        'group' => 'profile',
+    ],
+    'update-credential' => [
+        'name' => 'credentials.update',
+        'code' => 'update-credential',
+        'description' => 'Ability to update the credential',
         'group' => 'profile',
     ],
 ];

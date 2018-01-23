@@ -1,3 +1,3 @@
 <?php
 
-Route::get(config('path.dashboard', 'dashboard'), 'DashboardController@dashboard')->name('dashboard');
+Route::get(config('path.dashboard', 'dashboard'), 'DashboardController@index')->name('dashboard');

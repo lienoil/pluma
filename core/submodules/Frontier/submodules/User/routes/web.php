@@ -17,7 +17,7 @@ Route::post('logout', 'LoginController@logout')->name('logout.logout');
 
 Route::get('register', 'RegisterController@showRegistrationForm')->name('register.show');
 Route::post('register', 'RegisterController@register')->name('register.register');
-Route::get('registered', 'RegisterController@showRegisteredPage')->name('register.registered');
+Route::get('registered/{token}', 'RegisterController@showRegisteredPage')->name('register.registered');
 
 /**
  *------------------------------------------------------------------------------
@@ -29,6 +29,8 @@ Route::get('registered', 'RegisterController@showRegisteredPage')->name('registe
  */
 
 Route::group(['prefix' => 'account'], function () {
+    Route::get('{user}/verify/{token}', 'VerifyUserController@verify')->name('user.verify');
+
     Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
     Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.send');
     // Route::get('password/sent', 'ForgotPasswordController@sent')->name('password.sent');
@@ -36,14 +38,14 @@ Route::group(['prefix' => 'account'], function () {
     Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
 });
 
-Route::get('email', function () {
-	set_time_limit(60);
-	$user = \User\Models\User::find(1);
-	$mail = new \User\Notifications\EmailVerification($user);
+// Route::get('email', function () {
+// 	set_time_limit(60);
+// 	$user = \User\Models\User::find(1);
+// 	$mail = new \User\Notifications\EmailVerification($user);
 
-	Mail::to('john.dionisio1@gmail.com')->send($mail);
+// 	// Mail::to('john.dionisio1@gmail.com')->send($mail);
 
-	return $mail;
+// 	return $mail;
 
-	return "done";
-});
+// 	return "done";
+// });

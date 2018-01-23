@@ -13,7 +13,7 @@ class DashboardController extends Controller
      * @param  Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
      */
-    public function dashboard(Request $request)
+    public function index(Request $request)
     {
         return view("Dashboard::dashboard.index");
     }

@@ -14,7 +14,10 @@ class Kernel extends BaseKernel
      */
     public $commands = [
         // App
+        Commands\App\AppGrantsRefreshCommand::class,
         Commands\App\AppHomepageCommand::class,
+        Commands\App\AppPermissionsRefreshCommand::class,
+        Commands\App\AppRolesGenerateCommand::class,
         Commands\App\AppVersionCommand::class,
 
         // Key

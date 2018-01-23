@@ -5,12 +5,11 @@ namespace Setting\Support\Traits;
 trait SettingTrait
 {
     /**
-     * Search all given searchable columns.
+     * Get the setting value from the given key.
      *
-     * @param  Illuminate\Database\Eloquent\Builder $builder
      * @param  string  $key
      * @param  string  $default
-     * @return Illuminate\Database\Eloquent\Model
+     * @return mixed
      */
     public function setting($key, $default = "")
     {

@@ -111,7 +111,8 @@
                     <v-card-actions class="pa-3">
                         <a role="button" href="{{ route('login.show') }}">{{ __('Have an Account? Login here.') }}</a>
                         <v-spacer></v-spacer>
-                        <a target="_blank" role="button" href="{{ route('public.show', 'terms-and-conditions') }}">{{ __('Terms and Conditions') }}</a>
+                        {{-- {{ route('pages.single', 'terms-and-conditions') }} --}}
+                        <a target="_blank" role="button" href="#">{{ __('Terms and Conditions') }}</a>
                     </v-card-actions>
                 </v-card>
 

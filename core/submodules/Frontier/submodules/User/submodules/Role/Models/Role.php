@@ -10,9 +10,14 @@ use User\Support\Traits\BelongsToManyUsers;
 
 class Role extends Model
 {
-    use SoftDeletes, BelongsToManyUsers, BelongsToManyGrants, BelongsToManyPermissionsThroughGrants;
+    use SoftDeletes,
+        BelongsToManyUsers,
+        BelongsToManyGrants,
+        BelongsToManyPermissionsThroughGrants;
 
     protected $with = ['grants'];
+
+    protected $fillable = ['name', 'code', 'alias', 'description'];
 
     protected $searchables = ['name', 'code', 'description', 'created_at', 'updated_at'];
 }

@@ -4,19 +4,13 @@
     @include("Theme::partials.banner")
 
     {{-- Location: dashboard.1.12 --}}
-    {{-- @include("Dashboard::widgets.glance") --}}
-    {{-- Location: glance --}}
+    @include("Dashboard::widgets.glance")
+    {{-- Location: dashboard.1.12 --}}
 
     {{-- Location: dashboard.2.12 --}}
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            {{-- <pre>
-                @php
 
-                    dd(widgets("dashboard.2.12", "location"))
-                    ;
-                @endphp
-            </pre> --}}
             @foreach (widgets("dashboard.2.12", "location") as $widget)
                 <v-flex xs4>
                     @include($widget->view)
@@ -25,6 +19,7 @@
 
         </v-layout>
     </v-container>
+    {{-- Location: dashboard.2.12 --}}
 @endsection
 
 @push('css')
@@ -54,11 +49,9 @@
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/draggable/sortable.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/draggable/draggable.min.js') }}"></script>
-    <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
-    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/vendors/vue/dist/vue-resource.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
-
         mixins.push({
             data () {
                 return {

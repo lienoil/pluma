@@ -48,7 +48,7 @@ class CreateRolesTable extends Migration
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('alias')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

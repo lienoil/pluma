@@ -2,7 +2,7 @@
 
 @section("content")
 
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
         @include("Theme::partials.banner")
         <v-layout row wrap>
             <v-flex sm6 md8 xs12 offset-md2>
@@ -12,31 +12,54 @@
                         <v-toolbar-title class="accent--text">{{ __('General Settings') }}</v-toolbar-title>
                     </v-toolbar>
 
-                    <form action="{{ route('settings.store') }}" method="POST">
+                    <form action="{{ route('settings.general.store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <v-card-text>
-                            <input type="hidden" name="site_logo" value="{{ old('site_logo') ? old('site_logo') : settings('site_logo') }}">
-                            <v-text-field
-                                label="{{ __('Site Title') }}"
-                                name="site_title"
-                                input-group
-                                hide-details
-                                value="{{ old('site_title') ? old('site_title') : settings('site_title') }}"
-                            ></v-text-field>
-                            <v-text-field
-                                label="{{ __('Site Tagline') }}"
-                                name="site_tagline"
-                                input-group
-                                hide-details
-                                value="{{ old('site_tagline') ? old('site_tagline') : settings('site_tagline') }}"
-                            ></v-text-field>
-                            <v-text-field
-                                label="{{ __('Site Email Address') }}"
-                                name="site_email"
-                                input-group
-                                hide-details
-                                value="{{ old('site_email') ? old('site_email') : settings('site_email') }}"
-                            ></v-text-field>
+
+                            <v-layout row wrap>
+                                <v-flex sm4>
+                                    <v-card class="transparent elevation-0" role="button" @click="$refs.siteLogoFile.click()">
+                                        <v-toolbar dense card class="transparent">
+                                            <v-toolbar-title class="caption">{{ __('Site Logo') }}</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn icon ripple @click.stop="clearPreview"><v-icon>close</v-icon></v-btn>
+                                        </v-toolbar>
+                                        <v-avatar tile size="100%">
+                                            <img v-if="resource.item.site_logo" :src="resource.item.site_logo" role="button">
+                                            <div v-else class="pa-5 grey--text text-xs-center caption">
+                                                {{ __('Add a site logo') }}
+                                            </div>
+                                            <input ref="siteLogoFile" name="site_logo" type="file" class="hidden-sm-and-up" accept=".png,.jpg,image/jpeg,image/png" @change="loadFile">
+
+                                            {{-- <input type="file" name="site_logo" v-model="file" accept=".png,.jpg,image/jpeg,image/png"> --}}
+                                        </v-avatar>
+                                    </v-card>
+                                </v-flex>
+                                <v-flex sm8>
+                                    <v-text-field
+                                        label="{{ __('Site Title') }}"
+                                        name="site_title"
+                                        input-group
+                                        hide-details
+                                        {{-- v-model="resource.item.site_title" --}}
+                                        value="{{ old('site_title') ? old('site_title') : settings('site_title') }}"
+                                    ></v-text-field>
+                                    <v-text-field
+                                        label="{{ __('Site Tagline') }}"
+                                        name="site_tagline"
+                                        input-group
+                                        hide-details
+                                        value="{{ old('site_tagline') ? old('site_tagline') : settings('site_tagline') }}"
+                                    ></v-text-field>
+                                    <v-text-field
+                                        label="{{ __('Site Email Address') }}"
+                                        name="site_email"
+                                        input-group
+                                        hide-details
+                                        value="{{ old('site_email') ? old('site_email') : settings('site_email') }}"
+                                    ></v-text-field>
+                                </v-flex>
+                            </v-layout>
 
                             <v-layout row wrap>
                                 <v-flex sm4>
@@ -118,7 +141,10 @@
             data () {
                 return {
                     resource: {
-                        items: {!! json_encode(@$resource) !!},
+                        {{-- item: {!! json_encode(@$resource) !!}, --}}
+                        item: {
+                            site_logo: '{{ url(settings('site_logo')) ?? old('site_logo') }}',
+                        },
                         radios: {
                             membership: {
                                 items: {!! json_encode(config('auth.registration.modes', [])) !!},
@@ -134,8 +160,30 @@
                             }
                         },
                     },
+                    file: null,
+                    files: [],
                 };
             },
+            methods: {
+                loadFile ($event) {
+                    let self = this;
+                    let reader = new FileReader();
+
+                    self.files = $event.target.files[0]; //this.$refs.siteLogoFile.file;
+
+                    reader.onloadend = function () {
+                        self.resource.item.site_logo = reader.result;
+                    }
+
+                    if (self.files) {
+                        reader.readAsDataURL(self.files);
+                    }
+                },
+                clearPreview () {
+                    this.file = null
+                    this.resource.item.site_logo = null;
+                }
+            }
         });
     </script>
 @endpush

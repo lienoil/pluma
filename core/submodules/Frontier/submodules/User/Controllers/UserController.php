@@ -2,27 +2,29 @@
 
 namespace User\Controllers;
 
-use Frontier\Controllers\AdminController;
+use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Role\Models\Role;
 use User\Models\Detail;
 use User\Models\User;
 use User\Requests\UserRequest;
+use User\Support\Traits\UserResourceApiTrait;
 
-class UserController extends AdminController
+class UserController extends GeneralController
 {
+    use UserResourceApiTrait;
+
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $resources = User::paginate();
-        $trashed = User::onlyTrashed()->count();
+        $resources = User::search($request->all())->paginate();
 
-        return view("Theme::users.index")->with(compact('resources', 'trashed'));
+        return view("Theme::users.index")->with(compact('resources'));
     }
 
     /**
@@ -46,8 +48,8 @@ class UserController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \User\Requests\UserRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  User\Requests\UserRequest  $request
+     * @return Illuminate\Http\Response
      */
     public function store(UserRequest $request)
     {
@@ -65,15 +67,8 @@ class UserController extends AdminController
 
         // Role
         $user->roles()->attach($request->input('roles'));
-
-        // Detail
-        $detail = new Detail();
-        $detail->birthday = date('Y-m-d', strtotime($request->input('birthday')));
-        $detail->phone = $request->input('phone');
-        $detail->sex = $request->input('sex');
-        $detail->gender = $request->input('gender');
-        $detail->address = $request->input('address');
-        $user->detail()->save($detail);
+        // Details
+        $user->details()->attach($request->input('details'));
 
         return back();
     }
@@ -81,9 +76,9 @@ class UserController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Illuminate\Http\Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function show(Request $request, $id)
     {
@@ -95,9 +90,9 @@ class UserController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Illuminate\Http\Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
     {
@@ -116,9 +111,9 @@ class UserController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \User\Requests\UserRequest  $request
+     * @param  User\Requests\UserRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function update(UserRequest $request, $id)
     {
@@ -151,9 +146,9 @@ class UserController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
@@ -166,7 +161,7 @@ class UserController extends AdminController
     /**
      * Display a listing of the trashed resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function trash()
     {
@@ -178,9 +173,9 @@ class UserController extends AdminController
     /**
      * Restore the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function restore(Request $request, $id)
     {
@@ -194,7 +189,7 @@ class UserController extends AdminController
      * Delete the specified resource from storage permanently.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function delete(Request $request, $id)
     {

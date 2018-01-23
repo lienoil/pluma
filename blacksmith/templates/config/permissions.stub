@@ -1,8 +1,8 @@
 <?php
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Permissions Array
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * Here we define our permissions that you can attach to roles.
  *
@@ -20,7 +20,7 @@ return [
      *
      */
     'view-$code' => [
-        'name' =>  '$slug.index',
+        'name' => '$slug.index',
         'code' => 'view-$code',
         'description' => 'Ability to view list of $slug',
         'group' => '$code',
@@ -68,7 +68,7 @@ return [
         'group' => '$code',
     ],
     'trashed-$code' => [
-        'name' =>  '$slug.trashed',
+        'name' => '$slug.trashed',
         'code' => 'trashed-$code',
         'description' => 'Ability to view the list of all trashed $code',
         'group' => '$code',

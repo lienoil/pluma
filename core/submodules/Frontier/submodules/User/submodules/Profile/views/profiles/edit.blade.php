@@ -14,7 +14,7 @@
                         <v-avatar tile size="120px" class="elevation-0">
                             <img src="{{ $resource->avatar }}" alt="{{ $resource->fullname }}" height="120">
                         </v-avatar>
-                        <div class="title pt-2">{{ $resource->fullname }}</div>
+                        <div class="title pt-2" v-html="`${resource.firstname} ${resource.lastname}`"></div>
                         <div class="subheading pb-2">{{ $resource->displayrole }}</div>
                     </v-card-text>
                 </v-card>

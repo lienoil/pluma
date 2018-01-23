@@ -70,7 +70,7 @@ return [
             ]
         ],
         'always_viewable' => false,
-        'icon' => 'lock_outline',
+        'icon' => 'lock',
         'labels' => [
             'title' => __('Permissions'),
             'description' => __('View the list of all permissions'),

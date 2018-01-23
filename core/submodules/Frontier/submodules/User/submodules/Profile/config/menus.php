@@ -49,7 +49,7 @@ return [
             'change-password' => [
                 'name' => 'change-password',
                 'order' => 2,
-                'slug' => route('profile.credential', user()->handlename),
+                'slug' => route('credentials.index', user()->handlename),
                 'always_viewable' => true,
                 'icon' => 'vpn_key',
                 'labels' => [
