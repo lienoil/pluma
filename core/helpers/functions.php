@@ -1,7 +1,10 @@
 <?php
 
+use Illuminate\Support\Str;
+
 require_once __DIR__ . '/fonts.php';
 require_once __DIR__ . '/widgets.php';
+require_once __DIR__ . '/menus.php';
 
 if (! function_exists('core_path')) {
     function core_path($path = '')
@@ -324,6 +327,10 @@ if (! function_exists('env')) {
             case 'null':
             case '(null)':
                 return;
+        }
+
+        if (strlen($value) > 1 && Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
+            return substr($value, 1, -1);
         }
 
         return $value;

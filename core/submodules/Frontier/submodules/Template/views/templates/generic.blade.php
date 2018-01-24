@@ -1,5 +1,6 @@
 {{--
 Template Name: Generic Template
+Type: Page
 Description: A simple template displaying the title, body, and featured image of the page.
 Author: John Lioneil Dionisio
 Version: 1.0

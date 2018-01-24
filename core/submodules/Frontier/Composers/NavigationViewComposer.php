@@ -35,6 +35,20 @@ class NavigationViewComposer extends BaseViewComposer
     protected $menus;
 
     /**
+     * The one dimensional navigation menu.
+     *
+     * @var mixed
+     */
+    protected $flatmenus;
+
+    /**
+     * The Traversable instance.
+     *
+     * @var \Crowfeather\Traverser\Traverser
+     */
+    protected $traverser;
+
+    /**
      * The breadcrumbs menu.
      *
      * @var array|object|mixed
@@ -73,14 +87,16 @@ class NavigationViewComposer extends BaseViewComposer
      */
     public function setMenus($menus)
     {
-        $traverser = new Traverser();
-        $traverser->set($menus)->flatten();
-        $traverser->prepare();
+        $this->traverser = new Traverser();
+        $this->traverser->set($menus)->flatten();
+        $this->traverser->prepare();
 
-        $this->menus = $traverser->rechild('root');
-        $this->menus = $traverser->reorder($this->menus);
 
-        $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent) use ($traverser) {
+        $this->flatmenus = $this->traverser->get();
+        $this->menus = $this->traverser->rechild('root');
+        $this->menus = $this->traverser->reorder($this->menus);
+
+        $this->menus = $this->traverser->update($this->menus, function ($key, &$menu, &$parent) {
             $menu['active'] = isset($menu['slug']) ? (url($this->getCurrentUrl()) === $menu['slug']) : false;
             if ($menu['active']) {
                 $parent['active'] = $menu['active'];
@@ -208,7 +224,32 @@ class NavigationViewComposer extends BaseViewComposer
 
         return json_decode(json_encode([
             'collect' => collect(json_decode(json_encode($this->menus))),
+            'flat' => collect(json_decode(json_encode($this->flatmenus))),
+            'current' => $this->getCurrentMenu($this->menus),
         ]));
+    }
+
+    /**
+     * Retrieves the current menu based on the url.
+     *
+     * @return mixed
+     */
+    public function getCurrentMenu($menus = null)
+    {
+        $menus = $menus ?? $this->menus;
+        $target = null;
+
+        foreach ($menus as $menu) {
+            if ($menu['has_children']) {
+                $target = $this->getCurrentMenu($menu['children']);
+            }
+
+            if (isset($menu['slug']) && $menu['slug'] === route($this->getCurrentRouteName())) {
+                $target = $this->traverser->parent($menu['left'], $menu['right']);
+            }
+        }
+
+        return $target;
     }
 
     /**

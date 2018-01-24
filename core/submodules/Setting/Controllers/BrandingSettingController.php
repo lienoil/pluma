@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Setting\Models\Setting;
 use Setting\Requests\SettingRequest;
 
-class GeneralSettingController extends AdminController
+class BrandingSettingController extends AdminController
 {
     /**
      * Display the General Settings Form.
@@ -17,7 +17,7 @@ class GeneralSettingController extends AdminController
      */
     public function index(Request $request)
     {
-        return view("Theme::settings.general");
+        return view("Setting::settings.branding");
     }
 
     /**

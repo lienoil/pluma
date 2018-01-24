@@ -1,1 +1,1 @@
-<img src="{{ url('logo.png') ?? $application->site->logo }}">
+<img src="{{ url($application->site->logo) ?? url('logo.png') }}">

@@ -56,7 +56,7 @@ class PageController extends GeneralController
      */
     public function create(Request $request)
     {
-        $templates = Template::getTemplatesFromFiles();
+        $templates = Template::getTemplatesFromFiles('Page');
         $categories = Category::type('pages')->select(['name', 'icon', 'id'])->get();
         $catalogues = Catalogue::mediabox();
 

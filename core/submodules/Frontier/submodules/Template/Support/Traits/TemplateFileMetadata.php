@@ -11,7 +11,7 @@ trait TemplateFileMetadata
      *
      * @var array
      */
-    protected static $headers = ["Template Name", "Author", "Description", "Version"];
+    protected static $headers = ["Template Name", "Type", "Author", "Description", "Version"];
 
     /**
      * Array of view templates.
@@ -53,9 +53,10 @@ trait TemplateFileMetadata
      * Get the templates from merged from this module and with the
      * active theme.
      *
+     * @param  string $type
      * @return array
      */
-    public static function getTemplatesFromFiles()
+    public static function getTemplatesFromFiles($type = null)
     {
         $instance = new static;
 
@@ -69,12 +70,16 @@ trait TemplateFileMetadata
 
         foreach ($templates as $i => $template) {
             $meta = self::getFileData($template->getPathName());
-            $instance->templates[basename($template->getFileName())] = [
-                'path' => $template->getPathName(),
-                'name' => $meta['templateName'],
-                'value' => str_replace(".blade.php", "", $template->getFileName()),
-                'metadata' => $meta,
-            ];
+
+            if ($meta['type'] == $type) {
+                $instance->templates[basename($template->getFileName())] = [
+                    'path' => $template->getPathName(),
+                    'name' => $meta['templateName'],
+                    'value' => str_replace(".blade.php", "", $template->getFileName()),
+                    'metadata' => $meta,
+                ];
+            }
+
         }
 
         return array_values($instance->templates);

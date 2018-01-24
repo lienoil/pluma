@@ -35,7 +35,9 @@ Core Modules (MUST DEVELOP):
        * oAuth Integration
        ☐ support for google login
        ☐ (OPTIONAL) for fb, linkedin, etc.
-
+  Role (ACL):
+    ☐ add a role_permission table, make grants table only a grouping table.
+    ☐ ammend all affected class upon adding the role_permission table
 
 Pre-develop Modules (OPTIONAL MODULES):
 
