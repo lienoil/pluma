@@ -4,6 +4,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex sm12>
+
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar class="transparent elevation-0">
                         <v-toolbar-title class="accent--text">{{ __('Pages') }}</v-toolbar-title>

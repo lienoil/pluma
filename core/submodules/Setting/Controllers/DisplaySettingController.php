@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Setting\Models\Setting;
 use Setting\Requests\SettingRequest;
 
-class GeneralSettingController extends AdminController
+class DisplaySettingController extends AdminController
 {
     /**
      * Display the General Settings Form.
@@ -17,7 +17,7 @@ class GeneralSettingController extends AdminController
      */
     public function index(Request $request)
     {
-        return view("Setting::settings.general");
+        return view("Setting::settings.display");
     }
 
     /**
@@ -28,16 +28,7 @@ class GeneralSettingController extends AdminController
      */
     public function store(SettingRequest $request)
     {
-        if ($request->has('site_logo')) {
-            $file = $request->file('site_logo');
-            $filePath = public_path();
-            $originalName = "logo.png";
-            $file->move($filePath, $originalName);
-            $logoName = "$originalName?ts=" . date('Ymdhis');
-            Setting::updateOrCreate(['key' => 'site_logo'], ['value' => $logoName]);
-        }
-
-        foreach ($request->except(['_token', 'site_logo']) as $key => $value) {
+        foreach ($request->except(['_token']) as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
         }
 

@@ -17,7 +17,7 @@ return [
      *
      */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => settings('MAIL_DRIVER') ?? env('MAIL_DRIVER', 'smtp'),
 
     /**
      *--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ return [
      *
      */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => settings('MAIL_HOST') ?? env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /**
      *--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
      *
      */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => settings('MAIL_PORT') ?? env('MAIL_PORT', 587),
 
     /**
      *--------------------------------------------------------------------------
@@ -57,8 +57,8 @@ return [
      */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => settings('MAIL_FROM_ADDRESS') ?? env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'name' => settings('MAIL_FROM_NAME') ?? env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /**
@@ -72,7 +72,7 @@ return [
      *
      */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => settings('MAIL_ENCRYPTION') ?? env('MAIL_ENCRYPTION', 'tls'),
 
     /**
      *--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
      *
      */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => settings('MAIL_USERNAME') ?? env('MAIL_USERNAME'),
 
     /**
      *--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ return [
      *
      */
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => settings('MAIL_PASSWORD') ?? env('MAIL_PASSWORD'),
 
     /**
      *--------------------------------------------------------------------------

@@ -54,7 +54,7 @@ class SettingController extends AdminController
      * @param  Setting\Requests\SettingRequest  $request
      * @return Illuminate\Http\Response
      */
-    public function store(SettingRequest $request)
+    public function store(Request $request)
     {
         foreach ($request->except(['_token']) as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);

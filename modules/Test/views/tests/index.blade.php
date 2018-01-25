@@ -5,7 +5,9 @@
         <v-layout row wrap>
             <v-flex sm12>
 
-                {!! $form->build() !!}
+
+                @include("Setting::partials.settingsbar")
+
 
             </v-flex>
         </v-layout>

@@ -8,13 +8,16 @@
 
         <v-layout row wrap>
             <v-flex sm3 md2>
-                @include("Setting::partials.settingsbar", ['active' => route('settings.branding')])
+
+                @include("Setting::partials.settingsbar")
+
             </v-flex>
-            <v-flex sm9 md10>
+
+            <v-flex sm9 md5>
 
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Branding Settings') }}</v-toolbar-title>
+                        <v-toolbar-title class="accent--text">{{ __('Site Branding') }}</v-toolbar-title>
                     </v-toolbar>
 
                     <form action="{{ route('settings.branding.store') }}" method="POST" enctype="multipart/form-data">
@@ -22,24 +25,6 @@
                         <v-card-text>
 
                             <v-layout row wrap>
-                                <v-flex sm4>
-                                    <v-card class="transparent elevation-0" role="button" @click="$refs.siteLogoFile.click()">
-                                        <v-toolbar dense card class="transparent">
-                                            <v-toolbar-title class="caption">{{ __('Site Logo') }}</v-toolbar-title>
-                                            <v-spacer></v-spacer>
-                                            <v-btn icon ripple @click.stop="clearPreview"><v-icon>close</v-icon></v-btn>
-                                        </v-toolbar>
-                                        <v-avatar tile size="100%">
-                                            <img v-if="resource.item.site_logo" :src="resource.item.site_logo" role="button">
-                                            <div v-else class="pa-5 grey--text text-xs-center caption">
-                                                {{ __('Add a site logo') }}
-                                            </div>
-                                            <input ref="siteLogoFile" name="site_logo" type="file" class="hidden-sm-and-up" accept=".png,.jpg,image/jpeg,image/png" @change="loadFile">
-
-                                            {{-- <input type="file" name="site_logo" v-model="file" accept=".png,.jpg,image/jpeg,image/png"> --}}
-                                        </v-avatar>
-                                    </v-card>
-                                </v-flex>
                                 <v-flex sm8>
                                     <v-text-field
                                         label="{{ __('Site Title') }}"
@@ -63,6 +48,23 @@
                                         hide-details
                                         value="{{ old('site_email') ? old('site_email') : settings('site_email') }}"
                                     ></v-text-field>
+                                </v-flex>
+                                <v-flex sm4>
+                                    <v-card class="transparent elevation-0" role="button" @click="$refs.siteLogoFile.click()">
+                                        <v-toolbar dense card class="transparent">
+                                            <v-toolbar-title class="caption">{{ __('Site Logo') }}</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn icon ripple @click.stop="clearPreview"><v-icon>close</v-icon></v-btn>
+                                        </v-toolbar>
+                                        <v-avatar tile size="100%">
+                                            <img v-if="resource.item.site_logo" :src="resource.item.site_logo" role="button">
+                                            <div v-else class="pa-5 grey--text text-xs-center caption">
+                                                {{ __('Add a site logo') }}
+                                            </div>
+                                            <input ref="siteLogoFile" name="site_logo" type="file" class="hidden-sm-and-up" accept=".png,.jpg,image/jpeg,image/png" @change="loadFile">
+
+                                        </v-avatar>
+                                    </v-card>
                                 </v-flex>
                             </v-layout>
 

@@ -230,6 +230,8 @@ class Traverser implements TraverserContract
             }
         }
 
+        $this->traversables = $traversables;
+
         return $traversables;
     }
 
@@ -267,6 +269,13 @@ class Traverser implements TraverserContract
         $ancestors = $this->ancestors($left, $right);
 
         return end($ancestors);
+    }
+
+    public function siblings($left, $right)
+    {
+        $parent = $this->parent($left, $right);
+
+        return $parent['children'];
     }
 
     public function dd($traversables, $depth = 1)
@@ -355,5 +364,34 @@ class Traverser implements TraverserContract
         }
 
         return array_values($array);
+    }
+
+    /**
+     * Get a traversable via name.
+     *
+     * @param  string $key
+     * @param  string $keycode
+     * @param  array $traversables
+     * @return array
+     */
+    public function find($key, $keycode = "name", $traversables = null)
+    {
+        $traversables = is_null($traversables) ? $this->traversables : $traversables;
+        $target = null;
+
+        foreach ($traversables as $traversable) {
+            if (isset($traversable[$keycode]) && $traversable[$keycode] === $key) {
+                if ($traversable['has_children']) {
+                    return $this->find($key, $keycode, $traversable['children']);
+                }
+                return $traversable;
+            }
+
+            if ($traversable['has_children']) {
+                $target = $this->find($key, $keycode, $traversable['children']);
+            }
+        }
+
+        return $target;
     }
 }

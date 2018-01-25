@@ -97,6 +97,9 @@ class NavigationViewComposer extends BaseViewComposer
         $this->menus = $this->traverser->reorder($this->menus);
 
         $this->menus = $this->traverser->update($this->menus, function ($key, &$menu, &$parent) {
+            // Alias for slug
+            $menu['url'] = $menu['slug'] ?? false;
+
             $menu['active'] = isset($menu['slug']) ? (url($this->getCurrentUrl()) === $menu['slug']) : false;
             if ($menu['active']) {
                 $parent['active'] = $menu['active'];
@@ -160,12 +163,20 @@ class NavigationViewComposer extends BaseViewComposer
      */
     public function handle()
     {
-        return json_decode(json_encode([
+        $navigation = json_decode(json_encode([
             'menu' => $this->menu(),
             'sidebar' => $this->sidebar(),
             'breadcrumbs' => $this->breadcrumbs(),
+            'current' => $this->getCurrentMenu(),
+            'parent' => $this->getParentMenu(),
             // 'utilitybar' => $this->utilitybar(),
         ]));
+
+        // Save to config
+        config(['app.navigations' => $navigation]);
+
+        // Finally, return
+        return $navigation;
     }
 
     /**
@@ -175,7 +186,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function menu()
     {
-        //
+        return [];
     }
 
     /**
@@ -226,6 +237,7 @@ class NavigationViewComposer extends BaseViewComposer
             'collect' => collect(json_decode(json_encode($this->menus))),
             'flat' => collect(json_decode(json_encode($this->flatmenus))),
             'current' => $this->getCurrentMenu($this->menus),
+            'parent' => $this->getParentMenu($this->menus),
         ]));
     }
 
@@ -237,19 +249,53 @@ class NavigationViewComposer extends BaseViewComposer
     public function getCurrentMenu($menus = null)
     {
         $menus = $menus ?? $this->menus;
-        $target = null;
+        $currentMenu = $this->traverser->find(url($this->getCurrentUrl()), 'url', $menus);
 
-        foreach ($menus as $menu) {
-            if ($menu['has_children']) {
-                $target = $this->getCurrentMenu($menu['children']);
+        if ($currentMenu['has_children']) {
+            if (collect($currentMenu['children'])->first()['url'] === url($this->getCurrentUrl())) {
+                return collect($currentMenu['children'])->first();
             }
 
-            if (isset($menu['slug']) && $menu['slug'] === route($this->getCurrentRouteName())) {
-                $target = $this->traverser->parent($menu['left'], $menu['right']);
-            }
+            // return $currentMenu['children'];
         }
 
-        return $target;
+        return $currentMenu;
+
+        // foreach ($menus as $menu) {
+        //     // if a key called `is_group_link` is defined,
+        //     // but is false, then continue.
+        //     // or
+        //     // if `is_group_link` is undefined, then continue.
+        //     if (! isset($menu['is_group_link']) || ! $menu['is_group_link']) {
+        //         if (isset($menu['slug']) &&
+        //             $menu['slug'] == url($this->getCurrentUrl())
+        //         ) {
+        //             return $menu;
+        //         }
+        //     }
+
+        //     if ($menu['has_children']) {
+        //         $target = $this->getCurrentMenu($menu['children']);
+        //     }
+        // }
+        // return $target ?? false;
+    }
+
+    /**
+     * Retrieves the current menu based on the url.
+     *
+     * @return mixed
+     */
+    public function getParentMenu($menus = null)
+    {
+        $menus = is_null($menus) ? $this->menus : $menus;
+        $currentMenu = $this->getCurrentMenu($menus);
+
+        // dd($currentMenu, $currentMenu['parent'], "||||", $this->traverser->parent($currentMenu['left'], $currentMenu['right']), "||||");
+
+        return isset($currentMenu['parent'])
+                ? $this->traverser->find($currentMenu['parent'], 'name', $menus)
+                : null;
     }
 
     /**

@@ -17,10 +17,10 @@
 
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('General Settings') }}</v-toolbar-title>
+                        <v-toolbar-title class="accent--text">{{ __('Displaying Data') }}</v-toolbar-title>
                     </v-toolbar>
 
-                    <form action="{{ route('settings.general.store') }}" method="POST">
+                    <form action="{{ route('settings.display.store') }}" method="POST">
                         {{ csrf_field() }}
                         <v-card-text>
                             {{--  --}}
