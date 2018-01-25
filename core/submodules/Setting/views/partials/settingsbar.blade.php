@@ -1,7 +1,6 @@
 <v-card flat class="mb-3 transparent">
     <v-list class="transparent">
 
-        {{-- {{ dd(navigations('sidebar')->parent->children) }} --}}
         @if (isset(navigations('sidebar')->parent->children))
             @foreach (navigations('parent')->children as $menu)
                 <v-list-tile href="{{ $menu->url }}" title="{{ @$menu->labels->description }}">

@@ -167,8 +167,8 @@ class NavigationViewComposer extends BaseViewComposer
             'menu' => $this->menu(),
             'sidebar' => $this->sidebar(),
             'breadcrumbs' => $this->breadcrumbs(),
-            'current' => $this->getCurrentMenu(),
-            'parent' => $this->getParentMenu(),
+            'current' => $this->current(),
+            'parent' => $this->parent(),
             // 'utilitybar' => $this->utilitybar(),
         ]));
 
@@ -177,6 +177,32 @@ class NavigationViewComposer extends BaseViewComposer
 
         // Finally, return
         return $navigation;
+    }
+
+    /**
+     * Retrieves the current menu via route name.
+     *
+     * @return mixed
+     */
+    public function current()
+    {
+        return $this->traverser->find($this->getCurrentRouteName(), 'route')
+            ?? $this->traverser->find(url($this->getCurrentRouteName()), 'slug')
+            ?? null;
+    }
+
+    /**
+     * Retrieves the current menu's parent.
+     *
+     * @return mixed
+     */
+    public function parent()
+    {
+        $current = $this->current();
+
+        return $current
+                ? $this->traverser->find($current['parent'])
+                : null;
     }
 
     /**
@@ -236,8 +262,6 @@ class NavigationViewComposer extends BaseViewComposer
         return json_decode(json_encode([
             'collect' => collect(json_decode(json_encode($this->menus))),
             'flat' => collect(json_decode(json_encode($this->flatmenus))),
-            'current' => $this->getCurrentMenu($this->menus),
-            'parent' => $this->getParentMenu($this->menus),
         ]));
     }
 

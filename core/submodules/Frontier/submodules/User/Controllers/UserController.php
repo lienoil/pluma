@@ -132,13 +132,7 @@ class UserController extends GeneralController
         $user->roles()->sync($request->input('roles'));
 
         // Detail
-        $detail = Detail::firstOrCreate(['user_id' => $user->id]);
-        $detail->birthday = date('Y-m-d', strtotime($request->input('birthday')));
-        $detail->phone = $request->input('phone');
-        $detail->sex = $request->input('sex');
-        $detail->gender = $request->input('gender');
-        $detail->address = $request->input('address');
-        $user->detail()->save($detail);
+        $user->details()->sync($request->input('details'));
 
         return back();
     }

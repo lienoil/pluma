@@ -30,7 +30,6 @@
                                         label="{{ __('Site Title') }}"
                                         name="site_title"
                                         input-group
-                                        hide-details
                                         {{-- v-model="resource.item.site_title" --}}
                                         value="{{ old('site_title') ? old('site_title') : settings('site_title') }}"
                                     ></v-text-field>
@@ -38,14 +37,12 @@
                                         label="{{ __('Site Tagline') }}"
                                         name="site_tagline"
                                         input-group
-                                        hide-details
                                         value="{{ old('site_tagline') ? old('site_tagline') : settings('site_tagline') }}"
                                     ></v-text-field>
                                     <v-text-field
                                         label="{{ __('Site Email Address') }}"
                                         name="site_email"
                                         input-group
-                                        hide-details
                                         value="{{ old('site_email') ? old('site_email') : settings('site_email') }}"
                                     ></v-text-field>
                                 </v-flex>
@@ -91,7 +88,7 @@
                     resource: {
                         {{-- item: {!! json_encode(@$resource) !!}, --}}
                         item: {
-                            site_logo: '{{ url(settings('site_logo')) ?? old('site_logo') }}',
+                            site_logo: '{{ (old('site_logo') ? url(old('site_logo')) : null) ?? url(settings('site_logo', 'logo.png')) }}',
                         },
                         radios: {
                             membership: {

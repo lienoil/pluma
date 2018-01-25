@@ -57,6 +57,7 @@ return [
                     'general-settings' => [
                         'name' => 'general-settings',
                         'slug' => route('settings.general'),
+                        'route' => 'settings.general',
                         'icon' => 'fa-leaf',
                         'order' => 1,
                         'labels' => [
@@ -68,6 +69,7 @@ return [
                     'display-settings' => [
                         'name' => 'display-settings',
                         'slug' => route('settings.display'),
+                        'route' => 'settings.display',
                         'icon' => 'fa-book',
                         'order' => 2,
                         'labels' => [
@@ -79,6 +81,7 @@ return [
                     'date-time-settings' => [
                         'name' => 'date-time-settings',
                         'slug' => route('settings.datetime'),
+                        'route' => 'settings.datetime',
                         'icon' => 'access_time',
                         'order' => 1,
                         'labels' => [

@@ -27,7 +27,9 @@ if (! function_exists('get_widgets')) {
         if (! is_null($value)) {
             $widgets = $widgets->where($column, $value);
             if ($column === "code") {
-                return Widget::find($widgets->first()->id);
+                return $widgets->first()
+                        ? Widget::find($widgets->first()->id)
+                        : null;
             }
 
             return $widgets;

@@ -382,13 +382,17 @@ class Traverser implements TraverserContract
         foreach ($traversables as $traversable) {
             if ($traversable['has_children']) {
                 $target = $this->find($key, $keycode, $traversable['children']);
+
+                if ($target[$keycode] == $key) {
+                    return $target;
+                }
             }
 
-            if (isset($traversable[$keycode]) && $traversable[$keycode] === $key) {
+            if (isset($traversable[$keycode]) && $traversable[$keycode] == $key) {
                 return $traversable;
             }
         }
 
-        return $target;
+        return $target ?? null;
     }
 }
