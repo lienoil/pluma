@@ -13,20 +13,23 @@ Route::group(['prefix' => 'settings'], function () {
     Route::post('general', 'GeneralSettingController@store')->name('settings.general.store');
 
     // Display
-    Route::get('display', 'DisplaySettingController@index')->name('settings.display');
-    Route::post('display', 'DisplaySettingController@store')->name('settings.display.store');
-    Route::get('writing', 'GeneralSettingController@index')->name('settings.writing');
+    Route::get('general/display', 'DisplaySettingController@index')->name('settings.display');
+    Route::post('general/display', 'DisplaySettingController@store')->name('settings.display.store');
+
+    // Date Time
+    Route::get('general/datetime', 'DisplaySettingController@index')->name('settings.datetime');
+    Route::post('general/datetime', 'DisplaySettingController@store')->name('settings.datetime.store');
 
     // Branding
     Route::get('branding', 'BrandingSettingController@index')->name('settings.branding');
     Route::post('branding', 'BrandingSettingController@store')->name('settings.branding.store');
 
     // Email
-    Route::get('email', 'EmailSettingController@index')->name('settings.email');
-    Route::post('email', 'EmailSettingController@store')->name('settings.email.store');
+    Route::get('branding/email', 'EmailSettingController@index')->name('settings.email');
+    Route::post('branding/email', 'EmailSettingController@store')->name('settings.email.store');
 
     // Social
-    Route::get('social', 'SettingController@getSocialForm')->name('settings.social');
+    Route::get('branding/social', 'SettingController@getSocialForm')->name('settings.social');
 
     // Theming
     Route::get('theming', 'ThemingSettingController@index')->name('settings.theming');

@@ -74,7 +74,18 @@ return [
                             'title' => __('Displaying Data'),
                             'description' => __('Change the way data is displayed.'),
                         ],
-                    ]
+                    ],
+
+                    'date-time-settings' => [
+                        'name' => 'date-time-settings',
+                        'slug' => route('settings.datetime'),
+                        'icon' => 'access_time',
+                        'order' => 1,
+                        'labels' => [
+                            'title' => __('Date &amp; Time'),
+                            'description' => __('Format date and time.'),
+                        ],
+                    ],
                 ],
             ],
 
