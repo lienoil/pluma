@@ -13,23 +13,30 @@ class ForumRequest extends FormRequest
      */
     public function authorize()
     {
-        switch ( $this->method() ) {
+        switch ($this->method()) {
             case 'POST':
-                if ( $this->user()->can('store-forum') ) return true;
+                if ($this->user()->can('store-forum')) {
+                    return true;
+                }
                 break;
 
             case 'PUT':
-                if ( $this->user()->can('update-forum') ) return true;
+                if ($this->user()->can('update-forum')) {
+                    return true;
+                }
                 break;
 
             case 'DELETE':
-                if ( $this->user()->can('destroy-forum') ) return true;
+                if ($this->user()->can('destroy-forum')) {
+                    return true;
+                }
                 break;
 
             default:
                 return false;
                 break;
         }
+
         return false;
     }
 
@@ -40,10 +47,23 @@ class ForumRequest extends FormRequest
      */
     public function rules()
     {
+        $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
+
         return [
-            'title' => 'required',
-            'body' => 'required',
-            'slug' => 'required|unique:forums',
+            'name' => 'required|max:255',
+            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:forums'.$isUpdating,
+        ];
+    }
+
+    /**
+     * The array of override messages to use.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
         ];
     }
 }

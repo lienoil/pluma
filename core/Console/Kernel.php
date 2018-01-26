@@ -106,7 +106,7 @@ class Kernel extends ConsoleKernel
     {
         foreach (get_modules_path() as $module) {
             if (file_exists("$module/config/jobs.php")) {
-                $jobs = require_once "$module/config/jobs.php";
+                $jobs = (array) require_once "$module/config/jobs.php";
                 foreach ($jobs as $class) {
                     $schedule->job(new $class['job'], $class['queue']);
                 }

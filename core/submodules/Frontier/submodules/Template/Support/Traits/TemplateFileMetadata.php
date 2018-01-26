@@ -82,6 +82,6 @@ trait TemplateFileMetadata
 
         }
 
-        return array_values($instance->templates);
+        return array_values((array) $instance->templates);
     }
 }

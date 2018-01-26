@@ -7,7 +7,7 @@ use Forum\Models\Forum;
 class ForumObserver
 {
     /**
-     * Listen to the Forum created event.
+     * Listen to the ForumObserver created event.
      *
      * @param  \Forum\Models\Forum  $resource
      * @return void
@@ -21,7 +21,7 @@ class ForumObserver
     }
 
     /**
-     * Listen to the Forum updated event.
+     * Listen to the ForumObserver updated event.
      *
      * @param  \Forum\Models\Forum  $resource
      * @return void
@@ -34,7 +34,7 @@ class ForumObserver
     }
 
     /**
-     * Listen to the Forum deleted event.
+     * Listen to the ForumObserver deleted event.
      *
      * @param  \Forum\Models\Forum  $resource
      * @return void
@@ -47,7 +47,7 @@ class ForumObserver
     }
 
     /**
-     * Listen to the Forum restored event.
+     * Listen to the ForumObserver restored event.
      *
      * @param  \Forum\Models\Forum  $resource
      * @return void

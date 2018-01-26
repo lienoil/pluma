@@ -1,11 +1,22 @@
 <?php
 
-Route::delete('forums/delete/many', 'ForumManyController@delete')->name('forums.many.delete');
-Route::delete('forums/delete/{forum}', 'ForumController@delete')->name('forums.delete');
-Route::delete('forums/destroy/many', 'ForumManyController@destroy')->name('forums.many.destroy');
-Route::get('forums/refresh', 'ForumRefreshController@index')->name('forums.refresh.index');
-Route::get('forums/trash', 'ForumController@trash')->name('forums.trash');
-Route::post('forums/refresh', 'ForumRefreshController@refresh')->name('forums.refresh.refresh');
-Route::post('forums/restore/many', 'ForumManyController@restore')->name('forums.many.restore');
-Route::post('forums/{forum}/restore', 'ForumController@restore')->name('forums.restore');
-Route::resource('forums', 'ForumController');
+Route::delete('forums/delete/many', '\Forum\Controllers\ForumManyController@delete')->name('forums.many.delete');
+Route::delete('forums/delete/{forum}', '\Forum\Controllers\ForumController@delete')->name('forums.delete');
+Route::delete('forums/destroy/many', '\Forum\Controllers\ForumManyController@destroy')->name('forums.many.destroy');
+Route::get('forums/refresh', '\Forum\Controllers\ForumRefreshController@index')->name('forums.refresh.index');
+Route::get('forums/trash', '\Forum\Controllers\ForumController@trash')->name('forums.trash');
+Route::post('forums/refresh', '\Forum\Controllers\ForumRefreshController@refresh')->name('forums.refresh.refresh');
+Route::post('forums/restore/many', '\Forum\Controllers\ForumManyController@restore')->name('forums.many.restore');
+Route::post('forums/{forum}/restore', '\Forum\Controllers\ForumController@restore')->name('forums.restore');
+
+
+//Comment
+Route::post('forums/{forum}/comment', '\Forum\Controllers\ForumController@comment')->name('forums.comment');
+
+// Category
+Route::resource('forums/categories', 'CategoryController', [
+    'except' => ['show', 'create'],
+    'as' => 'forums',
+]);
+
+Route::resource('forums', '\Forum\Controllers\ForumController');

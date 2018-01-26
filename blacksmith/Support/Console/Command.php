@@ -30,6 +30,8 @@ class Command extends BaseCommand
             $this->error(str_repeat(' ', 4 + strlen($e->getMessage())));
             $this->error("  {$e->getMessage()}  ");
             $this->error(str_repeat(' ', 4 + strlen($e->getMessage())));
+            $this->line("Stack Trace:");
+            $this->line($e->getTraceAsString());
         }
 
         return 0;

@@ -4,6 +4,8 @@ namespace Announcement\Controllers;
 
 use Announcement\Models\Announcement;
 use Announcement\Requests\AnnouncementRequest;
+use Announcement\Support\Traits\AnnouncementResourceApiTrait;
+use Announcement\Support\Traits\AnnouncementResourceSoftDeleteTrait;
 use Catalogue\Models\Catalogue;
 use Category\Models\Category;
 use Frontier\Controllers\GeneralController;

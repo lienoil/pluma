@@ -16,6 +16,7 @@
             :prepend-icon="dataset.searchform.prepend"
             append-icon="close"
             light solo hide-details single-line
+            autofocus="autofocus"
             label="Search"
             v-model="dataset.searchform.query"
             v-show="dataset.searchform.model"
@@ -24,9 +25,13 @@
         </template>
         {{-- /Search --}}
 
+        <v-btn icon href="{{ route('forums.create') }}" v-tooltip:left="{ 'html': 'Create Forum' }">
+            <v-icon>add</v-icon>
+        </v-btn>
+
         {{-- Sort --}}
         <v-menu transition="slide-y-transition">
-            <v-btn icon v-tooltip:bottom="{ html: 'Sort' }" slot="activator"><v-icon>sort</v-icon></v-btn>
+            <v-btn icon v-tooltip:left="{ html: 'Sort' }" slot="activator"><v-icon>sort</v-icon></v-btn>
             <v-list>
                 <v-list-tile v-for="n in 5" :key="n">
                     <v-list-tile-title v-text="'Sort ' + n"></v-list-tile-title>
@@ -35,10 +40,8 @@
         </v-menu>
         {{-- /Sort --}}
 
-        {{-- checkbox --}}
-
         <v-btn icon v-tooltip:left="{ html: 'Toggle the bulk command checkboxes' }"><v-icon>check_circle</v-icon></v-btn>
-        <v-btn icon v-tooltip:left="{ html: 'View trashed items' }"><v-icon>archive</v-icon></v-btn>
+        <v-btn icon v-tooltip:left="{ html: 'View trashed items' }" href="{{ route('forums.trash') }}"><v-icon>archive</v-icon></v-btn>
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
@@ -46,71 +49,101 @@
             <v-flex xs12 sm12 md9>
                 <v-card
                     class="elevation-1"
-
                     height="100%">
                     <v-card-text class="pa-0"
                         v-bind="{ [`xs${item.flex}`]: true }"
                         v-for="item in items"
                         :key="item.title">
-                        {{-- <v-toolbar class="transparent elevation-0">
-                            <v-toolbar-title class="subheading"><strong>@{{ item.name }}</strong></v-toolbar-title>
-                            <v-spacer></v-spacer>
-                            <v-btn icon><v-icon>more_horiz</v-icon></v-btn>
-                        </v-toolbar> --}}
-                        <v-card-title primary-title relative class="pb-0">
-                            <div>
-                                <v-btn icon absolute right><v-icon>more_horiz</v-icon></v-btn>
-                                {{-- <span><v-checkbox ></v-checkbox></span> --}}
-                                <div class="subheading"><a :href="route(urls.forums.show, item.id)" class="grey--text text--darken-3 no--decoration">
-                                <strong> @{{ item.name }} </strong></a></div>
-                                <span class="grey--text">
-                                    <span class="body-1">September 03, 2017 (02:00PM) • by</span>
-                                    <span class="teal--text body-2"><a href="" class="teal--text no--decoration">
-                                        <strong>Paul Smith</strong></a>
-                                    </span>
-                                </span>
+                         <v-card-text class="pb-0">
+                            <div class="title fw-400" style="position: relative;">
+                                <a :href="route(urls.forums.show, item.id)" class="grey--text text--darken-3 no--decoration">
+                                    @{{ item.name }}
+                                </a>
+                                <v-menu bottom left style="right: -20px; top: -10px; position: absolute;">
+                                    <v-btn right icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-list>
+                                        <v-list-tile ripple :href="route(urls.forums.show, (item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon info>search</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('View details') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile ripple :href="route(urls.forums.edit, (item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon accent>edit</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Edit') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile ripple
+                                            @click="destroy(route(urls.forums.api.destroy, item.id),
+                                            {
+                                                '_token': '{{ csrf_token() }}'
+                                            })">
+                                            <v-list-tile-action>
+                                                <v-icon warning>delete</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Move to Trash') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
                             </div>
-                        </v-card-title>
+                            <span class="grey--text caption">
+                                <a class="td-n" href="">
+                                    <span v-if="item.category" class="orange--text">
+                                        <a class="orange--text td-n" class="fw-500"
+                                            :href="`{{ route('forums.index') }}?category_id=${item.category_id}`"
+                                            :href="`{{ route('forums.index') }}?category_id=${prop.item.category_id}`"
+                                            v-html="item.category.name">
+                                        </a>
+                                    </span>
+                                </a> •
+                                <span class="caption">@{{ item.created }}</span>
+                                <span class="teal--text caption"> <span class="caption grey--text text--darken-2">by</span>
+                                    <a class="teal--text td-n caption" :href="`{{ route('forums.index') }}?user_id=${item.user_id}`" v-html="item.author">
+                                    </a>
+                                </span>
+                            </span>
+                        </v-card-text>
                         <v-list three-line>
                             <v-list-tile>
                                 <v-list-tile-content>
-                                    <v-list-tile-sub-title class="body-1 black--text">@{{ item.description }}</v-list-tile-sub-title>
+                                    <v-list-tile-sub-title class="body-1 black--text">@{{ item.body }}</v-list-tile-sub-title>
                                 </v-list-tile-content>
                             </v-list-tile>
                         </v-list>
-                        <v-card-text class="text-xs-right pt-0">
-                            <div class="caption grey--text">Tagged:
-                                <v-chip label class="grey lighten-3 elevation-0">
-                                    <v-icon left class="orange--text">label</v-icon>Workskill SUP
-                                </v-chip>
-                            </div>
-                        </v-card-text>
                         <v-divider></v-divider>
                     </v-card-text>
-
-                    <v-card-text>
-                        <div class="text-xs-right elevation-0">
-                        <v-pagination circle :length="15" v-model="page" :total-visible="7" class="main-paginate"></v-pagination>
-                    </div>
-                    </v-card-text>
                 </v-card>
+                @if (\Illuminate\Support\Facades\Request::all())
+                    <p class="caption grey--text"><a href="{{ route('forums.index') }}">{{ __('Remove filters') }}</a></p>
+                @endif
             </v-flex>
 
             <v-flex xs12 sm12 md3>
                 <v-card height="100%" class="elevation-1">
                     <v-list>
-                        <template v-for="item in categories">
-                            <v-list-tile v-if="item.action" v-bind:key="item.title" @click="" ripple>
-                                <v-list-tile-action>
-                                    <v-icon class="orange--text">@{{ item.action }}</v-icon>
-                                </v-list-tile-action>
-                                <v-list-tile-content class="dark--text">
-                                    <v-list-tile-title>@{{ item.title }}</v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                            <v-divider v-else-if="item.divider"></v-divider>
-                            <v-subheader v-else-if="item.header" v-text="item.header" class="grey--text text--lighten-1"></v-subheader>
-                        </template>
+                        <v-subheader class="grey--text text--lighten-1">{{ __('All Categories') }}</v-subheader>
+                        <v-list-tile v-for="item in categories" v-bind:key="item.name" :href="`{{ route('forums.index') }}?category_id=${item.category_id}`" ripple>
+                            <v-list-tile-action>
+                                <v-icon class="orange--text" v-html="item.icon"></v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content class="dark--text">
+                                <v-list-tile-title v-html="item.name"></v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider v-else-if="item.divider"></v-divider>
                     </v-list>
                 </v-card>
             </v-flex>
@@ -140,6 +173,9 @@
         .list--three-line .list__tile__sub-title {
             -webkit-box-orient: vertical;
         }
+        .fw-400 {
+            font-weight: 400 !important;
+        }
     </style>
 @endpush
 
@@ -151,6 +187,7 @@
         mixins.push({
             data () {
                 return {
+                    categories: JSON.parse('{!! json_encode($categories) !!}'),
                     bulk: {
                         destroy: {
                             model: false,
@@ -188,60 +225,20 @@
                         item: {
                             name: '',
                             code: '',
-                            description: '',
+                            body: '',
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                     },
                     urls: {
                         forums: {
+                            api: {
+                                destroy: '{{ route('api.forums.destroy', 'null') }}',
+                            },
                             show: '{{ route('forums.show', 'null') }}',
                             edit: '{{ route('forums.edit', 'null') }}',
                             destroy: '{{ route('forums.destroy', 'null') }}',
                         },
                     },
-                    categories: [
-                        {
-                            header: 'Choose Filter'
-                        },
-                        {
-                            action: 'language',
-                            title: 'All threads'
-                        },
-                        {
-                            action: 'star',
-                            title: 'My favorites'
-                        },
-                        {
-                            action: 'whatshot',
-                            title: 'Popular this week'
-                        },
-                        {
-                            action: 'lightbulb_outline',
-                            title: 'No replies yet'
-                        },
-                        {
-                            divider: true
-                        },
-                        {
-                            header: 'Course Categories'
-                        },
-                        {
-                            action: 'label',
-                            title: 'All Categories'
-                        },
-                        {
-                            action: 'label',
-                            title: 'Worskill OPS'
-                        },
-                        {
-                            action: 'label',
-                            title: 'Workskill SUP'
-                        },
-                        {
-                            action: 'label',
-                            title: 'ICDL',
-                        }
-                    ],
                 }
             },
             watch: {
@@ -301,9 +298,30 @@
                     });
                 },
 
+                post (url, query) {
+                    var self = this;
+                    this.api().post(url, query)
+                        .then((data) => {
+                            self.get('{{ route('api.forums.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data.response.body);
+                            self.snackbar.model = true;
+                        });
+                },
+
+                destroy (url, query) {
+                    var self = this;
+                    this.api().delete(url, query)
+                        .then((data) => {
+                            self.get('{{ route('api.forums.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data.response.body);
+                            self.snackbar.model = true;
+                        });
+                },
+
             },
             mounted () {
                 this.get();
+                this.dataset.items = {!! json_encode($resources->toArray()) !!}
             }
         });
     </script>

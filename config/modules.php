@@ -26,6 +26,7 @@ return [
      */
     'disabled' => [
         'Calendar',
-        // "Test",
+        'Test',
+        'Chronos',
     ],
 ];

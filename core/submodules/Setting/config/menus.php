@@ -57,6 +57,7 @@ return [
                     'general-settings' => [
                         'name' => 'general-settings',
                         'slug' => route('settings.general'),
+                        'route' => 'settings.general',
                         'icon' => 'fa-leaf',
                         'order' => 1,
                         'labels' => [
@@ -68,13 +69,26 @@ return [
                     'display-settings' => [
                         'name' => 'display-settings',
                         'slug' => route('settings.display'),
+                        'route' => 'settings.display',
                         'icon' => 'fa-book',
                         'order' => 2,
                         'labels' => [
                             'title' => __('Displaying Data'),
                             'description' => __('Change the way data is displayed.'),
                         ],
-                    ]
+                    ],
+
+                    'date-time-settings' => [
+                        'name' => 'date-time-settings',
+                        'slug' => route('settings.datetime'),
+                        'route' => 'settings.datetime',
+                        'icon' => 'access_time',
+                        'order' => 1,
+                        'labels' => [
+                            'title' => __('Date &amp; Time'),
+                            'description' => __('Format date and time.'),
+                        ],
+                    ],
                 ],
             ],
 
@@ -105,6 +119,7 @@ return [
                     'branding-settings' => [
                         'name' => 'branding-settings',
                         'slug' => route('settings.branding'),
+                        'route' => 'settings.branding',
                         'icon' => 'fa-leaf',
                         'labels' => [
                             'title' => __('Site Branding'),
@@ -115,6 +130,7 @@ return [
                     'email-settings' => [
                         'name' => 'email-settings',
                         'slug' => route('settings.email'),
+                        'route' => 'settings.email',
                         'icon' => 'fa-envelope',
                         'labels' => [
                             'title' => __('Email Options'),
@@ -125,6 +141,7 @@ return [
                     'social-media-settings' => [
                         'name' => 'social-media-settings',
                         'slug' => route('settings.social'),
+                        'route' => 'settings.social',
                         'icon' => 'fa-twitter',
                         'labels' => [
                             'title' => __('Social Media'),
@@ -150,6 +167,7 @@ return [
             'system-settings' => [
                 'name' => 'system-settings',
                 'slug' => route('settings.system'),
+                'route' => 'settings.system',
                 'icon' => 'settings_applications',
                 'always_viewable' => false,
                 'order' => 100,

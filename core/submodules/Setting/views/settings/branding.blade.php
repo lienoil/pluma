@@ -30,7 +30,6 @@
                                         label="{{ __('Site Title') }}"
                                         name="site_title"
                                         input-group
-                                        hide-details
                                         {{-- v-model="resource.item.site_title" --}}
                                         value="{{ old('site_title') ? old('site_title') : settings('site_title') }}"
                                     ></v-text-field>
@@ -38,14 +37,12 @@
                                         label="{{ __('Site Tagline') }}"
                                         name="site_tagline"
                                         input-group
-                                        hide-details
                                         value="{{ old('site_tagline') ? old('site_tagline') : settings('site_tagline') }}"
                                     ></v-text-field>
                                     <v-text-field
                                         label="{{ __('Site Email Address') }}"
                                         name="site_email"
                                         input-group
-                                        hide-details
                                         value="{{ old('site_email') ? old('site_email') : settings('site_email') }}"
                                     ></v-text-field>
                                 </v-flex>
@@ -68,65 +65,6 @@
                                 </v-flex>
                             </v-layout>
 
-                            <v-layout row wrap>
-                                <v-flex sm4>
-                                    <v-subheader>{{ __('Membership') }}</v-subheader>
-                                </v-flex>
-                                <v-flex sm8>
-                                    <input type="hidden" name="site_membership" :value="resource.radios.membership.model">
-                                    <v-radio-group v-model="resource.radios.membership.model" :mandatory="true">
-                                        <template v-for="(radio, i) in resource.radios.membership.items">
-                                            <v-radio hide-details :input-value="i.toString()" :value="i.toString()" :label="radio"></v-radio>
-                                        </template>
-                                    </v-radio-group>
-                                </v-flex>
-                            </v-layout>
-
-                            <v-layout row wrap>
-                                <v-flex sm4>
-                                    <v-subheader>{{ __('Date Format') }}</v-subheader>
-                                </v-flex>
-                                <v-flex sm8>
-                                    <input type="hidden" name="date_format" :value="resource.radios.date_format.model">
-                                    <v-radio-group hide-details class="mb-0" v-model="resource.radios.date_format.model" :mandatory="true">
-                                        <v-radio hide-details input-value="F d, Y" value="F d, Y" label="F d, Y ({{ date('F d, Y') }})"></v-radio>
-                                        <v-radio hide-details input-value="Y-m-d" value="Y-m-d" label="Y-m-d ({{ date('Y-m-d') }})"></v-radio>
-                                        <v-radio hide-details input-value="Y/m/d" value="Y/m/d" label="Y/m/d ({{ date('Y/m/d') }})"></v-radio>
-                                        <v-radio hide-details label="{{ __('Custom Format') }}" hide-details :input-value="resource.radios.date_format.custom" :value="resource.radios.date_format.custom"></v-radio>
-                                    </v-radio-group>
-                                    <v-text-field
-                                        label="{{ __('Custom Date Format') }}"
-                                        v-model="resource.radios.date_format.custom"
-                                        input-group
-                                        hide-details
-                                        @input="(val) => { resource.radios.date_format.model = val }"
-                                    ></v-text-field>
-                                </v-flex>
-                            </v-layout>
-
-                            <v-layout row wrap>
-                                <v-flex sm4>
-                                    <v-subheader>{{ __('Time Format') }}</v-subheader>
-                                </v-flex>
-                                <v-flex sm8>
-                                    <input type="hidden" name="time_format" :value="resource.radios.time_format.model">
-                                    <v-radio-group hide-details class="mb-0" v-model="resource.radios.time_format.model" :mandatory="true">
-                                        <v-radio hide-details input-value="h:i A" value="h:i A" label="h:i A (01:00 PM)"></v-radio>
-                                        <v-radio hide-details input-value="H:i:s" value="H:i:s" label="H:i:s (13:00:00)"></v-radio>
-                                        <v-radio hide-details label="{{ __('Custom Format') }}" :input-value="resource.radios.time_format.custom" :value="resource.radios.time_format.custom"></v-radio>
-                                    </v-radio-group>
-                                    <v-text-field
-                                        label="{{ __('Custom Time Format') }}"
-                                        v-model="resource.radios.time_format.custom"
-                                        input-group
-                                        hide-details
-                                        @input="(val) => { resource.radios.time_format.model = val }"
-                                    ></v-text-field>
-                                    <div class="caption grey--text">
-                                        {{ __('Format follows constants from') }} <a target="_blank" href="http://php.net/manual/en/function.date.php">{{ __('PHP Date Format Manual') }}</a>
-                                    </div>
-                                </v-flex>
-                            </v-layout>
                         </v-card-text>
 
                         <v-card-actions>
@@ -150,7 +88,7 @@
                     resource: {
                         {{-- item: {!! json_encode(@$resource) !!}, --}}
                         item: {
-                            site_logo: '{{ url(settings('site_logo')) ?? old('site_logo') }}',
+                            site_logo: '{{ (old('site_logo') ? url(old('site_logo')) : null) ?? url(settings('site_logo', 'logo.png')) }}',
                         },
                         radios: {
                             membership: {

@@ -93,5 +93,35 @@ class ForumController extends APIController
         $forum->delete();
 
         return response()->json($this->successResponse);
+        // return redirect()->route('forums.index');
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Request $request, $id)
+    {
+        $forum = Forum::onlyTrashed()->findOrFail($id);
+        $forum->restore();
+
+        return response()->json($this->successResponse);
+    }
+
+    /**
+     * Delete the specified resource from storage permanently.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, $id)
+    {
+        $forum = Forum::withTrashed()->findOrFail($id);
+        $forum->forceDelete();
+
+        return response()->json($this->successResponse);
     }
 }

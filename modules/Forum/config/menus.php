@@ -11,26 +11,19 @@ return [
     'forum' => [
         'name' => 'forum',
         'order' => 51,
-        'slug' => url(config('path.admin').'/forums'),
+        'slug' => route('forums.index'),
         'always_viewable' => false,
-        'icon' => 'forum',
+        'icon' => 'chat_bubble_outline',
         'labels' => [
             'title' => __('Forums'),
             'description' => __('Manage forums'),
         ],
         'children' => [
-            'view-forums' => [
-                'name' => 'view-forums',
+            'view-forum' => [
+                'name' => 'view-forum',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/forums'),
+                'slug' => route('forums.index'),
                 'always_viewable' => false,
-                 'routes' => [
-                    'name' => 'forums.index',
-                    'children' => [
-                        'forums.edit',
-                        'forums.show',
-                    ]
-                ],
                 'labels' => [
                     'title' => __('All Forums'),
                     'description' => __('View the list of all forums'),
@@ -39,24 +32,45 @@ return [
             'create-forum' => [
                 'name' => 'create-forum',
                 'order' => 2,
-                'slug' => url(config('path.admin').'/forums/create'),
+                'slug' => route('forums.create'),
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Create'),
+                    'title' => __('Create Forum'),
                     'description' => __('Create a Forum'),
                 ],
             ],
-            'trashed-forums' => [
-                'name' => 'trashed-forums',
+            'trash-forum' => [
+                'name' => 'trash-forum',
                 'order' => 3,
-                'slug' => url(config('path.admin').'/forums/trash'),
+                'slug' => route('forums.trash'),
                 'always_viewable' => false,
                 'icon' => 'delete',
                 'labels' => [
-                    'title' => __('Trashed'),
+                    'title' => __('Trashed Forums'),
                     'description' => __('View list of all forums moved to trash'),
                 ],
             ],
+
+            'divider-for-forum-category' => [
+                'name' => 'divider-for-forum-category',
+                'is_header' => true,
+                'is_divider' => true,
+                'parent' => 'forum',
+                'order' => 12,
+            ],
+
+            'forum-category' => [
+                'name' => 'forum-category',
+                'order' => 13,
+                'slug' => route('forums.categories.index'),
+                'always_viewable' => false,
+                'icon' => 'label',
+                'labels' => [
+                    'title' => __('Categories'),
+                    'description' => __('View list of all forum categories'),
+                ],
+            ],
         ],
+
     ],
 ];
