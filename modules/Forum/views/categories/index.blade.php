@@ -68,7 +68,7 @@
                                     </v-list>
                                 </v-card>
                             </v-menu>
-                            <input type="hidden" name="type" value="{{ $type }}">
+                            <input type="hidden" name="type" value="{{ $type ?? 'forums' }}">
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
