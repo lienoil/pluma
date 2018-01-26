@@ -267,7 +267,9 @@
                     {{-- /Lessons --}}
                 </v-card>
 
-                @include("Forum::widgets.comments")
+                <v-card class="elevation-1">
+                    @include("Forum::widgets.comments")
+                </v-card>
             </v-flex>
 
             <v-flex flex md3 xs12 order-lg3>
