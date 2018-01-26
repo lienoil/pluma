@@ -57,70 +57,22 @@
                     </v-toolbar>
 
                     <v-card-text class="black--text pt-0">
-                        <div><a href="#!" class="teal--text text-decor-none"><strong>{{ auth()->user()->fullname }}</strong></a></div>
-                        <div class="mb-2"><span class="grey--text">July 15, 2017</span></div>
-                        <div>{{ $resource->description }}</div>
+                        <div><a href="#!" class="body-1 teal--text text-decor-none"><strong>{{ $resource->author }}</strong></a></div>
+                        <div class="mb-2"><span class="body-1 grey--text">{{ $resource->created }}</span></div>
+                        <div>{{ $resource->body }}</div>
                     </v-card-text>
                     <v-card-text class="text-xs-right">
                         <div class="grey--text caption">Tagged:
                             <v-chip label class="grey lighten-3 elevation-0">
-                                <v-icon left class="orange--text">label</v-icon>Workskill SUP
+                                <v-icon left class="orange--text">label</v-icon> {{ $resource->category->name }}
                             </v-chip>
                         </div>
                     </v-card-text>
                     <v-divider></v-divider>
-                    <v-subheader class="grey--text">Write a Comment</v-subheader>
 
-                    <div>
-                        <v-card class="elevation-0">
-                            <v-quill v-model="quill.comment"></v-quill>
-                            <v-divider></v-divider>
-                            <v-card-text class="text-xs-right pa-0">
-                                <v-btn flat primary class="primary--text">Submit</v-btn>
-                            </v-card-text>
-                        </v-card>
-                    </div>
-                    <v-list two-line class="pb-3">
-                        <v-list-tile avatar>
-                            <v-list-tile-avatar>
-                                <img src="{{ auth()->user()->avatar }}" />
-                            </v-list-tile-avatar>
-                            <v-list-tile-content>
-                                <v-list-tile-title><a href="#!" class="teal--text text-decor-none"><strong>{{ auth()->user()->fullname }}</strong></a></v-list-tile-title>
-                                <v-list-tile-sub-title>August 12, 2017</v-list-tile-sub-title>
-                            </v-list-tile-content>
-                            <v-list-tile-action>
-                                <v-menu bottom left>
-                                    <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_horiz</v-icon></v-btn>
-                                    <v-list>
-                                        <v-list-tile ripple @click="">
-                                            <v-list-tile-action>
-                                                <v-icon accent>report</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('Report') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile ripple @click="">
-                                            <v-list-tile-action>
-                                                <v-icon error>delete</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('Delete') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    </v-list>
-                                </v-menu>
-                            </v-list-tile-action>
-                        </v-list-tile>
-                        <div class="pl-7 pr-4 black--text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, necessitatibus, nulla! Autem sint, iure nobis nemo tempore delectus illo doloribus mollitia perferendis, minus unde! Sit culpa optio, a adipisci assumenda.
-                        </div>
-                    </v-list>
+                    {{-- comment --}}
+                    @include("Forum::widgets.comments")
+                    {{-- // comment --}}
                 </v-card>
             </v-flex>
         </v-layout>
@@ -156,12 +108,19 @@
         .card--flex-toolbar {
             margin-top: -80px;
         }
+        .main-paginate .pagination__item,
+        .main-paginate .pagination__navigation {
+            box-shadow: none !important;
+        }
+        .application--light .pagination__item--active {
+            background: #03a9f4 !important;
+        }
     </style>
 @endpush
 
 
 @push('pre-scripts')
-     <script src="http://localhost:8080/dist/vuetify-dropzone.min.js"></script>
+    <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-dropzone.min.js') }}"></script>
     <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('test/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
@@ -254,6 +213,7 @@
                     ]
                 };
             },
+
             mounted () {
                 let self = this;
             }

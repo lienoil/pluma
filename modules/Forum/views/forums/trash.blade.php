@@ -14,7 +14,7 @@
             <v-flex xs12>
                 <v-card class="mb-3">
                     <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Trashed Forums') }}</v-toolbar-title>
+                        <v-toolbar-title>{{ __('Trashed Forums') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
 
                         <template>
@@ -117,12 +117,8 @@
                             </td>
                             <td>@{{ prop.item.id }}</td>
                             <td width="20%"><strong>@{{ prop.item.name }}</strong></td>
-                            <td class="text-xs-center">
-                                <v-chip avatar class="ma-0 transparent elevation-0">
-                                    <v-icon class="mr-2 green--text">access_time</v-icon>September 12, 2017
-                                </v-chip>
-                            </td>
                             <td>@{{ prop.item.created }}</td>
+                            <td>@{{ prop.item.modified }}</td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator" v-tooltip:bottom="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
@@ -158,7 +154,7 @@
     </v-container>
     <v-dialog v-model="resource.dialog.model" persistent lazy width="auto" min-width="200px">
         <v-card class="text-xs-center">
-            <v-card-text >
+            <v-card-text>
                 <p class="headline ma-4"><v-icon round class="error white--text" style="font-size: 80px; border-radius: 50%; padding: 10px;">delete_forever</v-icon></p>
                 <p class="title">{{ __('Permanently Delete') }} "@{{ resource.dialog.data.name }}"</p>
                 <p class="grey--text text--darken-1">
@@ -210,7 +206,7 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Title") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Schedule") }}', align: 'center', value: 'schedule' },
+                            { text: '{{ __("Created") }}', align: 'left', value: 'create-at' },
                             { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
                         ],

@@ -1,32 +1,45 @@
-{{-- reply --}}
-<v-card class="elevation-1">
+<v-card class="elevation-0">
     <v-toolbar class="transparent elevation-0">
-        <v-toolbar-title>{{ __("Comments/Queries") }}</v-toolbar-title>
+        <v-toolbar-title>{{ __("Comments") }}</v-toolbar-title>
     </v-toolbar>
     <v-divider></v-divider>
-    <v-card-text class="pa-0 pb-3">
+    @if (user())
+    <v-card-text class="pa-0">
         <v-card-text class="pa-0">
             <v-card class="elevation-0">
-                <v-quill v-model="quill.comment"></v-quill>
+                <form action="{{ route('forums.comment', $resource->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="user_id" value="{{ user()->id }}">
+
+                    {{-- editor --}}
+                    @include("Forum::widgets.editor")
+                    {{-- editor --}}
+
+                    <v-divider></v-divider>
+                    <v-card-text class="text-xs-right pa-0">
+
+                        <v-btn  type="submit" flat class="primary--text">Post a comment</v-btn>
+                    </v-card-text>
+                </form>
                 <v-divider></v-divider>
-                <v-card-text class="text-xs-right pa-0">
-                    <v-btn flat primary class="primary--text">Post a comment</v-btn>
-                </v-card-text>
             </v-card>
         </v-card-text>
-        <v-divider></v-divider>
-        <v-list two-line>
+
+        <v-list two-line class="py-0" v-for="item in dataset.items" v-bind:key="item.id">
             <v-list-tile avatar>
                 <v-list-tile-avatar>
-                    <img src="https://placeimg.com/640/480/any" />
+                    <img src="{{ auth()->user()->avatar }}" alt="">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                    <v-list-tile-title><a href="#!" class="teal--text text-decor-none"><strong>Jane Doe</strong></a></v-list-tile-title>
-                    <v-list-tile-sub-title>August 12, 2017</v-list-tile-sub-title>
+                    <v-list-tile-title>
+                        <a href="#!" class="td-n grey--text text--darken-4 body-2">{{ auth()->user()->fullname }}</a>
+                    </v-list-tile-title>
+                    <v-list-tile-sub-title class="body-1">@{{ item.created }}</v-list-tile-sub-title>
                 </v-list-tile-content>
+
                 <v-list-tile-action>
                     <v-menu bottom left>
-                        <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_horiz</v-icon></v-btn>
+                        <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
                         <v-list>
                             <v-list-tile ripple @click="">
                                 <v-list-tile-action>
@@ -38,7 +51,11 @@
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
-                            <v-list-tile ripple @click="">
+                            <v-list-tile ripple
+                                @click="destroy(route(urls.comments.api.destroy, item.id),
+                                {
+                                    '_token': '{{ csrf_token() }}'
+                                })">
                                 <v-list-tile-action>
                                     <v-icon error>delete</v-icon>
                                 </v-list-tile-action>
@@ -52,17 +69,20 @@
                     </v-menu>
                 </v-list-tile-action>
             </v-list-tile>
-            <div class="pl-7 pr-4 grey--text text--darken-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt harum officia non nisi, veniam repellendus commodi libero atque in, quis quam facere sapiente, consequatur dolores. Quam aspernatur libero sit dolore!</div>
+            <div class="pl-7 pr-4 grey--text text--darken-2" v-html="item.body"></div>
+            <v-divider></v-divider>
         </v-list>
+        <v-card-text>
+            @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(3)])
+        </v-card-text>
     </v-card-text>
+    @endif
 </v-card>
 
 @push('css')
+    {{-- <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
     <style>
-        .text-decor-none {
-            text-decoration: none;
-        }
         .pl-7 {
             padding-left: 70px;
         }
@@ -70,32 +90,112 @@
             padding-top: 0 !important;
             border: 1px solid #9e9e9e !important;
         }
-        .input-group__details {
-            display: none;
-        }
         .ql-container {
             min-height: 120px !important;
         }
         .quill-editor .ql-editor {
             min-height: auto !important;
         }
+        .main-paginate .pagination__item,
+        .main-paginate .pagination__navigation {
+            box-shadow: none !important;
+        }
+        .application--light .pagination__item--active {
+            background: #03a9f4 !important;
+        }
     </style>
 @endpush
 
 @push('pre-scripts')
+    {{-- <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script> --}}
+    {{-- <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
     <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
-    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
-    <script src="{{ assets('test/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script>
     <script>
-        Vue.use(VueResource);
-
+        // Vue.use(VueResource);
         mixins.push({
             data () {
                 return {
-                    quill: {
-                        comment: {}
+                    resource: {
+                        quill: {
+                            html: '{!! old('body') !!}',
+                            delta: JSON.parse({!! json_encode(old('delta')) !!}),
+                        },
+                    },
+                    mediabox: {
+                        model: false,
+                        fonts: {!! json_encode(config('editor.fonts.enabled', [])) !!},
+                        url: '',
+                        resource: {
+                            thumbnail: '',
+                        },
+                    },
+                    //
+                    hidden: true,
+                    dataset: {
+                        items: {!! json_encode($resource->comments()->paginate(5)->items()) !!},
+                        loading: true,
+                        urls: {
+                            comments: {
+                                api: {
+                                    destroy: '{{ route('api.comments.destroy', 'null') }}',
+                                },
+                                show: '{{ route('comments.show', 'null') }}',
+                                edit: '{{ route('comments.edit', 'null') }}',
+                                destroy: '{{ route('comments.destroy', 'null') }}',
+                            },
+                        },
+                    },
+                    resource: {
+                        item: {
+                            name: '',
+                            code: '',
+                            description: '',
+                            grants: '',
+                        },
+                        errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                     },
                 }
+            },
+            methods: {
+                get () {
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending,
+                        page: page,
+                        sort: sortBy,
+                        take: rowsPerPage,
+                    };
+                    this.api().get('{{ route('api.comments.all') }}', query)
+                        .then((data) => {
+                            this.dataset.items = data.items.data ? data.items.data : data.items;
+                            // this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.loading = false;
+                        });
+                },
+
+                post (url, query) {
+                    var self = this;
+                    this.api().post(url, query)
+                        .then((data) => {
+                            self.snackbar = Object.assign(self.snackbar, data.response.body);
+                            self.snackbar.model = true;
+                        });
+                },
+
+                destroy (url, query) {
+                    var self = this;
+                    this.api().delete(url, query)
+                        .then((data) => {
+                            self.get('{{ route('api.comments.all') }}');
+                            self.snackbar = Object.assign(self.snackbar, data.response.body);
+                            self.snackbar.model = true;
+                        });
+                },
+            },
+
+            mounted () {
+                // this.get();
+                // console.log("dataset.pagination", this.dataset.pagination);
             },
         })
     </script>

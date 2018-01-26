@@ -2,45 +2,27 @@
 
 namespace Forum\Models;
 
-use Frontier\Support\Traits\HasManyCategories;
-use Frontier\Support\Traits\Ownable;
+use Category\Support\Relations\BelongsToCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
-use Pluma\Models\User;
-use Pluma\Support\Database\Scopes\Searchable;
+use Forum\Support\Traits\ForumMutatorTrait;
+use User\Support\Traits\BelongsToUser;
+use Comment\Models\Comment;
 
 class Forum extends Model
 {
-    // Searchable
-    use Ownable, SoftDeletes;
+    use SoftDeletes, BelongsToUser, ForumMutatorTrait, BelongsToCategory;
 
-    protected $with = ['user', 'comments'];
+    protected $with = ['category'];
 
-    // protected $searchables = ['name', 'code', 'description', 'created_at', 'updated_at'];
+    protected $appends = ['author', 'created', 'modified', 'removed'];
 
-    /**
-     * The alias for column `body`
-     *
-     * @return string
-     */
-    public function getContentAttribute()
+    protected $searchables = ['name', 'code', 'body', 'created_at', 'updated_at'];
+
+    //
+    public function forum()
     {
-        return $this->body;
-    }
-
-    public function authors()
-    {
-        //
-    }
-
-    public function comment()
-    {
-        return $this->hasMany(\Pluma\Models\Comment::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(\Pluma\Models\User::class);
+        return $this->morphMany('Comment', 'commentable');
     }
 
     public function comments()

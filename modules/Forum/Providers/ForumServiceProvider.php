@@ -2,8 +2,6 @@
 
 namespace Forum\Providers;
 
-use Forum\Models\Forum;
-use Forum\Observers\ForumObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 

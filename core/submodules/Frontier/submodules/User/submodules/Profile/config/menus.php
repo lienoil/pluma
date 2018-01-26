@@ -46,17 +46,17 @@ return [
                 ],
             ],
 
-            'change-password' => [
-                'name' => 'change-password',
-                'order' => 2,
-                'slug' => route('credentials.index', user()->handlename),
-                'always_viewable' => true,
-                'icon' => 'vpn_key',
-                'labels' => [
-                    'title' => __('Credentials'),
-                    'description' => __('Update password and more'),
-                ],
-            ],
+            // 'change-password' => [
+            //     'name' => 'change-password',
+            //     'order' => 2,
+            //     'slug' => route('credentials.index', user()->handlename),
+            //     'always_viewable' => true,
+            //     'icon' => 'vpn_key',
+            //     'labels' => [
+            //         'title' => __('Credentials'),
+            //         'description' => __('Update password and more'),
+            //     ],
+            // ],
 
             'profile-logout-divider' => [
                 'name' => 'profile-logout-divider',

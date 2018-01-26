@@ -53,13 +53,17 @@
                                 </v-flex>
                                 <v-flex xs8>
                                     <v-text-field
-                                        :error-messages="resource.errors.description"
+                                        :error-messages="resource.errors.body"
                                         label="{{ _('Short Description') }}"
-                                        name="description"
-                                        value="{{ old('description') }}"
+                                        name="body"
+                                        value="{{ old('body') }}"
                                     ></v-text-field>
                                 </v-flex>
                             </v-layout>
+
+                            {{-- Categories --}}
+                            @include("Forum::cards.forum-attributes")
+                            {{-- /Categories --}}
 
                             <div class="text-sm-right">
                                 <button type="submit" class="btn btn--raised primary ma-0"><span class="btn__content">{{ __('Submit') }}</span></button>
@@ -94,13 +98,18 @@
                         selected: [],
                         totalItems: 0,
                     },
+                    attributes: {
+                        categories: JSON.parse('{!! json_encode($categories) !!}'),
+                    },
                     resource: {
                         item: {
                             name: '',
                             code: '',
-                            description: '',
+                            body: '',
+                            category_id: '{{ old('category_id') }}',
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
+                        category_id: '{{ old('category_id') }}',
                     },
                     urls: {
                         forums: {
