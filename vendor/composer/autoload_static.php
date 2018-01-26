@@ -10,6 +10,7 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -39,6 +40,10 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
         ),
+        'R' => 
+        array (
+            'Ramsey\\Uuid\\' => 12,
+        ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
@@ -63,6 +68,7 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
             'Illuminate\\Queue\\' => 17,
             'Illuminate\\Pipeline\\' => 20,
             'Illuminate\\Pagination\\' => 22,
+            'Illuminate\\Notifications\\' => 25,
             'Illuminate\\Mail\\' => 16,
             'Illuminate\\Log\\' => 15,
             'Illuminate\\Http\\' => 16,
@@ -78,6 +84,7 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
             'Illuminate\\Config\\' => 18,
             'Illuminate\\Cache\\' => 17,
             'Illuminate\\Bus\\' => 15,
+            'Illuminate\\Broadcasting\\' => 24,
             'Illuminate\\Auth\\' => 16,
         ),
         'E' => 
@@ -166,6 +173,10 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
+        'Ramsey\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -230,6 +241,10 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         array (
             0 => __DIR__ . '/..' . '/illuminate/pagination',
         ),
+        'Illuminate\\Notifications\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/notifications',
+        ),
         'Illuminate\\Mail\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/mail',
@@ -289,6 +304,10 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         'Illuminate\\Bus\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/bus',
+        ),
+        'Illuminate\\Broadcasting\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/broadcasting',
         ),
         'Illuminate\\Auth\\' => 
         array (
