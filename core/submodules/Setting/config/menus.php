@@ -119,6 +119,7 @@ return [
                     'branding-settings' => [
                         'name' => 'branding-settings',
                         'slug' => route('settings.branding'),
+                        'route' => 'settings.branding',
                         'icon' => 'fa-leaf',
                         'labels' => [
                             'title' => __('Site Branding'),
@@ -129,6 +130,7 @@ return [
                     'email-settings' => [
                         'name' => 'email-settings',
                         'slug' => route('settings.email'),
+                        'route' => 'settings.email',
                         'icon' => 'fa-envelope',
                         'labels' => [
                             'title' => __('Email Options'),
@@ -139,6 +141,7 @@ return [
                     'social-media-settings' => [
                         'name' => 'social-media-settings',
                         'slug' => route('settings.social'),
+                        'route' => 'settings.social',
                         'icon' => 'fa-twitter',
                         'labels' => [
                             'title' => __('Social Media'),
@@ -164,6 +167,7 @@ return [
             'system-settings' => [
                 'name' => 'system-settings',
                 'slug' => route('settings.system'),
+                'route' => 'settings.system',
                 'icon' => 'settings_applications',
                 'always_viewable' => false,
                 'order' => 100,

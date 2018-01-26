@@ -52,7 +52,7 @@
         {{-- Bulk Delete --}}
         <v-slide-y-transition>
             <template v-if="dataset.selected.length > 1">
-                <form action="{{ route('announcements.destroy') }}" method="POST" class="inline">
+                <form :action="`{{ route('announcements.destroy', false) }}`" method="POST" class="inline">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <template v-for="item in dataset.selected">
@@ -74,10 +74,10 @@
         <v-btn
             icon
             flat
-            href="{{ route('announcements.trash') }}"
+            href="{{ route('announcements.trashed') }}"
             dark
             v-tooltip:left="{'html': `View trashed items`}"
-        ><v-icon class="warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn>
+        ><v-icon class="warning--after">archive</v-icon></v-btn>
         {{-- /Trashed --}}
     </v-toolbar>
 

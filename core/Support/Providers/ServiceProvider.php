@@ -122,7 +122,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function bootViewComposers()
     {
-        $composers = $this->composers;
+        $composers = (array) $this->composers;
 
         foreach ($composers as $composer) {
             view()->composer($composer['appears'], $composer['class']);

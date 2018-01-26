@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
+class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -397,6 +397,8 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Blacksmith\\Console\\Commands\\App\\AppPermissionsRefreshCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/App/AppPermissionsRefreshCommand.php',
         'Blacksmith\\Console\\Commands\\App\\AppRolesGenerateCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/App/AppRolesGenerateCommand.php',
         'Blacksmith\\Console\\Commands\\App\\AppVersionCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/App/AppVersionCommand.php',
+        'Blacksmith\\Console\\Commands\\Config\\ConfigCacheCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Config/ConfigCacheCommand.php',
+        'Blacksmith\\Console\\Commands\\Config\\ConfigClearCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/Config/ConfigClearCommand.php',
         'Blacksmith\\Console\\Commands\\DB\\DBDropCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/DB/DBDropCommand.php',
         'Blacksmith\\Console\\Commands\\DB\\DBEmptyCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/DB/DBEmptyCommand.php',
         'Blacksmith\\Console\\Commands\\DB\\DBMigrateCommand' => __DIR__ . '/../..' . '/blacksmith/Console/Commands/DB/DBMigrateCommand.php',
@@ -1339,6 +1341,7 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Menu\\Requests\\MenuRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Menu/Requests/MenuRequest.php',
         'Menu\\Support\\Traits\\BelongsToMenu' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Menu/Support/Traits/BelongsToMenu.php',
         'Menu\\Support\\Traits\\MenuBuilderTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Menu/Support/Traits/MenuBuilderTrait.php',
+        'ModifyDetailsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20180125153815_modify_details_table.php',
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
         'Monolog\\Formatter\\ChromePHPFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
         'Monolog\\Formatter\\ElasticaFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php',
@@ -2121,6 +2124,7 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Symfony\\Component\\Debug\\FatalErrorHandler\\FatalErrorHandlerInterface' => __DIR__ . '/..' . '/symfony/debug/FatalErrorHandler/FatalErrorHandlerInterface.php',
         'Symfony\\Component\\Debug\\FatalErrorHandler\\UndefinedFunctionFatalErrorHandler' => __DIR__ . '/..' . '/symfony/debug/FatalErrorHandler/UndefinedFunctionFatalErrorHandler.php',
         'Symfony\\Component\\Debug\\FatalErrorHandler\\UndefinedMethodFatalErrorHandler' => __DIR__ . '/..' . '/symfony/debug/FatalErrorHandler/UndefinedMethodFatalErrorHandler.php',
+        'Symfony\\Component\\EventDispatcher\\ContainerAwareEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/ContainerAwareEventDispatcher.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcher.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcherInterface.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\WrappedListener' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/WrappedListener.php',
@@ -2136,8 +2140,8 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Symfony\\Component\\Filesystem\\Exception\\FileNotFoundException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/FileNotFoundException.php',
         'Symfony\\Component\\Filesystem\\Exception\\IOException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/IOException.php',
         'Symfony\\Component\\Filesystem\\Exception\\IOExceptionInterface' => __DIR__ . '/..' . '/symfony/filesystem/Exception/IOExceptionInterface.php',
-        'Symfony\\Component\\Filesystem\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/InvalidArgumentException.php',
         'Symfony\\Component\\Filesystem\\Filesystem' => __DIR__ . '/..' . '/symfony/filesystem/Filesystem.php',
+        'Symfony\\Component\\Filesystem\\LockHandler' => __DIR__ . '/..' . '/symfony/filesystem/LockHandler.php',
         'Symfony\\Component\\Finder\\Comparator\\Comparator' => __DIR__ . '/..' . '/symfony/finder/Comparator/Comparator.php',
         'Symfony\\Component\\Finder\\Comparator\\DateComparator' => __DIR__ . '/..' . '/symfony/finder/Comparator/DateComparator.php',
         'Symfony\\Component\\Finder\\Comparator\\NumberComparator' => __DIR__ . '/..' . '/symfony/finder/Comparator/NumberComparator.php',
@@ -2622,10 +2626,10 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$classMap;
 
         }, null, ClassLoader::class);
     }

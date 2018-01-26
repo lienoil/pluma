@@ -3,7 +3,7 @@
 @section("content")
 
     <v-toolbar dark class="grey darken-4 elevation-0">
-        <v-icon class="white--text">{{ navigations('sidebar')->current->icon }}</v-icon>
+        <v-icon class="white--text">{{ navigations('current')->icon }}</v-icon>
         <v-toolbar-title class="white--text">{{ __('System Information') }}</v-toolbar-title>
     </v-toolbar>
 
@@ -42,8 +42,8 @@
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Environment') }}</div>
-                            <div>{{ env('APP_ENV') }}</div>
-                            @if (env('APP_ENV') === 'development')
+                            <div>{{ config('APP_ENV', env('APP_ENV')) }}</div>
+                            @if (config('APP_ENV', env('APP_ENV')) === 'development')
                                 <div class="warning--text">
                                     <v-icon left class="warning--text">warning</v-icon>
                                     <span>{{ __("You are in DEVELOPMENT MODE. Recommended 'production'.") }}</span>
@@ -53,8 +53,8 @@
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Author') }}</div>
-                            <div>{{ env('APP_AUTHOR') }}</div>
-                            @if (! env('APP_AUTHOR'))
+                            <div>{{ config('APP_AUTHOR', env('APP_AUTHOR')) }}</div>
+                            @if (! config('APP_AUTHOR', env('APP_AUTHOR')))
                                 <div class="warning--text">
                                     <v-icon left class="warning--text">warning</v-icon>
                                     <span>{{ __("No application author. It would be nice to know who wrote this application.") }}</span>
@@ -64,7 +64,7 @@
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Year') }}</div>
-                            <div>{{ env('APP_YEAR') }}</div>
+                            <div>{{ config('APP_YEAR', env('APP_YEAR')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
@@ -74,8 +74,8 @@
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Application Key') }}</div>
-                            <v-text-field hide-details readonly dark value="{{ env('APP_KEY') }}"></v-text-field>
-                            @if (! env('APP_KEY'))
+                            <v-text-field hide-details readonly dark value="{{ config('APP_KEY', env('APP_KEY')) }}"></v-text-field>
+                            @if (! config('APP_KEY', env('APP_KEY')))
                                 <div class="error--text">
                                     <v-icon left class="error--text">error</v-icon>
                                     <span>{{ __("No APP_KEY found! Please generate a random key for your application.") }}</span>
@@ -85,8 +85,8 @@
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Debug') }}</div>
-                            <div>{{ env('APP_DEBUG') ? "ON" : "OFF" }}</div>
-                            @if (env('APP_DEBUG'))
+                            <div>{{ config('APP_DEBUG', env('APP_DEBUG')) ? "ON" : "OFF" }}</div>
+                            @if (config('APP_DEBUG', env('APP_DEBUG')))
                                 <div class="warning--text">
                                     <v-icon left class="warning--text">warning</v-icon>
                                     <span>{{ __("Debugging is recommended to be turned OFF if you are deployed to your live server.") }}</span>
@@ -122,28 +122,28 @@
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Connection') }}</div>
-                            <div>{{ env('DB_CONNECTION') }}</div>
+                            <div>{{ config('DB_CONNECTION', env('DB_CONNECTION')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Host') }}</div>
-                            <div>{{ env('DB_HOST') }}</div>
+                            <div>{{ config('DB_HOST', env('DB_HOST')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Port') }}</div>
-                            <div>{{ env('DB_PORT') }}</div>
+                            <div>{{ config('DB_PORT', env('DB_PORT')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Database') }}</div>
-                            <div>{{ env('DB_DATABASE') }}</div>
+                            <div>{{ config('DB_DATABASE', env('DB_DATABASE')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Username') }}</div>
-                            <div>{{ env('DB_USERNAME') }}</div>
-                            @if (env('DB_USERNAME') == "root")
+                            <div>{{ config('DB_USERNAME', env('DB_USERNAME')) }}</div>
+                            @if (config('DB_USERNAME', env('DB_USERNAME')) == "root")
                                 <div class="warning--text">
                                     <v-icon left class="warning--text">warning</v-icon>
                                     <span>{{ __("It might be safer to have another user managing this app's database other than 'root'.") }}</span>
@@ -158,27 +158,27 @@
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Driver') }}</div>
-                            <div>{{ env('MAIL_DRIVER') }}</div>
+                            <div>{{ config('MAIL_DRIVER', env('MAIL_DRIVER')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Host') }}</div>
-                            <div>{{ env('MAIL_HOST') }}</div>
+                            <div>{{ config('MAIL_HOST', env('MAIL_HOST')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Port') }}</div>
-                            <div>{{ env('MAIL_PORT') }}</div>
+                            <div>{{ config('MAIL_PORT', env('MAIL_PORT')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Encryption') }}</div>
-                            <div>{{ env('MAIL_ENCRYPTION') }}</div>
+                            <div>{{ config('MAIL_ENCRYPTION', env('MAIL_ENCRYPTION')) }}</div>
                         </div>
 
                         <div class="white--text body-1 pa-3">
                             <div class="grey--text body-2">{{ __('Username') }}</div>
-                            <div>{{ env('MAIL_USERNAME') }}</div>
+                            <div>{{ config('MAIL_USERNAME', env('MAIL_USERNAME')) }}</div>
                         </div>
 
                     </v-card-text>
