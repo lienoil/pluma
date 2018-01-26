@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Migration\Migration;
 use Phinx\Migration\AbstractMigration;
 
-class CreateComments extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * The table name.
@@ -29,7 +29,8 @@ class CreateComments extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('parent_id')->unsigned()->nullable();
-            $table->text('comment');
+            $table->text('body')->nullable();
+            $table->text('delta')->nullable();
             $table->boolean('approved')->nullable();
             $table->integer('upvotes')->nullable();
 
