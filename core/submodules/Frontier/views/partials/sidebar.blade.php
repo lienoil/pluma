@@ -20,7 +20,7 @@
             </v-list-tile-avatar>
             <v-list-tile-content>
                 <v-list-tile-title><strong>{{ $application->site->title }}</strong></v-list-tile-title>
-                <span class="caption">{{ $application->site->tagline }}</span>
+                <v-list-tile-subtitle class="caption">{{ $application->site->tagline }}</v-list-tile-subtitle>
             </v-list-tile-content>
             <v-list-tile-action>
                 <v-btn

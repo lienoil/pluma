@@ -1,6 +1,5 @@
 <v-card class="elevation-1">
     <v-card-media src="{{ widgets()->glance->backdrop }}">
-
         <v-card flat class="transparent" style="width:100%">
             <div class="insert-overlay"
                 style="background: rgba(9, 53, 74, 0.95); position: absolute; width: 100%; height: 100%;"></div>

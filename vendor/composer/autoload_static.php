@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
+class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -459,15 +459,16 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         'Category\\Support\\Traits\\CategoryResourceApiTrait' => __DIR__ . '/../..' . '/core/submodules/Category/Support/Traits/CategoryResourceApiTrait.php',
         'Category\\Support\\Traits\\CategoryResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/core/submodules/Category/Support/Traits/CategoryResourceSoftDeleteTrait.php',
         'Chronos\\Providers\\ChronosServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/Providers/ChronosServiceProvider.php',
-        'Comment\\Controllers\\API\\CommentController' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Controllers/API/CommentController.php',
-        'Comment\\Controllers\\CommentController' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Controllers/CommentController.php',
-        'Comment\\Models\\Comment' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Models/Comment.php',
-        'Comment\\Observers\\CommentObserver' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Observers/CommentObserver.php',
-        'Comment\\Providers\\CommentServiceProvider' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Providers/CommentServiceProvider.php',
-        'Comment\\Requests\\CommentRequest' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Requests/CommentRequest.php',
-        'Comment\\Support\\Relations\\BelongsToManyComments' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Support/Relations/BelongsToManyComments.php',
-        'Comment\\Support\\Relations\\HasManyComments' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Support/Relations/HasManyComments.php',
-        'Comment\\Support\\Relations\\MorphManyComments' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/Support/Relations/MorphManyComments.php',
+        'Comment\\Controllers\\API\\CommentController' => __DIR__ . '/../..' . '/modules/Comment/Controllers/API/CommentController.php',
+        'Comment\\Controllers\\CommentController' => __DIR__ . '/../..' . '/modules/Comment/Controllers/CommentController.php',
+        'Comment\\Models\\Comment' => __DIR__ . '/../..' . '/modules/Comment/Models/Comment.php',
+        'Comment\\Observers\\CommentObserver' => __DIR__ . '/../..' . '/modules/Comment/Observers/CommentObserver.php',
+        'Comment\\Providers\\CommentServiceProvider' => __DIR__ . '/../..' . '/modules/Comment/Providers/CommentServiceProvider.php',
+        'Comment\\Requests\\CommentRequest' => __DIR__ . '/../..' . '/modules/Comment/Requests/CommentRequest.php',
+        'Comment\\Support\\Relations\\BelongsToManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/BelongsToManyComments.php',
+        'Comment\\Support\\Relations\\HasManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/HasManyComments.php',
+        'Comment\\Support\\Relations\\MorphManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/MorphManyComments.php',
+        'Comment\\Support\\Traits\\CommentResourcePublicTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourcePublicTrait.php',
         'Content\\Controllers\\ContentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Controllers/ContentController.php',
         'Content\\Models\\Content' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Models/Content.php',
         'Content\\Providers\\ContentServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Providers/ContentServiceProvider.php',
@@ -506,7 +507,7 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/00000000000004_create_calendars_table.php',
         'CreateCataloguesTable' => __DIR__ . '/../..' . '/core/submodules/Library/submodules/Catalogue/database/migrations/00000000000006_create_catalogues_table.php',
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/core/submodules/Category/database/migrations/00000000000003_create_categories_table.php',
-        'CreateCommentsTable' => __DIR__ . '/../..' . '/modules/Forum/submodules/Comment/database/migrations/20171018013847_create_comments_table.php',
+        'CreateCommentsTable' => __DIR__ . '/../..' . '/modules/Comment/database/migrations/20171018013847_create_comments_table.php',
         'CreateContentUserTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20171026095534_create_content_user_table.php',
         'CreateContentsTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/database/migrations/20170912032507_create_contents_table.php',
         'CreateCourseUserTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20170929040950_create_course_user_table.php',
@@ -751,6 +752,7 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         'Pluma\\Support\\Request\\FormRequest' => __DIR__ . '/../..' . '/core/Support/Request/FormRequest.php',
         'Pluma\\Support\\Route\\RouteServiceProvider' => __DIR__ . '/../..' . '/core/Support/Route/RouteServiceProvider.php',
         'Pluma\\Support\\Routes\\Traits\\Routing' => __DIR__ . '/../..' . '/core/Support/Route/Traits/Routing.php',
+        'Pluma\\Support\\System\\SystemInfo' => __DIR__ . '/../..' . '/core/Support/System/SystemInfo.php',
         'Pluma\\Support\\Validation\\Traits\\ValidatesRequests' => __DIR__ . '/../..' . '/core/Support/Validation/Traits/ValidatesRequests.php',
         'Profile\\Controllers\\CredentialController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Controllers/CredentialController.php',
         'Profile\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Controllers/ProfileController.php',
@@ -791,6 +793,7 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
         'Setting\\Controllers\\EmailSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/EmailSettingController.php',
         'Setting\\Controllers\\GeneralSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/GeneralSettingController.php',
         'Setting\\Controllers\\SettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/SettingController.php',
+        'Setting\\Controllers\\SystemConfigurationSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/SystemConfigurationSettingController.php',
         'Setting\\Controllers\\SystemSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/SystemSettingController.php',
         'Setting\\Models\\General' => __DIR__ . '/../..' . '/core/submodules/Setting/Models/General.php',
         'Setting\\Models\\Setting' => __DIR__ . '/../..' . '/core/submodules/Setting/Models/Setting.php',
@@ -883,10 +886,10 @@ class ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit1709bb0fa3c0b317dafc517263eeac43::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$classMap;
 
         }, null, ClassLoader::class);
     }

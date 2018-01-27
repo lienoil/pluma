@@ -13,5 +13,14 @@ return [
             'backdrop' => assets('frontier/images/placeholder/sql.jpg'),
         ],
 
+        'cpu-usage' => [
+            'name' => __("CPU Usage"),
+            'description' => __("The CPU Usage in percentage."),
+            'location' => 'dashboard.2.12',
+            'code' => 'cpu-usage',
+            'icon' => 'fa-tachometer',
+            'view' => 'Setting::widgets.cpu-usage',
+        ],
+
     ],
 ];

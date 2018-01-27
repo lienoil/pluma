@@ -38,4 +38,7 @@ Route::group(['prefix' => 'settings'], function () {
     // System
     Route::get('system', 'SystemSettingController@index')->name('settings.system');
     Route::post('system', 'SystemSettingController@store')->name('settings.system.store');
+
+    Route::get('system/configuration', 'SystemConfigurationSettingController@index')->name('settings.system.configuration');
+    Route::post('system/configuration', 'SystemConfigurationSettingController@store')->name('settings.system.configuration.store');
 });

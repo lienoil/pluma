@@ -164,16 +164,43 @@ return [
                 'parent' => 'settings',
                 'order' => 99,
             ],
-            'system-settings' => [
-                'name' => 'system-settings',
+
+            'system-settings-group' => [
+                'name' => 'system-settings-group',
                 'slug' => route('settings.system'),
-                'route' => 'settings.system',
                 'icon' => 'settings_applications',
                 'always_viewable' => false,
                 'order' => 100,
                 'labels' => [
                     'title' => __('System'),
                     'description' => __('Review the system settings'),
+                ],
+                'children' => [
+                    'system-settings' => [
+                        'name' => 'system-settings',
+                        'slug' => route('settings.system'),
+                        'route' => 'settings.system',
+                        'icon' => 'settings_applications',
+                        'always_viewable' => false,
+                        'order' => 100,
+                        'labels' => [
+                            'title' => __('System Information'),
+                            'description' => __('Review the system settings'),
+                        ],
+                    ],
+
+                    'system-configuration-settings' => [
+                        'name' => 'system-configuration-settings',
+                        'slug' => route('settings.system.configuration'),
+                        'route' => 'settings.system.configuration',
+                        'icon' => 'build',
+                        'always_viewable' => false,
+                        'order' => 101,
+                        'labels' => [
+                            'title' => __('Configuration'),
+                            'description' => __('Some more developer options'),
+                        ],
+                    ],
                 ],
             ],
         ],

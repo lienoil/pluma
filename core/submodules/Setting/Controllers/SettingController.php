@@ -58,8 +58,6 @@ class SettingController extends AdminController
     {
         foreach ($request->except(['_token']) as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
-            if (! empty($value)) {
-            }
         }
 
         return back();

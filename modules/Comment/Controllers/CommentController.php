@@ -2,17 +2,20 @@
 
 namespace Comment\Controllers;
 
-use Frontier\Controllers\AdminController;
-use Illuminate\Http\Request;
 use Comment\Models\Comment;
 use Comment\Requests\CommentRequest;
+use Comment\Support\Traits\CommentResourcePublicTrait;
+use Frontier\Controllers\GeneralController;
+use Illuminate\Http\Request;
 
-class CommentController extends AdminController
+class CommentController extends GeneralController
 {
+    use CommentResourcePublicTrait;
+
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -110,7 +113,7 @@ class CommentController extends AdminController
      */
     public function trash()
     {
-        $resource = Comment::onlyTrashed()->paginate();
+        $resources = Comment::onlyTrashed()->paginate();
 
         return view("Theme::comments.trash")->with(compact('resources'));
     }
