@@ -63,6 +63,7 @@ class ForgeAccountCommand extends Command
         } else {
             $this->error("Cancelled.");
         }
+        $this->info("Account created.");
     }
 
     /**

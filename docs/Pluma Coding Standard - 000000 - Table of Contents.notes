@@ -1,14 +1,17 @@
 **Pluma Coding Standard**
 
 --- ✄ -------------------------------------------------------------------------
-Note #1: The Pluma Coding Standard apply to written code within Pluma and its
-contributed modules. This document is loosely based on the PSR-4 Coding Style
-Guide [http://www.php-fig.org/psr/psr-4]
+**Notes**
 
-Note #2: All code comments should follow the US English spelling (e.g., "color"
-not "colour").
+The Pluma Coding Standard apply to written code within Pluma and its
+contributed modules. This document is loosely based on the PSR-2 Coding Style
+Guide [http://www.php-fig.org/psr/psr-2]
 
-Note #3: The Coding Standards are version-independent and may be subject to
+ALL code comments should follow the US English spelling (e.g., "color"
+not "colour"). No convention imposed on naming classes, variables, and all
+non documentative writing within code.
+
+The Coding Standards are version-independent and may be subject to
 change in every major version. All new code should follow the current standards,
 regardless of Pluma version.
 --- ✄ -------------------------------------------------------------------------

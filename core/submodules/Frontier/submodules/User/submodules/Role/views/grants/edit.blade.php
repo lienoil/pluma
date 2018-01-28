@@ -153,7 +153,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: null,
+                            rowsPerPage: '{{ settings('items_per_page', 15) }}',
                             totalItems: 0,
                         },
                         searchform: {
@@ -183,7 +183,7 @@
                                 { text: '{{ __("Description") }}', align: 'left', value: 'description' },
                             ],
                             pagination: {
-                                rowsPerPage: 10,
+                                rowsPerPage: '{{ settings('items_per_page', 15) }}',
                                 totalItems: 0,
                             },
                             items: [],

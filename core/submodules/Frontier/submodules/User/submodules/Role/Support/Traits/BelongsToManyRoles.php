@@ -11,7 +11,13 @@ trait BelongsToManyRoles
      *
      * @var array
      */
-    protected $rootroles = ['root', 'dev', 'superadmin', 'super-administrator', 'super-admin'];
+    protected $rootroles = [
+        'root',
+        'dev',
+        'superadmin',
+        'super-administrator',
+        'super-admin'
+    ];
 
     /**
      * The Code column's name
@@ -25,7 +31,7 @@ trait BelongsToManyRoles
      * Gets all Role resources associated
      * with this model.
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function roles()
     {
@@ -62,12 +68,13 @@ trait BelongsToManyRoles
      * Check if resource has role.
      *
      * @param  mixed|string|array  $roles
+     * @param  boolean $checkIfRoot
      * @return boolean
      */
-    public function hasRole($roles)
+    public function hasRole($roles, $checkIfRoot = true)
     {
         // If root, allow.
-        if ($this->isRoot()) {
+        if ($checkIfRoot && $this->isRoot()) {
             return true;
         }
 

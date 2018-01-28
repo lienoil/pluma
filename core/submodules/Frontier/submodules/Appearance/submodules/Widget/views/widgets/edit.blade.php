@@ -26,6 +26,9 @@
                         </v-toolbar>
                         <v-card-text>
                             <div class="body-1 grey--text">{{ $resource->description }}</div>
+                            <div class="body-1 grey--text">
+                                <strong>Location:</strong> {{ $resource->location }}
+                            </div>
                             <input type="hidden" name="code" value="{{ $resource->code }}">
                         </v-card-text>
 

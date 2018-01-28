@@ -70,7 +70,7 @@ class WidgetServiceProvider extends ServiceProvider
     public function bootBladeDirectives()
     {
         Blade::directive('viewable', function ($expression) {
-            return "<?php if (($expression) && (method_exists(($expression), 'roles')) && user()->hasRole(($expression)->roles()->pluck('code', 'name')->toArray())) : ?>";
+            return "<?php if (($expression) && (method_exists(($expression), 'roles')) && user()->hasRole(($expression)->roles()->pluck('code', 'name')->toArray(), false)) : ?>";
         });
 
         Blade::directive('endviewable', function () {

@@ -5,9 +5,9 @@ Introduction:
   _TODO: make an intro_
 
 1. Files:
-  * Files should follow the PSR-4 naming Convention [http://www.php-fig.org/bylaws/psr-naming-conventions].
+  * Files should follow the PSR-2 naming convention [http://www.php-fig.org/bylaws/psr-naming-conventions].
   * All file extensions should be lowercase.
-  * All class files should be studly case (e.g. BlogController.php).
+  * All class, traits, interface files should be studly case (e.g. BlogController.php).
   * All other files should be lowercase.
   * All documentation files may have the ".txt" or ".notes" or ".todo" as a file extension.
     The file name for the document should be in all uppercase (e.g. README.txt, UPGRADES.todo).
@@ -32,30 +32,30 @@ Introduction:
         Right: $single = 'string'; $isSingle = true;
         Wrong: $StudlyCase; $snake_case;
   * Only boolean variables are allowed to have the prefixes "is", and "has"
-    (e.g. $hasChildren).
+    (e.g. $isChild, $hasChildren).
 
 4. Constants:
   All user defined constants should always be written in all-uppercase, with
   underscores to separate words.
   All predefined PHP Constants like `TRUE`, 'FALSE', and `NULL` are left to the
   author's preference.
-  All constants should be defined using the `const` PHP language keyword
+  WHENEVER applicable, all constants should be defined using the `const` PHP language keyword
   (instead of `define()`), because it is better for performance.
     ` Example:
-        const PLUMA_INSTALLATION_DATE = date('Y-m-d H:i:s');
+        const PLUMA_GENESIS_DATE = '2017';
 
 
 5. Global Variables:
   As much as possible avoid using global variables. If you need to define one,
-  the name should start with a single underscore followed by the module or theme
+  the name should start with atleast a single underscore followed by the module or theme
   name AND should be in all uppercase.
     ` Example:
         $_BLOG_CUSTOM_TIMEOUT = 32000;
 
 
 6. Classes:
-  * All classes should follow the PSR-4 Coding Standard.
-  * Names should not have the word "Pluma".
+  * All classes should follow the PSR-2 Coding Standard.
+  * Class names should not have the reserved word "Pluma".
   * Classes, traits, and interfaces should use studly case naming
     (e.g. BlogController, BlogTrait, BlogInterface).
   * The namespace should have one space above.

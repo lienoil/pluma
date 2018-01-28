@@ -303,7 +303,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 5,
+                            rowsPerPage: '{{ settings('items_per_page', 15) }}',
                             take: 5,
                             totalItems: 0,
                         },
@@ -331,7 +331,7 @@
                                 { text: '{{ __("Description") }}', align: 'left', value: 'description' },
                             ],
                             pagination: {
-                                rowsPerPage: 10,
+                                rowsPerPage: '{{ settings('items_per_page', 15) }}',
                                 totalItems: 0,
                             },
                             items: [],

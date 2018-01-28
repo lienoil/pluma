@@ -2,10 +2,10 @@
 
 namespace Comment\Providers;
 
-use Pluma\Support\Providers\ServiceProvider;
-use Schema;
 use Comment\Models\Comment;
 use Comment\Observers\CommentObserver;
+use Illuminate\Support\Facades\Schema;
+use Pluma\Support\Providers\ServiceProvider;
 
 class CommentServiceProvider extends ServiceProvider
 {
@@ -45,8 +45,8 @@ class CommentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ( Schema::hasTable('comments') ) {
-            Comment::observe( CommentObserver::class );
+        if (Schema::hasTable('comments')) {
+            Comment::observe(CommentObserver::class);
         }
     }
 }

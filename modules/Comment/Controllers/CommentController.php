@@ -4,13 +4,14 @@ namespace Comment\Controllers;
 
 use Comment\Models\Comment;
 use Comment\Requests\CommentRequest;
+use Comment\Support\Traits\CommentResourceApiTrait;
 use Comment\Support\Traits\CommentResourcePublicTrait;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 
 class CommentController extends GeneralController
 {
-    use CommentResourcePublicTrait;
+    use CommentResourceApiTrait, CommentResourcePublicTrait;
 
     /**
      * Display a listing of the resource.

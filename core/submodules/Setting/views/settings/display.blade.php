@@ -8,11 +8,7 @@
 
         <v-layout row wrap>
             <v-flex sm3 md2>
-                {{-- @php
-                    echo "<pre>";
-                        var_dump( navigations('current') ); die();
-                    echo "</pre>";
-                @endphp --}}
+
                 @include("Setting::partials.settingsbar")
 
             </v-flex>
@@ -25,23 +21,16 @@
                         <v-toolbar class="transparent elevation-0">
                             <v-toolbar-title class="accent--text">{{ __('Displaying Data') }}</v-toolbar-title>
                         </v-toolbar>
-                        <v-subheader>{{ __('Time Format') }}</v-subheader>
+                        <v-subheader>{{ __('Management') }}</v-subheader>
                         <v-card-text>
-                            <input type="hidden" name="time_format" :value="resource.radios.time_format.model">
-                            <v-radio-group hide-details class="mb-0" v-model="resource.radios.time_format.model" :mandatory="true">
-                                <v-radio input-value="h:i A" value="h:i A" label="h:i A (01:00 PM)"></v-radio>
-                                <v-radio input-value="H:i:s" value="H:i:s" label="H:i:s (13:00:00)"></v-radio>
-                                <v-radio label="{{ __('Custom Format') }}" :input-value="resource.radios.time_format.custom" :value="resource.radios.time_format.custom"></v-radio>
-                            </v-radio-group>
                             <v-text-field
-                                label="{{ __('Custom Time Format') }}"
-                                v-model="resource.radios.time_format.custom"
+                                type="number"
+                                label="{{ __('Items Per Page') }}"
+                                v-model="resource.item.items_per_page"
+                                name="items_per_page"
                                 input-group
-                                hide-details
-                                @input="(val) => { resource.radios.time_format.model = val }"
+                                @input="(val) => { resource.item.items_per_page = val }"
                             ></v-text-field>
-
-                            <div class="caption grey--text">{{ __('Format follows constants from') }} <a target="_blank" href="http://php.net/manual/en/function.date.php">{{ __('PHP Date Format Manual') }}</a></div>
                         </v-card-text>
 
                         <v-card-actions>
@@ -62,7 +51,9 @@
             data () {
                 return {
                     resource: {
-                        items: {!! json_encode(@$resource) !!},
+                        item: {
+                            items_per_page: '{{ old('items_per_page') ?? settings('items_per_page', 15) }}',
+                        },
                         radios: {
                             membership: {
                                 items: {!! json_encode(config('auth.registration.modes', [])) !!},

@@ -299,7 +299,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 10,
+                            rowsPerPage: '{{ settings('items_per_page', 15) }}',
                             rowsPerPageText: 10,
                             totalItems: 0,
                             sortBy: 'id',

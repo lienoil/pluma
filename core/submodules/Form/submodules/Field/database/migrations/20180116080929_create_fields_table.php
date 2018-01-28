@@ -38,8 +38,14 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('fieldtype_id')->references('id')->on('fieldtypes')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('form_id')->references('id')->on('forms')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('fieldtype_id')->references('id')
+                ->on('fieldtypes')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->foreign('form_id')->references('id')
+                ->on('forms')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
         });
     }
 

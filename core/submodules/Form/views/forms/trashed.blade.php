@@ -170,7 +170,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: {{ settings('rows_per_page', 10) }},
+                            rowsPerPage: {{ settings('items_per_page', 15) }},
                             totalItems: 0,
                         },
                         searchform: {

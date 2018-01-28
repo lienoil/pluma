@@ -316,7 +316,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 10,
+                            rowsPerPage: '{{ settings('items_per_page', 15) }}',
                             totalItems: 0,
                         },
                         searchform: {
@@ -341,7 +341,7 @@
                                 { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             ],
                             pagination: {
-                                rowsPerPage: 10,
+                                rowsPerPage: '{{ settings('items_per_page', 15) }}',
                                 totalItems: 0,
                             },
                             items: [],

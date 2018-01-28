@@ -13,7 +13,9 @@ trait SettingTrait
      */
     public function setting($key, $default = "")
     {
-        $query = $this->settings()->where('key', $key)->first();
+        $query = $this->settings()
+                  ? $this->settings()->where('key', $key)->first()
+                  : null;
 
         return is_null($query) ? $default : $query->value;
     }
