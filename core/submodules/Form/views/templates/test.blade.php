@@ -14,19 +14,11 @@ Version: 1.0
     <v-layout row wrap justify-center align-center>
         <v-flex md8 sm10 xs12>
             <form action="" method="POST">
-                {{ csrf_field() }}
-
-               {{--  @foreach ($form->fields as $name => $field)
-                    <v-textfield>{!! $field->template($name)->render() !!}
-                    </v-textfield>
-                @endforeach --}}
-
-
 
                 {{-- start --}}
                 @foreach ($form->fields as $name => $field)
                 <div class="input-group input-group--text-field">
-                    {{-- <label for=""> {{ __('Name') }} </label> --}}
+                    <label for=""> {{ __('Label') }} </label>
                     <div class="input-group__input">
                         <p>{!! $field->template($name)->render() !!}</p>
                     </div>
@@ -34,8 +26,9 @@ Version: 1.0
                         <div class="input-group__messages"></div>
                     </div>
                 </div>
-               @endforeach
+                @endforeach
                {{-- /end --}}
+
             </form>
         </v-flex>
     </v-layout>
