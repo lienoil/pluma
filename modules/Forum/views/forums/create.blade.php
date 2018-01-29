@@ -1,90 +1,96 @@
 @extends("Theme::layouts.admin")
 
-@section("head-title", __('Forum'))
-@section("page-title", __('Forum'))
+@section("head-title", __('Forum | Ask a Question'))
 
 
 @section("content")
-    @include("Theme::partials.banner")
-    <v-container fluid>
-        <v-layout row wrap>
-            <v-flex xs12>
-                <v-card>
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('New Forum') }}</v-toolbar-title>
-                    </v-toolbar>
-                    <v-card-text>
-                        <form action="{{ route('forums.store') }}" method="POST">
-                            {{ csrf_field() }}
+    <v-toolbar dark class="primary elevation-1">
+        <v-icon dark left>fa-question</v-icon>
+        <v-toolbar-title dark primary-title>{{ __('Ask a Question') }}</v-toolbar-title>
+    </v-toolbar>
 
-                            <v-layout row wrap>
-                                <v-flex xs4>
-                                    <v-subheader>{{ __('Title') }}</v-subheader>
-                                </v-flex>
-                                <v-flex xs8>
-                                     <v-text-field
-                                        :error-message="resource.errors.name"
-                                        label="{{ _('Title') }}"
-                                        name="name"
-                                        value="{{ old('name') }}"
-                                        @input="(val) => { resource.item.name = val; }"
-                                    ></v-text-field>
-                                </v-flex>
-                            </v-layout>
+    <v-container fluid grid-list-lg>
 
-                            <v-layout row wrap>
-                                <v-flex xs4>
-                                    <v-subheader>{{ __('Code') }}</v-subheader>
-                                </v-flex>
-                                <v-flex xs8>
-                                    <v-text-field
-                                        :error-messages="resource.errors.code"
-                                        :value="resource.item.name ? resource.item.name : '{{ old('code') }}' | slugify"
-                                        hint="{{ __('Will be used as a slug for Forum. Make sure the code is unique.') }}"
-                                        label="{{ _('Code') }}"
-                                        name="code"
-                                    ></v-text-field>
-                                </v-flex>
-                            </v-layout>
+        @include("Theme::partials.banner")
 
-                            <v-layout row wrap>
-                                <v-flex xs4>
-                                    <v-subheader>{{ __('Description') }}</v-subheader>
-                                </v-flex>
-                                <v-flex xs8>
-                                    <v-text-field
-                                        :error-messages="resource.errors.body"
-                                        label="{{ _('Short Description') }}"
-                                        name="body"
-                                        value="{{ old('body') }}"
-                                    ></v-text-field>
-                                </v-flex>
-                            </v-layout>
+        <form action="{{ route('forums.store') }}" method="POST">
+            {{ csrf_field() }}
+            <v-layout row wrap>
+                <v-flex xs12 sm9>
+
+                    <v-card>
+                        <v-card-text>
+
+                            <v-text-field
+                                :error-messages="resource.errors.name"
+                                {{-- label="{{ _('Question') }}" --}}
+                                prepend-icon="fa-question"
+                                name="name"
+                                solo
+                                placeholder="{{ __('Write a short question or phrase that best describes your topic or question') }}"
+                                persistent-hint
+                                value="{{ old('name') }}"
+                                @input="(val) => { resource.item.name = val; }"
+                            ></v-text-field>
 
                             {{-- Categories --}}
-                            @include("Forum::cards.forum-attributes")
+                            {{-- @include("Forum::cards.forum-attributes") --}}
                             {{-- /Categories --}}
+                        </v-card-text>
 
-                            <div class="text-sm-right">
-                                <button type="submit" class="btn btn--raised primary ma-0"><span class="btn__content">{{ __('Submit') }}</span></button>
-                            </div>
-                        </form>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-        </v-layout>
+                        <v-divider></v-divider>
+                        {{-- Editor --}}
+                        <v-quill
+                            paper
+                            :options="{
+                                placeholder: '{{ __('Describe the topic or question in more detail...') }}',
+                            }"
+                            :toolbar-options="[
+                                [{'header':1},{'header':2}],
+                                ['bold','italic','underline','strike'],
+                                [{'align':''},{'align':'center'},{'align':'right'},{'align':'justify'}],
+                                ['blockquote','code-block'],
+                                [{'list':'ordered'},{'list':'bullet'}],
+                                [{'indent':'-1'},{'indent':'+1'},'image'],
+                            ]"
+                            class="elevation-0"
+                            class="mb-3 card--flat white elevation-1"
+                            v-model="resource.quill"
+                        >
+                            <template>
+                                <input type="hidden" name="body" :value="resource.quill.html">
+                                <input type="hidden" name="delta" :value="JSON.stringify(resource.quill.delta)">
+                            </template>
+                        </v-quill>
+                        {{-- /Editor --}}
+
+                    </v-card>
+
+                </v-flex>
+
+                <v-flex xs12 sm3>
+                    @include("Forum::cards.saving")
+                </v-flex>
+            </v-layout>
+        </form>
     </v-container>
 @endsection
 
 @push('css')
+    <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
     <style>
-        .inline {
-            display: inline-block;
+        .quill-container.ql-paper .ql-toolbar.ql-snow {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .quill-container.ql-paper .ql-toolbar.ql-snow .ql-image {
+            display: none;
         }
     </style>
 @endpush
 
 @push('pre-scripts')
+    <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
@@ -102,12 +108,17 @@
                         categories: JSON.parse('{!! json_encode($categories) !!}'),
                     },
                     resource: {
+                        quill: {
+                            html: '{!! old('body') !!}',
+                            delta: JSON.parse({!! json_encode(old('delta')) !!}),
+                        },
                         item: {
                             name: '',
                             code: '',
                             body: '',
                             category_id: '{{ old('category_id') }}',
                         },
+                        categories: {!! json_encode($categories->toArray()) !!},
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                         category_id: '{{ old('category_id') }}',
                     },
@@ -122,8 +133,8 @@
             },
 
             mounted () {
-                this.get();
-                this.mountSuppliments();
+                // this.get();
+                // this.mountSuppliments();
                 // console.log("dataset.pagination", this.dataset.pagination);
             },
         });

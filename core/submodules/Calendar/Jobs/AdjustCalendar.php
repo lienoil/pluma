@@ -35,8 +35,6 @@ class AdjustCalendar implements ShouldQueue
      */
     public function handle()
     {
-        echo "<pre>";
-            var_dump( Calendar::holidays() ); die();
-        echo "</pre>";
+        return "calendar...";
     }
 }

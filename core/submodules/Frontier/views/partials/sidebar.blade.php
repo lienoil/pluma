@@ -20,7 +20,7 @@
             </v-list-tile-avatar>
             <v-list-tile-content>
                 <v-list-tile-title><strong>{{ $application->site->title }}</strong></v-list-tile-title>
-                <v-list-tile-subtitle class="caption">{{ $application->site->tagline }}</v-list-tile-subtitle>
+                <v-list-tile-sub-title class="caption">{{ $application->site->tagline }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
                 <v-btn
@@ -50,7 +50,7 @@
                 >
                     {{-- headmenu --}}
                     <v-list-tile slot="item">
-                        <v-list-tile-avatar class="pt-0" size="30px" v-tooltip:right="{html: menu.labels.name}">
+                        <v-list-tile-avatar class="pt-0" size="40px" v-tooltip:right="{html: menu.labels.name}">
                             <img :src="menu.labels.avatar">
                         </v-list-tile-avatar>
                         <v-list-tile-content>

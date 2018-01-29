@@ -1,5 +1,5 @@
 <?php
 
 return [
-    ['appears' => 'Announcement::widgets.announcement', 'class' => \Announcement\Composers\AnnouncementViewComposer::class],
+    ['appears' => 'Announcement::widgets.announcements', 'class' => \Announcement\Composers\AnnouncementViewComposer::class],
 ];

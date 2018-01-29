@@ -11,8 +11,8 @@ Version: 1.0
     <p>{{ $form->title }}</p>
     {!! $form->body !!}
 
-    @foreach ($fields->items() as $name => $field)
-        <p>{!! $fields->template($name, 'template')->render() !!}</p>
+    @foreach ($form->fields as $name => $field)
+        <p>{!! $field->template($field->code)->render() !!}</p>
     @endforeach
 
     <v-btn primary type="submit">{{ 'Submit' }}</v-btn>

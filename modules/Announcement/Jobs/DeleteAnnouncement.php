@@ -15,22 +15,12 @@ class DeleteAnnouncement implements ShouldQueue
     use InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Execute the job.
      *
      * @return void
      */
     public function handle()
     {
-        Announcement::where('expires_at', '<=', Carbon::now())->delete();
+        Announcement::where('expired_at', '<=', Carbon::now())->delete();
     }
 }

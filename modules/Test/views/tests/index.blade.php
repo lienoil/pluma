@@ -6,7 +6,9 @@
             <v-flex sm12>
 
 
-                @include("Setting::partials.settingsbar")
+                {{-- @include("Setting::partials.settingsbar") --}}
+
+                {!! $form->build() !!}
 
 
             </v-flex>

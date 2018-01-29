@@ -12,14 +12,5 @@ return [
         //     'view' => 'Widget::widgets.test',
         //     'backdrop' => assets('frontier/images/placeholder/red2.jpg'),
         // ],
-
-        'user-activity' => [
-            'name' => __('User Activities'),
-            'description' => __("Reads user's activities."),
-            'location' => 'test.1.12',
-            'code' => 'activity',
-            'icon' => 'multiline_chart',
-            'view' => 'Widget::widgets.activity',
-        ],
     ],
 ];

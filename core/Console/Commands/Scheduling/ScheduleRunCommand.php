@@ -2,6 +2,7 @@
 
 namespace Pluma\Console\Commands\Scheduling;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Pluma\Support\Console\Command;
 
 class ScheduleRunCommand extends Command

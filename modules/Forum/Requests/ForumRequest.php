@@ -51,7 +51,7 @@ class ForumRequest extends FormRequest
 
         return [
             'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:forums'.$isUpdating,
+            'code' => 'sometimes|required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:forums'.$isUpdating,
         ];
     }
 

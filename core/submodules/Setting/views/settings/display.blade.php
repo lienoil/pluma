@@ -21,15 +21,29 @@
                         <v-toolbar class="transparent elevation-0">
                             <v-toolbar-title class="accent--text">{{ __('Displaying Data') }}</v-toolbar-title>
                         </v-toolbar>
-                        <v-subheader>{{ __('Management') }}</v-subheader>
+                        {{-- <v-subheader>{{ __('Data') }}</v-subheader> --}}
                         <v-card-text>
                             <v-text-field
                                 type="number"
                                 label="{{ __('Items Per Page') }}"
                                 v-model="resource.item.items_per_page"
                                 name="items_per_page"
+                                hint="{{ __('Default: 15 items') }}"
+                                persistent-hint
                                 input-group
                                 @input="(val) => { resource.item.items_per_page = val }"
+                            ></v-text-field>
+
+                            <v-text-field
+                                type="number"
+                                label="{{ __('Excerpt Length') }}"
+                                v-model="resource.item.excerpt_length"
+                                suffix="{{ __('words') }}"
+                                name="excerpt_length"
+                                hint="{{ __('Default: 30 words') }}"
+                                persistent-hint
+                                input-group
+                                @input="(val) => { resource.item.excerpt_length = val }"
                             ></v-text-field>
                         </v-card-text>
 
@@ -53,6 +67,7 @@
                     resource: {
                         item: {
                             items_per_page: '{{ old('items_per_page') ?? settings('items_per_page', 15) }}',
+                            excerpt_length: '{{ old('excerpt_length') ?? settings('excerpt_length', 30) }}',
                         },
                         radios: {
                             membership: {

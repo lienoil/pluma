@@ -21,13 +21,14 @@ class TestController extends AdminController
      */
     public function index(Request $request)
     {
-        $form = new \Form\Support\Builder\FormBuilder(\Form\Models\Form::find(1), [
-            ['template' => '<v-text-field v-model="resource.item.asked" :error-messages="errors.asked" name="%name%" label="%label%"></v-text-field>', 'code' => '12qw', 'label' => 'What is asked?', 'name' => 'asked'],
-            ['template' => '<v-text-field v-model="resource.item.givens" :error-messages="errors.givens" name="%name%" label="%label%"></v-text-field>', 'code' => '12s', 'label' => 'What are the given variables', 'name' => 'givens'],
-            ['template' => '<v-text-field v-model="resource.item.operation" :error-messages="errors.operation" name="%name%" label="%label%"></v-text-field>', 'code' => '121x', 'label' => 'What operations should be used', 'name' => 'operation'],
-            ['template' => '<v-text-field v-model="resource.item.result" :error-messages="errors.result" name="%name%" label="%label%"></v-text-field>', 'code' => '125x', 'label' => 'What operations should be used', 'name' => 'result'],
-        ]);
-
+        $form = \Form\Models\Form::find(3);
+        $form = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Theme::templates.test');
+        // [
+        //     ['template' => '<v-text-field v-model="resource.item.asked" :error-messages="errors.asked" name="%name%" label="%label%"></v-text-field>', 'code' => '12qw', 'label' => 'What is asked?', 'name' => 'asked'],
+        //     ['template' => '<v-text-field v-model="resource.item.givens" :error-messages="errors.givens" name="%name%" label="%label%"></v-text-field>', 'code' => '12s', 'label' => 'What are the given variables', 'name' => 'givens'],
+        //     ['template' => '<v-text-field v-model="resource.item.operation" :error-messages="errors.operation" name="%name%" label="%label%"></v-text-field>', 'code' => '121x', 'label' => 'What operations should be used', 'name' => 'operation'],
+        //     ['template' => '<v-text-field v-model="resource.item.result" :error-messages="errors.result" name="%name%" label="%label%"></v-text-field>', 'code' => '125x', 'label' => 'What operations should be used', 'name' => 'result'],
+        // ]
         // $form->setFields([
         //     ['name' => 'What is asked?', 'sort' => 99],
         //     ['name' => 'What are the given variables?', 'sort' => 20],

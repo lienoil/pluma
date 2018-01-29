@@ -119,6 +119,11 @@
                     @endsection
 
                     @include("Theme::cards.saving")
+
+                    @include("Theme::interactives.featured-image")
+
+                    @include("Theme::cards.category")
+
                 </v-flex>
             </v-layout>
         </v-container>

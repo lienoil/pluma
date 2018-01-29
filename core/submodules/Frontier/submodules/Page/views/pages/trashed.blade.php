@@ -93,13 +93,13 @@
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
-                                        <v-list-tile ripple @click="$refs.restore.submit()">
+                                        <v-list-tile ripple @click="$refs[`restore_${prop.item.id}`].submit()">
                                             <v-list-tile-action>
                                                 <v-icon class="success--text">restore</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form ref="restore" :action="route(urls.pages.restore, prop.item.id)" method="POST">
+                                                    <form :id="`restore_${prop.item.id}`" :ref="`restore_${prop.item.id}`" :action="route(urls.pages.restore, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('PATCH') }}
                                                         {{ __('Restore') }}
@@ -107,13 +107,13 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile ripple @click="$refs.delete.submit()">
+                                        <v-list-tile ripple @click="$refs[`delete_${prop.item.id}`].submit()">
                                             <v-list-tile-action>
                                                 <v-icon warning>delete</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form ref="delete" :action="route(urls.pages.delete, prop.item.id)" method="POST">
+                                                    <form :id="`delete_${prop.item.id}`" :ref="`delete_${prop.item.id}`" :action="route(urls.pages.delete, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Delete Permanently') }}

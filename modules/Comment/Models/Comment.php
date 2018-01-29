@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Course;
 use Pluma\Models\Model;
 use Pluma\Models\User;
+use User\Support\Traits\BelongsToUser;
 
 class Comment extends Model
 {
     // use SoftDeletes;
-    use Ownable, SoftDeletes;
+    use Ownable, SoftDeletes, BelongsToUser;
+
+    protected $with = ['user'];
 
     public function post()
     {

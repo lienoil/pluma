@@ -47,10 +47,8 @@ class WidgetRequest extends FormRequest
      */
     public function rules()
     {
-        $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
-
         return [
-            'roles' => 'required|max:255',
+            //
         ];
     }
 

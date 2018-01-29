@@ -90,9 +90,11 @@
                         categories: {!! json_encode($catalogues) !!},
                         current: null,
                         new: {
-                            thumbnail: '{{ @(old('feature') ? old('feature') : $resource->feature) }}',
+                            thumbnail: '{{ old('feature') ?? @$resource->feature }}',
                         },
-                        old: [],
+                        old: [{
+                            thumbnail: '{{ old('feature') ?? @$resource->feature }}',
+                        }],
                         category: {
                             current: {},
                         },

@@ -48,7 +48,7 @@
       content: {},
       source: { type: Boolean, default: false },
       toolbar: { type: Boolean, default: false },
-      toolbarOptions: { type: [Object, Boolean], default: false },
+      toolbarOptions: { type: [Array, Object, Boolean], default: false },
       options: { type: Object, default: () => { return {} } },
       uploadParams: { type: Object, default: () => { return {} } },
       fonts: { type: Array, default: () => { return [] } },

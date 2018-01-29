@@ -15,7 +15,7 @@ class DetailObserver
     public function created(Detail $resource)
     {
         // save fields
-        session()->flash('title', $resource->user->fullname);
+        session()->flash('title', $resource->user->fullname ?? "");
         session()->flash('message', "User successfully created");
         session()->flash('type', 'success');
     }
@@ -28,7 +28,7 @@ class DetailObserver
      */
     public function updated(Detail $resource)
     {
-        session()->flash('title', $resource->user->fullname);
+        session()->flash('title', $resource->user->fullname ?? "");
         session()->flash('message', "User successfully updated");
         session()->flash('type', 'success');
     }
@@ -41,7 +41,7 @@ class DetailObserver
      */
     public function deleted(Detail $resource)
     {
-        session()->flash('title', $resource->user->fullname);
+        session()->flash('title', $resource->user->fullname ?? "");
         session()->flash('message', "User successfully removed");
         session()->flash('type', 'success');
     }
@@ -54,7 +54,7 @@ class DetailObserver
      */
     public function restored(Detail $resource)
     {
-        session()->flash('title', $resource->user->fullname);
+        session()->flash('title', $resource->user->fullname ?? "");
         session()->flash('message', "User successfully restored");
         session()->flash('type', 'success');
     }

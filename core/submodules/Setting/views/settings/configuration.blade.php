@@ -15,10 +15,23 @@
                 @include("Setting::partials.settingsbar")
             </v-flex>
 
-            <v-flex sm9 md10>
+            <v-flex sm7 md5>
                 <form action="{{ route('settings.system.configuration.store') }}" method="POST">
-                    {{ csrf_token() }}
-                    <v-text-field></v-text-field>
+                    {{ csrf_field() }}
+                    <v-card flat dark class="transparent">
+                        <v-toolbar dark card class="transparent">
+                            <v-toolbar-title class="subheading">{{ __('Configuration') }}</v-toolbar-title>
+                        </v-toolbar>
+                        <v-card-text>
+                            <v-text-field
+                                dark
+                                hint="{{ __('Generate via "blacksmith/blackmith key:generate".') }}"
+                                label="{{ __('Application Key') }}"
+                                readonly
+                                value="{{ settings('APP_KEY', config('APP_KEY', env('APP_KEY'))) }}"
+                            ></v-text-field>
+                        </v-card-text>
+                    </v-card>
                 </form>
             </v-flex>
 

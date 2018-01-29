@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
+class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -362,7 +362,6 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Activity\\Observers\\ActivityObserver' => __DIR__ . '/../..' . '/core/submodules/Activity/Observers/ActivityObserver.php',
         'Activity\\Providers\\ActivityServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Activity/Providers/ActivityServiceProvider.php',
         'Activity\\Requests\\ActivityRequest' => __DIR__ . '/../..' . '/core/submodules/Activity/Requests/ActivityRequest.php',
-        'Announcement\\API\\Controllers\\AnnouncementController' => __DIR__ . '/../..' . '/modules/Announcement/API/Controllers/AnnouncementController.php',
         'Announcement\\Composers\\AnnouncementViewComposer' => __DIR__ . '/../..' . '/modules/Announcement/Composers/AnnouncementViewComposer.php',
         'Announcement\\Console\\Commands\\Broadcast\\BroadcastAnnouncementCommand' => __DIR__ . '/../..' . '/modules/Announcement/Console/Commands/Broadcast/BroadcastAnnouncementCommand.php',
         'Announcement\\Controllers\\AnnouncementController' => __DIR__ . '/../..' . '/modules/Announcement/Controllers/AnnouncementController.php',
@@ -373,8 +372,10 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Announcement\\Observers\\AnnouncementObserver' => __DIR__ . '/../..' . '/modules/Announcement/Observers/AnnouncementObserver.php',
         'Announcement\\Providers\\AnnouncementServiceProvider' => __DIR__ . '/../..' . '/modules/Announcement/Providers/AnnouncementServiceProvider.php',
         'Announcement\\Requests\\AnnouncementRequest' => __DIR__ . '/../..' . '/modules/Announcement/Requests/AnnouncementRequest.php',
+        'Announcement\\Support\\Scopes\\PublishedTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Scopes/PublishedTrait.php',
         'Announcement\\Support\\Traits\\AnnouncementMutator' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementMutator.php',
         'Announcement\\Support\\Traits\\AnnouncementResourceApiTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementResourceApiTrait.php',
+        'Announcement\\Support\\Traits\\AnnouncementResourcePublicTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementResourcePublicTrait.php',
         'Announcement\\Support\\Traits\\AnnouncementResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementResourceSoftDeleteTrait.php',
         'Appearance\\Providers\\AppearanceServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/Providers/AppearanceServiceProvider.php',
         'Assignment\\API\\Controllers\\AssignmentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/API/Controllers/AssignmentController.php',
@@ -468,7 +469,9 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Comment\\Support\\Relations\\BelongsToManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/BelongsToManyComments.php',
         'Comment\\Support\\Relations\\HasManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/HasManyComments.php',
         'Comment\\Support\\Relations\\MorphManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/MorphManyComments.php',
+        'Comment\\Support\\Traits\\CommentResourceApiTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourceApiTrait.php',
         'Comment\\Support\\Traits\\CommentResourcePublicTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourcePublicTrait.php',
+        'Comment\\Support\\Traits\\CommentResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourceSoftDeleteTrait.php',
         'Content\\Controllers\\ContentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Controllers/ContentController.php',
         'Content\\Models\\Content' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Models/Content.php',
         'Content\\Providers\\ContentServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Providers/ContentServiceProvider.php',
@@ -516,7 +519,7 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'CreateDetailsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170825065924_create_details_table.php',
         'CreateFailedJobsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/00000000000101_create_failed_jobs_table.php',
         'CreateFieldsTable' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Field/database/migrations/20180116080929_create_fields_table.php',
-        'CreateFieldtypesTable' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Fieldtype/database/migrations/20180123103626_create_fieldtypes_table.php',
+        'CreateFieldtypesTable' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Fieldtype/database/migrations/20180116080928_create_fieldtypes_table.php',
         'CreateFormsTable' => __DIR__ . '/../..' . '/core/submodules/Form/database/migrations/20180115025454_create_forms_table.php',
         'CreateForumsTable' => __DIR__ . '/../..' . '/modules/Forum/database/migrations/20180111013242_create_forums_table.php',
         'CreateGrantPermissionTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035862_create_grant_permission_table.php',
@@ -583,15 +586,15 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Form\\Support\\Traits\\FormResourceApiTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Traits/FormResourceApiTrait.php',
         'Form\\Support\\Traits\\FormResourcePublicTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Traits/FormResourcePublicTrait.php',
         'Form\\Support\\Traits\\FormResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Traits/FormResourceSoftDeleteTrait.php',
-        'Forum\\API\\Controllers\\ForumController' => __DIR__ . '/../..' . '/modules/Forum/API/Controllers/ForumController.php',
         'Forum\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/modules/Forum/Controllers/CategoryController.php',
         'Forum\\Controllers\\ForumController' => __DIR__ . '/../..' . '/modules/Forum/Controllers/ForumController.php',
-        'Forum\\Controllers\\ForumManyController' => __DIR__ . '/../..' . '/modules/Forum/Controllers/ForumManyController.php',
         'Forum\\Models\\Forum' => __DIR__ . '/../..' . '/modules/Forum/Models/Forum.php',
         'Forum\\Observers\\ForumObserver' => __DIR__ . '/../..' . '/modules/Forum/Observers/ForumObserver.php',
         'Forum\\Providers\\ForumServiceProvider' => __DIR__ . '/../..' . '/modules/Forum/Providers/ForumServiceProvider.php',
         'Forum\\Requests\\ForumRequest' => __DIR__ . '/../..' . '/modules/Forum/Requests/ForumRequest.php',
         'Forum\\Support\\Traits\\ForumMutatorTrait' => __DIR__ . '/../..' . '/modules/Forum/Support/Traits/ForumMutatorTrait.php',
+        'Forum\\Support\\Traits\\ForumResourceApiTrait' => __DIR__ . '/../..' . '/modules/Forum/Support/Traits/ForumResourceApiTrait.php',
+        'Forum\\Support\\Traits\\ForumResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/modules/Forum/Support/Traits/ForumResourceSoftDeleteTrait.php',
         'Frontier\\Composers\\ApplicationViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/ApplicationViewComposer.php',
         'Frontier\\Composers\\NavigationViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/Composers/NavigationViewComposer.php',
         'Frontier\\Controllers\\AdminController' => __DIR__ . '/../..' . '/core/submodules/Frontier/Controllers/AdminController.php',
@@ -863,6 +866,7 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'User\\Requests\\PasswordTokenRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Requests/PasswordTokenRequest.php',
         'User\\Requests\\UserRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Requests/UserRequest.php',
         'User\\Scopes\\Avatar' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Scopes/Avatar.php',
+        'User\\Support\\Relations\\BelongsToManyDetails' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Relations/BelongsToManyDetails.php',
         'User\\Support\\Relations\\HasManyDetails' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Relations/HasManyDetails.php',
         'User\\Support\\Scopes\\ScopeDetailTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Scopes/ScopeDetailTrait.php',
         'User\\Support\\Traits\\BelongsToManyUsers' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/BelongsToManyUsers.php',
@@ -886,10 +890,10 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$classMap;
 
         }, null, ClassLoader::class);
     }

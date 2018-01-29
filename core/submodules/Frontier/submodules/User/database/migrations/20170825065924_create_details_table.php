@@ -12,7 +12,7 @@ class CreateDetailsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'details';
+    protected $table = 'details';
 
     /**
      * Run the migrations.
@@ -21,7 +21,11 @@ class CreateDetailsTable extends Migration
      */
     public function up()
     {
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        if ($this->schema->hasTable($this->table)) {
+            return;
+        }
+
+        $this->schema->create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
             $table->text('value')->nullable();
@@ -40,6 +44,6 @@ class CreateDetailsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        $this->schema->dropIfExists($this->table);
     }
 }

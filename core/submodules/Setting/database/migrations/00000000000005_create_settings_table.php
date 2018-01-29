@@ -12,7 +12,7 @@ class CreateSettingsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'settings';
+    protected $table = 'settings';
 
     /**
      * Run the migrations.
@@ -21,7 +21,11 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        if ($this->schema->hasTable($this->table)) {
+            return;
+        }
+
+        $this->schema->create($this->table, function (Blueprint $table) {
             $table->string('key');
             $table->text('value')->nullable();
             $table->string('status')->default(1);
@@ -39,6 +43,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        $this->schema->dropIfExists($this->table);
     }
 }

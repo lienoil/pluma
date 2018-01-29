@@ -13,7 +13,7 @@ class CreateAnnouncementsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'announcements';
+    protected $table = 'announcements';
 
     /**
      * Run the migrations.
@@ -22,17 +22,31 @@ class CreateAnnouncementsTable extends Migration
      */
     public function up()
     {
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        if ($this->schema->hasTable($this->table)) {
+            return;
+        }
+
+        $this->schema->create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('code');
+            $table->text('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamp('published_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
             $table->timestamp('expired_at')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate("CASCADE")
+                ->onDelete("CASCADE");
+            $table->foreign('category_id')->references('id')->on('categories')
+                  ->onDelete('CASCADE')
+                  ->onUpdate('CASCADE');
         });
     }
 
@@ -43,6 +57,6 @@ class CreateAnnouncementsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        $this->schema->dropIfExists($this->table);
     }
 }

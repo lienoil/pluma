@@ -43,10 +43,10 @@
                                 <v-card-text>
                                     <v-layout row wrap>
                                         <v-flex xs4>
-                                            <div class="grey--text">{{ __('Schedule') }}</div>
+                                            <div class="grey--text">{{ __('Scheduled') }}</div>
                                         </v-flex>
                                         <v-flex xs8>
-                                            {{ $resource->starts_at }}
+                                            {{ $resource->published }}
                                         </v-flex>
                                     </v-layout>
                                 </v-card-text>
@@ -56,7 +56,7 @@
                                             <div class="grey--text">{{ __('Expires') }}</div>
                                         </v-flex>
                                         <v-flex xs8>
-                                            {{ $resource->expires_at }}
+                                            {{ __($resource->expired) }}
                                         </v-flex>
                                     </v-layout>
                                 </v-card-text>
@@ -112,8 +112,7 @@
                     urls: {
                         announcements: {
                             api: {
-                                clone: '{{ route('api.announcements.clone', 'null') }}',
-                                destroy: '{{ route('api.announcements.destroy', 'null') }}',
+                                destroy: '{{ route('announcements.destroy', 'null') }}',
                             },
                             show: '{{ route('announcements.show', 'null') }}',
                             edit: '{{ route('announcements.edit', 'null') }}',

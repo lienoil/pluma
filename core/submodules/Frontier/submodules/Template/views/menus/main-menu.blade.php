@@ -1,6 +1,6 @@
 <v-toolbar dark class="primary elevation-1">
     <v-avatar tile>
-        <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+        <img src="{{ url($application->site->logo) }}" alt="{{ $application->site->title }}">
     </v-avatar>
     <v-toolbar-title class="subheading white--text">
         <div>{{ $application->site->title }}</div>

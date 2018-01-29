@@ -38,13 +38,22 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     private function bootCapsule()
     {
+        $connection = config('database.default');
+
+        $driver = config("database.connections.$connection.driver", env('DB_CONNECTION', 'mysql'));
+        $host = config("database.connections.$connection.host", env('DB_HOST', '127.0.0.1'));
+        $port = config("database.connections.$connection.port", env('DB_PORT', '3306'));
+        $database = config("database.connections.$connection.database", env('DB_DATABASE', 'pluma'));
+        $username = config("database.connections.$connection.username", env('DB_USERNAME', 'pluma'));
+        $password = config("database.connections.$connection.password", env('DB_PASSWORD', 'pluma'));
+
         $this->capsule = new Capsule();
         $this->capsule->addConnection([
-            'driver' => config('DB_CONNECTION', env('DB_CONNECTION', 'mysql')),
-            'host' => config('DB_HOST', env('DB_HOST', 'localhost')),
-            'database' => config('DB_DATABASE', env('DB_DATABASE', 'pluma')),
-            'username' => config('DB_USERNAME', env('DB_USERNAME', 'pluma')),
-            'password' => config('DB_PASSWORD', env('DB_PASSWORD', 'pluma')),
+            'driver' => $driver,
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

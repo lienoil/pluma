@@ -5,16 +5,19 @@ namespace Announcement\Controllers;
 use Announcement\Models\Announcement;
 use Announcement\Requests\AnnouncementRequest;
 use Announcement\Support\Traits\AnnouncementResourceApiTrait;
+use Announcement\Support\Traits\AnnouncementResourcePublicTrait;
 use Announcement\Support\Traits\AnnouncementResourceSoftDeleteTrait;
 use Catalogue\Models\Catalogue;
 use Category\Models\Category;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
+use User\Models\User;
 
 class AnnouncementController extends GeneralController
 {
-    use AnnouncementResourceSoftDeleteTrait,
-        AnnouncementResourceApiTrait;
+    use AnnouncementResourceApiTrait,
+        AnnouncementResourcePublicTrait,
+        AnnouncementResourceSoftDeleteTrait;
 
     /**
      * Display a listing of the resource.
@@ -51,8 +54,9 @@ class AnnouncementController extends GeneralController
     public function create()
     {
         $catalogues = Catalogue::mediabox();
+        $categories = Category::type('announcements')->select(['name', 'icon', 'description', 'id'])->get();
 
-        return view("Theme::announcements.create")->with(compact('catalogues'));
+        return view("Theme::announcements.create")->with(compact('catalogues', 'categories'));
     }
 
     /**
@@ -68,8 +72,10 @@ class AnnouncementController extends GeneralController
         $announcement->code = $request->input('code');
         $announcement->body = $request->input('body');
         $announcement->delta = $request->input('delta');
+        $announcement->feature = $request->input('feature');
         $announcement->published_at = date('Y-m-d H:i:s', strtotime($request->input('published_at')));
         $announcement->expired_at = date('Y-m-d H:i:s', strtotime($request->input('expired_at')));
+        $announcement->user()->associate(User::find(user()->id));
         $announcement->category()->associate(Category::find($request->input('category_id')));
         $announcement->save();
 
@@ -87,8 +93,9 @@ class AnnouncementController extends GeneralController
     {
         $resource = Announcement::findOrFail($id);
         $catalogues = Catalogue::mediabox();
+        $categories = Category::type('announcements')->select(['name', 'icon', 'description', 'id'])->get();
 
-        return view("Theme::announcements.edit")->with(compact('resource', 'catalogues'));
+        return view("Theme::announcements.edit")->with(compact('resource', 'catalogues', 'categories'));
     }
 
     /**
@@ -98,13 +105,14 @@ class AnnouncementController extends GeneralController
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    public function update(AnnouncementRequest $request, Announcement $announcement)
+    public function update(AnnouncementRequest $request, $id)
     {
-        // $announcement = Announcement::findOrFail($id);
+        $announcement = Announcement::findOrFail($id);
         $announcement->name = $request->input('name');
         $announcement->code = $request->input('code');
         $announcement->body = $request->input('body');
         $announcement->delta = $request->input('delta');
+        $announcement->feature = $request->input('feature');
         $announcement->published_at = date('Y-m-d H:i:s', strtotime($request->input('published_at')));
         $announcement->expired_at = date('Y-m-d H:i:s', strtotime($request->input('expired_at')));
         $announcement->category()->associate(Category::find($request->input('category_id')));
@@ -124,6 +132,6 @@ class AnnouncementController extends GeneralController
     {
         Announcement::destroy($request->has('id') ? $request->input('id') : $id);
 
-        return back();
+        return redirect()->route('announcements.index');
     }
 }
