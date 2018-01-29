@@ -12,18 +12,14 @@
             <v-flex sm12>
                 <form action="{{$resource->action}}" method="{{ $resource->method }}" {{ $resource->attributes }}>
                     <v-card class="elevation-1">
-                        @foreach ($form->fields as $value => $field)
+                            @foreach ($form->fields as $field)
                         <v-card-text>
                             {{ $field->label }}
-                            <v-text-field
-                                label="{{ $field->label }}"
-                                name="{{ $field->name }}"
-                                value="{{ $field->value }}"
-                                multi-line>
-                            </v-text-field>
-                            {!! $field->template($value)->render() !!}
                         </v-card-text>
-                        @endforeach
+                        <v-card-text>
+                            <v-text-field label="Type a Message"name="{{ $field->name }}"value="{{ $field->value }}"></v-text-field>
+                        </v-card-text>
+                            @endforeach
                     </v-card>
                 </form>
             </v-flex>

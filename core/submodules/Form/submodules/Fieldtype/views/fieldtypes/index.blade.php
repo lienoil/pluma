@@ -31,9 +31,10 @@
 
                             <v-text-field
                                 :error-messages="resource.errors.template"
-                                label="{{ __('Code') }}"
+                                label="{{ __('Template') }}"
                                 name="template"
                                 v-model="resource.item.template"
+                                multi-line
                             ></v-text-field>
                         </v-card-text>
                         <v-card-actions>
@@ -170,6 +171,7 @@
                         item: {
                             name: '{{ old('name') }}',
                             code: '{{ old('code') }}',
+                            template: '{{ old('template') }}',
                         },
                         errors: {!! json_encode($errors->getMessages()) !!},
                     },
