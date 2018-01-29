@@ -20,7 +20,7 @@ Version: 1.0
                 <div class="input-group input-group--text-field">
                     <label for=""> {{ __('Label') }} </label>
                     <div class="input-group__input">
-                        <p>{!! $field->template($name)->render() !!}</p>
+                        {!! $field->template($name)->render() !!}
                     </div>
                     <div class="input-group__details">
                         <div class="input-group__messages"></div>

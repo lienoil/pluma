@@ -530,7 +530,7 @@ class ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3
         'CreateRolesTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035863_create_roles_table.php',
         'CreateScormvarStatusesTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20171108061113_create_scormvar_statuses_table.php',
         'CreateScormvarsTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20171102060001_create_scormvars_table.php',
-        'CreateSettingsTable' => __DIR__ . '/../..' . '/core/submodules/Setting/database/migrations/00000000000005_create_settings_table.php',
+        'CreateSettingsTable' => __DIR__ . '/../..' . '/core/submodules/Setting/database/migrations/00000000000016_create_settings_table.php',
         'CreateTimesheetsTable' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/database/migrations/20170906095634_create_timesheets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/00000000000001_create_users_table.php',
         'CreateWidgetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/database/migrations/20180116085940_create_widgets_table.php',
