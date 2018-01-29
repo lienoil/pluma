@@ -1,4 +1,4 @@
-@extends("Theme::layouts.admin")
+@extends("Theme::layouts.public")
 
 @section("head-title", __('Forums'))
 @section("page-title", __('Forums'))
