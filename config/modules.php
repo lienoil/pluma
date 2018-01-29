@@ -28,6 +28,5 @@ return [
         'Calendar',
         'Test',
         'Chronos',
-        'Yggdrasil',
     ],
 ];

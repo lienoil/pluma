@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
+class ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -50,7 +50,6 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Pluma\\' => 6,
-            'PhpOffice\\PhpSpreadsheet\\' => 25,
             'Phinx\\' => 6,
         ),
         'M' => 
@@ -192,10 +191,6 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Pluma\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core',
-        ),
-        'PhpOffice\\PhpSpreadsheet\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
         'Phinx\\' => 
         array (
@@ -467,8 +462,9 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'Comment\\Requests\\CommentRequest' => __DIR__ . '/../..' . '/modules/Comment/Requests/CommentRequest.php',
         'Comment\\Support\\Relations\\BelongsToManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/BelongsToManyComments.php',
         'Comment\\Support\\Relations\\HasManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/HasManyComments.php',
-        'Comment\\Support\\Relations\\MorphManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/MorphManyComments.php',
+        'Comment\\Support\\Traits\\CommentResourceApiTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourceApiTrait.php',
         'Comment\\Support\\Traits\\CommentResourcePublicTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourcePublicTrait.php',
+        'Comment\\Support\\Traits\\CommentResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourceSoftDeleteTrait.php',
         'Content\\Controllers\\ContentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Controllers/ContentController.php',
         'Content\\Models\\Content' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Models/Content.php',
         'Content\\Providers\\ContentServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/Providers/ContentServiceProvider.php',
@@ -516,7 +512,7 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
         'CreateDetailsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170825065924_create_details_table.php',
         'CreateFailedJobsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/database/migrations/00000000000101_create_failed_jobs_table.php',
         'CreateFieldsTable' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Field/database/migrations/20180116080929_create_fields_table.php',
-        'CreateFieldtypesTable' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Fieldtype/database/migrations/20180123103626_create_fieldtypes_table.php',
+        'CreateFieldtypesTable' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Fieldtype/database/migrations/20180116080928_create_fieldtypes_table.php',
         'CreateFormsTable' => __DIR__ . '/../..' . '/core/submodules/Form/database/migrations/20180115025454_create_forms_table.php',
         'CreateForumsTable' => __DIR__ . '/../..' . '/modules/Forum/database/migrations/20180111013242_create_forums_table.php',
         'CreateGrantPermissionTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/migrations/20170623035862_create_grant_permission_table.php',
@@ -886,10 +882,10 @@ class ComposerStaticInit419f5927328db194b8c39ff59c26bdb2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit419f5927328db194b8c39ff59c26bdb2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$classMap;
 
         }, null, ClassLoader::class);
     }
