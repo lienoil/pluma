@@ -8,6 +8,8 @@ use Category\Models\Category;
 use Content\Models\Content;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
+use Comment\Models\Comment;
+use User\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
@@ -265,6 +267,7 @@ class CourseController extends AdminController
      */
     public function comment(Request $request, $id)
     {
+        // dd($request->all());
         $comment = New Comment();
         $comment->user()->associate(User::find($request->input('user_id')));
         $comment->approved = true;
