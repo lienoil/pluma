@@ -8,6 +8,8 @@ use Category\Models\Category;
 use Content\Models\Content;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
+use Comment\Models\Comment;
+use User\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
@@ -254,5 +256,28 @@ class CourseController extends AdminController
         //
 
         return redirect()->route('courses.trash');
+    }
+
+     /**
+     * Comment the specified resource from storage permanently.
+     *
+     * @param  \Story\Requests\StoryRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function comment(Request $request, $id)
+    {
+        // dd($request->all());
+        $comment = New Comment();
+        $comment->user()->associate(User::find($request->input('user_id')));
+        $comment->approved = true;
+        $comment->body = $request->input('body');
+        $comment->delta = $request->input('delta');
+
+        $course = Course::findOrFail($id);
+        $course->comments()->save($comment);
+        $course->save();
+
+        return back();
     }
 }

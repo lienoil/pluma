@@ -3,7 +3,7 @@
 namespace Pluma\Console\Commands\Scheduling;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\Scheduling\Schedule;
+// use Illuminate\Console\Scheduling\Schedule;
 
 class ScheduleFinishCommand extends Command
 {

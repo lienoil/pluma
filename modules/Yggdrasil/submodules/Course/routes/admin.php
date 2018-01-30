@@ -1,5 +1,7 @@
 <?php
 
+//Comment
+Route::post('courses/{course}/comment', '\Course\Controllers\CourseController@comment')->name('courses.comment');
 
 // Enroll (not Enrolled, not past tense)
 Route::get('enroll-test/{course}/{user}', '\Course\Controllers\EnrollController@enroll');
