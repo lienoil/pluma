@@ -5,22 +5,22 @@
 @section("content")
     @include("Theme::partials.banner")
     <v-toolbar dark class="light-blue elevation-1 sticky">
-        <v-toolbar-title class="white--text">{{ __('All Threads') }}</v-toolbar-title>
+        <v-toolbar-title dark>{{ __('All Threads') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         {{-- Search --}}
         <template>
-        <v-text-field
-            :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-            :prefix="dataset.searchform.prefix"
-            :prepend-icon="dataset.searchform.prepend"
-            append-icon="close"
-            light solo hide-details single-line
-            autofocus="autofocus"
-            label="Search"
-            v-model="dataset.searchform.query"
-            v-show="dataset.searchform.model"
-            ></v-text-field>
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
+            <v-text-field
+                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
+                :prefix="dataset.searchform.prefix"
+                :prepend-icon="dataset.searchform.prepend"
+                append-icon="close"
+                light solo hide-details single-line
+                autofocus="autofocus"
+                label="Search"
+                v-model="dataset.searchform.query"
+                v-show="dataset.searchform.model"
+                ></v-text-field>
+                <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
         </template>
         {{-- /Search --}}
 
@@ -59,8 +59,7 @@
                                 <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
                                 <v-list>
                                     @can('view-forum')
-                                        <v-list-tile ripple :href="route(urls.show, (item.id))">
-
+                                        <v-list-tile ripple :href="route(urls.show, (item.code))">
                                             <v-list-tile-action>
                                                 <v-icon info>search</v-icon>
                                             </v-list-tile-action>
@@ -106,6 +105,7 @@
                         <v-card-text class="body-1 grey--text">
                             <div v-html="item.excerpt"></div>
                         </v-card-text>
+
                         <v-card-actions>
                             <div v-if="item.category" class="orange--text caption">
                                 <a class="orange--text td-n" class="fw-500"
@@ -132,6 +132,14 @@
             </v-flex>
 
             <v-flex xs12 sm12 md3>
+                <v-card class="elevation-1 mb-3">
+                    <v-card-actions class="pa-3">
+                        <v-spacer></v-spacer>
+                        <v-btn primary large href="{{ route('forums.create') }}">{{ __('Ask a Question') }}</v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+
                 <v-card height="100%" class="elevation-1">
                     <v-list>
                         <v-subheader class="grey--text text--lighten-1">{{ __('All Categories') }}</v-subheader>

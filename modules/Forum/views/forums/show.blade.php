@@ -12,9 +12,11 @@
     </v-toolbar>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
+
+            @include("Frontier::partials.banner")
+
             <v-flex xs12 md8 offset-md2>
 
-                @include("Frontier::partials.banner")
 
                 <v-card class="grey--text elevation-1 card--flex-toolbar">
                     <v-toolbar class="transparent elevation-0">
@@ -38,6 +40,7 @@
                                         </v-list-tile-content>
                                     </v-list-tile>
                                 @endcan
+
                                 @can("destroy-forum")
                                     <v-list-tile ripple
                                         @click="destroy(route(urls.api.destroy, '{{ $resource->id }}'),
