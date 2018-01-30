@@ -30,8 +30,8 @@ class CreateSubmissionsTable extends Migration
             $table->string('type')->nullable();
             $table->text('results');
 
-            $table->foreign('form_id')->unsigned()->references('id')->on('forms');
-            $table->foreign('user_id')->unsigned()->references('id')->on('users');
+            $table->foreign('form_id')->references('id')->on('forms');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
             $table->softDeletes();

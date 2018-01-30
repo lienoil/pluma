@@ -77,6 +77,7 @@ class SubmissionController extends GeneralController
         $field->fieldtypes = $request->input('fieldtypes');
         $field->template = $request->input('template');
         $field->code = $request->input('code');
+        $field->submission = $request->input('name');
 
         return back();
     }
