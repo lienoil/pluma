@@ -68,6 +68,16 @@ class SubmissionController extends GeneralController
         $submisison->form()->associate(Form::find(form()->id));
         $submisison->user()->associate(User::find(user()->id));
 
+        //
+        $field->name = $request->input('name');
+        $field->type = $request->input('type');
+        $field->results = $request->input('results');
+        $field->fields = $request->input('fields');
+
+        $field->fieldtypes = $request->input('fieldtypes');
+        $field->template = $request->input('template');
+        $field->code = $request->input('code');
+
         return back();
     }
 
