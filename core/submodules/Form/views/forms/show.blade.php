@@ -4,27 +4,20 @@
     @include("Theme::partials.banner")
 
     <v-container fluid grid-list-lg>
-        <v-layout row wrap>
-            <v-flex sm12>
+        <v-layout row wrap justify-center align-center>
+            <v-flex md8 sm10 xs12>
+                @include("Form::templates.test")
+
                 <form action="{{$resource->action}}" method="{{ $resource->method }}" {{ $resource->attributes }}>
                     <v-card class="elevation-1">
                         <v-toolbar class="elevation-0">
                             <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
                         </v-toolbar>
-
                         @foreach ($form->fields as $field)
-                            <v-card-text>
-                                {{ $field->label }}
-                            </v-card-text>
-                            <v-card-text>
-                                <v-text-field label="Type a Message" name="{{ $field->name }}" value="{{ $field->value }}"></v-text-field>
-                            </v-card-text>
-
-                            <v-card-text>
-                                <v-radio-group v-model="radio" :mandatory="false">
-                                    <v-radio label="{{ $field->value }}" value="{{ $field->value }}"></v-radio>
-                                </v-radio-group>
-                            </v-card-text>
+                        <v-card-text>
+                            <div class="mb-2 body-1 black--text">{{ $field->label }}</div>
+                            <div class="mb-2">{!! $field->template($field)->render() !!}</div>
+                        </v-card-text>
                         @endforeach
                     </v-card>
                 </form>
@@ -42,7 +35,24 @@
         mixins.push({
             data () {
                 return {
-                    radio: null,
+                    evaluation: {
+                        dialog: {
+                            model: false,
+                        },
+                    },
+                    e1: 0,
+                    column: null,
+                    a1: null,
+                    a2: null,
+                    a3: null,
+                    o1: null,
+                    o2: null,
+                    b1: 7,
+                    b2: 9,
+                    b3: 8,
+                    e3: 1,
+                    e31: true,
+                    text: 'center'
                 };
             },
         });
