@@ -6,6 +6,9 @@ use Submission\Models\Submission;
 use Submission\Requests\SubmissionRequest;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
+use Form\Models\Form;
+use Field\Models\Field;
+
 
 class SubmissionController extends GeneralController
 {
@@ -17,9 +20,10 @@ class SubmissionController extends GeneralController
      */
     public function index(Request $request)
     {
-        //
+        $resources = Submission::search($request->all())->paginate();
+        $trashed = Submission::onlyTrashed()->count();
 
-        return view("Theme::submissions.index");
+        return view("Theme::submissions.index")->with(compact('resources', 'trashed'));
     }
 
     /**

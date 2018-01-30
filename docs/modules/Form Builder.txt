@@ -64,6 +64,7 @@ Form/database/migrations TABLE `submissions`
 	STRING type NULLABLE,
 	TEXT results NULLABLE,
 	INT form_id UNSIGNED REFERENCES id ON forms,
+
 	INT user_id UNSIGNED REFERENCES id ON users NULLABLE,
 	*timestamps*
 	*softdeletes*

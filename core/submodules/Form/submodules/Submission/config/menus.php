@@ -8,47 +8,32 @@ return [
      * Specify here the menus to appear on the sidebar.
      *
      */
-    'submission' => [
-        'name' => 'submission',
-        'order' => 51,
-        'slug' => route('submissions.index'),
-        'always_viewable' => false,
-        'icon' => '',
-        'labels' => [
-            'title' => __('Submissions'),
-            'description' => __('Manage submissions'),
-        ],
-        'children' => [
-            'view-submission' => [
-                'name' => 'view-submission',
-                'order' => 1,
-                'slug' => route('submissions.index'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('All Submissions'),
-                    'description' => __('View the list of all submissions'),
-                ],
-            ],
-            'create-submission' => [
-                'name' => 'create-submission',
-                'order' => 2,
-                'slug' => route('submissions.create'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Create Submission'),
-                    'description' => __('Create a Submission'),
-                ],
-            ],
-            // 'trash-submission' => [
-            //     'name' => 'trash-submission',
-            //     'order' => 3,
-            //     'slug' => route('submissions.trash'),
-            //     'always_viewable' => false,
-            //     'labels' => [
-            //         'title' => __('Trashed Submissions'),
-            //         'description' => __('View list of all submissions moved to trash'),
-            //     ],
-            // ],
-        ],
+    'divider_submission' => [
+        'name' => 'divider_submission',
+        'is_header' => true,
+        'is_divider' => true,
+        'parent' => 'form',
+        'order' => 9,
     ],
+
+    'view_submission' => [
+        'name' => 'view-submission',
+        'slug' => url(config('path.admin').'/forms/submissions'),
+        'routes' => [
+            'name' => 'submissions.index',
+            'children' => [
+                'submissions.create',
+                'submissions.edit',
+                'submissions.show',
+                'submissions.trash'
+            ]
+        ],
+        'parent' => 'form',
+        'order' => 11,
+        'always_viewable' => false,
+        'labels' => [
+            'title' => __('List of Submissions'),
+            'description' => __('View All Submissions'),
+        ]
+    ]
 ];
