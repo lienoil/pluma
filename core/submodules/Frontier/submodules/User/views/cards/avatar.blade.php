@@ -17,15 +17,16 @@
             </template>
         </template>
         <v-select
+            auto
             chips
-            autocomplete
-            label="{{ __('Choose an avatar') }}"
+            clearable
+            hide-details
             item-text="name"
             item-value="avatar"
-            v-model="resource.avatars.model"
-            v-bind:items="resource.avatars.items"
-            hide-details
+            label="{{ __('Choose an avatar') }}"
             search-input
+            v-bind:items="resource.avatars.items"
+            v-model="resource.avatars.model"
         >
             <template slot="selection" scope="data">
                 <v-chip

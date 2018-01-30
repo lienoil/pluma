@@ -69,7 +69,7 @@
                 </v-flex>
 
                 <v-flex xs12 sm3>
-                    @include("Forum::cards.saving")
+                    @include("Forum::cards.publishing")
                 </v-flex>
             </v-layout>
         </form>

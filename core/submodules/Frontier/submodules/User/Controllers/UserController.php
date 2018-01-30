@@ -9,10 +9,11 @@ use User\Models\Detail;
 use User\Models\User;
 use User\Requests\UserRequest;
 use User\Support\Traits\UserResourceApiTrait;
+use User\Support\Traits\UserResourceSoftDeleteTrait;
 
 class UserController extends GeneralController
 {
-    use UserResourceApiTrait;
+    use UserResourceApiTrait, UserResourceSoftDeleteTrait;
 
     /**
      * Display a listing of the resource.
@@ -53,6 +54,9 @@ class UserController extends GeneralController
      */
     public function store(UserRequest $request)
     {
+        // echo "<pre>";
+        //     var_dump( $request->all() ); die();
+        // echo "</pre>";
         // User
         $user = new User();
         $user->prefixname = $request->input('prefixname');
@@ -68,7 +72,9 @@ class UserController extends GeneralController
         // Role
         $user->roles()->attach(! empty($request->input('roles')) ? $request->input('roles') : []);
         // Details
-        $user->details()->save(Detail::create($request->input('details') ?? []));
+        foreach (($request->input('details') ?? []) as $key => $value) {
+            $user->details()->create(['key' => $key, 'value' => $value]);
+        }
 
         return back();
     }
@@ -132,7 +138,9 @@ class UserController extends GeneralController
         $user->roles()->sync($request->input('roles'));
 
         // Detail
-        $user->details()->sync($request->input('details'));
+        foreach ($request->input('details') as $key => $value) {
+            $user->details()->updateOrCreate(['key' => $key], ['value' => $value]);
+        }
 
         return back();
     }

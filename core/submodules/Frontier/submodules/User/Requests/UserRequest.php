@@ -59,7 +59,7 @@ class UserRequest extends FormRequest
             'password' => 'sometimes|required|min:6|confirmed',
             'username' => 'sometimes|required|regex:/^[\pL\s\-\.\*\#\(0-9)]+$/u|unique:users'.$isUpdating,
             'email' => 'required|email|unique:users'.$isUpdating,
-            'roles' => 'sometimes|required',
+            'roles' => 'required',
         ];
     }
 
