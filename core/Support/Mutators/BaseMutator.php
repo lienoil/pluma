@@ -53,7 +53,7 @@ trait BaseMutator
     {
         $blurb = $this->body ? $this->body : $this->description;
 
-        return Str::words($blurb, $this->wordCount);
+        return strip_tags(Str::words($blurb, settings('excerpt_length', $this->wordCount)));
     }
 
     public function scopeExplode($key)

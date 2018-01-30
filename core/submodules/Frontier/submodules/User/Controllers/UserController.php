@@ -66,9 +66,9 @@ class UserController extends GeneralController
         $user->save();
 
         // Role
-        $user->roles()->attach($request->input('roles'));
+        $user->roles()->attach(! empty($request->input('roles')) ? $request->input('roles') : []);
         // Details
-        $user->details()->attach($request->input('details'));
+        $user->details()->save(Detail::create($request->input('details') ?? []));
 
         return back();
     }

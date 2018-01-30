@@ -4,15 +4,15 @@ namespace Comment\Support\Relations;
 
 use Comment\Models\Comment;
 
-trait HasManyComments
+trait MorphManyComments
 {
     /**
-     * Gets the resources that belongs to this resource.
+     * Morph to many comments.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

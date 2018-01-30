@@ -10,15 +10,35 @@
 
                 <form action="{{$resource->action}}" method="{{ $resource->method }}" {{ $resource->attributes }}>
                     <v-card class="elevation-1">
+<<<<<<< HEAD
                         <v-toolbar class="elevation-0">
                             <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
                         </v-toolbar>
                         @foreach ($form->fields as $field)
+=======
+<<<<<<< HEAD
+                            @foreach ($form->fields as $field)
+                        <v-card-text>
+                            {{ $field->label }}
+                        </v-card-text>
+                        <v-card-text>
+                            <v-text-field label="Type a Message"name="{{ $field->name }}"value="{{ $field->value }}"></v-text-field>
+                        </v-card-text>
+                            @endforeach
+=======
+                        @foreach ($form->fields as $label => $field)
+>>>>>>> master
                         <v-card-text>
                             <div class="mb-2 body-1 black--text">{{ $field->label }}</div>
                             <div class="mb-2">{!! $field->template($field)->render() !!}</div>
                         </v-card-text>
                         @endforeach
+<<<<<<< HEAD
+=======
+
+                        <v-btn primary type="submit" class="elevation-1">{{ __('Submit') }}</v-btn>
+>>>>>>> e8b02a65fa1b32147aac2dd657b223b9da3ca15b
+>>>>>>> master
                     </v-card>
                 </form>
             </v-flex>

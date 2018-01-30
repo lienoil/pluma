@@ -65,9 +65,9 @@ return [
         'description' => 'Ability to permanently delete the announcement',
         'group' => 'announcement',
     ],
-    'trash-announcement' => [
-        'name' =>  'announcements.trash',
-        'code' => 'trash-announcement',
+    'trashed-announcement' => [
+        'name' =>  'announcements.trashed',
+        'code' => 'trashed-announcement',
         'description' => 'Ability to view the list of all trashed announcement',
         'group' => 'announcement',
     ],
@@ -77,26 +77,4 @@ return [
         'description' => 'Ability to restore the announcement',
         'group' => 'announcement',
     ],
-
-    // Many
-    'destroy-many-announcement' => [
-        'name' =>  'announcements.many.destroy',
-        'code' => 'destroy-many-announcement',
-        'description' => 'Ability to destroy many announcements',
-        'group' => 'announcement',
-    ],
-    'delete-many-announcement' => [
-        'name' =>  'announcements.many.delete',
-        'code' => 'delete-many-announcement',
-        'description' => 'Ability to permanently delete many announcements',
-        'group' => 'announcement',
-    ],
-    'restore-many-announcement' => [
-        'name' => 'announcements.many.restore',
-        'code' => 'restore-many-announcement',
-        'description' => 'Ability to restore many announcements',
-        'group' => 'announcement',
-    ],
-
-    //
 ];

@@ -6,118 +6,19 @@
     <v-divider></v-divider>
 
     @can('show-forum')
-        @foreach ($resource->comments()->paginate(settings('forum_comments_per_page', 5))->items() as $comment)
-            <v-card flat>
-                <v-toolbar card class="transparent">
-                    <v-avatar size="30px">
-                        <img src="{{ $comment->user->avatar }}">
-                    </v-avatar>
-                    <v-toolbar-title class="subheading body-1">
-                        {{ $comment->user->displayname }}
-                        <div class="subheading body-1 grey--text"><v-icon left class="body-1 grey--text">access_time</v-icon> {{ $comment->created }}</div>
-                    </v-toolbar-title>
-                </v-toolbar>
-                <v-card-text class="pl-5 body-1">
-                    {!! $comment->body !!}
-                </v-card-text>
-                <v-divider></v-divider>
-            </v-card>
-        @endforeach
-        <v-card-text class="pa-0">
-            <v-list two-line class="py-0">
-                    {{-- <v-list-tile avatar>
-                        <v-list-tile-avatar>
-                            <img src="{{ $comment->user->avatar }}">
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                            <v-list-tile-title>
-                                <a href="#!" class="td-n grey--text text--darken-4 body-2">{{ $comment->user->displayname }}</a>
-                            </v-list-tile-title>
-                            <v-list-tile-sub-title class="body-1">{{ $comment->created }}</v-list-tile-sub-title>
-                        </v-list-tile-content> --}}
-
-                        {{-- <v-list-tile-action>
-                            <v-menu bottom left>
-                                <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
-                                <v-list>
-                                    <v-list-tile ripple @click="">
-                                        <v-list-tile-action>
-                                            <v-icon accent>report</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ __('Report') }}
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile ripple
-                                        @click="destroy(route(urls.comments.api.destroy, item.id),
-                                        {
-                                            '_token': '{{ csrf_token() }}'
-                                        })">
-                                        <v-list-tile-action>
-                                            <v-icon error>delete</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ __('Delete') }}
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-menu>
-                        </v-list-tile-action> --}}
-                    {{-- </v-list-tile> --}}
-                {{--<v-list-tile avatar>
-                    <v-list-tile-avatar>
-                        <img :src="item.user.avatar">
-                    </v-list-tile-avatar>
-                    <v-list-tile-content>
-                        <v-list-tile-title>
-                            <a href="#!" class="td-n grey--text text--darken-4 body-2" v-html="item.user.displayname"></a>
-                        </v-list-tile-title>
-                        <v-list-tile-sub-title class="body-1">@{{ item.created }}</v-list-tile-sub-title>
-                    </v-list-tile-content>
-
-                    <v-list-tile-action>
-                        <v-menu bottom left>
-                            <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
-                            <v-list>
-                                <v-list-tile ripple @click="">
-                                    <v-list-tile-action>
-                                        <v-icon accent>report</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            {{ __('Report') }}
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile ripple
-                                    @click="destroy(route(urls.comments.api.destroy, item.id),
-                                    {
-                                        '_token': '{{ csrf_token() }}'
-                                    })">
-                                    <v-list-tile-action>
-                                        <v-icon error>delete</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            {{ __('Delete') }}
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                            </v-list>
-                        </v-menu>
-                    </v-list-tile-action>
-                </v-list-tile> --}}
-                {{-- <div class="pl-7 pr-4 grey--text text--darken-2" v-html="item.body"></div> --}}
-                <v-divider></v-divider>
-            </v-list>
-            <v-card-text>
-                @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(3)])
+        @if ($resource->comments()->get()->isEmpty())
+            <v-card-text class="text-xs-center body-1 grey--text pa-5">
+                <em>{{ __('No discourse yet.') }}</em>
             </v-card-text>
-        </v-card-text>
+        @endif
+
+        @include("Forum::interactives.comments-list", ['comments' => $resource->comments()->paginate(settings('forum_comments_per_page', 5))->items()])
+
+        @if (! $resource->comments()->get()->isEmpty())
+            <v-card-text>
+                @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(settings('forum_comments_per_page', 5))])
+            </v-card-text>
+        @endif
 
         <v-divider></v-divider>
         <v-card flat>
@@ -128,14 +29,11 @@
             <form action="{{ route('forums.comment', $resource->id) }}" method="POST">
                 {{ csrf_field() }}
                 <input type="hidden" name="user_id" value="{{ user()->id }}">
-
                 {{-- editor --}}
                 @include("Forum::widgets.editor")
                 {{-- editor --}}
-
                 <v-divider></v-divider>
                 <v-card-text class="text-xs-right pa-0">
-
                     <v-btn type="submit" flat primary>{{ __('Post Comment') }}</v-btn>
                 </v-card-text>
             </form>

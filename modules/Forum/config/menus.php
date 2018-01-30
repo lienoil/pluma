@@ -10,13 +10,13 @@ return [
      */
     'forum' => [
         'name' => 'forum',
-        'order' => 51,
+        'order' => 60,
         'slug' => route('forums.index'),
         'always_viewable' => false,
         'icon' => 'chat_bubble_outline',
         'labels' => [
-            'title' => __('Forums'),
-            'description' => __('Manage forums'),
+            'title' => __('Forum'),
+            'description' => __('Expand to know more.'),
         ],
         'children' => [
             'view-forum' => [
@@ -24,25 +24,33 @@ return [
                 'order' => 1,
                 'slug' => route('forums.index'),
                 'always_viewable' => false,
+                'routes' => [
+                    'name' => 'forums.index',
+                    'children' => [
+                        'forums.edit',
+                        'forums.show',
+                    ]
+                ],
                 'labels' => [
-                    'title' => __('All Forums'),
-                    'description' => __('View the list of all forums'),
+                    'title' => __('All Threads'),
+                    'description' => __('View the list of all threads in the forum'),
                 ],
             ],
             'create-forum' => [
                 'name' => 'create-forum',
                 'order' => 2,
                 'slug' => route('forums.create'),
+                'icon' => 'fa-question',
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Create Forum'),
-                    'description' => __('Create a Forum'),
+                    'title' => __('Ask a Question'),
+                    'description' => __('Post to the Forum and get feedback from the community'),
                 ],
             ],
-            'trash-forum' => [
-                'name' => 'trash-forum',
+            'trashed-forum' => [
+                'name' => 'trashed-forum',
                 'order' => 3,
-                'slug' => route('forums.trash'),
+                'slug' => route('forums.trashed'),
                 'always_viewable' => false,
                 'icon' => 'delete',
                 'labels' => [

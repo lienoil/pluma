@@ -30,6 +30,7 @@ class CreateForumsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->text('body')->nullable();
+            $table->text('delta')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();
 

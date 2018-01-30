@@ -2,6 +2,9 @@
 
 namespace Announcement\Support\Traits;
 
+use Announcement\Models\Announcement;
+use Illuminate\Http\Request;
+
 trait AnnouncementResourceSoftDeleteTrait
 {
 	/**
@@ -10,7 +13,7 @@ trait AnnouncementResourceSoftDeleteTrait
      * @param  Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
      */
-    public function trash(Request $request)
+    public function trashed(Request $request)
     {
         $resources = Announcement::onlyTrashed()
         						 ->search($request->all())

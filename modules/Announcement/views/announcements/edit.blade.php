@@ -1,14 +1,13 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __('Edit Announcement'))
-@section("page-title", __('Edit Announcement'))
-
 
 @section("content")
-    <form action="{{ route('announcements.update', $resource->id) }}" method="POST">
-        {{ csrf_field() }}
-        {{ method_field('PUT') }}
-        <v-container fluid grid-list-lg>
+    <v-container fluid grid-list-lg>
+        <form action="{{ route('announcements.update', $resource->id) }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+
             @include("Theme::partials.banner")
 
             <v-layout row wrap>
@@ -121,10 +120,14 @@
                     @endsection
 
                     @include("Theme::cards.saving")
+
+                    @include("Theme::interactives.featured-image")
+
+                    @include("Theme::cards.category")
                 </v-flex>
             </v-layout>
-        </v-container>
-    </form>
+        </form>
+    </v-container>
 @endsection
 
 @push('css')
@@ -161,7 +164,7 @@
             },
 
             mounted () {
-                console.log(this.resource.item);
+                // console.log(this.resource.item);
             },
             methods: {
                 'allowedDates': function (date) {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Comment\Requests;
+namespace Forum\Requests;
 
-use Pluma\Requests\FormRequest;
+use Comment\Requests\CommentRequest as BaseCommentRequest;
 
-class CommentRequest extends FormRequest
+class CommentRequest extends BaseCommentRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->isRoot() || $this->user()->can('comment-forum');
     }
 
     /**
@@ -26,8 +26,7 @@ class CommentRequest extends FormRequest
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
-            'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:comments'.$isUpdating,
+            'body' => 'required|max:255',
         ];
     }
 

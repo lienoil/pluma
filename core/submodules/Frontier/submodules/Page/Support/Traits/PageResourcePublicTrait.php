@@ -16,7 +16,7 @@ trait PageResourcePublicTrait
      */
     public function all(Request $request)
     {
-        $resources = Page::search($request->all())->all();
+        $resources = Page::search($request->all())->get();
 
         return view("Theme::pages.all")->with(compact('resources'));
     }

@@ -1,68 +1,77 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", __($resource->name))
-@section("page-title", __($resource->name))
 
 @section("content")
-    @include("Frontier::partials.banner")
+
     <v-toolbar dark extended class="light-blue elevation-0">
-        <v-btn
-            href="{{ route('forums.index') }}"
-            ripple
-            flat
-            >
+        <v-btn ripple flat href="{{ route('forums.index') }}">
             <v-icon left dark>arrow_back</v-icon>
-            Back
+            {{ __('Back') }}
         </v-btn>
     </v-toolbar>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
+
+            @include("Frontier::partials.banner")
+
             <v-flex xs12 md8 offset-md2>
+
+
                 <v-card class="grey--text elevation-1 card--flex-toolbar">
                     <v-toolbar class="transparent eleQvation-0">
                         <v-toolbar-title class="accent--text">{{ __($resource->name) }}</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-btn icon ripple v-tooltip:left="{ html: 'Favorite' }">
+                        {{-- <v-btn icon ripple v-tooltip:left="{ html: 'Favorite' }">
                             <v-icon class="grey--text text--lighten-1">star_border</v-icon>
-                        </v-btn>
+                        </v-btn> --}}
                         <v-menu bottom left>
                             <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
                             <v-list>
-                                <v-list-tile ripple :href="route(urls.forums.edit, ('{{ $resource->id }}'))">
-                                    <v-list-tile-action>
-                                        <v-icon accent>edit</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            {{ __('Edit') }}
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile ripple
-                                    @click="destroy(route(urls.forums.api.destroy, '{{ $resource->id }}'),
-                                    {
-                                        '_token': '{{ csrf_token() }}'
-                                    })">
-                                    <v-list-tile-action>
-                                        <v-icon warning>delete</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            {{ __('Move to Trash') }}
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
+                                @can("edit-forum")
+                                    <v-list-tile ripple :href="route(urls.edit, ('{{ $resource->id }}'))">
+                                        <v-list-tile-action>
+                                            <v-icon accent>edit</v-icon>
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ __('Edit') }}
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                @endcan
+
+                                @can("destroy-forum")
+                                    <v-list-tile ripple
+                                        @click="destroy(route(urls.api.destroy, '{{ $resource->id }}'),
+                                        {
+                                            '_token': '{{ csrf_token() }}'
+                                        })">
+                                        <v-list-tile-action>
+                                            <v-icon warning>delete</v-icon>
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ __('Move to Trash') }}
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                @endcan
                             </v-list>
                         </v-menu>
                     </v-toolbar>
 
-                    <v-card-text class="black--text pt-0">
-                        <div><a href="#!" class="body-1 teal--text text-decor-none"><strong>{{ $resource->author }}</strong></a></div>
-                        <div class="mb-2"><span class="body-1 grey--text">{{ $resource->created }}</span></div>
-                        <div>{{ $resource->body }}</div>
+                    <v-card-text class="black--text">
+                        <div>
+                            <v-avatar size="30px"><img src="{{ $resource->user->avatar }}"></v-avatar>
+                            <a href="#!" class="body-1 teal--text text-decor-none"><strong>{{ $resource->author }}</strong></a>
+                            <div class="mb-2"><span class="body-1 grey--text">{{ $resource->created }}</span></div>
+                        </div>
+                        <div class="body-1">{!! $resource->body !!}</div>
                     </v-card-text>
+
                     <v-card-text class="text-xs-right">
-                        <div class="grey--text caption">Tagged:
+                        <div class="grey--text caption">{{ __('Category') }}:
                             <v-chip label class="grey lighten-3 elevation-0">
                                 <v-icon left class="orange--text">label</v-icon> {{ $resource->category->name }}
                             </v-chip>
@@ -71,7 +80,7 @@
                     <v-divider></v-divider>
 
                     {{-- comment --}}
-                    @include("Forum::widgets.comments")
+                    @include("Forum::interactives.comments")
                     {{-- // comment --}}
                 </v-card>
             </v-flex>
@@ -139,15 +148,12 @@
                         },
                     },
                     urls: {
-                        forums: {
-                            api: {
-                                clone: '{{ route('api.forums.clone', 'null') }}',
-                                destroy: '{{ route('api.forums.destroy', 'null') }}',
-                            },
-                            show: '{{ route('forums.show', 'null') }}',
-                            edit: '{{ route('forums.edit', 'null') }}',
-                            destroy: '{{ route('forums.destroy', 'null') }}',
+                        api: {
+                            destroy: '{{ route('api.forums.destroy', 'null') }}',
                         },
+                        show: '{{ route('forums.show', 'null') }}',
+                        edit: '{{ route('forums.edit', 'null') }}',
+                        destroy: '{{ route('forums.destroy', 'null') }}',
                     },
                     items: [
                         {

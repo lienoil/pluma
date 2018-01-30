@@ -23,19 +23,19 @@ return [
         'name' =>  'forums.index',
         'code' => 'view-forum',
         'description' => 'Ability to view list of forums',
-        'group' => 'forum',
+        'group' => ['forum', 'public-forum'],
     ],
     'show-forum' => [
         'name' => 'forums.show',
         'code' => 'show-forum',
         'description' => 'Ability to show a single forum',
-        'group' => 'forum',
+        'group' => ['forum', 'public-forum'],
     ],
     'create-forum' => [
         'name' => 'forums.create',
         'code' => 'create-forum',
         'description' => 'Ability to show the form to create forum',
-        'group' => 'forum',
+        'group' => ['forum', 'public-forum'],
     ],
     'store-forum' => [
         'name' => 'forums.store',
@@ -61,16 +61,16 @@ return [
         'description' => 'Ability to move the forum to trash',
         'group' => 'forum',
     ],
+    'trashed-forum' => [
+        'name' =>  'forums.trashed',
+        'code' => 'trashed-forum',
+        'description' => 'Ability to view the list of all trashed forum',
+        'group' => 'forum',
+    ],
     'delete-forum' => [
         'name' =>  'forums.delete',
         'code' => 'delete-forum',
         'description' => 'Ability to permanently delete the forum',
-        'group' => 'forum',
-    ],
-    'trash-forum' => [
-        'name' =>  'forums.trash',
-        'code' => 'trash-forum',
-        'description' => 'Ability to view the list of all trashed forum',
         'group' => 'forum',
     ],
     'restore-forum' => [
@@ -79,26 +79,10 @@ return [
         'description' => 'Ability to restore the forum',
         'group' => 'forum',
     ],
-
-    // Many
-    'destroy-many-forum' => [
-        'name' =>  'forums.many.destroy',
-        'code' => 'destroy-many-forum',
-        'description' => 'Ability to destroy many forums',
-        'group' => 'forum',
+    'comment-forum' => [
+        'name' => 'forums.comment',
+        'code' => 'comment-forum',
+        'description' => 'Ability to comment to the forum',
+        'group' => ['forum', 'comment-forum', 'comment'],
     ],
-    'delete-many-forum' => [
-        'name' =>  'forums.many.delete',
-        'code' => 'delete-many-forum',
-        'description' => 'Ability to permanently delete many forums',
-        'group' => 'forum',
-    ],
-    'restore-many-forum' => [
-        'name' => 'forums.many.restore',
-        'code' => 'restore-many-forum',
-        'description' => 'Ability to restore many forums',
-        'group' => 'forum',
-    ],
-
-    //
 ];

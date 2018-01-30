@@ -6,9 +6,9 @@
 
             <v-toolbar card class="transparent">
                 <v-spacer></v-spacer>
-                <v-btn dark icon href="#">
+                {{-- <v-btn dark icon href="#">
                     <v-icon>file_download</v-icon>
-                </v-btn>
+                </v-btn> --}}
                 <v-btn dark icon @click="setStorage('glance.hidden', (glance.hidden = !glance.hidden))"
                     v-tooltip:left="{ 'html':  glance.hidden ? 'Show Analytics' : 'Hide Analytics' }">
                     <v-icon>@{{ glance.hidden ? 'visibility' : 'visibility_off' }}</v-icon>
@@ -36,7 +36,7 @@
                                 <v-card class="elevation-1 mb-3 ma-1">
                                     <v-card-text class="success--text text-xs-center">
                                         <v-icon class="success--text display-3">fa-plug</v-icon>
-                                        <div class="display-3 lh-1">{{ count(get_modules_path()) }}</div>
+                                        <div class="display-3 lh-1 countup" data-target="{{ count(get_modules_path()) }}">0</div>
                                         <div class="body-1">{{ __('Modules') }}</div>
                                     </v-card-text>
                                     <v-card-actions>
@@ -51,7 +51,7 @@
                                 <v-card class="elevation-1 mb-3 ma-1">
                                     <v-card-text class="orange--text text-xs-center">
                                         <v-icon class="orange--text display-3">lock</v-icon>
-                                        <div class="display-3 lh-1" v-html="glance.visualizations.permissions.total"></div>
+                                        <div class="display-3 lh-1 countup" :data-target="glance.visualizations.permissions.total" v-html="glance.visualizations.permissions.total"></div>
                                         <div class="body-1">{{ __('Permissions') }}</div>
                                     </v-card-text>
                                     <v-card-actions>
@@ -66,7 +66,7 @@
                                 <v-card class="elevation-1 mb-3 ma-1">
                                     <v-card-text class="pink--text text-xs-center">
                                         <v-icon class="pink--text display-3">account_box</v-icon>
-                                        <div class="display-3 lh-1" v-html="glance.visualizations.users.total"></div>
+                                        <div class="display-3 lh-1 countup" :data-target="glance.visualizations.users.total" v-html="glance.visualizations.users.total"></div>
                                         <div class="body-1">{{ __('Users') }}</div>
                                     </v-card-text>
                                     <v-card-actions>
@@ -81,7 +81,7 @@
                                 <v-card class="elevation-1 mb-3 ma-1">
                                     <v-card-text class="primary--text text-xs-center">
                                         <v-icon class="primary--text display-3">insert_drive_file</v-icon>
-                                        <div class="display-3 lh-1" v-html="glance.visualizations.pages.total"></div>
+                                        <div class="display-3 lh-1 countup" :data-target="glance.visualizations.pages.total" v-html="glance.visualizations.pages.total"></div>
                                         <div class="body-1">{{ __('Pages') }}</div>
                                     </v-card-text>
                                     <v-card-actions>
@@ -103,6 +103,7 @@
 </v-card>
 
 @push('pre-scripts')
+    <script src="{{ assets('frontier/js/countup.min.js') }}"></script>
     <script>
         mixins.push({
             data () {
@@ -151,6 +152,17 @@
                             self.glance.visualizations.permissions.total = response.items.total;
                         });
                     }, 1200);
+
+                    setTimeout(function () {
+                        document.querySelectorAll('.countup').forEach(item => {
+                            // alert(item.getAttribute('data-target'));
+                            var counter = new CountUp(item, 0, item.getAttribute('data-target'));
+
+                            if (! counter.error) {
+                                counter.start();
+                            }
+                        });
+                    }, 1600);
                 }
             },
 

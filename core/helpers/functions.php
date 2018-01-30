@@ -3,9 +3,10 @@
 use Illuminate\Support\Str;
 
 require_once __DIR__ . '/fonts.php';
-require_once __DIR__ . '/widgets.php';
 require_once __DIR__ . '/navigations.php';
 require_once __DIR__ . '/system.php';
+require_once __DIR__ . '/themes.php';
+require_once __DIR__ . '/widgets.php';
 
 if (! function_exists('core_path')) {
     function core_path($path = '')

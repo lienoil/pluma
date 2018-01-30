@@ -11,11 +11,23 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
 
-            @foreach (widgets("dashboard.2.12", "location") as $widget)
-                <v-flex xs4>
+            <v-flex xs6 sm4>
+                @foreach (widgets("dashboard.2.1", "location") as $widget)
                     @include($widget->view)
-                </v-flex>
-            @endforeach
+                @endforeach
+            </v-flex>
+
+            <v-flex xs6 sm4>
+                @foreach (widgets("dashboard.2.2", "location") as $widget)
+                    @include($widget->view)
+                @endforeach
+            </v-flex>
+
+            <v-flex xs6 sm4>
+                @foreach (widgets("dashboard.2.3", "location") as $widget)
+                    @include($widget->view)
+                @endforeach
+            </v-flex>
 
         </v-layout>
     </v-container>

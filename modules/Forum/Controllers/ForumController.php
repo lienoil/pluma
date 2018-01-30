@@ -2,16 +2,21 @@
 
 namespace Forum\Controllers;
 
-use Frontier\Controllers\AdminController;
+use Catalogue\Models\Catalogue;
 use Category\Models\Category;
-use Illuminate\Http\Request;
+use Comment\Models\Comment;
 use Forum\Models\Forum;
 use Forum\Requests\ForumRequest;
+use Forum\Support\Traits\CanCommentTrait;
+use Forum\Support\Traits\ForumResourceApiTrait;
+use Frontier\Controllers\GeneralController;
+use Illuminate\Http\Request;
 use User\Models\User;
-use Comment\Models\Comment;
 
-class ForumController extends AdminController
+class ForumController extends GeneralController
 {
+    use ForumResourceApiTrait, CanCommentTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -20,23 +25,22 @@ class ForumController extends AdminController
      */
     public function index(Request $request)
     {
-        $resources = Forum::paginate();
-        $trashed = Forum::onlyTrashed()->count();
+        $resources = Forum::search($request->all())->paginate();
         $categories = Category::type('forums')->select(['name', 'icon', 'id'])->get();
 
-        return view("Theme::forums.index")->with(compact('resources', 'trashed', 'categories'));
+        return view("Theme::forums.index")->with(compact('resources', 'catalogues', 'categories'));
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  string  $code
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $code)
     {
-        $resource = Forum::findOrFail($id);
+        $resource = Forum::whereCode($code)->firstOrFail();
 
         return view("Theme::forums.show")->with(compact('resource'));
     }
@@ -64,8 +68,9 @@ class ForumController extends AdminController
     {
         $forum = new Forum();
         $forum->name = $request->input('name');
-        $forum->code = $request->input('code');
+        $forum->code = date('ymdhis') . str_slug($request->input('name'));
         $forum->body = $request->input('body');
+        $forum->delta = $request->input('delta');
         $forum->user()->associate(User::find(user()->id));
         $forum->category()->associate(Category::find($request->input('category_id')));
         $forum->save();
@@ -111,78 +116,13 @@ class ForumController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id = null)
     {
-        $forum = Forum::findOrFail($id);
-        $forum->delete();
-
-        return redirect()->route('forums.index');
-    }
-
-    /**
-     * Display a listing of the trashed resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function trash()
-    {
-        $resources = Forum::onlyTrashed()->paginate();
-
-        return view("Theme::forums.trash")->with(compact('resources'));
-    }
-
-    /**
-     * Restore the specified resource from storage.
-     *
-     * @param  \Forum\Requests\ForumRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function restore(Request $request, $id)
-    {
-        $forum = Forum::onlyTrashed()->findOrFail($id);
-        $forum->restore();
-
-        return back();
-    }
-
-    /**
-     * Delete the specified resource from storage permanently.
-     *
-     * @param  \Forum\Requests\ForumRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(Request $request, $id)
-    {
-        $forum = Forum::withTrashed()->findOrFail($id);
-        $forum->forceDelete();
-
-        return redirect()->route('forums.trash');
-    }
-
-    /**
-     * Comment the specified resource from storage permanently.
-     *
-     * @param  \Story\Requests\StoryRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function comment(Request $request, $id)
-    {
-        $comment = New Comment();
-        $comment->user()->associate(User::find($request->input('user_id')));
-        $comment->approved = true;
-        $comment->body = $request->input('body');
-        $comment->delta = $request->input('delta');
-
-        $forum = Forum::findOrFail($id);
-        $forum->comments()->save($comment);
-        $forum->save();
+        Forum::destroy($request->has('id') ? $request->input('id') : $id);
 
         return back();
     }

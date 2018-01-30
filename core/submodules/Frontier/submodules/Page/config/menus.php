@@ -66,7 +66,7 @@ return [
                     'name' => 'pages.categories.index',
                     'children' => [
                         'pages.categories.edit',
-                        'pages.categories.trash',
+                        'pages.categories.trashed',
                     ]
                 ],
                 'order' => 10,

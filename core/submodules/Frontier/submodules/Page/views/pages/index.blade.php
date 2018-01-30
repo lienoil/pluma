@@ -113,13 +113,13 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile ripple @click="$refs.destroy.submit()">
+                                        <v-list-tile ripple @click="$refs[`destroy_${prop.item.id}`].submit()">
                                             <v-list-tile-action>
                                                 <v-icon warning>delete</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form ref="destroy" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
+                                                    <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Move to Trash') }}

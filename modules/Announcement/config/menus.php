@@ -53,8 +53,34 @@ return [
                 'always_viewable' => false,
                 'icon' => 'delete',
                 'labels' => [
-                    'title' => __('Trashed'),
+                    'title' => __('Trashed Announcements'),
                     'description' => __('View list of all announcements moved to trash'),
+                ],
+            ],
+
+            'announcement-category-divider' => [
+                'name' => 'announcement-category-divider',
+                'is_header' => true,
+                'is_divider' => true,
+                'parent' => 'user',
+                'order' => 9,
+            ],
+
+            'view-announcements-category' => [
+                'name' => 'view-announcements-category',
+                'slug' => route('announcements.categories.index'),
+                'routes' => [
+                    'name' => 'announcements.categories.index',
+                    'children' => [
+                        'announcements.categories.edit',
+                    ]
+                ],
+                'order' => 10,
+                'always_viewable' => false,
+                'icon' => 'label',
+                'labels' => [
+                    'title' => __('Categories'),
+                    'description' => __('View the list of all categories'),
                 ],
             ],
         ],

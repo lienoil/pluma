@@ -11,5 +11,5 @@ class Detail extends Model
 
     protected $fillable = ['user_id', 'key', 'value'];
 
-    protected $searchables = ['value'];
+    protected $searchables = ['key', 'value'];
 }

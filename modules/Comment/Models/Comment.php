@@ -2,16 +2,38 @@
 
 namespace Comment\Models;
 
+use Comment\Support\Relations\HasManyChildComments;
+use Comment\Support\Scopes\ApprovedScope;
+use Comment\Support\Traits\HasOneParentComment;
 use Frontier\Support\Traits\Ownable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Course;
 use Pluma\Models\Model;
 use Pluma\Models\User;
+use User\Support\Traits\BelongsToUser;
 
 class Comment extends Model
 {
-    // use SoftDeletes;
-    use Ownable, SoftDeletes;
+    use BelongsToUser,
+        HasManyChildComments,
+        HasOneParentComment,
+        Ownable,
+        SoftDeletes;
+
+    protected $with = ['user'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // Only get all 'approved' comments.
+        static::addGlobalScope(new ApprovedScope);
+    }
 
     public function post()
     {

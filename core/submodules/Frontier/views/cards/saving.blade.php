@@ -12,10 +12,6 @@
     </v-toolbar>
 
     <v-card-text class="grey--text">
-        <div class="caption grey--text">{{ __("You are editing as") }} <strong>{{ user()->username }}</strong></div>
-    </v-card-text>
-
-    <v-card-text class="grey--text">
 
         @stack("cards.saving.pre-fields")
 
@@ -41,7 +37,7 @@
         @stack("cards.saving.pre-actions")
 
         <v-spacer></v-spacer>
-        <v-btn primary type="submit" class="elevation-1">{{ _('Save') }}</v-btn>
+        <v-btn primary type="submit" class="elevation-1">{{ __('Save') }}</v-btn>
 
         @stack("cards.saving.post-actions")
 

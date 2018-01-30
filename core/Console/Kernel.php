@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Pluma\Console\Commands\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -99,7 +99,7 @@ class Kernel extends ConsoleKernel
     /**
      * Loads the scheduled commands from modules.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param  \Pluma\Console\Commands\Scheduling\Schedule $schedule
      * @return void
      */
     protected function scheduledJobs(Schedule $schedule)
@@ -108,7 +108,7 @@ class Kernel extends ConsoleKernel
             if (file_exists("$module/config/jobs.php")) {
                 $jobs = (array) require_once "$module/config/jobs.php";
                 foreach ($jobs as $class) {
-                    $schedule->job(new $class['job'], $class['queue']);
+                    $schedule->job($class['job'], $class['queue']);
                 }
             }
         }
