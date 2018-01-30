@@ -43,7 +43,7 @@
                             ></v-text-field>
 
                             <v-menu full-width bottom>
-                                <v-select
+                                <v-text-field
                                     append-icon="keyboard_arrow_down"
                                     :error-messages="resource.errors.method"
                                     hint="{{ __('Choose method') }}"
@@ -52,7 +52,7 @@
                                     persistent-hint
                                     slot="activator"
                                     v-model="resource.item.method"
-                                ></v-select>
+                                ></v-text-field>
                                 <v-card>
                                     <v-list>
                                         <v-list-tile ripple @click="resource.item.method = method" :key="i" v-for="(method, i) in misc.methods">

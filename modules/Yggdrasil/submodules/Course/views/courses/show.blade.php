@@ -268,7 +268,7 @@
                 </v-card>
 
                 <v-card class="elevation-1">
-                    @include("Forum::widgets.comments")
+                    @include("Course::widgets.comments")
                 </v-card>
             </v-flex>
 

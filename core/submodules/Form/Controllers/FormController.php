@@ -31,8 +31,6 @@ class FormController extends GeneralController
         $resources = Form::search($request->all())->paginate();
         $trashed = Form::onlyTrashed()->count();
 
-
-
         return view("Form::forms.index")->with(compact('resources', 'trashed'));
     }
 
@@ -48,7 +46,7 @@ class FormController extends GeneralController
     {
         // dd($request->all());
         $resource = Form::findOrFail($id);
-        $form = \Form\Models\Form::find(27);
+        $form = \Form\Models\Form::find($id);
         $builder = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Form::templates.test');
 
         return view("Form::forms.show")->with(compact('resource', 'form', 'builder'));
