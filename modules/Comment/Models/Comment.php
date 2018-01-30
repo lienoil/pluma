@@ -11,7 +11,6 @@ use User\Support\Traits\BelongsToUser;
 
 class Comment extends Model
 {
-    // use SoftDeletes;
     use Ownable, SoftDeletes, BelongsToUser;
 
     protected $with = ['user'];
