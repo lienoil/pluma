@@ -7,6 +7,7 @@ use Category\Models\Category;
 use Comment\Models\Comment;
 use Forum\Models\Forum;
 use Forum\Requests\ForumRequest;
+use Forum\Support\Traits\CanCommentTrait;
 use Forum\Support\Traits\ForumResourceApiTrait;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ use User\Models\User;
 
 class ForumController extends GeneralController
 {
-    use ForumResourceApiTrait;
+    use ForumResourceApiTrait, CanCommentTrait;
 
     /**
      * Display a listing of the resource.
@@ -122,28 +123,6 @@ class ForumController extends GeneralController
     public function destroy(Request $request, $id = null)
     {
         Forum::destroy($request->has('id') ? $request->input('id') : $id);
-
-        return back();
-    }
-
-    /**
-     * Comment the specified resource from storage permanently.
-     *
-     * @param  \Story\Requests\StoryRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function comment(Request $request, $id)
-    {
-        $comment = New Comment();
-        $comment->user()->associate(User::find($request->input('user_id')));
-        $comment->approved = true;
-        $comment->body = $request->input('body');
-        $comment->delta = $request->input('delta');
-
-        $forum = Forum::findOrFail($id);
-        $forum->comments()->save($comment);
-        $forum->save();
 
         return back();
     }

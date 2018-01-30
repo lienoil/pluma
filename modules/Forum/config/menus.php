@@ -10,7 +10,7 @@ return [
      */
     'forum' => [
         'name' => 'forum',
-        'order' => 51,
+        'order' => 60,
         'slug' => route('forums.index'),
         'always_viewable' => false,
         'icon' => 'chat_bubble_outline',

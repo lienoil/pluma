@@ -25,7 +25,7 @@
                         </v-card-text>
                         @endforeach
 
-                        <v-btn primary type="submit" class="elevation-1">Submit</v-btn>
+                        <v-btn primary type="submit" class="elevation-1">{{ __('Submit') }}</v-btn>
                     </v-card>
                 </form>
             </v-flex>

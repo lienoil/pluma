@@ -4,21 +4,18 @@
 
 @section("content")
 
-    @include("Frontier::partials.banner")
-
     <v-toolbar dark extended class="light-blue elevation-0">
-        <v-btn
-            href="{{ route('forums.index') }}"
-            ripple
-            flat
-            >
+        <v-btn ripple flat href="{{ route('forums.index') }}">
             <v-icon left dark>arrow_back</v-icon>
-            Back
+            {{ __('Back') }}
         </v-btn>
     </v-toolbar>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12 md8 offset-md2>
+
+                @include("Frontier::partials.banner")
+
                 <v-card class="grey--text elevation-1 card--flex-toolbar">
                     <v-toolbar class="transparent elevation-0">
                         <v-toolbar-title class="accent--text">{{ __($resource->name) }}</v-toolbar-title>
