@@ -38,7 +38,7 @@ Version: 1.0
 {{-- {{ dd($form, $fields) }} --}}
 
 
-{{-- start of evaluation modal --}}
+{{-- start of frontend evaluation modal --}}
 <v-card-text class="text-xs-center">
     <v-dialog v-model="evaluation.dialog.model" lazy width="auto">
         <v-btn class="purple--text text--lighten-2" outline slot="activator">
@@ -565,4 +565,4 @@ Version: 1.0
         </v-card>
     </v-dialog>
 </v-card-text>
-{{-- /end of evaluation modal --}}
+{{-- /end of frontend evaluation modal --}}
