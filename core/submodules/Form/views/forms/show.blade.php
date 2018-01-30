@@ -7,7 +7,7 @@
         <v-layout row wrap justify-center align-center>
             <v-flex md8 sm10 xs12>
 
-                @include("Form::templates.test")
+                {{-- @include("Form::templates.test") --}}
 
                 <form action="{{$resource->action}}" method="{{ $resource->method }}" {{ $resource->attributes }}>
                     <v-card class="elevation-1">
@@ -28,7 +28,6 @@
         </v-layout>
     </v-container>
 @endsection
-
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>

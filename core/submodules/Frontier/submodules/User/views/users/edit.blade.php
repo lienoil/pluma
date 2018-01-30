@@ -4,43 +4,20 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-container grid-list-lg>
 
         @include("Theme::partials.banner")
 
         <form action="{{ route('users.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
+
             <v-layout row wrap>
-                <v-flex sm2 fill-height>
-                    <v-card class="elevation-1">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ __('Options') }}</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                        </v-toolbar>
-                        <v-list>
-                            <v-list-tile dark class="primary" href="{{ route('users.edit', $resource->id) }}">
-                                <v-list-tile-action>
-                                    <v-icon dark>edit</v-icon>
-                                </v-list-tile-action>
-                                <v-list-tile-title class="white--text">{{ __('Edit Information') }}</v-list-tile-title>
-                            </v-list-tile>
-
-                            <v-list-tile href="{{ route('password.change.form', $resource->id) }}">
-                                <v-list-tile-action>
-                                    <v-icon>fa-key</v-icon>
-                                </v-list-tile-action>
-                                <v-list-tile-title>{{ __('Change Password') }}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-card>
-                </v-flex>
-
-                <v-flex sm7>
+                <v-flex sm9>
 
                     <v-card class="mb-3 elevation-1">
                         <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ __('Edit User') }}</v-toolbar-title>
+                            <v-toolbar-title class="accent--text">{{ __("Edit User") }}</v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-switch
                                 label="{{ __('Show required fields only') }}"
@@ -57,14 +34,15 @@
                                 <v-flex xs2 v-show="!suppliments.required_fields.model">
                                     <v-select
                                         :error-messages="resource.errors.prefix"
+                                        prepend-icon="account_box"
                                         item-text="text"
                                         item-value="value"
+                                        hide-details
                                         label="{{ __('Prefix Name') }}"
-                                        prepend-icon="account_box"
-                                        v-bind:items="resource.prefixname.items"
-                                        v-model="resource.prefixname.model"
+                                        v-model="resource.item.prefixname"
+                                        v-bind:items="[{text: '{{ __('None') }}', value: null}, {text: '{{ __('Mr') }}', value: '{{ __('Mr.') }}'}, {text: '{{ __('Mrs') }}', value: '{{ __('Mrs.') }}'}, {text: '{{ __('Ms') }}', value: '{{ __('Ms.') }}'}]"
                                     ></v-select>
-                                    <input type="hidden" name="prefixname" :value="resource.prefixname.model">
+                                    <input type="hidden" name="prefixname" :v-model="resource.item.prefixname">
                                 </v-flex>
                                 <v-flex
                                     v-bind="suppliments.required_fields.model?{[`xs6`]:true}:{[`xs3`]:true}"
@@ -74,7 +52,7 @@
                                         :error-messages="resource.errors.firstname"
                                         label="{{ _('First Name') }}"
                                         name="firstname"
-                                        value="{{ old('firstname') ? old('firstname') : $resource->firstname }}"
+                                        v-model="resource.item.firstname"
                                         input-group
                                     ></v-text-field>
                                 </v-flex>
@@ -83,7 +61,7 @@
                                         :error-messages="resource.errors.middlename"
                                         label="{{ _('Middle Name') }}"
                                         name="middlename"
-                                        value="{{ old('middlename') ? old('middlename') : $resource->middlename }}"
+                                        v-model="resource.item.middlename"
                                         input-group
                                     ></v-text-field>
                                 </v-flex>
@@ -94,27 +72,48 @@
                                         :error-messages="resource.errors.lastname"
                                         label="{{ _('Last Name') }}"
                                         name="lastname"
-                                        value="{{ old('lastname') ? old('lastname') : $resource->lastname }}"
+                                        v-model="resource.item.lastname"
                                         input-group
                                         {{-- @input="(val) => { resource.item.name = val; }" --}}
                                     ></v-text-field>
                                 </v-flex>
                             </v-layout>
+                        </v-card-text>
+                        <v-subheader>{{ __('Account') }}</v-subheader>
+                        <v-card-text>
                             <v-layout row wrap>
                                 <v-flex xs12>
+                                    <v-select
+                                        :error-messages="resource.errors.roles"
+                                        :items="suppliments.roles.items"
+                                        autocomplete
+                                        clearable
+                                        hint="{{ __('You may assign multiple roles to this user') }}"
+                                        item-text="name"
+                                        item-value="id"
+                                        label="{{ __('Roles') }}"
+                                        multiple
+                                        persistent-hint
+                                        prepend-icon="supervisor_account"
+                                        v-model="suppliments.roles.selected"
+                                    ></v-select>
+                                    <input type="hidden" name="roles[]" :value="id" v-for="(id, i) in suppliments.roles.selected" :key="i">
+
+
                                     <v-text-field
                                         :error-messages="resource.errors.email"
+                                        input-group
                                         label="{{ _('Email') }}"
                                         name="email"
                                         prepend-icon="email"
-                                        value="{{ old('email') ? old('email') : $resource->email }}"
-                                        input-group
+                                        type="email"
+                                        v-model="resource.item.email"
                                     ></v-text-field>
                                     <v-text-field
                                         :error-messages="resource.errors.username"
                                         label="{{ _('Username') }}"
                                         name="username"
-                                        value="{{ old('username') ? old('username') : $resource->username }}"
+                                        v-model="resource.item.username"
                                         prepend-icon="account_circle"
                                         input-group
                                     ></v-text-field>
@@ -122,80 +121,11 @@
                             </v-layout>
                         </v-card-text>
 
-                        <v-layout row wrap>
-                            <v-flex xs6>
-                                <v-toolbar class="transparent elevation-0">
-                                    <v-toolbar-title class="body-1">{{ __('Available Roles') }}</v-toolbar-title>
-                                    <v-spacer></v-spacer>
-                                    <v-text-field
-                                        append-icon="search"
-                                        label="{{ _('Search') }}"
-                                        single-line
-                                        hide-details
-                                        v-model="suppliments.roles.searchform.query"
-                                        light
-                                    ></v-text-field>
-                                </v-toolbar>
-
-                                <v-data-table
-                                    class="elevation-0"
-                                    no-data-text="{{ _('No resource found') }}"
-                                    select-all="primary"
-                                    selected-key="id"
-                                    {{-- hide-actions --}}
-                                    v-bind:search="suppliments.roles.searchform.query"
-                                    v-bind:headers="suppliments.roles.headers"
-                                    v-bind:items="suppliments.roles.items"
-                                    v-model="suppliments.roles.selected"
-                                    v-bind:pagination.sync="suppliments.roles.pagination"
-                                >
-                                    <template slot="items" scope="prop">
-                                        <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
-                                            <td>
-                                                <v-checkbox
-                                                color="primary"
-                                                    hide-details
-                                                    class="pa-0"
-                                                    :input-value="prop.selected"
-                                                ></v-checkbox>
-                                            </td>
-                                            <td>@{{ prop.item.name }}</td>
-                                            <td>@{{ prop.item.code }}</td>
-                                            <td>@{{ prop.item.description }}</td>
-                                        </tr>
-                                    </template>
-                                </v-data-table>
-                            </v-flex>
-                            <v-flex xs6>
-                                <v-subheader>{{ __('Selected Roles') }}</v-subheader>
-                                <v-card-text class="text-xs-center">
-                                    <template v-if="suppliments.roles.selected.length">
-                                        <template v-for="(grant, i) in suppliments.roles.selected">
-                                            <v-chip
-                                                width="100px"
-                                                label
-                                                close
-                                                success
-                                                @click.native.stop
-                                                @input="suppliments.roles.selected.splice(i, 1)"
-                                                class="chip--select-multi pink darken-3 white--text"
-                                                :key="i"
-                                            >
-                                                <input type="hidden" name="roles[]" :value="grant.id">
-                                                @{{ grant.name }}
-                                            </v-chip>
-                                        </template>
-                                    </template>
-                                    <small v-else class="grey--text">{{ __('No chosen Roles') }}</small>
-                                </v-card-text>
-                            </v-flex>
-                        </v-layout>
-
-                        <v-subheader v-show="!suppliments.required_fields.model">{{ __('Details') }}</v-subheader>
+                        <v-subheader v-show="!suppliments.required_fields.model">{{ __('Background Details') }}</v-subheader>
                         <v-card-text v-show="!suppliments.required_fields.model">
                             <v-layout row wrap>
                                 <v-flex xs12>
-                                    <v-radio-group v-model="resource.gender.model" :mandatory="false">
+                                    <v-radio-group v-model="resource.item.details.gender" :mandatory="false">
                                         <v-radio label="{{ __('Male') }}"
                                             color="blue"
                                             value="Male"
@@ -204,54 +134,42 @@
                                             color="pink"
                                             value="Female"
                                             hide-details></v-radio>
-                                        <input type="hidden" name="gender" :value="resource.gender.model">
+                                        <input type="hidden" name="details[gender]" :v-model="resource.item.details.gender">
                                     </v-radio-group>
 
-                                    <v-menu
-                                        v-show="!suppliments.required_fields.model"
-                                        lazy
-                                        :close-on-content-click="false"
-                                        transition="scale-transition"
-                                        offset-y
-                                        full-width
-                                        :nudge-left="40"
-                                        max-width="290px"
-                                    >
-                                        <v-text-field
-                                            slot="activator"
-                                            label="{{ __('Birthday') }}"
-                                            v-model="resource.birthday.formatted"
-                                            prepend-icon="fa-birthday-cake"
-                                            name="birthday"
-                                            value="{{ old('birthday') ? old('birthday') : @$resource->detail('birthday') }}"
-                                        ></v-text-field>
-                                            <v-date-picker
-                                                v-model="resource.birthday.value"
-                                                scrollable
-                                                actions
-                                                :date-format="date => new Date(date).toDateString()"
-                                                :formatted-value.sync="resource.birthday.formatted"
-                                            >
-                                        </v-date-picker>
-                                    </v-menu>
+                                    {{-- <input type="text" class="cleavable date-format"> --}}
+                                    <v-text-field
+                                        :error-messages="resource.errors['details.birthday']"
+                                        class="cleavable date-format"
+                                        hint="{{ __('YYYY/MM/DD') }}"
+                                        label="{{ __('Birthday') }}"
+                                        name="details[birthday]"
+                                        persistent-hint
+                                        prepend-icon="fa-birthday-cake"
+                                        v-model="resource.item.details.birthday"
+                                    ></v-text-field>
 
                                     <v-text-field
-                                        v-show="!suppliments.required_fields.model"
-                                        :error-messages="resource.errors.address"
+                                        :error-messages="resource.errors['details.address']"
+                                        input-group
                                         label="{{ _('Address') }}"
+                                        name="details[address]"
                                         prepend-icon="map"
-                                        name="address"
-                                        value="{{ old('address') ? old('address') : @$resource->detail('address') }}"
-                                        input-group
-                                    ></v-text-field>
-                                    <v-text-field
+                                        v-model="resource.item.details.address"
                                         v-show="!suppliments.required_fields.model"
+                                    ></v-text-field>
+
+                                    <v-text-field
                                         :error-messages="resource.errors.phone"
-                                        label="{{ _('Phone') }}"
-                                        prepend-icon="phone"
-                                        name="phone"
-                                        value="{{ old('phone') ? old('phone') : @$resource->detail('phone') }}"
+                                        class="cleavable phone-format"
+                                        hint="{{ __('International Format') }}"
                                         input-group
+                                        label="{{ _('Phone') }}"
+                                        name="details[phone]"
+                                        persistent-hint
+                                        prepend-icon="phone"
+                                        v-model="resource.item.details.phone"
+                                        v-show="!suppliments.required_fields.model"
                                     ></v-text-field>
                                 </v-flex>
                             </v-layout>
@@ -281,67 +199,29 @@
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('frontier/js/cleave.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
 
         mixins.push({
             data () {
                 return {
-                    dataset: {
-                        headers: [
-                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
-                        ],
-                        items: [],
-                        loading: true,
-                        pagination: {
-                            rowsPerPage: '{{ settings('items_per_page', 15) }}',
-                            totalItems: 0,
-                        },
-                        searchform: {
-                            model: false,
-                            query: '',
-                        },
-                        selected: {!! json_encode(old('roles') ? old('roles') : $resource->roles) !!} ? {!! json_encode(old('roles') ? old('roles') : $resource->roles) !!} : [],
-                        totalItems: 0,
-                    },
                     resource: {
                         item: {
-                            name: '',
-                            code: '',
-                            description: '',
-                            grants: '',
-                        },
-                        prefixname: {
-                            model: '{{ @$resource->prefixname }}',
-                            items: [
-                                { text: '{{ __('None') }}', value: '' },
-                                { text: '{{ __('Mr') }}', value: 'Mr' },
-                                { text: '{{ __('Mrs') }}', value: 'Mrs' },
-                                { text: '{{ __('Ms') }}', value: 'Ms' },
-                            ],
-                        },
-                        birthday: {
-                            value: '',
-                            formatted: '{{ old('birthday') ? old('birthday') : @date($resource->detail('birthday')) }}',
-                        },
-                        notify: {
-                            model: false,
-                        },
-                        status: {
-                            model: true,
-                        },
-                        status_range: {
-                            model: '',
-                        },
-                        gender: {
-                            model: '{{ @$resource->detail('gender') }}',
+                            prefixname: '{{ $resource->prefixname }}',
+                            firstname: '{{ $resource->firstname }}',
+                            middlename: '{{ $resource->middlename }}',
+                            lastname: '{{ $resource->lastname }}',
+                            email: '{{ $resource->email }}',
+                            username: '{{ $resource->username }}',
+                            details: {
+                                gender: '{{ old('details.gender') ?? $resource->detail('gender') }}',
+                                birthday: '{{ old('details.birthday') ?? $resource->detail('birthday') }}',
+                                address: '{{ old('details.address') ?? $resource->detail('address') }}',
+                                phone: '{{ old('details.phone') ?? $resource->detail('phone') }}',
+                            },
                         },
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
-                        dialog: {
-                            model: false,
-                        },
                     },
                     suppliments: {
                         roles: {
@@ -379,36 +259,6 @@
                 };
             },
 
-            watch: {
-                'dataset.pagination': {
-                    handler () {
-                        this.get();
-                    },
-                    deep: true
-                },
-
-                'dataset.searchform.query': function (filter) {
-                    setTimeout(() => {
-                        const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
-
-                        let query = {
-                            descending: descending,
-                            page: page,
-                            q: filter,
-                            sort: sortBy,
-                            take: rowsPerPage,
-                        };
-
-                        this.api().search('{{ route('api.roles.search') }}', query)
-                            .then((data) => {
-                                this.dataset.items = data.items.data ? data.items.data : data.items;
-                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
-                                this.dataset.loading = false;
-                            });
-                    }, 1000);
-                },
-            },
-
             methods: {
                 mountSuppliments () {
                     let items = {!! json_encode($roles) !!};
@@ -423,7 +273,7 @@
                     }
                     this.suppliments.roles.items = g;
 
-                    let selected = {!! json_encode(old('roles') ? old('roles') : $resource->roles->pluck('id')->toArray()) !!};
+                    let selected = {!! json_encode(old('roles') ?? $resource->roles->pluck('id')->toArray()) !!};
                     let s = [];
                     if (selected) {
                         for (var i in selected) {
@@ -449,6 +299,20 @@
             mounted () {
                 this.mountSuppliments();
                 this.getStorageData();
+
+                // Cleave
+                var cleave = new Cleave('.cleavable.date-format input', {
+                    date: true,
+                    datePattern: ['Y', 'm', 'd']
+                });
+                new Cleave('.cleavable.phone-format input', {
+                    prefix: '+',
+                    numeral: true,
+                    numeralDecimalMark: '.',
+                    delimiter: '',
+                    blocks: [15],
+                });
+
                 // this.mountSuppliments();
                 // console.log("dataset.pagination", this.dataset.pagination);
             },

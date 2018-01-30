@@ -112,6 +112,7 @@
                             },
                         },
                     },
+                    commentforms: [],
                     resource: {
                         item: {
                             name: '',
@@ -124,6 +125,11 @@
                 }
             },
             methods: {
+                show (e) {
+                    let target = e.currentTarget;
+                    console.log(target);
+                },
+
                 get () {
                     const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
                     let query = {

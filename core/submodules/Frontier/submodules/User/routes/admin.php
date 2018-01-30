@@ -12,7 +12,7 @@ Route::delete('users/delete/many', 'UserManyController@delete')->name('users.man
 Route::delete('users/delete/{user}', 'UserController@delete')->name('users.delete');
 Route::delete('users/destroy/many', 'UserManyController@destroy')->name('users.many.destroy');
 Route::get('users/refresh', 'UserRefreshController@index')->name('users.refresh.index');
-Route::get('users/trash', 'UserController@trash')->name('users.trash');
+Route::get('users/trashed', 'UserController@trashed')->name('users.trashed');
 Route::post('users/refresh', 'UserRefreshController@refresh')->name('users.refresh.refresh');
 Route::post('users/restore/many', 'UserManyController@restore')->name('users.many.restore');
 Route::post('users/{user}/restore', 'UserController@restore')->name('users.restore');

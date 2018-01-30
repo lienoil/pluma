@@ -881,6 +881,7 @@ class ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3
         'User\\Support\\Traits\\HasOneActivation' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/HasOneActivation.php',
         'User\\Support\\Traits\\HasOneDetail' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/HasOneDetail.php',
         'User\\Support\\Traits\\UserResourceApiTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/UserResourceApiTrait.php',
+        'User\\Support\\Traits\\UserResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/UserResourceSoftDeleteTrait.php',
         'Widget\\Composers\\WidgetViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Composers/WidgetViewComposer.php',
         'Widget\\Controllers\\WidgetController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Controllers/WidgetController.php',
         'Widget\\Models\\Widget' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Models/Widget.php',
