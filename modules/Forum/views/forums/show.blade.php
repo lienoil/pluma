@@ -16,10 +16,8 @@
             @include("Frontier::partials.banner")
 
             <v-flex xs12 md8 offset-md2>
-
-
                 <v-card class="grey--text elevation-1 card--flex-toolbar">
-                    <v-toolbar class="transparent eleQvation-0">
+                    <v-toolbar class="transparent elevation-0">
                         <v-toolbar-title class="accent--text">{{ __($resource->name) }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                         {{-- <v-btn icon ripple v-tooltip:left="{ html: 'Favorite' }">
@@ -137,6 +135,7 @@
         mixins.push({
             data () {
                 return {
+                    showeditor: true,
                     quill: {
                         comment: {}
                     },

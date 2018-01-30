@@ -49,8 +49,5 @@ Route::patch('forums/restore/{forum}', 'ForumController@restore')
 Route::delete('forums/delete/{forum}', 'ForumController@delete')
      ->name('forums.delete');
 
-Route::resource('forums', '\Forum\Controllers\ForumController');
-Route::resource('forums', '\Forum\Controllers\ForumController');
-
 // Admin routes
 Route::resource('forums', 'ForumController');

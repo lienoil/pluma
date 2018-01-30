@@ -508,7 +508,7 @@ class ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/00000000000004_create_calendars_table.php',
         'CreateCataloguesTable' => __DIR__ . '/../..' . '/core/submodules/Library/submodules/Catalogue/database/migrations/00000000000006_create_catalogues_table.php',
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/core/submodules/Category/database/migrations/00000000000003_create_categories_table.php',
-        'CreateCommentsTable' => __DIR__ . '/../..' . '/modules/Comment/database/migrations/20171018013847_create_comments_table.php',
+        'CreateCommentsTable' => __DIR__ . '/../..' . '/modules/Comment/database/migrations/20171018013848_create_comments_table.php',
         'CreateContentUserTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20171026095534_create_content_user_table.php',
         'CreateContentsTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/database/migrations/20170912032507_create_contents_table.php',
         'CreateCourseUserTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20170929040950_create_course_user_table.php',
