@@ -20,3 +20,4 @@ Route::resource('forums/categories', 'CategoryController', [
 ]);
 
 Route::resource('forums', '\Forum\Controllers\ForumController');
+Route::resource('forums', '\Forum\Controllers\ForumController');
