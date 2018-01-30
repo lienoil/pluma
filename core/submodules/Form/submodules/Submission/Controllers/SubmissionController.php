@@ -8,6 +8,7 @@ use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Form\Models\Form;
 use Field\Models\Field;
+use User\Models\User;
 
 
 class SubmissionController extends GeneralController
@@ -60,7 +61,12 @@ class SubmissionController extends GeneralController
      */
     public function store(SubmissionRequest $request)
     {
-        //
+        $submisison = new Submission();
+        $submisison->type = $request->input('type');
+        $submission->results = $request->input('results');
+        $submisison->form()->associate(Form::find(form()->id));
+        $submisison->user()->associate(User::find(user()->id));
+        $submisison->save();
 
         return back();
     }
