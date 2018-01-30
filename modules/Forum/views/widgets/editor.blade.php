@@ -1,6 +1,6 @@
 {{-- Editor --}}
 <v-quill
-    paper
+    :paper="false"
     :options="{
         placeholder: '{{ __('Write something...') }}',
     }"
@@ -21,6 +21,7 @@
         <input type="hidden" name="delta" :value="JSON.stringify(resource.quill.delta)">
     </template>
 </v-quill>
+{{-- <p v-if="resource.quill.errors.body" v-html="resource.quill.errors.body" class="mb-0 caption red--text"></p> --}}
 {{-- /Editor --}}
 
 @push('css')
@@ -38,6 +39,10 @@
                         quill: {
                             html: '{!! old('body') !!}',
                             delta: JSON.parse({!! json_encode(old('delta')) !!}),
+                            errors: {
+                                body: '{!! json_encode($errors->first('body')) !!}',
+                                delta: '{!! json_encode($errors->first('delta')) !!}',
+                            }
                         }
                     },
                     mediabox: {

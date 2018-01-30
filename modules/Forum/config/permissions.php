@@ -79,4 +79,10 @@ return [
         'description' => 'Ability to restore the forum',
         'group' => 'forum',
     ],
+    'comment-forum' => [
+        'name' => 'forums.comment',
+        'code' => 'comment-forum',
+        'description' => 'Ability to comment to the forum',
+        'group' => ['forum', 'comment-forum', 'comment'],
+    ],
 ];

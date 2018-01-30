@@ -31,7 +31,7 @@
  */
 
 // Comment
-Route::post('forums/{forum}/comment', 'CommentController@store')->name('forums.comment');
+Route::post('forums/{forum}/comment', 'ForumController@comment')->name('forums.comment');
 
 // Category routes
 Route::resource('forums/categories', 'CategoryController', [
