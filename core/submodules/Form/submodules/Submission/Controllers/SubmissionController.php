@@ -36,9 +36,10 @@ class SubmissionController extends GeneralController
      */
     public function show(Request $request, $id)
     {
-        //
+        $resource = Submission::findOrfail($id);
+        $form = \Form\Model\Form::find($id);
 
-        return view("Theme::submissions.show");
+        return view("Theme::submissions.show")->with(compact('resource', 'form'));
     }
 
     /**
@@ -66,7 +67,6 @@ class SubmissionController extends GeneralController
         $submission->results = $request->input('results');
         $submisison->form()->associate(Form::find(form()->id));
         $submisison->user()->associate(User::find(user()->id));
-        $submisison->save();
 
         return back();
     }

@@ -22,8 +22,6 @@ return [
         'routes' => [
             'name' => 'submissions.index',
             'children' => [
-                'submissions.create',
-                'submissions.edit',
                 'submissions.show',
                 'submissions.trash'
             ]
