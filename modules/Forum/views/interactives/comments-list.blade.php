@@ -16,8 +16,8 @@
 
                 <v-slide-y-transition>
                     <v-card class="elevation-0 mb-3" transition="slide-y-transition">
-                        <v-btn primary flat @click="showeditor = !showeditor">Reply</v-btn>
-                        <v-card-text v-show="!showeditor">
+                        <v-btn primary flat @click="commentforms.f{{ $comment->id }} = !commentforms.f{{ $comment->id }}">Reply</v-btn>
+                        <v-card-text ref="commentforms_{{ $resource->id }}" v-show="!commentforms.f{{ $comment->id }}">
                             <form class="hidden-sm-up" action="{{ route('forums.comment', $resource->id) }}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="user_id" value="{{ user()->id }}">
