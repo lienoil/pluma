@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
+class ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -508,7 +508,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'CreateCalendarsTable' => __DIR__ . '/../..' . '/core/submodules/Calendar/database/migrations/00000000000004_create_calendars_table.php',
         'CreateCataloguesTable' => __DIR__ . '/../..' . '/core/submodules/Library/submodules/Catalogue/database/migrations/00000000000006_create_catalogues_table.php',
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/core/submodules/Category/database/migrations/00000000000003_create_categories_table.php',
-        'CreateCommentsTable' => __DIR__ . '/../..' . '/modules/Comment/database/migrations/20171018013847_create_comments_table.php',
+        'CreateCommentsTable' => __DIR__ . '/../..' . '/modules/Comment/database/migrations/20171018013848_create_comments_table.php',
         'CreateContentUserTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20171026095534_create_content_user_table.php',
         'CreateContentsTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/submodules/Content/database/migrations/20170912032507_create_contents_table.php',
         'CreateCourseUserTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/database/migrations/20170929040950_create_course_user_table.php',
@@ -891,10 +891,10 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitb605d258f8684cab1e3b66f87feb32d3::$classMap;
 
         }, null, ClassLoader::class);
     }

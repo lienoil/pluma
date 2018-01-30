@@ -47,9 +47,9 @@ class FormController extends GeneralController
         // dd($request->all());
         $resource = Form::findOrFail($id);
         $form = \Form\Models\Form::find($id);
-        $builder = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Form::templates.test');
+        // $builder = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Form::templates.test');
 
-        return view("Form::forms.show")->with(compact('resource', 'form', 'builder'));
+        return view("Form::forms.show")->with(compact('resource', 'form'));
     }
 
     /**

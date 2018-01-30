@@ -68,6 +68,7 @@ class FieldtypeController extends GeneralController
         $fieldtype = new Fieldtype();
         $fieldtype->name = $request->input('name');
         $fieldtype->code = $request->input('code');
+        $fieldtype->template = $request->input('template');
         $fieldtype->save();
 
         return back();
@@ -101,6 +102,7 @@ class FieldtypeController extends GeneralController
         $fieldtype = Fieldtype::findOrFail($id);
         $fieldtype->name = $request->input('name');
         $fieldtype->code = $request->input('code');
+        $fieldtype->template = $request->input('template');
         $fieldtype->save();
 
         return back();
