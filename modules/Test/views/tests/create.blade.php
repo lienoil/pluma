@@ -14,15 +14,18 @@
 
                 <form action="{{ $resource->action ?? route('tests.store') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
                     {{ csrf_field() }}
+                    <input type="hidden" name="form_id" value="{{ $resource->id }}">
+                    <input type="hidden" name="type" value="forms">
+
                     <v-card class="elevation-1">
 
                         <v-toolbar class="elevation-0">
                             <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
                         </v-toolbar>
 
-                        @foreach ($resource->fields as $label => $field)
+                        @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
                             <v-card-text>
-                                <div class="mb-2">{!! $field->template('text')->render() !!}</div>
+                                <div class="mb-2">{!! $field->template()->render() !!}</div>
                             </v-card-text>
                         @endforeach
 
@@ -47,11 +50,7 @@
             data () {
                 return {
                     resource: {
-                        item: {
-                            color: '{{ old('color') }}',
-                            pet: '{{ old('pet') }}',
-                            foods: {!! json_encode(old('foods') ?? []) !!},
-                        },
+                        item: {!! json_encode(old() ?? []) !!},
                         errors: {!! json_encode($errors->getMessages()) !!},
                     },
                 }
