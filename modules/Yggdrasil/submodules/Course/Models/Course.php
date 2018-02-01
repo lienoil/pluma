@@ -6,35 +6,45 @@ use Bookmark\Support\Scopes\OnlyBookmarkedBy;
 use Bookmark\Support\Traits\Bookmarkable;
 use Category\Support\Relations\BelongsToCategory;
 use Course\Support\Mutators\CourseMutator;
-use Course\Support\Traits\BelongsToManyUsers;
+use Course\Support\Relations\BelongsToManyUsers;
 use Course\Support\Traits\EnrolledUserMutator;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Lesson\Support\Traits\HasManyContentsThroughLesson;
 use Lesson\Support\Traits\HasManyLessons;
 use Pluma\Models\Model;
 use User\Support\Traits\BelongsToUser;
-use Comment\Models\Comment;
 
 class Course extends Model
 {
-    use BelongsToCategory, BelongsToUser, BelongsToManyUsers, CourseMutator, HasManyLessons,
-        SoftDeletes, Bookmarkable, OnlyBookmarkedBy, EnrolledUserMutator,
-        HasManyContentsThroughLesson;
+    use BelongsToCategory,
+        BelongsToManyUsers,
+        BelongsToUser,
+        Bookmarkable,
+        CourseMutator,
+        EnrolledUserMutator,
+        HasManyContentsThroughLesson,
+        HasManyLessons,
+        OnlyBookmarkedBy,
+        SoftDeletes;
 
-    protected $with = ['lessons', 'user'];
+    protected $with = ['lessons', 'user', 'category'];
 
-    protected $appends = ['author', 'bookmarked', 'enrolled', 'created', 'excerpt', 'modified'];
+    protected $appends = [
+        'author',
+        'bookmarked',
+        'created',
+        'enrolled',
+        'excerpt',
+        'modified',
+    ];
 
-    protected $searchables = ['title', 'code', 'slug', 'feature', 'body', 'created_at', 'updated_at'];
-
-     //
-    public function course()
-    {
-        return $this->morphMany('Comment', '`');
-    }
-
-    public function comments()
-    {
-        return $this->morphMany(\Comment\Models\Comment::class, 'commentable');
-    }
+    protected $searchables = [
+        'body',
+        'code',
+        'created_at',
+        'feature',
+        'slug',
+        'title',
+        'updated_at',
+    ];
 }

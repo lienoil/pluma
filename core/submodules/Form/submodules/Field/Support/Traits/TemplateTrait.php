@@ -27,17 +27,17 @@ trait TemplateTrait
      */
     public function template($code = null, $templateFieldName = null)
     {
+        $this->code = $code ?? $this->fieldtype->code;
+
         if (! is_null($templateFieldName)) {
             $this->template = $this->{$templateFieldName};
         } else {
-            $this->template = $this->fieldtype->template;
+            $this->template = $this->fieldtype->where('code', $this->code)->first()->template;
         }
 
         if (is_null($this->template)) {
             $this->template = $this->getDefaultTemplate();
         }
-
-        $this->code = $code;
 
         return $this;
     }
@@ -103,10 +103,13 @@ trait TemplateTrait
      */
     public function replaceInputElement($template)
     {
-        switch ($this->fieldtype->code) {
+        switch ($this->code) {
             case 'vuetify-select':
             case 'vuetify-radio':
             case 'vuetify-checkbox':
+            case 'select':
+            case 'radio':
+            case 'checkbox':
                 $values = explode('|', $this->value);
                 foreach ($values as &$value) {
                     $value = str_replace('*', '', $value);

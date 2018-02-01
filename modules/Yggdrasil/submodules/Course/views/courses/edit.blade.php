@@ -71,6 +71,7 @@
                             <div class="mt-2 caption grey--text"><a href="{{ route('profile.show', $resource->user->handlename) }}"><strong>{{ $resource->user->username }}</strong></a> {!! __("is the original author of this Course.") !!}</div>
                         @endif
                     @endpush
+
                     @include("Theme::cards.saving")
 
                     @include("Yggdrasil::cards.cover")
@@ -117,7 +118,7 @@
                             feature: {
                                 thumbnail: '{!! $resource->feature !!}',
                             },
-                            category: JSON.parse({!! json_encode($resource->category) !!}),
+                            category: {!! json_encode($resource->category) !!},
                         },
                         feature: {
                             model: false,
