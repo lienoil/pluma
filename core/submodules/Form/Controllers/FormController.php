@@ -74,7 +74,6 @@ class FormController extends GeneralController
      */
     public function store(FormRequest $request)
     {
-        // dd($request->all());
         $form = new Form();
         $form->name = $request->input('name');
         $form->code = $request->input('code');

@@ -22,7 +22,7 @@ class TestController extends AdminController
     public function index(Request $request)
     {
         $form = \Form\Models\Form::find(3);
-        $form = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Theme::templates.test');
+        // $form = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Theme::templates.test');
         // [
         //     ['template' => '<v-text-field v-model="resource.item.asked" :error-messages="errors.asked" name="%name%" label="%label%"></v-text-field>', 'code' => '12qw', 'label' => 'What is asked?', 'name' => 'asked'],
         //     ['template' => '<v-text-field v-model="resource.item.givens" :error-messages="errors.givens" name="%name%" label="%label%"></v-text-field>', 'code' => '12s', 'label' => 'What are the given variables', 'name' => 'givens'],
@@ -35,7 +35,7 @@ class TestController extends AdminController
         //     ['name' => 'What operations should be used?', 'sort' =>1],
         //     ['name' => 'What operations should be used 22?', 'sort' =>2],
         // ])
-        $form->setTemplatePath('Test::templates.test');
+        // $form->setTemplatePath('Test::templates.test');
         // $form = $form->build('Test::templates.test');
 
 
@@ -63,10 +63,9 @@ class TestController extends AdminController
      */
     public function create()
     {
-        $resources = Library::ofCatalogue('package')->paginate();
-        $catalogues = Catalogue::mediabox();
+        $resource = \Form\Models\Form::find(1);
 
-        return view("Theme::tests.create")->with(compact('resources', 'catalogues'));
+        return view("Theme::tests.create")->with(compact('resource'));
     }
 
     /**
@@ -75,7 +74,7 @@ class TestController extends AdminController
      * @param  \Test\Requests\TestRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(\Form\Support\Builder\Requests\FormBuilderRequest $request)
+    public function store(Request $request)
     {
         echo "<pre>";
             var_dump( $request->all() ); die();

@@ -3,7 +3,7 @@
 @section("content")
     @include("Theme::partials.banner")
 
-    @include("Dashboard::widgets.stat")
+    {{-- @include("Dashboard::widgets.stat") --}}
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
@@ -38,7 +38,7 @@
                             class="sortable-container"
                             :options="{animation: 150, handle: '.sortable-handle', group: 'lessons', draggable: '.draggable-lesson', forceFallback: true}">
                                <v-card class="draggable-lesson elevation-0 transparent mb-3" v-for="(draggable, key) in draggables.items">
-                                    @include("Announcement::widgets.announcement")
+                                    {{-- @include("Announcement::widgets.announcement") --}}
                                </v-card>
                                <v-card class="draggable-lesson elevation-0 transparent mb-3" v-for="(draggable, key) in draggables.items">
                                     @include("Dashboard::widgets.activities")

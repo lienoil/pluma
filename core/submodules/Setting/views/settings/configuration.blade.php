@@ -28,7 +28,7 @@
                                 hint="{{ __('Generate via "blacksmith/blackmith key:generate".') }}"
                                 label="{{ __('Application Key') }}"
                                 readonly
-                                value="{{ settings('APP_KEY', config('APP_KEY', env('APP_KEY'))) }}"
+                                value="{{ settings('APP_KEY', config('encryption.key', env('APP_KEY'))) }}"
                             ></v-text-field>
                         </v-card-text>
                     </v-card>

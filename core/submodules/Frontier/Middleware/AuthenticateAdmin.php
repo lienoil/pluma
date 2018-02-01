@@ -12,7 +12,7 @@ class AuthenticateAdmin
      *
      * @var string
      */
-    protected $redirectGuest = 'login.show';
+    protected $redirectGuest = 'login';
 
     /**
      * Handle an incoming request.
@@ -29,7 +29,7 @@ class AuthenticateAdmin
                 return response('Unauthorized.', 401);
             }
 
-            return redirect()->guest(route($this->redirectGuest));
+            return redirect()->guest($this->redirectGuest);
         }
 
         return $next($request);

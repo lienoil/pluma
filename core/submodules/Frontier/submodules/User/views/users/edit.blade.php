@@ -4,7 +4,7 @@
 
 @section("content")
 
-    <v-container grid-list-lg>
+    <v-container fluid grid-list-lg>
 
         @include("Theme::partials.banner")
 
@@ -13,7 +13,39 @@
             {{ method_field('PUT') }}
 
             <v-layout row wrap>
-                <v-flex sm9>
+                <v-flex sm12 md2>
+
+                    <v-card flat class="mb-3 transparent">
+                        <v-list class="transparent">
+
+                            <v-list-tile href="{{ route('users.edit', $resource->id) }}">
+                                <v-list-tile-action>
+                                    <v-icon class="primary--text">account_box</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title
+                                        class="body-1 primary--text"
+                                    >{{ __('Edit User') }}</v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+
+                            <v-list-tile href="{{ route('password.change.form', $resource->id) }}">
+                                <v-list-tile-action>
+                                    <v-icon>vpn_key</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title
+                                        class="body-1"
+                                    >{{ __('Change Password') }}</v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+
+                        </v-list>
+                    </v-card>
+
+                </v-flex>
+
+                <v-flex sm8 md7>
 
                     <v-card class="mb-3 elevation-1">
                         <v-toolbar card class="transparent">
@@ -38,7 +70,7 @@
                                         item-text="text"
                                         item-value="value"
                                         hide-details
-                                        label="{{ __('Prefix Name') }}"
+                                        label="{{ __('Prefix') }}"
                                         v-model="resource.item.prefixname"
                                         v-bind:items="[{text: '{{ __('None') }}', value: null}, {text: '{{ __('Mr') }}', value: '{{ __('Mr.') }}'}, {text: '{{ __('Mrs') }}', value: '{{ __('Mrs.') }}'}, {text: '{{ __('Ms') }}', value: '{{ __('Ms.') }}'}]"
                                     ></v-select>
@@ -181,7 +213,7 @@
                         </v-card-actions> --}}
                     </v-card>
                 </v-flex>
-                <v-flex sm3>
+                <v-flex sm4 md3>
 
                     {{-- Avatar --}}
                     @include("Theme::cards.avatar")

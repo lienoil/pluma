@@ -126,7 +126,7 @@
                             <td v-html="prop.item.id"></td>
                             <td><strong v-html="prop.item.name"></strong></td>
                             <td v-html="prop.item.code"></td>
-                            <td v-html="prop.item.template"></td>
+                            <td>@{{ prop.item.template }}</td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">

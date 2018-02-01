@@ -1,6 +1,11 @@
 @viewable(widgets('glance'))
 
-    @includeIf("Theme::widgets.glance-" . user()->roles->first()->code)
+    @if (view()->exists("Theme::widgets.glance-" . user()->roles->first()->code))
+        {{-- expr --}}
+        @include("Theme::widgets.glance-" . user()->roles->first()->code)
+    @else
+        @include("Theme::widgets.glance-default")
+    @endif
 
     {{-- <v-card class="elevation-1">
         <v-card-text>

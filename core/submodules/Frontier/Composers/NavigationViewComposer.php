@@ -285,25 +285,6 @@ class NavigationViewComposer extends BaseViewComposer
         }
 
         return $currentMenu;
-
-        // foreach ($menus as $menu) {
-        //     // if a key called `is_group_link` is defined,
-        //     // but is false, then continue.
-        //     // or
-        //     // if `is_group_link` is undefined, then continue.
-        //     if (! isset($menu['is_group_link']) || ! $menu['is_group_link']) {
-        //         if (isset($menu['slug']) &&
-        //             $menu['slug'] == url($this->getCurrentUrl())
-        //         ) {
-        //             return $menu;
-        //         }
-        //     }
-
-        //     if ($menu['has_children']) {
-        //         $target = $this->getCurrentMenu($menu['children']);
-        //     }
-        // }
-        // return $target ?? false;
     }
 
     /**

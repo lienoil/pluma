@@ -35,7 +35,7 @@
                                         item-text="text"
                                         item-value="value"
                                         hide-details
-                                        label="{{ __('Prefix Name') }}"
+                                        label="{{ __('Prefix') }}"
                                         v-model="resource.item.prefixname"
                                         v-bind:items="[{text: '{{ __('None') }}', value: null}, {text: '{{ __('Mr') }}', value: '{{ __('Mr.') }}'}, {text: '{{ __('Mrs') }}', value: '{{ __('Mrs.') }}'}, {text: '{{ __('Ms') }}', value: '{{ __('Ms.') }}'}]"
                                     ></v-select>

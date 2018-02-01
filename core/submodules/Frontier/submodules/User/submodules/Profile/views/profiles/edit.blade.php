@@ -30,7 +30,7 @@
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex md8 xs12 offset-md4>
+            <v-flex sm9 md10 offset-md2>
                 <form action="{{ route('profile.update', $resource->handlename) }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
