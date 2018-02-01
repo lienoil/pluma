@@ -10,6 +10,7 @@ return [
     'avatar' => [
         'is_avatar' => true,
         'is_header' => false,
+        'is_parent' => true,
         'order' => 0,
         'name' => 'avatar',
         'always_viewable' => true,
@@ -27,22 +28,43 @@ return [
              * Specify here the menus to appear on the sidebar.
              *
              */
-            'show-profile' => [
-                'name' => 'show-profile',
-                'order' => 1,
+            'profile-group' => [
+                'name' => 'profile-group',
                 'slug' => route('profile.show', user()->handlename),
-                'always_viewable' => true,
+                'is_group_link' => true,
+                'always_viewable' => false,
                 'icon' => 'account_circle',
+                'labels' => [
+                    'title' => __('My Profile'),
+                    'description' => __('Manage your account.'),
+                ],
                 'routes' => [
                     'name' => 'profile.show',
                     'children' => [
-                        'profile.edit',
                         'profile.show',
                     ]
                 ],
-                'labels' => [
-                    'title' => __('My Profile'),
-                    'description' => __('Manage profile'),
+                'children' => [
+                    'show-profile' => [
+                        'name' => 'show-profile',
+                        'order' => 1,
+                        'slug' => route('profile.show', user()->handlename),
+                        'route' => 'profile.show',
+                        'always_viewable' => true,
+                        'icon' => 'account_circle',
+                        'routes' => [
+                            'name' => 'profile.show',
+                            'children' => [
+                                'profile.edit',
+                                'profile.show',
+                                'notes.show',
+                            ]
+                        ],
+                        'labels' => [
+                            'title' => __('My Profile'),
+                            'description' => __('Manage profile'),
+                        ],
+                    ],
                 ],
             ],
 
@@ -63,7 +85,7 @@ return [
                 'is_header' => true,
                 'is_divider' => true,
                 'parent' => 'profile',
-                'order' => 40,
+                'order' => 999,
             ],
 
             /**
@@ -76,7 +98,7 @@ return [
              */
             'logout' => [
                 'name' => 'logout',
-                'order' => 50,
+                'order' => 1000,
                 'slug' => route('logout.logout'),
                 'always_viewable' => true,
                 'icon' => 'exit_to_app',

@@ -9,31 +9,39 @@
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
-            <v-flex sm2>
-                <v-card class="elevation-1">
-                    <v-toolbar card class="transparent">
-                        <v-toolbar-title class="accent--text">{{ __('Options') }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                    </v-toolbar>
-                    <v-list>
+            <v-flex sm3 md2>
+
+                <v-card flat class="mb-3 transparent">
+                    <v-list class="transparent">
+
                         <v-list-tile href="{{ route('users.edit', $resource->id) }}">
                             <v-list-tile-action>
-                                <v-icon>edit</v-icon>
+                                <v-icon>account_box</v-icon>
                             </v-list-tile-action>
-                            <v-list-tile-title>{{ __('Edit Information') }}</v-list-tile-title>
+                            <v-list-tile-content>
+                                <v-list-tile-title
+                                    class="body-1"
+                                >{{ __('Edit User') }}</v-list-tile-title>
+                            </v-list-tile-content>
                         </v-list-tile>
 
-                        <v-list-tile dark class="active--primary" href="{{ route('password.change.form', $resource->id) }}">
+                        <v-list-tile href="{{ route('password.change.form', $resource->id) }}">
                             <v-list-tile-action>
-                                <v-icon dark>fa-key</v-icon>
+                                <v-icon class="primary--text">vpn_key</v-icon>
                             </v-list-tile-action>
-                            <v-list-tile-title class="white--text">{{ __('Change Password') }}</v-list-tile-title>
+                            <v-list-tile-content>
+                                <v-list-tile-title
+                                    class="body-1 primary--text"
+                                >{{ __('Change Password') }}</v-list-tile-title>
+                            </v-list-tile-content>
                         </v-list-tile>
+
                     </v-list>
                 </v-card>
+
             </v-flex>
 
-            <v-flex sm7>
+            <v-flex sm5 md5>
 
                 @include("Theme::cards.password")
 

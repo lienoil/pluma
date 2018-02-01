@@ -357,6 +357,7 @@
                 get () {
                     // this.api().post('')
                 },
+
                 post (url, query) {
                     let self = this;
                     this.api().post(url, query).then(response => {

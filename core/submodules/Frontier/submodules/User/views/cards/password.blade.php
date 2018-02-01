@@ -10,20 +10,28 @@
             </v-alert>
         @endcan
         <v-card-text>
-            @cannot('change-password')
             <v-text-field
-                :error-messages="resource.errors.old_password"
-                label="{{ _('Old Password') }}"
-                type="password"
-                name="old_password"
-                value="{{ old('old_password') }}"
-                prepend-icon="fa-key"
+                label="{{ __('Username') }}"
+                readonly
+                value="{{ $resource->username }}"
+                prepend-icon="account_box"
+                hint="{{ __("Change this username's password") }}"
                 input-group
             ></v-text-field>
+            @cannot('change-password')
+                <v-text-field
+                    :error-messages="resource.errors.old_password"
+                    label="{{ __('Old Password') }}"
+                    type="password"
+                    name="old_password"
+                    value="{{ old('old_password') }}"
+                    prepend-icon="fa-key"
+                    input-group
+                ></v-text-field>
             @endcannot
             <v-text-field
                 :error-messages="resource.errors.password"
-                label="{{ _('New Password') }}"
+                label="{{ __('New Password') }}"
                 type="password"
                 name="password"
                 value="{{ old('password') }}"
@@ -32,7 +40,7 @@
             ></v-text-field>
             <v-text-field
                 :error-messages="resource.errors.password"
-                label="{{ _('Password Confirmation') }}"
+                label="{{ __('Password Confirmation') }}"
                 type="password"
                 name="password_confirmation"
                 value="{{ old('password_confirmation') }}"

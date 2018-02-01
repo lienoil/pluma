@@ -24,14 +24,17 @@ class Kernel extends BaseKernel
         Commands\Config\ConfigCacheCommand::class,
         Commands\Config\ConfigClearCommand::class,
 
+        // DB
+        Commands\DB\DBDropCommand::class,
+        Commands\DB\DBEmptyCommand::class,
+        Commands\DB\DBMakeCommand::class,
+        Commands\DB\DBMigrateCommand::class,
+        Commands\DB\DBSeedCommand::class,
+
         // Key
         Commands\Key\KeyGenerateCommand::class,
 
-        // Blacksmith
-        Commands\DB\DBDropCommand::class,
-        Commands\DB\DBEmptyCommand::class,
-        Commands\DB\DBMigrateCommand::class,
-        Commands\DB\DBSeedCommand::class,
+        // Furnace
         Commands\Furnace\ForgeAccountCommand::class,
         Commands\Furnace\ForgeControllerCommand::class,
         Commands\Furnace\ForgeModelCommand::class,
@@ -44,6 +47,8 @@ class Kernel extends BaseKernel
         Commands\Furnace\PurgeSessionsCommand::class,
         Commands\Furnace\PurgeStorageCommand::class,
         Commands\Furnace\PurgeViewsCommand::class,
+
+        // Phinx
         Commands\Phinx\PhinxMigrateCreateCommand::class,
         Commands\Phinx\PhinxMigrateRunCommand::class,
         Commands\Phinx\PhinxSeedCreateCommand::class,

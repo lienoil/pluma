@@ -12,7 +12,7 @@ class CreateTestsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = '';
+    protected $tablename = 'tests';
 
     /**
      * Run the migrations.
@@ -26,9 +26,12 @@ class CreateTestsTable extends Migration
         }
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            // $table->increments('id');
-            // $table->timestamps();
-            // $table->softDeletes();
+            $table->increments('id');
+            $table->string('name');
+            $table->string('code')->unique();
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

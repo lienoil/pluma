@@ -12,7 +12,7 @@ class $className extends Migration
      *
      * @var string
      */
-    protected $tablename = '';
+    protected $table = '';
 
     /**
      * Run the migrations.
@@ -21,11 +21,11 @@ class $className extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->tablename)) {
+        if ($this->schema->hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        $this->schema->create($this->table, function (Blueprint $table) {
             // $table->increments('id');
             // $table->timestamps();
             // $table->softDeletes();
@@ -39,6 +39,6 @@ class $className extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        $this->schema->dropIfExists($this->table);
     }
 }

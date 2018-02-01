@@ -58,6 +58,6 @@ class ProfileController extends AdminController
             $user->details()->updateOrCreate(['key' => $key], ['key' => $key, 'value' => $value]);
         }
 
-        return back();
+        return redirect()->route('profile.show', $user->handlename);
     }
 }

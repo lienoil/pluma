@@ -37,6 +37,7 @@ return [
                     'description' => 'View list of all users'
                 ],
             ],
+
             'create-user' => [
                 'name' => 'create-user',
                 'order' => 2,
