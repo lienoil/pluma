@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Migration\Migration;
 use Phinx\Migration\AbstractMigration;
 
-class CreateSubmissionsTable extends Migration
+class CreateTestsTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $tablename = 'submissions';
+    protected $tablename = '';
 
     /**
      * Run the migrations.
@@ -26,15 +26,9 @@ class CreateSubmissionsTable extends Migration
         }
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('type')->nullable();
-            $table->text('results');
-
-            $table->foreign('form_id')->references('id')->on('forms');
-            $table->foreign('user_id')->references('id')->on('users');
-
-            $table->timestamps();
-            $table->softDeletes();
+            // $table->increments('id');
+            // $table->timestamps();
+            // $table->softDeletes();
         });
     }
 

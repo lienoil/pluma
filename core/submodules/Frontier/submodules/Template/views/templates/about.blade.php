@@ -1,6 +1,6 @@
 {{--
-Template Name: Generic Template
-Description: A simple template displaying the title, body, and featured image of the page.
+Template Name: About Template
+Description: The default home template displaying the title, body, and featured image of the page.
 Author: John Lioneil Dionisio
 Version: 1.0
 --}}
@@ -8,6 +8,9 @@ Version: 1.0
 @extends("Template::layouts.public")
 
 @section("content")
+<v-card class="elevation-0">
+    <v-parallax class="elevation-1" src="{{ $page->feature }}" height="400"></v-parallax>
+
     <v-container grid-list-lg>
         <v-layout row wrap>
             <v-flex sm12>
@@ -20,4 +23,10 @@ Version: 1.0
             </v-flex>
         </v-layout>
     </v-container>
+<v-card>
 @endsection
+
+@push('css')
+    <style>
+    </style>
+@endpush

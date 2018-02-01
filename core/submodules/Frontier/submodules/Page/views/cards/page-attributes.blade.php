@@ -6,7 +6,7 @@
         <v-select v-model="resource.item.template" item-value="value" item-text="name" label="{{ __('Page Template') }}" :items="attributes.templates"></v-select>
         <input type="hidden" name="template" :value="resource.item.template">
 
-        {{-- <v-select auto clearable v-model="resource.item.category_id" :input-value="resource.item.category_id" item-value="id" item-text="name" label="{{ __('Category') }}" :items="attributes.categories"> --}}
+        <v-select auto clearable v-model="resource.item.category_id" :input-value="resource.item.category_id" item-value="id" item-text="name" label="{{ __('Category') }}" :items="attributes.categories">
 
             {{-- <template slot="selection" scope="data">
                 <v-chip

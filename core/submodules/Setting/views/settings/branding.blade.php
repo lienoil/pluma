@@ -23,7 +23,6 @@
                     <form action="{{ route('settings.branding.store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <v-card-text>
-
                             <v-layout row wrap>
                                 <v-flex sm8>
                                     <v-text-field
@@ -59,11 +58,11 @@
                                                 {{ __('Add a site logo') }}
                                             </div>
                                             <input ref="siteLogoFile" name="site_logo" type="file" class="hidden-sm-and-up" accept=".png,.jpg,image/jpeg,image/png" @change="loadFile">
-
                                         </v-avatar>
                                     </v-card>
                                 </v-flex>
                             </v-layout>
+
 
                         </v-card-text>
 
