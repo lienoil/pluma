@@ -4,9 +4,12 @@ namespace User\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Note\Support\Relations\HasManyNotes;
 use Pluma\Models\User as Authenticatable;
 use Role\Support\Traits\BelongsToManyPermissionsThroughRoles;
 use Role\Support\Traits\BelongsToManyRoles;
+use Setting\Support\Relations\HasManySettings;
+use Setting\Support\Traits\SettingTrait;
 use User\Scopes\Avatar;
 use User\Support\Relations\HasManyDetails;
 use User\Support\Traits\CanResetPasswordTrait;
@@ -15,12 +18,14 @@ use User\Support\Traits\HasOneActivation;
 
 class User extends Authenticatable
 {
-    use HasOneActivation,
+    use Avatar,
         BelongsToManyRoles,
-        HasManyDetails,
-        Avatar,
+        CanResetPasswordTrait,
         DetailTrait,
-        CanResetPasswordTrait;
+        HasManyDetails,
+        HasManyNotes,
+        HasManySettings, SettingTrait,
+        HasOneActivation;
 
     protected $with = ['roles'];
 

@@ -16,7 +16,6 @@ Route::get('storage/{file?}', function ($file = '/') {
     $extension = File::extension($path);
 
     if (in_array($extension, config('download.restricted', []))) {
-
         return abort(403);
     }
 

@@ -12,11 +12,20 @@ trait TemplateTrait
     protected $template;
 
     /**
+     * The code of the fieldtype.
+     *
+     * @var string
+     */
+    protected $code;
+
+    /**
      * Retrieves the template for the given field.
      *
+     * @param  string $code
+     * @param  string $templateFieldName
      * @return mixed
      */
-    public function template($code, $templateFieldName = null)
+    public function template($code = null, $templateFieldName = null)
     {
         if (! is_null($templateFieldName)) {
             $this->template = $this->{$templateFieldName};
@@ -27,6 +36,8 @@ trait TemplateTrait
         if (is_null($this->template)) {
             $this->template = $this->getDefaultTemplate();
         }
+
+        $this->code = $code;
 
         return $this;
     }
@@ -55,6 +66,7 @@ trait TemplateTrait
         $template = preg_replace('/%type%/', $this->type, $template);
         $template = preg_replace('/%value%/', $this->value, $template);
         $template = preg_replace('/%attributes%/', $this->attributed, $template);
+        $template = $this->replaceInputElement($template);
 
         return $template;
     }
@@ -81,5 +93,33 @@ trait TemplateTrait
         }
 
         return implode(' ', $attributes);
+    }
+
+    /**
+     * Replaces the input element.
+     *
+     * @param  string $template
+     * @return string
+     */
+    public function replaceInputElement($template)
+    {
+        switch ($this->fieldtype->code) {
+            case 'vuetify-select':
+            case 'vuetify-radio':
+            case 'vuetify-checkbox':
+                $values = explode('|', $this->value);
+                foreach ($values as &$value) {
+                    $value = str_replace('*', '', $value);
+                }
+                $template = preg_replace('/%items%/', json_encode($values, ENT_QUOTES), $template);
+                return $template;
+                break;
+
+            default:
+                return $template;
+                break;
+        }
+
+        return $template;
     }
 }

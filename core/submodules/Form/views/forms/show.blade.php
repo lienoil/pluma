@@ -9,7 +9,8 @@
 
                 {{-- @include("Form::templates.test") --}}
 
-                <form action="{{$resource->action}}" method="{{ $resource->method }}" {{ $resource->attributes }}>
+                <form action="{{ $resource->action ?? route('tests.store') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
+                    {{ csrf_field() }}
                     <v-card class="elevation-1">
 
                         <v-toolbar class="elevation-0">
@@ -17,11 +18,16 @@
                         </v-toolbar>
 
                         @foreach ($form->fields as $label => $field)
-                        <v-card-text>
-                            <div class="mb-2 body-1 black--text">{{ $field->label }}</div>
-                            <div class="mb-2">{!! $field->template($field)->render() !!}</div>
-                        </v-card-text>
+                            <v-card-text>
+                                {{-- <div class="mb-2 body-1 black--text">{{ $field->label }}</div> --}}
+                                <div class="mb-2">{!! $field->template()->render() !!}</div>
+                            </v-card-text>
                         @endforeach
+
+
+                        <v-card-actions>
+                            <v-btn type="submit">{{ __('Submit') }}</v-btn>
+                        </v-card-actions>
                     </v-card>
                 </form>
             </v-flex>

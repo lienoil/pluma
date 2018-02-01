@@ -64,18 +64,27 @@ trait PhinxConfigurable
                 break;
         }
 
+        $connection = config('database.default');
+        $driver = config("database.connections.$connection.driver", env('DB_CONNECTION', 'mysql'));
+        $host = config("database.connections.$connection.host", env('DB_HOST', '127.0.0.1'));
+        $port = config("database.connections.$connection.port", env('DB_PORT', '3306'));
+        $database = config("database.connections.$connection.database", env('DB_DATABASE', 'pluma'));
+        $username = config("database.connections.$connection.username", env('DB_USERNAME', 'pluma'));
+        $password = config("database.connections.$connection.password", env('DB_PASSWORD', 'pluma'));
+        $charset = config("database.connections.$connection.charset", env('DB_CHARSET', 'utf8'));
+
         $config = new PhinxConfig([
             'environments' => [
                 'default_migration_table' => config('database.migrations', 'migrations'),
                 'default_database'        => $environment,
                 $environment              => [
-                    'adapter' => env('DB_CONNECTION'),
-                    'host' => env('DB_HOST'),
-                    'name' => env('DB_DATABASE'),
-                    'user' => env('DB_USERNAME', 'root'),
-                    'pass' => env('DB_PASSWORD', 'root'),
-                    'port' => env('DB_PORT', 3306),
-                    'charset' => env('DB_CHARSET', 'utf8'),
+                    'adapter' => $driver,
+                    'host' => $host,
+                    'name' => $database,
+                    'user' => $username,
+                    'pass' => $password,
+                    'port' => $port,
+                    'charset' => $charset,
                 ],
             ],
             'paths' => [

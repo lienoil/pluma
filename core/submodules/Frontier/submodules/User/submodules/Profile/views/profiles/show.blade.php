@@ -3,9 +3,8 @@
 @section("head-title", __("Profile"))
 
 @section("content")
-    @include("Frontier::partials.banner")
 
-    <v-parallax height="280" src="{{ $resource->setting('user_profile_banner', 'http://source.unsplash.com/1800x980?galaxy') }}" class="elevation-0">
+    <v-parallax height="280" src="{{ $resource->setting('user_profile_banner', '') }}" class="primary lighten-4 elevation-0">
         {{-- <div class="text-xs-right"><v-btn icon class="grey--text darken-1"><v-icon>photo_camera</v-icon></v-btn></div> --}}
         <v-layout row wrap align-end justify-bottom>
             <v-flex xs12>
@@ -22,6 +21,8 @@
         </v-layout>
     </v-parallax>
 
+    @include("Frontier::partials.banner")
+
     <v-card class="elevation-1">
         <v-toolbar class="white elevation-0">
             <v-spacer></v-spacer>
@@ -33,9 +34,11 @@
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex md4 xs12>
-                <v-layout row wrap>
-                    {{-- <v-flex xs12>
+            <v-flex sm3 md2>
+                {{-- {{ dd("s", navigation('current')) }} --}}
+                @include("Setting::partials.settingsbar")
+                {{-- <v-layout row wrap>
+                    <v-flex xs12>
 
                         <v-card dark class="elevation-1" style="background: linear-gradient(141deg, #f2a8ff 0%, #c5a5ff 51%, #91a1f7 75%);">
                             <v-card-text class="subheading">
@@ -43,13 +46,13 @@
                             </v-card-text>
                         </v-card>
 
-                    </v-flex> --}}
+                    </v-flex>
                     <v-flex xs12>
                         @include("Dashboard::widgets.todo-list")
                     </v-flex>
-                </v-layout>
+                </v-layout> --}}
             </v-flex>
-            <v-flex md8 xs12>
+            <v-flex sm9 md10>
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-card>
@@ -83,23 +86,23 @@
                                                         {{ $resource->email }}
                                                     </v-flex>
                                                 </v-layout>
+                                                <v-subheader class="pl-0">Other Details</v-subheader>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
                                                         {{ __('Gender') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->setting('gender') }}
+                                                        {{ $resource->detail('gender') }}
                                                     </v-flex>
                                                 </v-layout>
-                                                <v-subheader class="pl-0">Other Details</v-subheader>
                                                 <v-layout row wrap>
                                                     <v-flex xs4 class="grey--text body-1">
                                                         {{ __('Birthday') }}
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->setting('birthday') }}
+                                                        {{ $resource->detail('birthday') }}
                                                     </v-flex>
                                                 </v-layout>
                                                 <v-layout row wrap>
@@ -108,7 +111,7 @@
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->setting('home_address') }}
+                                                        {{ $resource->detail('home_address') }}
                                                     </v-flex>
                                                 </v-layout>
                                                 <v-layout row wrap>
@@ -117,7 +120,7 @@
                                                     </v-flex>
 
                                                     <v-flex xs8 class="body-1">
-                                                        {{ $resource->setting('phone_number') }}
+                                                        {{ $resource->detail('phone_number') }}
                                                     </v-flex>
                                                 </v-layout>
                                             </v-card-text>

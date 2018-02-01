@@ -76,8 +76,8 @@
 
                                 <div class="white--text body-1 pa-3">
                                     <div class="grey--text body-2">{{ __('Application Key') }}</div>
-                                    <v-text-field hide-details readonly dark value="{{ config('APP_KEY', env('APP_KEY')) }}"></v-text-field>
-                                    @if (! config('APP_KEY', env('APP_KEY')))
+                                    <v-text-field hide-details readonly dark value="{{ config('encryption.key', env('APP_KEY')) }}"></v-text-field>
+                                    @if (! config('encryption.key', env('APP_KEY')))
                                         <div class="error--text">
                                             <v-icon left class="error--text">error</v-icon>
                                             <span>{{ __("No APP_KEY found! Please generate a random key for your application.") }}</span>

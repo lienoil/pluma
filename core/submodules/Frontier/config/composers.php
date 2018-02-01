@@ -6,6 +6,7 @@ return [
             'Frontier::layouts.admin',
             'Theme::layouts.admin',
             'Theme::settings.*',
+            'Theme::partials.settingsbar',
             'Setting::partials.settingsbar',
             'Setting::settings.*',
         ],

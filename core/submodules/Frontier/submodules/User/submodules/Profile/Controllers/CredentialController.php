@@ -2,12 +2,12 @@
 
 namespace Profile\Controllers;
 
+use Frontier\Controllers\AdminController;
+use Illuminate\Http\Request;
 use Profile\Models\Profile;
 use Profile\Requests\CredentialRequest;
-use Frontier\Controllers\GeneralController;
-use Illuminate\Http\Request;
 
-class CredentialController extends GeneralController
+class CredentialController extends AdminController
 {
     /**
      * Display a listing of the resource.

@@ -5,7 +5,7 @@
 @section("content")
     <v-toolbar dark class="primary elevation-1 sticky">
         <v-icon dark left>widgets</v-icon>
-        <v-toolbar-title class="subheading">{{ __('Edit Widget Visibility') }}</v-toolbar-title>
+        <v-toolbar-title primary-title>{{ __('Edit Widget Visibility') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn flat href="{{ route('widgets.index') }}">{{ __('Back') }}</v-btn>
     </v-toolbar>
