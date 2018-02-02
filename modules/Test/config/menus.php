@@ -10,10 +10,10 @@ return [
      */
     'test' => [
         'name' => 'test',
-        'order' => 500,
-        'slug' => url(config('path.admin').'/tests'),
+        'order' => 100,
+        'slug' => route('tests.index'),
         'always_viewable' => false,
-        'icon' => 'fa-flask',
+        'icon' => 'developer_mode',
         'labels' => [
             'title' => __('Tests'),
             'description' => __('Manage tests'),
@@ -22,7 +22,7 @@ return [
             'view-test' => [
                 'name' => 'view-test',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/tests'),
+                'slug' => route('tests.index'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Tests'),
@@ -32,23 +32,23 @@ return [
             'create-test' => [
                 'name' => 'create-test',
                 'order' => 2,
-                'slug' => url(config('path.admin').'/tests/create'),
+                'slug' => route('tests.create'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Create Test'),
                     'description' => __('Create a Test'),
                 ],
             ],
-            'trashed-test' => [
-                'name' => 'trashed-test',
-                'order' => 3,
-                'slug' => url(config('path.admin').'/tests/trashed'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Trashed Tests'),
-                    'description' => __('View list of all tests moved to trash'),
-                ],
-            ],
+            // 'trash-test' => [
+            //     'name' => 'trash-test',
+            //     'order' => 3,
+            //     'slug' => route('tests.trash'),
+            //     'always_viewable' => false,
+            //     'labels' => [
+            //         'title' => __('Trashed Tests'),
+            //         'description' => __('View list of all tests moved to trash'),
+            //     ],
+            // ],
         ],
     ],
 ];

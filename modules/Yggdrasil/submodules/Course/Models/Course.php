@@ -5,6 +5,7 @@ namespace Course\Models;
 use Bookmark\Support\Scopes\OnlyBookmarkedBy;
 use Bookmark\Support\Traits\Bookmarkable;
 use Category\Support\Relations\BelongsToCategory;
+use Comment\Support\Relations\MorphManyComments;
 use Course\Support\Mutators\CourseMutator;
 use Course\Support\Relations\BelongsToManyUsers;
 use Course\Support\Traits\EnrolledUserMutator;
@@ -25,7 +26,8 @@ class Course extends Model
         HasManyContentsThroughLesson,
         HasManyLessons,
         OnlyBookmarkedBy,
-        SoftDeletes;
+        SoftDeletes,
+        MorphManyComments;
 
     protected $with = ['lessons', 'user', 'category'];
 

@@ -1,8 +1,8 @@
 <?php
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Permissions Array
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * Here we define our permissions that you can attach to roles.
  *
@@ -20,7 +20,7 @@ return [
      *
      */
     'view-test' => [
-        'name' =>  'tests.index',
+        'name' => 'tests.index',
         'code' => 'view-test',
         'description' => 'Ability to view list of tests',
         'group' => 'test',
@@ -67,9 +67,9 @@ return [
         'description' => 'Ability to permanently delete the test',
         'group' => 'test',
     ],
-    'trash-test' => [
-        'name' =>  'tests.trash',
-        'code' => 'trash-test',
+    'trashed-test' => [
+        'name' => 'tests.trashed',
+        'code' => 'trashed-test',
         'description' => 'Ability to view the list of all trashed test',
         'group' => 'test',
     ],
@@ -79,26 +79,4 @@ return [
         'description' => 'Ability to restore the test',
         'group' => 'test',
     ],
-
-    // Many
-    'destroy-many-test' => [
-        'name' =>  'tests.many.destroy',
-        'code' => 'destroy-many-test',
-        'description' => 'Ability to destroy many tests',
-        'group' => 'test',
-    ],
-    'delete-many-test' => [
-        'name' =>  'tests.many.delete',
-        'code' => 'delete-many-test',
-        'description' => 'Ability to permanently delete many tests',
-        'group' => 'test',
-    ],
-    'restore-many-test' => [
-        'name' => 'tests.many.restore',
-        'code' => 'restore-many-test',
-        'description' => 'Ability to restore many tests',
-        'group' => 'test',
-    ],
-
-    //
 ];

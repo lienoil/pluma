@@ -1,82 +1,71 @@
-<v-card class="elevation-0">
+<a name="comments"></a>
+<v-card flat class="transparent">
     <v-toolbar class="transparent elevation-0">
-        <v-toolbar-title>{{ __("Comments") }}</v-toolbar-title>
+        <v-toolbar-title class="page-title subheading">{{ __("Discourse") }}</v-toolbar-title>
     </v-toolbar>
     <v-divider></v-divider>
-    @if (user())
+
     <v-card-text class="pa-0">
-        <v-card-text class="pa-0">
-            <v-card class="elevation-0">
-                <form action="{{ route('courses.comment', $resource->id) }}" method="POST">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="user_id" value="{{ user()->id }}">
-
-                    {{-- editor --}}
-                    @include("Course::widgets.editor")
-                    {{-- editor --}}
-
-                    <v-divider></v-divider>
-                    <v-card-text class="text-xs-right pa-0">
-
-                        <v-btn  type="submit" flat class="primary--text">Post a comment</v-btn>
-                    </v-card-text>
-                </form>
-                <v-divider></v-divider>
-            </v-card>
+        <v-card-text class="transparent pr-4">
+            @include("Course::partials.comments-list", ['comments' => $resource->comments()->paginate()->items()])
         </v-card-text>
 
-        <v-list two-line class="py-0" v-for="item in dataset.items" v-bind:key="item.id">
-            <v-list-tile avatar>
-                <v-list-tile-avatar>
-                    <img src="{{ auth()->user()->avatar }}" alt="">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title>
-                        <a href="#!" class="td-n grey--text text--darken-4 body-2">{{ auth()->user()->fullname }}</a>
-                    </v-list-tile-title>
-                    <v-list-tile-sub-title class="body-1">@{{ item.created }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-
-                <v-list-tile-action>
-                    <v-menu bottom left>
-                        <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
-                        <v-list>
-                            <v-list-tile ripple @click="">
-                                <v-list-tile-action>
-                                    <v-icon accent>report</v-icon>
-                                </v-list-tile-action>
-                                <v-list-tile-content>
-                                    <v-list-tile-title>
-                                        {{ __('Report') }}
-                                    </v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                            <v-list-tile ripple
-                                @click="destroy(route(urls.comments.api.destroy, item.id),
-                                {
-                                    '_token': '{{ csrf_token() }}'
-                                })">
-                                <v-list-tile-action>
-                                    <v-icon error>delete</v-icon>
-                                </v-list-tile-action>
-                                <v-list-tile-content>
-                                    <v-list-tile-title>
-                                        {{ __('Delete') }}
-                                    </v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
-                </v-list-tile-action>
-            </v-list-tile>
-            <div class="pl-7 pr-4 grey--text text--darken-2" v-html="item.body"></div>
-            <v-divider></v-divider>
-        </v-list>
-        <v-card-text>
-            @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(3)])
-        </v-card-text>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(), 'section' => '#comments'])
+            <v-spacer></v-spacer>
+        </v-card-actions>
     </v-card-text>
-    @endif
+
+    <v-divider></v-divider>
+
+    <a name="post-comments"></a>
+    <v-card flat class="transparent">
+        <v-toolbar card dense class="transparent">
+            <v-toolbar-title class="subheading page-title">{{ __('Post Comment') }}</v-toolbar-title>
+        </v-toolbar>
+
+        @if (user())
+            @can('store-comment')
+                <v-alert info v-show="'true'" v-model="alert" dismissible>
+                    {{ __('Please observe proper guidelines when posting comments.') }}
+                </v-alert>
+            @else
+                <v-alert warning v-show="'true'" v-model="alert" dismissible>
+                    {{ __('Your credentials does not meet the requirements to post comments.') }}
+                </v-alert>
+            @endcan
+        @else
+            <v-alert info v-show="'true'" v-model="alert" dismissible>
+                {{ __('Login to post comments.') }}
+            </v-alert>
+        @endif
+
+        <form action="{{ route('courses.comment', $resource->id) }}" method="POST">
+            {{ csrf_field() }}
+            {{-- <input type="hidden" name="user_id" value="{{ user()->id }}"> --}}
+            <input type="hidden" name="type" value="courses">
+
+            {{-- editor --}}
+            @include("Course::widgets.editor")
+            {{-- editor --}}
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+                @if(user())
+                    @can('store-comment')
+                        <v-btn type="submit" flat primary>{{ __('Post Comment') }}</v-btn>
+                    @endcan
+                @else
+                    <span class="pa-2 body-1 grey--text"><a class="td-n" href="{{ route('login.show', ['redirect_to' => route('courses.show', $resource->slug) . '#post-comments']) }}">{{ __('Login') }}</a> {{ __('and join the discourse.') }}</span>
+                    <v-spacer></v-spacer>
+                    <v-btn disabled flat primary>{{ __('Post Comment') }}</v-btn>
+                @endif
+            </v-card-actions>
+        </form>
+        <v-divider></v-divider>
+    </v-card>
 </v-card>
 
 @push('css')
@@ -107,8 +96,6 @@
 @endpush
 
 @push('pre-scripts')
-    {{-- <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script> --}}
-    {{-- <script src="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.js') }}"></script> --}}
     <script src="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.js') }}"></script>
     <script>
         // Vue.use(VueResource);
@@ -121,81 +108,8 @@
                             delta: JSON.parse({!! json_encode(old('delta')) !!}),
                         },
                     },
-                    mediabox: {
-                        model: false,
-                        fonts: {!! json_encode(config('editor.fonts.enabled', [])) !!},
-                        url: '',
-                        resource: {
-                            thumbnail: '',
-                        },
-                    },
-                    //
                     hidden: true,
-                    dataset: {
-                        items: {!! json_encode($resource->comments()->paginate(5)->items()) !!},
-                        loading: true,
-                        urls: {
-                            comments: {
-                                api: {
-                                    destroy: '{{ route('api.comments.destroy', 'null') }}',
-                                },
-                                show: '{{ route('comments.show', 'null') }}',
-                                edit: '{{ route('comments.edit', 'null') }}',
-                                destroy: '{{ route('comments.destroy', 'null') }}',
-                            },
-                        },
-                    },
-                    resource: {
-                        item: {
-                            name: '',
-                            code: '',
-                            description: '',
-                            grants: '',
-                        },
-                        errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
-                    },
                 }
-            },
-            methods: {
-                get () {
-                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
-                    let query = {
-                        descending: descending,
-                        page: page,
-                        sort: sortBy,
-                        take: rowsPerPage,
-                    };
-                    this.api().get('{{ route('api.comments.all') }}', query)
-                        .then((data) => {
-                            this.dataset.items = data.items.data ? data.items.data : data.items;
-                            // this.dataset.totalItems = data.items.total ? data.items.total : data.total;
-                            this.dataset.loading = false;
-                        });
-                },
-
-                post (url, query) {
-                    var self = this;
-                    this.api().post(url, query)
-                        .then((data) => {
-                            self.snackbar = Object.assign(self.snackbar, data.response.body);
-                            self.snackbar.model = true;
-                        });
-                },
-
-                destroy (url, query) {
-                    var self = this;
-                    this.api().delete(url, query)
-                        .then((data) => {
-                            self.get('{{ route('api.comments.all') }}');
-                            self.snackbar = Object.assign(self.snackbar, data.response.body);
-                            self.snackbar.model = true;
-                        });
-                },
-            },
-
-            mounted () {
-                // this.get();
-                // console.log("dataset.pagination", this.dataset.pagination);
             },
         })
     </script>

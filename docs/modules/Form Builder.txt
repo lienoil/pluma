@@ -21,7 +21,7 @@ FORM BUILDER:
 		Widget:
 			Form\Support\Widget\FormWidget.php
 
-	submodules: 
+	submodules:
 		Field:
 			Module name: Field
 			Namespace: Form\Field
@@ -43,14 +43,14 @@ FORM BUILDER:
 DATABASE_STRUCTURE:
 
 Form/database/migrations TABLE `forms`
-	INT id AUTOINCREMENT, 
-	STRING name, 
-	STRING code UNIQUE, 
-	STRING action NULLABLE, 
-	STRING method NULLABLE, 
-	STRING type NULLABLE, 
+	INT id AUTOINCREMENT,
+	STRING name,
+	STRING code UNIQUE,
+	STRING action NULLABLE,
+	STRING method NULLABLE,
+	STRING type NULLABLE,
 	TEXT attributes NULLABLE,
-	TEXT body NULLABLE, 
+	TEXT body NULLABLE,
 	TEXT delta NULLABLE,
 	TEXT success_message NULLABLE,
 	TEXT error_message NULLABLE,
@@ -61,9 +61,9 @@ Form/database/migrations TABLE `forms`
 
 Form/database/migrations TABLE `submissions`
 	INT id AUTOINCREMENT,
-	STRING type NULLABLE, 
 	TEXT results NULLABLE,
 	INT form_id UNSIGNED REFERENCES id ON forms,
+
 	INT user_id UNSIGNED REFERENCES id ON users NULLABLE,
 	*timestamps*
 	*softdeletes*
@@ -72,7 +72,7 @@ Field/database/migrations TABLE `fieldtypes`
 	INT id AUTOINCREMENT
 	STRING name
 	STRING code UNIQUE
-	
+
 Field/database/migrations TABLE `fields`
 	INT id AUTOINCREMENT,
 	STRING name,
@@ -90,7 +90,7 @@ Field/database/migrations TABLE `fields`
 
 -------------------------
 
-Evaluation 
+Evaluation
 	extends Form
 	type: 'evaluation'
 	config/menus.php

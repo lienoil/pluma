@@ -9,58 +9,47 @@
 
                 {{-- @include("Form::templates.test") --}}
 
-                <form action="{{ $resource->action ?? route('tests.store') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
-                    {{ csrf_field() }}
-                    <v-card class="elevation-1">
+                <form action="{{ $resource->action ?? route('submissions.submit') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
+                   {{ csrf_field() }}
+                   <input type="hidden" name="form_id" value="{{ $resource->id }}">
+                   <input type="hidden" name="type" value="forms">
+
+                   <v-card class="elevation-1">
 
                         <v-toolbar class="elevation-0">
-                            <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
+                           <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
                         </v-toolbar>
 
-                        @foreach ($form->fields as $label => $field)
+                        @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
                             <v-card-text>
-                                {{-- <div class="mb-2 body-1 black--text">{{ $field->label }}</div> --}}
-                                <div class="mb-2">{!! $field->template()->render() !!}</div>
+                               <div class="mb-2">{!! html_entity_decode($field->template()->render()) !!}</div>
                             </v-card-text>
                         @endforeach
 
+                        <v-divider></v-divider>
 
-                        <v-card-actions>
-                            <v-btn type="submit">{{ __('Submit') }}</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </form>
+                        <v-card-text class="text-xs-right">
+                            <v-btn primary class="elevation-1" type="submit">{{ __('Submit') }}</v-btn>
+                        </v-card-text>
+                   </v-card>
+               </form>
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
 
 @push('pre-scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
         Vue.use(VueResource);
 
         mixins.push({
             data () {
                 return {
-                    evaluation: {
-                        dialog: {
-                            model: false,
-                        },
-                    },
-                    e1: 0,
-                    column: null,
-                    a1: null,
-                    a2: null,
-                    a3: null,
-                    o1: null,
-                    o2: null,
-                    b1: 7,
-                    b2: 9,
-                    b3: 8,
-                    e3: 1,
-                    e31: true,
-                    text: 'center'
+                    resource: {
+                       item: {!! json_encode(old() ?? []) !!},
+                       errors: {!! json_encode($errors->getMessages()) !!},
+                   },
                 };
             },
         });

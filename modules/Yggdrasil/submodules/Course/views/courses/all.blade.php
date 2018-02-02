@@ -6,7 +6,15 @@
             <v-flex sm12>
                 <v-toolbar dark class="mb-3 info elevation-1 sticky">
                     <v-icon dark>fa-book</v-icon>
-                    <v-toolbar-title primary-title class="page-title">{{ __('All Courses') }}</v-toolbar-title>
+
+                    <v-toolbar-title primary-title class="page-title">
+                        @if (request()->all())
+                            {{ __('Filtered Courses') }}
+                        @else
+                            {{ __('All Courses') }}
+                        @endif
+                    </v-toolbar-title>
+
                     <v-spacer></v-spacer>
 
                     <template v-if="!resources.searchform.model && !resources.pagination.sortByModel">
@@ -71,8 +79,14 @@
         </v-layout>
         <v-layout row wrap fill-height>
 
-            <v-flex v-if="! resources.items.length" sm12 class="text-xs-center"><div class="grey--text body-1">{{ __('No Courses Found') }}</div></v-flex>
-            <v-progress-circular indeterminate v-show="resources.loading" :size="50" class="primary--text"></v-progress-circular>
+            <v-flex v-if="! resources.items.length && ! resources.loading" sm12 class="text-xs-center">
+                <v-icon class="grey--text display-4">fa-book</v-icon>
+                <div class="grey--text headline">{{ __('No Courses Found') }}</div>
+            </v-flex>
+
+            <v-flex v-if="resources.loading" sm12 class="text-xs-center">
+                <v-progress-circular indeterminate v-show="resources.loading" :size="50" class="primary--text"></v-progress-circular>
+            </v-flex>
 
             {{-- START LOOP --}}
             <template v-for="(resource, i) in resources.items">
@@ -119,7 +133,8 @@
                             </v-card-title>
 
                             {{-- Meta --}}
-                            <v-card-actions class="grey lighten-4 transparent">
+                            <v-card-actions class="grey lighten-4">
+
                                 <div v-if="resource.code" class="text-xs-center caption pa-1 grey--text" title="{{ __('Course code') }}">
                                     <v-icon class="caption" left>class</v-icon>
                                     <span v-html="resource.code"></span>
@@ -174,7 +189,13 @@
             </template>
             {{-- END LOOP --}}
 
-            <v-flex sm12 class="text-xs-center">
+            @if (request()->all())
+                <v-flex sm12>
+                    <v-btn flat warning href="{{ route('courses.all') }}"><v-icon left>remove_circle</v-icon><span>{{ __('Remove Filters') }}</span></v-btn>
+                </v-flex>
+            @endif
+
+            <v-flex sm12 class="text-xs-center" v-if="resources.pagination.totalItems">
                 <v-pagination class="elevation-0" :length="resources.pagination.last_page" v-model="resources.pagination.page" circle></v-pagination>
             </v-flex>
         </v-layout>
@@ -284,6 +305,7 @@
                         page: page,
                         sort: sortBy ? sortBy : null,
                         take: rowsPerPage,
+                        search: {!! @json_encode(request()->all()) !!},
                     };
 
                     this.api().get('{{ route('api.courses.all') }}', query)

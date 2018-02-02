@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('public-tests', 'Test\Controllers\TestPublicController');
+Route::resource('tests', 'TestController');

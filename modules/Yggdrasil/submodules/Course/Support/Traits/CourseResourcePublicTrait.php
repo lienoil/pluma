@@ -30,43 +30,10 @@ trait CourseResourcePublicTrait
      */
     public function single(Request $request, $code = null)
     {
-        $menu = Menu::whereSlug(
-            is_null($code) ? settings('site_home', 'home') : $code
-        );
+        $resource = Course::whereSlug($code)
+                          ->orWhere('code', $code)
+                          ->firstOrFail();
 
-        if ($menu->exists()) {
-            $menu = $menu->first();
-            $course = Course::codeOrFail($menu->code);
-
-            // Check if template exists.
-            $template = is_null($course->template) ? 'generic' : $course->template;
-            if (view()->exists("Theme::templates.$template")) {
-                return view("Theme::templates.$template")
-                            ->with(compact('course'));
-            }
-
-            // Check if a course exists.
-            if (view()->exists("Theme::courses.{$course->code}")) {
-                return view("Theme::courses.{$course->code}")
-                            ->with(compact('course'));
-            }
-
-            // Default to the index course.
-            return view("Theme::templates.index")->compact('course');
-        }
-
-        // The $code does not exist on the app's menus.
-        // Try if a static file exists for the $code.
-        if (view()->exists("Theme::static.$code")) {
-            return view("Theme::static.$code");
-        }
-
-        // Try the generic Static hintpath
-        if (view()->exists("Static::$code")) {
-            return view("Static::$code");
-        }
-
-        // Finally, give up your dreams.
-        return abort(404);
+        return view("Theme::courses.single")->with(compact('resource'));
     }
 }

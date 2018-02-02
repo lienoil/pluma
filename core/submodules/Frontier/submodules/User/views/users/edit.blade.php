@@ -4,7 +4,7 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-container grid-list-lg>
 
         @include("Theme::partials.banner")
 

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ *------------------------------------------------------------------------------
+ * Admin Route
+ *------------------------------------------------------------------------------
+ *
+ * Handles the admin routes.
+ *
+ */
+
 //Comment
 Route::post('courses/{course}/comment', '\Course\Controllers\CourseController@comment')->name('courses.comment');
 
@@ -7,6 +16,7 @@ Route::post('courses/{course}/comment', '\Course\Controllers\CourseController@co
 Route::get('enroll/{course}/{user}', '\Course\Controllers\EnrollController@enroll');
 Route::post('courses/{course}/{user}', '\Course\Controllers\EnrollController@enroll')->name('courses.enroll');
 
-Route::get('courses/categories', '\Course\Controllers\CategoryController@index')->name('courses.categories.index');
-Route::resource('courses', '\Course\Controllers\CourseController');
+// Course
+Route::get('courses/categories', 'CategoryController@index')->name('courses.categories.index');
+Route::resource('courses', 'CourseController');
 

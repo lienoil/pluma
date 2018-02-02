@@ -5,6 +5,7 @@
         @include("Theme::partials.banner")
 
         <form action="{{ route('forms.store') }}" method="POST">
+            <input type="hidden" name="type" value="forms">
             {{ csrf_field() }}
             <v-layout row wrap>
                 <v-flex md9>
