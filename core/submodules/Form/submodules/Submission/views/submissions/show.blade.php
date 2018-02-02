@@ -38,10 +38,13 @@
                                     </v-card-actions>
                                 </v-card-text>
                                 <v-card-text>
-                                    {{-- {{ $resource->results }} --}}
+                                    @foreach ($resource->fields() as $field)
+                                        <div><strong>{{ $resource->fields()->question->label }}</strong></div>
+                                        <div class="pa-3">{{ $resource->fields()->answer }}</div>
+                                    @endforeach
                                 </v-card-text>
 
-                                {{ dd($resource->results) }}
+                                {{-- {{ dd($resource->fields()) }} --}}
                             </v-card>
                         </v-flex>
                     </v-layout>

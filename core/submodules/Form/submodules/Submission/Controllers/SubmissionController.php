@@ -63,7 +63,7 @@ class SubmissionController extends GeneralController
     public function submit(SubmissionRequest $request)
     {
         $submission = new Submission();
-        $submission->results = serialize($request->except(['_token', 'form_id']));
+        $submission->results = serialize($request->except(['_token', 'form_id', 'type']));
         $submission->form()->associate(Form::find($request->input('form_id')));
         $submission->user()->associate(User::find(user()->id));
         $submission->save();

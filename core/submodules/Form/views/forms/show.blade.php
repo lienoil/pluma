@@ -12,24 +12,25 @@
                 <form action="{{ $resource->action ?? route('submissions.submit') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
                    {{ csrf_field() }}
                    <input type="hidden" name="form_id" value="{{ $resource->id }}">
-                   <input type="hidden" name="*%name%[field_id]*" value="%field_id%">
                    <input type="hidden" name="type" value="forms">
 
                    <v-card class="elevation-1">
 
-                       <v-toolbar class="elevation-0">
+                        <v-toolbar class="elevation-0">
                            <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
-                       </v-toolbar>
+                        </v-toolbar>
 
-                       @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
-                           <v-card-text>
+                        @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
+                            <v-card-text>
                                <div class="mb-2">{!! html_entity_decode($field->template()->render()) !!}</div>
-                           </v-card-text>
-                       @endforeach
+                            </v-card-text>
+                        @endforeach
 
-                       <v-card-actions>
-                           <v-btn type="submit">{{ __('Submit') }}</v-btn>
-                       </v-card-actions>
+                        <v-divider></v-divider>
+
+                        <v-card-text class="text-xs-right">
+                            <v-btn primary class="elevation-1" type="submit">{{ __('Submit') }}</v-btn>
+                        </v-card-text>
                    </v-card>
                </form>
             </v-flex>

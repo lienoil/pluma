@@ -3,6 +3,7 @@
 namespace Submission\Support\Traits;
 
 use Crowfeather\Traverser\Traverser;
+use Field\Models\Field;
 
 trait SubmissionMutatorTrait
 {
@@ -19,5 +20,16 @@ trait SubmissionMutatorTrait
     public function getResultedAttribute()
     {
         return unserialize($this->results);
+    }
+
+    public function fields()
+    {
+        $fields = [];
+        foreach (collect($this->resulted)->except(['type']) as $name => $resulted) {
+            $fields['question'] = Field::find($resulted['field_id']);
+            $fields['answer'] = $resulted[$name];
+        }
+
+        return json_decode(json_encode($fields));
     }
 }

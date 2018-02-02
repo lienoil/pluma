@@ -10,23 +10,23 @@ return [
      */
     'view-submission' => [
         'name' => 'view-submission',
+        'order' => 10,
         'slug' => url(config('path.admin').'/forms/submissions'),
+        'always_viewable' => false,
+        'icon' => 'playlist_add_check',
+        'parent' => 'form',
         'routes' => [
             'name' => 'submissions.index',
             'children' => [
-                'forms.submissions.create',
-                'forms.submissions.edit',
-                'forms.submissions.show',
-                'forms.submissions.trash',
+                'submissions.create',
+                'submissions.edit',
+                'submissions.show',
+                'submissions.trash',
             ]
         ],
-        'parent' => 'form',
-        'order' => 10,
-        'always_viewable' => false,
-        'icon' => 'text_format',
         'labels' => [
             'title' => __('List of Submissions'),
-            'description' => __('View the list of all submissions'),
+            'description' => __('Manage all form submissions'),
         ],
     ],
 ];
