@@ -23,6 +23,10 @@ trait Status
      */
     public function getStateAttribute()
     {
+        if (! is_null(user())) {
+            return false;
+        }
+
         $state = $this->status()->where('user_id', user()->id)
                                 ->where('course_id', $this->course->id)
                                 ->where('content_id', $this->id)->first();

@@ -46,7 +46,11 @@ trait EnrolledUserMutator
      */
     public function getProgressAttribute()
     {
-        $count = \Course\Models\Status::where('user_id', user()->id)
+        if (is_null(user())) {
+            return 0;
+        }
+
+        $count = \Course\Models\Status::where('user_id', (user()->id ?? null))
             ->where('course_id', $this->id)
             ->where('status', 'completed')
             ->count();

@@ -178,7 +178,7 @@ class CourseController extends GeneralController
             $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
             $lesson->course()->associate($course);
             if (! empty($input->assignment->title)) {
-                $lesson->assignment()->associate(Assignment::updateorCreate(['id' => $input->assignment], (array) $input->assignment));
+                $lesson->assignment()->associate(Assignment::updateorCreate(['id' => $input->assignment->id ?? null], (array) $input->assignment));
             }
             $lesson->save();
 

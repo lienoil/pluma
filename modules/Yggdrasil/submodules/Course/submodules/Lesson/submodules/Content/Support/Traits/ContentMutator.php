@@ -157,42 +157,44 @@ trait ContentMutator
     public function getHtmlAttribute()
     {
         $html = "";
-        switch ($this->library->mimetype) {
-            case 'application/zip':
-            case 'application/rar':
-            case 'application/x-zip-compressed':
-            case 'application/x-rar-compressed':
-            case 'application/*':
-                $html = "<object data={$this->interactive} class='interactive-content' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
-                            <param name='src' value={$this->interactive}>
-                            <param name='autoplay' value=false>
-                            <param name='autoStart' value=0>
-                            <embed src={$this->interactive}>
-                        </object>";
-                break;
+        if ($this->library) {
+            switch ($this->library->mimetype) {
+                case 'application/zip':
+                case 'application/rar':
+                case 'application/x-zip-compressed':
+                case 'application/x-rar-compressed':
+                case 'application/*':
+                    $html = "<object data={$this->interactive} class='interactive-content' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
+                                <param name='src' value={$this->interactive}>
+                                <param name='autoplay' value=false>
+                                <param name='autoStart' value=0>
+                                <embed src={$this->interactive}>
+                            </object>";
+                    break;
 
-            case 'video/ogg':
-            case 'video/mp4':
-            case 'video/wmv':
-                $html = "<video class='interactive-content' autobuffer autoplay controls width='100%' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
-                            <source src='{$this->interactive}'>
-                            <source src='{$this->interactive}'>
-                            <object type='{$this->library->mimetype}' data='{$this->interactive}'>
-                                <param name='src' value='{$this->interactive}'>
-                                <param name='autoplay' value='false'>
-                                <param name='autoStart' value='0'>
-                            </object>
-                        </video>";
-                break;
+                case 'video/ogg':
+                case 'video/mp4':
+                case 'video/wmv':
+                    $html = "<video class='interactive-content' autobuffer autoplay controls width='100%' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
+                                <source src='{$this->interactive}'>
+                                <source src='{$this->interactive}'>
+                                <object type='{$this->library->mimetype}' data='{$this->interactive}'>
+                                    <param name='src' value='{$this->interactive}'>
+                                    <param name='autoplay' value='false'>
+                                    <param name='autoStart' value='0'>
+                                </object>
+                            </video>";
+                    break;
 
-            default:
-                $html = "<object class='interactive-content' data={$this->interactive} width=100% height=auto onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
-                            <param name='src' value={$this->interactive}>
-                            <param name='autoplay' value=false>
-                            <param name='autoStart' value=0>
-                            <embed type='{$this->library->mimetype}' src={$this->interactive}>
-                        </object>";
-                break;
+                default:
+                    $html = "<object class='interactive-content' data={$this->interactive} width=100% height=auto onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
+                                <param name='src' value={$this->interactive}>
+                                <param name='autoplay' value=false>
+                                <param name='autoStart' value=0>
+                                <embed type='{$this->library->mimetype}' src={$this->interactive}>
+                            </object>";
+                    break;
+            }
         }
 
         return $html;

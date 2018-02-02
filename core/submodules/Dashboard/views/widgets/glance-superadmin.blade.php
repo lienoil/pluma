@@ -10,7 +10,7 @@
                     <v-icon>file_download</v-icon>
                 </v-btn> --}}
                 <v-btn dark icon @click="setStorage('glance.hidden', (glance.hidden = !glance.hidden))"
-                    v-tooltip:left="{ 'html':  glance.hidden ? 'Show Analytics' : 'Hide Analytics' }">
+                    v-tooltip:left="{ 'html':  glance.hidden ? '{{ __('Show Analytics') }}' : '{{ __('Hide Analytics') }}' }">
                     <v-icon>@{{ glance.hidden ? 'visibility' : 'visibility_off' }}</v-icon>
                 </v-btn>
             </v-toolbar>
