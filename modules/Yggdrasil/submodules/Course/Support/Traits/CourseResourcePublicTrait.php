@@ -16,7 +16,7 @@ trait CourseResourcePublicTrait
      */
     public function all(Request $request)
     {
-        $resources = []; // Course::search($request->all())->paginate();
+        $resources = Course::search($request->all())->paginate();
 
         return view("Theme::courses.all")->with(compact('resources'));
     }

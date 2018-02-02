@@ -204,6 +204,7 @@
                         class="elevation-0"
                         no-data-text="{{ _('No resource found') }}"
                         v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
+                        :rows-per-page-items="dataset.pagination.rowsPerPageItems"
                         {{-- selected-key="id" --}}
                         v-bind:headers="dataset.headers"
                         v-bind:items="dataset.items"
@@ -316,6 +317,7 @@
                         items: [],
                         loading: true,
                         pagination: {
+                            rowsPerPageItems: [5, 10, 15, 20, 30, {'value':50,text:50}, {'value':'-1',text:'All'}],
                             rowsPerPage: '{{ settings('items_per_page', 15) }}',
                             totalItems: 0,
                         },

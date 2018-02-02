@@ -9,7 +9,47 @@
                     <v-toolbar-title primary-title class="page-title">{{ __('All Courses') }}</v-toolbar-title>
                     <v-spacer></v-spacer>
 
-                    <template>
+                    <template v-if="!resources.searchform.model && !resources.pagination.sortByModel">
+                        {{-- Rows Per Page --}}
+                        <v-menu>
+                            <div class="theme--dark pa-2" slot="activator">
+                                {{-- <v-icon dark>sort</v-icon> --}}
+                                <span v-html="resources.pagination.rowsPerPageDisplayName"></span>
+                                <v-icon dark right>arrow_drop_down</v-icon>
+                            </div>
+                            <v-list>
+                                <v-list-tile ripple @click="resources.pagination.rowsPerPage = (n.value ? n.value : n);resources.pagination.rowsPerPageDisplayName=(n.text ? n.text : n)" :key="i" v-for="(n, i) in resources.pagination.rowsPerPageItems">
+                                    <v-list-tile-title v-html="n.text ? n.text : n"></v-list-tile-title>
+                                </v-list-tile>
+                            </v-list>
+                        </v-menu>
+                        {{-- Rows Per Page --}}
+                    </template>
+
+                    {{-- Sort --}}
+                    <template v-if="!resources.searchform.model">
+                        <template v-if="resources.pagination.sortByModel">
+                            <v-btn primary class="elevation-1" v-for="(n, i) in resources.headers"><span v-html="n.text"></span></v-btn>
+                        </template>
+
+                        <v-btn v-show="!resources.pagination.sortByModel" icon v-tooltip:left="{html:'{{ __('Sort') }}'}" @click.stop="resources.pagination.sortByModel = !resources.pagination.sortByModel"><v-icon>sort</v-icon></v-btn>
+                        <v-btn v-show="resources.pagination.sortByModel" ripple icon v-tooltip:left="{html:'{{ __('Sort') }}'}" @click="resources.pagination.sortByModel=!resources.pagination.sortByModel;"><v-icon>close</v-icon></v-btn>
+                    {{-- <v-menu>
+                        <div class="theme--dark pa-2" slot="activator">
+                            <v-icon dark>sort</v-icon>
+                            <span v-html="resources.pagination.sortByDisplayName"></span>
+                            <v-icon dark right>arrow_drop_down</v-icon>
+                        </div>
+                        <v-list>
+                            <v-list-tile ripple @click="resources.pagination.sortBy = (n.value ? n.value : n);resources.pagination.sortByDisplayName=n.text" :key="i" v-for="(n, i) in resources.headers">
+                                <v-list-tile-title v-html="n.text ? n.text : n"></v-list-tile-title>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu> --}}
+                    </template>
+                    {{-- Sort --}}
+
+                    <template v-if="!resources.pagination.sortByModel">
                         <v-text-field
                             :prefix="resources.searchform.prefix"
                             :prepend-icon="resources.searchform.prepend"
@@ -20,8 +60,9 @@
                             v-show="resources.searchform.model"
                         ></v-text-field>
                         <v-btn v-show="!resources.searchform.model" icon v-tooltip:left="{html:'{{ __('Search') }}'}" @click.stop="resources.searchform.model = !resources.searchform.model"><v-icon>search</v-icon></v-btn>
-                        <v-btn v-show="resources.searchform.model" icon v-tooltip:left="{html:'{{ __('Search') }}'}" @click.stop="resources.searchform.model = !resources.searchform.model"><v-icon>close</v-icon></v-btn>
+                        <v-btn v-show="resources.searchform.model" ripple icon v-tooltip:left="{html:'{{ __('Search') }}'}" @click="resources.searchform.model=!resources.searchform.model;resources.searchform.query=''"><v-icon>close</v-icon></v-btn>
                     </template>
+
                     {{-- <v-btn icon v-tooltip:left="{html:'{{ __('Sort') }}'}"><v-icon>sort</v-icon></v-btn> --}}
                     {{-- <v-btn icon v-tooltip:left="{html:bulk.gridlist.model?'{{ __('Grid View') }}':'{{ __('List View') }}'}" @click.stop="bulk.gridlist.model = !bulk.gridlist.model"><v-icon v-html="bulk.gridlist.model?'apps':'list'"></v-icon></v-btn> --}}
                     {{-- <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn> --}}
@@ -113,8 +154,8 @@
                                 </div>
                                 <v-spacer></v-spacer>
                                 <div v-if="resource.category" class="caption pa-1 grey--text">
-                                    <v-icon class="caption" left>label</v-icon>
-                                    <a title="{{ __('Course category') }}" href="{{ route('courses.all', ['category_id' => v('resource.category.id')]) }}" v-html="resource.category.name"></a>
+                                    <v-icon class="body-1" left v-html="resource.category.icon"></v-icon>
+                                    <a title="{{ __('Course category') }}" :href="route(resources.url.public.all,`category_id=${resource.category.id}`)" v-html="resource.category.name"></a>
                                 </div>
                             </v-card-actions>
 
@@ -133,6 +174,9 @@
             </template>
             {{-- END LOOP --}}
 
+            <v-flex sm12 class="text-xs-center">
+                <v-pagination class="elevation-0" :length="resources.pagination.last_page" v-model="resources.pagination.page" circle></v-pagination>
+            </v-flex>
         </v-layout>
     </v-container>
 @endsection
@@ -167,26 +211,28 @@
                                 unbookmark: '{{ route('api.courses.bookmark.unbookmark', 'null') }}',
                             },
                             public: {
+                                all: '{{ route('courses.all', 'null') }}',
                                 single: '{{ route('courses.single', 'null') }}',
                                 profile: '{{ route('profile.show', 'null') }}',
                             },
                         },
                         headers: [
-                            { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
-                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
-                            { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
-                            { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
+                            { text: '{{ __("Course Title") }}', align: 'left', value: 'title' },
+                            { text: '{{ __("Course Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Latest Courses") }}', align: 'left', value: 'created_at', descending: true },
+                            { text: '{{ __("Category") }}', align: 'left', value: 'category_id', descending: true },
                         ],
                         items: [],
                         loading: true,
                         pagination: {
                             descending: false,
                             page: 1,
-                            sortBy: 'id',
-                            rowsPerPage: '{{ settings('items_per_page', 30) }}',
+                            sortByDisplayName: '{{ __('Course Title') }}',
+                            sortBy: 'title',
+                            sortByModel: false,
+                            rowsPerPageItems: [5, 10, 15, 20, 30, {'value':50,text:50}, {'value':'-1',text:'All'}],
+                            rowsPerPageDisplayName: {{ settings('items_per_page', 30) }},
+                            rowsPerPage: {{ settings('items_per_page', 30) }},
                             totalItems: 0,
                         },
                         searchform: {
@@ -215,17 +261,26 @@
                         this.api().search('{{ route('api.courses.search') }}', query)
                             .then((data) => {
                                 this.resources.items = data.items.data ? data.items.data : data.items;
-                                this.resources.totalItems = data.items.total ? data.items.total : data.total;
+                                this.resources.pagination.totalItems = data.items.total ? data.items.total : data.total;
                                 this.resources.loading = false;
                             });
-                    }, 1000);
+                    }, 900);
                 },
+                'resources.pagination.page': function (page) {
+                    this.get();
+                },
+                'resources.pagination.rowsPerPage': function (val) {
+                    this.get();
+                },
+                'resources.pagination.sortBy': function (val) {
+                    this.get();
+                }
             },
             methods: {
                 get () {
                     const { sortBy, descending, page, rowsPerPage } = this.resources.pagination;
                     let query = {
-                        descending: descending ? descending : null,
+                        descending: descending ? descending : false,
                         page: page,
                         sort: sortBy ? sortBy : null,
                         take: rowsPerPage,
@@ -233,8 +288,10 @@
 
                     this.api().get('{{ route('api.courses.all') }}', query)
                         .then((data) => {
+                            console.log(data);
                             this.resources.items = data.items.data ? data.items.data : data.items;
-                            this.resources.totalItems = data.items.total ? data.items.total : data.total;
+                            this.resources.pagination.totalItems = data.items.total ? data.items.total : data.total;
+                            this.resources.pagination.last_page = data.items.last_page;
                             this.resources.loading = false;
                         });
                 },

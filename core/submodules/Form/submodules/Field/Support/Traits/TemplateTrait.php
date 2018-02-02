@@ -60,12 +60,8 @@ trait TemplateTrait
     public function render()
     {
         $template = $this->template;
-        $template = preg_replace('/%name%/', $this->name, $template);
-        $template = preg_replace('/%label%/', $this->label, $template);
-        $template = preg_replace('/%tabindex%/', $this->sort, $template);
-        $template = preg_replace('/%type%/', $this->type, $template);
-        $template = preg_replace('/%value%/', $this->value, $template);
-        $template = preg_replace('/%attributes%/', $this->attributed, $template);
+        $template = $this->attachInputTags($template);
+        $template = $this->replaceKeyVariables($template);
         $template = $this->replaceInputElement($template);
 
         return $template;
@@ -96,6 +92,25 @@ trait TemplateTrait
     }
 
     /**
+     * Replaces the Key Variables with actual value.
+     *
+     * @param  string $template
+     * @return string
+     */
+    public function replaceKeyVariables($template)
+    {
+        $template = preg_replace('/%name%/', $this->name, $template);
+        $template = preg_replace('/%label%/', $this->label, $template);
+        $template = preg_replace('/%tabindex%/', $this->sort, $template);
+        $template = preg_replace('/%field_id%/', $this->id, $template);
+        $template = preg_replace('/%type%/', $this->type, $template);
+        $template = preg_replace('/%value%/', $this->value, $template);
+        $template = preg_replace('/%attributes%/', $this->attributed, $template);
+
+        return $template;
+    }
+
+    /**
      * Replaces the input element.
      *
      * @param  string $template
@@ -122,6 +137,20 @@ trait TemplateTrait
                 return $template;
                 break;
         }
+
+        return $template;
+    }
+
+    /**
+     * Attaches an HTML input tag with the value of the `field_id`
+     * and the field %name%.
+     *
+     * @param  string $template
+     * @return string
+     */
+    public function attachInputTags($template)
+    {
+        $template .= '<input type="hidden" name="%name%[field_id]" value="%field_id%">';
 
         return $template;
     }
