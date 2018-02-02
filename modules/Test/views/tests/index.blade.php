@@ -1,36 +1,34 @@
 @extends("Template::layouts.public")
 
 @section("content")
-<v-card class="elevation-0">
-    <v-container grid-list-lg>
-        <v-layout row wrap align-center justify-center >
-            <v-flex lg10 md9 xs12>
-                <v-toolbar class="elevation-0 transparent">
-                    <v-avatar tile><img src="{{ settings('site_logo') }}" alt=""></v-avatar>
-                </v-toolbar>
-                <v-layout row wrap align-center justify-center>
-                    <v-flex sm6 xs12 xs-order2>
-                        <v-card class="elevation-0 transparent">
-                            <v-card-text>
-                                <p>{!! $page->body !!}</p>
-                                <v-btn class="elevation-1" primary large>Get Started</v-btn>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
 
-                    <v-flex sm6 xs12 xs-order1>
-                        <v-card class="elevation-0 transparent">
-                            <img src="{{ $page->feature }}" width="100%"/>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
+    <v-container fluid grid-list-lg>
+        <v-layout row wrap>
+            <v-flex sm12>
+                <img width="50px" src="http://pixelartmaker.com/art/0512a7cafff7675.png">
+                <div>{{ __('Use the source, Luke.') }}</div>
+                <br>
+                {{-- @include("Setting::partials.settingsbar") --}}
+
+                {{-- {!! $form->build() !!} --}}
+
+                <div v-for="(user, i) in dataset.items">
+                    <a :href="route(url.user.admin.edit, user.id)" v-html="user.fullname"></a>
+                </div>
+                <v-divider></v-divider>
+                <div v-for="(page, i) in page.items">
+                    <a :href="route(url.page.admin.edit, page.id)" v-html="page.title"></a> {{ __('by') }} <small v-html="page.author"></small>
+                    {{-- <img width="100px" :src="page.feature"> --}}
+                    <div v-html="page.body"></div>
+                </div>
+
             </v-flex>
         </v-layout>
     </v-container>
 <v-card>
 @endsection
 
-@push('css')
-    <style>
-    </style>
+@push('pre-scripts')
+    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
+    <script src="{{ assets('test/js/test.js') }}"></script>
 @endpush

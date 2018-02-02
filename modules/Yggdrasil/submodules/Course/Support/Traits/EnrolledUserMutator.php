@@ -2,6 +2,8 @@
 
 namespace Course\Support\Traits;
 
+use Course\Models\User;
+
 trait EnrolledUserMutator
 {
     /**
@@ -32,7 +34,9 @@ trait EnrolledUserMutator
      */
     public function getEnrolledAttribute()
     {
-        return \Course\Models\User::find(user()->id)->courses()->where('courses.id', $this->id)->exists();
+        return isset(user()->id)
+                ? User::find(user()->id)->courses()->where('courses.id', $this->id)->exists()
+                : false;
     }
 
     /**
@@ -42,7 +46,11 @@ trait EnrolledUserMutator
      */
     public function getProgressAttribute()
     {
-        $count = \Course\Models\Status::where('user_id', user()->id)
+        if (is_null(user())) {
+            return 0;
+        }
+
+        $count = \Course\Models\Status::where('user_id', (user()->id ?? null))
             ->where('course_id', $this->id)
             ->where('status', 'completed')
             ->count();

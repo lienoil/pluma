@@ -2,8 +2,8 @@
 
 namespace Course\Models;
 
+use Course\Support\Relations\BelongsToManyCourses;
 use Course\Support\Scopes\EnrolledToACourse;
-use Course\Support\Traits\BelongsToManyCourses;
 use Course\Support\Traits\CourseUserMutator;
 use User\Models\User as BaseUser;
 

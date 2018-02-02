@@ -18,9 +18,25 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Page::search($request->all())->paginate();
+        $form = \Form\Models\Form::find(3);
+        // $form = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Theme::templates.test');
+        // [
+        //     ['template' => '<v-text-field v-model="resource.item.asked" :error-messages="errors.asked" name="%name%" label="%label%"></v-text-field>', 'code' => '12qw', 'label' => 'What is asked?', 'name' => 'asked'],
+        //     ['template' => '<v-text-field v-model="resource.item.givens" :error-messages="errors.givens" name="%name%" label="%label%"></v-text-field>', 'code' => '12s', 'label' => 'What are the given variables', 'name' => 'givens'],
+        //     ['template' => '<v-text-field v-model="resource.item.operation" :error-messages="errors.operation" name="%name%" label="%label%"></v-text-field>', 'code' => '121x', 'label' => 'What operations should be used', 'name' => 'operation'],
+        //     ['template' => '<v-text-field v-model="resource.item.result" :error-messages="errors.result" name="%name%" label="%label%"></v-text-field>', 'code' => '125x', 'label' => 'What operations should be used', 'name' => 'result'],
+        // ]
+        // $form->setFields([
+        //     ['name' => 'What is asked?', 'sort' => 99],
+        //     ['name' => 'What are the given variables?', 'sort' => 20],
+        //     ['name' => 'What operations should be used?', 'sort' =>1],
+        //     ['name' => 'What operations should be used 22?', 'sort' =>2],
+        // ])
+        // $form->setTemplatePath('Test::templates.test');
+        // $form = $form->build('Test::templates.test');
 
-        return view("Theme::tests.index")->with(compact('resources'));
+
+        return view("Theme::tests.index")->with(compact('form'));
     }
 
     /**
@@ -44,9 +60,9 @@ class TestController extends GeneralController
      */
     public function create()
     {
-        //
+        $resource = \Form\Models\Form::find(1);
 
-        return view("Theme::tests.create");
+        return view("Theme::tests.create")->with(compact('resource'));
     }
 
     /**
@@ -55,14 +71,11 @@ class TestController extends GeneralController
      * @param  \Test\Requests\TestRequest  $request
      * @return Illuminate\Http\Response
      */
-    public function store(TestRequest $request)
+    public function store(Request $request)
     {
-        $sub new
-        $sub->result = serialize($request->except(['_token', 'form_id']));
-        $sub->form()->associate(Form::find());
-
-
-
+        // $sub new
+        // $sub->result = serialize($request->except(['_token', 'form_id']));
+        // $sub->form()->associate(Form::find());
 
         return back();
     }

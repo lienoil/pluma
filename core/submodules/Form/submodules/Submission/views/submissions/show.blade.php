@@ -39,8 +39,8 @@
                                 </v-card-text>
                                 <v-card-text>
                                     @foreach ($resource->fields() as $field)
-                                        <div><strong>{{ $resource->fields()->question->label }}</strong></div>
-                                        <div class="pa-3">{{ $resource->fields()->answer }}</div>
+                                        <div><strong>{{ $field->question->label }}</strong></div>
+                                        <div class="pa-3">{{ $field->answer }}</div>
                                     @endforeach
                                 </v-card-text>
                             </v-card>

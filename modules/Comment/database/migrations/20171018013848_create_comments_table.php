@@ -32,13 +32,18 @@ class CreateCommentsTable extends Migration
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
             $table->boolean('approved')->nullable();
-            $table->integer('upvotes')->nullable();
+            $table->integer('upvotes')->default(0)->nullable();
+            $table->integer('downvotes')->default(0)->nullable();
 
             $table->integer('commentable_id')->nullable();
             $table->string('commentable_type')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                  ->onUpdate('CASCADE')
+                  ->onDelete('CASCADE');
         });
     }
 

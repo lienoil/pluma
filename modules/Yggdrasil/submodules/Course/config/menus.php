@@ -19,9 +19,27 @@ return [
             'description' => __('Manage courses'),
         ],
         'children' => [
+            'view-course' => [
+                'name' => 'view-course',
+                'order' => 1,
+                'slug' => route('courses.index'),
+                'icon' => 'supervisor_account',
+                'routes' => [
+                    'name' => 'courses.index',
+                    'children' => [
+                        'courses.edit',
+                        'courses.show',
+                    ]
+                ],
+                'always_viewable' => true,
+                'labels' => [
+                    'title' => __('Manage Courses'),
+                    'description' => __('Manage list of all courses'),
+                ],
+            ],
             'view-enrolled-courses' => [
                 'name' => 'view-enrolled-courses',
-                'order' => 1,
+                'order' => 2,
                 'slug' => route('courses.enrolled.index'),
                 'always_viewable' => true,
                 'routes' => [
@@ -35,19 +53,18 @@ return [
                     'description' => __('View your currently enrolled courses'),
                 ],
             ],
-
-            'view-course' => [
-                'name' => 'view-course',
+            'all-course' => [
+                'name' => 'all-course',
                 'order' => 2,
-                'slug' => route('courses.index'),
+                'slug' => route('courses.all'),
                 'routes' => [
-                    'name' => 'courses.index',
+                    'name' => 'courses.all',
                     'children' => [
                         'courses.edit',
                         'courses.show',
                     ]
                 ],
-                'always_viewable' => false,
+                'always_viewable' => true,
                 'labels' => [
                     'title' => __('All Courses'),
                     'description' => __('View the list of all courses'),

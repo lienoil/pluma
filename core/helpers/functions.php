@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Str;
 
+require_once __DIR__ . '/filters.php';
 require_once __DIR__ . '/fonts.php';
 require_once __DIR__ . '/navigations.php';
+require_once __DIR__ . '/optimizations.php';
 require_once __DIR__ . '/system.php';
 require_once __DIR__ . '/themes.php';
 require_once __DIR__ . '/widgets.php';
@@ -655,16 +657,16 @@ if (! function_exists('v')) {
      * Blade's own "{{  }}".
      *
      * @param  string $string
-     * @param  boolean $variable
+     * @param  boolean $isEscapedVariable
      * @return string
      */
-    function v($string, $variable = false)
+    function v($string, $isEscapedVariable = false)
     {
-        if ($variable) {
-            return '${'.$string.'}';
+        if ($isEscapedVariable) {
+            return '${' . $string . '}';
         }
 
-        return '{{'.$string.'}}';
+        return '{{' . $string . '}}';
     }
 }
 

@@ -2,8 +2,20 @@
 
 namespace Lesson\Support\Mutators;
 
+use Course\Models\Status;
+
 trait LessonMutator
 {
+    /**
+     * Gets the current order of the resource.
+     *
+     * @return integer
+     */
+    public function getOrderAttribute()
+    {
+        return (int) $this->sort+1;
+    }
+
     /**
      * Get the contents count
      *
@@ -32,7 +44,11 @@ trait LessonMutator
      */
     public function getCompletedAttribute()
     {
-        $count = \Course\Models\Status::where('user_id', user()->id)
+        if (! isset(user()->id)) {
+            return 0;
+        }
+
+        $count = Status::where('user_id', user()->id)
             ->where('course_id', $this->course->id)
             ->whereIn('content_id', $this->contents()->pluck('id')->toArray())
             ->where('status', 'completed')

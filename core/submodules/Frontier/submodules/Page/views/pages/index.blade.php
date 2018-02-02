@@ -68,6 +68,7 @@
                         class="elevation-0"
                         no-data-text="{{ _('No resource found') }}"
                         v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
+                        :rows-per-page-items="dataset.pagination.rowsPerPageItems"
                         {{-- selected-key="id" --}}
                         v-bind:headers="dataset.headers"
                         v-bind:items="dataset.items"
@@ -134,7 +135,7 @@
                         </template>
                     </v-data-table>
                 </v-card>
-                @if (\Illuminate\Support\Facades\Request::all())
+                @if (request()->all())
                     <p class="caption grey--text"><a href="{{ route('pages.index') }}">{{ __('Remove filters') }}</a></p>
                 @endif
             </v-flex>
@@ -177,6 +178,7 @@
                         items: [],
                         loading: true,
                         pagination: {
+                            rowsPerPageItems: [5, 10, 15, 20, 30, {'value':50,text:50}, {'value':'-1',text:'All'}],
                             rowsPerPage: {{ settings('items_per_page', 15) }},
                             totalItems: 0,
                         },
@@ -200,6 +202,7 @@
 
                 'dataset.searchform.query': function (filter) {
                     setTimeout(() => {
+                        console.log(this.dataset.pagination);
                         const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
 
                         let query = {
@@ -228,7 +231,7 @@
                         page: page,
                         sort: sortBy,
                         take: rowsPerPage,
-                        search: {!! @json_encode(\Illuminate\Support\Facades\Request::all()) !!},
+                        search: {!! @json_encode(request()->all()) !!},
                     };
                     this.api().get('{{ route('api.pages.all') }}', query)
                         .then((data) => {

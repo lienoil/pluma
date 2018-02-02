@@ -5,18 +5,24 @@ namespace Course\Controllers;
 use Assignment\Models\Assignment;
 use Catalogue\Models\Catalogue;
 use Category\Models\Category;
+use Comment\Models\Comment;
 use Content\Models\Content;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
-use Comment\Models\Comment;
-use User\Models\User;
-use Frontier\Controllers\AdminController;
+use Course\Support\Traits\CourseResourceApiTrait;
+use Course\Support\Traits\CourseResourcePublicTrait;
+use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
 use Library\Models\Library;
+use User\Models\User;
 
-class CourseController extends AdminController
+class CourseController extends GeneralController
 {
+    use CourseResourceApiTrait,
+        CourseResourcePublicTrait;
+    //     CourseResourceSoftDeleteTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +48,6 @@ class CourseController extends AdminController
         $resource = Course::whereSlug($slug)
             ->with('lessons.contents')
             ->firstOrFail();
-
-
 
         return view("Theme::courses.show")->with(compact('resource'));
     }
@@ -174,7 +178,7 @@ class CourseController extends AdminController
             $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
             $lesson->course()->associate($course);
             if (! empty($input->assignment->title)) {
-                $lesson->assignment()->associate(Assignment::updateorCreate(['id' => $input->assignment], (array) $input->assignment));
+                $lesson->assignment()->associate(Assignment::updateorCreate(['id' => $input->assignment->id ?? null], (array) $input->assignment));
             }
             $lesson->save();
 

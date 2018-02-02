@@ -12,7 +12,7 @@ trait BaseMutator
      *
      * @var integer
      */
-    protected $wordCount = 30;
+    protected $excerptLength = 30;
 
     /**
      * Get the pretty date of the created_at column.
@@ -52,8 +52,9 @@ trait BaseMutator
     public function getExcerptAttribute()
     {
         $blurb = $this->body ? $this->body : $this->description;
+        $blurb = preg_replace("/<img[^>]+\>/i", "(image) ", $blurb);
 
-        return strip_tags(Str::words($blurb, settings('excerpt_length', $this->wordCount)));
+        return strip_tags(Str::words($blurb, settings('excerpt_length', $this->excerptLength)));
     }
 
     public function scopeExplode($key)

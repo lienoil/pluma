@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('submissions', 'SubmissionController');
+// Route::resource('submissions', 'SubmissionController');

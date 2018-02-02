@@ -26,8 +26,8 @@ trait SubmissionMutatorTrait
     {
         $fields = [];
         foreach (collect($this->resulted)->except(['type']) as $name => $resulted) {
-            $fields['question'] = Field::find($resulted['field_id']);
-            $fields['answer'] = $resulted[$name];
+            $fields[$name]['question'] = Field::find($resulted['field_id']);
+            $fields[$name]['answer'] = $resulted[$name] ?? '';
         }
 
         return json_decode(json_encode($fields));
