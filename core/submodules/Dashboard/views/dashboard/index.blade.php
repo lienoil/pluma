@@ -12,13 +12,13 @@
 
         <v-layout row wrap>
 
-            <v-flex xs6 sm4>
+           {{--  <v-flex xs6 sm4>
                 @foreach (widgets("dashboard.2.1", "location") as $widget)
                     @include($widget->view)
                 @endforeach
-            </v-flex>
+            </v-flex> --}}
 
-            <v-flex xs6 sm4>
+           {{--  <v-flex xs6 sm4>
                 @foreach (widgets("dashboard.2.2", "location") as $widget)
                     @include($widget->view)
                 @endforeach
@@ -28,7 +28,7 @@
                 @foreach (widgets("dashboard.2.3", "location") as $widget)
                     @include($widget->view)
                 @endforeach
-            </v-flex>
+            </v-flex> --}}
 
         </v-layout>
     </v-container>
