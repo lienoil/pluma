@@ -10,10 +10,10 @@ return [
      */
     'test' => [
         'name' => 'test',
-        'order' => 51,
+        'order' => 100,
         'slug' => route('tests.index'),
         'always_viewable' => false,
-        'icon' => '',
+        'icon' => 'developer_mode',
         'labels' => [
             'title' => __('Tests'),
             'description' => __('Manage tests'),

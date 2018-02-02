@@ -133,6 +133,16 @@
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
+                                        <v-list-tile :href="route(urls.fieldtypes.edit, (prop.item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon accent>edit</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Edit') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
                                         <v-list-tile ripple @click="$refs.delete.submit()">
                                             <v-list-tile-action>
                                                 <v-icon warning>delete</v-icon>

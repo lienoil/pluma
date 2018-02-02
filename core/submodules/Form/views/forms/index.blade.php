@@ -106,8 +106,6 @@
                             <td v-html="prop.item.code"></td>
                             <td><a class="grey--text text--darken-4" class="fw-500" :href="`{{ route('forms.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
                             <td v-html="prop.item.method"></td>
-                            <td v-html="prop.item.type"></td>
-                            <td v-html="prop.item.template"></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
@@ -189,8 +187,6 @@
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
                             { text: '{{ __("Method") }}', align: 'left', value: 'method' },
-                            { text: '{{ __("Type") }}', align: 'left', value: 'type' },
-                            { text: '{{ __("Template") }}', align: 'left', value: 'template' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
