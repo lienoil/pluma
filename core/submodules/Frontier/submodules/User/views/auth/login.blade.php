@@ -3,8 +3,8 @@
 @section("content")
     <main id="main" class="main">
         <v-container fluid fill-height>
-            <v-layout fill-height column wrap justify-center align-center>
-                <v-flex lg6 md10 sm10 xs12 fill-height justify-center align-center>
+            <v-layout row wrap justify-center align-center>
+                <v-flex lg6 md10 sm10 xs12 justify-center align-center>
 
                     @include("Theme::partials.banner")
 

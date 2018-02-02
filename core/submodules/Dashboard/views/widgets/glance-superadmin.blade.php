@@ -1,4 +1,4 @@
-<v-card class="elevation-1">
+{{-- <v-card class="elevation-1">
     <v-card-media src="{{ widgets()->glance->backdrop }}">
         <v-card flat class="transparent" style="width:100%">
             <div class="insert-overlay"
@@ -6,9 +6,9 @@
 
             <v-toolbar card class="transparent">
                 <v-spacer></v-spacer>
-                {{-- <v-btn dark icon href="#">
+                <v-btn dark icon href="#">
                     <v-icon>file_download</v-icon>
-                </v-btn> --}}
+                </v-btn>
                 <v-btn dark icon @click="setStorage('glance.hidden', (glance.hidden = !glance.hidden))"
                     v-tooltip:left="{ 'html':  glance.hidden ? '{{ __('Show Analytics') }}' : '{{ __('Hide Analytics') }}' }">
                     <v-icon>@{{ glance.hidden ? 'visibility' : 'visibility_off' }}</v-icon>
@@ -17,90 +17,141 @@
 
             <v-slide-y-transition>
                 <v-card flat class="transparent" v-show="! glance.hidden" transition="slide-y-transition">
-                    <v-card-text>
+                    <v-card-text> --}}
 
                         <v-layout row wrap>
-
-                            <v-flex sm3>
-                                <v-card class="elevation-1 mb-3 ma-1">
+                            {{-- <v-flex sm3>
+                                <v-card class="elevation-1 ma-1">
                                     <v-card-text>
                                         <p>{{ __("Hey there, " . user()->firstname . ".") }}</p>
                                         <p>{{ __("Here's some things to note since you left.") }}</p>
                                     </v-card-text>
                                 </v-card>
-                            </v-flex>
+                            </v-flex> --}}
 
-                            <v-spacer></v-spacer>
-
-                            <v-flex sm2>
-                                <v-card class="elevation-1 mb-3 ma-1">
-                                    <v-card-text class="success--text text-xs-center">
-                                        <v-icon class="success--text display-3">fa-plug</v-icon>
-                                        <div class="display-3 lh-1 countup" data-target="{{ count(get_modules_path()) }}">0</div>
-                                        <div class="body-1">{{ __('Modules') }}</div>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn flat disabled href="{{ route('users.index') }}">{{ __('Manage Modules') }}</v-btn>
-                                        <v-spacer></v-spacer>
-                                    </v-card-actions>
+                            <v-flex md3 sm6 xs12>
+                                <v-card class="elevation-1 ma-1 text-xs-center">
+                                    {{-- <v-card-media class="white--text" src="{{ assets('frontier/images/placeholder/ios_grad_2.jpg') }}"> --}}
+                                    <v-card-media class="white--text" style="background: linear-gradient(45deg, rgb(2, 136, 209) 0%, rgb(38, 198, 218) 100%);">
+                                        <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+                                        <v-layout column>
+                                            <v-card dark class="text-xs-center elevation-0 transparent">
+                                                <v-card-text>
+                                                    <v-card-actions class="pa-0">
+                                                        <v-avatar class="elevation-5 light-blue darken-2">
+                                                            <img src="{{ assets('frontier/images/placeholder/glance-module.png') }}">
+                                                        </v-avatar>
+                                                        <v-spacer></v-spacer>
+                                                        <div class="display-2 countup" data-target="{{ count(get_modules_path()) }}">0</div>
+                                                    </v-card-actions>
+                                                    <v-card-actions>
+                                                        <v-spacer></v-spacer>
+                                                        <div class="subheading">{{ __('Modules') }}</div>
+                                                    </v-card-actions>
+                                                    <v-card-actions class="mb-2">
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn dark outline class="pr-0" href="{{ route('users.index') }}">{{ __('Manage Modules') }}</v-btn>
+                                                    </v-card-actions>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-layout>
+                                    </v-card-media>
                                 </v-card>
                             </v-flex>
 
-                            <v-flex sm2>
-                                <v-card class="elevation-1 mb-3 ma-1">
-                                    <v-card-text class="orange--text text-xs-center">
-                                        <v-icon class="orange--text display-3">lock</v-icon>
-                                        <div class="display-3 lh-1 countup" :data-target="glance.visualizations.permissions.total" v-html="glance.visualizations.permissions.total"></div>
-                                        <div class="body-1">{{ __('Permissions') }}</div>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn flat class="orange orange--text" href="{{ route('permissions.index') }}">{{ __('Check Permissions') }}</v-btn>
-                                        <v-spacer></v-spacer>
-                                    </v-card-actions>
+                            <v-flex md3 sm6 xs12>
+                                <v-card class="elevation-1 ma-1 text-xs-center">
+                                    <v-card-media class="white--text" style="background: linear-gradient(45deg, #FF5252 0%, #f48fb1 100%);">
+                                        <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+                                        <v-layout column>
+                                            <v-card dark class="text-xs-center elevation-0 transparent">
+                                                <v-card-text>
+                                                    <v-card-actions class="pa-0">
+                                                        <v-avatar class="elevation-5 light-blue darken-2">
+                                                            <img src="{{ assets('frontier/images/placeholder/glance-permission-1.png') }}">
+                                                        </v-avatar>
+                                                        <v-spacer></v-spacer>
+                                                        <div class="display-2 countup" data-target="glance.visualizations.permissions.total" v-html="glance.visualizations.permissions.total"></div>
+                                                    </v-card-actions>
+                                                    <v-card-actions>
+                                                        <v-spacer></v-spacer>
+                                                        <div class="subheading">{{ __('Permissions') }}</div>
+                                                    </v-card-actions>
+                                                    <v-card-actions class="mb-2">
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn dark outline class="pr-0" href="{{ route('permissions.index') }}">{{ __('Check Permissions') }}</v-btn>
+                                                    </v-card-actions>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-layout>
+                                    </v-card-media>
                                 </v-card>
                             </v-flex>
 
-                            <v-flex sm2>
-                                <v-card class="elevation-1 mb-3 ma-1">
-                                    <v-card-text class="pink--text text-xs-center">
-                                        <v-icon class="pink--text display-3">account_box</v-icon>
-                                        <div class="display-3 lh-1 countup" :data-target="glance.visualizations.users.total" v-html="glance.visualizations.users.total"></div>
-                                        <div class="body-1">{{ __('Users') }}</div>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn flat class="pink pink--text" href="{{ route('users.index') }}">{{ __('View Users') }}</v-btn>
-                                        <v-spacer></v-spacer>
-                                    </v-card-actions>
+                            <v-flex md3 sm6 xs12>
+                                <v-card class="elevation-1 ma-1 text-xs-center">
+                                    <v-card-media class="white--text" style="background: linear-gradient(45deg, #43A047 0%, #1de9b6 100%);">
+                                        <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+                                            <v-layout column>
+                                                <v-card dark class="text-xs-center elevation-0 transparent">
+                                                    <v-card-text>
+                                                        <v-card-actions class="pa-0">
+                                                            <v-avatar class="elevation-5 cyan darken-3">
+                                                                <img src="{{ assets('frontier/images/placeholder/glance-user-1.png') }}">
+                                                            </v-avatar>
+                                                            <v-spacer></v-spacer>
+                                                            <div class="display-2 countup" data-target="glance.visualizations.users.total" v-html="glance.visualizations.users.total"></div>
+                                                        </v-card-actions>
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <div class="subheading">{{ __('Users') }}</div>
+                                                        </v-card-actions>
+                                                        <v-card-actions class="mb-2">
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn dark outline class="pr-0" href="{{ route('users.index') }}">{{ __('View Users') }}</v-btn>
+                                                        </v-card-actions>
+                                                    </v-card-text>
+                                                </v-card>
+                                            </v-layout>
+                                    </v-card-media>
                                 </v-card>
                             </v-flex>
 
-                            <v-flex sm2>
-                                <v-card class="elevation-1 mb-3 ma-1">
-                                    <v-card-text class="primary--text text-xs-center">
-                                        <v-icon class="primary--text display-3">insert_drive_file</v-icon>
-                                        <div class="display-3 lh-1 countup" :data-target="glance.visualizations.pages.total" v-html="glance.visualizations.pages.total"></div>
-                                        <div class="body-1">{{ __('Pages') }}</div>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn primary flat href="{{ route('pages.create') }}">{{ __('Add New') }}</v-btn>
-                                        <v-spacer></v-spacer>
-                                    </v-card-actions>
+                            <v-flex md3 sm6 xs12>
+                                <v-card class="elevation-1 ma-1 text-xs-center">
+                                    <v-card-media class="white--text" style="background: linear-gradient(45deg, #ff6f00 0%, #ffca28 100%);">
+                                        <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+                                        <v-layout column>
+                                            <v-card dark class="text-xs-center elevation-0 transparent">
+                                                <v-card-text>
+                                                    <v-card-actions class="pa-0">
+                                                        <v-avatar class="elevation-5 light-blue darken-2">
+                                                            <img src="{{ assets('frontier/images/placeholder/glance-page.png') }}">
+                                                        </v-avatar>
+                                                        <v-spacer></v-spacer>
+                                                        <div class="display-2 countup" data-target="glance.visualizations.pages.total" v-html="glance.visualizations.pages.total"></div>
+                                                    </v-card-actions>
+                                                    <v-card-actions>
+                                                        <v-spacer></v-spacer>
+                                                        <div class="subheading">{{ __('Pages') }}</div>
+                                                    </v-card-actions>
+                                                    <v-card-actions class="mb-2">
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn dark outline class="pr-0" href="{{ route('pages.index') }}">{{ __('Add New') }}</v-btn>
+                                                    </v-card-actions>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-layout>
+                                    </v-card-media>
                                 </v-card>
                             </v-flex>
-
                         </v-layout>
-
-                    </v-card-text>
+                   {{-- </v-card-text>
                 </v-card>
             </v-slide-y-transition>
-
         </v-card>
     </v-card-media>
-</v-card>
+</v-card> --}}
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/js/countup.min.js') }}"></script>

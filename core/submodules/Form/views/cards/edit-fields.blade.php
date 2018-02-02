@@ -267,7 +267,7 @@
                 },
 
                 old () {
-                    let olds = {!! json_encode($resource->fields()->orderBy('sort')->get()) !!};
+                    let olds = {!! json_encode($resource->fields()->get()) !!};
                     if (olds) {
                         for (var i = 0; i < olds.length; i++) {
                             let current = olds[i];

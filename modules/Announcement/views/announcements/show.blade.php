@@ -1,4 +1,4 @@
-@extends("Theme::layouts.admin")
+@extends("Frontier::layouts.admin")
 
 @section("head-title", __($resource->name))
 @section("page-title", __($resource->name))

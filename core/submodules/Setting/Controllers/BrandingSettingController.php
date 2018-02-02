@@ -2,6 +2,7 @@
 
 namespace Setting\Controllers;
 
+use Catalogue\Models\Catalogue;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Setting\Models\Setting;
@@ -17,7 +18,9 @@ class BrandingSettingController extends AdminController
      */
     public function index(Request $request)
     {
-        return view("Setting::settings.branding");
+        $catalogues = Catalogue::mediabox();
+
+        return view("Setting::settings.branding")->with(compact('catalogues'));
     }
 
     /**

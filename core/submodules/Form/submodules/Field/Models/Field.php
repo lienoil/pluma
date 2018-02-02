@@ -14,14 +14,7 @@ use User\Support\Traits\BelongsToUser;
 
 class Field extends Model
 {
-    use BelongsToFieldtype,
-        BelongsToForm,
-        BelongsToUser,
-        FieldMutatorTrait,
-        HasManyFields,
-        SlugOrFail,
-        TemplateTrait,
-        SoftDeletes;
+    use SoftDeletes, SlugOrFail, BelongsToUser, BelongsToFieldtype, BelongsToForm, HasManyFields, FieldMutatorTrait, TemplateTrait;
 
 
     protected $fillable = ['id', 'name', 'code', 'action', 'method', 'type', 'attributes', 'body', 'delta', 'success_message', 'error_message'];

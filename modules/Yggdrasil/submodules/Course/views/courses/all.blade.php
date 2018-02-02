@@ -6,6 +6,7 @@
             <v-flex sm12>
                 <v-toolbar dark class="mb-3 info elevation-1 sticky">
                     <v-icon dark>fa-book</v-icon>
+
                     <v-toolbar-title primary-title class="page-title">
                         @if (request()->all())
                             {{ __('Filtered Courses') }}
@@ -13,6 +14,7 @@
                             {{ __('All Courses') }}
                         @endif
                     </v-toolbar-title>
+
                     <v-spacer></v-spacer>
 
                     <template v-if="!resources.searchform.model && !resources.pagination.sortByModel">
@@ -132,6 +134,7 @@
 
                             {{-- Meta --}}
                             <v-card-actions class="grey lighten-4">
+
                                 <div v-if="resource.code" class="text-xs-center caption pa-1 grey--text" title="{{ __('Course code') }}">
                                     <v-icon class="caption" left>class</v-icon>
                                     <span v-html="resource.code"></span>
