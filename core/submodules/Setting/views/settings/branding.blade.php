@@ -22,6 +22,7 @@
 
                     <form action="{{ route('settings.branding.store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
+
                         <v-card-text>
                             <v-layout row wrap>
                                 <v-flex sm8>
@@ -45,6 +46,7 @@
                                         value="{{ old('site_email') ? old('site_email') : settings('site_email') }}"
                                     ></v-text-field>
                                 </v-flex>
+
                                 <v-flex sm4>
                                     <v-card class="transparent elevation-0" role="button" @click="$refs.siteLogoFile.click()">
                                         <v-toolbar dense card class="transparent">
@@ -62,8 +64,28 @@
                                     </v-card>
                                 </v-flex>
                             </v-layout>
+                        </v-card-text>
 
+                        <v-divider></v-divider>
 
+                        <v-card-text>
+                            {{-- mediabox --}}
+                            <v-card class="elevation-1">
+                                <v-toolbar class="elevation-0"><v-toolbar-title>Test</v-toolbar-title></v-toolbar>
+                                <v-card-text>
+                                    @include("Setting::interactives.test")
+                                </v-card-text>
+                            </v-card>
+                            {{-- /mediabox --}}
+
+                            {{-- mediabox --}}
+                            <v-card class="elevation-1">
+                                <v-toolbar class="elevation-0"><v-toolbar-title>Test 2</v-toolbar-title></v-toolbar>
+                                <v-card-text>
+                                    @include("Setting::interactives.test2")
+                                </v-card-text>
+                            </v-card>
+                            {{-- /mediabox --}}
                         </v-card-text>
 
                         <v-card-actions>
@@ -104,6 +126,7 @@
                             }
                         },
                     },
+
                     file: null,
                     files: [],
                 };

@@ -61,7 +61,6 @@ Form/database/migrations TABLE `forms`
 
 Form/database/migrations TABLE `submissions`
 	INT id AUTOINCREMENT,
-	STRING type NULLABLE,
 	TEXT results NULLABLE,
 	INT form_id UNSIGNED REFERENCES id ON forms,
 

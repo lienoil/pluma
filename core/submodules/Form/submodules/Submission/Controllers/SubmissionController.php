@@ -1,15 +1,20 @@
 <?php
 
-namespace Test\Controllers;
+namespace Submission\Controllers;
 
+use Form\Models\Form;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
-use Page\Models\Page;
-use Test\Models\Test;
-use Test\Requests\TestRequest;
+use Submission\Models\Submission;
+use Submission\Requests\SubmissionRequest;
+use Submission\Support\Traits\SubmissionResourceApiTrait;
+use Submission\Support\Traits\SubmissionResourcePublicTrait;
+use Submission\Support\Traits\SubmissionResourceSoftDeleteTrait;
+use User\Models\User;
 
-class TestController extends GeneralController
+class SubmissionController extends GeneralController
 {
+    use SubmissionResourcePublicTrait, SubmissionResourceSoftDeleteTrait, SubmissionResourceApiTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +23,9 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Page::search($request->all())->paginate();
+        $resources = Submission::search($request->all())->paginate();
 
-        return view("Theme::tests.index")->with(compact('resources'));
+        return view("Theme::submissions.index")->with(compact('resources'));
     }
 
     /**
@@ -32,9 +37,9 @@ class TestController extends GeneralController
      */
     public function show(Request $request, $id)
     {
-        //
+        $resource = Submission::findOrFail($id);
 
-        return view("Theme::tests.show");
+        return view("Theme::submissions.show")->with(compact('resource'));
     }
 
     /**
@@ -46,23 +51,22 @@ class TestController extends GeneralController
     {
         //
 
-        return view("Theme::tests.create");
+        return view("Theme::submissions.create");
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Test\Requests\TestRequest  $request
+     * @param  \Submission\Requests\SubmissionRequest  $request
      * @return Illuminate\Http\Response
      */
-    public function store(TestRequest $request)
+    public function submit(SubmissionRequest $request)
     {
-        $sub new
-        $sub->result = serialize($request->except(['_token', 'form_id']));
-        $sub->form()->associate(Form::find());
-
-
-
+        $submission = new Submission();
+        $submission->results = serialize($request->except(['_token', 'form_id']));
+        $submission->form()->associate(Form::find($request->input('form_id')));
+        $submission->user()->associate(User::find(user()->id));
+        $submission->save();
 
         return back();
     }
@@ -78,20 +82,18 @@ class TestController extends GeneralController
     {
         //
 
-        return view("Theme::tests.edit");
+        return view("Theme::submissions.edit");
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Test\Requests\TestRequest  $request
+     * @param  Submission\Requests\SubmissionRequest  $request
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    public function update(TestRequest $request, $id)
+    public function update(SubmissionRequest $request, $id)
     {
-        //
-
         return back();
     }
 
