@@ -2,6 +2,8 @@
 
 namespace Course\Support\Traits;
 
+use Course\Models\User;
+
 trait EnrolledUserMutator
 {
     /**
@@ -32,7 +34,9 @@ trait EnrolledUserMutator
      */
     public function getEnrolledAttribute()
     {
-        return \Course\Models\User::find(user()->id)->courses()->where('courses.id', $this->id)->exists();
+        return isset(user()->id)
+                ? User::find(user()->id)->courses()->where('courses.id', $this->id)->exists()
+                : false;
     }
 
     /**

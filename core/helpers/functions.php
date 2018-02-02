@@ -655,16 +655,16 @@ if (! function_exists('v')) {
      * Blade's own "{{  }}".
      *
      * @param  string $string
-     * @param  boolean $variable
+     * @param  boolean $isEscapedVariable
      * @return string
      */
-    function v($string, $variable = false)
+    function v($string, $isEscapedVariable = false)
     {
-        if ($variable) {
-            return '${'.$string.'}';
+        if ($isEscapedVariable) {
+            return '${' . $string . '}';
         }
 
-        return '{{'.$string.'}}';
+        return '{{' . $string . '}}';
     }
 }
 

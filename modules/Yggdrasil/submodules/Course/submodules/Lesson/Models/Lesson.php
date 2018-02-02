@@ -4,7 +4,7 @@ namespace Lesson\Models;
 
 use Assignment\Support\Traits\BelongsToAssignment;
 use Content\Support\Traits\HasManyContents;
-use Course\Support\Traits\BelongsToCourse;
+use Course\Support\Relations\BelongsToCourse;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Lesson\Support\Mutators\LessonMutator;
 use Pluma\Models\Model;

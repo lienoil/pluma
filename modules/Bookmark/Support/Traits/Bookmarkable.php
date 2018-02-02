@@ -23,6 +23,8 @@ trait Bookmarkable
      */
     public function getBookmarkedAttribute()
     {
-        return $this->bookmarks()->where('user_id', user()->id)->exists();
+        return isset(user()->id)
+                ? $this->bookmarks()->where('user_id', user()->id)->exists()
+                : false;
     }
 }

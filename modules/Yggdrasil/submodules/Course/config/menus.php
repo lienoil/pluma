@@ -39,15 +39,15 @@ return [
             'view-course' => [
                 'name' => 'view-course',
                 'order' => 2,
-                'slug' => route('courses.index'),
+                'slug' => route('courses.all'),
                 'routes' => [
-                    'name' => 'courses.index',
+                    'name' => 'courses.all',
                     'children' => [
                         'courses.edit',
                         'courses.show',
                     ]
                 ],
-                'always_viewable' => false,
+                'always_viewable' => true,
                 'labels' => [
                     'title' => __('All Courses'),
                     'description' => __('View the list of all courses'),

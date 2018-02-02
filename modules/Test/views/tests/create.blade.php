@@ -14,23 +14,20 @@
 
                 <form action="{{ $resource->action ?? route('tests.store') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
                     {{ csrf_field() }}
+                    <input type="hidden" name="form_id" value="{{ $resource->id }}">
+                    <input type="hidden" name="type" value="forms">
+
                     <v-card class="elevation-1">
 
                         <v-toolbar class="elevation-0">
                             <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
                         </v-toolbar>
 
-                        @foreach ($resource->fields as $label => $field)
+                        @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
                             <v-card-text>
-                                {{-- <div class="mb-2 body-1 black--text">{{ $field->label }}</div> --}}
                                 <div class="mb-2">{!! $field->template()->render() !!}</div>
                             </v-card-text>
                         @endforeach
-
-                        {{-- <v-radio-group v-model="resource.item.pet">
-                            <v-radio :label="radio" :key="i" v-for="(radio, i) in JSON.parse())" :value="radio"></v-radio>
-                        </v-radio-group>
-                        <input type="hidden" name="pet" :value="resource.item.pet"> --}}
 
                         <v-card-actions>
                             <v-btn type="submit">{{ __('Submit') }}</v-btn>
@@ -52,13 +49,8 @@
         mixins.push({
             data () {
                 return {
-                    a1: false,
                     resource: {
-                        item: {
-                            color: '{{ old('color') }}',
-                            pet: '{{ old('pet') }}',
-                            foods: {!! json_encode(old('foods') ?? []) !!},
-                        },
+                        item: {!! json_encode(old() ?? []) !!},
                         errors: {!! json_encode($errors->getMessages()) !!},
                     },
                 }
