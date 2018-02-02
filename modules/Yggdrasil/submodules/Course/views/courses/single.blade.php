@@ -279,6 +279,8 @@
                                                                             <v-list-tile-avatar>
                                                                                 @if ($content->locked)
                                                                                     <v-icon class="grey--text">lock</v-icon>
+                                                                                @elseif ($content->completed)
+                                                                                    <v-icon class="teal lighten-3 white--text">check</v-icon>
                                                                                 @else
                                                                                     <v-chip class="teal lighten-3 white--text">{{ $content->order }}</v-chip>
                                                                                 @endif
