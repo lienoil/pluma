@@ -4,11 +4,12 @@
     @include("Theme::partials.banner")
 
     {{-- Location: dashboard.1.12 --}}
-    @include("Dashboard::widgets.glance")
     {{-- Location: dashboard.1.12 --}}
 
     {{-- Location: dashboard.2.12 --}}
     <v-container fluid grid-list-lg>
+        @include("Dashboard::widgets.glance")
+
         <v-layout row wrap>
 
             <v-flex xs6 sm4>

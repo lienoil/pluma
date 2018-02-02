@@ -1,5 +1,3 @@
-<v-container fluid grid-list-lg>
-
 {{-- <v-card class="elevation-1">
     <v-card-media src="{{ widgets()->glance->backdrop }}">
         <v-card flat class="transparent" style="width:100%">
@@ -111,7 +109,6 @@
         </v-card>
     </v-card-media>
 </v-card> --}}
-</v-container>
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/js/countup.min.js') }}"></script>
