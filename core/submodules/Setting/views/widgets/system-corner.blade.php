@@ -44,7 +44,7 @@
                         <v-subheader class="purple--text text--lighten-1">{{ __('Server Environment') }}</v-subheader>
                         <v-list-tile avatar>
                             <v-list-tile-avatar tile>
-                                <img src="{{ assets('frontier/images/placeholder/systems/glance-user.png') }}" alt="">
+                                <img src="{{ assets('frontier/images/placeholder/systems/admin.png') }}" alt="">
                             </v-list-tile-avatar>
                             <v-list-tile-content>
                                 <v-list-tile-title>{{ __('Server Admin') }}</v-list-tile-title>
