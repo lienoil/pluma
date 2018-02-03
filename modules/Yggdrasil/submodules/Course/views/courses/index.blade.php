@@ -29,12 +29,11 @@
         <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
     </v-toolbar>
 
-    <v-container fluid grid-list-lg>
-        <v-layout row wrap fill-height>
             {{-- <v-flex sm3 md2>
                 @include("Setting::partials.settingsbar")
             </v-flex> --}}
-
+    <v-container fluid grid-list-lg>
+        <v-layout row wrap fill-height>
             <v-flex
                 sm4 xs12
                 v-for="(card, i) in dataset.items"
@@ -153,7 +152,7 @@
                             @can('enroll-course')
                             {{-- if user is not enrolled yet, let user have the option
                             to enroll --}}
-                            <v-btn v-if="!card.enrolled" flat primary ripple @click="">{{ __('Enroll') }}</v-btn>
+                            <v-btn v-if="!card.enrolled" flat primary ripple :href="route(urls.enroll, card.slug)">{{ __('Enroll') }}</v-btn>
                             <v-btn v-else flat primary ripple :href="route(urls.enrolled, card.slug)">{{ __('Learn More') }}</v-btn>
                             @endcan
                         </v-card-actions>
@@ -199,6 +198,7 @@
                         edit: '{{ route('courses.edit', 'null') }}',
                         destroy: '{{ route('api.courses.destroy', 'null') }}',
                         enrolled: '{{ route('courses.enrolled.show', 'null') }}',
+                        enroll: '{{ route('courses.enroll.index', 'null') }}',
                     },
                     dataset: {
                         headers: [

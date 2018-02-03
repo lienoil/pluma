@@ -155,17 +155,17 @@ return [
      * Specify here the menus to appear on the sidebar.
      *
      */
-    'show-course' => [
-        'name' => 'show-course',
-        'order' => 55,
-        'slug' => route('profile.courses.show', user()->handlename),
-        'route' => 'profile.courses.show',
-        'always_viewable' => false,
-        'parent' => 'profile-group',
-        'icon' => 'fa-book',
-        'labels' => [
-            'title' => __('My Courses'),
-            'description' => __('View your courses here'),
-        ],
-    ],
+    // 'show-course' => [
+    //     'name' => 'show-course',
+    //     'order' => 55,
+    //     'slug' => route('profile.courses.show', user()->handlename),
+    //     'route' => 'profile.courses.show',
+    //     'always_viewable' => false,
+    //     'parent' => 'profile-group',
+    //     'icon' => 'fa-book',
+    //     'labels' => [
+    //         'title' => __('My Courses'),
+    //         'description' => __('View your courses here'),
+    //     ],
+    // ],
 ];

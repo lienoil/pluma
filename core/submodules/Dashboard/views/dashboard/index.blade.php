@@ -10,12 +10,16 @@
     <v-container fluid grid-list-lg>
         @include("Dashboard::widgets.glance")
 
-        <v-card class="elevation-0 transparent my-2">
-            <v-card-text class="px-0">
-                <p class="title mb-1">{{ __("Hey there, " . user()->firstname . "!") }}</p>
-                <div>{{ __("Here's some things to note since you left.") }}</div>
-            </v-card-text>
-        </v-card>
+        <v-layout row wrap>
+            <v-flex xs12>
+                <v-card class="elevation-0 transparent my-2">
+                    <v-card-text class="px-0">
+                        <p class="title mb-1">{{ __("Hey there, " . user()->firstname . "!") }}</p>
+                        <div>{{ __("Here's some things to note since you left.") }}</div>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
 
         <v-layout row wrap>
             <v-flex xs12 sm6 md4>

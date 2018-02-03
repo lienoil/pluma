@@ -47,7 +47,7 @@ class EnrollController extends AdminController
             ->with('lessons.contents')
             ->firstOrFail();
 
-        return view("Theme::courses.show")->with(compact('resource'));
+        return view("Theme::enroll.show")->with(compact('resource'));
     }
 
     /**
@@ -93,6 +93,6 @@ class EnrollController extends AdminController
             }
         }
 
-        return back();
+        return redirect()->route('courses.enrolled.show', $course->slug);
     }
 }

@@ -29,5 +29,6 @@ return [
         'Test',
         'Note',
         'Chronos',
+        'Test',
     ],
 ];

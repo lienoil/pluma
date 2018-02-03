@@ -140,7 +140,7 @@
                     </v-card-actions>
                 </v-card>
 
-                <v-card height="100%" class="elevation-1">
+                <v-card class="elevation-1">
                     <v-list>
                         <v-subheader class="grey--text text--lighten-1">{{ __('All Categories') }}</v-subheader>
                         <v-list-tile v-for="item in categories" v-bind:key="item.name" :href="`{{ route('forums.index') }}?category_id=${item.id}`" ripple>

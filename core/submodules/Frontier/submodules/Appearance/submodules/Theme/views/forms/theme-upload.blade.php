@@ -4,7 +4,7 @@
         {{ csrf_field() }}
         <v-card class="elevation-1">
             <v-toolbar card class="transparent">
-                <v-toolbar-title>{{ __('UploadTh eme') }}</v-toolbar-title>
+                <v-toolbar-title>{{ __('Upload Theme') }}</v-toolbar-title>
             </v-toolbar>
             <v-card-text class="grey lighten-4 grey--text text--lighten-1 text-xs-center pa-4">
                 <div role="button" @click="$refs.fileInput.click()">
