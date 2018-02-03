@@ -26,7 +26,10 @@ class RoleServiceProvider extends ServiceProvider
      * @var mixed
      */
     protected $middlewares = [
-        ['auth.roles' => \Role\Middleware\AuthenticateUserRole::class],
+        [
+            'alias' => 'auth.roles',
+            'class' => \Role\Middleware\AuthenticateUserRole::class
+        ],
     ];
 
     /**

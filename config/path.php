@@ -9,8 +9,8 @@ return [
     'themes' => 'themes',
 
     // url
-    'login' => 'login.show',
+    'login' => 'login',
     'logout' => 'logout',
-    'redirect_after_logout' => 'login.show',
+    'redirect_after_logout' => 'login',
     'register' => 'register',
 ];

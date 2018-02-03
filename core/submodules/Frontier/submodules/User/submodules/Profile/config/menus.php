@@ -42,6 +42,7 @@ return [
                     'name' => 'profile.show',
                     'children' => [
                         'profile.show',
+                        'profile.edit',
                     ]
                 ],
                 'children' => [
@@ -68,17 +69,44 @@ return [
                 ],
             ],
 
-            // 'change-password' => [
-            //     'name' => 'change-password',
-            //     'order' => 2,
-            //     'slug' => route('credentials.index', user()->handlename),
-            //     'always_viewable' => true,
-            //     'icon' => 'vpn_key',
-            //     'labels' => [
-            //         'title' => __('Credentials'),
-            //         'description' => __('Update password and more'),
-            //     ],
-            // ],
+            'profile-settings-group' => [
+                'name' => 'profile-settings-group',
+                'order' => 2,
+                'slug' => route('credentials.edit', user()->handlename),
+                'always_viewable' => true,
+                'is_group_link' => true,
+                'icon' => 'settings',
+                'labels' => [
+                    'title' => __('Settings'),
+                    'description' => __('Manage credentials, change password, and more'),
+                ],
+                'children' => [
+                    'edit-credentials' => [
+                        'name' => 'edit-credentials',
+                        'order' => 1,
+                        'slug' => route('credentials.edit', user()->handlename),
+                        'route' => 'credentials.edit',
+                        'always_viewable' => true,
+                        'icon' => 'vpn_key',
+                        'labels' => [
+                            'title' => __('Credentials'),
+                            'description' => __('Manage your account'),
+                        ],
+                    ],
+                    'edit-email' => [
+                        'name' => 'edit-email',
+                        'order' => 1,
+                        'slug' => route('profile.emails.edit', user()->handlename),
+                        'route' => 'profile.emails.edit',
+                        'always_viewable' => true,
+                        'icon' => 'mail',
+                        'labels' => [
+                            'title' => __('Emails'),
+                            'description' => __('Manage your email preferences'),
+                        ],
+                    ],
+                ],
+            ],
 
             'profile-logout-divider' => [
                 'name' => 'profile-logout-divider',

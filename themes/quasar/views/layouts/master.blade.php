@@ -6,7 +6,6 @@
         @yield("pre-content")
 
         <main id="main" data-main :style="`font-size: ${settings.fontsize.model}px`">
-
             @section("pre-container")
                 @include("Theme::partials.breadcrumbs")
             @show

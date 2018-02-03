@@ -2,9 +2,9 @@
 
 return [
     /**
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Courses Menus
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Specify here the menus to appear on the sidebar.
      *
      */
@@ -19,22 +19,62 @@ return [
             'description' => __('Manage courses'),
         ],
         'children' => [
-            'view-course' => [
-                'name' => 'view-course',
-                'order' => 1,
+            'manage-courses-group' => [
+                'name' => 'manage-courses-group',
                 'slug' => route('courses.index'),
+                'order' => 1,
+                'is_group_link' => true,
+                'always_viewable' => false,
+                'display_as_header' => true,
                 'icon' => 'supervisor_account',
+                'labels' => [
+                    'title' => __('Manage Courses'),
+                    'description' => __('Manage all courses.'),
+                ],
                 'routes' => [
                     'name' => 'courses.index',
                     'children' => [
                         'courses.edit',
                         'courses.show',
+                        'courses.trashed',
                     ]
                 ],
-                'always_viewable' => true,
-                'labels' => [
-                    'title' => __('Manage Courses'),
-                    'description' => __('Manage list of all courses'),
+                'children' => [
+                    'view-course' => [
+                        'name' => 'view-course',
+                        'order' => 1,
+                        'slug' => route('courses.index'),
+                        'route' => 'courses.index',
+                        // 'icon' => 'supervisor_account',
+                        'always_viewable' => false,
+                        'labels' => [
+                            'title' => __('All Courses'),
+                            'description' => __('Manage list of all courses'),
+                        ],
+                    ],
+                    'create-course' => [
+                        'name' => 'create-course',
+                        'order' => 2,
+                        'slug' => route('courses.create'),
+                        'route' => 'courses.create',
+                        // 'icon' => 'fa-book',
+                        'always_viewable' => false,
+                        'labels' => [
+                            'title' => __('Create Course'),
+                            'description' => __('Create a Course'),
+                        ],
+                    ],
+                    'trashed-course' => [
+                        'name' => 'trashed-course',
+                        'order' => 3,
+                        'slug' => route('courses.trashed'),
+                        'route' => 'courses.trashed',
+                        'always_viewable' => false,
+                        'labels' => [
+                            'title' => __('Trashed Courses'),
+                            'description' => __('View list of all courses moved to trash'),
+                        ],
+                    ],
                 ],
             ],
             'view-enrolled-courses' => [
@@ -53,8 +93,8 @@ return [
                     'description' => __('View your currently enrolled courses'),
                 ],
             ],
-            'all-course' => [
-                'name' => 'all-course',
+            'all-courses' => [
+                'name' => 'all-courses',
                 'order' => 2,
                 'slug' => route('courses.all'),
                 'routes' => [
@@ -68,26 +108,6 @@ return [
                 'labels' => [
                     'title' => __('All Courses'),
                     'description' => __('View the list of all courses'),
-                ],
-            ],
-            'create-course' => [
-                'name' => 'create-course',
-                'order' => 4,
-                'slug' => url(config('path.admin').'/courses/create'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Create Course'),
-                    'description' => __('Create a Course'),
-                ],
-            ],
-            'trashed-course' => [
-                'name' => 'trashed-course',
-                'order' => 6,
-                'slug' => url(config('path.admin').'/courses/trashed'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Trashed Courses'),
-                    'description' => __('View list of all courses moved to trash'),
                 ],
             ],
 
@@ -122,6 +142,29 @@ return [
                     'description' => __('View list of all course categories'),
                 ],
             ],
+        ],
+    ],
+
+
+    /**
+     *--------------------------------------------------------------------------
+     * Profile Menus
+     *--------------------------------------------------------------------------
+     *
+     * Specify here the menus to appear on the sidebar.
+     *
+     */
+    'show-course' => [
+        'name' => 'show-course',
+        'order' => 55,
+        'slug' => route('profile.courses.show', user()->handlename),
+        'route' => 'profile.courses.show',
+        'always_viewable' => false,
+        'parent' => 'profile-group',
+        'icon' => 'fa-book',
+        'labels' => [
+            'title' => __('My Courses'),
+            'description' => __('View your courses here'),
         ],
     ],
 ];

@@ -16,7 +16,22 @@ Route::post('courses/{course}/comment', '\Course\Controllers\CourseController@co
 Route::get('enroll/{course}/{user}', '\Course\Controllers\EnrollController@enroll');
 Route::post('courses/{course}/{user}', '\Course\Controllers\EnrollController@enroll')->name('courses.enroll');
 
-// Course
+// Profile
+Route::get('profile/{handle}/courses', 'CourseProfileController@show')->name('profile.courses.show');
+
+// Categories
 Route::get('courses/categories', 'CategoryController@index')->name('courses.categories.index');
+
+// SoftDelete routes
+Route::get('courses/trashed', 'CourseController@trashed')
+     ->name('courses.trashed');
+
+Route::patch('courses/restore/{course}', 'CourseController@restore')
+     ->name('courses.restore');
+
+Route::delete('courses/delete/{course}', 'CourseController@delete')
+     ->name('courses.delete');
+
+// Course
 Route::resource('courses', 'CourseController');
 

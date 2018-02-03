@@ -81,7 +81,7 @@ class CourseController extends GeneralController
         $course->backdrop = $request->input('backdrop');
         $course->body = $request->input('body');
         $course->delta = $request->input('delta');
-        $course->lockable = $request->input('lockable') ? $request->input('lockable') : false;
+        // $course->lockable = $request->input('lockable') ? $request->input('lockable') : false;
         $course->category()->associate(Category::find($request->input('category_id')));
         $course->user()->associate(user());
         $course->save();
@@ -90,7 +90,7 @@ class CourseController extends GeneralController
         collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
             $lesson = new Lesson();
             $lesson->sort = $input->sort;
-            $lesson->feature = $input->feature ? $input->feature : null;
+            $lesson->feature = $input->feature ?? null;
             $lesson->title = $input->title;
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;
@@ -160,7 +160,7 @@ class CourseController extends GeneralController
         $course->backdrop = $request->input('backdrop');
         $course->body = $request->input('body');
         $course->delta = $request->input('delta');
-        $course->lockable = $request->input('lockable') ? $request->input('lockable') : false;
+        // $course->lockable = $request->input('lockable') ? $request->input('lockable') : false;
         $course->category()->associate(Category::find($request->input('category_id')));
         // $course->user()->associate(user()); // Don't Change the original author
         $course->save();
@@ -170,7 +170,7 @@ class CourseController extends GeneralController
         collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
             $lesson = Lesson::findOrNew($input->id);
             $lesson->sort = $input->sort;
-            $lesson->feature = $input->feature ? $input->feature : null;
+            $lesson->feature = $input->feature ?? null;
             $lesson->title = $input->title;
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;

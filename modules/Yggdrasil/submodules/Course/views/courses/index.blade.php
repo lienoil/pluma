@@ -31,8 +31,12 @@
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap fill-height>
+            <v-flex sm3 md2>
+                @include("Setting::partials.settingsbar")
+            </v-flex>
+
             <v-flex
-                lg3 md4
+                sm9 md10
                 v-for="(card, i) in dataset.items"
                 :key="card.id">
                 <v-card ripple class="elevation-1 flex pa-0" height="100%">

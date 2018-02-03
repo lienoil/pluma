@@ -2,16 +2,16 @@
 
 return [
     /**
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Users
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Menu configurations.
      *
      */
     'user' => [
         'name' => 'user',
         'order' => 600,
-        'slug' => url(config('path.admin').'/users'),
+        'slug' => route('users.index'),
         'always_viewable' => false,
         'icon' => 'account_box',
         'labels' => [
@@ -22,7 +22,7 @@ return [
             'view-user' => [
                 'name' => 'view-user',
                 'order' => 1,
-                'slug' => url(config('path.admin').'/users'),
+                'slug' => route('users.index'),
                 // 'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.index',
@@ -42,7 +42,7 @@ return [
                 'name' => 'create-user',
                 'order' => 2,
                 'slug' => url(config('path.admin').'/users/create'),
-                // 'always_viewable' => false,
+                'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.create',
                 ],
