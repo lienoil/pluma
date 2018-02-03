@@ -2,11 +2,21 @@
     <v-list class="transparent">
 
         @if (isset(navigations('parent')->children))
+            @if (isset(navigations('parent')->display_as_header))
+                <v-subheader>
+                    @if (isset(navigations('parent')->icon))
+                        <v-icon left>{{ navigations('parent')->icon }}</v-icon>
+                    @endif
+                    {{ navigations('parent')->labels->title }}
+                </v-subheader>
+            @endif
             @foreach (navigations('parent')->children as $menu)
                 <v-list-tile href="{{ $menu->url }}" title="{{ @$menu->labels->description }}">
-                    <v-list-tile-action>
-                        <v-icon :class="{'primary--text': '{{ $menu->active }}'}">{{ @$menu->icon }}</v-icon>
-                    </v-list-tile-action>
+                    @if (@$menu->icon)
+                        <v-list-tile-action>
+                            <v-icon :class="{'primary--text': '{{ $menu->active }}'}">{{ @$menu->icon }}</v-icon>
+                        </v-list-tile-action>
+                    @endif
                     <v-list-tile-content>
                         <v-list-tile-title
                             :class="{'primary--text': '{{ $menu->active }}'}"

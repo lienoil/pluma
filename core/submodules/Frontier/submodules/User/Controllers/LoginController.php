@@ -33,14 +33,14 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'login.show';
+    protected $redirectTo = 'login';
 
     /**
      * Redirect path upon successful logout.
      *
      * @var string
      */
-    protected $logoutPath = 'login.show';
+    protected $logoutPath = '/';
 
     /**
      * Create a new controller instance.
@@ -51,11 +51,11 @@ class LoginController extends Controller
     {
         $this->middleware('auth.guest', ['except' => 'logout']);
 
-        $this->logoutPath = route(config('path.redirect_after_logout', $this->logoutPath));
+        $this->logoutPath = config('path.redirect_after_logout', $this->logoutPath);
 
         $this->redirectPath = route(config('path.dashboard', $this->redirectPath));
 
-        $this->redirectTo = route(config('path.login', $this->redirectTo));
+        $this->redirectTo = config('path.login', $this->redirectTo);
     }
 
     /**

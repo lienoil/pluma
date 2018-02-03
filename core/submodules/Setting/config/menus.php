@@ -39,7 +39,7 @@ return [
              */
             'general-settings-group' => [
                 'name' => 'general-settings-group',
-                'slug' => route('settings.general'),
+                'slug' => route('settings.display'),
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'labels' => [
@@ -51,20 +51,21 @@ return [
                     'children' => [
                         'settings.general',
                         'settings.display',
+                        'settings.datetime',
                     ]
                 ],
                 'children' => [
-                    'general-settings' => [
-                        'name' => 'general-settings',
-                        'slug' => route('settings.general'),
-                        'route' => 'settings.general',
-                        'icon' => 'fa-leaf',
-                        'order' => 1,
-                        'labels' => [
-                            'title' => __('General Options'),
-                            'description' => __('Manage general options'),
-                        ],
-                    ],
+                    // 'general-settings' => [
+                    //     'name' => 'general-settings',
+                    //     'slug' => route('settings.general'),
+                    //     'route' => 'settings.general',
+                    //     'icon' => 'fa-leaf',
+                    //     'order' => 1,
+                    //     'labels' => [
+                    //         'title' => __('General Options'),
+                    //         'description' => __('Manage general options'),
+                    //     ],
+                    // ],
 
                     'display-settings' => [
                         'name' => 'display-settings',

@@ -11,7 +11,7 @@ trait DetailTrait
      * @param  string  $default
      * @return string
      */
-    public function detail($key, $default = "")
+    public function detail($key, $default = null)
     {
         $query = $this->details()->where('key', $key)->first();
 

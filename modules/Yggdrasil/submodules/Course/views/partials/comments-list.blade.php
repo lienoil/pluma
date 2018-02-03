@@ -1,3 +1,6 @@
+@if (empty($comments))
+    <div class="text-xs-center body-1 grey--text">{{ __('Lay thine eyes upon this field of discourse and thou shalt see that it is barren.') }}</div>
+@endif
 @foreach ($comments as $comment)
     <v-card flat tile class="transparent">
         <v-list>

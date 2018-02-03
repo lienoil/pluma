@@ -29,7 +29,22 @@ class User extends Authenticatable
 
     protected $with = ['roles'];
 
-    protected $appends = ['handlename', 'propername', 'displayname', 'displayrole', 'fullname', 'created', 'modified'];
+    protected $appends = [
+        'handlename',
+        'propername',
+        'displayname',
+        'displayrole',
+        'fullname',
+        'created',
+        'modified',
+    ];
 
-    protected $searchables = ['firstname', 'middlename', 'lastname', 'username', 'prefixname', 'email'];
+    protected $searchables = [
+        'firstname',
+        'middlename',
+        'lastname',
+        'username',
+        'prefixname',
+        'email',
+    ];
 }

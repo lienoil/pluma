@@ -113,4 +113,14 @@ trait UserMutator
         $placeholder = $this->id == user()->id ? __("A short description about yourself will look nice here.") : __("The user haven't shared their bio yet.");
         return isset($this->details) && ! empty($this->details->bio) ? $this->details->bio : $placeholder;
     }
+
+    /**
+     * Gets the mutated email of the resource.
+     *
+     * @return string
+     */
+    public function getDisplayemailAttribute()
+    {
+        return $this->settings('keep_email_private') ? '' : $this->email;
+    }
 }

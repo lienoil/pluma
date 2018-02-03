@@ -16,7 +16,6 @@ class Field extends Model
 {
     use SoftDeletes, SlugOrFail, BelongsToUser, BelongsToFieldtype, BelongsToForm, HasManyFields, FieldMutatorTrait, TemplateTrait;
 
-
     protected $fillable = ['id', 'name', 'code', 'action', 'method', 'type', 'attributes', 'body', 'delta', 'success_message', 'error_message'];
 
     protected $appends = ['author', 'created', 'modified', 'removed'];

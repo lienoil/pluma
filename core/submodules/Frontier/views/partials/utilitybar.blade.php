@@ -2,7 +2,7 @@
 
 <v-toolbar
     :class="theme.utilitybar"
-    class="elevation-1 grey--text"
+    class="elevation-3 grey--text"
     fixed
     {{-- app --}}
     {{-- scroll-off-screen --}}

@@ -20,20 +20,6 @@ class FieldController extends GeneralController
     use FieldResourcePublicTrait, FieldResourceSoftDeleteTrait, FieldResourceApiTrait;
 
     /**
-     * The view hintpath.
-     *
-     * @var string
-     */
-    protected $hintpath;
-
-    /**
-     * The category type of the resource.
-     *
-     * @var string
-     */
-    protected $type;
-
-    /**
      * Show list of resources.
      *
      * @param  Request $request
@@ -44,7 +30,7 @@ class FieldController extends GeneralController
         $resources = Field::search($request->all())->paginate();
         $trashed = Field::onlyTrashed()->count();
 
-        return view("Field::fields.index")->with(compact('resources', 'trashed'));
+        return view("Theme::fields.index")->with(compact('resources', 'trashed'));
     }
 
     /**
