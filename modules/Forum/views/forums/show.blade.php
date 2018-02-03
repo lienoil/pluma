@@ -11,9 +11,9 @@
         </v-btn>
     </v-toolbar>
     <v-container fluid grid-list-lg>
-        <v-layout row wrap>
+        @include("Frontier::partials.banner")
 
-            @include("Frontier::partials.banner")
+        <v-layout row wrap>
 
             <v-flex xs12 md8 offset-md2>
                 <v-card class="grey--text elevation-1 card--flex-toolbar">

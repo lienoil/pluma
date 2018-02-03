@@ -79,7 +79,7 @@ trait UserMutator
      */
     public function getDisplaynameAttribute()
     {
-        $displayname = config('settings.display_name', "%firstname% %middleinitial% %lastname%");
+        $displayname = settings('display_name', "%firstname% %middleinitial% %lastname%");
         $displayname = preg_replace('/%firstname%/', $this->firstname, $displayname);
         $displayname = preg_replace('/%lastname%/', $this->lastname, $displayname);
         $displayname = preg_replace('/%middlename%/', $this->middlename, $displayname);
@@ -121,6 +121,8 @@ trait UserMutator
      */
     public function getDisplayemailAttribute()
     {
-        return $this->settings('keep_email_private') ? '' : $this->email;
+        return ! (bool) $this->setting('keep_email_private', false)
+                ? $this->email
+                : '';
     }
 }

@@ -5,7 +5,7 @@
 @section("content")
 
     {{-- @include("Profile::partials.profile-banner") --}}
-    <v-toolbar dark class="elevation-1 {{ $resource->detail('backdrop') }}">
+    <v-toolbar dark class="elevation-1 sticky {{ $resource->detail('backdrop') }}">
     	<v-toolbar-title dark primary-title class="subheading">{{ __('Profile Settings') }}</v-toolbar-title>
     </v-toolbar>
 

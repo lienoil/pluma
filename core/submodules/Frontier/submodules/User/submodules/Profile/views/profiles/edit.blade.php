@@ -50,6 +50,12 @@
             </v-flex xs12>
         </v-layout>
     </v-parallax>
+    {{-- <v-toolbar dark class="elevation-2 sticky" :class="resource.details.backdrop">
+        <v-toolbar-title>
+            <div class="title pt-2" v-html="`${resource.firstname} ${resource.lastname}`"></div>
+            <div class="subheading pb-2">{{ $resource->displayrole }}</div>
+        </v-toolbar-title>
+    </v-toolbar> --}}
 
     @include("Frontier::partials.banner")
 
@@ -168,8 +174,8 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn flat href="{{ route('profile.show', $resource->handlename) }}">{{ __('Cancel') }}</v-btn>
                             <v-btn outline primary type="submit">{{ __('Save') }}</v-btn>
+                            <v-btn flat href="{{ route('profile.show', $resource->handlename) }}">{{ __('Cancel') }}</v-btn>
                         </v-card-actions>
                     </v-card>
                 </form>
@@ -206,13 +212,17 @@
                     },
                     avatars: {!! json_encode($avatars) !!},
                     backdrops: [
+                        {name: '{{ __('Default') }}', value: 'accent'},
                         {name: '{{ __('Cherry Red') }}', value: 'red lighten-1'},
                         {name: '{{ __('Ocean Blue') }}', value: 'blue lighten-1'},
-                        {name: '{{ __('Green Fields') }}', value: 'green lighten-1'},
+                        {name: '{{ __('Indigo Go') }}', value: 'indigo lighten-1'},
+                        {name: '{{ __('Green Field') }}', value: 'green lighten-1'},
+                        {name: '{{ __('Morning Teal') }}', value: 'teal lighten-1'},
+                        {name: '{{ __('Tangerine Tree') }}', value: 'orange lighten-1'},
                         {name: '{{ __('Sunlight Yellow') }}', value: 'yellow lighten-1'},
                         {name: '{{ __('Hot Pink') }}', value: 'pink lighten-1'},
-                        {name: '{{ __('Pure Black') }}', value: 'black lighten-1'},
-                        {name: '{{ __('Deep Grey') }}', value: 'grey darken-3'},
+                        {name: '{{ __('Deep Black') }}', value: 'black lighten-3'},
+                        {name: '{{ __('Space Gray') }}', value: 'grey darken-3'},
                     ],
                 }
             },

@@ -28,7 +28,7 @@ class CreateAssignmentsTable extends Migration
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('code')->unique();
+            $table->string('code')->nullable();
             $table->text('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
