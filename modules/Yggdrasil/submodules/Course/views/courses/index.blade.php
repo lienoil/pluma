@@ -49,9 +49,9 @@
                                         <v-btn icon v-if="card.bookmarked" class="red darken-1" v-tooltip:right="{html:'{{ __('Remove from Bookmarked') }}'}" @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})"><v-icon small class="white--text">fa-bookmark</v-icon></v-btn>
                                         {{-- /If Bookmarked --}}
                                         <v-spacer></v-spacer>
-                                        @can('bookmark-course')
+                                        @can('bookmark-course')s
                                         <v-menu full-width bottom left>
-                                            <v-btn slot='activator' dark icon><v-icon>more_vert</v-icon></v-btn>
+                                            <v-btn slot='activator' dark icon v-toolbar:left="{ 'html': 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
                                             <v-card>
                                                 <v-list>
                                                     @can('bookmark-course')
