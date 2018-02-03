@@ -31,7 +31,6 @@
                     </v-list-tile>
                 </v-list>
             </v-menu>
-
             <v-spacer></v-spacer>
             <span class="caption" v-if="bulk.selection.model" v-html="`${dataset.selected.length}/${dataset.pagination.totalItems} Selected`"></span>
             <v-spacer v-if="bulk.selection.model"></v-spacer>
@@ -171,7 +170,7 @@
                     v-bind="bulk.selection.model?{'select-all':'primary'}:null"
                     v-model="dataset.selected"
                     @pagination="datasetbox().pagination($event)"
-                >
+                    >
                     <template slot="items" scope="{prop}">
                         <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
                             <td v-if="bulk.selection.model">
@@ -199,20 +198,34 @@
                         <v-card-media height="250px" :src="prop.item.thumbnail" class="grey lighten-4">
                             <v-container fill-height class="pa-0 white--text">
                                 <v-layout fill-height wrap column>
-                                    {{-- <v-scale-transition>
-                                        <v-btn v-show="bulk.selection.model" icon small class="white success--text" ripple @click.stop="prop.selected = !prop.selected">
-                                            <v-icon v-if="prop.selected" ripple small class="success--text">check_circle</v-icon>
-                                            <v-icon v-else ripple small class="success--text">radio_button_unchecked</v-icon>
-                                        </v-btn>
-                                    </v-scale-transition> --}}
-                                    <v-spacer></v-spacer>
+                                    <div class="text-xs-right pa-2">
+                                        <v-menu bottom left>
+                                            <v-btn v-tooltip:left="{ html: 'More Action' }" dark icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                            <v-list>
+                                                <v-list-tile ripple @click="$refs[`destroy_${prop.item.id}`].submit()">
+                                                   <v-list-tile-action>
+                                                       <v-icon warning>delete</v-icon>
+                                                   </v-list-tile-action>
+                                                   <v-list-tile-content>
+                                                       <v-list-tile-title>
+                                                           <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.library.destroy, prop.item.id)" method="POST">
+                                                               {{ csrf_field() }}
+                                                               {{ method_field('DELETE') }}
+                                                               {{ __('Move to Trash') }}
+                                                           </form>
+                                                       </v-list-tile-title>
+                                                   </v-list-tile-content>
+                                               </v-list-tile>
+                                            </v-list>
+                                        </v-menu>
+                                    </div>
                                 </v-layout>
                             </v-container>
                         </v-card-media>
                         {{-- <v-divider></v-divider> --}}
-                        <v-toolbar card dense class="transparent">
+                        <v-toolbar card dense class="transparent py-2">
                             <v-toolbar-title class="subheading">
-                                <span v-html="prop.item.name"></span>
+                                <span class="body-1" v-html="prop.item.name"></span>
                                 <div class="caption grey--text" v-html="prop.item.filesize"></div>
                             </v-toolbar-title>
                             <v-spacer></v-spacer>
@@ -226,36 +239,6 @@
                     </template>
                 </v-dataset>
             </v-flex>
-            {{-- <v-flex fill-height md3 v-for="(item, i) in dataset.items" :key="i">
-                <v-card tile class="elevation-1" @click.stop="item.active = !item.active">
-                    <v-card-media height="250px" :src="item.thumbnail" class="grey lighten-4">
-                        <v-container fill-height class="pa-0 white--text">
-                            <v-layout fill-height wrap column>
-                                <v-scale-transition>
-                                    <v-btn v-show="bulk.selection.model" icon small class="white success--text" ripple @click.stop="item.active = !item.active">
-                                        <v-icon v-if="!item.active" ripple small class="success--text">radio_button_unchecked</v-icon>
-                                        <v-icon v-else ripple small class="success--text">check_circle</v-icon>
-                                    </v-btn>
-                                </v-scale-transition>
-                                <v-spacer></v-spacer>
-                                <v-card-actions class="px-2 white--text">
-                                </v-card-actions>
-                            </v-layout>
-                        </v-container>
-                    </v-card-media>
-                    <v-toolbar card dense class="transparent">
-                        <v-toolbar-title class="subheading" v-html="item.name"></v-toolbar-title>
-
-                        <v-spacer></v-spacer>
-                        <v-btn small absolute fab top right class="info darken-1 elevation-1"><v-icon class="white--text" v-html="item.icon"></v-icon></v-btn>
-                    </v-toolbar>
-                    <v-card-actions class="grey--text px-2">
-                        <span class="caption" v-html="item.mimetype"></span>
-                        <v-spacer></v-spacer>
-                        <span class="caption" v-html="item.filesize"></span>
-                    </v-card-actions>
-                </v-card>
-            </v-flex> --}}
         </v-layout>
     </v-container>
 @endsection
@@ -323,6 +306,7 @@
                         library: {
                             catalogue: '{{ route('api.library.catalogue', 'null') }}',
                             index: '{{ route('library.index') }}',
+                            destroy: '{{ route('library.destroy', 'null') }}',
                         },
                     },
 

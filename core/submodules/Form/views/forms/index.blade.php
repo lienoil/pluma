@@ -99,12 +99,12 @@
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td>
-                                <a class="black--text td-n" :href="route(urls.forms.show, (prop.item.id))">
+                                <a class="td-n" :href="route(urls.forms.show, (prop.item.id))">
                                     <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
                                 </a>
                             </td>
                             <td v-html="prop.item.code"></td>
-                            <td><a class="grey--text text--darken-4" class="fw-500" :href="`{{ route('forms.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
+                            <td><a class="grey--text text--darken-4" class="fw-500 td-n" :href="`{{ route('forms.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
                             <td v-html="prop.item.method"></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>

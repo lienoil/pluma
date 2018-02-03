@@ -83,11 +83,11 @@
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td class="text-xs-center"><img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.title"></td>
-                            <td><a :href="route(urls.pages.edit, (prop.item.id))"><strong v-html="prop.item.title"></strong></a></td>
+                            <td><a :href="route(urls.pages.edit, (prop.item.id))" class="td-n"><strong v-html="prop.item.title"></strong></a></td>
                             <td v-html="prop.item.code"></td>
-                            <td><a :href="`{{ route('pages.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
+                            <td><a :href="`{{ route('pages.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.author"></a></td>
                             {{-- <td v-html="prop.item.author"></td> --}}
-                            <td><a :href="`{{ route('pages.index') }}?template=${prop.item.template}`" v-html="prop.item.template"></a></td>
+                            <td><a :href="`{{ route('pages.index') }}?template=${prop.item.template}`" class="td-n black--text" v-html="prop.item.template"></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">

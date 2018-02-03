@@ -112,7 +112,7 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile ripple @click="$refs.delete.submit()">
+                                        {{-- <v-list-tile ripple @click="$refs.delete.submit()">
                                             <v-list-tile-action>
                                                 <v-icon warning>delete</v-icon>
                                             </v-list-tile-action>
@@ -125,7 +125,7 @@
                                                     </form>
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
-                                        </v-list-tile>
+                                        </v-list-tile> --}}
                                     </v-list>
                                 </v-menu>
                             </td>

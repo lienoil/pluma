@@ -114,13 +114,13 @@ class LibraryController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        //
+        Library::destroy($request->has('id') ? $request->input('id') : $id);
 
         return redirect()->route('library.index');
     }
@@ -160,7 +160,7 @@ class LibraryController extends AdminController
      */
     public function delete(LibraryRequest $request, $id)
     {
-        //
+
 
         return redirect()->route('library.trash');
     }

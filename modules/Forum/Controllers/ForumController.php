@@ -9,13 +9,14 @@ use Forum\Models\Forum;
 use Forum\Requests\ForumRequest;
 use Forum\Support\Traits\CanCommentTrait;
 use Forum\Support\Traits\ForumResourceApiTrait;
+use Forum\Support\Traits\ForumResourceSoftDeleteTrait;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use User\Models\User;
 
 class ForumController extends GeneralController
 {
-    use ForumResourceApiTrait, CanCommentTrait;
+    use ForumResourceApiTrait, CanCommentTrait, ForumResourceSoftDeleteTrait;
 
     /**
      * Display a listing of the resource.
@@ -120,10 +121,10 @@ class ForumController extends GeneralController
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id = null)
+    public function destroy(Request $request, $id)
     {
         Forum::destroy($request->has('id') ? $request->input('id') : $id);
 
-        return back();
+        return redirect()->route('forums.index');
     }
 }

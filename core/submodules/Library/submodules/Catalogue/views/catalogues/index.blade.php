@@ -179,7 +179,7 @@
                             <td>@{{ prop.item.id }}</td>
                             <td><v-icon v-html="prop.item.icon"></v-icon></td>
                             <td width="100%">
-                                <a :href="route(urls.catalogues.edit, prop.item.id)">
+                                <a :href="route(urls.catalogues.edit, prop.item.id)" class="td-n">
                                     <strong v-tooltip:bottom="{'html': prop.item.description ? prop.item.description : prop.item.name}">@{{ prop.item.name }}</strong>
                                 </a>
                             </td>

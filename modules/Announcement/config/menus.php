@@ -49,7 +49,7 @@ return [
             'trashed-announcements' => [
                 'name' => 'trashed-announcements',
                 'order' => 3,
-                'slug' => url(config('path.admin').'/announcements/trash'),
+                'slug' => url(config('path.admin').'/announcements/trashed'),
                 'always_viewable' => false,
                 'icon' => 'delete',
                 'labels' => [

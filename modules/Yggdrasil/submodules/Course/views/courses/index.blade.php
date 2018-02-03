@@ -88,7 +88,7 @@
                                         @endcan
                                     </v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-card-actions>
+                                    <v-card-actions class="pa-3">
                                         <v-avatar v-if="card.feature" size="80px">
                                             <img v-if="card.feature" :src="card.feature" :alt="card.title">
                                         </v-avatar>
@@ -114,8 +114,7 @@
                             <a :href="`{{ url('/admin/profile/' . v('card.user.handlename', true)) }}`" class="caption grey--text td-n" v-html="card.user.fullname"></a>
                         </v-card-actions>
 
-                        <v-card-actions class="transparent">
-
+                        <v-card-actions class="pa-0 transparent">
                             <span class="text-xs-center caption pa-1 grey--text">
                                 <v-icon class="caption" left>class</v-icon>
                                 <span v-html="card.code"></span>
@@ -124,6 +123,8 @@
                                 <v-icon class="caption" left>fa-tasks</v-icon>
                                 <span v-html="`${card.lessons.length} ${(card.lessons.length <= 1 ? '{{ __('Part') }}' : '{{ __('Parts') }}')}`"></span>
                             </span>
+                        </v-card-actions>
+                        <v-card-actions class="pa-0">
                             <span v-if="card.category" class="caption pa-1 grey--text">
                                 <v-icon class="caption" left>label</v-icon>
                                 <span v-html="card.category.name"></span>
@@ -158,6 +159,14 @@
         </v-layout>
     </v-container>
 @endsection
+
+@push('css')
+    <style>
+        .td-n:hover {
+            text-decoration: none !important;
+        }
+    </style>
+@endpush
 
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>

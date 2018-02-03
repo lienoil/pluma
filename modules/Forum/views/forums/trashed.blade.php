@@ -23,7 +23,7 @@
                         {{-- Bulk Restore --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                <form :action="route(urls.pages.restore, false)" method="POST" class="inline">
+                                <form :action="route(urls.restore, false)" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('PATCH') }}
                                     <template v-for="item in dataset.selected">
@@ -39,7 +39,7 @@
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
                                 {{-- Delete --}}
-                                <form :action="route(urls.pages.delete, false)" method="POST" class="inline">
+                                <form :action="route(urls.delete, false)" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <template v-for="item in dataset.selected">
@@ -83,10 +83,11 @@
                         <template slot="items" scope="prop">
                             <td class="grey--text text--darken-1" v-show="bulk.commands.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.id"></td>
-                            <td class="grey--text text--darken-1"><strong v-html="prop.item.title"></strong></td>
+                            <td class="grey--text text--darken-1"><strong v-html="prop.item.name"></strong></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.code"></td>
+                            <td class="grey--text text--darken-1" v-html="prop.item.excerpt"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.author"></td>
-                            <td class="grey--text text--darken-1" v-html="prop.item.template"></td>
+                            <td class="grey--text text--darken-1"><span v-if="prop.item.category"><v-icon left class="body-2" v-html="prop.item.category.icon"></v-icon><span v-html="prop.item.category.name"></span></span></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.created"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.removed"></td>
                             <td class="grey--text text--darken-1 text-xs-center">
@@ -99,7 +100,7 @@
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form :id="`restore_${prop.item.id}`" :ref="`restore_${prop.item.id}`" :action="route(urls.pages.restore, prop.item.id)" method="POST">
+                                                    <form :id="`restore_${prop.item.id}`" :ref="`restore_${prop.item.id}`" :action="route(urls.restore, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('PATCH') }}
                                                         {{ __('Restore') }}
@@ -113,7 +114,7 @@
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form :id="`delete_${prop.item.id}`" :ref="`delete_${prop.item.id}`" :action="route(urls.pages.delete, prop.item.id)" method="POST">
+                                                    <form :id="`delete_${prop.item.id}`" :ref="`delete_${prop.item.id}`" :action="route(urls.delete, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Delete Permanently') }}
@@ -146,20 +147,19 @@
                         },
                     },
                     urls: {
-                        pages: {
-                            restore: '{{ route('pages.restore', 'null') }}',
-                            delete: '{{ route('pages.delete', 'null') }}',
-                        }
+                        restore: '{{ route('forums.restore', 'null') }}',
+                        delete: '{{ route('forums.delete', 'null') }}',
                     },
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                            { text: '{{ __("Title") }}', align: 'left', value: 'title' },
+                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                            { text: '{{ __("Excerpt") }}', align: 'left', value: 'body' },
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
-                            { text: '{{ __("Template") }}', align: 'left', value: 'template' },
+                            { text: '{{ __("Category") }}', align: 'left', value: 'category_at' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
-                            { text: '{{ __("Removed") }}', align: 'left', value: 'deleted_at' },
+                            { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
@@ -187,18 +187,18 @@
 
                 'dataset.searchform.query': function (filter) {
                     setTimeout(() => {
-                        const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                        const { sortBy, descending, forum, rowsPerPage } = this.dataset.pagination;
 
                         let query = {
                             descending: descending,
-                            page: page,
+                            forum: forum,
                             search: filter,
                             sort: sortBy,
                             take: rowsPerPage,
                             only_trashed: true,
                         };
 
-                        this.api().search('{{ route('api.pages.all') }}', query)
+                        this.api().search('{{ route('api.forums.all') }}', query)
                             .then((data) => {
                                 this.dataset.items = data.items.data ? data.items.data : data.items;
                                 this.dataset.totalItems = data.items.total ? data.items.total : data.total;
@@ -210,15 +210,15 @@
 
             methods: {
                 get () {
-                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    const { sortBy, descending, forum, rowsPerPage } = this.dataset.pagination;
                     let query = {
                         descending: descending,
-                        page: page,
+                        forum: forum,
                         sort: sortBy,
                         take: rowsPerPage,
                         only_trashed: true,
                     };
-                    this.api().get('{{ route('api.pages.all') }}', query)
+                    this.api().get('{{ route('api.forums.all') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
                             this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;

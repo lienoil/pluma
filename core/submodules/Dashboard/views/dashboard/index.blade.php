@@ -12,7 +12,7 @@
 
         <v-card class="elevation-0 transparent my-2">
             <v-card-text class="px-0">
-                <p class="title">{{ __("Hey there, " . user()->firstname . "!") }}</p>
+                <p class="title mb-1">{{ __("Hey there, " . user()->firstname . "!") }}</p>
                 <div>{{ __("Here's some things to note since you left.") }}</div>
             </v-card-text>
         </v-card>
