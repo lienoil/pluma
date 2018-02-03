@@ -5,9 +5,9 @@
 
 
 @section("content")
-    <form action="{{ route('announcements.store') }}" method="POST">
+    <v-container fluid grid-list-lg>
+        <form action="{{ route('announcements.store') }}" method="POST">
         {{ csrf_field() }}
-        <v-container fluid grid-list-lg>
             @include("Theme::partials.banner")
 
             <v-layout row wrap>
@@ -123,11 +123,10 @@
                     @include("Theme::interactives.featured-image")
 
                     @include("Theme::cards.category")
-
                 </v-flex>
             </v-layout>
-        </v-container>
-    </form>
+        </form>
+    </v-container>
 @endsection
 
 @push('css')

@@ -10,26 +10,31 @@
     <v-container fluid grid-list-lg>
         @include("Dashboard::widgets.glance")
 
-        <v-layout row wrap>
+        <v-card class="elevation-0 transparent my-2">
+            <v-card-text class="px-0">
+                <p class="title">{{ __("Hey there, " . user()->firstname . "!") }}</p>
+                <div>{{ __("Here's some things to note since you left.") }}</div>
+            </v-card-text>
+        </v-card>
 
-           {{--  <v-flex xs6 sm4>
+        <v-layout row wrap>
+            <v-flex xs12 sm6 md4>
                 @foreach (widgets("dashboard.2.1", "location") as $widget)
                     @include($widget->view)
                 @endforeach
-            </v-flex> --}}
+            </v-flex>
 
-           {{--  <v-flex xs6 sm4>
+            <v-flex xs12 sm6 md4>
                 @foreach (widgets("dashboard.2.2", "location") as $widget)
                     @include($widget->view)
                 @endforeach
             </v-flex>
 
-            <v-flex xs6 sm4>
+            <v-flex xs12 sm6 md4>
                 @foreach (widgets("dashboard.2.3", "location") as $widget)
                     @include($widget->view)
                 @endforeach
-            </v-flex> --}}
-
+            </v-flex>
         </v-layout>
     </v-container>
     {{-- Location: dashboard.2.12 --}}

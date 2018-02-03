@@ -68,25 +68,21 @@
 
                         <v-divider></v-divider>
 
-                        <v-card-text>
-                            {{-- mediabox --}}
+                        {{-- <v-card-text>
                             <v-card class="elevation-1">
                                 <v-toolbar class="elevation-0"><v-toolbar-title>Test</v-toolbar-title></v-toolbar>
                                 <v-card-text>
                                     @include("Setting::interactives.test")
                                 </v-card-text>
                             </v-card>
-                            {{-- /mediabox --}}
 
-                            {{-- mediabox --}}
                             <v-card class="elevation-1">
                                 <v-toolbar class="elevation-0"><v-toolbar-title>Test 2</v-toolbar-title></v-toolbar>
                                 <v-card-text>
                                     @include("Setting::interactives.test2")
                                 </v-card-text>
                             </v-card>
-                            {{-- /mediabox --}}
-                        </v-card-text>
+                        </v-card-text> --}}
 
                         <v-card-actions>
                             <v-spacer></v-spacer>

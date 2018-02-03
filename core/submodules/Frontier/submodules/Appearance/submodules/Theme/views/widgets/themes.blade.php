@@ -2,27 +2,21 @@
     <draggable
         class="sortable-container"
         :options="{animation: 150, handle: '.sortable-handle', group: 'widgets', draggable: '.draggable-widget', forceFallback: true}"
-    >
-        <v-card tile class="elevation-1 mb-3 draggable-widget">
-            <v-card-media class="primary sortable-handle" height="auto" src="{{ get_active_theme()->preview }}">
-                <v-layout column wrap flex-end fill-height>
-                    <v-flex sm12 fill-height>
-                        <v-card flat dark class="transparent">
-                            <v-card-title primary-title>
-                                <h3 class="subheading">
-                                    <strong>{{ __('Theme:') }}</strong> {{ get_active_theme()->name }}
-                                </h3>
-                                <v-spacer></v-spacer>
-                            </v-card-title>
-                            <v-card-actions>
-                                <v-chip label class="primary white--text"><v-icon left>format_paint</v-icon>{{ __('currently applied as the site theme') }}</v-chip>
-                                <v-spacer></v-spacer>
-                                <v-btn primary class="elevation-1" href="{{ route('themes.index') }}">{{ __('Change') }}</v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
+        >
+        <v-card class="elevation-1 draggable-widget">
+            <v-card-media height="150px" class="sortable-handle" src="{{ get_active_theme()->preview }}">
+                <v-card-text class="headline white--text">
+                    <strong>{{ get_active_theme()->name }}</strong>
+                </v-card-text>
             </v-card-media>
+            <v-card-text>
+                <div class="mb-2 uppercase">{{ __('Theme:') }}  <strong>{{ get_active_theme()->name }}</strong></div>
+            </v-card-text>
+            <v-card-actions class="mx-2">
+                <div class="mb-2 grey--text caption"><em>{{ __('currently applied as the site theme') }}</em></div>
+                <v-spacer></v-spacer>
+                <v-btn primary class="mb-2 elevation-1" href="{{ route('themes.index') }}">{{ __('Change') }}</v-btn>
+            </v-card-actions>
         </v-card>
     </draggable>
 @endviewable

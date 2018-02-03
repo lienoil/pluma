@@ -10,7 +10,7 @@
 
                     <v-card class="elevation-1 mb-1">
                         <v-layout row wrap>
-                            <v-flex md5 xs12 class="accent lighten-1">
+                            <v-flex md5 xs12 class="light-blue lighten-1">
                                 <v-layout row wrap justify-center align-center>
                                     <v-flex xs12>
                                         <v-card class="elevation-0 transparent white--text" height="100%">
