@@ -227,11 +227,11 @@ class CourseController extends GeneralController
      *
      * @return \Illuminate\Http\Response
      */
-    public function trash()
+    public function trashed()
     {
         //
 
-        return view("Theme::courses.trash");
+        return view("Theme::courses.trashed");
     }
 
     /**

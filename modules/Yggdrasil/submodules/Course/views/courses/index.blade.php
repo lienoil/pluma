@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="mb-3 elevation-1 info sticky">
+    <v-toolbar dark class="elevation-1 info sticky">
         <v-menu transition="slide-y-transition">
             <v-btn flat slot="activator" class="white--text">
                 <v-icon left>perm_media</v-icon>
@@ -31,12 +31,12 @@
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap fill-height>
-            <v-flex sm3 md2>
+            {{-- <v-flex sm3 md2>
                 @include("Setting::partials.settingsbar")
-            </v-flex>
+            </v-flex> --}}
 
             <v-flex
-                sm9 md10
+                sm4 xs12
                 v-for="(card, i) in dataset.items"
                 :key="card.id">
                 <v-card ripple class="elevation-1 flex pa-0" height="100%">

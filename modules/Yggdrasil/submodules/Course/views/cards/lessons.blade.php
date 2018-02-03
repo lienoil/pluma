@@ -68,7 +68,7 @@
                         {{-- lessons --}}
                         {{-- <v-scale-transition> --}}
                             <v-card flat tile v-show="draggable.active" transition="slide-y-transition">
-                                <v-card dark flat class="grey lighten-4 mb-3">
+                                {{-- <v-card dark flat class="grey lighten-4 mb-3">
                                     <v-toolbar dense card class="grey lighten-4">
                                         <v-toolbar-title class="grey--text text--darken-1 subheading">{{ __("Lesson Banner") }}</v-toolbar-title>
                                     </v-toolbar>
@@ -97,7 +97,7 @@
                                     </v-card-actions>
                                 </v-card>
 
-                                <v-divider></v-divider>
+                                <v-divider></v-divider> --}}
 
                                 <input v-if="draggable.resource.feature" type="hidden" :name="`lessons[${key}][feature]`" :value="draggable.resource.feature.thumbnail">
                                 <v-layout row wrap>

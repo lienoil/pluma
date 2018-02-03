@@ -337,7 +337,7 @@
                             // Initialize the API with options.
                             window.API.init('{{ $resource->version }}', {
                                 _token: '{{ csrf_token() }}',
-                                debug: {{ env('APP_DEBUG') }},
+                                debug: '{{ env('APP_DEBUG') ?? 'false' }}',
                                 COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
                                 FINISH: '{{ route('api.scorm.lmsfinish', [$resource->lesson->course->id, $resource->id]) }}',
                                 GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',

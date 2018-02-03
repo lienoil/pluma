@@ -35,6 +35,7 @@ return [
                     'name' => 'courses.index',
                     'children' => [
                         'courses.edit',
+                        'courses.create',
                         'courses.show',
                         'courses.trashed',
                     ]
@@ -52,29 +53,29 @@ return [
                             'description' => __('Manage list of all courses'),
                         ],
                     ],
-                    'create-course' => [
-                        'name' => 'create-course',
-                        'order' => 2,
-                        'slug' => route('courses.create'),
-                        'route' => 'courses.create',
-                        // 'icon' => 'fa-book',
-                        'always_viewable' => false,
-                        'labels' => [
-                            'title' => __('Create Course'),
-                            'description' => __('Create a Course'),
-                        ],
-                    ],
-                    'trashed-course' => [
-                        'name' => 'trashed-course',
-                        'order' => 3,
-                        'slug' => route('courses.trashed'),
-                        'route' => 'courses.trashed',
-                        'always_viewable' => false,
-                        'labels' => [
-                            'title' => __('Trashed Courses'),
-                            'description' => __('View list of all courses moved to trash'),
-                        ],
-                    ],
+                ],
+            ],
+            'create-course' => [
+                'name' => 'create-course',
+                'order' => 2,
+                'slug' => route('courses.create'),
+                'route' => 'courses.create',
+                // 'icon' => 'fa-book',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Create Course'),
+                    'description' => __('Create a Course'),
+                ],
+            ],
+            'trashed-course' => [
+                'name' => 'trashed-course',
+                'order' => 3,
+                'slug' => route('courses.trashed'),
+                'route' => 'courses.trashed',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Trashed Courses'),
+                    'description' => __('View list of all courses moved to trash'),
                 ],
             ],
             'view-enrolled-courses' => [
