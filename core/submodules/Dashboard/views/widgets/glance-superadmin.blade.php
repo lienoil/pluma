@@ -60,35 +60,6 @@
 
     <v-flex md3 sm6 xs12>
         <v-card class="elevation-4 text-xs-center">
-            <v-card-media class="white--text" style="background: linear-gradient(45deg, #1176af 0%, rgb(98, 174, 206) 100%);">
-                {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
-                    <v-layout column>
-                        <v-card dark class="text-xs-center elevation-0 transparent">
-                            <v-card-text>
-                                <v-card-actions class="pa-0">
-                                    <v-avatar size="60px" class="elevation-5 cyan darken-3">
-                                        <img src="{{ assets('frontier/images/placeholder/glance-user-1.png') }}">
-                                    </v-avatar>
-                                    <v-spacer></v-spacer>
-                                    <div class="display-2 countup" data-target="glance.visualizations.users.total" v-html="glance.visualizations.users.total"></div>
-                                </v-card-actions>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <div class="subheading">{{ __('Users') }}</div>
-                                </v-card-actions>
-                                <v-card-actions class="mb-2">
-                                    <v-spacer></v-spacer>
-                                    <v-btn dark outline small round class="py-3" href="{{ route('users.index') }}">{{ __('View Users') }}</v-btn>
-                                </v-card-actions>
-                            </v-card-text>
-                        </v-card>
-                    </v-layout>
-            </v-card-media>
-        </v-card>
-    </v-flex>
-
-    <v-flex md3 sm6 xs12>
-        <v-card class="elevation-4 text-xs-center">
             <v-card-media class="white--text" style="background: linear-gradient(45deg, #E91E63 0%, #FF9800 100%);">
                 {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                 <v-layout column>
@@ -112,6 +83,36 @@
                         </v-card-text>
                     </v-card>
                 </v-layout>
+            </v-card-media>
+        </v-card>
+    </v-flex>
+
+    <v-flex md3 sm6 xs12>
+        <v-card class="elevation-4 text-xs-center">
+            <v-card-media class="white--text" style="background: linear-gradient(45deg, #673AB7 0%, rgb(98, 174, 206) 100%);">
+            {{-- <v-card-media class="white--text" style="background: linear-gradient(45deg, #1176af 0%, rgb(98, 174, 206) 100%);"> --}}
+                {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
+                    <v-layout column>
+                        <v-card dark class="text-xs-center elevation-0 transparent">
+                            <v-card-text>
+                                <v-card-actions class="pa-0">
+                                    <v-avatar size="60px" class="elevation-5 cyan darken-3">
+                                        <img src="{{ assets('frontier/images/placeholder/glance-user-1.png') }}">
+                                    </v-avatar>
+                                    <v-spacer></v-spacer>
+                                    <div class="display-2 countup" data-target="glance.visualizations.users.total" v-html="glance.visualizations.users.total"></div>
+                                </v-card-actions>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <div class="subheading">{{ __('Users') }}</div>
+                                </v-card-actions>
+                                <v-card-actions class="mb-2">
+                                    <v-spacer></v-spacer>
+                                    <v-btn dark outline small round class="py-3" href="{{ route('users.index') }}">{{ __('View Users') }}</v-btn>
+                                </v-card-actions>
+                            </v-card-text>
+                        </v-card>
+                    </v-layout>
             </v-card-media>
         </v-card>
     </v-flex>
