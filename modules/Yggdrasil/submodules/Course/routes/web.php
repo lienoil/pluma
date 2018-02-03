@@ -19,7 +19,7 @@ Route::get('courses/enrolled/{course}', '\Course\Controllers\EnrollController@sh
 Route::get('courses/enrolled', '\Course\Controllers\EnrollController@index')->name('courses.enrolled.index');
 
 // Enroll
-Route::get('courses/enroll', '\Course\Controllers\EnrollController@index')->name('courses.enroll.index');
+// Route::get('courses/enroll', '\Course\Controllers\EnrollController@index')->name('courses.enroll.index');
 
 // Public Courses
 Route::get('courses/{course}', 'CourseController@single')->name('courses.single');

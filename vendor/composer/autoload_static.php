@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
+class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -1032,7 +1032,6 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
         'Illuminate\\Events\\CallQueuedListener' => __DIR__ . '/..' . '/illuminate/events/CallQueuedListener.php',
         'Illuminate\\Events\\Dispatcher' => __DIR__ . '/..' . '/illuminate/events/Dispatcher.php',
         'Illuminate\\Events\\EventServiceProvider' => __DIR__ . '/..' . '/illuminate/events/EventServiceProvider.php',
-        'Illuminate\\Filesystem\\Cache' => __DIR__ . '/..' . '/illuminate/filesystem/Cache.php',
         'Illuminate\\Filesystem\\Filesystem' => __DIR__ . '/..' . '/illuminate/filesystem/Filesystem.php',
         'Illuminate\\Filesystem\\FilesystemAdapter' => __DIR__ . '/..' . '/illuminate/filesystem/FilesystemAdapter.php',
         'Illuminate\\Filesystem\\FilesystemManager' => __DIR__ . '/..' . '/illuminate/filesystem/FilesystemManager.php',
@@ -1231,7 +1230,6 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
         'Illuminate\\Session\\FileSessionHandler' => __DIR__ . '/..' . '/illuminate/session/FileSessionHandler.php',
         'Illuminate\\Session\\Middleware\\AuthenticateSession' => __DIR__ . '/..' . '/illuminate/session/Middleware/AuthenticateSession.php',
         'Illuminate\\Session\\Middleware\\StartSession' => __DIR__ . '/..' . '/illuminate/session/Middleware/StartSession.php',
-        'Illuminate\\Session\\NullSessionHandler' => __DIR__ . '/..' . '/illuminate/session/NullSessionHandler.php',
         'Illuminate\\Session\\SessionManager' => __DIR__ . '/..' . '/illuminate/session/SessionManager.php',
         'Illuminate\\Session\\SessionServiceProvider' => __DIR__ . '/..' . '/illuminate/session/SessionServiceProvider.php',
         'Illuminate\\Session\\Store' => __DIR__ . '/..' . '/illuminate/session/Store.php',
@@ -1287,7 +1285,6 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
         'Illuminate\\Support\\NamespacedItemResolver' => __DIR__ . '/..' . '/illuminate/support/NamespacedItemResolver.php',
         'Illuminate\\Support\\Optional' => __DIR__ . '/..' . '/illuminate/support/Optional.php',
         'Illuminate\\Support\\Pluralizer' => __DIR__ . '/..' . '/illuminate/support/Pluralizer.php',
-        'Illuminate\\Support\\ProcessUtils' => __DIR__ . '/..' . '/illuminate/support/ProcessUtils.php',
         'Illuminate\\Support\\ServiceProvider' => __DIR__ . '/..' . '/illuminate/support/ServiceProvider.php',
         'Illuminate\\Support\\Str' => __DIR__ . '/..' . '/illuminate/support/Str.php',
         'Illuminate\\Support\\Testing\\Fakes\\BusFake' => __DIR__ . '/..' . '/illuminate/support/Testing/Fakes/BusFake.php',
@@ -2697,10 +2694,10 @@ class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -28,5 +28,6 @@ return [
         'Calendar',
         'Note',
         'Chronos',
+        'Test',
     ],
 ];

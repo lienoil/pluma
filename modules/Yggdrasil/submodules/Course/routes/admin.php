@@ -13,7 +13,7 @@
 Route::post('courses/{course}/comment', '\Course\Controllers\CourseController@comment')->name('courses.comment');
 
 // Enroll
-Route::get('enroll/{course}/{user}', '\Course\Controllers\EnrollController@enroll');
+Route::get('enroll/{course}', '\Course\Controllers\EnrollController@show')->name('courses.enroll.index');
 Route::post('courses/{course}/{user}', '\Course\Controllers\EnrollController@enroll')->name('courses.enroll');
 
 // Profile
