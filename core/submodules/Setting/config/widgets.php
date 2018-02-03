@@ -6,7 +6,7 @@ return [
         'system-corner' => [
             'name' => __("System Corner"),
             'description' => __("A general overview of the system."),
-            'location' => 'dashboard.2.3',
+            'location' => 'dashboard.2.2',
             'code' => 'system-corner',
             'icon' => 'settings_applications',
             'view' => 'Setting::widgets.system-corner',

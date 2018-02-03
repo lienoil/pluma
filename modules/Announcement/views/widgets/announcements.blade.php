@@ -8,8 +8,8 @@
                 v-show="!removeannouncement"
                 transition="slide-y-transition">
 
-                <v-card-media class="sortable-handle" src="{{ assets('frontier/images/placeholder/ios_grad_2.jpg') }}">
-                    <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+                <v-card-media class="sortable-handle" style="background: linear-gradient(45deg, #c32d60 0%, #00BCD4 100%)">
+                    {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                     <v-layout row wrap>
                         <v-flex xs12>
                             <v-card class="elevation-0 transparent">
@@ -41,7 +41,7 @@
                                         </v-list>
                                     </v-menu>
                                 </v-card-title>
-                                <v-card-text v-show="!hideannouncement">
+                                <v-card-text v-show="!hideannouncement" class="pa-4">
                                     {{-- banner --}}
                                     <div class="text-xs-center title pb-3 white--text">{{ __('Announcements') }}</div>
                                     <div class="text-xs-center display-3 weight-600 white--text">{{ $announcements->count() }}</div>
