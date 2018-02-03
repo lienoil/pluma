@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
+class ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -499,6 +499,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Course\\Controllers\\BookmarkCourseController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/BookmarkCourseController.php',
         'Course\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/CategoryController.php',
         'Course\\Controllers\\CourseController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/CourseController.php',
+        'Course\\Controllers\\CourseProfileController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/CourseProfileController.php',
         'Course\\Controllers\\EnrollController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Controllers/EnrollController.php',
         'Course\\Models\\Course' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Models/Course.php',
         'Course\\Models\\Scormvar' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Models/Scormvar.php',
@@ -1031,6 +1032,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Illuminate\\Events\\CallQueuedListener' => __DIR__ . '/..' . '/illuminate/events/CallQueuedListener.php',
         'Illuminate\\Events\\Dispatcher' => __DIR__ . '/..' . '/illuminate/events/Dispatcher.php',
         'Illuminate\\Events\\EventServiceProvider' => __DIR__ . '/..' . '/illuminate/events/EventServiceProvider.php',
+        'Illuminate\\Filesystem\\Cache' => __DIR__ . '/..' . '/illuminate/filesystem/Cache.php',
         'Illuminate\\Filesystem\\Filesystem' => __DIR__ . '/..' . '/illuminate/filesystem/Filesystem.php',
         'Illuminate\\Filesystem\\FilesystemAdapter' => __DIR__ . '/..' . '/illuminate/filesystem/FilesystemAdapter.php',
         'Illuminate\\Filesystem\\FilesystemManager' => __DIR__ . '/..' . '/illuminate/filesystem/FilesystemManager.php',
@@ -1229,6 +1231,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Illuminate\\Session\\FileSessionHandler' => __DIR__ . '/..' . '/illuminate/session/FileSessionHandler.php',
         'Illuminate\\Session\\Middleware\\AuthenticateSession' => __DIR__ . '/..' . '/illuminate/session/Middleware/AuthenticateSession.php',
         'Illuminate\\Session\\Middleware\\StartSession' => __DIR__ . '/..' . '/illuminate/session/Middleware/StartSession.php',
+        'Illuminate\\Session\\NullSessionHandler' => __DIR__ . '/..' . '/illuminate/session/NullSessionHandler.php',
         'Illuminate\\Session\\SessionManager' => __DIR__ . '/..' . '/illuminate/session/SessionManager.php',
         'Illuminate\\Session\\SessionServiceProvider' => __DIR__ . '/..' . '/illuminate/session/SessionServiceProvider.php',
         'Illuminate\\Session\\Store' => __DIR__ . '/..' . '/illuminate/session/Store.php',
@@ -1284,6 +1287,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Illuminate\\Support\\NamespacedItemResolver' => __DIR__ . '/..' . '/illuminate/support/NamespacedItemResolver.php',
         'Illuminate\\Support\\Optional' => __DIR__ . '/..' . '/illuminate/support/Optional.php',
         'Illuminate\\Support\\Pluralizer' => __DIR__ . '/..' . '/illuminate/support/Pluralizer.php',
+        'Illuminate\\Support\\ProcessUtils' => __DIR__ . '/..' . '/illuminate/support/ProcessUtils.php',
         'Illuminate\\Support\\ServiceProvider' => __DIR__ . '/..' . '/illuminate/support/ServiceProvider.php',
         'Illuminate\\Support\\Str' => __DIR__ . '/..' . '/illuminate/support/Str.php',
         'Illuminate\\Support\\Testing\\Fakes\\BusFake' => __DIR__ . '/..' . '/illuminate/support/Testing/Fakes/BusFake.php',
@@ -1842,9 +1846,15 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Pluma\\Support\\System\\SystemInfo' => __DIR__ . '/../..' . '/core/Support/System/SystemInfo.php',
         'Pluma\\Support\\Validation\\Traits\\ValidatesRequests' => __DIR__ . '/../..' . '/core/Support/Validation/Traits/ValidatesRequests.php',
         'Profile\\Controllers\\CredentialController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Controllers/CredentialController.php',
+        'Profile\\Controllers\\EmailController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Controllers/EmailController.php',
         'Profile\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Controllers/ProfileController.php',
+        'Profile\\Middleware\\ProfileMiddleware' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Middleware/ProfileMiddleware.php',
         'Profile\\Models\\User' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Models/User.php',
+        'Profile\\Providers\\ProfileServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Providers/ProfileServiceProvider.php',
+        'Profile\\Requests\\CredentialRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Requests/CredentialRequest.php',
         'Profile\\Requests\\ProfileRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Requests/ProfileRequest.php',
+        'Profile\\Support\\Traits\\CanUploadToStorageApiTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Support/Traits/CanUploadToStorageApiTrait.php',
+        'Profile\\Support\\Traits\\ProfileResourcePublicTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Support/Traits/ProfileResourcePublicTrait.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -1938,6 +1948,7 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
         'Role\\Support\\Traits\\BelongsToManyRoles' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Support/Traits/BelongsToManyRoles.php',
         'RolesTableSeeder' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/seeds/RolesTableSeeder.php',
         'Setting\\Controllers\\BrandingSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/BrandingSettingController.php',
+        'Setting\\Controllers\\DateTimeSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/DateTimeSettingController.php',
         'Setting\\Controllers\\DisplaySettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/DisplaySettingController.php',
         'Setting\\Controllers\\EmailSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/EmailSettingController.php',
         'Setting\\Controllers\\GeneralSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/GeneralSettingController.php',
@@ -2686,10 +2697,10 @@ class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit26af935e303fb8d1c17c91fa9acb8063::$classMap;
 
         }, null, ClassLoader::class);
     }

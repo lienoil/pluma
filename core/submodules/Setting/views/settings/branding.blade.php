@@ -27,22 +27,29 @@
                             <v-layout row wrap>
                                 <v-flex sm8>
                                     <v-text-field
+                                        input-group
                                         label="{{ __('Site Title') }}"
                                         name="site_title"
-                                        input-group
-                                        {{-- v-model="resource.item.site_title" --}}
                                         value="{{ old('site_title') ? old('site_title') : settings('site_title') }}"
                                     ></v-text-field>
                                     <v-text-field
+                                        input-group
                                         label="{{ __('Site Tagline') }}"
                                         name="site_tagline"
-                                        input-group
                                         value="{{ old('site_tagline') ? old('site_tagline') : settings('site_tagline') }}"
                                     ></v-text-field>
                                     <v-text-field
+                                        hint="{{ __('The site owner') }}"
+                                        input-group
+                                        label="{{ __('Site Author') }}"
+                                        name="site_author"
+                                        persistent-hint
+                                        value="{{ old('site_author') ? old('site_author') : settings('site_author') }}"
+                                    ></v-text-field>
+                                    <v-text-field
+                                        input-group
                                         label="{{ __('Site Email Address') }}"
                                         name="site_email"
-                                        input-group
                                         value="{{ old('site_email') ? old('site_email') : settings('site_email') }}"
                                     ></v-text-field>
                                 </v-flex>

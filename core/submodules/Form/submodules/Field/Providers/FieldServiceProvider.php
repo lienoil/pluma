@@ -31,7 +31,7 @@ class FieldServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Field::class => FieldPolicy::class,
+        \Field\Models\Field::class => \Field\Policies\FieldPolicy::class,
     ];
 
     /**

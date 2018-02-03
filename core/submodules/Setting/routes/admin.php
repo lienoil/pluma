@@ -17,8 +17,8 @@ Route::group(['prefix' => 'settings'], function () {
     Route::post('display', 'DisplaySettingController@store')->name('settings.display.store');
 
     // Date Time
-    Route::get('datetime', 'DisplaySettingController@index')->name('settings.datetime');
-    Route::post('datetime', 'DisplaySettingController@store')->name('settings.datetime.store');
+    Route::get('datetime', 'DateTimeSettingController@index')->name('settings.datetime');
+    Route::post('datetime', 'DateTimeSettingController@store')->name('settings.datetime.store');
 
     // Branding
     Route::get('branding', 'BrandingSettingController@index')->name('settings.branding');

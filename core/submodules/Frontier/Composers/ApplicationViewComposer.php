@@ -75,7 +75,7 @@ class ApplicationViewComposer extends BaseViewComposer
         return json_decode(json_encode([
             'title' => 'Pluma CMS',
             'tagline' => 'Elegant and modular, out-of-the-box',
-            'author' => 'John Lioneil Dionisio <john.dionisio1@gmail.com>',
+            'author' => 'John Lioneil Dionisio <john.dionisio1@gmail.com> | Princess Ellen Alto <princessalto@gmail.com>',
             // ...
         ]));
     }

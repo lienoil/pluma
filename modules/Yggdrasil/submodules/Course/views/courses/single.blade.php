@@ -106,7 +106,7 @@
 
     <v-container grid-list-lg>
 
-        @include("Course::cards.evaluation")
+        {{-- @include("Course::cards.evaluation") --}}
 
         <v-layout row wrap>
             <v-flex flex md3 xs12 order-lg1>
@@ -122,29 +122,6 @@
             </v-flex>
 
             <v-flex flex md6 xs12 order-lg2>
-                {{-- Evaluation Form --}}
-                {{-- @if ($resource->isDone()) --}}
-                    {{-- <v-card dark class="elevation-1 mb-3 accent">
-                        <v-toolbar dark card class="transparent">
-                            <v-toolbar-title class="page-title">{{ __('Course Evaluation') }}</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                            <v-btn icon><v-icon>close</v-icon></v-btn>
-                        </v-toolbar>
-                        <v-card-text class="body-1 text-xs-center">
-                            <v-icon class="display-4 white--text text--darken-4">check</v-icon>
-                            <p class="subheading">{{ __("You've finished this course! Yey!") }}</p>
-                            <p>{{ __('How did we do? Let us know by answering this quick evaluation form.') }}</p>
-                            <p>{{ __("It will only take a moment. Click the button below to start.") }}</p>
-                            <v-btn target="_blank" primary href="">
-                                {{ __('Start Course Feedback') }}
-                                <sup>&nbsp;<v-icon class="caption">fa-external-link</v-icon></sup>
-                            </v-btn>
-
-                        </v-card-text>
-                        <v-alert success v-show="'true'">{{ __('You are seeing this message because you have finished the course (yey!). Answering the evaluation survey form will help us improve it and its related topics.') }}</v-alert>
-                    </v-card> --}}
-                {{-- @endif --}}
-                {{-- Evaluation Form --}}
 
                 <v-card class="elevation-1 mb-3">
                     <v-toolbar class="teal white--text transparent elevation-1">

@@ -8,12 +8,14 @@ use Role\Models\Role;
 use User\Models\Detail;
 use User\Models\User;
 use User\Requests\UserRequest;
+use User\Support\Traits\CanUploadToStorageTrait;
 use User\Support\Traits\UserResourceApiTrait;
 use User\Support\Traits\UserResourceSoftDeleteTrait;
 
 class UserController extends GeneralController
 {
-    use UserResourceApiTrait, UserResourceSoftDeleteTrait;
+    use UserResourceApiTrait,
+        UserResourceSoftDeleteTrait;
 
     /**
      * Display a listing of the resource.

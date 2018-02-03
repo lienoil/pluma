@@ -2,14 +2,18 @@
 
 namespace Profile\Controllers;
 
-use Frontier\Controllers\AdminController;
+use Catalogue\Models\Catalogue;
+use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Profile\Models\User;
 use Profile\Requests\ProfileRequest;
+use Profile\Support\Traits\ProfileResourcePublicTrait;
 use User\Requests\UserRequest;
 
-class ProfileController extends AdminController
+class ProfileController extends GeneralController
 {
+    use ProfileResourcePublicTrait;
+
     /**
      * Display the specified resource.
      *
@@ -34,21 +38,23 @@ class ProfileController extends AdminController
     public function edit(ProfileRequest $request, $handle)
     {
         $resource = User::whereUsername(ltrim($handle, '@'))->firstOrFail();
+        $avatars = User::avatars();
 
-        return view("Theme::profiles.edit")->with(compact('resource'));
+        return view("Theme::profiles.edit")->with(compact('resource', 'avatars'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  User\Requests\UserRequest  $request
+     * @param  \User\Requests\UserRequest  $request
      * @param  string  $handle
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function update(ProfileRequest $request, $handle)
     {
         $user = User::whereUsername($handle)->firstOrFail();
         $user->firstname = $request->input('firstname');
+        $user->avatar = $request->input('avatar');
         $user->middlename = $request->input('middlename');
         $user->lastname = $request->input('lastname');
         $user->email = $request->input('email');

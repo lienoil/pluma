@@ -149,8 +149,8 @@
                                             color="pink"
                                             value="Female"
                                             hide-details></v-radio>
-                                        <input type="hidden" name="details[gender]" :v-model="resource.item.details.gender">
                                     </v-radio-group>
+                                    <input type="hidden" name="details[gender]" :value="resource.item.details.gender">
 
                                     {{-- <input type="text" class="cleavable date-format"> --}}
                                     <v-text-field

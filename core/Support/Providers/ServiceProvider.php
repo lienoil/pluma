@@ -108,10 +108,10 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function bootRouterMiddlewares()
     {
-        $router = $this->app['router'];
+        $this->router = $this->app['router'];
 
-        foreach ($this->middlewares() as $name => $class) {
-            $router->aliasMiddleware($name, $class);
+        foreach ($this->middlewares() as $middleware) {
+            $this->router->aliasMiddleware($middleware['alias'], $middleware['class']);
         }
     }
 
