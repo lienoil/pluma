@@ -1,4 +1,4 @@
-@extends("Theme::layouts.course")
+@extends("Theme::layouts.public")
 
 @section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
 
