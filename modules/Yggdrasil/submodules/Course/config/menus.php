@@ -101,8 +101,7 @@ return [
                 'routes' => [
                     'name' => 'courses.all',
                     'children' => [
-                        'courses.edit',
-                        'courses.show',
+                        'courses.single',
                     ]
                 ],
                 'always_viewable' => true,

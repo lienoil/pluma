@@ -22,13 +22,13 @@
                                 :error-messages="resource.errors.name"
                                 label="{{ _('Name') }}"
                                 name="name"
-                                value="{{ $resource->name }}"
+                                value="{{ old('name') ?? $resource->name }}"
                                 @input="(val) => { resource.item.name = val; }"
                             ></v-text-field>
 
                             <v-text-field
                                 :error-messages="resource.errors.code"
-                                :value="resource.item.name ? resource.item.name : '{{ $resource->code }}' | slugify"
+                                :value="resource.item.name ? resource.item.name : '{{ old('code') ?? $resource->code }}' | slugify"
                                 hint="{{ __('Will be used as a slug for Announcement. Make sure the code is unique.') }}"
                                 label="{{ _('Code') }}"
                                 name="code"
@@ -148,8 +148,8 @@
                     resource: {
                         item: {!! json_encode($resource) !!},
                         quill: {
-                            html: '{!! $resource->body !!}',
-                            delta: {!! $resource->delta !!}
+                            html: '{!! json_encode(old('body') ?? $resource->body) !!}',
+                            delta: {!! json_encode(old('delta') ?? $resource->delta) !!},
                         },
                         publish_now: false,
                         publish_date: '',

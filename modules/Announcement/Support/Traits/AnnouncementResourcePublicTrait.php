@@ -29,8 +29,8 @@ trait AnnouncementResourcePublicTrait
      */
     public function single(Request $request, $code = null)
     {
-        $resource = Announcement::whereCode($code)->firstOrFail();
+        $page = Announcement::whereCode($code)->firstOrFail();
 
-        return view("Theme::pages.single")->with(compact('resource'));
+        return view("Theme::pages.single")->with(compact('page'));
     }
 }

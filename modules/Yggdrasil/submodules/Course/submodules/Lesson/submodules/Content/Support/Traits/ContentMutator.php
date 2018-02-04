@@ -156,7 +156,7 @@ trait ContentMutator
      */
     public function getHtmlAttribute()
     {
-        $html = "";
+        $html = "No Data";
         if ($this->library) {
             switch ($this->library->mimetype) {
                 case 'application/zip':

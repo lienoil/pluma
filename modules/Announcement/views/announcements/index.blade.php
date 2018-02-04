@@ -117,7 +117,7 @@
                             <td class="text-xs-center"><img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name"></td>
                             <td><a :href="route(urls.show, (prop.item.id))" class="no-decoration td-n"><strong v-html="prop.item.name"></strong></a></td>
                             <td v-html="prop.item.code"></td>
-                            <td v-html="prop.item.excerpt"></td>
+                            {{-- <td v-html="prop.item.excerpt"></td> --}}
                             <td><a :href="`{{ route('announcements.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.author"></a></td>
                             <td><span v-if="prop.item.category"><v-icon left class="body-2" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('announcements.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
                             <td v-html="prop.item.created"></td>
@@ -199,7 +199,7 @@
                             { text: '{{ __("Feature") }}', align: 'left', value: 'feature' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Excerpt") }}', align: 'left', value: 'body' },
+                            {{-- { text: '{{ __("Excerpt") }}', align: 'left', value: 'body' }, --}}
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
                             { text: '{{ __("Category") }}', align: 'left', value: 'category_at' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },

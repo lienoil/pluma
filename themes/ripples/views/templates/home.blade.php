@@ -6,10 +6,10 @@ Author: John Lioneil Dionisio
 Version: 1.0
 --}}
 
-@extends("Template::layouts.public")
+@extends("Theme::layouts.public")
 
 @section("content")
-    @include("Template::partials.main-menu")
+    @include("Theme::menus.main-menu")
 
     <v-parallax class="primary accent-3 white--text" :height="280" src="{{ $page->feature }}"></v-parallax>
 

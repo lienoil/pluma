@@ -3,6 +3,8 @@
 @section("head-title", $resource->title)
 
 @section("content")
+    @include("Theme::menus.main-menu")
+
     <v-parallax class="elevation-1" src="{{ $resource->backdrop }}" height="480">
         <v-layout row wrap align-end justify-center>
             <v-flex md9 xs12 pa-0>
