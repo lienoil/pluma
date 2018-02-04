@@ -41,7 +41,7 @@
                                         </v-list>
                                     </v-menu>
                                 </v-card-title>
-                                <v-card-text v-show="!hideannouncement" class="pa-4">
+                                <v-card-text v-show="!hideannouncement">
                                     {{-- banner --}}
                                     <div class="text-xs-center title pb-3 white--text">{{ __('Announcements') }}</div>
                                     <div class="text-xs-center display-3 weight-600 white--text">{{ $announcements->count() }}</div>

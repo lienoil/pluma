@@ -27,17 +27,20 @@
                                 <v-divider></v-divider>
                                 <v-card-text class="body-1">
                                     <v-card-actions class="pa-0">
-                                        <div>{{ __('Submitted by:') }}</div>
+                                        <div>
+                                            <v-avatar size="25px">
+                                                <img src="{{ $resource->user->avatar }}">
+                                            </v-avatar>
+                                            <span class="pl-2">{{ $resource->user->displayname }}</span>
+                                        </div>
                                         <v-spacer></v-spacer>
-                                        {{ $resource->user->displayname }}
-                                    </v-card-actions>
-                                    <v-card-actions class="pa-0">
-                                        <div>{{ __('Date submitted:') }}</div>
-                                        <v-spacer></v-spacer>
-                                        {{ $resource->created }}
+                                        <v-icon>schedule</v-icon>
+                                        <span>{{ $resource->created }}</span>
                                     </v-card-actions>
                                 </v-card-text>
-                                <v-card-text>
+
+                                {{-- questions --}}
+                                <v-card-text class="pa-4">
                                     @foreach ($resource->fields() as $field)
                                         <div><strong>{{ $field->question->label }}</strong></div>
                                         <div class="pa-3">{{ $field->answer }}</div>

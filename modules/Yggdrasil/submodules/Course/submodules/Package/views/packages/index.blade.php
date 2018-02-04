@@ -22,10 +22,10 @@
             title="{{ __('Packages') }}"
         >
             <template slot="card.actions" scope="{prop}">
-                <v-card-actions class="brown--text">
+                <v-card-actions class="accent--text">
                     <v-spacer></v-spacer>
                     <v-dialog full-width max-width="90vw" width="50vw">
-                        <v-btn slot="activator" class="brown white--text"><v-icon left class="white--text">delete</v-icon>{{ __("Trash") }}</v-btn>
+                        <v-btn slot="activator" class="accent white--text"><v-icon left class="white--text">delete</v-icon>{{ __("Trash") }}</v-btn>
                         <v-card class="error white--text">
                             <v-card-title primary-title class="white--text"><v-icon class="display-2" left>warning</v-icon>{{ __('Moving the file to Archived!') }}</v-card-title>
                             <v-card-text class="white--text">

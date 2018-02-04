@@ -38,86 +38,85 @@
                 sm4 xs12
                 v-for="(card, i) in dataset.items"
                 :key="card.id">
-                <v-card ripple class="elevation-1 flex pa-0" height="100%">
+                <v-card ripple class="elevation-1 flex pa-0 c-lift" height="100%">
 
                     <v-layout column wrap fill-height class="ma-0">
-                        <v-card-media class="accent lighten-3" :src="card.backdrop" height="250px" style="max-width:100%">
-                            <v-container fill-height fluid class="pa-0 white--text">
-                                <v-layout column>
-                                    <v-card-actions>
-                                        {{-- If Bookmarked --}}
-                                        <v-btn icon v-if="card.bookmarked" class="red darken-1" v-tooltip:right="{html:'{{ __('Remove from Bookmarked') }}'}" @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})"><v-icon small class="white--text">fa-bookmark</v-icon></v-btn>
-                                        {{-- /If Bookmarked --}}
-                                        <v-spacer></v-spacer>
-                                        @can('bookmark-course')s
-                                        <v-menu full-width bottom left>
-                                            <v-btn slot='activator' dark icon v-toolbar:left="{ 'html': 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
-                                            <v-card>
-                                                <v-list>
-                                                    @can('bookmark-course')
-                                                    <v-list-tile avatar v-if="!card.bookmarked" ripple @click="post(route(urls.bookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
-                                                        <v-list-tile-avatar>
-                                                            <v-icon class="red--text">bookmark_outline</v-icon>
-                                                        </v-list-tile-avatar>
-                                                        <v-list-tile-title>{{ __('Bookmark this course') }}</v-list-tile-title>
-                                                    </v-list-tile>
-                                                    <v-list-tile avatar v-else ripple @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
-                                                        <v-list-tile-avatar>
-                                                            <v-icon class="red--text">bookmark</v-icon>
-                                                        </v-list-tile-avatar>
-                                                        <v-list-tile-title>{{ __('Remove from Bookmarked') }}</v-list-tile-title>
-                                                    </v-list-tile>
-                                                    @endcan
-                                                    @can('edit-course')
-                                                    <v-list-tile avatar ripple :href="route(urls.edit, (card.id))">
-                                                        <v-list-tile-avatar>
-                                                            <v-icon>edit</v-icon>
-                                                        </v-list-tile-avatar>
-                                                        <v-list-tile-title>{{ __('Edit Course') }}</v-list-tile-title>
-                                                    </v-list-tile>
-                                                    @endcan
+                        <a class="td-n" :href="route(urls.show, card.slug)">
+                            <v-card-media class="accent lighten-3" :src="card.backdrop" height="250px" style="max-width:100%">
+                                <v-container fill-height fluid class="pa-0 white--text">
+                                    <v-layout column>
+                                        <v-card-actions>
+                                            {{-- If Bookmarked --}}
+                                           <div class="pa-2">
+                                                <v-btn icon v-if="card.bookmarked" class="red darken-1" v-tooltip:right="{html:'{{ __('Remove from Bookmarked') }}'}" @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})"><v-icon small class="white--text">fa-bookmark</v-icon></v-btn>
+                                           </div>
+                                            {{-- /If Bookmarked --}}
+                                            <v-spacer></v-spacer>
+                                            @can('bookmark-course')
+                                            <v-menu full-width bottom left>
+                                                <v-btn slot='activator' dark icon v-tooltip:left="{ 'html': 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
+                                                <v-card>
+                                                    <v-list>
+                                                        @can('bookmark-course')
+                                                        <v-list-tile avatar v-if="!card.bookmarked" ripple @click="post(route(urls.bookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
+                                                            <v-list-tile-avatar>
+                                                                <v-icon class="red--text">bookmark_outline</v-icon>
+                                                            </v-list-tile-avatar>
+                                                            <v-list-tile-title>{{ __('Bookmark this course') }}</v-list-tile-title>
+                                                        </v-list-tile>
+                                                        <v-list-tile avatar v-else ripple @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
+                                                            <v-list-tile-avatar>
+                                                                <v-icon class="red--text">bookmark</v-icon>
+                                                            </v-list-tile-avatar>
+                                                            <v-list-tile-title>{{ __('Remove from Bookmarked') }}</v-list-tile-title>
+                                                        </v-list-tile>
+                                                        @endcan
+                                                        @can('edit-course')
+                                                        <v-list-tile avatar ripple :href="route(urls.edit, (card.id))">
+                                                            <v-list-tile-avatar>
+                                                                <v-icon>edit</v-icon>
+                                                            </v-list-tile-avatar>
+                                                            <v-list-tile-title>{{ __('Edit Course') }}</v-list-tile-title>
+                                                        </v-list-tile>
+                                                        @endcan
 
-                                                    @can('delete-course')
-                                                    <v-list-tile avatar ripple @click="destroy(route(urls.destroy, (card.id)), {_token: '{{ csrf_token() }}'})">
-                                                        <v-list-tile-avatar>
-                                                            <v-icon class="warning--text">delete</v-icon>
-                                                        </v-list-tile-avatar>
-                                                        <v-list-tile-title>{{ __('Move to Trash') }}</v-list-tile-title>
-                                                    </v-list-tile>
-                                                    @endcan
-                                                </v-list>
-                                            </v-card>
-                                        </v-menu>
-                                        @endcan
-                                    </v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-card-actions class="pa-3">
-                                        <v-avatar v-if="card.feature" size="80px">
-                                            <img v-if="card.feature" :src="card.feature" :alt="card.title">
-                                        </v-avatar>
+                                                        @can('delete-course')
+                                                        <v-list-tile avatar ripple @click="destroy(route(urls.destroy, (card.id)), {_token: '{{ csrf_token() }}'})">
+                                                            <v-list-tile-avatar>
+                                                                <v-icon class="warning--text">delete</v-icon>
+                                                            </v-list-tile-avatar>
+                                                            <v-list-tile-title>{{ __('Move to Trash') }}</v-list-tile-title>
+                                                        </v-list-tile>
+                                                        @endcan
+                                                    </v-list>
+                                                </v-card>
+                                            </v-menu>
+                                            @endcan
+                                        </v-card-actions>
 
                                         <v-spacer></v-spacer>
-                                        {{-- If Enrolled --}}
-                                        <v-chip v-if="card.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
-                                        {{-- /If Enrolled --}}
-                                    </v-card-actions>
-                                </v-layout>
-                            </v-container>
-                        </v-card-media>
 
-                        <v-card-title primary-title class="pb-0">
-                            <a v-if="!card.enrolled" :href="route(urls.show, card.slug)" class="accent--text td-n"><strong class="title accent--text" v-html="card.title"></strong></a>
-                            <a v-else :href="route(urls.enrolled, card.slug)" class="accent--text td-n"><strong class="title accent--text" v-html="card.title"></strong></a>
+                                        <v-card-actions class="pa-3">
+                                            <v-avatar class="elevation-4" v-if="card.feature" size="80px">
+                                                <img v-if="card.feature" :src="card.feature" :alt="card.title">
+                                            </v-avatar>
+
+                                            <v-spacer></v-spacer>
+                                            {{-- If Enrolled --}}
+                                            <v-chip v-if="card.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
+                                            {{-- /If Enrolled --}}
+                                        </v-card-actions>
+                                    </v-layout>
+                                </v-container>
+                            </v-card-media>
+                        </a>
+
+                        <v-card-title primary-title>
+                            <a v-if="!card.enrolled" :href="route(urls.show, card.slug)" class="accent--text td-n"><span class="accent--text" v-html="card.title"></span></a>
+                            <a v-else :href="route(urls.show, card.slug)" class="accent--text td-n"><span class="accent--text" v-html="card.title"></span></a>
                         </v-card-title>
-
-                        <v-card-actions>
-                            <v-avatar v-if="card.user.avatar" size="30px">
-                                <img v-if="card.user.avatar" :src="card.user.avatar" :alt="card.user.handlename">
-                            </v-avatar>
-                            <a :href="`{{ url('/admin/profile/' . v('card.user.handlename', true)) }}`" class="caption grey--text td-n" v-html="card.user.fullname"></a>
-                        </v-card-actions>
-
-                        <v-card-actions class="pa-0 transparent">
+                        
+                        <v-card-actions class="grey lighten-4">
                             <span class="text-xs-center caption pa-1 grey--text">
                                 <v-icon class="caption" left>class</v-icon>
                                 <span v-html="card.code"></span>
@@ -126,23 +125,29 @@
                                 <v-icon class="caption" left>fa-tasks</v-icon>
                                 <span v-html="`${card.lessons.length} ${(card.lessons.length <= 1 ? '{{ __('Part') }}' : '{{ __('Parts') }}')}`"></span>
                             </span>
-                        </v-card-actions>
-                        <v-card-actions class="pa-0">
-                            <span v-if="card.category" class="caption pa-1 grey--text">
-                                <v-icon class="caption" left>label</v-icon>
-                                <span v-html="card.category.name"></span>
-                            </span>
                             <span class="text-xs-center caption pa-1 grey--text">
                                 <v-icon class="caption" left>fa-clock-o</v-icon>
                                 <span v-html="card.created"></span>
                             </span>
                         </v-card-actions>
 
-                        <v-card-text class="grey--text text--darken-1" v-html="card.excerpt"></v-card-text>
+                        <v-card-text class="grey--text text--darken-1 body-1" v-html="card.excerpt"></v-card-text>
 
-                        <v-spacer></v-spacer>
+                        {{-- author --}}
+                        <v-card-actions class="pa-3">
+                            <v-avatar v-if="card.user.avatar" size="30px">
+                                <img v-if="card.user.avatar" :src="card.user.avatar" :alt="card.user.handlename">
+                            </v-avatar>
+                            <a :href="`{{ url('/admin/profile/' . v('card.user.handlename', true)) }}`" class="caption grey--text td-n" v-html="card.user.fullname"></a>
+                            <v-spacer></v-spacer>
+                            <span v-if="card.category" class="caption pa-1 grey--text">
+                            <v-icon class="caption" left>label</v-icon>
+                            <span v-html="card.category.name"></span>
+                        </span>
+                        </v-card-actions>
+                        {{-- author --}}
 
-                        <v-card-actions>
+                        {{-- <v-card-actions>
                             <v-spacer></v-spacer>
 
                             @can('show-course')
@@ -150,12 +155,12 @@
                             @endcan
 
                             @can('enroll-course')
-                            {{-- if user is not enrolled yet, let user have the option
-                            to enroll --}}
+                            if user is not enrolled yet, let user have the option
+                            to enroll
                             <v-btn v-if="!card.enrolled" flat primary ripple :href="route(urls.enroll, card.slug)">{{ __('Enroll') }}</v-btn>
-                            <v-btn v-else flat primary ripple :href="route(urls.enrolled, card.slug)">{{ __('Learn More') }}</v-btn>
+                            <v-btn v-else flat primary ripple :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
                             @endcan
-                        </v-card-actions>
+                        </v-card-actions> --}}
                     </v-layout>
                 </v-card>
             </v-flex>
@@ -165,6 +170,14 @@
 
 @push('css')
     <style>
+        .c-lift {
+            transition: all .2s ease;
+        }
+        .c-lift:hover {
+            -webkit-transform: translateY(-6px);
+            transform: translateY(-6px);
+            box-shadow: 0 1px 8px rgba(0,0,0,.2),0 3px 4px rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12) !important;
+        }
         .td-n:hover {
             text-decoration: none !important;
         }

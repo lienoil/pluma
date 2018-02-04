@@ -158,7 +158,7 @@
                             <td v-show="bulk.commands.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td><v-icon v-html="prop.item.icon"></v-icon></td>
-                            <td><a :href="route(urls.categories.edit, (prop.item.id))"><strong v-html="prop.item.name"></strong></a></td>
+                            <td><a class="td-n" :href="route(urls.categories.edit, (prop.item.id))"><strong v-html="prop.item.name"></strong></a></td>
                             <td v-html="prop.item.code"></td>
                             <td v-html="prop.item.alias"></td>
                             <td v-html="prop.item.created"></td>

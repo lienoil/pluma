@@ -3,10 +3,6 @@
 @section("content")
     @include("Theme::partials.banner")
 
-    {{-- Location: dashboard.1.12 --}}
-    {{-- Location: dashboard.1.12 --}}
-
-    {{-- Location: dashboard.2.12 --}}
     <v-container fluid grid-list-lg>
         @include("Dashboard::widgets.glance")
 
@@ -14,8 +10,10 @@
             <v-flex xs12>
                 <v-card class="elevation-0 transparent my-2">
                     <v-card-text class="px-0">
-                        <p class="title mb-1">{{ __("Hey there, " . user()->firstname . "!") }}</p>
-                        <div>{{ __("Here's some things to note since you left.") }}</div>
+                        <p class="subheading mb-1">
+                            <strong>{{ __("Hey there, " . user()->firstname . "!") }}</strong>
+                        </p>
+                        <div class="body-1">{{ __("Here's some things to note since you left.") }}</div>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -41,7 +39,6 @@
             </v-flex>
         </v-layout>
     </v-container>
-    {{-- Location: dashboard.2.12 --}}
 @endsection
 
 @push('css')
