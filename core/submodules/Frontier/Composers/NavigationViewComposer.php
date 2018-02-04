@@ -266,54 +266,6 @@ class NavigationViewComposer extends BaseViewComposer
     }
 
     /**
-     * Retrieves the current menu based on the url.
-     *
-     * @return mixed
-     */
-    public function getCurrentMenu($menus = null)
-    {
-        $menus = $menus ?? $this->menus;
-        $currentMenu = $this->traverser->find(route($this->getCurrentRouteName()), 'slug', $menus);
-
-        if ($currentMenu['has_children']) {
-            if (collect($currentMenu['children'])->first()['url'] === url($this->getCurrentUrl())) {
-                $target = collect($currentMenu['children'])->first();
-                return $target;
-            }
-
-            return $currentMenu;
-        }
-
-        return $currentMenu;
-    }
-
-    /**
-     * Retrieves the current menu based on the url.
-     *
-     * @return mixed
-     */
-    public function getParentMenu($menus = null)
-    {
-        $menus = is_null($menus) ? $this->menus : $menus;
-
-        $currentMenu = $this->getCurrentMenu($menus);
-
-        $parentMenu = null;
-
-        if (isset($currentMenu['parent'])) {
-            $parentMenu = $this->traverser->find($currentMenu['parent'], 'name', $menus);
-        }
-
-        if ($parentMenu && $parentMenu['url'] === $currentMenu['url']) {
-            return $parentMenu;
-        }
-
-        return isset($currentMenu['parent'])
-                ? $this->traverser->find($currentMenu['parent'], 'name', $menus)
-                : null;
-    }
-
-    /**
      * Generate sidebar.
      *
      * @param  object $menus

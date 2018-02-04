@@ -11,6 +11,7 @@
                 {{-- @include("Setting::partials.settingsbar") --}}
 
                 {{-- {!! $form->build() !!} --}}
+                {{ dd($navigation) }}
 
                 <div v-for="(user, i) in dataset.items">
                     <a :href="route(url.user.admin.edit, user.id)" v-html="user.fullname"></a>
