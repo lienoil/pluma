@@ -172,11 +172,11 @@
                                 </v-flex>
                             </v-layout>
                         </v-card-text>
-                        <v-card-actions>
+                        <v-card-text class="text-xs-right">
                             <v-spacer></v-spacer>
                             <v-btn outline primary type="submit">{{ __('Save') }}</v-btn>
                             <v-btn flat href="{{ route('profile.show', $resource->handlename) }}">{{ __('Cancel') }}</v-btn>
-                        </v-card-actions>
+                        </v-card-text>
                     </v-card>
                 </form>
             </v-flex>

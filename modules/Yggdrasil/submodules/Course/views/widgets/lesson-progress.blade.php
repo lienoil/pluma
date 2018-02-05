@@ -39,7 +39,7 @@
                     :size="150"
                     :width="20"
                     :value="{{ $lesson->progress }}"
-                    class="teal--text text--lighten-3"
+                    class="cyan--text text--lighten-3"
                 >
                     <span>{{ $lesson->progress }}%</span>
                 </v-progress-circular>
@@ -48,7 +48,7 @@
                     :size="150"
                     :width="20"
                     :value="0"
-                    class="teal--text text--lighten-3"
+                    class="cyan--text text--lighten-3"
                 >
                     <span>{{ __('00%') }}</span>
                 </v-progress-circular>
@@ -57,7 +57,7 @@
             @endif
             <v-spacer></v-spacer>
         </v-card-text>
-        <v-card-text class="teal lighten-4 white--text text-xs-center">
+        <v-card-text class="cyan lighten-4 white--text text-xs-center">
             <div class="headline">{{ $lesson->completed . __(" of ") . $lesson->contents->count() }}</div>
             <div class="subheading">{{ __('Contents Completed') }}</div>
         </v-card-text>

@@ -56,13 +56,12 @@
 
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-text class="text-xs-right">
         @stack("cards.saving.pre-actions")
 
-        <v-spacer></v-spacer>
         <v-btn primary type="submit" class="elevation-1">{{ __('Post') }}</v-btn>
 
         @stack("cards.saving.post-actions")
 
-    </v-card-actions>
+    </v-card-text>
 </v-card>

@@ -12,7 +12,7 @@
 
                 {{-- {!! $form->build() !!} --}}
 
-                {{-- {{ dd(app()) }} --}}
+                {{-- {{ dd(user()->settings('user_profile_banner')) }} --}}
 
                 <div v-for="(user, i) in dataset.items">
                     <a :href="route(url.user.admin.edit, user.id)" v-html="user.fullname"></a>

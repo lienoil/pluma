@@ -34,11 +34,9 @@ class CategoryController extends GeneralController
      */
     public function index(Request $request)
     {
-        $type = $this->type;
-        $hintpath = $this->hintpath;
-        $resources = Category::type($type)->paginate();
+        $resources = Category::type($this->type)->paginate();
 
-        return view("{$hintpath}::categories.index")->with(compact('resources', 'type'));
+        return view("{$this->hintpath}::categories.index")->with(compact('resources', 'type'));
     }
 
     /**

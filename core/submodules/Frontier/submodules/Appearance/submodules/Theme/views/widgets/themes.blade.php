@@ -6,7 +6,7 @@
         <v-card class="elevation-1 draggable-widget mb-3">
             <v-card-media height="150px" class="sortable-handle" src="{{ get_active_theme()->preview }}">
                 <v-card class="elevation-0 transparent">
-                    <v-card-text class="headline white--text">
+                    <v-card-text class="title white--text">
                         <strong>{{ get_active_theme()->name }}</strong>
                     </v-card-text>
                 </v-card>

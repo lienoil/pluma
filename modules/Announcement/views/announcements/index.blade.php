@@ -167,7 +167,7 @@
                         </template>
                     </v-data-table>
                 </v-card>
-                @if (\Illuminate\Support\Facades\Request::all())
+                @if (request()->all())
                     <p class="caption grey--text"><a href="{{ route('announcements.index') }}">{{ __('Remove filters') }}</a></p>
                 @endif
             </v-flex>
@@ -199,7 +199,6 @@
                             { text: '{{ __("Feature") }}', align: 'left', value: 'feature' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            {{-- { text: '{{ __("Excerpt") }}', align: 'left', value: 'body' }, --}}
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
                             { text: '{{ __("Category") }}', align: 'left', value: 'category_at' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
@@ -260,7 +259,7 @@
                         announcement: announcement,
                         sort: sortBy,
                         take: rowsPerPage,
-                        search: {!! @json_encode(\Illuminate\Support\Facades\Request::all()) !!},
+                        search: {!! @json_encode(request()->all()) !!},
                     };
                     this.api().get('{{ route('api.announcements.all') }}', query)
                         .then((data) => {

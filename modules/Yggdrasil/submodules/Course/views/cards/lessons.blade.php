@@ -1,8 +1,8 @@
 <template>
     <v-card class="elevation-0 grey lighten-4" :class="lessons.toolbar.modes.distraction.model?'mode-distraction-free mb-0':'mb-3'">
         <v-toolbar card class="white lighten-3 sticky" :class="lessons.toolbar.modes.distraction.model?'mode-distraction-free--toolbar elevation-3':''">
-            <v-icon class="green--text text--darken-3">fa-leaf</v-icon>
-            <v-toolbar-title class="subheading green--text text--darken-3">{{ __('Lessons') }}</v-toolbar-title>
+            <v-icon class="cyan--text text--darken-3">fa-leaf</v-icon>
+            <v-toolbar-title class="subheading cyan--text text--darken-3">{{ __('Lessons') }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <template>
                 {{-- Add --}}
@@ -54,7 +54,7 @@
                         v-model="draggable.active"
                     >
                         {{-- head --}}
-                        <div class="green lighten-4" style="height: 3px;"></div>
+                        <div class="cyan lighten-4" style="height: 3px;"></div>
                         <v-toolbar card slot="header" class="sortable-handle parent-handle white lighten-3" dense @click.native.stop="draggable.active = !draggable.active">
                             <v-icon>drag_handle</v-icon>
                             <span v-if="draggable.resource.lockable" v-tooltip:right="{html:'{{ __('This Lesson is lockable') }}'}"><v-icon>lock</v-icon></span>

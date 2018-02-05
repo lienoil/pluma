@@ -85,12 +85,12 @@
                                     </v-flex>
                                 </v-layout>
                             </v-card-text>
-                            <v-card-actions>
+                            <v-card-text class="text-xs-right">
                                 <v-spacer></v-spacer>
                                 @user($resource->id)
                                     <v-btn primary outline href="{{ route('profile.edit', $resource->handlename) }}">{{ __('Edit Profile') }}</v-btn>
                                 @enduser
-                            </v-card-actions>
+                            </v-card-text>
                         </v-card>
                     </v-flex>
                 </v-layout>

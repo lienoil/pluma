@@ -48,82 +48,88 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12 sm12 md9>
-                <v-card class="elevation-1">
-                    <v-card flat v-for="(item, i) in dataset.items" :key="i">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title primary-title class="subheading">
-                                <a :href="route(urls.show, item.code)" class="grey--text text--darken-3 no--decoration mb-3" v-html="item.name"></a>
-                            </v-toolbar-title>
-                            <v-spacer></v-spacer>
-                            <v-menu bottom left>
-                                <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
-                                <v-list>
-                                    @can('view-forum')
-                                        <v-list-tile ripple :href="route(urls.show, (item.code))">
-                                            <v-list-tile-action>
-                                                <v-icon info>search</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('View details') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    @endcan
-                                    @can('edit-forum')
-                                        <v-list-tile ripple :href="route(urls.edit, (item.id))">
-                                            <v-list-tile-action>
-                                                <v-icon accent>edit</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('Edit') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    @endcan
-                                    @can('destroy-forum')
-                                        <v-list-tile ripple @click="$refs[`destroy_${item.id}`].submit()">
-                                            <v-list-tile-action>
-                                                <v-icon warning>delete</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    <form :id="`destroy_${item.id}`" :ref="`destroy_${item.id}`" :action="route(urls.destroy, item.id)" method="POST">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('DELETE') }}
-                                                        {{ __('Move to Trash') }}
-                                                    </form>
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    @endcan
-                                </v-list>
-                            </v-menu>
-                        </v-toolbar>
+                <v-card flat class="mb-3 elevation-1 c-lift" v-for="(item, i) in dataset.items" :key="i">
 
-                        <v-card-text class="body-1 grey--text">
-                            <div v-html="item.excerpt"></div>
-                        </v-card-text>
+                    {{-- title and actions --}}
+                    <v-card-actions class="px-custom-20 py-2">
+                        <a :href="route(urls.show, item.code)" class="title fw-400 grey--text text--darken-3 no--decoration pa-0 mb-0">
+                            @{{ item.name }}
+                        </a>
+                        <v-spacer></v-spacer>
+                        <v-menu bottom left>
+                            <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
+                            <v-list>
+                                @can('view-forum')
+                                    <v-list-tile ripple :href="route(urls.show, (item.code))">
+                                        <v-list-tile-action>
+                                            <v-icon info>search</v-icon>
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ __('View details') }}
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                @endcan
+                                @can('edit-forum')
+                                    <v-list-tile ripple :href="route(urls.edit, (item.id))">
+                                        <v-list-tile-action>
+                                            <v-icon accent>edit</v-icon>
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ __('Edit') }}
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                @endcan
+                                @can('destroy-forum')
+                                    <v-list-tile ripple @click="$refs[`destroy_${item.id}`].submit()">
+                                        <v-list-tile-action>
+                                            <v-icon warning>delete</v-icon>
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                <form :id="`destroy_${item.id}`" :ref="`destroy_${item.id}`" :action="route(urls.destroy, item.id)" method="POST">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }}
+                                                    {{ __('Move to Trash') }}
+                                                </form>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                @endcan
+                            </v-list>
+                        </v-menu>
+                    </v-card-actions>
+                    {{-- /title and actions --}}
 
-                        <v-card-actions>
-                            <div v-if="item.category" class="orange--text caption">
-                                <a class="orange--text td-n" class="fw-500"
-                                    :href="`{{ route('forums.index') }}?category_id=${item.category_id}`"
-                                >
-                                    <span v-html="item.category.name"></span>
-                                </a>
-                            </div>
-                            <div class="caption">
-                                <span class="caption" v-html="item.created"></span>
-                                <span class="teal--text caption"> <span class="caption grey--text text--darken-2">{{ __('by') }}</span>
-                                    <a class="teal--text td-n caption" :href="`{{ route('forums.index') }}?user_id=${item.user_id}`" v-html="item.author">
-                                    </a>
-                                </span>
-                            </div>
-                        </v-card-actions>
-                        <v-divider></v-divider>
-                    </v-card>
+                    {{-- category --}}
+                    <v-card-text class="px-4 pt-0">
+                        <div v-if="item.category" class="orange--text">
+                            <a class="grey--text td-n" class="fw-500"
+                                :href="`{{ route('forums.index') }}?category_id=${item.category_id}`">
+                                <v-icon class="orange--text mr-2" v-html="item.category.icon"></v-icon><span v-html="item.category.name"></span>
+                            </a>
+                        </div>
+                    </v-card-text>
+                    {{-- /category --}}
+
+                    {{-- body --}}
+                    <v-card-text class="subheading grey--text text--darken-1 px-4">
+                        <div v-html="item.excerpt"></div>
+                    </v-card-text>
+                    {{-- /body --}}
+
+                    {{-- author and created --}}
+                    <v-card-actions class="px-custom-20 py-4">
+                        <v-avatar size="30px" class="mr-2"><img :src="item.user.avatar"></v-avatar>
+                        <a class="grey--text td-n" :href="`{{ route('forums.index') }}?user_id=${item.user_id}`" v-html="item.author"></a>
+                        <v-spacer></v-spacer>
+                        <v-icon class="grey--text">schedule</v-icon>
+                        <span class="subheading grey--text" v-html="item.created"></span>
+                    </v-card-actions>
+                    {{-- /author and created --}}
                 </v-card>
 
                 @if (request()->all())
@@ -132,12 +138,8 @@
             </v-flex>
 
             <v-flex xs12 sm12 md3>
-                <v-card class="elevation-1 mb-3">
-                    <v-card-actions class="pa-3">
-                        <v-spacer></v-spacer>
-                        <v-btn primary large href="{{ route('forums.create') }}">{{ __('Ask a Question') }}</v-btn>
-                        <v-spacer></v-spacer>
-                    </v-card-actions>
+                <v-card flat class="mb-3 transparent">
+                    <v-btn primary block large class="elevation-1 my-0" href="{{ route('forums.create') }}">{{ __('New Discussion') }}</v-btn>
                 </v-card>
 
                 <v-card class="elevation-1">
@@ -151,7 +153,6 @@
                                 <v-list-tile-title v-html="item.name"></v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
-                        {{-- <v-divider v-else-if="item.divider"></v-divider> --}}
                     </v-list>
                 </v-card>
             </v-flex>
@@ -183,6 +184,21 @@
         }
         .fw-400 {
             font-weight: 400 !important;
+        }
+        .td-n:hover {
+            text-decoration:none !important;
+        }
+        .px-custom-20 {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+        .c-lift {
+            transition: all .2s ease;
+        }
+        .c-lift:hover {
+            -webkit-transform: translateY(-6px);
+            transform: translateY(-6px);
+            box-shadow: 0 1px 8px rgba(0,0,0,.2),0 3px 4px rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12) !important;
         }
     </style>
 @endpush

@@ -31,7 +31,7 @@
                                 </v-list-tile>
                                 <v-list-tile avatar v-else ripple @click="post(route(urls.courses.unbookmark, resource.id), {_token: '{{ csrf_token() }}'})">
                                     <v-list-tile-avatar>
-                                        <v-icon class="red--text">bookmark</v-icon>
+                                        <v-icon class="ted--text">bookmark</v-icon>
                                     </v-list-tile-avatar>
                                     <v-list-tile-title>{{ __('Remove from your Bookmarks') }}</v-list-tile-title>
                                 </v-list-tile>

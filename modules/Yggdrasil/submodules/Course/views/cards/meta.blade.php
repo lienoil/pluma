@@ -1,7 +1,7 @@
 <v-card flat class="white lighten-4">
     <v-toolbar card class="white sticky">
-        <v-icon left class="teal--text">details</v-icon>
-        <v-toolbar-title class="subheading teal--text">{{ __('Options') }}</v-toolbar-title>
+        <v-icon left class="cyan--text">details</v-icon>
+        <v-toolbar-title class="subheading cyan--text">{{ __('Options') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click.native.stop="draggable.options.view = !draggable.options.view">
             <v-icon>@{{ draggable.options.view ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>

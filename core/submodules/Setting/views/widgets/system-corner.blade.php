@@ -8,8 +8,8 @@
                 <v-card-media height="150px" src="{{ assets('frontier/images/placeholder/storage-1.png') }}">
                      <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
                     <v-toolbar dark card class="transparent sortable-handle">
-                        <v-icon dark>{{ widgets('system-corner')->icon }}</v-icon>
-                        <v-toolbar-title class="headline"><strong>{{ widgets('system-corner')->name }}</strong></v-toolbar-title>
+                        {{-- <v-icon dark>{{ widgets('system-corner')->icon }}</v-icon> --}}
+                        <v-toolbar-title class="title"><strong>{{ widgets('system-corner')->name }}</strong></v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-menu bottom left>
                             <v-btn icon class="white--text" slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>

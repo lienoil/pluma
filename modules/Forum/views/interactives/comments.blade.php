@@ -1,13 +1,11 @@
 <v-card class="elevation-0">
     <v-toolbar card class="transparent">
-        <v-toolbar-title>{{ __("Comments") }}</v-toolbar-title>
+        <v-toolbar-title class="subheading page-title">{{ __("Comments") }}</v-toolbar-title>
     </v-toolbar>
-
-    <v-divider></v-divider>
 
     @can('show-forum')
         @if ($resource->comments()->get()->isEmpty())
-            <v-card-text class="text-xs-center body-1 grey--text pa-5">
+            <v-card-text class="text-xs-center body-1 grey--text pa-3">
                 <em>{{ __('No discourse yet.') }}</em>
             </v-card-text>
         @endif
@@ -22,10 +20,6 @@
 
         <v-divider></v-divider>
         <v-card flat>
-            <v-toolbar card class="transparent">
-                <v-toolbar-title>{{ __("Post your comment") }}</v-toolbar-title>
-            </v-toolbar>
-            <v-divider></v-divider>
             <form action="{{ route('forums.comment', $resource->id) }}" method="POST">
                 {{ csrf_field() }}
                 <input type="hidden" name="user_id" value="{{ user()->id }}">

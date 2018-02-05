@@ -104,7 +104,7 @@
                                 </a>
                             </td>
                             <td v-html="prop.item.code"></td>
-                            <td><a class="grey--text text--darken-4" class="fw-500 td-n" :href="`{{ route('forms.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
+                            <td><a class="grey--text text--darken-4 td-n" class="fw-500 td-n" :href="`{{ route('forms.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
                             <td v-html="prop.item.method"></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>

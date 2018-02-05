@@ -4,7 +4,6 @@
 @section("post-container", "")
 
 @section("root")
-    {{-- @include("Template::menus.main-menu") --}}
+    @include("Template::menus.main-menu")
     @yield("content")
-    @include("Template::menus.social-menu")
 @endsection

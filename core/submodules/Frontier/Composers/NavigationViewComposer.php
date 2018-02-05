@@ -120,6 +120,8 @@ class NavigationViewComposer extends BaseViewComposer
             if ($menu['child']['active'] = in_array($currentRouteName, $childRoutes)) {
                 $parent['active'] = $menu['child']['active'];
             }
+
+            $menu['count'] = 100;
         });
 
         return $this;

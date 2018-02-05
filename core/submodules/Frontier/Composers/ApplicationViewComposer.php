@@ -96,7 +96,7 @@ class ApplicationViewComposer extends BaseViewComposer
             'title' => settings('site_title', env("APP_NAME", "Pluma CMS")),
             'tagline' => $this->guessTagline(),
             'author' => settings('site_author', env("APP_AUTHOR")),
-            'logo' => settings('site_logo', $this->getBrandLogoUrl()),
+            'logo' => $this->getBrandLogoUrl(),
             'copyright' => $this->guessCopyright(),
             'fulltitle' => $this->guessTitle() . " " . $this->guessSubtitle(),
         ]));
@@ -293,13 +293,13 @@ class ApplicationViewComposer extends BaseViewComposer
     {
         $version = app()->version();
 
-        if (file_exists(public_path('img/logos/main.png'))) {
-            return url("img/logos/main.png?v=$version");
-        }
-
         if (file_exists(public_path('logo.png'))) {
             // dd('sd');
             return url("logo.png?v=$version");
+        }
+
+        if (file_exists(public_path('img/logos/main.png'))) {
+            return url("img/logos/main.png?v=$version");
         }
 
         return assets("frontier/images/logos/main.png?v=$version");

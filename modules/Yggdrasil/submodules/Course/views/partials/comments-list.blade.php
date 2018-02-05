@@ -6,7 +6,7 @@
         <v-list>
             <v-list-tile>
                 <v-list-tile-avatar>
-                    {{ $comment->user->avatar }}
+                    {{-- {{ $comment->user->avatar }} --}}
                     <img src="{{ $comment->user->avatar ?? '' }}">
                 </v-list-tile-avatar>
                 <v-list-tile-content>

@@ -8,11 +8,11 @@
                 v-show="!removeannouncement"
                 transition="slide-y-transition">
 
-                <v-card-media class="sortable-handle" style="background: linear-gradient(45deg, #c32d60 0%, #00BCD4 100%)">
+                <v-card-media style="background: linear-gradient(45deg, #c32d60 0%, #00BCD4 100%)">
                     {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <v-card class="elevation-0 transparent">
+                            <v-card class="elevation-0 transparent sortable-handle">
                                 <v-card-title class="subheading white--text">
                                     <v-spacer></v-spacer>
                                     <v-menu bottom left>
@@ -41,7 +41,7 @@
                                         </v-list>
                                     </v-menu>
                                 </v-card-title>
-                                <v-card-text v-show="!hideannouncement" class="pa-4">
+                                <v-card-text v-show="!hideannouncement">
                                     {{-- banner --}}
                                     <div class="text-xs-center title pb-3 white--text">{{ __('Announcements') }}</div>
                                     <div class="text-xs-center display-3 weight-600 white--text">{{ $announcements->count() }}</div>
@@ -56,9 +56,8 @@
                                     {{-- /banner --}}
 
                                     {{-- list of announcements --}}
+                                    @foreach ($announcements as $announcement)
                                     <div class="white mt-3 elevation-3" style="border-radius: 8px;">
-                                        @foreach ($announcements as $announcement)
-                                        <v-divider></v-divider>
                                         <div v-show="!hideannouncement">
                                             <div class="subheading pa-3">
                                                 <a class="td-n grey--text text--darken-1 mb-2" href="{{ route('announcements.single', $announcement->code) }}">
@@ -73,7 +72,7 @@
                                                     </div>
                                                 @endif
                                                 <div class="my-3">
-                                                        @if ($announcement->feature)
+                                                    @if ($announcement->feature)
                                                         <v-card-media class="mb-2" height="100px" src="{{ $announcement->feature }}"></v-card-media>
                                                     @endif
                                                 </div>
@@ -82,8 +81,8 @@
                                                 <div class="body-1 grey--text"><v-icon left>access_time</v-icon> {{ $announcement->published }}</div>
                                             </div>
                                         </div>
-                                    @endforeach
                                     </div>
+                                    @endforeach
                                     {{-- /list of announcements --}}
                                 </v-card-text>
                             </v-card>

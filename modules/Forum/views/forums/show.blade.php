@@ -3,6 +3,7 @@
 @section("head-title", __($resource->name))
 
 @section("content")
+    @include("Frontier::partials.banner")
 
     <v-toolbar dark extended class="light-blue elevation-0">
         <v-btn ripple flat href="{{ route('forums.index') }}">
@@ -11,18 +12,16 @@
         </v-btn>
     </v-toolbar>
     <v-container fluid grid-list-lg>
-        @include("Frontier::partials.banner")
 
         <v-layout row wrap>
-
             <v-flex xs12 md8 offset-md2>
-                <v-card class="grey--text elevation-1 card--flex-toolbar">
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __($resource->name) }}</v-toolbar-title>
+                <v-card class="grey--text elevation-1 card--flex-toolbar mb-3">
+                    {{-- title and actions --}}
+                    <v-card-actions class="px-custom-20 py-2">
+                       <div class="title fw-400 grey--text text--darken-3 no--decoration pa-0 mb-0">
+                            {{ $resource->name }}
+                        </div>
                         <v-spacer></v-spacer>
-                        {{-- <v-btn icon ripple v-tooltip:left="{ html: 'Favorite' }">
-                            <v-icon class="grey--text text--lighten-1">star_border</v-icon>
-                        </v-btn> --}}
                         <v-menu bottom left>
                             <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
                             <v-list>
@@ -57,30 +56,41 @@
                                 @endcan
                             </v-list>
                         </v-menu>
-                    </v-toolbar>
+                    </v-card-actions>
+                    {{-- title and actions --}}
 
-                    <v-card-text class="black--text">
-                        <div>
-                            <v-avatar size="30px"><img src="{{ $resource->user->avatar }}"></v-avatar>
-                            <a href="#!" class="body-1 teal--text text-decor-none"><strong>{{ $resource->author }}</strong></a>
-                            <div class="mb-2"><span class="body-1 grey--text">{{ $resource->created }}</span></div>
-                        </div>
-                        <div class="body-1">{!! $resource->body !!}</div>
+                    {{-- category --}}
+                    <v-card-text class="px-4 pt-0">
+                        <a class="grey--text td-n" class="fw-500"
+                            :href="`{{ route('forums.index') }}?category_id=${resource.category_id}`">
+                            <v-icon class="orange--text mr-2">{{ $resource->category->icon }}</v-icon>
+                            <span>{{ $resource->category->name }}</span>
+                        </a>
                     </v-card-text>
+                    {{-- /category --}}
 
-                    <v-card-text class="text-xs-right">
-                        <div class="grey--text caption">{{ __('Category') }}:
-                            <v-chip label class="grey lighten-3 elevation-0">
-                                <v-icon left class="orange--text">label</v-icon> {{ $resource->category->name }}
-                            </v-chip>
-                        </div>
+                    {{-- body --}}
+                    <v-card-text class="subheading grey--text text--darken-4 px-4">
+                        <div>{!! $resource->body !!}</div>
                     </v-card-text>
-                    <v-divider></v-divider>
+                    {{-- /body --}}
 
-                    {{-- comment --}}
-                    @include("Forum::interactives.comments")
-                    {{-- // comment --}}
+                    {{-- author and created --}}
+                    <v-card-actions class="px-custom-20 py-4">
+                        <v-avatar size="30px" class="mr-2"><img src="{{ $resource->user->avatar }}"></v-avatar>
+                        <a class="grey--text td-n" :href="`{{ route('forums.index') }}?user_id=${resource.user_id}`">{{ $resource->author }}</a>
+                        <v-spacer></v-spacer>
+                        <v-icon class="grey--text">schedule</v-icon>
+                        <span class="subheading grey--text">{{ $resource->created }}</span>
+                    </v-card-actions>
+                    {{-- /author and created --}}
                 </v-card>
+
+                {{-- comment --}}
+                <v-card class="elevation-1">
+                    @include("Forum::interactives.comments")
+                </v-card>
+                {{-- // comment --}}
             </v-flex>
         </v-layout>
     </v-container>
@@ -121,6 +131,15 @@
         }
         .application--light .pagination__item--active {
             background: #03a9f4 !important;
+        }
+        .px-custom-20 {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+        .td-n:hover,
+        .td-n:target,
+        .td-n:focus {
+            text-decoration: none !important;
         }
     </style>
 @endpush

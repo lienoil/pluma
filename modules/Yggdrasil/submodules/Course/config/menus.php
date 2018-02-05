@@ -35,7 +35,7 @@ return [
                     'name' => 'courses.index',
                     'children' => [
                         'courses.edit',
-                        'courses.create',
+                        // 'courses.create',
                         'courses.show',
                         'courses.trashed',
                     ]

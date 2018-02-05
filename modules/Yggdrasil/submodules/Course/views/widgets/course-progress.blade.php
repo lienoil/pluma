@@ -11,7 +11,7 @@
                 :size="150"
                 :width="20"
                 :value="{{ $resource->progress }}"
-                class="teal--text text--lighten-3"
+                class="cyan--text text--lighten-3"
             >
                 <span>{{ $resource->progress }}%</span>
             </v-progress-circular>
@@ -20,7 +20,7 @@
                 :size="150"
                 :width="20"
                 :value="0"
-                class="teal--text text--lighten-3"
+                class="cyan--text text--lighten-3"
             >
                 <span>{{ __('00%') }}</span>
             </v-progress-circular>
