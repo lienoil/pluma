@@ -1,5 +1,5 @@
 @if (! $resource->enrolled)
-    <v-card ref="enroll-card" dark class="mb-3 elevation-1 pink darken-1">
+    <v-card ref="enroll-card" class="mb-3 elevation-1">
         <v-toolbar dark dense card class="transparent">
             <v-toolbar-title class="subheading page-title">{{ __('Availability') }}</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -18,10 +18,17 @@
                 </div>
             </div>
         </v-card-text>
+
+        <v-card-text class="subheading">
+            <div class="text-xs-center">
+                <v-icon>school</v-icon>
+            </div>
+        </v-card-text>
+
         @if (! $resource->enrolled)
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn outline ripple class="white--text">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
+                <v-btn outline ripple>{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
                 <v-spacer></v-spacer>
             </v-card-actions>
         @endif
