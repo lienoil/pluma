@@ -27,6 +27,12 @@ return [
         'description' => 'Ability to show a single comment',
         'group' => 'comment',
     ],
+    'store-comment' => [
+        'name' => 'comments.store',
+        'code' => 'store-comment',
+        'description' => 'Ability to save the comment',
+        'group' => 'comment',
+    ],
     'post-comment' => [
         'name' => 'comments.post',
         'code' => 'post-comment',

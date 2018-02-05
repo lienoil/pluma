@@ -6,6 +6,7 @@ use Crowfeather\Traverser\Traverser;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use Menu\Models\Menu;
 use Pluma\Support\Composers\BaseViewComposer;
 use Pluma\Support\Modules\Traits\Module;
 
@@ -212,7 +213,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function menu()
     {
-        return [];
+        return Menu::all();
     }
 
     /**

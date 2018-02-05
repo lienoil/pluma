@@ -5,17 +5,19 @@
     </v-toolbar>
     <v-divider></v-divider>
 
-    <v-card-text class="pa-0">
-        <v-card-text class="transparent pr-4">
-            @include("Course::partials.comments-list", ['comments' => $resource->comments()->paginate()->items()])
-        </v-card-text>
-
-        <v-card-actions>
-            <v-spacer></v-spacer>
-            @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(), 'section' => '#comments'])
-            <v-spacer></v-spacer>
-        </v-card-actions>
+    {{-- Comments Section --}}
+    <v-card-text class="transparent pr-4">
+        @include("Course::partials.comments-list", ['comments' => $resource->comments()->parents()->paginate()->items()])
     </v-card-text>
+    {{-- Comments Section --}}
+
+    {{-- Pagination --}}
+    <v-card-actions>
+        <v-spacer></v-spacer>
+        @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(), 'section' => '#comments'])
+        <v-spacer></v-spacer>
+    </v-card-actions>
+    {{-- Pagination --}}
 
     <v-divider></v-divider>
 
@@ -26,7 +28,7 @@
         </v-toolbar>
 
         @if (user())
-            @can('store-comment')
+            @can('post-comment')
                 <v-alert info v-show="'true'" v-model="alert" dismissible>
                     {{ __('Please observe proper guidelines when posting comments.') }}
                 </v-alert>
@@ -54,7 +56,8 @@
 
             <v-card-actions>
                 @if(user())
-                    @can('store-comment')
+                    @can('post-comment')
+                        <v-spacer></v-spacer>
                         <v-btn type="submit" flat primary>{{ __('Post Comment') }}</v-btn>
                     @endcan
                 @else
@@ -71,7 +74,7 @@
 @push('css')
     {{-- <link rel="stylesheet" href="{{ assets('frontier/vuetify-mediabox/dist/vuetify-mediabox.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ assets('frontier/vuetify-quill/dist/vuetify-quill.min.css') }}">
-    <style>
+    {{-- <style>
         .pl-7 {
             padding-left: 70px;
         }
@@ -92,7 +95,7 @@
         .application--light .pagination__item--active {
             background: #03a9f4 !important;
         }
-    </style>
+    </style> --}}
 @endpush
 
 @push('pre-scripts')

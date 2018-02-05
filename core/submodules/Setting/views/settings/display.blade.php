@@ -2,7 +2,11 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-toolbar dark class="elevation-2 sticky accent">
+        <v-toolbar-title primary-title class="subheading page-title">{{ __('General Settings') }}</v-toolbar-title>
+    </v-toolbar>
+
+    <v-container fluid grid-list-lg class="white">
 
         @include("Theme::partials.banner")
 
@@ -13,26 +17,18 @@
 
             </v-flex>
 
-            <v-flex sm9 md5>
+            <v-flex sm6 md4>
 
                 <form action="{{ route('settings.store') }}" method="POST">
                     {{ csrf_field() }}
-                    <v-card class="mb-3 elevation-1">
-                        <v-toolbar class="transparent elevation-0">
+                    <v-card flat class="mb-3">
+                        {{-- <v-toolbar class="transparent elevation-0">
                             <v-toolbar-title class="accent--text">{{ __('Displaying Data') }}</v-toolbar-title>
-                        </v-toolbar>
-                        {{-- <v-subheader>{{ __('Data') }}</v-subheader> --}}
+                        </v-toolbar> --}}
+                        <v-subheader>{{ __('Global Display Data') }}</v-subheader>
                         <v-card-text>
-                            <v-text-field
-                                type="number"
-                                label="{{ __('Items Per Page') }}"
-                                v-model="resource.item.items_per_page"
-                                name="items_per_page"
-                                hint="{{ __('Default: 15 items') }}"
-                                persistent-hint
-                                input-group
-                                @input="(val) => { resource.item.items_per_page = val }"
-                            ></v-text-field>
+                            <v-select label="{{ __('Items per Page') }}" hint="{{ __('Default: 15 items') }}" persistent-hint item-value="value" v-model="resource.item.items_per_page" :items="[{'value':5,text:'5'}, {'value':10,text:'10'}, {'value':15,text:'15'}, {'value':20,text:'20'}, {'value':30,text:'30'}, {'value':50,text:'50'}, {'value':100,text:'100'}]"></v-select>
+                            <input type="hidden" name="items_per_page" :value="resource.item.items_per_page">
 
                             <v-text-field
                                 type="number"
@@ -48,8 +44,8 @@
                         </v-card-text>
 
                         <v-card-actions>
-                            <v-spacer></v-spacer>
                             <v-btn type="submit" primary>{{ __('Save') }}</v-btn>
+                            <v-spacer></v-spacer>
                         </v-card-actions>
                     </v-card>
                 </form>
@@ -66,7 +62,7 @@
                 return {
                     resource: {
                         item: {
-                            items_per_page: '{{ old('items_per_page') ?? settings('items_per_page', 15) }}',
+                            items_per_page: {{ old('items_per_page', settings('items_per_page', 15)) }},
                             excerpt_length: '{{ old('excerpt_length') ?? settings('excerpt_length', 30) }}',
                         },
                         radios: {

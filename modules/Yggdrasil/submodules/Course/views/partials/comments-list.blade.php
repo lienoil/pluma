@@ -6,7 +6,8 @@
         <v-list>
             <v-list-tile>
                 <v-list-tile-avatar>
-                    <img src="{{ $comment->user->avatar }}">
+                    {{ $comment->user->avatar }}
+                    <img src="{{ $comment->user->avatar ?? '' }}">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                     <v-list-tile-title class="td-n grey--text text--darken-4 body-2">
@@ -16,10 +17,44 @@
                         <v-icon left class="body-1">access_time</v-icon> {{ $comment->created }}
                     </v-list-tile-sub-title>
                 </v-list-tile-content>
+                <v-list-tile-action>
+                    <v-menu bottom left>
+                        <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                        <v-list>
+                            {{-- <v-list-tile :href="route(urls.pages.edit, (prop.item.id))"> --}}
+                            <v-list-tile ripple>
+                                <v-list-tile-action>
+                                    <v-icon accent>edit</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        {{ __('Edit') }}
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                            <v-list-tile ripple @click="$refs[`destroy_${prop.item.id}`].submit()">
+                                <v-list-tile-action>
+                                    <v-icon warning>delete</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                            {{ __('Move to Trash') }}
+                                        {{-- <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
+                                        </form> --}}
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
+                </v-list-tile-action>
             </v-list-tile>
         </v-list>
-        <v-card-text class="pr-0 grey--text text--darken-2">
-            <div class="page-content body-1">{!! filter_obscene_words($comment->body) !!}</div>
+        <v-card flat class="pr-0 grey--text text--darken-2">
+            <v-card-text class="page-content body-1">{!! filter_obscene_words($comment->body) !!}</v-card-text>
+            {{-- <v-card-text class="page-content body-1">{!! filter_obscene_words($comment->body) !!}</v-card-text> --}}
             <v-card-actions class="grey--text text--darken-2">
                 {{-- Upvotes / Downvotes --}}
                 <div>
@@ -34,14 +69,22 @@
                         <em>{{ $comment->downvotes ?? 0 }}</em>
                     </span>
                 </div>
-                {{-- Upvotes / Downvotes --}}
-                <v-spacer></v-spacer>
-                @can('post-comment')
-                    <v-btn small accent flat>{{ __('Reply TODO') }}</v-btn>
-                @else
-                    <v-btn small accent flat disabled>{{ __('Reply') }}</v-btn>
-                @endcan
+                <div>
+                    {{-- Upvotes / Downvotes --}}
+                    <v-spacer></v-spacer>
+                    @can('post-comment')
+                        <v-btn small accent flat @click="$refs[`commentform-{{ $comment->id }}`].style.display='block'">{{ __('Reply') }}</v-btn>
+                    @else
+                        <v-btn small accent flat disabled>{{ __('Reply') }}</v-btn>
+                    @endcan
+                </div>
             </v-card-actions>
+            {{-- Replyform --}}
+            <v-card flat class="mb-3" id="commentform-{{ $comment->id ?? 'random' }}" ref="commentform-{{ $comment->id ?? 'random' }}" :style="{display:'none',border:'1px solid rgba(0,0,0,0.3)'}">
+                @include("Course::partials.commentform", ['isPaper' => 'false'])
+            </v-card>
+            {{-- Replyform --}}
+
             <v-divider></v-divider>
 
             {{-- Replies --}}
@@ -49,6 +92,6 @@
                 @include("Course::partials.comments-list", ['comments' => $comment->replies])
             </v-card>
             {{-- Replies --}}
-        </v-card-text>
+        </v-card>
     </v-card>
 @endforeach

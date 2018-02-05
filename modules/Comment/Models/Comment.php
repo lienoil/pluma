@@ -4,8 +4,9 @@ namespace Comment\Models;
 
 use Comment\Support\Relations\HasManyChildComments;
 use Comment\Support\Scopes\ApprovedScope;
-use Comment\Support\Traits\HasOneParentComment;
+use Comment\Support\Scopes\ParentCommentsTrait;
 use Comment\Support\Traits\CanBeVotedTrait;
+use Comment\Support\Traits\HasOneParentComment;
 use Frontier\Support\Traits\Ownable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Course;
@@ -15,12 +16,13 @@ use User\Support\Traits\BelongsToUser;
 
 class Comment extends Model
 {
-    use BelongsToUser,
+    use CanBeVotedTrait,
         HasManyChildComments,
         HasOneParentComment,
         Ownable,
-        CanBeVotedTrait,
-        SoftDeletes;
+        ParentCommentsTrait,
+        SoftDeletes,
+        BelongsToUser;
 
     protected $with = ['user'];
 

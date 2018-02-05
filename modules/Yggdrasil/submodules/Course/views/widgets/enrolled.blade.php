@@ -21,7 +21,9 @@
         @if (! $resource->enrolled)
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn outline ripple class="white--text">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
+                @if (user())
+                    <v-btn outline ripple class="white--text" href="{{ route('courses.enroll.index', [$resource->slug, user()->id]) }}">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
+                @endif
                 <v-spacer></v-spacer>
             </v-card-actions>
         @endif

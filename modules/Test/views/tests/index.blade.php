@@ -1,4 +1,4 @@
-@extends("Template::layouts.public")
+@extends("Theme::layouts.admin")
 
 @section("content")
 
@@ -11,7 +11,8 @@
                 {{-- @include("Setting::partials.settingsbar") --}}
 
                 {{-- {!! $form->build() !!} --}}
-                {{ dd($navigation) }}
+
+                {{-- {{ dd(app()) }} --}}
 
                 <div v-for="(user, i) in dataset.items">
                     <a :href="route(url.user.admin.edit, user.id)" v-html="user.fullname"></a>

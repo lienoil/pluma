@@ -92,7 +92,7 @@
                     quill: {
                         values: {
                             html: '{!! json_encode(old('body')) !!}',
-                            delta: JSON.parse({!! json_encode(old('delta')) !!}),
+                            delta: '{!! json_encode(old('delta')) !!}',
                         },
                     },
                     resource: {

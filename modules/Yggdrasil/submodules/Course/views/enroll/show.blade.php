@@ -80,6 +80,7 @@
         </v-layout>
     </v-parallax>
     <v-container fluid grid-list-lg>
+        @if (! $resource->enrolled)
         <v-layout row wrap>
             {{-- <v-flex flex md3 xs12 order-lg1>
                 <v-card class="mb-3 elevation-1">
@@ -95,15 +96,16 @@
                 <v-card class="elevation-1">
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <form action="{{ route('courses.enroll', [$resource->id, user()->id]) }}" method="POST">
-                            {{ csrf_field() }}
-                            <v-btn type="submit" class="elevation-1">{{ __('Enroll') }}</v-btn>
-                        </form>
+                            <form action="{{ route('courses.enroll', [$resource->id, user()->id]) }}" method="POST">
+                                {{ csrf_field() }}
+                                <v-btn type="submit" class="elevation-1">{{ __('Enroll') }}</v-btn>
+                            </form>
                         <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-card>
             </v-flex>
         </v-layout>
+        @endif
     </v-container>
 @endsection
 

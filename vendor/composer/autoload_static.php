@@ -4,15 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
+class ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
     );
 
@@ -28,7 +27,6 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         ),
         'S' => 
         array (
-            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Php70\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
@@ -122,10 +120,6 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
-        ),
-        'Symfony\\Polyfill\\Php72\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'Symfony\\Polyfill\\Php70\\' => 
         array (
@@ -483,6 +477,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Chronos\\Providers\\ChronosServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/Providers/ChronosServiceProvider.php',
         'Comment\\Controllers\\API\\CommentController' => __DIR__ . '/../..' . '/modules/Comment/Controllers/API/CommentController.php',
         'Comment\\Controllers\\CommentController' => __DIR__ . '/../..' . '/modules/Comment/Controllers/CommentController.php',
+        'Comment\\Controllers\\CommentingSettingController' => __DIR__ . '/../..' . '/modules/Comment/Controllers/CommentingSettingController.php',
         'Comment\\Models\\Comment' => __DIR__ . '/../..' . '/modules/Comment/Models/Comment.php',
         'Comment\\Observers\\CommentObserver' => __DIR__ . '/../..' . '/modules/Comment/Observers/CommentObserver.php',
         'Comment\\Providers\\CommentServiceProvider' => __DIR__ . '/../..' . '/modules/Comment/Providers/CommentServiceProvider.php',
@@ -492,6 +487,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Comment\\Support\\Relations\\HasManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/HasManyComments.php',
         'Comment\\Support\\Relations\\MorphManyComments' => __DIR__ . '/../..' . '/modules/Comment/Support/Relations/MorphManyComments.php',
         'Comment\\Support\\Scopes\\ApprovedScope' => __DIR__ . '/../..' . '/modules/Comment/Support/Scopes/ApprovedScope.php',
+        'Comment\\Support\\Scopes\\ParentCommentsScope' => __DIR__ . '/../..' . '/modules/Comment/Support/Scopes/ParentCommentsScope.php',
+        'Comment\\Support\\Scopes\\ParentCommentsTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Scopes/ParentCommentsTrait.php',
         'Comment\\Support\\Traits\\CanBeVotedTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CanBeVotedTrait.php',
         'Comment\\Support\\Traits\\CommentResourceApiTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourceApiTrait.php',
         'Comment\\Support\\Traits\\CommentResourcePublicTrait' => __DIR__ . '/../..' . '/modules/Comment/Support/Traits/CommentResourcePublicTrait.php',
@@ -955,10 +952,10 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5f45ca9bfce5d8d584c7c73daa870bb3::$classMap;
 
         }, null, ClassLoader::class);
     }
