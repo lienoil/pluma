@@ -1,7 +1,6 @@
 @extends("Theme::layouts.public")
 
 @section("content")
-    @include("Theme::menus.main-menu")
 
     <v-container grid-list-lg>
         <v-layout row wrap>
