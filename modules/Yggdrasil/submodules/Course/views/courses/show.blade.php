@@ -57,11 +57,11 @@
         <v-layout row wrap align-center justify-center>
             <v-flex md11 xs12>
                 <v-card flat class="transparent text-md-left text-sm-center text-xs-center">
-                    <v-card-text>
+                    <v-card-text class="py-5">
                         <v-layout row wrap align-center justify-center>
                             <v-flex md4 xs12>
                                 <v-card flat class="transparent">
-                                    <v-avatar size="250px" class="text-sm-center mb-3">
+                                    <v-avatar size="250px" class="text-sm-center my-3">
                                         <img src="{{ $resource->feature }}" width="100%">
                                     </v-avatar>
                                 </v-card>

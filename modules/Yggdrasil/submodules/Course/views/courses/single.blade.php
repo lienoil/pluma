@@ -52,17 +52,17 @@
                     @endcan
                 </v-list>
             </v-menu>
-        </v-toolbar>  
+        </v-toolbar>
         @endif
 
         <v-layout row wrap align-center justify-center>
             <v-flex md11 xs12>
                 <v-card flat class="transparent text-md-left text-sm-center text-xs-center">
-                    <v-card-text>
+                    <v-card-text class="py-5">
                         <v-layout row wrap align-center justify-center>
                             <v-flex md4 xs12>
                                 <v-card flat class="transparent">
-                                    <v-avatar size="250px" class="text-sm-center mb-3">
+                                    <v-avatar size="250px" class="text-sm-center my-3">
                                         <img src="{{ $resource->feature }}" width="100%">
                                     </v-avatar>
                                 </v-card>
@@ -70,7 +70,7 @@
                             <v-flex md8 xs12>
                                 <v-card dark flat class="transparent">
                                     <h2 class="display-1"><strong>{{ $resource->title }}</strong></h2>
-                                    
+
 
                                     <v-chip dark label small class="pl-0 white--text ma-0 subheading transparent elevation-0">
                                         <v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;
@@ -84,7 +84,7 @@
                                     @if ($resource->category)
                                         <v-chip label class="ma-0 white--text subheading transparent elevation-0"><v-icon left small class="subheading">label</v-icon><a class="td-n white--text" target="_blank" href="{{ route('courses.all', ['category_id' => $resource->category->id]) }}">{{ $resource->category->name }}</a></v-chip>
                                     @endif
-                                    
+
                                     <v-divider class="my-2"></v-divider>
                                     <div class="my-2">
                                         <v-avatar size="30px">
