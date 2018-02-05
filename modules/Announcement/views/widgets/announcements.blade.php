@@ -8,11 +8,11 @@
                 v-show="!removeannouncement"
                 transition="slide-y-transition">
 
-                <v-card-media class="sortable-handle" style="background: linear-gradient(45deg, #c32d60 0%, #00BCD4 100%)">
+                <v-card-media style="background: linear-gradient(45deg, #c32d60 0%, #00BCD4 100%)">
                     {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <v-card class="elevation-0 transparent">
+                            <v-card class="elevation-0 transparent sortable-handle">
                                 <v-card-title class="subheading white--text">
                                     <v-spacer></v-spacer>
                                     <v-menu bottom left>
