@@ -4,6 +4,8 @@
 
 @section("content")
 
+    @include("Theme::menus.main-menu")
+
     @include("Profile::partials.profile-banner")
 
     <v-container fluid grid-list-lg>

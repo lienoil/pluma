@@ -15,7 +15,7 @@
         :class="bulk.destroy.model ? 'btn--active warning warning--text' : ''"
         v-tooltip:left="{'html': '{{ __('Toggle the bulk command checboxes') }}'}"
         @click.native="bulk.destroy.model = !bulk.destroy.model"
-    ><v-icon>@{{ bulk.destroy.model ? 'delete_sweep' : 'check_circle' }}</v-icon></v-btn>
+    ><v-icon>check_circle</v-icon></v-btn>
     {{-- Bulk Delete --}}
     <v-slide-y-transition>
         <template v-if="dataset.selected.length > 1">
@@ -62,7 +62,7 @@
         <v-flex sm12>
 
             <v-card class="mb-3 elevation-1">
-                
+
 
                 <v-data-table
                     :loading="dataset.loading"

@@ -21,8 +21,7 @@ class User extends Authenticatable
     use Avatar,
         BelongsToManyRoles,
         CanResetPasswordTrait,
-        DetailTrait,
-        HasManyDetails,
+        HasManyDetails, DetailTrait,
         HasManyNotes,
         HasManySettings, SettingTrait,
         HasOneActivation;

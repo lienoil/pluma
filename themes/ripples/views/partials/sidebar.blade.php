@@ -12,7 +12,6 @@
     v-model="sidebar.drawer"
     app
 >
-
     <v-list>
         <v-list-tile>
             <v-list-tile-avatar tile size="40px">

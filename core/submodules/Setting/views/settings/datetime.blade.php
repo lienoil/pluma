@@ -2,7 +2,11 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-toolbar dark class="elevation-2 sticky accent">
+        <v-toolbar-title primary-title class="subheading page-title">{{ __('Date &amp; Time Settings') }}</v-toolbar-title>
+    </v-toolbar>
+
+    <v-container fluid grid-list-lg class="white">
 
         @include("Theme::partials.banner")
 
@@ -17,11 +21,8 @@
 
                 <form action="{{ route('settings.store') }}" method="POST">
                     {{ csrf_field() }}
-                    <v-card class="mb-3 elevation-1">
-                        <v-toolbar class="transparent elevation-0">
-                            <v-toolbar-title class="accent--text">{{ __('Date and Time Settings') }}</v-toolbar-title>
-                        </v-toolbar>
-                        {{-- <v-subheader>{{ __('Data') }}</v-subheader> --}}
+                    <v-card flat class="mb-3">
+                        <v-subheader>{{ __('Formatting') }}</v-subheader>
                         <v-card-text>
                             <v-layout row wrap>
                                 <v-flex sm4>
@@ -71,8 +72,8 @@
                         </v-card-text>
 
                         <v-card-actions>
-                            <v-spacer></v-spacer>
                             <v-btn type="submit" primary>{{ __('Save') }}</v-btn>
+                            <v-spacer></v-spacer>
                         </v-card-actions>
                     </v-card>
                 </form>

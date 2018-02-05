@@ -1,16 +1,11 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="elevation-1 info sticky">
-        <v-menu transition="slide-y-transition">
-            <v-btn flat slot="activator" class="white--text">
-                <v-icon left>perm_media</v-icon>
-                <span>All</span>
-                <v-icon right>arrow_drop_down</v-icon>
-            </v-btn>
-        </v-menu>
-
+    <v-toolbar dark class="elevation-1 accent sticky">
+        <v-toolbar-title class="page-title">{{ __('Manage Courses') }}</v-toolbar-title>
         <v-spacer></v-spacer>
+
+        {{-- Search --}}
         <template>
             <v-text-field
                 :append-icon-cb="() => {bulk.searchform.model = !bulk.searchform.model}"
@@ -24,8 +19,9 @@
             ></v-text-field>
             <v-btn v-show="!bulk.searchform.model" icon v-tooltip:left="{html:'{{ __('Search') }}'}" @click.stop="bulk.searchform.model = !bulk.searchform.model"><v-icon>search</v-icon></v-btn>
         </template>
+        {{-- Search --}}
+
         <v-btn icon v-tooltip:left="{html:'{{ __('Sort') }}'}"><v-icon>sort</v-icon></v-btn>
-        <v-btn icon v-tooltip:left="{html:bulk.gridlist.model?'{{ __('Grid View') }}':'{{ __('List View') }}'}" @click.stop="bulk.gridlist.model = !bulk.gridlist.model"><v-icon v-html="bulk.gridlist.model?'apps':'list'"></v-icon></v-btn>
         <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
     </v-toolbar>
 

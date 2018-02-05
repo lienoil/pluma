@@ -64,6 +64,7 @@
                         <v-card-text>
                             <v-layout row wrap>
                                 <v-flex xs2 v-show="!suppliments.required_fields.model">
+                                    <div v-html="suppliments.roles.selected"></div>
                                     <v-select
                                         :error-messages="resource.errors.prefix"
                                         prepend-icon="account_box"
@@ -129,7 +130,7 @@
                                         prepend-icon="supervisor_account"
                                         v-model="suppliments.roles.selected"
                                     ></v-select>
-                                    <input type="hidden" name="roles[]" :value="id" v-for="(id, i) in suppliments.roles.selected" :key="i">
+                                    <input type="hidden" name="roles[]" :value="id.id ? id.id : id" v-for="(id, i) in suppliments.roles.selected" :key="i">
 
 
                                     <v-text-field
@@ -267,7 +268,7 @@
                                 totalItems: 0,
                             },
                             items: [],
-                            selected: [],
+                            selected: {!! json_encode(old('roles') ?? $resource->roles) !!},
                             searchform: {
                                 query: '',
                                 model: true,
@@ -305,7 +306,7 @@
                     }
                     this.suppliments.roles.items = g;
 
-                    let selected = {!! json_encode(old('roles') ?? $resource->roles->pluck('id')->toArray()) !!};
+                    let selected = {!! json_encode(old('roles') ?? $resource->roles()->select(['roles.id', 'name'])->get()->toArray()) !!};
                     let s = [];
                     if (selected) {
                         for (var i in selected) {

@@ -14,8 +14,15 @@ return [
     ],
     [
         'appears' => [
-            '*'
+            '*',
         ],
         'class' => \Frontier\Composers\ApplicationViewComposer::class
+    ],
+    [
+        'appears' => [
+            '*',
+            'Theme::partials.header',
+        ],
+        'class' => \Frontier\Composers\ClientSideVariableViewComposer::class
     ],
 ];

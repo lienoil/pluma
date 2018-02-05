@@ -2,7 +2,11 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-toolbar dark class="elevation-2 sticky accent">
+        <v-toolbar-title primary-title class="subheading page-title">{{ __('Email Options') }}</v-toolbar-title>
+    </v-toolbar>
+
+    <v-container fluid grid-list-lg class="white">
 
         @include("Theme::partials.banner")
 
@@ -13,15 +17,12 @@
 
             </v-flex>
 
-            <v-flex sm9 md5>
+            <v-flex sm9 md4>
 
                 <form action="{{ route('settings.email.store') }}" method="POST">
                     {{ csrf_field() }}
 
-                    <v-card class="mb-3 elevation-1">
-                        <v-toolbar class="transparent elevation-0">
-                            <v-toolbar-title class="accent--text">{{ __('Email Options') }}</v-toolbar-title>
-                        </v-toolbar>
+                    <v-card flat class="mb-3">
 
                         <v-subheader>{{ __("Mail Settings") }}</v-subheader>
                         <v-card-text class="grey--text body-1">
@@ -47,8 +48,8 @@
                         </v-card-text>
 
                         <v-card-actions>
-                            <v-spacer></v-spacer>
                             <v-btn primary type="submit" class="elevation-1">{{ __('Save') }}</v-btn>
+                            <v-spacer></v-spacer>
                         </v-card-actions>
 
                     </v-card>

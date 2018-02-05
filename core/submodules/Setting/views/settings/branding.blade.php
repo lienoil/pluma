@@ -2,7 +2,11 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-toolbar dark class="elevation-2 sticky accent">
+        <v-toolbar-title primary-title class="subheading page-title">{{ __('Branding Settings') }}</v-toolbar-title>
+    </v-toolbar>
+
+    <v-container fluid grid-list-lg class="white">
 
         @include("Theme::partials.banner")
 
@@ -13,13 +17,9 @@
 
             </v-flex>
 
-            <v-flex sm9 md5>
+            <v-flex sm9 md4>
 
-                <v-card class="mb-3 elevation-1">
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Site Branding') }}</v-toolbar-title>
-                    </v-toolbar>
-
+                <v-card flat class="mb-3">
                     <form action="{{ route('settings.branding.store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
@@ -73,28 +73,10 @@
                             </v-layout>
                         </v-card-text>
 
-                        <v-divider></v-divider>
-
-                        {{-- <v-card-text>
-                            <v-card class="elevation-1">
-                                <v-toolbar class="elevation-0"><v-toolbar-title>Test</v-toolbar-title></v-toolbar>
-                                <v-card-text>
-                                    @include("Setting::interactives.test")
-                                </v-card-text>
-                            </v-card>
-
-                            <v-card class="elevation-1">
-                                <v-toolbar class="elevation-0"><v-toolbar-title>Test 2</v-toolbar-title></v-toolbar>
-                                <v-card-text>
-                                    @include("Setting::interactives.test2")
-                                </v-card-text>
-                            </v-card>
-                        </v-card-text> --}}
-
                         <v-card-actions>
-                            <v-spacer></v-spacer>
                             <v-btn type="submit" primary>{{ __('Save') }}</v-btn>
                         </v-card-actions>
+
                     </form>
 
                 </v-card>

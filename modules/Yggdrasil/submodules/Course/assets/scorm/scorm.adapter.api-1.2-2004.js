@@ -88,7 +88,7 @@ let scormAPI = {
     self.misc.style();
 
     self.flags().set('initialized', true);
-    console.warn('------------------------------', self.flags);
+    // console.warn('------------------------------', self.flags);
 
     return "true";
   },
@@ -377,7 +377,7 @@ let scormAPI = {
         } else if (el.webkitRequestFullscreen) {
           el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
         }
-        screen.orientation && screen.orientation.lock('landscape');
+        // screen.orientation && screen.orientation.lock('landscape');
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen();

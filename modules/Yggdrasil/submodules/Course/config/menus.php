@@ -35,7 +35,7 @@ return [
                     'name' => 'courses.index',
                     'children' => [
                         'courses.edit',
-                        'courses.create',
+                        // 'courses.create',
                         'courses.show',
                         'courses.trashed',
                     ]
@@ -101,8 +101,7 @@ return [
                 'routes' => [
                     'name' => 'courses.all',
                     'children' => [
-                        'courses.edit',
-                        'courses.show',
+                        'courses.single',
                     ]
                 ],
                 'always_viewable' => true,

@@ -11,7 +11,23 @@ use Illuminate\Http\Request;
 
 class CommentController extends GeneralController
 {
-    use CommentResourceApiTrait, CommentResourcePublicTrait;
+    use CommentResourceApiTrait,
+        CommentResourcePublicTrait,
+        CommentResourceSoftDeleteTrait;
+
+    /**
+     * The view hintpath.
+     *
+     * @var string
+     */
+    protected $hintpath;
+
+    /**
+     * The category type of the resource.
+     *
+     * @var string
+     */
+    protected $type;
 
     /**
      * Display a listing of the resource.
@@ -21,7 +37,8 @@ class CommentController extends GeneralController
      */
     public function index(Request $request)
     {
-        //
+        $hintpath = $this->hintpath;
+        $resources = Comment::type($this->type)->paginate();
 
         return view("Theme::comments.index");
     }

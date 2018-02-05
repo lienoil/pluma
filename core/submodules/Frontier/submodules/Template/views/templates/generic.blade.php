@@ -10,13 +10,15 @@ Version: 1.0
 @section("content")
     <v-container grid-list-lg>
         <v-layout row wrap>
-            <v-flex sm12>
-                <v-card class="elevation-1">
-                    <v-card-title primary-title class="headline">{{ $page->title }}</v-card-title>
-                    <v-card-text>
+            <v-flex sm9 md9>
+
+                <v-card flat>
+                    <v-card-title primary-title class="headline page-title">{{ $page->title }}</v-card-title>
+                    <v-card-text class="page-content">
                         {!! $page->body !!}
                     </v-card-text>
                 </v-card>
+
             </v-flex>
         </v-layout>
     </v-container>

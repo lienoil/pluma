@@ -3,6 +3,7 @@
 @section("head-title", $resource->title)
 
 @section("content")
+
     <v-parallax class="elevation-1" src="{{ $resource->backdrop }}" height="100%">
         @if ($resource->enrolled)
         <v-toolbar dark class="elevation-0 transparent">

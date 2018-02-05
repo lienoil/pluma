@@ -34,6 +34,13 @@ class ObsceneWord
     private $textOriginal;
 
     /**
+     * The matched word from the dictionary.
+     *
+     * @var string
+     */
+    private $match;
+
+    /**
      * Instance of the class.
      *
      * @param array $dictionaryWords
@@ -144,7 +151,9 @@ class ObsceneWord
      */
     public function checkAmong()
     {
-        return !! preg_match("/(" . join("|", $this->dictionaryWords) . ")/iu", $this->text);
+        preg_match_all("/(" . join("|", $this->dictionaryWords) . ")/iu", $this->text, $matches);
+        $this->match = end($matches[1]);
+        return !! $this->match; //preg_match("/(" . join("|", $this->dictionaryWords) . ")/iu", $this->text);
     }
 
     /**
@@ -165,6 +174,7 @@ class ObsceneWord
      */
     public function censor($word, $replace = "*")
     {
-        return str_repeat($replace, strlen($word));
+        $replacer = str_repeat($replace, strlen($this->match));
+        return str_replace($this->match, $replacer, $word);
     }
 }

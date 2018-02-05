@@ -167,7 +167,7 @@
                         </template>
                     </v-data-table>
                 </v-card>
-                @if (\Illuminate\Support\Facades\Request::all())
+                @if (request()->all())
                     <p class="caption grey--text"><a href="{{ route('announcements.index') }}">{{ __('Remove filters') }}</a></p>
                 @endif
             </v-flex>
@@ -259,7 +259,7 @@
                         announcement: announcement,
                         sort: sortBy,
                         take: rowsPerPage,
-                        search: {!! @json_encode(\Illuminate\Support\Facades\Request::all()) !!},
+                        search: {!! @json_encode(request()->all()) !!},
                     };
                     this.api().get('{{ route('api.announcements.all') }}', query)
                         .then((data) => {

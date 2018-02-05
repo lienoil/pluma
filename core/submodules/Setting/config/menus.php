@@ -20,7 +20,6 @@ return [
             'children' => [
                 'settings.general',
                 'settings.display',
-
                 'settings.branding',
                 'settings.email',
                 'settings.social',
@@ -42,6 +41,7 @@ return [
                 'slug' => route('settings.display'),
                 'is_group_link' => true,
                 'always_viewable' => false,
+                'order' => 1,
                 'labels' => [
                     'title' => __('General'),
                     'description' => __('Manage time date formats, site modes, and other general site settings.'),
@@ -55,23 +55,11 @@ return [
                     ]
                 ],
                 'children' => [
-                    // 'general-settings' => [
-                    //     'name' => 'general-settings',
-                    //     'slug' => route('settings.general'),
-                    //     'route' => 'settings.general',
-                    //     'icon' => 'fa-leaf',
-                    //     'order' => 1,
-                    //     'labels' => [
-                    //         'title' => __('General Options'),
-                    //         'description' => __('Manage general options'),
-                    //     ],
-                    // ],
-
                     'display-settings' => [
                         'name' => 'display-settings',
                         'slug' => route('settings.display'),
                         'route' => 'settings.display',
-                        'icon' => 'fa-book',
+                        'icon' => 'fa-table',
                         'order' => 2,
                         'labels' => [
                             'title' => __('Displaying Data'),
@@ -84,7 +72,7 @@ return [
                         'slug' => route('settings.datetime'),
                         'route' => 'settings.datetime',
                         'icon' => 'access_time',
-                        'order' => 1,
+                        'order' => 3,
                         'labels' => [
                             'title' => __('Date &amp; Time'),
                             'description' => __('Format date and time.'),
@@ -104,6 +92,7 @@ return [
                 'slug' => route('settings.branding'),
                 'is_group_link' => true,
                 'always_viewable' => false,
+                'order' => 2,
                 'labels' => [
                     'title' => __('Branding'),
                     'description' => __('Manage the branding options for the site.'),
@@ -163,7 +152,7 @@ return [
                 'is_header' => true,
                 'is_divider' => true,
                 'parent' => 'settings',
-                'order' => 99,
+                'order' => 999,
             ],
 
             'system-settings-group' => [
@@ -171,7 +160,7 @@ return [
                 'slug' => route('settings.system'),
                 'icon' => 'settings_applications',
                 'always_viewable' => false,
-                'order' => 100,
+                'order' => 1000,
                 'labels' => [
                     'title' => __('System'),
                     'description' => __('Review the system settings'),

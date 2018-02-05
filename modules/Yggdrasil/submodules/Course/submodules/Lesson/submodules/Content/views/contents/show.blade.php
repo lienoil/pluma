@@ -1,9 +1,9 @@
-@extends("Theme::layouts.course")
+@extends("Theme::layouts.public")
 
 @section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
 
 @push('post-meta')
-    <link rel="manifest" href="{{ url('manifest.json') }}">
+    {{-- <link rel="manifest" href="{{ url('manifest.json') }}"> --}}
 @endpush
 
 @section("content")

@@ -1,11 +1,20 @@
 <v-toolbar dark flat class="accent">
-    <v-avatar tile>
-        <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
-    </v-avatar>
+    <a href="{{ url('/') }}">
+        <v-avatar tile>
+            <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+        </v-avatar>
+    </a>
+
     <v-toolbar-title class="subheading white--text">
-        <div>{{ $application->site->title }}</div>
+        <div href="{{ url('/') }}">{{ $application->site->title }}</div>
         <div class="caption">{{ $application->site->tagline }}</div>
     </v-toolbar-title>
+
     <v-spacer></v-spacer>
+
     @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+
+    @if (settings('show_login_at_main_menu', true))
+        <v-btn outline round href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
+    @endif
 </v-toolbar>

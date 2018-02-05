@@ -6,6 +6,7 @@ use Crowfeather\Traverser\Traverser;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use Menu\Models\Menu;
 use Pluma\Support\Composers\BaseViewComposer;
 use Pluma\Support\Modules\Traits\Module;
 
@@ -119,6 +120,8 @@ class NavigationViewComposer extends BaseViewComposer
             if ($menu['child']['active'] = in_array($currentRouteName, $childRoutes)) {
                 $parent['active'] = $menu['child']['active'];
             }
+
+            $menu['count'] = 100;
         });
 
         return $this;
@@ -212,7 +215,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function menu()
     {
-        return [];
+        return Menu::all();
     }
 
     /**
@@ -263,54 +266,6 @@ class NavigationViewComposer extends BaseViewComposer
             'collect' => collect(json_decode(json_encode($this->menus))),
             'flat' => collect(json_decode(json_encode($this->flatmenus))),
         ]));
-    }
-
-    /**
-     * Retrieves the current menu based on the url.
-     *
-     * @return mixed
-     */
-    public function getCurrentMenu($menus = null)
-    {
-        $menus = $menus ?? $this->menus;
-        $currentMenu = $this->traverser->find(route($this->getCurrentRouteName()), 'slug', $menus);
-
-        if ($currentMenu['has_children']) {
-            if (collect($currentMenu['children'])->first()['url'] === url($this->getCurrentUrl())) {
-                $target = collect($currentMenu['children'])->first();
-                return $target;
-            }
-
-            return $currentMenu;
-        }
-
-        return $currentMenu;
-    }
-
-    /**
-     * Retrieves the current menu based on the url.
-     *
-     * @return mixed
-     */
-    public function getParentMenu($menus = null)
-    {
-        $menus = is_null($menus) ? $this->menus : $menus;
-
-        $currentMenu = $this->getCurrentMenu($menus);
-
-        $parentMenu = null;
-
-        if (isset($currentMenu['parent'])) {
-            $parentMenu = $this->traverser->find($currentMenu['parent'], 'name', $menus);
-        }
-
-        if ($parentMenu && $parentMenu['url'] === $currentMenu['url']) {
-            return $parentMenu;
-        }
-
-        return isset($currentMenu['parent'])
-                ? $this->traverser->find($currentMenu['parent'], 'name', $menus)
-                : null;
     }
 
     /**

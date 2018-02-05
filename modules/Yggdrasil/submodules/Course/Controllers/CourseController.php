@@ -8,6 +8,7 @@ use Category\Models\Category;
 use Comment\Models\Comment;
 use Content\Models\Content;
 use Course\Models\Course;
+use Course\Models\User;
 use Course\Requests\CourseRequest;
 use Course\Support\Traits\CourseResourceApiTrait;
 use Course\Support\Traits\CourseResourcePublicTrait;
@@ -15,7 +16,6 @@ use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
 use Library\Models\Library;
-use User\Models\User;
 
 class CourseController extends GeneralController
 {
@@ -277,6 +277,8 @@ class CourseController extends GeneralController
         $comment->approved = true;
         $comment->body = $request->input('body');
         $comment->delta = $request->input('delta');
+        $comment->parent_id = $request->input('parent_id');
+        $comment->user()->associate(User::find(user()->id));
 
         $course = Course::findOrFail($id);
         $course->comments()->save($comment);
