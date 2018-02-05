@@ -2,7 +2,6 @@
     <v-toolbar card class="transparent">
         <v-toolbar-title class="subheading page-title">{{ __("Comments") }}</v-toolbar-title>
     </v-toolbar>
-    <v-divider></v-divider>
 
     @can('show-forum')
         @if ($resource->comments()->get()->isEmpty())
@@ -21,10 +20,6 @@
 
         <v-divider></v-divider>
         <v-card flat>
-            {{-- <v-toolbar card class="transparent">
-                <v-toolbar-title>{{ __("Post your comment") }}</v-toolbar-title>
-            </v-toolbar> --}}
-            {{-- <v-divider></v-divider> --}}
             <form action="{{ route('forums.comment', $resource->id) }}" method="POST">
                 {{ csrf_field() }}
                 <input type="hidden" name="user_id" value="{{ user()->id }}">

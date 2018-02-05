@@ -138,7 +138,7 @@
             </v-flex>
 
             <v-flex xs12 sm12 md3>
-                <v-card flat class="mb-3 transaparent">
+                <v-card flat class="mb-3 transparent">
                     <v-btn primary block large class="elevation-1 my-0" href="{{ route('forums.create') }}">{{ __('New Discussion') }}</v-btn>
                 </v-card>
 
