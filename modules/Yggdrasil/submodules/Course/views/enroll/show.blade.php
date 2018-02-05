@@ -1,79 +1,101 @@
 @extends("Theme::layouts.admin")
 
 @section("head-title", $resource->title)
-@section("utilitybar", '')
 
 @section("content")
-    <v-parallax class="elevation-1" :src="resource.backdrop" height="auto">
-        <v-layout row wrap align-end justify-center>
-            <v-flex md8 xs12 pa-0>
-                <v-card tile flat class="mt-5" height="100%">
-                    <v-toolbar dense card class="white">
-                        <v-spacer></v-spacer>
-                        <v-chip v-if="resource.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
+    <v-parallax class="elevation-1" src="{{ $resource->backdrop }}" height="100%">
+        @if ($resource->enrolled)
+        <v-toolbar dark class="elevation-0 transparent">
+            @if ($resource->enrolled)
+                <v-chip small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
+            @endif
 
-                        <form v-if="resource.bookmarked" action="{{ route('courses.bookmark.unbookmark', $resource->id) }}" method="POST">
-                            {{ csrf_field() }}
-                            <v-btn type="submit" icon ripple v-tooltip:left="{ html: 'Remove from your Bookmarks' }">
-                                <v-icon light class="red--text">bookmark</v-icon>
-                            </v-btn>
-                        </form>
+            @if ($resource->bookmarked)
+                <form action="{{ route('courses.bookmark.unbookmark', $resource->id) }}" method="POST">
+                    {{ csrf_field() }}
+                    <v-btn type="submit" icon ripple v-tooltip:left="{ html: '{{ __('Remove from your Bookmarks') }}' }">
+                        <v-icon light class="red--text">bookmark</v-icon>
+                    </v-btn>
+                </form>
+            @endif
+            <v-spacer></v-spacer>
+            <v-menu full-width>
+                <v-btn slot="activator" icon v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
+                <v-list>
+                    @can('bookmark-course')
+                        @if (! $resource->bookmarked)
+                            <v-list-tile avatar ripple @click="$refs.bookmark_form.submit()">
+                                <v-list-tile-avatar>
+                                    <v-icon class="red--text">bookmark_outline</v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-title>
+                                    <form ref="bookmark_form" action="{{ route('courses.bookmark', $resource->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ __('Bookmark this Course') }}
+                                    </form>
+                                </v-list-tile-title>
+                            </v-list-tile>
+                        @else
+                            <v-list-tile avatar ripple @click="$refs.unbookmark_form.submit()">
+                                <v-list-tile-avatar>
+                                    <v-icon class="red--text">bookmark</v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-title>
+                                    <form ref="unbookmark_form" action="{{ route('courses.bookmark.unbookmark', $resource->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ __('Remove from your Bookmarks') }}
+                                    </form>
+                                </v-list-tile-title>
+                            </v-list-tile>
+                        @endif
+                    @endcan
+                </v-list>
+            </v-menu>
+        </v-toolbar>
+        @endif
 
-                        <v-menu full-width>
-                            <v-btn slot="activator" icon><v-icon>more_vert</v-icon></v-btn>
-                            <v-list>
-                                @can('bookmark-course')
-                                <v-list-tile avatar v-if="!resource.bookmarked" ripple @click="post(route(urls.courses.bookmark, resource.id), {_token: '{{ csrf_token() }}'})">
-                                    <v-list-tile-avatar>
-                                        <v-icon class="red--text">bookmark_outline</v-icon>
-                                    </v-list-tile-avatar>
-                                    <v-list-tile-title>{{ __('Bookmark this Course') }}</v-list-tile-title>
-                                </v-list-tile>
-                                <v-list-tile avatar v-else ripple @click="post(route(urls.courses.unbookmark, resource.id), {_token: '{{ csrf_token() }}'})">
-                                    <v-list-tile-avatar>
-                                        <v-icon class="ted--text">bookmark</v-icon>
-                                    </v-list-tile-avatar>
-                                    <v-list-tile-title>{{ __('Remove from your Bookmarks') }}</v-list-tile-title>
-                                </v-list-tile>
-                                @endcan
-                            </v-list>
-                            @can('edit-course')
-                            @endcan
-                        </v-menu>
-                    </v-toolbar>
-                    <v-card-text>
-                        <v-container fluid grid-list-lg>
-                            <v-flex sm12>
-                                <v-layout row wrap>
-                                    <v-flex md3 sm2>
-                                        <img :src="resource.feature" width="100%" height="auto">
-                                        {{-- <v-card-media ripple :src="resource.feature" height="150px" cover class="elevation-1"></v-card-media> --}}
-                                    </v-flex>
-                                    <v-flex md9 sm10>
-                                        <v-card-title primary-title class="pa-0">
-                                            <strong class="headline accent--text" v-html="resource.title"></strong>
-                                        </v-card-title>
-
-                                        <v-avatar size="30px">
-                                            <img :src="resource.author.avatar" :alt="resource.author.fullname">
-                                        </v-avatar>
-                                        <v-chip label small class="pl-0 caption transparent grey--text elevation-0">
-                                            <a :href="route(urls.profile.show, resource.author.handlename)" v-html="resource.author.displayname"></a>
-                                        </v-chip>
-
-                                        <v-footer class="transparent">
-                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;<span v-html="`${resource.lessons.length} ${resource.lessons.length>1?'{{ __('Parts') }}':'{{ __('Part') }}'}`"></span></v-chip>
-
-                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">class</v-icon><span v-html="resource.code"></span></v-chip>
-
-                                            <v-chip v-if="resource.category" label class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">label</v-icon><span v-html="resource.category.name"></span></v-chip>
-
-                                            <v-chip label small class="pl-0 ml-0 caption transparent grey--text elevation-0"><v-icon left small class="subheading">fa-clock-o</v-icon><span v-html="resource.created"></span></v-chip>
-                                        </v-footer>
-                                    </v-flex>
-                                </v-layout>
+        <v-layout row wrap align-center justify-center>
+            <v-flex md11 xs12>
+                <v-card flat class="transparent text-md-left text-sm-center text-xs-center">
+                    <v-card-text class="py-5">
+                        <v-layout row wrap align-center justify-center>
+                            <v-flex md4 xs12>
+                                <v-card flat class="transparent">
+                                    <v-avatar size="250px" class="text-sm-center my-3">
+                                        <img src="{{ $resource->feature }}" width="100%">
+                                    </v-avatar>
+                                </v-card>
                             </v-flex>
-                        </v-container>
+                            <v-flex md8 xs12>
+                                <v-card dark flat class="transparent">
+                                    <h2 class="display-1"><strong>{{ $resource->title }}</strong></h2>
+
+
+                                    <v-chip dark label small class="pl-0 white--text ma-0 subheading transparent elevation-0">
+                                        <v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;
+                                        <span>{{ $resource->lessons->count() }} {{ $resource->lessons->count() <= 1 ? __('Part') : __('Parts') }}</span>
+                                    </v-chip>
+
+                                    <v-chip dark label small class="white--text ma-0 subheading transparent elevation-0"><v-icon left small class="subheading">class</v-icon><span>{{ $resource->code }}</span></v-chip>
+
+                                    <v-chip dark label small class="white--text ma-0 subheading transparent elevation-0"><v-icon left small class="subheading">fa-clock-o</v-icon><span>{{ $resource->created }}</span></v-chip>
+
+                                    @if ($resource->category)
+                                        <v-chip label class="ma-0 white--text subheading transparent elevation-0"><v-icon left small class="subheading">label</v-icon><a class="td-n white--text" target="_blank" href="{{ route('courses.all', ['category_id' => $resource->category->id]) }}">{{ $resource->category->name }}</a></v-chip>
+                                    @endif
+
+                                    <v-divider class="my-2"></v-divider>
+                                    <div class="my-2">
+                                        <v-avatar size="30px">
+                                            <img src="{{ $resource->author->avatar }}" alt="{{ $resource->author->fullname }}">
+                                        </v-avatar>
+                                        <v-chip label small class="ma-0 body-1 transparent grey--text elevation-0">
+                                            <a class="white--text td-n" href="{{ route('profile.single', $resource->author->handlename) }}">{{ $resource->author->fullname }}</a>
+                                        </v-chip>
+                                    </div>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -110,14 +132,15 @@
 @endsection
 
 @push('css')
+    <link rel="stylesheet" href="{{ assets('course/css/course.css') }}?v={{ app()->version() }}">
     <style>
-        .media-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.30);
+        .course-grad {
+            /*background: linear-gradient(45deg, #03A9F4 0%, #009688 100%);*/
+            background: linear-gradient(45deg, #00BCD4  0%, #3F51B5 100%);
+        }
+        .quill-text h1, h2, h3, h4, h5, h6 {
+            font-size: 25px !important;
+            line-height: 30px !important;
         }
     </style>
 @endpush

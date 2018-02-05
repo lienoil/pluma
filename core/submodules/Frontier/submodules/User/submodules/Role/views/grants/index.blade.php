@@ -3,197 +3,250 @@
 @section("head-title", __('Grants'))
 
 @section("content")
-    <v-container fluid grid-list-lg>
-        @include("Theme::partials.banner")
-        <v-layout row wrap>
-            <v-flex sm4 xs12>
-                <v-card class="mb-3 elevation-1">
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __("New Grant") }}</v-toolbar-title>
-                    </v-toolbar>
-                    <form action="{{ route('grants.store') }}" method="POST">
-                        {{ csrf_field() }}
-                        <v-card-text>
-                            <v-text-field
-                                :error-messages="resource.errors.name"
-                                label="{{ _('Name') }}"
-                                name="name"
-                                persistent-hint
-                                value="{{ old('name') }}"
-                                @input="val => { resource.item.name = val; }"
-                            ></v-text-field>
-                            <v-text-field
-                                :error-messages="resource.errors.code"
-                                :value="resource.item.name ? resource.item.name : '{{ old('code') }}' | slugify"
-                                hint="{{ __('Will be used as an ID for Granting Roles. Make sure the code is unique.') }}"
-                                label="{{ _('Code') }}"
-                                name="code"
-                            ></v-text-field>
-                            <v-text-field
-                                :error-messages="resource.errors.description"
-                                label="{{ _('Short Description') }}"
-                                name="description"
-                                value="{{ old('description') }}"
-                            ></v-text-field>
-                        </v-card-text>
-
-                        <v-layout row wrap>
-                            <v-flex xs12>
-                                <v-toolbar class="transparent elevation-0">
-                                    <v-toolbar-title class="subheading">{{ __('Selected Permissions') }}</v-toolbar-title>
-                                    <v-spacer></v-spacer>
-                                </v-toolbar>
-                                <v-card-text class="text-xs-center">
-                                    <template v-if="suppliments.permissions.selected.length">
-                                        <template v-for="(permission, i) in suppliments.permissions.selected">
-                                            <v-chip
-                                                width="100px"
-                                                label
-                                                close
-                                                success
-                                                @click.native.stop
-                                                @input="suppliments.permissions.selected.splice(i, 1)"
-                                                class="chip--select-multi pink darken-3 white--text"
-                                                :key="i"
-                                            >
-                                                <input type="hidden" name="json_permissions[]" :value="JSON.stringify(permission)">
-                                                <input type="hidden" name="permissions[]" :value="permission.id">
-                                                @{{ permission.name }}
-                                            </v-chip>
-                                        </template>
-                                    </template>
-                                    <small v-else class="grey--text">{{ __('No chosen Permissions') }}</small>
-                                </v-card-text>
-                            </v-flex>
-                            <v-flex xs12>
-                                <v-toolbar class="transparent elevation-0">
-                                    <v-toolbar-title class="subheading">{{ __('Available Permissions') }}</v-toolbar-title>
-                                    <v-spacer></v-spacer>
-                                    <v-text-field
-                                        append-icon="search"
-                                        label="{{ _('Search') }}"
-                                        single-line
-                                        hide-details
-                                        v-model="suppliments.permissions.searchform.query"
-                                        light
-                                    ></v-text-field>
-                                </v-toolbar>
-
-                                <v-data-table
-                                    class="elevation-0"
-                                    no-data-text="{{ _('No resource found') }}"
-                                    select-all
-                                    selected-key="id"
-                                    {{-- hide-actions --}}
-                                    v-bind:search="suppliments.permissions.searchform.query"
-                                    v-bind:headers="suppliments.permissions.headers"
-                                    v-bind:items="suppliments.permissions.items"
-                                    v-model="suppliments.permissions.selected"
-                                    v-bind:pagination.sync="suppliments.permissions.pagination"
-                                >
-                                    <template slot="items" scope="prop">
-                                        <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
-                                            <td>
-                                                <v-checkbox
-                                                    primary
-                                                    hide-details
-                                                    class="pa-0"
-                                                    :input-value="prop.selected"
-                                                ></v-checkbox>
-                                            </td>
-                                            <td>@{{ prop.item.name }}</td>
-                                            <td>@{{ prop.item.code }}</td>
-                                            <td>@{{ prop.item.description }}</td>
-                                        </tr>
-                                    </template>
-                                </v-data-table>
-                            </v-flex>
-                        </v-layout>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn primary type="submit">{{ __('Save') }}</v-btn>
-                        </v-card-actions>
-                    </form>
-                </v-card>
-            </v-flex>
-            <v-flex sm8 xs12>
-                <v-card class="mb-3 elevation-1">
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text"><v-icon class="accent--text">build</v-icon><span v-tooltip:bottom="{'html': 'Automatic Grant-Permission Provisioning'}">{{ __("Automatic Grant-Permission Provisioning") }}</span></v-toolbar-title>
-                    </v-toolbar>
-                    <form action="{{ route('grants.refresh.refresh') }}" method="POST">
-                        {{ csrf_field() }}
-                        <v-card-text>
-                            <p class="grey--text mb-0">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}</p>
-
-                            <small class="warning--text">{{ __("Any edit you've made from existing grants might get overridden.") }}</small>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn primary type="submit" v-tooltip:bottom="{'html': 'Doing this action is relatively safe'}">
+    @include("Theme::partials.banner")
+    <v-card class="elevation-0">
+        <form action="{{ route('grants.refresh.refresh') }}" method="POST" style="background: linear-gradient(141deg, rgb(0, 74, 107) 0%, rgb(25, 160, 255) 51%, rgb(0, 74, 107) 75%);">
+        {{ csrf_field() }}
+            <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.60); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+            <v-layout column class="media">
+                <v-card-text class="white--text text-xs-center">
+                    <v-flex md8 offset-md2 class="pt-5 pb-5">
+                        <div class="title pb-3"> {{ __('Automatic Grant-Permission Provisioning') }} </div>
+                        <div class="subheading pb-3">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}
+                        </div>
+                        <div class="subheading white--text pb-4">
+                            {{ __("Any edit you've made from existing grants might get overridden.") }}
+                        </div>
+                            <v-btn outline dark type="submit" v-tooltip:left="{'html': 'Doing this action is relatively safe'}">
                                 {{ __('Start') }}
                             </v-btn>
-                        </v-card-actions>
-                    </form>
-                </v-card>
+                    </v-flex>
+                </v-card-text>
+            </v-layout>
+        </form>
+    </v-card>
 
-                <v-card class="mb-3 elevation-1">
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Grants') }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
+    <v-toolbar dark class="light-blue elevation-1 sticky">
+        <v-toolbar-title>{{ __('Grants') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
 
-                        {{-- Batch Commands --}}
-                        <v-slide-y-transition>
-                            <template v-if="dataset.selected.length > 1">
-                                {{-- Bulk Delete --}}
-                                <form action="{{ route('grants.many.destroy') }}" method="POST" class="inline">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <template v-for="item in dataset.selected">
-                                        <input type="hidden" name="grants[]" :value="item.id">
-                                    </template>
-                                    <button type="submit" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}" class="btn btn--flat btn--icon"><span class="btn__content"><v-icon warning>delete_sweep</v-icon></span></button>
-                                </form>
-                                {{-- /Bulk Delete --}}
-                            </template>
-                        </v-slide-y-transition>
-                        {{-- /Batch Commands --}}
+        {{-- Search --}}
+        <template>
+            <v-text-field
+                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
+                :prefix="dataset.searchform.prefix"
+                :prepend-icon="dataset.searchform.prepend"
+                append-icon="close"
+                light solo hide-details single-line
+                autofocus="autofocus"
+                label="Search"
+                class="grey--text"
+                v-model="dataset.searchform.query"
+                v-show="dataset.searchform.model"
+            ></v-text-field>
+            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
+        </template>
+        {{-- /Search --}}
+        <v-btn icon @click.native="hidden = !hidden" v-tooltip:left="{ 'html':  hidden ? 'Add' : 'Close' }">
+            <v-icon>@{{ hidden ? 'add' : 'remove' }}</v-icon>
+        </v-btn>
 
-                        {{-- Search --}}
-                        <v-text-field
-                            append-icon="search"
-                            label="{{ _('Search') }}"
-                            single-line
-                            hide-details
-                            v-if="dataset.searchform.model"
-                            v-model="dataset.searchform.query"
-                            light
-                        ></v-text-field>
-                        <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
-                            <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
-                        </v-btn>
-                        {{-- /Search --}}
+        <v-btn icon v-tooltip:left="{ html: 'Filter' }">
+            <v-icon class="subheading">fa fa-filter</v-icon>
+        </v-btn>
 
-                        {{-- View Trashed --}}
-                        <a
-                            class="btn btn--icon btn--flat theme--light light--bg"
-                            light
-                            href="{{ route('grants.trash') }}"
-                            v-tooltip:left="{'html': `View trashed items`}"
-                        >
-                            <span class="btn__content"><v-icon>archive</v-icon></span>
-                        </a>
-                        {{-- /View Trashed --}}
-                    </v-toolbar>
+        <v-btn icon v-tooltip:left="{ html: 'Sort' }">
+            <v-icon class="subheading">fa fa-sort-amount-asc</v-icon>
+        </v-btn>
 
+        {{-- Batch Commands --}}
+        <v-btn
+            v-show="dataset.selected.length < 2"
+            flat
+            icon
+            v-model="bulk.destroy.model"
+            :class="bulk.destroy.model ? 'btn--active primary primary--text' : ''"
+            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checboxes') }}'}"
+            @click.native="bulk.destroy.model = !bulk.destroy.model"
+        ><v-icon>@{{ bulk.destroy.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
+        {{-- Bulk Delete --}}
+        <v-slide-y-transition>
+            <template v-if="dataset.selected.length > 1">
+                <form action="{{ route('grants.many.destroy') }}" method="POST" class="inline">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <template v-for="item in dataset.selected">
+                        <input type="hidden" name="grants[]" :value="item.id">
+                    </template>
+                    <v-btn
+                        flat
+                        icon
+                        type="submit"
+                        v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"
+                    ><v-icon warning>delete_sweep</v-icon></v-btn>
+                </form>
+            </template>
+        </v-slide-y-transition>
+        {{-- /Bulk Delete --}}
+        {{-- /Batch Commands --}}
+
+        {{-- Trashed --}}
+        {{-- <v-btn
+            icon
+            flat
+            href="{{ route('grants.trash') }}"
+            light
+            v-tooltip:left="{'html': `View trashed items`}"
+        ><v-icon class="white--text warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
+        {{-- /Trashed --}}
+    </v-toolbar>
+    <v-container fluid grid-list-lg>
+        <v-layout row wrap>
+            <v-flex xs12>
+                {{-- create field --}}
+                <v-slide-y-transition>
+                    <v-card class="mb-3 elevation-1" v-show="!hidden" transition="slide-y-transition">
+                        <v-toolbar class="transparent elevation-0">
+                            <v-toolbar-title class="accent--text">{{ __("New Grant") }}</v-toolbar-title>
+                        </v-toolbar>
+                            <form action="{{ route('grants.store') }}" method="POST">
+                            <v-card-text>
+                                {{ csrf_field() }}
+                                <v-layout row wrap>
+                                    <v-flex xs4>
+                                        <v-subheader>{{ __('Name') }}</v-subheader>
+                                    </v-flex>
+                                    <v-flex xs8>
+                                        <v-text-field
+                                        :error-messages="resource.errors.name"
+                                        label="{{ _('Name') }}"
+                                        name="name"
+                                        persistent-hint
+                                        value="{{ old('name') }}"
+                                        @input="val => { resource.item.name = val; }"
+                                    ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row wrap>
+                                    <v-flex xs4>
+                                        <v-subheader>{{ __('Code') }}</v-subheader>
+                                    </v-flex>
+                                    <v-flex xs8>
+                                        <v-text-field
+                                            :error-messages="resource.errors.code"
+                                            :value="resource.item.name ? resource.item.name : '{{ old('code') }}' | slugify"
+                                            hint="{{ __('Will be used as an ID for Granting Grants. Make sure the code is unique.') }}"
+                                            label="{{ _('Code') }}"
+                                            name="code"
+                                        ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row wrap>
+                                    <v-flex xs4>
+                                        <v-subheader>{{ __('Description') }}</v-subheader>
+                                    </v-flex>
+                                    <v-flex xs8>
+                                        <v-text-field
+                                            :error-messages="resource.errors.description"
+                                            label="{{ _('Short Description') }}"
+                                            name="description"
+                                            value="{{ old('description') }}"
+                                        ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                            </v-card-text>
+                            <v-divider></v-divider>
+                            <v-card-text>
+                                <v-layout row wrap>
+                                    <v-flex xs12>
+                                        <v-toolbar class="transparent elevation-0">
+                                            <v-toolbar-title class="subheading">{{ __('Selected Permissions') }}</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                        </v-toolbar>
+                                        <v-card-text class="text-xs-center">
+                                            <template v-if="suppliments.permissions.selected.length">
+                                                <template v-for="(permission, i) in suppliments.permissions.selected">
+                                                    <v-chip
+                                                        width="100px"
+                                                        label
+                                                        close
+                                                        success
+                                                        @click.native.stop
+                                                        @input="suppliments.permissions.selected.splice(i, 1)"
+                                                        class="chip--select-multi green lighten-2 white--text"
+                                                        :key="i"
+                                                    >
+                                                        <input type="hidden" name="json_permissions[]" :value="JSON.stringify(permission)">
+                                                        <input type="hidden" name="permissions[]" :value="permission.id">
+                                                        @{{ permission.name }}
+                                                    </v-chip>
+                                                </template>
+                                            </template>
+                                            <small v-else class="grey--text">{{ __('No chosen Permissions') }}</small>
+                                        </v-card-text>
+                                    </v-flex>
+                                    <v-flex xs12>
+                                        <v-toolbar class="transparent elevation-0">
+                                            <v-toolbar-title class="subheading">{{ __('Available Permissions') }}</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-text-field
+                                                append-icon="search"
+                                                label="{{ _('Search') }}"
+                                                single-line
+                                                hide-details
+                                                v-model="suppliments.permissions.searchform.query"
+                                                light
+                                            ></v-text-field>
+                                        </v-toolbar>
+
+                                        <v-data-table
+                                            class="elevation-0 green--text"
+                                            no-data-text="{{ _('No resource found') }}"
+                                            select-all="green lighten-2"
+                                            selected-key="id"
+                                            {{-- hide-actions --}}
+                                            v-bind:search="suppliments.permissions.searchform.query"
+                                            v-bind:headers="suppliments.permissions.headers"
+                                            v-bind:items="suppliments.permissions.items"
+                                            v-model="suppliments.permissions.selected"
+                                            v-bind:pagination.sync="suppliments.permissions.pagination"
+                                        >
+                                            <template slot="items" scope="prop">
+                                                <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
+                                                    <td>
+                                                        <v-checkbox
+                                                            primary
+                                                            hide-details
+                                                            class="pa-0 green--text text--lighten-2"
+                                                            :input-value="prop.selected"
+                                                        ></v-checkbox>
+                                                    </td>
+                                                    <td>@{{ prop.item.name }}</td>
+                                                    <td>@{{ prop.item.code }}</td>
+                                                    <td>@{{ prop.item.description }}</td>
+                                                </tr>
+                                            </template>
+                                        </v-data-table>
+                                    </v-flex>
+                                </v-layout>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn primary type="submit">{{ __('Save') }}</v-btn>
+                                </v-card-actions>
+                            </form>
+                        </v-card-text>
+                    </v-card>
+                </v-slide-y-transition>
+
+                <v-card class="elevation-1">
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.totalItems"
                         class="elevation-0"
                         no-data-text="{{ _('No resource found') }}"
-                        select-all
-                        selected-key="id"
+                        v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
+                        {{-- selected-key="id" --}}
                         v-bind:headers="dataset.headers"
                         v-bind:items="dataset.items"
                         v-bind:pagination.sync="dataset.pagination"
@@ -205,75 +258,77 @@
                             </span>
                         </template>
                         <template slot="items" scope="prop">
-                            <tr>
-                                <td>
-                                    <v-checkbox
-                                        primary
-                                        hide-details
-                                        class="pa-0"
-                                        v-model="prop.selected"
-                                    ></v-checkbox>
-                                </td>
-                                <td>@{{ prop.item.id }}</td>
-                                <td><strong v-tooltip:bottom="{'html': '{{ __('Edit the resource') }}'}"><a :href="route(urls.grants.edit, (prop.item.id))">@{{ prop.item.name }}</a></strong></td>
-                                <td>@{{ prop.item.code }}</td>
-                                <td>@{{ prop.item.excerpt }}</td>
-                                <td class="text-xs-right">
-                                    <span v-tooltip:bottom="{'html': 'Number of permissions associated'}">@{{ prop.item.permissions.length }}</span>
-                                </td>
-                                <td>@{{ prop.item.created }}</td>
-                                <td class="text-xs-center">
-                                    <v-menu bottom left>
-                                        <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
-                                        <v-list>
-                                            <v-list-tile :href="route(urls.grants.show, (prop.item.id))">
-                                                <v-list-tile-action>
-                                                    <v-icon info>search</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>
-                                                        {{ __('View details') }}
-                                                    </v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                            <v-list-tile :href="route(urls.grants.edit, (prop.item.id))">
-                                                <v-list-tile-action>
-                                                    <v-icon accent>edit</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>
-                                                        {{ __('Edit this resource') }}
-                                                    </v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                            <v-list-tile
-                                                @click.native.stop="destroy(route(urls.grants.api.destroy, prop.item.id),
-                                                {
-                                                    '_token': '{{ csrf_token() }}'
-                                                })">
-                                                <v-list-tile-action>
-                                                    <v-icon warning>delete</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>
-                                                        {{ __('Move to Trash') }}
-                                                    </v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                            <v-list-tile @click.native.stop="post(route(urls.grants.api.clone, (prop.item.id)))">
-                                                <v-list-tile-action>
-                                                    <v-icon accent>content_copy</v-icon>
-                                                </v-list-tile-action>
-                                                <v-list-tile-content>
-                                                    <v-list-tile-title>
-                                                        {{ __('Clone the resource') }}
-                                                    </v-list-tile-title>
-                                                </v-list-tile-content>
-                                            </v-list-tile>
-                                        </v-list>
-                                    </v-menu>
-                                </td>
-                            </tr>
+                            <td v-show="bulk.destroy.model">
+                                <v-checkbox
+                                    hide-details
+                                    primary
+                                    class="pa-0 primary--text"
+                                    v-model="prop.selected"
+                                ></v-checkbox>
+                            </td>
+                            <td>@{{ prop.item.id }}</td>
+                            <td>
+                                <a class="black--text ripple no-decoration" :href="route(urls.grants.show, prop.item.id)">
+                                   <strong v-tooltip:bottom="{ html: 'Show Detail' }">@{{ prop.item.name }}</strong>
+                                </a>
+                            </td>
+                            <td>@{{ prop.item.code }}</td>
+                            <td>@{{ prop.item.excerpt }}</td>
+                            <td class="text-xs-center">
+                                <span v-tooltip:bottom="{'html': 'Number of permissions associated'}">@{{ prop.item.permissions.length }}</span>
+                            </td>
+                            <td>@{{ prop.item.created }}</td>
+                            <td class="text-xs-center">
+                                <v-menu bottom left>
+                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-list>
+                                        <v-list-tile :href="route(urls.grants.show, (prop.item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon info>search</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('View details') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile :href="route(urls.grants.edit, (prop.item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon accent>edit</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Edit') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile @click="post(route(urls.grants.api.clone, (prop.item.id)))">
+                                            <v-list-tile-action>
+                                                <v-icon accent>content_copy</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Clone') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile
+                                            @click="destroy(route(urls.grants.api.destroy, prop.item.id),
+                                            {
+                                                '_token': '{{ csrf_token() }}'
+                                            })">
+                                            <v-list-tile-action>
+                                                <v-icon warning>delete</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Move to Trash') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
+                            </td>
                         </template>
                     </v-data-table>
                 </v-card>
@@ -282,6 +337,25 @@
     </v-container>
 @endsection
 
+@push('css')
+    <style>
+        .no-decoration {
+            text-decoration: none !important;
+        }
+        .overlay-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .media .card__text {
+            z-index: 1;
+        }
+        .weight-600 {
+            font-weight: 600 !important;
+        }
+    </style>
+@endpush
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
@@ -290,20 +364,29 @@
         mixins.push({
             data () {
                 return {
+                    bulk: {
+                        destroy: {
+                            model: false,
+                        },
+                        searchform: {
+                            model: false,
+                        },
+                    },
+                    hidden: true,
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Excerpt") }}', align: 'left', value: 'description' },
-                            { text: '{{ __("Permissions") }}', align: 'left', value: 'grants' },
+                            { text: '{{ __("Permissions") }}', align: 'center', value: 'grants' },
                             { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
                         ],
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: '{{ settings('items_per_page', 15) }}',
+                            rowsPerPage: 5,
                             take: 5,
                             totalItems: 0,
                         },
@@ -331,7 +414,7 @@
                                 { text: '{{ __("Description") }}', align: 'left', value: 'description' },
                             ],
                             pagination: {
-                                rowsPerPage: '{{ settings('items_per_page', 15) }}',
+                                rowsPerPage: 10,
                                 totalItems: 0,
                             },
                             items: [],
@@ -401,7 +484,7 @@
                         sort: sortBy,
                         take: rowsPerPage,
                     };
-                    this.api().get(url, query)
+                    this.api().get('{{ route('api.grants.all') }}', query)
                         .then((data) => {
                             this.dataset.items = data.items.data ? data.items.data : data.items;
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;
