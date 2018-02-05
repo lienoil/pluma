@@ -34,7 +34,7 @@
             </v-list-tile>
         </v-list>
     </v-navigation-drawer>
-    <v-toolbar dark extended class="text-xs-center indigo elevation-0">
+    <v-toolbar dark extended class="text-xs-center course-content-grad elevation-0">
         <v-layout wrap justify-space-around align-center hidden-xs-only>
             <template v-if="previous">
                 <v-btn
@@ -144,7 +144,7 @@
                                         <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
                                         <v-card-actions class="pa-0">
                                             <v-spacer></v-spacer>
-                                            <v-btn dark class="indigo" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
+                                            <v-btn dark class="course-content-grad" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
                                             <v-spacer></v-spacer>
                                         </v-card-actions>
                                         <v-spacer></v-spacer>
@@ -157,11 +157,13 @@
                                 {{-- <v-card-media height="480px"> --}}
                                     <v-container fill-height fluid>
                                         <v-layout fill-height wrap column>
-                                            {!! $resource->body !!}
+                                            <v-card-text class="quill-text">
+                                                {!! $resource->body !!}
+                                            </v-card-text>
                                             <v-spacer></v-spacer>
-                                            <v-card-actions class="pa-0">
+                                            <v-card-actions class="pa-4">
                                                 <v-spacer></v-spacer>
-                                                <v-btn dark class="indigo" @click="playInteraction()">
+                                                <v-btn dark class="course-content-grad" @click="playInteraction()">
                                                     <v-icon left>play_circle_outline</v-icon>
                                                     <template v-if="resource.incomplete">{{ __('Continue') }}</template>
                                                     <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
@@ -253,6 +255,12 @@
             left: 0;
             padding: 0;
             margin: 0;
+        }
+        .course-content-grad {
+            background: linear-gradient(45deg, #03A9F4 0%, #009688 100%);
+        }
+        .quill-text h1, h2, h3, h4, h5 {
+            font-size: 20px !important;
         }
     </style>
 @endpush
