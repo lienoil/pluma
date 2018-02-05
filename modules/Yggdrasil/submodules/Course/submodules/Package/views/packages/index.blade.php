@@ -20,33 +20,7 @@
             :items="{{ json_encode($resources->toArray()) }}"
             catalogue="package"
             title="{{ __('Packages') }}"
-        >
-            <template slot="card.actions" scope="{prop}">
-                <v-card-actions class="accent--text">
-                    <v-spacer></v-spacer>
-                    <v-dialog full-width max-width="90vw" width="50vw">
-                        <v-btn slot="activator" class="accent white--text"><v-icon left class="white--text">delete</v-icon>{{ __("Trash") }}</v-btn>
-                        <v-card class="error white--text">
-                            <v-card-title primary-title class="white--text"><v-icon class="display-2" left>warning</v-icon>{{ __('Moving the file to Archived!') }}</v-card-title>
-                            <v-card-text class="white--text">
-                                <p><strong>{{ __("Course or courses using this file will not be able to display it's contents properly.") }}</strong></p>
-                                <p><strong>{{ __("It is recommended not to move this to archive if an existing course is using it.") }}</strong></p>
-                                <p><strong>{{ __("Are you sure you want to proceed? (Click outside to cancel)") }}</strong></p>
-                            </v-card-text>
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <form action="{{ route('packages.many.destroy') }}" method="POST">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <input type="hidden" name="packages[]" :value="prop.id">
-                                    <v-btn type="submit" class="white error--text">{{ __("Yes, archive this file") }}</v-btn>
-                                </form>
-                                {{-- <v-btn class="white success--text" @click="dialog = !dialog">{{ __('Cancel') }}</v-btn> --}}
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-                </v-card-actions>
-            </template>
+            >
         </pluma-packages>
     </v-container>
 @endsection

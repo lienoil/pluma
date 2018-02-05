@@ -20,10 +20,15 @@
             </div>
         </v-card-text>
 
-        @if (! $resource->enrolled)
+        {{-- @if (! $resource->enrolled)
             <v-card-text class="text-xs-center">
                 <v-btn ripple large primary class="px-4">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
             </v-card-text>
-        @endif
+        @endif --}}
+        @if (user())
+            <v-card-text class="text-xs-center">
+                <v-btn large primary ripple class="px-4" href="{{ route('courses.enroll.index', [$resource->slug, user()->id]) }}">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
+            </v-card-text>
+       @endif
     </v-card>
 @endif

@@ -42,8 +42,8 @@
                                 {{-- questions --}}
                                 <v-card-text class="pa-4">
                                     @foreach ($resource->fields() as $field)
-                                        <div><strong>{{ $field->question->label }}</strong></div>
-                                        <div class="pa-3">{{ $field->answer }}</div>
+                                        <div class="fw-500"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
+                                        <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->answer }}</div>
                                     @endforeach
                                 </v-card-text>
                             </v-card>
@@ -59,6 +59,9 @@
     <style>
         .card--flex-toolbar {
             margin-top: -80px;
+        }
+        .fw-500 {
+            font-weight: 500 !important;
         }
     </style>
 @endpush

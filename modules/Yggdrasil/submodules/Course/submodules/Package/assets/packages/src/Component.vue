@@ -1,122 +1,161 @@
 <template>
-  <div>
-    <v-toolbar dark class="brown elevation-1">
-      <v-toolbar-title v-html="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon ripple @click="bulk.upload.model = !bulk.upload.model" v-model="bulk.upload.model"><v-icon>cloud_upload</v-icon></v-btn>
-      <v-btn icon v-tooltip:left="{html: bulk.toggleview.model ? 'View as Grid' : 'View as Table'}" @click="bulk.toggleview.model = !bulk.toggleview.model">
+<div>
+<v-toolbar dark class="light-blue elevation-1">
+    <v-toolbar-title v-html="title"></v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn icon ripple :class="bulk.upload.model ? 'btn--active primary' : ''" @click="bulk.upload.model = !bulk.upload.model" v-model="bulk.upload.model"><v-icon>cloud_upload</v-icon></v-btn>
+
+    <v-btn icon v-tooltip:left="{ html: 'Sort' }">
+        <v-icon class="subheading">fa fa-sort-amount-asc</v-icon>
+    </v-btn>
+    <v-btn icon v-tooltip:left="{html: bulk.toggleview.model ? 'View as Thumbnail' : 'View as Table'}" @click="bulk.toggleview.model = !bulk.toggleview.model">
         <v-icon small v-if="bulk.toggleview.model">view_module</v-icon>
         <v-icon small v-else>list</v-icon>
-      </v-btn>
-      <v-menu>
+    </v-btn>
+    <v-menu>
         <v-btn class=""></v-btn>
-      </v-menu>
-    </v-toolbar>
-    <v-container fluid grid-list-lg>
-      <v-slide-y-transition>
-        <v-layout row wrap v-show="bulk.upload.model">
-          <v-flex md12>
-            <v-card flat class="transparent">
-              <v-dropzone
-                :options="dropzoneOptions"
-                :params="dropzone.params"
-                auto-remove-files
-                @complete="mDropzone().complete($event)"
-                @sending="mDropzone().sending($event)"
-              ></v-dropzone>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-slide-y-transition>
-      <v-layout row wrap>
+    </v-menu>
+</v-toolbar>
+
+<!-- Upload -->
+<v-slide-y-transition>
+    <v-layout row wrap v-show="bulk.upload.model">
         <v-flex md12>
-          <v-dataset
-            :headers="headers"
-            :items="dataset.items"
-            :pagination.sync="dataset.pagination"
-            :total-items="dataset.pagination.total"
-            :table="bulk.toggleview.model"
-            :card="!bulk.toggleview.model"
-            item-key="id"
-            v-model="dataset.selected"
-            sm6
-            @pagination="mDataset().pagination($event)"
-          >
-            <template slot="items" scope="{prop}">
-              <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
-                <td v-if="bulk.selection.model">
-                  <v-checkbox
-                    color="primary"
-                    primary
-                    hide-details
-                    :input-value="prop.selected"
-                  ></v-checkbox>
-                </td>
-                <td v-html="prop.item.id"></td>
-                <td>
-                  <v-avatar size="35px">
-                    <img :src="prop.item.thumbnail">
-                  </v-avatar>
-                  <span v-html="prop.item.name"></span>
-                </td>
-                <td>
-                  <v-icon class="brown--text" v-html="prop.item.icon"></v-icon>
-                </td>
-                <td v-html="prop.item.filesize"></td>
-                <td v-html="prop.item.created"></td>
-                <td v-html="prop.item.modified"></td>
-              </tr>
-            </template>
-            <template slot="card" scope="{prop}">
-              <v-card flat class="white">
-                <v-card-media class="white" height="250px" :src="prop.item.thumbnail"></v-card-media>
-                <v-card-title primary-title class="subheading white brown--text" v-html="prop.item.originalname"></v-card-title>
-                <v-card-text class="px-2 white brown--text">
-                  <p><v-icon left class="brown--text" v-html="prop.item.icon"></v-icon><span v-html="prop.item.mimetype"></span></p>
-                  <p><span v-html="prop.item.mime"></span></p>
-                  <p><span v-html="prop.item.filesize"></span></p>
-                </v-card-text>
-                <slot name="card.actions" :prop="prop.item"></slot>
-              </v-card>
-            </template>
-          </v-dataset>
+            <v-card flat class="transparent">
+                <v-dropzone
+                    :options="dropzoneOptions"
+                    :params="dropzone.params"
+                    auto-remove-files
+                    @complete="mDropzone().complete($event)"
+                    @sending="mDropzone().sending($event)"
+                ></v-dropzone>
+            </v-card>
         </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+    </v-layout>
+</v-slide-y-transition>
+
+<v-container fluid grid-list-lg>
+    <v-layout row wrap>
+        <!-- Empty State -->
+        <v-card-text fluid grid-list-lg v-if="!dataset.items.length && !bulk.upload.model">
+            <v-layout row wrap align-end justify-center>
+                <v-flex xs12>
+                    <div class="text-xs-center grey--text">
+                        <v-card-media class="mb-3">
+                            <img src="{{ assets('frontier/images/placeholder/zip.png') }}" style="width: 120px;">
+                        </v-card-media>
+                        <div class="headline">{{ __('Your library is empty') }}</div>
+                        <div class="subheading mb-3">Everything you upload will be here.</div>
+                        <div><v-btn primary round class="elevation-0" @click="bulk.upload.model = !bulk.upload.model">{{ __('Start Upload') }}</v-btn></div>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-card-text>
+
+        <v-flex xs12>
+            <v-dataset
+                :headers="headers"
+                :items="dataset.items"
+                :pagination.sync="dataset.pagination"
+                :total-items="dataset.pagination.total"
+                :table="bulk.toggleview.model"
+                :card="!bulk.toggleview.model"
+                item-key="id"
+                v-model="dataset.selected"
+                sm6
+                @pagination="mDataset().pagination($event)"
+                >
+                <!-- Table -->
+                <template slot="items" scope="{prop}">
+                    <tr role="button" :active="prop.selected" @click="prop.selected = !prop.selected">
+                        <td v-if="bulk.selection.model">
+                            <v-checkbox
+                                color="primary"
+                                primary
+                                hide-details
+                                :input-value="prop.selected"
+                            ></v-checkbox>
+                        </td>
+                        <td v-html="prop.item.id"></td>
+                        <td>
+                            <v-avatar size="35px">
+                                <img :src="prop.item.thumbnail">
+                            </v-avatar>
+                        </td>
+                        <td><span v-html="prop.item.name"></span></td>
+                        <td>
+                            <v-icon class="pink--text text--lighten-1" v-html="prop.item.icon"></v-icon> <span class="caption ml-2" v-html="prop.item.mimetype"></span>
+                        </td>
+                        <td v-html="prop.item.filesize"></td>
+                        <td v-html="prop.item.created"></td>
+                        <td v-html="prop.item.modified"></td>
+                    </tr>
+                </template>
+                <!-- Thumbnail -->
+                <template slot="card" scope="{prop}">
+                    <v-card-media height="150px" :src="prop.item.thumbnail" class="grey lighten-4"></v-card-media>
+                    <v-divider class="grey lighten-3"></v-divider>
+                    <v-toolbar card dense class="transparent pt-2">
+                        <v-toolbar-title class="mr-3 subheading">
+                            <span class="body-2" v-html="prop.item.name"></span>
+                        </v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            small
+                            absolute
+                            fab
+                            top
+                            right
+                            class="pink lighten-1 elevation-1"
+                            v-tooltip:bottom="{'html': prop.item.mimetype ? prop.item.mimetype : prop.item.mimetype}"
+                            >
+                            <v-icon class="white--text" v-html="prop.item.icon"></v-icon>
+                        </v-btn>
+                    </v-toolbar>
+                    <v-card-text class="grey--text pt-1">
+                        <span class="caption" v-html="prop.item.filesize"></span>
+                        <div class="caption grey--text" v-html="prop.item.created"></div>
+                    </v-card-text>
+                    <slot name="card.actions" :prop="prop.item"></slot>
+                </template>
+            </v-dataset>
+        </v-flex>
+    </v-layout>
+</v-container>
+</div>
 </template>
 
 <script>
-  import VuetifyDataset from 'vuetify-dataset'
-  import 'vuetify-dropzone/dist/vuetify-dropzone.min.js'
+    import VuetifyDataset from 'vuetify-dataset'
+    import 'vuetify-dropzone/dist/vuetify-dropzone.min.js'
 
-  export default {
-    name: 'pluma-packages',
-    components: {
-      'v-dataset': VuetifyDataset,
+    export default {
+        name: 'pluma-packages',
+        components: {
+          'v-dataset': VuetifyDataset,
     },
     model: {
-      prop: 'selected'
+        prop: 'selected'
     },
     props: {
-      title: {
-        type: String
-      },
-      url: {
-        type: [Object, Array]
-      },
-      headers: {
-        type: [Object, Array]
-      },
-      items: {
-        type: [Object, Array]
-      },
-      selected: {
-        type: [Object, Array]
-      },
-      dropzoneOptions: {
-        type: Object
-      },
+        title: {
+            type: String
+        },
+        url: {
+            type: [Object, Array]
+        },
+        headers: {
+            type: [Object, Array]
+        },
+        items: {
+            type: [Object, Array]
+        },
+        selected: {
+          type: [Object, Array]
+        },
+        dropzoneOptions: {
+            type: Object
+        },
       dropzoneParams: {
         type: Object
       },

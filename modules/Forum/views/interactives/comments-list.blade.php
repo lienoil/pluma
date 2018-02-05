@@ -23,10 +23,10 @@
                                 <input type="hidden" name="user_id" value="{{ user()->id }}">
                                 <input type="hidden" name="parent_id" value="{{ $comment->id }}">
                                 {{-- editor --}}
-                                <v-card flat class="outlined" style="border: 1px solid grey">
+                                <v-card flat class="outlined" style="border: 1px solid #cacaca">
                                     @include("Forum::widgets.editor", ['paper' => false])
                                 </v-card>
-                                <v-divider></v-divider>
+                                {{-- <v-divider></v-divider> --}}
                                 <v-card-text class="text-xs-right p-0">
                                     <v-btn type="submit" flat primary>{{ __('Post Reply') }}</v-btn>
                                 </v-card-text>
