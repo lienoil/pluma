@@ -49,7 +49,7 @@
         }
         .comment-field .input-group__input {
             padding-top: 0 !important;
-            border: 1px solid #9e9e9e !important;
+            border: 1px solid red !important;
         }
         .ql-container {
             min-height: 120px !important;
