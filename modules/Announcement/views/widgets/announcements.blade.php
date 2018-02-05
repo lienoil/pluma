@@ -72,7 +72,7 @@
                                                     </div>
                                                 @endif
                                                 <div class="my-3">
-                                                        @if ($announcement->feature)
+                                                    @if ($announcement->feature)
                                                         <v-card-media class="mb-2" height="100px" src="{{ $announcement->feature }}"></v-card-media>
                                                     @endif
                                                 </div>

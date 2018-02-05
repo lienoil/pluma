@@ -33,11 +33,9 @@
                                 label="{{ _('Code') }}"
                                 name="code"
                             ></v-text-field>
-
                         </v-card-text>
 
                         @include("Theme::interactive.editor")
-
                     </v-card>
 
                 </v-flex>
