@@ -51,7 +51,7 @@
                     @endcan
                 </v-list>
             </v-menu>
-        </v-toolbar>  
+        </v-toolbar>
         @endif
 
         <v-layout row wrap align-center justify-center>
@@ -69,7 +69,7 @@
                             <v-flex md8 xs12>
                                 <v-card dark flat class="transparent">
                                     <h2 class="display-1"><strong>{{ $resource->title }}</strong></h2>
-                                    
+
 
                                     <v-chip dark label small class="pl-0 white--text ma-0 subheading transparent elevation-0">
                                         <v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;
@@ -83,7 +83,7 @@
                                     @if ($resource->category)
                                         <v-chip label class="ma-0 white--text subheading transparent elevation-0"><v-icon left small class="subheading">label</v-icon><a class="td-n white--text" target="_blank" href="{{ route('courses.all', ['category_id' => $resource->category->id]) }}">{{ $resource->category->name }}</a></v-chip>
                                     @endif
-                                    
+
                                     <v-divider class="my-2"></v-divider>
                                     <div class="my-2">
                                         <v-avatar size="30px">

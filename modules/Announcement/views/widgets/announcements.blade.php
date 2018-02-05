@@ -56,9 +56,8 @@
                                     {{-- /banner --}}
 
                                     {{-- list of announcements --}}
+                                    @foreach ($announcements as $announcement)
                                     <div class="white mt-3 elevation-3" style="border-radius: 8px;">
-                                        @foreach ($announcements as $announcement)
-                                        <v-divider></v-divider>
                                         <div v-show="!hideannouncement">
                                             <div class="subheading pa-3">
                                                 <a class="td-n grey--text text--darken-1 mb-2" href="{{ route('announcements.single', $announcement->code) }}">
@@ -82,8 +81,8 @@
                                                 <div class="body-1 grey--text"><v-icon left>access_time</v-icon> {{ $announcement->published }}</div>
                                             </div>
                                         </div>
-                                    @endforeach
                                     </div>
+                                    @endforeach
                                     {{-- /list of announcements --}}
                                 </v-card-text>
                             </v-card>
