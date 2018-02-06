@@ -8,8 +8,8 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
@@ -52,7 +52,6 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Pluma\\' => 6,
-            'PhpOffice\\PhpSpreadsheet\\' => 25,
             'Phinx\\' => 6,
         ),
         'M' => 
@@ -89,6 +88,10 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
             'Illuminate\\Broadcasting\\' => 24,
             'Illuminate\\Auth\\' => 16,
         ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+        ),
         'E' => 
         array (
             'Egulias\\EmailValidator\\' => 23,
@@ -96,6 +99,7 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Dompdf\\' => 7,
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
         'C' => 
@@ -198,10 +202,6 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
         'Pluma\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core',
-        ),
-        'PhpOffice\\PhpSpreadsheet\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
         'Phinx\\' => 
         array (
@@ -319,6 +319,10 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
         array (
             0 => __DIR__ . '/..' . '/illuminate/auth',
         ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
@@ -326,6 +330,10 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
@@ -346,6 +354,17 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
     );
 
     public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'Svg\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
+            ),
+            'Sabberworm\\CSS' => 
+            array (
+                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
+            ),
+        ),
         'P' => 
         array (
             'Parsedown' => 
@@ -520,6 +539,7 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
         'Course\\Support\\Traits\\CourseUserMutator' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/CourseUserMutator.php',
         'Course\\Support\\Traits\\EnrolledUserMutator' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/EnrolledUserMutator.php',
         'Course\\Support\\Traits\\Status' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/Status.php',
+        'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'CreateActivationsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20170743035959_create_activations_table.php',
         'CreateAnnouncementsTable' => __DIR__ . '/../..' . '/modules/Announcement/database/migrations/20170823014328_create_announcements_table.php',
         'CreateAssignmentsTable' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/database/migrations/20170912032505_create_assignments_table.php',
@@ -633,6 +653,11 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
         'Frontier\\Support\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/submodules/Frontier/Support/Traverser/Traverser.php',
         'Frontier\\Support\\View\\CheckView' => __DIR__ . '/../..' . '/core/submodules/Frontier/Support/View/CheckView.php',
         'GrantsTableSeeder' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/seeds/GrantsTableSeeder.php',
+        'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
+        'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
+        'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
+        'HTML5_Tokenizer' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
+        'HTML5_TreeBuilder' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
         'Lesson\\Controllers\\LessonController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Controllers/LessonController.php',
         'Lesson\\Models\\Lesson' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Models/Lesson.php',
         'Lesson\\Providers\\LessonServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Providers/LessonServiceProvider.php',

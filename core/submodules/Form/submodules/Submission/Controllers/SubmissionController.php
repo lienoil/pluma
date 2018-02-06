@@ -30,7 +30,7 @@ class SubmissionController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Submission::search($request->all())->paginate();
+        $resources = Form::search($request->all())->paginate();
 
         return view("Theme::submissions.index")->with(compact('resources'));
     }
