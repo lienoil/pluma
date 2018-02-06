@@ -223,18 +223,6 @@ class CourseController extends GeneralController
     }
 
     /**
-     * Display a listing of the trashed resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function trashed()
-    {
-        //
-
-        return view("Theme::courses.trashed");
-    }
-
-    /**
      * Restore the specified resource from storage.
      *
      * @param  \Course\Requests\CourseRequest  $request

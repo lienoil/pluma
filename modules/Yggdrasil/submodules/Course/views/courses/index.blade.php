@@ -77,13 +77,13 @@
         {{-- /Batch Commands --}}
 
         {{-- Trashed --}}
-        <v-btn
+        {{-- <v-btn
             icon
             flat
-            href="{{ route('courses.trashed') }}"
+            href="{{ route('forms.trashed') }}"
             dark
             v-tooltip:left="{'html': `View trashed items`}"
-        ><v-icon class="warning--after">archive</v-icon></v-btn>
+        ><v-icon class="warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
         {{-- /Trashed --}}
     </v-toolbar>
 

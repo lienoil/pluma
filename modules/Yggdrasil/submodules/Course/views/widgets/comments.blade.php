@@ -7,14 +7,14 @@
 
     {{-- Comments Section --}}
     <v-card-text class="transparent pr-4">
-        @include("Course::partials.comments-list", ['comments' => $resource->comments()->parents()->paginate()->items()])
+        @include("Course::partials.comments-list", ['comments' => $resource->comments()->parents()->paginate(1)->items()])
     </v-card-text>
     {{-- Comments Section --}}
 
     {{-- Pagination --}}
     <v-card-actions>
         <v-spacer></v-spacer>
-        @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(), 'section' => '#comments'])
+        @include("Theme::partials.pagination", ['resources' => $resource->comments()->paginate(1), 'section' => '#comments'])
         <v-spacer></v-spacer>
     </v-card-actions>
     {{-- Pagination --}}
