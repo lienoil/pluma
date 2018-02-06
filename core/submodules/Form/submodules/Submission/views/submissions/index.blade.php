@@ -182,7 +182,7 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Form Name") }}', align: 'left', value: 'form_id' },
-                            { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
+                            { text: '{{ __("Submitted by") }}', align: 'left', value: 'user_id' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },

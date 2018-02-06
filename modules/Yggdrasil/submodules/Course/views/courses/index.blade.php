@@ -77,13 +77,13 @@
         {{-- /Batch Commands --}}
 
         {{-- Trashed --}}
-        {{-- <v-btn
+        <v-btn
             icon
             flat
             href="{{ route('forms.trashed') }}"
             dark
             v-tooltip:left="{'html': `View trashed items`}"
-        ><v-icon class="warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
+        ><v-icon class="warning--after">archive</v-icon></v-btn>
         {{-- /Trashed --}}
     </v-toolbar>
 
@@ -115,11 +115,11 @@
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td>
-                                <v-avatar size="40px">
+                                <v-avatar class="py-2">
                                     <img class="ma-1" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name">
                                 </v-avatar>
                             </td>
-                            <td><a :href="route(urls.show, (prop.item.id))" class="no-decoration td-n"><strong v-html="prop.item.title"></strong></a></td>
+                            <td><a :href="route(urls.show, (prop.item.slug))" class="no-decoration td-n"><strong v-html="prop.item.title"></strong></a></td>
                             <td v-html="prop.item.code"></td>
                             <td><a :href="`{{ route('courses.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.user.fullname"></a></td>
                             <td><v-chip v-if="prop.item.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip></td>

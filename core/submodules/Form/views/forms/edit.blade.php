@@ -39,13 +39,6 @@
                                 hint="{{ __("Code is used in generating URL. To customize the code, toggle the lock icon on this field.") }}"
                             ></v-text-field>
 
-                            <v-text-field
-                                :error-messages="resource.errors.action"
-                                label="{{ _('Action') }}"
-                                name="action"
-                                value="{{ $resource->action }}"
-                            ></v-text-field>
-
                             <v-menu full-width bottom>
                                 <v-text-field
                                     append-icon="keyboard_arrow_down"
@@ -67,13 +60,6 @@
                                     </v-list>
                                 </v-card>
                             </v-menu>
-                            <v-text-field
-                                :error-messages="resource.errors.attributes"
-                                label="{{ _('Attributes') }}"
-                                name="attributes"
-                                value="{{ $resource->attributes }}"
-                                multi-line
-                            ></v-text-field>
                         </v-card-text>
 
                         <v-divider></v-divider>

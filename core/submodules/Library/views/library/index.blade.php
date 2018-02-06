@@ -224,7 +224,7 @@
                         </v-card-media>
                         {{-- <v-divider></v-divider> --}}
                         <v-toolbar card dense class="transparent py-2">
-                            <v-toolbar-title class="subheading">
+                            <v-toolbar-title class="subheading mt-4 mx-3">
                                 <span class="body-1" v-html="prop.item.name"></span>
                                 <div class="caption grey--text" v-html="prop.item.filesize"></div>
                             </v-toolbar-title>
