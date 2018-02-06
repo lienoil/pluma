@@ -1,3 +1,11 @@
+{{--
+Template Name: Default Template
+Type: Submission
+Description: The default submission template displaying the submitted results.
+Author: Pluma CMS
+Version: 2.0.1
+--}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
