@@ -83,78 +83,54 @@
     </v-toolbar>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex sm12>
-                <v-card class="mb-3 elevation-1">
-                    <v-data-table
-                        :loading="dataset.loading"
-                        :total-items="dataset.totalItems"
-                        class="elevation-0"
-                        no-data-text="{{ _('No resource found') }}"
-                        v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
-                        v-bind:headers="dataset.headers"
-                        v-bind:items="dataset.items"
-                        v-bind:pagination.sync="dataset.pagination"
-                        v-model="dataset.selected">
-                        <template slot="headerCell" scope="props">
-                            <span v-tooltip:bottom="{'html': props.header.text}">
-                                @{{ props.header.text }}
-                            </span>
-                        </template>
-                        <template slot="items" scope="prop">
-                            <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
-                            <td v-html="prop.item.id"></td>
-                            <td>
-                                <a class="td-n" :href="route(urls.submissions.show, (prop.item.id))">
-                                    <strong v-html="prop.item.form.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
-                                </a>
-                            </td>
+            <v-flex xs12>
+                <v-card flat class="transparent">
+                    <v-layout row wrap>
+                        <v-flex md8 offset-md2 xs12>
+                            <v-card class="card--flex-toolbar">
+                                <v-toolbar card prominent class="transparent">
+                                    <v-toolbar-title class="title">{{ __($resource->form->name) }}</v-toolbar-title>
+                                    <v-spacer></v-spacer>
 
-                            <td><a class="td-n grey--text text--darken-4" class="fw-500" :href="`{{ route('submissions.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
-                            <td v-html="prop.item.created"></td>
-                            <td v-html="prop.item.modified"></td>
-                            <td class="text-xs-center">
-                                <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
-                                    <v-list>
-                                        <v-list-tile :href="route(urls.submissions.show, (prop.item.id))">
-                                            <v-list-tile-action>
-                                                <v-icon info>search</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('View details') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile :href="route(urls.submissions.edit, (prop.item.id))">
-                                            <v-list-tile-action>
-                                                <v-icon accent>edit</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('Edit') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile ripple @click="$refs.destroy.submit()">
-                                            <v-list-tile-action>
-                                                <v-icon warning>delete</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    <form ref="destroy" :action="route(urls.submissions.destroy, prop.item.id)" method="POST">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('DELETE') }}
-                                                        {{ __('Move to Trash') }}
-                                                    </form>
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                    </v-list>
-                                </v-menu>
-                            </td>
-                        </template>
-                    </v-data-table>
+
+                                    {{-- EXPORT --}}
+                                    <form action="{{ route('submissions.export', $resource->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <v-btn primary type="submit" class="elevation-1 white--text">
+                                            <v-icon left>fa-file-pdf-o</v-icon>
+                                            {{ __('Export') }}
+                                        </v-btn>
+                                    </form>
+                                    {{-- EXPORT --}}
+
+
+
+                                </v-toolbar>
+                                <v-divider></v-divider>
+                                <v-card-text class="body-1">
+                                    <v-card-actions class="pa-0">
+                                        <div>
+                                            <v-avatar size="25px">
+                                                <img src="{{ $resource->user->avatar }}">
+                                            </v-avatar>
+                                            <span class="pl-2">{{ $resource->user->displayname }}</span>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                        <v-icon>schedule</v-icon>
+                                        <span>{{ $resource->created }}</span>
+                                    </v-card-actions>
+                                </v-card-text>
+
+                                {{-- questions --}}
+                                <v-card-text class="pa-4">
+                                    @foreach ($resource->fields() as $field)
+                                        <div class="fw-500"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
+                                        <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->answer }}</div>
+                                    @endforeach
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
                 </v-card>
                 @if (\Illuminate\Support\Facades\Request::all())
                 <v-btn flat warning href="{{ route('submissions.index') }}" class=""><v-icon left>remove_circle</v-icon> {{ __('Remove filters') }}</v-btn>

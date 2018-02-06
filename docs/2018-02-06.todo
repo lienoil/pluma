@@ -1,0 +1,76 @@
+Frontier Frontend Components:
+  ☐ write Mediabox to support multiple instance.
+  ☐ grid / list view support
+  ☐ mediabox: pagination support
+  ☐ partials/pagination, limit pagination numbers
+  ☐ support for default pluma icon set
+  ☐ toolbar layout (index)
+      - use color secondary
+  ☐ layout for all create.blade
+      - add white/accent sticky toolbar with save (add, edit)
+  ☐ trashed.blade as is
+      - delete permanently - add dialog prompt when perma deleting resources
+
+FE:
+  ☐ table sorting
+  ☐ sidebar icon, maintain white icon status when active
+
+Search Module:
+  ☐ global search UI.
+  ☐ global search BE.
+
+Profile:
+  ☐ Account Details -> move settings to my-profile-group
+  ☐ My Activity
+
+Comment:
+  ☐ CRUD
+  ☐ Downvote/Upvote
+  ☐ @low hide other replybox on click
+
+Assignment:
+  ☐ Separate CRUD
+  ☐ seperate lesson
+
+Long Ago:
+  ☐ User theming
+        - colors
+        - set predefined color schemes
+
+MISC:
+  ☐ Empty state text blurb (all)
+  ☐ public footer layout (partials/endnote.blade)
+
+Page:
+  ☐ fix search layout index.blade
+  ☐ add conditional cards e.g. if home == code include (home cards)
+
+Package:
+  ☐ sorting (index.blade)
+
+Lesson:
+  ☐ lock, order number, done icon
+
+Content:
+  ☐ fix layout for swf file
+
+Lesson:
+  ☐ single view layout
+
+Course:
+  ☐ role based -> all, My, bookmarked courses
+  ☐ Enroll
+
+Form Builder:
+  ☐ Add Evaluation (AnswerChecking)
+  ☐ @critical Model Attachment (e.g. CourseHasManyForms)
+  Submission:
+    ☐ index (change author to submitted by)
+    ☐ index.blade -> list of Form::paginate
+    ☐ show.blade -> list of users (->examinees)
+        ☐ graph
+        ☐ CanExportResultTrait export report generation
+        ☐ CanViewResultTrait
+
+Server:
+  ☐ add subdomain oread.rippl3s.com

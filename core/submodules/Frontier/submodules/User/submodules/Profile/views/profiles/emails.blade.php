@@ -35,7 +35,7 @@
 
                         <v-card-text class="body-1">
                         	<p class="subheading page-title">{{ __('Email preferences') }}</p>
-                            <v-checkbox v-model="resource.item.settings.keep_email_private" value="1" label="{{ __('Keep my email address private') }}" hint="{{ __("Unchecking will hide your email from public and when commenting.") }}" persistent-hint></v-checkbox>
+                            <v-checkbox v-model="resource.item.settings.keep_email_private" value="1" label="{{ __('Keep my email address private') }}" hint="{{ __("Unchecking will make your email visible to public and when commenting.") }}" persistent-hint></v-checkbox>
                             <input type="hidden" name="settings[keep_email_private]" :value="resource.item.settings.keep_email_private">
                         </v-card-text>
 
