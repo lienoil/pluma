@@ -23,6 +23,3 @@ Route::post('forms/submissions/submit', 'SubmissionController@submit')->name('su
 
 // Admin routes
 Route::resource('forms/submissions', 'SubmissionController')->except(['store']);
-
-// Comment
-Route::post('submissions/{submission}/result', 'SubmissionController@result')->name('submissions.result');

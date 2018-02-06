@@ -2,6 +2,11 @@
 
 @section("content")
     @include("Theme::partials.banner")
+
+    {{-- graph --}}
+    @include("Submission::widgets.results")
+    {{-- /graph --}}
+
     <v-toolbar dark class="light-blue elevation-1">
         <v-toolbar-title>{{ __('Submissions') }}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -103,6 +108,7 @@
                                     <strong v-html="prop.item.form.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
                                 </a>
                             </td>
+
                             <td><a class="td-n grey--text text--darken-4" class="fw-500" :href="`{{ route('submissions.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
