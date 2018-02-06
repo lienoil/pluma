@@ -11,30 +11,26 @@
                     <v-card class="elevation-1 mb-1">
                         <v-layout row wrap>
                             <v-flex md5 xs12 class="light-blue lighten-1">
-                                <v-layout row wrap justify-center align-center>
-                                    <v-flex xs12>
-                                        <v-card class="elevation-0 transparent white--text" height="100%">
+                                <v-card flat class="transparent white--text" height="100%">
+                                    <v-card-media height="100%" src="//source.unsplash.com/300x1800?solid" class="text-xs-center">
+                                        <v-layout row wrap fill-height justify-center align-end>
                                             <v-card-text class="text-xs-center">
-                                                <v-layout row wrap justify-center align-center>
-                                                    <v-flex xs12>
-                                                        <p><img src="{{ settings('login_logo', assets('frontier/images/placeholder/paper-pencil-magnifier.svg')) }}" alt="" width="150"></p>
-                                                        <h4>{{ $application->site->title }}</h4>
-                                                        <p>{{ __($application->site->tagline) }}</p>
-                                                    </v-flex>
-                                                </v-layout>
+                                                <p><img src="{{ $application->site->logo }}" width="30%"></p>
+                                                <h4>{{ $application->site->title }}</h4>
+                                                <p>{{ __($application->site->tagline) }}</p>
                                             </v-card-text>
-                                        </v-card>
-                                    </v-flex>
-                                </v-layout>
+                                        </v-layout>
+                                    </v-card-media>
+                                </v-card>
                             </v-flex>
                             <v-flex md7 xs12>
                                 <form action="{{ route('login.login') }}" method="POST">
                                     {{ csrf_field() }}
                                     <v-card tile flat transition="slide-x-transition" height="500px">
                                         <v-toolbar card class="white">
-                                            <img class="brand-logo" width="30" class="mt-2" avatar src="{{ $application->site->logo }}" alt="{{ $application->site->title }}"/>
+                                            {{-- <img class="brand-logo" width="30" class="mt-2" avatar src="{{ $application->site->logo }}" alt="{{ $application->site->title }}"/> --}}
                                             <v-toolbar-title class="brand-type grey--text text--darken-1">
-                                                {{ $application->site->title }} <span class="grey--text">| {{ $application->page->title }}</span>
+                                                {{ $application->page->title }}
                                             </v-toolbar-title>
                                             <v-spacer></v-spacer>
                                         </v-toolbar>
@@ -76,7 +72,7 @@
                                                 <v-card-actions>
                                                     <v-btn primary role="button" class="elevation-1 mx-0" type="submit">{{ __("Login") }}</v-btn>
                                                     <v-spacer></v-spacer>
-                                                    <v-btn info outline role="button" href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
+                                                    <v-btn info outline role="button" class="mx-0" href="{{ route('register.show') }}">{{ __('Create Account') }}</v-btn>
                                                 </v-card-actions>
                                                 <v-card-actions>
                                                     <a class="grey--text" href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>

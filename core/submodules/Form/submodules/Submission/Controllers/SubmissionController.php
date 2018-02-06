@@ -7,6 +7,8 @@ use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Submission\Models\Submission;
 use Submission\Requests\SubmissionRequest;
+use Submission\Support\Traits\CanExportResultTrait;
+use Submission\Support\Traits\CanViewResultTrait;
 use Submission\Support\Traits\SubmissionResourceApiTrait;
 use Submission\Support\Traits\SubmissionResourcePublicTrait;
 use Submission\Support\Traits\SubmissionResourceSoftDeleteTrait;
@@ -14,7 +16,12 @@ use User\Models\User;
 
 class SubmissionController extends GeneralController
 {
-    use SubmissionResourcePublicTrait, SubmissionResourceSoftDeleteTrait, SubmissionResourceApiTrait;
+    use CanExportResultTrait,
+        CanViewResultTrait,
+        SubmissionResourcePublicTrait,
+        SubmissionResourceSoftDeleteTrait,
+        SubmissionResourceApiTrait;
+
     /**
      * Display a listing of the resource.
      *
