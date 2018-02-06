@@ -23,6 +23,21 @@
                             <v-card class="card--flex-toolbar">
                                 <v-toolbar card prominent class="transparent">
                                     <v-toolbar-title class="title">{{ __($resource->form->name) }}</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+
+
+                                    {{-- EXPORT --}}
+                                    <form action="{{ route('submissions.export', $resource->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <v-btn primary type="submit" class="elevation-1 white--text">
+                                            <v-icon left>fa-file-pdf-o</v-icon>
+                                            {{ __('Export') }}
+                                        </v-btn>
+                                    </form>
+                                    {{-- EXPORT --}}
+
+
+
                                 </v-toolbar>
                                 <v-divider></v-divider>
                                 <v-card-text class="body-1">

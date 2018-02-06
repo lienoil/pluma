@@ -26,7 +26,7 @@ class User extends Authenticatable
         HasManySettings, SettingTrait,
         HasOneActivation;
 
-    protected $with = ['roles'];
+    protected $with = [];
 
     protected $appends = [
         'handlename',

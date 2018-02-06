@@ -262,16 +262,16 @@ class ApplicationViewComposer extends BaseViewComposer
     {
         $blurb = settings('site_copyright', env("APP_COPYRIGHT"));
 
-        $blurb = preg_replace("/\{APP_NAME\}/", env("APP_NAME"), $blurb);
-        $blurb = preg_replace("/\{APP_TAGLINE\}/", env("APP_TAGLINE"), $blurb);
-        $blurb = preg_replace("/\{APP_YEAR\}/", env("APP_YEAR"), $blurb);
-        $blurb = preg_replace("/\{APP_AUTHOR\}/", env("APP_AUTHOR"), $blurb);
+        $blurb = preg_replace("/\{APP_NAME\}/", settings("site_title"), $blurb);
+        $blurb = preg_replace("/\{APP_TAGLINE\}/", settings("site_tagline"), $blurb);
+        $blurb = preg_replace("/\{APP_YEAR\}/", settings("site_year", config('env.site_year')), $blurb);
+        $blurb = preg_replace("/\{APP_AUTHOR\}/", settings("site_author"), $blurb);
         $blurb = preg_replace("/\{CURRENT_YEAR\}/", date('Y'), $blurb);
 
         $copy = preg_replace(
                 "/\{APP_YEAR_TO_CURRENT_YEAR\}/",
-                (env("APP_YEAR", date('Y')) < date('Y')
-                    ? env("APP_YEAR") . " - " . date('Y')
+                (settings("site_year", date('Y')) < date('Y')
+                    ? settings("site_year") . " - " . date('Y')
                     : date('Y')),
                 $blurb
             );
