@@ -23,7 +23,7 @@ class SubmissionController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Form::search($request->all())->paginate();
+        $resources = Submission::search($request->all())->paginate();
 
         return view("Theme::submissions.index")->with(compact('resources'));
     }
@@ -110,4 +110,19 @@ class SubmissionController extends GeneralController
 
         return back();
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return Illuminate\Http\Response
+     */
+    public function result(Request $request, $id)
+    {
+        $resource = Submission::findOrFail($id);
+
+        return view("Theme::submissions.result")->with(compact('resource'));
+    }
+
 }

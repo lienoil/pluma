@@ -70,6 +70,9 @@ Form Builder:
         ☐ CanExportResultTrait export report generation
         ☐ CanViewResultTrait
 
+    code->name for fields/edit-fields
+    unique display for submission index and show
+
 Server:
   ☐ add subdomain oread.rippl3s.com
 
