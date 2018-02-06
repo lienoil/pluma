@@ -1,188 +1,190 @@
-@extends("Theme::layouts.admin")
+@extends("Frontier::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="elevation-1 accent sticky">
-        <v-toolbar-title class="page-title">{{ __('Manage Courses') }}</v-toolbar-title>
+
+    <v-toolbar dark class="light-blue elevation-1 sticky">
+        <v-toolbar-title primary-title>{{ __($application->page->title) }}</v-toolbar-title>
         <v-spacer></v-spacer>
 
         {{-- Search --}}
         <template>
             <v-text-field
-                :append-icon-cb="() => {bulk.searchform.model = !bulk.searchform.model}"
-                :prefix="bulk.searchform.prefix"
-                :prepend-icon="bulk.searchform.prepend"
-                append-icon="search"
+                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
+                :prefix="dataset.searchform.prefix"
+                :prepend-icon="dataset.searchform.prepend"
+                append-icon="close"
                 light solo hide-details single-line
-                placeholder="Search"
-                v-model="bulk.searchform.query"
-                v-show="bulk.searchform.model"
+                label="Search"
+                v-model="dataset.searchform.query"
+                v-show="dataset.searchform.model"
             ></v-text-field>
-            <v-btn v-show="!bulk.searchform.model" icon v-tooltip:left="{html:'{{ __('Search') }}'}" @click.stop="bulk.searchform.model = !bulk.searchform.model"><v-icon>search</v-icon></v-btn>
+            {{--  <v-select
+                label="Search"
+                chips
+                tags
+                solo
+                prepend-icon="search"
+                append-icon=""
+                clearable
+                autofocus
+                >
+            </v-select> --}}
+            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
         </template>
-        {{-- Search --}}
+        {{-- /Search --}}
 
-        <v-btn icon v-tooltip:left="{html:'{{ __('Sort') }}'}"><v-icon>sort</v-icon></v-btn>
-        <v-btn icon v-tooltip:left="{html:'{{ __('Filter') }}'}"><v-icon>fa-filter</v-icon></v-btn>
+        <v-btn
+            flat
+            icon
+            href="{{ route('courses.create') }}"
+            v-tooltip:left="{'html': '{{ __('Add new course') }}'}"
+        ><v-icon>add</v-icon></v-btn>
+
+        {{-- <v-btn icon v-tooltip:left="{ html: 'Filter' }">
+            <v-icon class="subheading">fa fa-filter</v-icon>
+        </v-btn> --}}
+
+        {{-- Batch Commands --}}
+        <v-btn
+            v-show="dataset.selected.length < 2"
+            flat
+            icon
+            v-model="bulk.destroy.model"
+            :class="bulk.destroy.model ? 'btn--active primary primary--text' : ''"
+            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checkboxes') }}'}"
+            @click.native="bulk.destroy.model = !bulk.destroy.model"
+        ><v-icon>@{{ bulk.destroy.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
+
+        {{-- Bulk Delete --}}
+        <v-slide-y-transition>
+            <template v-if="dataset.selected.length > 1">
+                <form action="{{ route('courses.destroy', 'false') }}" method="POST" class="inline">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <template v-for="item in dataset.selected">
+                        <input type="hidden" name="id[]" :value="item.id">
+                    </template>
+                    <v-btn
+                        flat
+                        icon
+                        type="submit"
+                        v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"
+                    ><v-icon warning>delete_sweep</v-icon></v-btn>
+                </form>
+            </template>
+        </v-slide-y-transition>
+        {{-- /Bulk Delete --}}
+        {{-- /Batch Commands --}}
+
+        {{-- Trashed --}}
+        <v-btn
+            icon
+            flat
+            href="{{ route('courses.trashed') }}"
+            dark
+            v-tooltip:left="{'html': `View trashed items`}"
+        ><v-icon class="warning--after">archive</v-icon></v-btn>
+        {{-- /Trashed --}}
     </v-toolbar>
 
-            {{-- <v-flex sm3 md2>
-                @include("Setting::partials.settingsbar")
-            </v-flex> --}}
     <v-container fluid grid-list-lg>
-        <v-layout row wrap fill-height>
-            <v-flex
-                sm4 xs12
-                v-for="(card, i) in dataset.items"
-                :key="card.id">
-                <v-card ripple class="elevation-1 flex pa-0 c-lift" height="100%">
+        <v-layout row wrap>
+            <v-flex sm12>
 
-                    <v-layout column wrap fill-height class="ma-0">
-                        <a class="td-n" :href="route(urls.show, card.slug)">
-                            <v-card-media class="accent lighten-3" :src="card.backdrop" height="250px" style="max-width:100%">
-                                <v-container fill-height fluid class="pa-0 white--text">
-                                    <v-layout column>
-                                        <v-card-actions>
-                                            {{-- If Bookmarked --}}
-                                           <div class="pa-2">
-                                                <v-btn icon v-if="card.bookmarked" class="red darken-1" v-tooltip:right="{html:'{{ __('Remove from Bookmarked') }}'}" @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})"><v-icon small class="white--text">fa-bookmark</v-icon></v-btn>
-                                           </div>
-                                            {{-- /If Bookmarked --}}
-                                            <v-spacer></v-spacer>
-                                            @can('bookmark-course')
-                                            <v-menu full-width bottom left>
-                                                <v-btn slot='activator' dark icon v-tooltip:left="{ 'html': 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
-                                                <v-card>
-                                                    <v-list>
-                                                        @can('bookmark-course')
-                                                        <v-list-tile avatar v-if="!card.bookmarked" ripple @click="post(route(urls.bookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
-                                                            <v-list-tile-avatar>
-                                                                <v-icon class="red--text">bookmark_outline</v-icon>
-                                                            </v-list-tile-avatar>
-                                                            <v-list-tile-title>{{ __('Bookmark this course') }}</v-list-tile-title>
-                                                        </v-list-tile>
-                                                        <v-list-tile avatar v-else ripple @click="post(route(urls.unbookmark, (card.id)), {_token: '{{ csrf_token() }}'})">
-                                                            <v-list-tile-avatar>
-                                                                <v-icon class="red--text">bookmark</v-icon>
-                                                            </v-list-tile-avatar>
-                                                            <v-list-tile-title>{{ __('Remove from Bookmarked') }}</v-list-tile-title>
-                                                        </v-list-tile>
-                                                        @endcan
-                                                        @can('edit-course')
-                                                        <v-list-tile avatar ripple :href="route(urls.edit, (card.id))">
-                                                            <v-list-tile-avatar>
-                                                                <v-icon>edit</v-icon>
-                                                            </v-list-tile-avatar>
-                                                            <v-list-tile-title>{{ __('Edit Course') }}</v-list-tile-title>
-                                                        </v-list-tile>
-                                                        @endcan
+                @include("Theme::partials.banner")
 
-                                                        @can('delete-course')
-                                                        <v-list-tile avatar ripple @click="destroy(route(urls.destroy, (card.id)), {_token: '{{ csrf_token() }}'})">
-                                                            <v-list-tile-avatar>
-                                                                <v-icon class="warning--text">delete</v-icon>
-                                                            </v-list-tile-avatar>
-                                                            <v-list-tile-title>{{ __('Move to Trash') }}</v-list-tile-title>
-                                                        </v-list-tile>
-                                                        @endcan
-                                                    </v-list>
-                                                </v-card>
-                                            </v-menu>
-                                            @endcan
-                                        </v-card-actions>
+                <v-card class="mb-3 elevation-1">
 
-                                        <v-spacer></v-spacer>
-
-                                        <v-card-actions class="pa-3">
-                                            <v-avatar class="elevation-4" v-if="card.feature" size="80px">
-                                                <img v-if="card.feature" :src="card.feature" :alt="card.title">
-                                            </v-avatar>
-
-                                            <v-spacer></v-spacer>
-                                            {{-- If Enrolled --}}
-                                            <v-chip v-if="card.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
-                                            {{-- /If Enrolled --}}
-                                        </v-card-actions>
-                                    </v-layout>
-                                </v-container>
-                            </v-card-media>
-                        </a>
-
-                        <v-card-title primary-title>
-                            <a v-if="!card.enrolled" :href="route(urls.show, card.slug)" class="accent--text td-n"><span class="accent--text" v-html="card.title"></span></a>
-                            <a v-else :href="route(urls.show, card.slug)" class="accent--text td-n"><span class="accent--text" v-html="card.title"></span></a>
-                        </v-card-title>
-                        
-                        <v-card-actions class="grey lighten-4">
-                            <span class="text-xs-center caption pa-1 grey--text">
-                                <v-icon class="caption" left>class</v-icon>
-                                <span v-html="card.code"></span>
+                    <v-data-table
+                        :loading="dataset.loading"
+                        :total-items="dataset.totalItems"
+                        class="elevation-0"
+                        no-data-text="{{ _('No resource found') }}"
+                        v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
+                        {{-- selected-key="id" --}}
+                        v-bind:headers="dataset.headers"
+                        v-bind:items="dataset.items"
+                        v-bind:pagination.sync="dataset.pagination"
+                        v-model="dataset.selected">
+                        <template slot="headerCell" scope="props">
+                            <span v-tooltip:bottom="{'html': props.header.text}">
+                                @{{ props.header.text }}
                             </span>
-                            <span class="text-xs-center caption pa-1 grey--text">
-                                <v-icon class="caption" left>fa-tasks</v-icon>
-                                <span v-html="`${card.lessons.length} ${(card.lessons.length <= 1 ? '{{ __('Part') }}' : '{{ __('Parts') }}')}`"></span>
-                            </span>
-                            <span class="text-xs-center caption pa-1 grey--text">
-                                <v-icon class="caption" left>fa-clock-o</v-icon>
-                                <span v-html="card.created"></span>
-                            </span>
-                        </v-card-actions>
-
-                        <v-card-text class="grey--text text--darken-1 body-1" v-html="card.excerpt"></v-card-text>
-
-                        {{-- author --}}
-                        <v-card-actions class="pa-3">
-                            <v-avatar v-if="card.user.avatar" size="30px">
-                                <img v-if="card.user.avatar" :src="card.user.avatar" :alt="card.user.handlename">
-                            </v-avatar>
-                            <a :href="`{{ url('/admin/profile/' . v('card.user.handlename', true)) }}`" class="caption grey--text td-n" v-html="card.user.fullname"></a>
-                            <v-spacer></v-spacer>
-                            <span v-if="card.category" class="caption pa-1 grey--text">
-                            <v-icon class="caption" left>label</v-icon>
-                            <span v-html="card.category.name"></span>
-                        </span>
-                        </v-card-actions>
-                        {{-- author --}}
-
-                        {{-- <v-card-actions>
-                            <v-spacer></v-spacer>
-
-                            @can('show-course')
-                            <v-btn v-if="!card.enrolled" flat primary ripple :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
-                            @endcan
-
-                            @can('enroll-course')
-                            if user is not enrolled yet, let user have the option
-                            to enroll
-                            <v-btn v-if="!card.enrolled" flat primary ripple :href="route(urls.enroll, card.slug)">{{ __('Enroll') }}</v-btn>
-                            <v-btn v-else flat primary ripple :href="route(urls.show, card.slug)">{{ __('Learn More') }}</v-btn>
-                            @endcan
-                        </v-card-actions> --}}
-                    </v-layout>
+                        </template>
+                        <template slot="items" scope="prop">
+                            <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
+                            <td v-html="prop.item.id"></td>
+                            <td>
+                                <v-avatar size="40px">
+                                    <img class="ma-1" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name">
+                                </v-avatar>
+                            </td>
+                            <td><a :href="route(urls.show, (prop.item.id))" class="no-decoration td-n"><strong v-html="prop.item.title"></strong></a></td>
+                            <td v-html="prop.item.code"></td>
+                            <td><a :href="`{{ route('courses.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.user.fullname"></a></td>
+                            <td><v-chip v-if="prop.item.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip></td>
+                            <td><span v-if="prop.item.category"><v-icon left class="body-2" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('courses.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
+                            <td v-html="prop.item.created"></td>
+                            <td v-html="prop.item.modified"></td>
+                            <td class="text-xs-center">
+                                <v-menu bottom left>
+                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-list>
+                                        <v-list-tile :href="route(urls.show, prop.item.slug)">
+                                            <v-list-tile-action>
+                                                <v-icon info>search</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('View details') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile :href="route(urls.edit, (prop.item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon accent>edit</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('Edit') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                        <v-list-tile ripple @click="$refs[`destroy_${prop.item.id}`].submit()">
+                                            <v-list-tile-action>
+                                                <v-icon warning>delete</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.destroy, prop.item.id)" method="POST">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE') }}
+                                                        {{ __('Move to Trash') }}
+                                                        {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
+                                                    </form>
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
+                            </td>
+                        </template>
+                    </v-data-table>
                 </v-card>
+                @if (request()->all())
+                    {{-- <p class="caption grey--text"><a href="{{ route('courses.index') }}">{{ __('Remove filters') }}</a></p> --}}
+                    <v-card-actions class="pa-0">
+                        <v-btn error class="elevation-1 mx-0" href="{{ route('courses.index') }}">
+                            <v-icon left>delete</v-icon>Remove Filter</v-btn>
+                    </v-card-actions>
+                @endif
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
 
-@push('css')
-    <style>
-        .c-lift {
-            transition: all .2s ease;
-        }
-        .c-lift:hover {
-            -webkit-transform: translateY(-6px);
-            transform: translateY(-6px);
-            box-shadow: 0 1px 8px rgba(0,0,0,.2),0 3px 4px rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12) !important;
-        }
-        .td-n:hover {
-            text-decoration: none !important;
-        }
-    </style>
-@endpush
-
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
     <script>
         Vue.use(VueResource);
 
@@ -193,38 +195,30 @@
                         destroy: {
                             model: false,
                         },
-                        gridlist: {
-                            model: true,
-                        },
-                        searchform: {
-                            model: false,
-                        },
                     },
                     urls: {
-                        unbookmark: '{{ route('api.courses.bookmark.unbookmark', 'null') }}',
-                        bookmark: '{{ route('api.courses.bookmark.bookmark', 'null') }}',
-                        show: '{{ route('courses.show', 'null') }}',
                         edit: '{{ route('courses.edit', 'null') }}',
-                        destroy: '{{ route('api.courses.destroy', 'null') }}',
-                        enrolled: '{{ route('courses.enrolled.show', 'null') }}',
-                        enroll: '{{ route('courses.enroll.index', 'null') }}',
+                        show: '{{ route('courses.show', 'null') }}',
+                        destroy: '{{ route('courses.destroy', 'null') }}',
                     },
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                            { text: '{{ __("Name") }}', align: 'left', value: 'name' },
-                            { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
+                            { text: '{{ __("Feature") }}', align: 'left', value: 'feature' },
+                            { text: '{{ __("Title") }}', align: 'left', value: 'title' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Grants") }}', align: 'left', value: 'grants' },
-                            { text: '{{ __("Last Modified") }}', align: 'left', value: 'updated_at' },
-                            { text: '{{ __("Actions") }}', align: 'center', sortable: false, value: 'updated_at' },
+                            { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
+                            { text: '{{ __("Status") }}', align: 'left', value: 'enrolled' },
+                            { text: '{{ __("Category") }}', align: 'left', value: 'category_at' },
+                            { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
+                            { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
+                            { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPage: 5,
+                            rowsPerPage: {{ settings('items_per_page', 15) }},
                             totalItems: 0,
-                            page: 1,
                         },
                         searchform: {
                             model: false,
@@ -233,16 +227,48 @@
                         selected: [],
                         totalItems: 0,
                     },
-                }
+                };
             },
+
+            watch: {
+                'dataset.pagination': {
+                    handler () {
+                        this.get();
+                    },
+                    deep: true
+                },
+
+                'dataset.searchform.query': function (filter) {
+                    setTimeout(() => {
+                        const { sortBy, descending, course, rowsPerPage } = this.dataset.pagination;
+
+                        let query = {
+                            descending: descending,
+                            course: course,
+                            search: filter,
+                            sort: sortBy,
+                            take: rowsPerPage,
+                        };
+
+                        this.api().search('{{ route('api.courses.all') }}', query)
+                            .then((data) => {
+                                this.dataset.items = data.items.data ? data.items.data : data.items;
+                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.loading = false;
+                            });
+                    }, 1000);
+                },
+            },
+
             methods: {
                 get () {
-                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    const { sortBy, descending, course, rowsPerPage } = this.dataset.pagination;
                     let query = {
-                        descending: descending ? descending : null,
-                        page: page,
-                        sort: sortBy ? sortBy : null,
+                        descending: descending,
+                        course: course,
+                        sort: sortBy,
                         take: rowsPerPage,
+                        search: {!! @json_encode(request()->all()) !!},
                     };
                     this.api().get('{{ route('api.courses.all') }}', query)
                         .then((data) => {
@@ -251,24 +277,8 @@
                             this.dataset.loading = false;
                         });
                 },
-
-                post (url, query) {
-                    this.api().post(url, query).then(response => {
-                        this.get();
-                    });
-                },
-
-                destroy (url, query) {
-                    this.api().delete(url, query).then(response => {
-                        this.get();
-                    });
-                }
             },
-
-            mounted () {
-                this.dataset.items = {!! json_encode($resources->toArray()) !!}
-                // this.get();
-            },
-        })
+        });
     </script>
+
 @endpush
