@@ -14,11 +14,15 @@
                    <input type="hidden" name="form_id" value="{{ $resource->id }}">
                    <input type="hidden" name="type" value="forms">
 
-                   <v-card class="elevation-1">
+                   <v-card class="elevation-1f">
 
                         <v-toolbar class="elevation-0">
                            <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
                         </v-toolbar>
+
+                        <v-card-text>{!! $resource->body !!}</v-card-text>
+
+                        <v-divider></v-divider>
 
                         @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
                             <v-card-text>

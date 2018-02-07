@@ -2,41 +2,11 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-toolbar dark class="light-blue elevation-1">
+    <v-toolbar dark class="secondary elevation-1">
+        <v-icon left dark>playlist_add_check</v-icon>
         <v-toolbar-title>{{ __('Submissions') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         {{-- Batch Commands --}}
-
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                label="Search"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            {{--  <v-select
-                label="Search"
-                chips
-                tags
-                solo
-                prepend-icon="search"
-                append-icon=""
-                clearable
-                autofocus
-                >
-            </v-select> --}}
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
-
-        {{-- add --}}
-        <v-btn icon v-tooltip:left="{ html: 'Create' }" href="{{ route('submissions.create') }}"><v-icon>add</v-icon></v-btn>
-        {{-- /add --}}
 
         <v-btn
             v-show="dataset.selected.length < 2"
@@ -80,6 +50,18 @@
         <v-layout row wrap>
             <v-flex sm12>
                 <v-card class="mb-3 elevation-1">
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
+
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.totalItems"
@@ -99,11 +81,10 @@
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td>
-                                <a class="td-n" :href="route(urls.submissions.show, (prop.item.id))">
-                                    <strong v-html="prop.item.form.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
+                                <a class="td-n secondary--text" :href="route(urls.submissions.show, (prop.item.id))">
+                                    <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
                                 </a>
                             </td>
-                            <td><a class="td-n grey--text text--darken-4" class="fw-500" :href="`{{ route('submissions.index') }}?user_id=${prop.item.user_id}`" v-html="prop.item.author"></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
@@ -117,16 +98,6 @@
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
                                                     {{ __('View details') }}
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile :href="route(urls.submissions.edit, (prop.item.id))">
-                                            <v-list-tile-action>
-                                                <v-icon accent>edit</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('Edit') }}
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
@@ -158,6 +129,17 @@
     </v-container>
 @endsection
 
+@push('css')
+    <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
+    </style>
+@endpush
+
+
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
     <script>
@@ -182,7 +164,6 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Form Name") }}', align: 'left', value: 'form_id' },
-                            { text: '{{ __("Submitted by") }}', align: 'left', value: 'user_id' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },

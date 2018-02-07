@@ -2,8 +2,8 @@
 
 namespace Submission\Support\Traits;
 
+use Form\Models\Form;
 use Illuminate\Http\Request;
-use Submission\Models\Submission;
 use Submission\Requests\SubmissionRequest;
 use User\Models\User;
 
@@ -37,7 +37,7 @@ trait SubmissionResourceApiTrait
                         ? $request->get('take')
                         : 0;
 
-        $resources = Submission::search($searches)->orderBy($sort, $order);
+        $resources = Form::search($searches)->orderBy($sort, $order);
 
         if ($onlyTrashed) {
             $resources->onlyTrashed();
@@ -76,7 +76,7 @@ trait SubmissionResourceApiTrait
                         ? $request->get('take')
                         : 0;
 
-        $resources = Submission::search($searches)->orderBy($sort, $order);
+        $resources = Form::search($searches)->orderBy($sort, $order);
 
         if ($onlyTrashed) {
             $resources->onlyTrashed();
@@ -117,7 +117,7 @@ trait SubmissionResourceApiTrait
      */
     public function getShow(Request $request, $slug = null)
     {
-        $submission = Submission::codeOrFail($slug);
+        $submission = Form::codeOrFail($slug);
 
         return response()->json($submission);
     }
@@ -131,7 +131,7 @@ trait SubmissionResourceApiTrait
      */
     public function putUpdate(Request $request, $id)
     {
-        $submission = Submission::findOrFail($id);
+        $submission = Form::findOrFail($id);
         $submission->title = $request->input('title');
         $submission->code = $request->input('code');
         $submission->feature = $request->input('feature');
@@ -153,7 +153,7 @@ trait SubmissionResourceApiTrait
      */
     public function deleteDestroy(Request $request, $id = null)
     {
-        $success = Submission::destroy($id ? $id : $request->input('id'));
+        $success = Form::destroy($id ? $id : $request->input('id'));
 
         return response()->json($success);
     }
@@ -167,12 +167,12 @@ trait SubmissionResourceApiTrait
      */
     public function postRestore(Request $request, $id = null)
     {
-        $submission = Submission::onlyTrashed()->find($id);
+        $submission = Form::onlyTrashed()->find($id);
         $submission->exists() || $submission->restore();
 
         if (is_array($request->input('id'))) {
             foreach ($request->input('id') as $id) {
-                $submission = Submission::onlyTrashed()->find($id);
+                $submission = Form::onlyTrashed()->find($id);
                 $submission->restore();
             }
         }
@@ -189,7 +189,7 @@ trait SubmissionResourceApiTrait
      */
     public function deleteDelete(Request $request, $id = null)
     {
-        $success = Submission::forceDelete($id ? $id : $request->input('id'));
+        $success = Form::forceDelete($id ? $id : $request->input('id'));
 
         return response()->json($success);
     }

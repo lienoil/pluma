@@ -15,4 +15,14 @@ trait FormMutatorTrait
     {
         return ! $this->user ?: $this->user->displayname;
     }
+
+    /**
+     * Alias for submissions relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    function getExamineesAttribute()
+    {
+        return $this->submissions;
+    }
 }

@@ -76,10 +76,6 @@
 
                 <v-flex md3>
                     @include("Theme::cards.saving")
-
-                    {{-- template --}}
-                    @include("Theme::cards.form-attributes")
-                    {{-- /template --}}
                 </v-flex>
 
             </v-layout>

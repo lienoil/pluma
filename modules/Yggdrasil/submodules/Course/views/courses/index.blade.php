@@ -115,7 +115,7 @@
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td>
-                                <v-avatar class="py-2">
+                                <v-avatar size="36px">
                                     <img class="ma-1" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name">
                                 </v-avatar>
                             </td>

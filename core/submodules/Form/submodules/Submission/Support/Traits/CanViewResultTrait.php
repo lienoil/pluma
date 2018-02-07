@@ -2,6 +2,7 @@
 
 namespace Submission\Support\Traits;
 
+use Illuminate\Http\Request;
 use Submission\Models\Submission;
 
 trait CanViewResultTrait
@@ -13,10 +14,10 @@ trait CanViewResultTrait
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function results(Request $request, $id)
+    public function result(Request $request, $id)
     {
         $resource = Submission::findOrFail($id);
 
-        return view("Submissions::submissions.results")->with(compact('resource'));
+        return view("Submission::submissions.result")->with(compact('resource'));
     }
 }

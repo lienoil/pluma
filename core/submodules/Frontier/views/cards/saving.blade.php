@@ -1,4 +1,4 @@
-<v-card class="mb-3 elevation-1">
+{{-- <v-card class="mb-3 elevation-1">
     <v-toolbar card class="transparent">
 
         @stack("cards.saving.pre-title")
@@ -9,10 +9,9 @@
 
         @stack("cards.saving.post-title")
 
-    </v-toolbar>
+    </v-toolbar> --}}
 
-    <v-card-text class="grey--text">
-
+    {{-- <v-card-text class="grey--text"> --}}
         @stack("cards.saving.pre-fields")
 
         @section("cards.saving.fields")
@@ -31,7 +30,7 @@
 
         @stack("cards.saving.post-fields")
 
-    </v-card-text>
+    {{-- </v-card-text> --}}
 
     <v-card-actions>
         @stack("cards.saving.pre-actions")
@@ -42,4 +41,4 @@
         @stack("cards.saving.post-actions")
 
     </v-card-actions>
-</v-card>
+{{-- </v-card> --}}

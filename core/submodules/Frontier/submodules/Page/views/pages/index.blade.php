@@ -2,9 +2,22 @@
 
 @section("content")
 
-<v-toolbar dark class="light-blue elevation-1">
+<v-toolbar dark class="secondary elevation-1">
+    {{-- <v-toolbar-side-icon></v-toolbar-side-icon> --}}
+    <v-icon left dark>find_in_page</v-icon>
     <v-toolbar-title>{{ __('Pages') }}</v-toolbar-title>
+
     <v-spacer></v-spacer>
+
+    {{-- create --}}
+    <v-btn
+        icon
+        href="{{ route('pages.create') }}"
+        v-tooltip:left="{ html: 'Create' }"
+        >
+        <v-icon>add</v-icon>
+    </v-btn>
+    {{-- /create --}}
 
     {{-- Batch Commands --}}
     <v-btn
@@ -25,35 +38,20 @@
                 <template v-for="item in dataset.selected">
                     <input type="hidden" name="id[]" :value="item.id">
                 </template>
-                <v-btn flat icon type="submit" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"><v-icon error>delete_sweep</v-icon></v-btn>
+                <v-btn flat icon type="submit" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"><v-icon warning>delete_sweep</v-icon></v-btn>
             </form>
         </template>
     </v-slide-y-transition>
     {{-- /Bulk Delete --}}
     {{-- /Batch Commands --}}
 
-    {{-- Search --}}
-    <v-text-field
-        append-icon="search"
-        label="{{ _('Search') }}"
-        single-line
-        hide-details
-        v-if="dataset.searchform.model"
-        v-model="dataset.searchform.query"
-    ></v-text-field>
-    <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
-        <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
-    </v-btn>
-    {{-- /Search --}}
-
     {{-- Trashed --}}
-    {{-- <v-btn
+    <v-btn
         icon
         flat
-        href="{{ route('pages.trash') }}"
-        light
+        href="{{ route('pages.trashed') }}"
         v-tooltip:left="{'html': `View trashed items`}"
-    ><v-icon class="grey--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
+    ><v-icon>archive</v-icon></v-btn>
     {{-- /Trashed --}}
 </v-toolbar>
 
@@ -62,7 +60,17 @@
         <v-flex sm12>
 
             <v-card class="mb-3 elevation-1">
-
+                {{-- search --}}
+                <v-text-field
+                    solo
+                    label="Search"
+                    append-icon=""
+                    prepend-icon="search"
+                    class="pa-2 elevation-1 search-bar"
+                    v-model="dataset.searchform.query"
+                    clearable
+                ></v-text-field>
+                {{-- /search --}}
 
                 <v-data-table
                     :loading="dataset.loading"
@@ -84,8 +92,12 @@
                     <template slot="items" scope="prop">
                         <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                         <td v-html="prop.item.id"></td>
-                        <td class="text-xs-center"><img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.title"></td>
-                        <td><a :href="route(urls.pages.edit, (prop.item.id))" class="td-n"><strong v-html="prop.item.title"></strong></a></td>
+                        <td>
+                            <v-avatar size="36px">
+                                <img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.title">
+                            </v-avatar>
+                        </td>
+                        <td><a class="secondary--text td-n" :href="route(urls.pages.edit, (prop.item.id))" class="td-n"><strong v-html="prop.item.title"></strong></a></td>
                         <td v-html="prop.item.code"></td>
                         <td><a :href="`{{ route('pages.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.author"></a></td>
                         {{-- <td v-html="prop.item.author"></td> --}}
@@ -144,6 +156,16 @@
     </v-layout>
 </v-container>
 @endsection
+
+@push('css')
+    <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
+    </style>
+@endpush
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>

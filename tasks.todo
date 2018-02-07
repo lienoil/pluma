@@ -56,8 +56,9 @@ Content:
   ☐ fix layout for swf file
 
 Course:
-  ☐ role based -> all, My, bookmarked courses
+  ☐ role based -> all, My, bookmaked courses
   ☐ Enroll
+  ☐ List view of students (per courses)
 
 Form Builder:
   ☐ Add Evaluation (AnswerChecking)
@@ -67,8 +68,8 @@ Form Builder:
     ☐ index.blade -> list of Form::paginate
     ☐ show.blade -> list of users (-> examinees)
         ☐ graph
-        ☐ CanExportResultTrait export report generation
-        ☐ CanViewResultTrait
+        ✔ CanExportResultTrait export report generation @done (18-02-07 11:54)
+        ✔ CanViewResultTrait @done (18-02-07 11:54)
 
     code->name for fields/edit-fields
     unique display for submission index and show
@@ -76,6 +77,7 @@ Form Builder:
 Server:
   ☐ add subdomain oread.rippl3s.com
 
-
 --
  ☐ create save button should be sticky toolbar with save button
+ -> List of Submissions
+    -> poll per questions (with # of students answered per value)

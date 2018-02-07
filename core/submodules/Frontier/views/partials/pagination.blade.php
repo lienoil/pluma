@@ -21,7 +21,6 @@
                 </v-btn>
             @endif
 
-
             @for ($i = 1; $i <= $resources->lastPage(); $i++)
                 @if ($resources->currentPage() == $i)
                     <v-btn ripple small icon class="primary">

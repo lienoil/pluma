@@ -18,7 +18,9 @@ use User\Models\User;
 
 class FormController extends GeneralController
 {
-    use FormResourcePublicTrait, FormResourceSoftDeleteTrait, FormResourceApiTrait;
+    use FormResourcePublicTrait,
+        FormResourceSoftDeleteTrait,
+        FormResourceApiTrait;
 
     /**
      * Show list of resources.

@@ -1,7 +1,5 @@
 <?php
-
 namespace Submission\Controllers;
-
 use Form\Models\Form;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
@@ -13,7 +11,6 @@ use Submission\Support\Traits\SubmissionResourceApiTrait;
 use Submission\Support\Traits\SubmissionResourcePublicTrait;
 use Submission\Support\Traits\SubmissionResourceSoftDeleteTrait;
 use User\Models\User;
-
 class SubmissionController extends GeneralController
 {
     use CanExportResultTrait,
@@ -30,11 +27,9 @@ class SubmissionController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Form::search($request->all())->paginate();
-
-        return view("Theme::submissions.index")->with(compact('resources'));
+        $form = Form::search($request->all())->paginate();
+        return view("Theme::submissions.index")->with(compact('form'));
     }
-
     /**
      * Display the specified resource.
      *
@@ -44,11 +39,10 @@ class SubmissionController extends GeneralController
      */
     public function show(Request $request, $id)
     {
-        $resource = Submission::findOrFail($id);
+        $resources = Form::findOrFail($id)->submissions;
 
-        return view("Theme::submissions.show")->with(compact('resource'));
+        return view("Theme::submissions.show")->with(compact('resources'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -57,10 +51,8 @@ class SubmissionController extends GeneralController
     public function create()
     {
         //
-
         return view("Theme::submissions.create");
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -74,10 +66,8 @@ class SubmissionController extends GeneralController
         $submission->form()->associate(Form::find($request->input('form_id')));
         $submission->user()->associate(User::find(user()->id));
         $submission->save();
-
         return back();
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -88,10 +78,8 @@ class SubmissionController extends GeneralController
     public function edit(Request $request, $id)
     {
         //
-
         return view("Theme::submissions.edit");
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -103,7 +91,6 @@ class SubmissionController extends GeneralController
     {
         return back();
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -114,22 +101,6 @@ class SubmissionController extends GeneralController
     public function destroy(Request $request, $id)
     {
         //
-
         return back();
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return Illuminate\HNttp\Response
-     */
-    public function result(Request $request, $id)
-    {
-        $resource = Submission::findOrFail($id);
-
-        return view("Theme::submissions.result")->with(compact('resource'));
-    }
-
 }

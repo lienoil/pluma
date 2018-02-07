@@ -7,7 +7,7 @@ return [
         'order' => 30,
         'slug' => route('pages.index'),
         'always_viewable' => false,
-        'icon' => 'insert_drive_file',
+        'icon' => 'find_in_page',
         'labels' => [
             'title' => __('Pages'),
         ],

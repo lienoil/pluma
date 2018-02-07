@@ -622,7 +622,7 @@ class ComposerStaticInit71acec6e9cc1fdad13e94afc24c7961c
         'Form\\Support\\Builder\\Traits\\TemplatableFieldTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Builder/Traits/TemplatableFieldTrait.php',
         'Form\\Support\\Builder\\Traits\\TemplatableFormTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Builder/Traits/TemplatableFormTrait.php',
         'Form\\Support\\Relations\\BelongsToForm' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Relations/BelongsToForm.php',
-        'Form\\Support\\Relations\\FormHasManyForms' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Relations/FormHasManyForms.php',
+        'Form\\Support\\Relations\\FormHasManyForms' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Relations/HasManyForms.php',
         'Form\\Support\\Traits\\FormMutatorTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Traits/FormMutatorTrait.php',
         'Form\\Support\\Traits\\FormResourceApiTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Traits/FormResourceApiTrait.php',
         'Form\\Support\\Traits\\FormResourcePublicTrait' => __DIR__ . '/../..' . '/core/submodules/Form/Support/Traits/FormResourcePublicTrait.php',
