@@ -104,8 +104,9 @@ trait TemplateTrait
         $template = preg_replace('/%tabindex%/', $this->sort, $template);
         $template = preg_replace('/%field_id%/', $this->id, $template);
         $template = preg_replace('/%type%/', $this->type, $template);
-        $template = preg_replace('/%value%/', $this->value, $template);
         $template = preg_replace('/%attributes%/', $this->attributed, $template);
+        $template = preg_replace('/%value%/', '', $template);
+        // $template = preg_replace('/%value%/', $this->value, $template);
 
         return $template;
     }

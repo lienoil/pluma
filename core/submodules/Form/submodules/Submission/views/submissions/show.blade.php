@@ -58,7 +58,10 @@
                                 <v-card-text class="pa-4">
                                     @foreach ($resource->fields() as $field)
                                         <div class="fw-500"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
-                                        <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->answer }}</div>
+                                        <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ "You answered " . $field->guess }}</div>
+                                        <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ "Correct answer is " . $field->answer }}</div>
+                                        <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ "You answered " . ($field->isCorrect ? 'correctly' : 'wrongly') }}</div>
+
                                     @endforeach
                                 </v-card-text>
                             </v-card>

@@ -89,7 +89,7 @@ Version: 2.0.1
             @foreach ($resource->fields() as $field)
                 <tr class="padded-large">
                     <th>{{ $field->question->label }}</th>
-                    <td>{!! $field->answer ?? '<em>no answer</em>' !!}</td>
+                    <td>{!! $field->guess ?? '<em>no answer</em>' !!}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -23,11 +23,13 @@ trait CanExportResultTrait
         $file->loadView("Submission::templates.submissions", [
                 'resource' => $resource,
              ])
-             ->setPaper('A4')
+             ->setPaper($request->input('paper_size') ?? 'A4')
              ->render();
 
-        return $file->stream(settings("export_name_pdf", "{$resource->form->name} - {$resource->user->fullname}"), [
-            "Attachment" => $request->input('attachment') ?? false
-        ]);
+        return $file->stream(
+            $request->input('filename')
+                ?? "{$resource->form->name} - {$resource->user->fullname}",
+            ["Attachment" => $request->input('attachment') ?? false]
+        );
     }
 }
