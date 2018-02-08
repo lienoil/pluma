@@ -10,7 +10,7 @@
         </v-btn> --}}
     </v-toolbar>
     <v-slide-y-transition>
-        <v-card class="elevation-0 transparent" v-show="!p1" transition="slide-y-transition">
+        <v-card class="elevation-0 transparent" v-show="!p1" transition="slide-y-transition" style="max-height: 70vh; overflow-y: auto;">
             <v-card-text>
                 <v-container fluid grid-list-lg>
                     <v-layout row wrap justify-center align-center>
@@ -20,9 +20,7 @@
                                 <div class="chart-container mb-3">
                                     <canvas id="perf-bar"></canvas>
                                 </div>
-                                {{-- <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->answer }}</div> --}}
                             @endforeach
-
                         </v-flex>
                         {{-- <v-flex md4 xs12>
                             <v-layout row wrap justify-center align-center>
@@ -98,7 +96,7 @@
                     pointRadius: 5,
                     hoverBackgroundColor: "rgba(3, 169, 244, .8)",
                     hoverBorderColor: "rgba(3, 169, 244, .8)",
-                    data: [65, 59, 30, 81, 56, 75, 25, 79, 20, 61, 66, 15],
+                    data: [25, 59, 30, 81, 15],
                 }]
             },
 

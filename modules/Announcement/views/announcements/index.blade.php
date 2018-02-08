@@ -2,7 +2,7 @@
 
 @section("content")
 
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    <v-toolbar dark class="secondary elevation-1 sticky">
         <v-toolbar-title primary-title>{{ __($application->page->title) }}</v-toolbar-title>
         <v-spacer></v-spacer>
 
@@ -114,12 +114,15 @@
                         <template slot="items" scope="prop">
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
-                            <td class="text-xs-center"><img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name"></td>
-                            <td><a :href="route(urls.show, (prop.item.id))" class="no-decoration td-n"><strong v-html="prop.item.name"></strong></a></td>
+                            <td>
+                                <v-avatar size="36px">
+                                    <img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name">
+                                </v-avatar>
+                            </td>
+                            <td><a :href="route(urls.edit, (prop.item.id))" class="no-decoration td-n secondary--text"><strong v-html="prop.item.name"></strong></a></td>
                             <td v-html="prop.item.code"></td>
-                            {{-- <td v-html="prop.item.excerpt"></td> --}}
                             <td><a :href="`{{ route('announcements.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.author"></a></td>
-                            <td><span v-if="prop.item.category"><v-icon left class="body-2" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('announcements.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
+                            <td><span v-if="prop.item.category"><v-icon left class="body-2 mr-1" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('announcements.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
@@ -168,7 +171,10 @@
                     </v-data-table>
                 </v-card>
                 @if (request()->all())
-                    <p class="caption grey--text"><a href="{{ route('announcements.index') }}">{{ __('Remove filters') }}</a></p>
+                    <v-btn error flat href="{{ route('announcements.index') }}">
+                        <v-icon left>remove_circle_outline</v-icon>
+                        {{ __('Remove filters') }}
+                    </v-btn>
                 @endif
             </v-flex>
         </v-layout>

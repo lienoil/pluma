@@ -60,9 +60,9 @@ class TestController extends GeneralController
      */
     public function create()
     {
-        $resource = \Form\Models\Form::find(1);
+        $course = \Course\Models\Course::get()->first();
 
-        return view("Theme::tests.create")->with(compact('resource'));
+        return view("Test::tests.create")->with(compact('course'));
     }
 
     /**

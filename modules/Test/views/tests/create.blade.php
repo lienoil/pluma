@@ -12,6 +12,12 @@
         <v-container fluid>
             <v-flex sm12>
 
+                {{-- {{ dd($course) }} --}}
+
+                <div v-for="(c,i) in courses">
+                    {{--  --}}
+                </div>
+
                 <form action="{{ $resource->action ?? route('tests.store') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
                     {{ csrf_field() }}
                     <input type="hidden" name="form_id" value="{{ $resource->id }}">

@@ -2,7 +2,7 @@
 
 @section("content")
 
-<v-toolbar dark class="secondary elevation-1">
+<v-toolbar dark class="sticky secondary elevation-1">
     {{-- <v-toolbar-side-icon></v-toolbar-side-icon> --}}
     <v-icon left dark>find_in_page</v-icon>
     <v-toolbar-title>{{ __('Pages') }}</v-toolbar-title>
@@ -150,7 +150,10 @@
                 </v-data-table>
             </v-card>
             @if (request()->all())
-                <p class="caption grey--text"><a href="{{ route('pages.index') }}">{{ __('Remove filters') }}</a></p>
+                <v-btn error flat href="{{ route('pages.index') }}">
+                        <v-icon left>remove_circle_outline</v-icon>
+                        {{ __('Remove filters') }}
+                    </v-btn>
             @endif
         </v-flex>
     </v-layout>
@@ -202,7 +205,7 @@
                         items: [],
                         loading: true,
                         pagination: {
-                            rowsPerPageItems: [5, 10, 15, 20, 30, {'value':50,text:50}, {'value':'-1',text:'All'}],
+                            rowsPerPageItems: [5, 10, 15, 20, 30, {'value':50,text:50}, 100, {'value':'-1',text:'All'}],
                             rowsPerPage: {{ settings('items_per_page', 15) }},
                             totalItems: 0,
                         },

@@ -3,19 +3,18 @@
 @section("content")
     @include("Theme::partials.banner")
 
-    <v-toolbar light class="white sticky elevation-1 mb-2">
+    <v-toolbar light class="white sticky elevation-1">
         <v-toolbar-title>{{ __('New Page') }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn primary ripple class="elevation-1" @click="$refs['form'].submit()">{{ __('Save') }}</v-btn>
-        {{-- @include("Theme::cards.saving") --}}
+        @include("Theme::cards.save")
     </v-toolbar>
+
     <v-container fluid grid-list-lg>
         <form ref="form" action="{{ route('pages.store') }}" method="POST">
             {{ csrf_field() }}
             <v-layout row wrap>
                 <v-flex md9>
                     <v-card class="mb-3 elevation-1">
-
                         <v-card-text>
                             <v-text-field
                                 name="title"

@@ -14,8 +14,12 @@
                     <v-toolbar dark flat class="secondary">
                         <v-icon left dark>playlist_add_check</v-icon>
                         <v-toolbar-title>{{ __('List of Examinees') }}</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon v-tooltip:left="{ html: 'Search examinees' }">
+                            <v-icon>search</v-icon>
+                        </v-btn>
                     </v-toolbar>
-                    <v-list>
+                    <v-list style="max-height: 70vh; overflow-y: auto;">
                         @foreach ($resources as $resource)
                         <v-list-tile avatar ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }"
                             href="{{ route('submissions.result', $resource->id) }}">
@@ -32,9 +36,6 @@
                         </v-list-tile>
                         @endforeach
                     </v-list>
-                    <v-flex sm12 class="text-xs-center" v-if="resources.pagination.totalItems">
-                        <v-pagination class="elevation-0" :length="resources.pagination.last_page" v-model="resources.pagination.page" circle></v-pagination>
-                    </v-flex>
                 </v-card>
             </v-flex>
             <v-flex md6 xs12>
@@ -65,17 +66,7 @@
             data () {
                 return {
                     resources: {
-                        pagination: {
-                            descending: false,
-                            page: 1,
-                            sortByDisplayName: '{{ __('Course Title') }}',
-                            sortBy: 'title',
-                            sortByModel: false,
-                            rowsPerPageItems: [5, 10, 15, 20, 30, {'value':50,text:50}, {'value':'-1',text:'All'}],
-                            rowsPerPageDisplayName: {{ settings('items_per_page', 30) }},
-                            rowsPerPage: {{ settings('items_per_page', 30) }},
-                            totalItems: 0,
-                        },
+                        //
                     },
                     bulk: {
                         destroy: {
