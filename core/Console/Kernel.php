@@ -64,7 +64,7 @@ class Kernel extends ConsoleKernel
         foreach (get_modules_path() as $module) {
             if (file_exists("$module/config/console.php")) {
                 $commands = (array) require "$module/config/console.php";
-                $this->commands = array_merge($this->commands, $commands);
+                $this->commands = array_merge((array) $this->commands, (array) $commands);
             }
         }
     }
@@ -92,7 +92,7 @@ class Kernel extends ConsoleKernel
     {
         if (file_exists(core_path('config/console.php'))) {
             $commands = require_once core_path('config/console.php');
-            $this->commands = array_merge($this->commands, $commands);
+            $this->commands = array_merge((array) $this->commands, (array) $commands);
         }
     }
 

@@ -29,6 +29,7 @@
                                     {{-- EXPORT --}}
                                     <form action="{{ route('submissions.export', $resource->id) }}" method="POST">
                                         {{ csrf_field() }}
+                                        <input type="hidden" name="export_type" value="pdf">
                                         <v-btn primary type="submit" class="elevation-1 white--text">
                                             <v-icon left>fa-file-pdf-o</v-icon>
                                             {{ __('Export') }}

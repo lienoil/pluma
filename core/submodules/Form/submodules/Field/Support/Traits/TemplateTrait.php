@@ -127,9 +127,11 @@ trait TemplateTrait
             case 'radio':
             case 'checkbox':
                 $values = explode('|', $this->value);
+
                 foreach ($values as &$value) {
                     $value = str_replace('*', '', $value);
                 }
+
                 $template = preg_replace('/%items%/', json_encode($values, ENT_QUOTES), $template);
                 return $template;
                 break;
