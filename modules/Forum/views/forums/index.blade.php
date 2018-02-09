@@ -223,17 +223,6 @@
                         destroy: '{{ route('forums.destroy', 'null') }}',
                     },
                     dataset: {
-                        headers: [
-                            { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                            { text: '{{ __("Feature") }}', align: 'left', value: 'feature' },
-                            { text: '{{ __("Title") }}', align: 'left', value: 'title' },
-                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
-                            { text: '{{ __("Template") }}', align: 'left', value: 'template' },
-                            { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
-                            { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
-                            { text: '{{ __("Actions") }}', align: 'center', sortable: false },
-                        ],
                         items: [],
                         loading: true,
                         pagination: {

@@ -30,11 +30,10 @@ class SubmissionController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Submission::search($request->all())->paginate();
+        $form = Form::search($request->all())->paginate();
 
-        return view("Theme::submissions.index")->with(compact('resources'));
+        return view("Theme::submissions.index")->with(compact('form'));
     }
-
     /**
      * Display the specified resource.
      *
@@ -42,13 +41,12 @@ class SubmissionController extends GeneralController
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id = null)
     {
-        $resource = Submission::findOrFail($id);
+        $resources = Form::findOrFail($id)->submissions;
 
-        return view("Theme::submissions.show")->with(compact('resource'));
+        return view("Theme::submissions.show")->with(compact('resources', 'id'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -57,10 +55,8 @@ class SubmissionController extends GeneralController
     public function create()
     {
         //
-
         return view("Theme::submissions.create");
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -74,10 +70,8 @@ class SubmissionController extends GeneralController
         $submission->form()->associate(Form::find($request->input('form_id')));
         $submission->user()->associate(User::find(user()->id));
         $submission->save();
-
         return back();
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -88,10 +82,8 @@ class SubmissionController extends GeneralController
     public function edit(Request $request, $id)
     {
         //
-
         return view("Theme::submissions.edit");
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -103,7 +95,6 @@ class SubmissionController extends GeneralController
     {
         return back();
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -113,7 +104,7 @@ class SubmissionController extends GeneralController
      */
     public function destroy(Request $request, $id)
     {
-        //
+        Submission::destroy($request->has('id') ? $request->input('id') : $id);
 
         return back();
     }

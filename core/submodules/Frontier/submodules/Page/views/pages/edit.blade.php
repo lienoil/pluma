@@ -3,19 +3,22 @@
 @section("head-title", __('Edit Page'))
 
 @section("content")
-    <v-container fluid grid-list-lg>
-        @include("Theme::partials.banner")
+    @include("Theme::partials.banner")
 
+    <v-container fluid grid-list-lg>
         <form action="{{ route('pages.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
+            <v-toolbar light class="elevation-1 white mb-2">
+                <v-toolbar-title>{{ __('Edit Page') }}</v-toolbar-title>
+                <v-spacer></v-spacer>
+                @include("Theme::cards.saving")
+            </v-toolbar>
+
             <v-layout row wrap>
                 <v-flex md9>
                     <v-card class="mb-3 elevation-1">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ __('Edit Page') }}</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                        </v-toolbar>
+
                         <v-card-text>
                             <v-text-field
                                 name="title"
@@ -49,7 +52,7 @@
                 </v-flex>
 
                 <v-flex md3>
-                    @include("Theme::cards.saving")
+                    {{-- @include("Theme::cards.saving") --}}
 
                     @include("Theme::interactives.featured-image")
 
@@ -89,8 +92,8 @@
                             category_id: '{{ $resource->category_id }}',
                         },
                         quill: {
-                            html: '{!! $resource->body !!}',
-                            delta: JSON.parse({!! json_encode($resource->delta) !!}),
+                            html: {!! json_encode(old('body') ?? $resource->body) !!},
+                            delta: JSON.parse({!! json_encode(old('delta') ?? $resource->delta) !!}),
                         },
                         template: '{{ $resource->template }}',
                         category_id: '{!! json_encode($resource->category_id) !!}',

@@ -17,5 +17,5 @@ class Submission extends Model
 
     protected $appends = ['author', 'created', 'modified', 'removed'];
 
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $searchables = ['name', 'created_at', 'updated_at'];
 }

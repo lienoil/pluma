@@ -666,7 +666,7 @@ if (! function_exists('v')) {
             return '${' . $string . '}';
         }
 
-        return '{{' . $string . '}}';
+        return json_encode('{{' . $string . '}}');
     }
 }
 

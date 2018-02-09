@@ -18,7 +18,9 @@ use User\Models\User;
 
 class FormController extends GeneralController
 {
-    use FormResourcePublicTrait, FormResourceSoftDeleteTrait, FormResourceApiTrait;
+    use FormResourcePublicTrait,
+        FormResourceSoftDeleteTrait,
+        FormResourceApiTrait;
 
     /**
      * Show list of resources.
@@ -80,7 +82,7 @@ class FormController extends GeneralController
         $form->action = $request->input('action');
         $form->method = $request->input('method');
         $form->type = $request->input('type');
-        $form->attributes = $request->input('attributes');
+        // $form->attributes = $request->input('attributes');
         $form->body = $request->input('body');
         $form->delta = $request->input('delta');
         $form->template = $request->input('template');
@@ -96,7 +98,7 @@ class FormController extends GeneralController
             $field->sort = $input->sort;
             $field->label = $input->label ? $input->label : NULL;
             $field->value = $input->value ? $input->value : NULL;
-            $field->attribute = $input->attribute ? $input->attribute : NULL;
+            // $field->attribute = $input->attribute ? $input->attribute : NULL;
             $field->fieldtype()->associate(Fieldtype::find($input->fieldtype_id));
             $field->form()->associate($form);
             $field->save();
@@ -136,7 +138,7 @@ class FormController extends GeneralController
         $form->action = $request->input('action');
         $form->method = $request->input('method');
         $form->type = $request->input('type');
-        $form->attributes = $request->input('attributes');
+        // $form->attributes = $request->input('attributes');
         $form->body = $request->input('body');
         $form->delta = $request->input('delta');
         $form->template = $request->input('template');
@@ -152,7 +154,7 @@ class FormController extends GeneralController
             $field->sort = $input->sort;
             $field->label = $input->label ? $input->label : NULL;
             $field->value = $input->value ? $input->value : NULL;
-            $field->attribute = $input->attribute ? $input->attribute : NULL;
+            // $field->attribute = $input->attribute ? $input->attribute : NULL;
             $field->fieldtype()->associate(Fieldtype::find($input->fieldtype_id));
             $field->form()->associate($form);
             $field->save();

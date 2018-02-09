@@ -2,7 +2,12 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-toolbar dark class="secondary elevation-1">
+        <v-icon left dark>fa-twitter</v-icon>
+        <v-toolbar-title class="page-title">{{ __('Branding') }}</v-toolbar-title>
+    </v-toolbar>
+
+    <v-container fluid grid-list-lg class="white">
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
@@ -14,8 +19,8 @@
                 <form action="{{ route('settings.store') }}" method="POST">
                     {{ csrf_field() }}
 
-                    <v-card class="mb-3 elevation-1">
-                        <v-toolbar class="transparent elevation-0">
+                    <v-card flat class="mb-3">
+                        <v-toolbar card class="transparent">
                             <v-toolbar-title class="accent--text">{{ __('Social Media') }}</v-toolbar-title>
                         </v-toolbar>
 
@@ -46,9 +51,9 @@
 
                         </v-card-text>
 
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
+                        <v-card-actions class="pa-2">
                             <v-btn primary type="submit" class="elevation-1">{{ __('Save') }}</v-btn>
+                            <v-spacer></v-spacer>
                         </v-card-actions>
                     </v-card>
                 </form>

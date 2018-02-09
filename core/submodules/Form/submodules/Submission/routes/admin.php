@@ -24,8 +24,8 @@ Route::group(['prefix' => 'forms'], function () {
          ->name('submissions.submit');
 
     // Results
-    Route::get('submissions/results', 'SubmissionController@results')
-         ->name('submissions.results');
+    Route::get('submissions/result/{submission}', 'SubmissionController@result')
+         ->name('submissions.result');
 
     // Reports
     Route::post('submissions/{submission}/export', 'SubmissionController@export')

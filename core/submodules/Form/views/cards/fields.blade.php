@@ -76,6 +76,13 @@
                                     <v-flex sm12>
                                         <v-card-text>
                                             <input type="hidden" :name="`fields[${key}][sort]`" :value="key">
+
+                                            <v-text-field
+                                                label="{{ __('Field Title') }}"
+                                                :name="`fields[${key}][label]`"
+                                                :error-messages="resource.errors[`fields.${key}.label`]"
+                                            ></v-text-field>
+
                                             <v-text-field
                                                 label="{{ __('Name') }}"
                                                 :name="`fields[${key}][name]`"
@@ -83,11 +90,28 @@
                                                 v-model="draggable.resource.name"
                                             ></v-text-field>
 
-                                            <v-text-field
-                                                label="{{ __('Label') }}"
+                                            {{-- start --}}
+
+                                            {{-- <v-text-field
+                                                label="{{ __('Field Title') }}"
                                                 :name="`fields[${key}][label]`"
                                                 :error-messages="resource.errors[`fields.${key}.label`]"
+                                                v-model="fields.item.label"
+                                                @input="() => { draggable.resource.name = $options.filters.slugify(fields.item.label); }"
                                             ></v-text-field>
+
+                                             <v-text-field
+                                                :append-icon-cb="() => (resource.readonly.slug = !resource.readonly.slug)"
+                                                :append-icon="resource.readonly.slug ? 'fa-lock' : 'fa-unlock'"
+                                                :readonly="resource.readonly.slug"
+                                                :value="resource.item.code | slugify"
+                                                label="{{ __('Code') }}"
+                                                name="code"
+                                                persistent-hint
+                                                :error-messages="resource.errors.code"
+                                                hint="{{ __("Code is used in generating URL. To customize the code, toggle the lock icon on this field.") }}"
+                                            ></v-text-field> --}}
+                                            {{-- end --}}
 
                                             <v-select
                                                 auto
@@ -106,13 +130,6 @@
                                                 label="{{ __('Value') }}"
                                                 :name="`fields[${key}][value]`"
                                                 :error-messages="resource.errors[`fields.${key}.value`]"
-                                            ></v-text-field>
-
-                                            <v-text-field
-                                                label="{{ __('Attributes') }}"
-                                                :name="`fields[${key}][attribute]`"
-                                                :error-messages="resource.errors[`fields.${key}.attribute`]"
-                                                multi-line
                                             ></v-text-field>
                                         </v-card-text>
                                     </v-flex>
@@ -154,6 +171,10 @@
                                 model: false,
                             }
                         },
+                        item: {
+                            label: '{{ old('label') }}',
+                            name: '{{ old('name') }}'
+                        }
                     },
                     draggables: {
                         items: [],

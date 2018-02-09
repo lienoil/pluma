@@ -125,6 +125,7 @@ trait TemplateTrait
             case 'vuetify-checkbox':
             case 'select':
             case 'radio':
+            case 'radio-field':
             case 'checkbox':
                 $values = explode('|', $this->value);
 

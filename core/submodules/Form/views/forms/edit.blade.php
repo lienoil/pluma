@@ -39,13 +39,6 @@
                                 hint="{{ __("Code is used in generating URL. To customize the code, toggle the lock icon on this field.") }}"
                             ></v-text-field>
 
-                            <v-text-field
-                                :error-messages="resource.errors.action"
-                                label="{{ _('Action') }}"
-                                name="action"
-                                value="{{ $resource->action }}"
-                            ></v-text-field>
-
                             <v-menu full-width bottom>
                                 <v-text-field
                                     append-icon="keyboard_arrow_down"
@@ -67,13 +60,6 @@
                                     </v-list>
                                 </v-card>
                             </v-menu>
-                            <v-text-field
-                                :error-messages="resource.errors.attributes"
-                                label="{{ _('Attributes') }}"
-                                name="attributes"
-                                value="{{ $resource->attributes }}"
-                                multi-line
-                            ></v-text-field>
                         </v-card-text>
 
                         <v-divider></v-divider>
@@ -90,10 +76,6 @@
 
                 <v-flex md3>
                     @include("Theme::cards.saving")
-
-                    {{-- template --}}
-                    @include("Theme::cards.form-attributes")
-                    {{-- /template --}}
                 </v-flex>
 
             </v-layout>
@@ -122,16 +104,16 @@
                     resource: {
                         item: {
                             id: '',
-                            name: '{{ $resource->name }}',
-                            code: '{{ $resource->code }}',
-                            delta: '{!! $resource->delta !!}',
-                            body: '{!! $resource->body !!}',
-                            template: '{{ $resource->template }}',
-                            method: '{{ $resource->method }}',
+                            name: {!! json_encode(old('name') ?? $resource->name) !!},
+                            code: '{{ old('code') ?? $resource->code }}',
+                            // body: {!! json_encode(old('body') ?? $resource->body) !!},
+                            // delta: JSON.parse({!! json_encode(old('delta') ?? $resource->delta) !!}),
+                            template: '{{ old('template') ?? $resource->template }}',
+                            method: '{{ old('method') ?? $resource->method }}',
                         },
                         quill: {
-                            html: '{!! $resource->body !!}',
-                            delta: JSON.parse({!! json_encode($resource->delta) !!}),
+                            html: {!! json_encode(old('body') ?? $resource->body) !!},
+                            delta: JSON.parse({!! json_encode(old('delta') ?? $resource->delta) !!}),
                         },
                         template: '{{ $resource->template }}',
                         errors: {!! json_encode($errors->getMessages()) !!},

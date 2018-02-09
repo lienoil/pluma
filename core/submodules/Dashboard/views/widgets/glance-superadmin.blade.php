@@ -1,7 +1,7 @@
 <div class="mb-3">
 <v-layout row wrap>
     <v-flex md3 sm6 xs12>
-        <v-card class="elevation-4 text-xs-center">
+        <v-card v-ripple class="elevation-4 text-xs-center">
             <v-card-media class="white--text" style="background: linear-gradient(45deg, rgb(2, 136, 209) 0%, rgb(38, 198, 218) 100%);">
                 {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                 <v-layout column>
@@ -30,7 +30,7 @@
     </v-flex>
 
     <v-flex md3 sm6 xs12>
-        <v-card class="elevation-4 text-xs-center">
+        <v-card v-ripple class="elevation-4 text-xs-center">
             <v-card-media class="white--text" style="background: linear-gradient(45deg, #9C27B0 0%, #f48fb1 100%);">
                 {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                 <v-layout column>
@@ -59,7 +59,7 @@
     </v-flex>
 
     <v-flex md3 sm6 xs12>
-        <v-card class="elevation-4 text-xs-center">
+        <v-card v-ripple class="elevation-4 text-xs-center">
             <v-card-media class="white--text" style="background: linear-gradient(45deg, #E91E63 0%, #FF9800 100%);">
                 {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                 <v-layout column>
@@ -88,7 +88,7 @@
     </v-flex>
 
     <v-flex md3 sm6 xs12>
-        <v-card class="elevation-4 text-xs-center">
+        <v-card v-ripple class="elevation-4 text-xs-center">
             <v-card-media class="white--text" style="background: linear-gradient(45deg, #673AB7 0%, rgb(98, 174, 206) 100%);">
             {{-- <v-card-media class="white--text" style="background: linear-gradient(45deg, #1176af 0%, rgb(98, 174, 206) 100%);"> --}}
                 {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.20); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}

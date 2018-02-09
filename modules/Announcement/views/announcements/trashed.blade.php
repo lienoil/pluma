@@ -18,7 +18,7 @@
                             :class="bulk.commands.model ? 'btn--active error error--text' : ''"
                             v-tooltip:left="{'html': '{{ __('Toggle the bulk command checkboxes') }}'}"
                             @click.native="bulk.commands.model = !bulk.commands.model"
-                        ><v-icon>@{{ bulk.commands.model ? 'indeterminate_check_box' : 'check_box_outline_blank' }}</v-icon></v-btn>
+                        ><v-icon>@{{ bulk.commands.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
 
                         {{-- Bulk Restore --}}
                         <v-slide-y-transition>

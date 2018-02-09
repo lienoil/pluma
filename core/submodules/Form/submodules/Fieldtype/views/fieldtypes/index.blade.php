@@ -124,9 +124,8 @@
                         <template slot="items" scope="prop">
                             <td v-show="bulk.commands.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
-                            <td><strong v-html="prop.item.name"></strong></td>
+                            <td><code v-html="prop.item.name" class="elevation-1"></code></td>
                             <td v-html="prop.item.code"></td>
-                            <td>@{{ prop.item.template }}</td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
@@ -204,7 +203,6 @@
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Template") }}', align: 'left', value: 'template' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },

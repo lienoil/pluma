@@ -19,17 +19,23 @@
                 <form action="{{ route('settings.system.configuration.store') }}" method="POST">
                     {{ csrf_field() }}
                     <v-card flat dark class="transparent">
-                        <v-toolbar dark card class="transparent">
-                            <v-toolbar-title class="subheading">{{ __('Configuration') }}</v-toolbar-title>
-                        </v-toolbar>
+                        <v-subheader dark>{{ __('Configuration') }}</v-subheader>
                         <v-card-text>
                             <v-text-field
                                 dark
                                 hint="{{ __('Generate via "blacksmith/blackmith key:generate".') }}"
                                 label="{{ __('Application Key') }}"
                                 readonly
+                                persistent-hint
                                 value="{{ settings('APP_KEY', config('encryption.key', env('APP_KEY'))) }}"
                             ></v-text-field>
+
+                            <v-switch
+                                dark
+                                :label="`{{ __('Debug Mode: ' . (v("resource.item.APP_DEBUG ? 'ON' : 'OFF'", true) )) }}`"
+                                v-model="resource.item.APP_DEBUG"
+                            ></v-switch>
+                            <input type="hidden" name="APP_DEBUG" v-model="resource.item.APP_DEBUG">
                         </v-card-text>
                     </v-card>
                 </form>
@@ -38,3 +44,19 @@
         </v-layout>
     </v-container>
 @endsection
+
+@push('pre-scripts')
+    <script>
+        mixins.push({
+            data () {
+                return {
+                    resource: {
+                        item: {
+                            APP_DEBUG: '{{ old('APP_DEBUG') ?? settings('APP_DEBUG', config('debugging.debug')) }}',
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+@endpush

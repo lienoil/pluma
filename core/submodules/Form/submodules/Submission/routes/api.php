@@ -18,4 +18,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('submissions/{submission}', 'SubmissionController@getShow')->name('submissions.show');
 
     // Route::post('submissions/{submission}', 'SubmissionController@getRestore')->name('submissions.restore');
+    // Statistics
+    Route::post('submissions/results/analytic', 'AnalyticController@getStatistic')->name('submissions.analytic');
 });

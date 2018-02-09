@@ -61,8 +61,8 @@
                     <v-card-text class="py-5">
                         <v-layout row wrap align-center justify-center>
                             <v-flex md4 xs12>
-                                <v-card flat class="transparent">
-                                    <v-avatar size="250px" class="text-sm-center my-3">
+                                <v-card flat class="transparent text-sm-center">
+                                    <v-avatar size="250px" class="my-3">
                                         <img src="{{ $resource->feature }}" width="100%">
                                     </v-avatar>
                                 </v-card>

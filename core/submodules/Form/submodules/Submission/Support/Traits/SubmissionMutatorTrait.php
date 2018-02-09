@@ -51,13 +51,13 @@ trait SubmissionMutatorTrait
      */
     public function choices($string)
     {
-        $choices = explode('|', $string);
+        $values = explode('|', $string);
 
-        foreach ($choices as $choice) {
-            $this->choices[] = preg_replace('/\*/i', '', $choice);
+        foreach ($values as $choice) {
+            $choices[] = preg_replace('/\*/i', '', $choice);
         }
 
-        return $this->choices;
+        return $choices ?? [];
     }
 
     /**

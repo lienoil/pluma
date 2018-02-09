@@ -9,6 +9,7 @@
 
             @section("pre-container")
                 @include("Theme::partials.breadcrumbs")
+                {{-- @include("Theme::partials.debug") --}}
             @show
 
             @yield("root")

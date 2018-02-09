@@ -11,7 +11,7 @@ trait HasManySubmissions
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function forms()
+    public function submissions()
     {
         return $this->hasMany(Submission::class);
     }

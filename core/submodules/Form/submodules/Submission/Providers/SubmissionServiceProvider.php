@@ -3,6 +3,8 @@
 namespace Submission\Providers;
 
 use Pluma\Support\Providers\ServiceProvider;
+use Submission\Models\Submission;
+use Submission\Policies\SubmissionPolicy;
 
 class SubmissionServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,15 @@ class SubmissionServiceProvider extends ServiceProvider
      */
     protected $observables = [
         [\Submission\Models\Submission::class, '\Submission\Observers\SubmissionObserver'],
+    ];
+
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        Submission::class => SubmissionPolicy::class,
     ];
 
     /**

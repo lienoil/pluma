@@ -76,7 +76,7 @@ class ForumController extends GeneralController
         $forum->category()->associate(Category::find($request->input('category_id')));
         $forum->save();
 
-        return back();
+        return redirect()->route('forums.show', $forum->code);
     }
 
     /**
