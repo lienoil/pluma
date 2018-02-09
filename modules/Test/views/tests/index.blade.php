@@ -24,6 +24,16 @@
                     <div v-html="page.body"></div>
                 </div>
 
+                <div v-for="(pages, i) in page.items">
+                    <a :href="route(url.user.admin.edit, page.id)"
+                        v-html="page.name">
+                        {{ __('by') }}
+                        <small v-html="page.author"></small>
+                    </a>
+                    <div v-html="page.body"></div>
+                </div>
+
+                <div class="">
             </v-flex>
         </v-layout>
     </v-container>

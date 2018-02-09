@@ -11,9 +11,9 @@
                 <h2 class="grey--text text--darken-2 display-2 mt-0 lh-1">{{ __('Page Not Found') }}</h2>
                 <p class="subheading grey--text">{{ __('Either something went wrong or the page does not exist anymore.') }}</p>
 
-                <v-card-text>
+                {{-- <v-card-text>
                     <v-btn primary round large class="px-4 elevation-1" href="\admin/dashboard">Dashboard</v-btn>
-                </v-card-text>
+                </v-card-text> --}}
             </v-flex>
         </v-layout>
     </v-container>

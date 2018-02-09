@@ -3,9 +3,20 @@
 @section("content")
 
 <v-toolbar dark class="sticky secondary elevation-1">
-    {{-- <v-toolbar-side-icon></v-toolbar-side-icon> --}}
     <v-icon left dark>find_in_page</v-icon>
     <v-toolbar-title>{{ __('Pages') }}</v-toolbar-title>
+
+    {{-- <div slot="extension" style="width: 100% !important;">
+        <v-text-field
+            solo
+            label="Search"
+            append-icon=""
+            prepend-icon="search"
+            class="elevation-0"
+            v-model="dataset.searchform.query"
+            clearable
+        ></v-text-field>
+    </div> --}}
 
     <v-spacer></v-spacer>
 
@@ -57,7 +68,7 @@
 
 <v-container fluid grid-list-lg>
     <v-layout row wrap>
-        <v-flex sm12>
+        <v-flex xs12>
 
             <v-card class="mb-3 elevation-1">
                 {{-- search --}}
