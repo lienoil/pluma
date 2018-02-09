@@ -1,6 +1,8 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
+    @include("Theme::partials.banner")
+
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
@@ -70,6 +72,20 @@
 
                     </v-toolbar>
 
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-0 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
+
+                    <v-divider></v-divider>
+
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.pagination.totalItems"
@@ -107,23 +123,54 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile ripple @click="$refs[`delete_${prop.item.id}`].submit()">
+                                        <v-list-tile ripple @click="setDialog(true, prop.item)">
+                                        {{-- <v-list-tile ripple @click="$refs[`delete_${prop.item.id}`].submit()"> --}}
                                             <v-list-tile-action>
                                                 <v-icon warning>delete</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
-                                                <v-list-tile-title>
+                                                {{-- <v-list-tile-title>
                                                     <form :id="`delete_${prop.item.id}`" :ref="`delete_${prop.item.id}`" :action="route(urls.pages.delete, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Delete Permanently') }}
                                                     </form>
+                                                </v-list-tile-title> --}}
+                                                <v-list-tile-title>
+                                                    {{ __('Permanently Delete') }}
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
                                     </v-list>
                                 </v-menu>
                             </td>
+                            <v-dialog transition="scale-transition" v-model="resource.dialog.model" persistent width="400px" min-width="150px" max-width="400px">
+                                <v-card class="text-xs-center elevation-4">
+                                    <v-card-text>
+                                        <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
+                                        <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
+                                        <div class="grey--text text--darken-1">
+                                            <span class="mb-3">{{ __("You are about to permanently delete") }} <strong><em>@{{ prop.item.title }}</em></strong>.</span>
+                                            <span>{{ __("This action is irreversible. Do you want to proceed?") }}</span>
+                                        </div>
+                                    </v-card-text>
+                                    <v-divider></v-divider>
+                                    <v-card-actions class="pa-3">
+                                        <v-btn class="grey--text grey lighten-2 elevation-0" @click.native="resource.dialog.model=false">
+                                            {{ __('Cancel') }}
+                                        </v-btn>
+                                        <v-spacer></v-spacer>
+                                        <form
+                                            :id="`delete_${prop.item.id}`" :ref="`delete_${prop.item.id}`"
+                                            :action="route(urls.pages.delete, prop.item.id)" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                            <v-btn type="submit" class="elevation-0 error white--text">{{ __('Yes, delete it!') }}</v-btn>
+                                            <v-btn @click="$refs[`delete_${prop.item.id}`].submit()" class="elevation-0 error white--text">{{ __('Yes, delete it!') }}</v-btn>
+                                        </form>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
                         </template>
                     </v-data-table>
                 </v-card>
@@ -131,6 +178,17 @@
         </v-layout>
     </v-container>
 @endsection
+
+
+@push('css')
+    <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
+    </style>
+@endpush
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
@@ -140,6 +198,11 @@
         mixins.push({
             data () {
                 return {
+                    resource: {
+                        dialog: {
+                            model: false,
+                        }
+                    },
                     bulk: {
                         commands: {
                             model: false,
@@ -224,6 +287,11 @@
                             this.dataset.pagination.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
+                },
+
+                setDialog (model, data) {
+                    this.resource.dialog.model = model;
+                    this.resource.dialog.data = data;
                 },
             },
 

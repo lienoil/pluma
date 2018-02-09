@@ -10,7 +10,7 @@
         </v-btn> --}}
     </v-toolbar>
     <v-slide-y-transition>
-        <v-card class="elevation-0 transparent" v-show="!p1" transition="slide-y-transition">
+        <v-card class="elevation-0 transparent" v-show="!p1" transition="slide-y-transition" style="max-height: 70vh; overflow-y: auto;">
             <v-card-text>
                 <v-container fluid grid-list-lg>
                     <v-layout row wrap justify-center align-center>
@@ -24,6 +24,7 @@
                                  --}}
                                 {{-- <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->answer }}</div> --}}
                             {{-- @endforeach --}}
+
                         </v-flex>
                         {{-- <v-flex md4 xs12>
                             <v-layout row wrap justify-center align-center>

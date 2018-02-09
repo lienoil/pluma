@@ -2,42 +2,16 @@
 
 @section("content")
 
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    <v-toolbar dark class="secondary elevation-1 sticky">
+        <v-icon left dark>announcement</v-icon>
         <v-toolbar-title primary-title>{{ __($application->page->title) }}</v-toolbar-title>
         <v-spacer></v-spacer>
-
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                label="Search"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            {{--  <v-select
-                label="Search"
-                chips
-                tags
-                solo
-                prepend-icon="search"
-                append-icon=""
-                clearable
-                autofocus
-                >
-            </v-select> --}}
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
 
         <v-btn
             flat
             icon
             href="{{ route('announcements.create') }}"
-            v-tooltip:left="{'html': '{{ __('Add new announcement') }}'}"
+            v-tooltip:left="{'html': '{{ __('Create') }}'}"
         ><v-icon>add</v-icon></v-btn>
 
         {{-- <v-btn icon v-tooltip:left="{ html: 'Filter' }">
@@ -95,6 +69,18 @@
 
                 <v-card class="mb-3 elevation-1">
 
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
+
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.totalItems"
@@ -114,12 +100,15 @@
                         <template slot="items" scope="prop">
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
-                            <td class="text-xs-center"><img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name"></td>
-                            <td><a :href="route(urls.show, (prop.item.id))" class="no-decoration td-n"><strong v-html="prop.item.name"></strong></a></td>
+                            <td>
+                                <v-avatar size="36px">
+                                    <img class="ma-1" height="100%" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name">
+                                </v-avatar>
+                            </td>
+                            <td><a :href="route(urls.edit, (prop.item.id))" class="no-decoration td-n secondary--text"><strong v-html="prop.item.name"></strong></a></td>
                             <td v-html="prop.item.code"></td>
-                            {{-- <td v-html="prop.item.excerpt"></td> --}}
                             <td><a :href="`{{ route('announcements.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.author"></a></td>
-                            <td><span v-if="prop.item.category"><v-icon left class="body-2" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('announcements.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
+                            <td><span v-if="prop.item.category"><v-icon left class="body-2 mr-1" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('announcements.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
@@ -168,12 +157,25 @@
                     </v-data-table>
                 </v-card>
                 @if (request()->all())
-                    <p class="caption grey--text"><a href="{{ route('announcements.index') }}">{{ __('Remove filters') }}</a></p>
+                    <v-btn error flat href="{{ route('announcements.index') }}">
+                        <v-icon left>remove_circle_outline</v-icon>
+                        {{ __('Remove filters') }}
+                    </v-btn>
                 @endif
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
+
+@push('css')
+    <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
+    </style>
+@endpush
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>

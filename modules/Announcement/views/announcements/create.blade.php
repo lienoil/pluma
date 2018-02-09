@@ -3,20 +3,21 @@
 @section("head-title", __('Create Announcement'))
 @section("page-title", __('Create Announcement'))
 
-
 @section("content")
+    <v-toolbar class="white sticky elevation-1">
+        <v-toolbar-title class="accent--text">{{ __('Create Announcement') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
+
     <v-container fluid grid-list-lg>
         <form action="{{ route('announcements.store') }}" method="POST">
         {{ csrf_field() }}
             @include("Theme::partials.banner")
 
             <v-layout row wrap>
-                <v-flex sm7 md9>
+                <v-flex xs12 sm7 md9>
                     <v-card class="elevation-1">
-                        <v-toolbar class="transparent elevation-0">
-                            <v-toolbar-title class="accent--text">{{ __('Create Announcement') }}</v-toolbar-title>
-                        </v-toolbar>
-
                         <v-card-text>
                             <v-text-field
                                 :error-messages="resource.errors.name"

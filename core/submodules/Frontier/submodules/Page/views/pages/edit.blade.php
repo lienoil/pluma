@@ -5,18 +5,17 @@
 @section("content")
     @include("Theme::partials.banner")
 
+    <v-toolbar light class="sticky elevation-1 white">
+        <v-toolbar-title>{{ __('Edit Page') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
     <v-container fluid grid-list-lg>
-        <form action="{{ route('pages.update', $resource->id) }}" method="POST">
+        <form ref="form" action="{{ route('pages.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-            <v-toolbar light class="elevation-1 white mb-2">
-                <v-toolbar-title>{{ __('Edit Page') }}</v-toolbar-title>
-                <v-spacer></v-spacer>
-                @include("Theme::cards.saving")
-            </v-toolbar>
-
             <v-layout row wrap>
-                <v-flex md9>
+                <v-flex md9 xs12>
                     <v-card class="mb-3 elevation-1">
 
                         <v-card-text>
@@ -51,14 +50,13 @@
                     </v-card>
                 </v-flex>
 
-                <v-flex md3>
+                <v-flex md3 xs12>
                     {{-- @include("Theme::cards.saving") --}}
 
                     @include("Theme::interactives.featured-image")
 
                     @include("Page::cards.page-attributes")
                 </v-flex>
-
             </v-layout>
         </form>
     </v-container>
