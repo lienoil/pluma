@@ -21,13 +21,13 @@ return [
         'name' =>  'courses.index',
         'code' => 'view-course',
         'description' => 'Ability to view list of courses',
-        'group' => ['course', 'student'],
+        'group' => ['course'],
     ],
     'show-course' => [
         'name' => 'courses.show',
         'code' => 'show-course',
         'description' => 'Ability to show a single course',
-        'group' => ['course', 'student'],
+        'group' => ['course'],
     ],
     'create-course' => [
         'name' => 'courses.create',
@@ -78,26 +78,6 @@ return [
         'group' => 'course',
     ],
 
-    // Many
-    'destroy-many-course' => [
-        'name' =>  'courses.many.destroy',
-        'code' => 'destroy-many-course',
-        'description' => 'Ability to destroy many courses',
-        'group' => 'course',
-    ],
-    'delete-many-course' => [
-        'name' =>  'courses.many.delete',
-        'code' => 'delete-many-course',
-        'description' => 'Ability to permanently delete many courses',
-        'group' => 'course',
-    ],
-    'restore-many-course' => [
-        'name' => 'courses.many.restore',
-        'code' => 'restore-many-course',
-        'description' => 'Ability to restore many courses',
-        'group' => 'course',
-    ],
-
     // Enrolled
     'view-enrolled-courses' => [
         'name' => 'courses.enrolled.index',
@@ -118,23 +98,42 @@ return [
         'group' => ['course', 'student'],
     ],
 
+    // Student
+    'all-courses' => [
+        'name' =>  'courses.all',
+        'code' => 'all-courses',
+        'description' => 'Ability to view list of courses',
+        'group' => ['student'],
+    ],
+    'single-course' => [
+        'name' =>  'courses.single',
+        'code' => 'single-course',
+        'description' => 'Ability to view single course',
+        'group' => ['student'],
+    ],
+    'my-courses' => [
+        'name' =>  'courses.my',
+        'code' => 'my-courses',
+        'description' => 'Ability to view owned courses',
+        'group' => ['student'],
+    ],
     // Bookmarked
-    'view-bookmarked-courses' => [
-        'name' => 'courses.bookmark.index',
-        'code' => 'view-bookmarked-courses',
-        'description' => 'Ability to view bookmarked courses',
-        'group' => ['course', 'student'],
+    'bookmarked-courses' => [
+        'name' => 'courses.bookmarked',
+        'code' => 'bookmarked-courses',
+        'description' => 'Ability to view list bookmarked courses',
+        'group' => ['student'],
     ],
     'bookmark-course' => [
-        'name' => 'courses.bookmark.bookmark',
+        'name' => 'courses.bookmark',
         'code' => 'bookmark-course',
         'description' => 'Ability to bookmark a course',
-        'group' => ['course', 'student'],
+        'group' => ['student'],
     ],
     'unbookmark-course' => [
-        'name' => 'courses.bookmark.unbookmark',
+        'name' => 'courses.unbookmark',
         'code' => 'unbookmark-course',
-        'description' => 'Ability to remove from bookmarks list a course',
-        'group' => ['course', 'student'],
+        'description' => 'Ability to remove from a course from bookmarks list',
+        'group' => ['student'],
     ],
 ];

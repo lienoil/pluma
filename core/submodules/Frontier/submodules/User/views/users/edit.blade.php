@@ -64,7 +64,6 @@
                         <v-card-text>
                             <v-layout row wrap>
                                 <v-flex xs2 v-show="!suppliments.required_fields.model">
-                                    <div v-html="suppliments.roles.selected"></div>
                                     <v-select
                                         :error-messages="resource.errors.prefix"
                                         prepend-icon="account_box"

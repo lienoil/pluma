@@ -115,7 +115,7 @@
                             <a v-if="!card.enrolled" :href="route(urls.show, card.slug)" class="accent--text td-n"><span class="accent--text" v-html="card.title"></span></a>
                             <a v-else :href="route(urls.show, card.slug)" class="accent--text td-n"><span class="accent--text" v-html="card.title"></span></a>
                         </v-card-title>
-                        
+
                         <v-card-actions class="grey lighten-4">
                             <span class="text-xs-center caption pa-1 grey--text">
                                 <v-icon class="caption" left>class</v-icon>

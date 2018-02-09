@@ -27,4 +27,16 @@ trait CourseMutator
         return $this->lessons->count() . ' ' .
             ($this->lessons->count() > 1 ? __('Lessons') : __('Lesson'));
     }
+
+    /**
+     * Check if this course is bookmarked by user.
+     *
+     * @return boolean
+     */
+    public function getBookmarkedAttribute()
+    {
+        return isset(user()->id)
+                ? $this->bookmarks()->where('user_id', user()->id)->exists()
+                : false;
+    }
 }
