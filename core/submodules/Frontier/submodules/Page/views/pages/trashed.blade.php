@@ -72,6 +72,20 @@
 
                     </v-toolbar>
 
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-0 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
+
+                    <v-divider></v-divider>
+
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.pagination.totalItems"
@@ -152,7 +166,7 @@
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                             <v-btn type="submit" class="elevation-0 error white--text">{{ __('Yes, delete it!') }}</v-btn>
-                                            {{-- <v-btn @click="$refs[`delete_${prop.item.id}`].submit()" class="elevation-0 error white--text">{{ __('Yes, delete it!') }}</v-btn> --}}
+                                            <v-btn @click="$refs[`delete_${prop.item.id}`].submit()" class="elevation-0 error white--text">{{ __('Yes, delete it!') }}</v-btn>
                                         </form>
                                     </v-card-actions>
                                 </v-card>
@@ -164,6 +178,17 @@
         </v-layout>
     </v-container>
 @endsection
+
+
+@push('css')
+    <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
+    </style>
+@endpush
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>

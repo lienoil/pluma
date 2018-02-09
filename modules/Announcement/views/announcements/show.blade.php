@@ -5,7 +5,7 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-toolbar dark extended class="light-blue elevation-0">
+    <v-toolbar dark extended class="secondary elevation-0">
         <v-btn
             href="{{ route('announcements.index') }}"
             ripple
