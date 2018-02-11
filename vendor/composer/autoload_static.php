@@ -1967,6 +1967,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Pluma\\Support\\Env\\Traits\\Env' => __DIR__ . '/../..' . '/core/Support/Env/Traits/Env.php',
         'Pluma\\Support\\Exceptions\\Handler' => __DIR__ . '/../..' . '/core/Support/Exceptions/Handler.php',
         'Pluma\\Support\\Facades\\AliasLoader' => __DIR__ . '/../..' . '/core/Support/Facades/AliasLoader.php',
+        'Pluma\\Support\\Facades\\Console' => __DIR__ . '/../..' . '/core/Support/Facades/Console.php',
         'Pluma\\Support\\Facades\\Route' => __DIR__ . '/../..' . '/core/Support/Facades/Route.php',
         'Pluma\\Support\\Filesystem\\FileAlreadyExists' => __DIR__ . '/../..' . '/core/Support/Filesystem/FileAlreadyExists.php',
         'Pluma\\Support\\Filesystem\\Filesystem' => __DIR__ . '/../..' . '/core/Support/Filesystem/Filesystem.php',

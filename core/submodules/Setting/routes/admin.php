@@ -40,4 +40,8 @@ Route::group(['prefix' => 'settings'], function () {
 
     Route::get('system/configuration', 'SystemConfigurationSettingController@index')->name('settings.system.configuration');
     Route::post('system/configuration', 'SystemConfigurationSettingController@store')->name('settings.system.configuration.store');
+
+    // Configuration
+    Route::post('system/configuration/cache', 'SystemConfigurationSettingController@cache')
+         ->name('configuration.cache');
 });

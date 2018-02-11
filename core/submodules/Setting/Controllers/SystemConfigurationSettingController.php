@@ -3,6 +3,7 @@
 namespace Setting\Controllers;
 
 use Illuminate\Http\Request;
+use Pluma\Support\Facades\Console;
 use Setting\Controllers\SettingController;
 use Setting\Models\Setting;
 use Setting\Requests\SettingRequest;
@@ -18,5 +19,22 @@ class SystemConfigurationSettingController extends SettingController
     public function index(Request $request)
     {
         return view("Setting::settings.configuration");
+    }
+
+    /**
+     * Store cache in a config file.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function cache(Request $request)
+    {
+        try {
+            Console::call('config:cache');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+
+        return back();
     }
 }
