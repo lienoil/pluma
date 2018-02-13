@@ -1,4 +1,4 @@
-<v-card class="mb-3 elevation-1">
+{{-- <v-card class="mb-3 elevation-1"> --}}
     <v-toolbar card dense class="transparent">
         <v-icon class="accent--text">perm_media</v-icon>
         <v-toolbar-title class="subheading accent--text">{{ __('Featured Image') }}</v-toolbar-title>
@@ -46,14 +46,14 @@
         </template>
     </v-mediabox>
 
-    <v-card-text v-if="!featuredImage.new" class="text-xs-center">
+    {{-- <v-card-text v-if="!featuredImage.new" class="text-xs-center"> --}}
         <v-fade-transition>
-            <div v-show="!featuredImage.new" class="my-2">
+            <div v-show="!featuredImage.new" class="my-2 text-xs-center">
                 <v-icon x-large class="grey--text text--lighten-2">perm_media</v-icon>
                 <p class="ma-0 caption grey--text text--lighten-2">{{ __('No Image') }}</p>
             </div>
         </v-fade-transition>
-    </v-card-text>
+    {{-- </v-card-text> --}}
 
     <div v-else>
         <img
@@ -70,7 +70,7 @@
         <v-spacer></v-spacer>
         <v-btn flat @click.stop="featuredImage.model = !featuredImage.model"><span v-html="featuredImage.new ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
     </v-card-actions>
-</v-card>
+{{-- </v-card> --}}
 
 
 @push('css')

@@ -1,4 +1,4 @@
-<v-card class="mb-3 elevation-1">
+{{-- <v-card class="mb-3 elevation-0"> --}}
     <v-toolbar dense card class="transparent">
     	<v-icon class="accent--text">label</v-icon>
         <v-toolbar-title class="subheading accent--text">{{ __('Category') }}</v-toolbar-title>
@@ -52,7 +52,7 @@
         </template>
         <input type="hidden" name="category_id" :value="resource.item.category_id">
     </v-card-text>
-</v-card>
+{{-- </v-card> --}}
 
 @push('pre-scripts')
 	<script>

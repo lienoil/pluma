@@ -54,7 +54,7 @@
 
     <v-card-text v-if="!Object.keys(resource.item.feature?resource.item.feature:{}).length" class="text-xs-center">
         <v-fade-transition>
-            <div v-show="!resource.item.feature" class="my-2">
+            <div v-show="!resource.item.feature" class="my-2 text-xs-center">
                 <v-icon x-large class="grey--text text--lighten-2">perm_media</v-icon>
                 <p class="ma-0 caption grey--text text--lighten-2">{{ __('No Image') }}</p>
             </div>
