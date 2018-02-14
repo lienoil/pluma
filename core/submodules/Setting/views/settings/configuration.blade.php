@@ -39,6 +39,22 @@
                         </v-card-text>
                     </v-card>
                 </form>
+
+                <form action="{{ route('configuration.cache') }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="user_id" value="{{ user()->id }}">
+                    <v-card flat dark class="transparent">
+                        <v-subheader dark>{{ __('File Based Caching') }}</v-subheader>
+                        <v-card-text>
+                            <p class="body-1">{{ __('Performs the caching') }}</p>
+                            <p class="body-1">{{ __('For larger applications, it is recommended that you use a more robust driver such as Memcached or Redis.') }}</p>
+                            <small>{!! __('Performs the <code>blackmith/blackmith config:cache</code> command') !!}</small>
+                        </v-card-text>
+                        <v-card-actions class="ma-2">
+                            <v-btn type="submit" primary>{{ __('Cache') }}</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </form>
             </v-flex>
 
         </v-layout>
