@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Page\Models\Page;
 use Test\Models\Test;
 use Test\Requests\TestRequest;
+use User\Models\Detail;
 
 class TestController extends GeneralController
 {
@@ -36,7 +37,7 @@ class TestController extends GeneralController
         // $form = $form->build('Test::templates.test');
 
 
-        return view("Theme::tests.index")->with(compact('form'));
+        return view("Test::tests.index")->with(compact('form'));
     }
 
     /**
@@ -73,6 +74,15 @@ class TestController extends GeneralController
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
+        collect($request->input('details'))->each(function ($value, $key) {
+            $detail = Detail::firstOrNew(['key' => $key]);
+            $detail->key = $key;
+            $detail->value = $value;
+            user()->details()->save($detail);
+        });
+
         // $sub new
         // $sub->result = serialize($request->except(['_token', 'form_id']));
         // $sub->form()->associate(Form::find());

@@ -11,7 +11,8 @@ return [
     'test' => [
         'name' => 'test',
         'order' => 100,
-        'slug' => route('tests.index'),
+        'slug' => '/admin/tests',
+        'route' => 'tests.index',
         'always_viewable' => false,
         'icon' => 'developer_mode',
         'labels' => [
@@ -19,10 +20,11 @@ return [
             'description' => __('Manage tests'),
         ],
         'children' => [
-            'view-test' => [
-                'name' => 'view-test',
+            'index-tests' => [
+                'name' => 'index-tests',
                 'order' => 1,
-                'slug' => route('tests.index'),
+                'slug' => '/admin/tests/all',
+                'route' => 'tests.index',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Tests'),
@@ -32,23 +34,25 @@ return [
             'create-test' => [
                 'name' => 'create-test',
                 'order' => 2,
-                'slug' => route('tests.create'),
+                'slug' => '/admin/tests/new',
+                'route' => 'tests.new',
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Create Test'),
+                    'title' => __('Add New Test'),
                     'description' => __('Create a Test'),
                 ],
             ],
-            // 'trash-test' => [
-            //     'name' => 'trash-test',
-            //     'order' => 3,
-            //     'slug' => route('tests.trash'),
-            //     'always_viewable' => false,
-            //     'labels' => [
-            //         'title' => __('Trashed Tests'),
-            //         'description' => __('View list of all tests moved to trash'),
-            //     ],
-            // ],
+            'trashed-tests' => [
+                'name' => 'trashed-tests',
+                'order' => 3,
+                'slug' => '/admin/tests/trashed',
+                'route' => 'tests.trashed',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Trashed Tests'),
+                    'description' => __('View list of all tests moved to trashed'),
+                ],
+            ],
         ],
     ],
 ];

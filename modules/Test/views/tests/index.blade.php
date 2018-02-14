@@ -33,7 +33,13 @@
                     <div v-html="page.body"></div>
                 </div>
 
-                <div class="">
+                <form action="{{ route('tests.store') }}" method="POST">
+                    {{ csrf_field() }}
+                    <v-text-field label="gender" name="details[gender]"></v-text-field>
+                    <v-text-field label="birthday" name="details[birthday]"></v-text-field>
+                    <v-text-field label="fav_color" name="details[fav_color]"></v-text-field>
+                    <v-btn type="submit">{{ __('Submit') }}</v-btn>
+                </form>
             </v-flex>
         </v-layout>
     </v-container>

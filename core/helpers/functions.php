@@ -545,7 +545,7 @@ if (! function_exists('user')) {
      */
     function user()
     {
-        return auth()->user() ? auth()->user() : json_decode(json_encode([]));
+        return auth()->user() ?? false;
     }
 }
 
