@@ -16,6 +16,7 @@ Frontier Frontend Components:
       - delete permanently - add dialog prompt when perma deleting resources
   ☐ Dialog (error, success) on trashed pages
   ☐ theme generator
+  ☐ change breadcrumbs NEW to CREATE
 FE:
   ☐ table sorting
   ☐ sidebar icon, maintain white icon status when active
@@ -174,26 +175,31 @@ index:
 toolbar
    sticky
    secondary background color
-   icon left
+   icon left, before title
    icon right - with tooltip on left
        create
        bulk
        trashed
 
 data tables
-    search bar
+    search-bar
     featured image circle
     title secondary color
     edit link on title/name
 
+remove filter button
+
 create & edit:
 @include("Theme::partials.banner") --> after @section("content")
+
+create:
+change title from NEW to CREATE
 
 toolbar
     make it on the top
     sticky
     save button on right
-    hasOne card
+    hasOne card (rightside)
 
 trashed:
 @include("Theme::partials.banner") --> after @section("content")

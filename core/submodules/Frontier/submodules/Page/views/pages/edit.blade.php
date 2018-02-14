@@ -10,6 +10,7 @@
         <v-spacer></v-spacer>
         @include("Theme::cards.save")
     </v-toolbar>
+
     <v-container fluid grid-list-lg>
         <form ref="form" action="{{ route('pages.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}

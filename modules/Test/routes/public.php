@@ -1,3 +1,3 @@
 <?php
 
-// Route::resource('tests', 'TestController');
+Route::resource('tests', 'TestController');

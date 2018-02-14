@@ -3,20 +3,22 @@
 @section("head-title", $resource->title)
 
 @section("content")
-    <v-container fluid grid-list-lg>
-        @include("Theme::partials.banner")
+    @include("Theme::partials.banner")
 
-        <form action="{{ route('courses.update', $resource->id) }}" method="POST">
+    <v-toolbar light class="sticky white elevation-1">
+        <v-toolbar-title class="accent--text">{{ __('Edit Course') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
+
+    <v-container fluid grid-list-lg>
+        <form ref="form" action="{{ route('courses.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-
+```
             <v-layout row wrap>
-                <v-flex sm9>
+                <v-flex sm9 xs12>
                     <v-card class="mb-3 elevation-1">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ $resource->title }}</v-toolbar-title>
-                        </v-toolbar>
-
                         <v-card-text>
                             <v-text-field
                                 :error-messages="resource.errors.title"
@@ -63,7 +65,7 @@
                     </v-card>
                 </v-flex>
 
-                <v-flex sm3>
+                <v-flex sm3 xs12>
                     @push('cards.saving.pre-fields')
                         @if (isset($resource->user) && $resource->user->id === user()->id)
                             <div class="mt-2 caption grey--text">{{ __("You are the original author of this Course.") }}</div>
@@ -72,13 +74,18 @@
                         @endif
                     @endpush
 
-                    @include("Theme::cards.saving")
+                    <v-card class="elevation-1">
+                        @include("Theme::cards.saving")
+                        <v-divider></v-divider>
 
-                    @include("Yggdrasil::cards.cover")
+                        @include("Yggdrasil::cards.cover")
+                        <v-divider></v-divider>
 
-                    @include("Theme::cards.feature")
+                        @include("Theme::cards.feature")
+                        <v-divider></v-divider>
 
-                    @include("Theme::cards.category")
+                        @include("Theme::cards.category")
+                    </v-card>
                 </v-flex>
             </v-layout>
 

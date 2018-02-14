@@ -1,7 +1,7 @@
 {{-- <v-card class="mb-3 elevation-0"> --}}
     <v-toolbar dense card class="transparent">
-    	<v-icon class="accent--text">label</v-icon>
-        <v-toolbar-title class="subheading accent--text">{{ __('Category') }}</v-toolbar-title>
+        <v-icon left>label</v-icon>
+        <v-toolbar-title class="subheading body-2 accent--text">{{ __('Category') }}</v-toolbar-title>
     </v-toolbar>
     <v-card-text>
         <template v-if="resource.categories.length">

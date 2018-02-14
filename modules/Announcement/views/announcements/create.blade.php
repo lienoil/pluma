@@ -4,6 +4,8 @@
 @section("page-title", __('Create Announcement'))
 
 @section("content")
+    @include("Theme::partials.banner")
+
     <v-toolbar class="white sticky elevation-1">
         <v-toolbar-title class="accent--text">{{ __('Create Announcement') }}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -13,8 +15,6 @@
     <v-container fluid grid-list-lg>
         <form ref="form" action="{{ route('announcements.store') }}" method="POST">
         {{ csrf_field() }}
-            @include("Theme::partials.banner")
-
             <v-layout row wrap>
                 <v-flex xs12 sm7 md9>
                     <v-card class="elevation-1" height="100%">

@@ -1,43 +1,18 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
+    @include("Theme::partials.banner")
 
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    <v-toolbar dark class="secondary elevation-1 sticky">
+        <v-icon left dark>fa-book</v-icon>
         <v-toolbar-title primary-title>{{ __($application->page->title) }}</v-toolbar-title>
         <v-spacer></v-spacer>
-
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                label="Search"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            {{--  <v-select
-                label="Search"
-                chips
-                tags
-                solo
-                prepend-icon="search"
-                append-icon=""
-                clearable
-                autofocus
-                >
-            </v-select> --}}
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
 
         <v-btn
             flat
             icon
             href="{{ route('courses.create') }}"
-            v-tooltip:left="{'html': '{{ __('Add new course') }}'}"
+            v-tooltip:left="{'html': '{{ __('Create') }}'}"
         ><v-icon>add</v-icon></v-btn>
 
         {{-- <v-btn icon v-tooltip:left="{ html: 'Filter' }">
@@ -90,10 +65,18 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex sm12>
-
-                @include("Theme::partials.banner")
-
                 <v-card class="mb-3 elevation-1">
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
 
                     <v-data-table
                         :loading="dataset.loading"
@@ -119,7 +102,7 @@
                                     <img class="ma-1" v-if="prop.item.feature" :src="prop.item.feature" :alt="prop.item.name">
                                 </v-avatar>
                             </td>
-                            <td><a :href="route(urls.show, (prop.item.slug))" class="no-decoration td-n"><strong v-html="prop.item.title"></strong></a></td>
+                            <td><a class="secondary--text td-n" :href="route(urls.edit, (prop.item.id))" class="no-decoration td-n"><strong v-html="prop.item.title"></strong></a></td>
                             <td v-html="prop.item.code"></td>
                             <td><a :href="`{{ route('courses.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.user.fullname"></a></td>
                             <td><v-chip v-if="prop.item.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip></td>
@@ -163,7 +146,7 @@
                                                         {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
                                                     </form>
                                                 </v-list-tile-title>
-                                            </v-list-tile-content>
+                                            </v-lists-tile-content>
                                         </v-list-tile>
                                     </v-list>
                                 </v-menu>
@@ -174,14 +157,25 @@
                 @if (request()->all())
                     {{-- <p class="caption grey--text"><a href="{{ route('courses.index') }}">{{ __('Remove filters') }}</a></p> --}}
                     <v-card-actions class="pa-0">
-                        <v-btn error class="elevation-1 mx-0" href="{{ route('courses.index') }}">
-                            <v-icon left>delete</v-icon>Remove Filter</v-btn>
+                        <v-btn error flat href="{{ route('courses.index') }}">
+                        <v-icon left>remove_circle_outline</v-icon> {{ __('Remove filter') }}</v-btn>
                     </v-card-actions>
                 @endif
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
+
+@push('css')
+    <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
+    </style>
+@endpush
+
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>

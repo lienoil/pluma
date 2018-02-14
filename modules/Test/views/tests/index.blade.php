@@ -4,36 +4,12 @@
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex sm12>
-                <img width="50px" src="http://pixelartmaker.com/art/0512a7cafff7675.png">
-                <div>{{ __('Use the source, Luke.') }}</div>
-                <br>
-                {{-- @include("Setting::partials.settingsbar") --}}
-
-                {{-- {!! $form->build() !!} --}}
-
-                {{-- {{ dd(user()->settings('user_profile_banner')) }} --}}
-
-                <div v-for="(user, i) in dataset.items">
-                    <a :href="route(url.user.admin.edit, user.id)" v-html="user.fullname"></a>
-                </div>
-                <v-divider></v-divider>
-                <div v-for="(page, i) in page.items">
-                    <a :href="route(url.page.admin.edit, page.id)" v-html="page.title"></a> {{ __('by') }} <small v-html="page.author"></small>
-                    {{-- <img width="100px" :src="page.feature"> --}}
-                    <div v-html="page.body"></div>
-                </div>
-
-                <div v-for="(pages, i) in page.items">
-                    <a :href="route(url.user.admin.edit, page.id)"
-                        v-html="page.name">
-                        {{ __('by') }}
-                        <small v-html="page.author"></small>
-                    </a>
-                    <div v-html="page.body"></div>
-                </div>
-
-                <div class="">
+            <v-flex xs12>
+                <v-card class="elevation-1">
+                    <v-card-text>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet qui quidem, placeat! Molestias assumenda sit numquam, praesentium obcaecati, provident. Doloribus praesentium quibusdam explicabo hic nihil magni ea ex eligendi distinctio?
+                    </v-card-text>
+                </v-card>
             </v-flex>
         </v-layout>
     </v-container>

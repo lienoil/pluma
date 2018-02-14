@@ -1,7 +1,7 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
-
+    @include("Theme::partials.banner")
 
     <v-toolbar light class="white sticky elevation-1">
         <v-toolbar-title>{{ __('New Page') }}</v-toolbar-title>
@@ -12,7 +12,6 @@
     <v-container fluid grid-list-lg>
         <form ref="form" action="{{ route('pages.store') }}" method="POST">
             {{ csrf_field() }}
-            @include("Theme::partials.banner")
 
             <v-layout row wrap>
                 <v-flex md9 xs12>

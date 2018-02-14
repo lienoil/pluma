@@ -3,20 +3,22 @@
 @section("head-title", __('Edit Announcement'))
 
 @section("content")
+    @include("Theme::partials.banner")
+
+    <v-toolbar light class="white sticky elevation-1">
+        <v-toolbar-title>{{ __('Edit Announcement') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
+
     <v-container fluid grid-list-lg>
-        <form action="{{ route('announcements.update', $resource->id) }}" method="POST">
+        <form ref="form" action="{{ route('announcements.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-
-            @include("Theme::partials.banner")
 
             <v-layout row wrap>
                 <v-flex sm7 md9>
                     <v-card class="elevation-1" height="100%">
-                        <v-toolbar class="transparent elevation-0">
-                            <v-toolbar-title class="accent--text">{{ __('Edit Announcement') }}</v-toolbar-title>
-                        </v-toolbar>
-
                         <v-card-text>
                             <v-text-field
                                 :error-messages="resource.errors.name"

@@ -162,9 +162,9 @@
             </v-card>
             @if (request()->all())
                 <v-btn error flat href="{{ route('pages.index') }}">
-                        <v-icon left>remove_circle_outline</v-icon>
-                        {{ __('Remove filters') }}
-                    </v-btn>
+                    <v-icon left>remove_circle_outline</v-icon>
+                    {{ __('Remove filter') }}
+                </v-btn>
             @endif
         </v-flex>
     </v-layout>

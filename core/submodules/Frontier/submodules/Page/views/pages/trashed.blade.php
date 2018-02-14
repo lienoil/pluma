@@ -146,11 +146,11 @@
                                         </v-list-tile>
                                         <v-list-tile ripple @click="setDialog(true, prop.item)">
                                             <v-list-tile-action>
-                                                <v-icon warning>delete</v-icon>
+                                                <v-icon error>delete_forever</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    {{ __('Permanently Delete') }}
+                                                    {{ __('Delete Permanently') }}
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
 

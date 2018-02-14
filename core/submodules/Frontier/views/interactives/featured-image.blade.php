@@ -1,7 +1,7 @@
 {{-- <v-card class="mb-3 elevation-1"> --}}
     <v-toolbar card dense class="transparent">
-        <v-icon class="accent--text">perm_media</v-icon>
-        <v-toolbar-title class="subheading accent--text">{{ __('Featured Image') }}</v-toolbar-title>
+        <v-icon left>add_a_photo</v-icon>
+        <v-toolbar-title class="subheading body-2 accent--text">{{ __('Featured Image') }}</v-toolbar-title>
     </v-toolbar>
 
     <v-mediabox
