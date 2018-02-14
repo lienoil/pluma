@@ -40,64 +40,39 @@
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-
-                                {{-- Delete --}}
-                                <form :action="route(urls.pages.delete, false)" method="POST" class="inline">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <template v-for="item in dataset.selected">
-                                        <input type="hidden" name="id[]" :value="item.id">
-                                    </template>
-                                    <v-btn flat icon @click="setDialog(true, item)" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"><v-icon error>delete</v-icon></v-btn>
-                                </form>
-                                {{-- /Delete --}}
-
-                                {{-- Bulk delete with dialog --}}
-                                <v-dialog transition="scale-transition" v-model="resource.dialog.model" persistent width="400px" min-width="150px" max-width="400px">
-                                    <v-card class="text-xs-center elevation-4">
-                                        <v-card-text>
+                                <v-dialog transition="scale-transition" persistent v-model="dataset.dialog.model" lazy width="auto">
+                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}">
+                                        <v-icon class="error--text">delete_forever</v-icon>
+                                    </v-btn>
+                                    <v-card class="elevation-4 text-xs-center">
+                                        <v-card-text class="pa-5">
                                             <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
                                             <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
                                             <div class="grey--text text--darken-1">
-                                                <span class="mb-3">{{ __("You are about to permanently delete the resources.") }}
-                                                <span>{{ __("This action is irreversible. Do you want to proceed?") }}</span>
+                                                <div class="mb-1">{{ __("You are about to permanently delete those resources.") }}</div>
+                                                <div>{{ __("This action is irreversible. Do you want to proceed?") }}</div>
                                             </div>
                                         </v-card-text>
                                         <v-divider></v-divider>
                                         <v-card-actions class="pa-3">
-                                            <v-btn class="grey--text grey lighten-2 elevation-0" @click.native="resource.dialog.model=false">
-                                                {{ __('Cancel') }}
-                                            </v-btn>
+                                            <v-btn class="grey--text grey lighten-2 elevation-0" flat @click.native.stop="dataset.dialog.model=false">{{ __('Cancel') }}</v-btn>
                                             <v-spacer></v-spacer>
-                                            {{--
-                                            <form
-                                                :id="`delete_${item.id}`" :ref="`delete_${item.id}`"
-                                                :action="route(urls.pages.delete, item.id)" method="POST">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                <v-btn @click="$refs[`delete_${item.id}`].submit()" class="elevation-0 error white--text">{{ __('Yes, delete it!') }}</v-btfpan>
-                                            </form>
-                                            --}}
-
                                             <form :action="route(urls.pages.delete, false)" method="POST" class="inline">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                                 <template v-for="item in dataset.selected">
-                                                    <input type="hidden" name="id[]" :value="item.id">
-                                                </template>
-                                                <v-btn flat icon @click="setDialog(true, item)" v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"><v-icon error>delete</v-icon></v-btn>
+                                                <input type="hidden" name="id[]" :value="item.id">
+                                            </template>
+                                            <v-btn class="elevation-0 ma-0 error white--text" type="submit">
+                                                {{ __('Yes, delete it!') }}
+                                            </v-btn>
                                             </form>
                                         </v-card-actions>
                                     </v-card>
                                 </v-dialog>
-                                {{-- /Bulk delete with dialog --}}
-
                             </template>
                         </v-slide-y-transition>
                         {{-- Bulk Delete --}}
-
-
-
 
                         {{-- Batch Commands --}}
 
@@ -181,7 +156,7 @@
 
                                             <v-dialog transition="scale-transition" v-model="resource.dialog.model" persistent width="400px" min-width="150px" max-width="400px">
                                                 <v-card class="text-xs-center elevation-4">
-                                                    <v-card-text>
+                                                    <v-card-text class="pa-5">
                                                         <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
                                                         <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
                                                         <div class="grey--text text--darken-1">
@@ -200,7 +175,7 @@
                                                             :action="route(urls.pages.delete, prop.item.id)" method="POST">
                                                                 {{ csrf_field() }}
                                                                 {{ method_field('DELETE') }}
-                                                            <v-btn @click="$refs[`delete_${prop.item.id}`].submit()" class="elevation-0 error white--text">{{ __('Yes, delete it!') }}</v-btn>
+                                                            <v-btn @click="$refs[`delete_${prop.item.id}`].submit()" class="elevation-0 ma-0 error white--text">{{ __('Yes, delete it!') }}</v-btn>
                                                         </form>
                                                     </v-card-actions>
                                                 </v-card>
@@ -237,11 +212,12 @@
         mixins.push({
             data () {
                 return {
+                    item: '',
                     resource: {
                         dialog: {
                             model: false,
                         },
-                        items: [],
+                        item: '',
                     },
                     bulk: {
                         commands: {
@@ -266,6 +242,9 @@
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
+                        dialog: {
+                            model: false
+                        },
                         loading: true,
                         pagination: {
                             rowsPerPage: {{ settings('items_per_page', 15) }},
@@ -340,5 +319,4 @@
             }
         });
     </script>
-
 @endpush
