@@ -161,3 +161,50 @@ Server:
  ☐ create save button should be sticky toolbar with save button
  -> List of Submissions
     -> poll per questions (with # of students answered per value)
+
+
+
+--------------
+
+Layout Changes:
+
+index:
+@include("Theme::partials.banner") --> after @section("content")
+
+toolbar
+   sticky
+   secondary background color
+   icon left
+   icon right - with tooltip on left
+       create
+       bulk
+       trashed
+
+data tables
+    search bar
+    featured image circle
+    title secondary color
+    edit link on title/name
+
+create & edit:
+@include("Theme::partials.banner") --> after @section("content")
+
+toolbar
+    make it on the top
+    sticky
+    save button on right
+    hasOne card
+
+trashed:
+@include("Theme::partials.banner") --> after @section("content")
+
+just ctrl c + v the pages.trashed
+
+show:
+@include("Theme::partials.banner") --> after @section("content")
+
+toolbar
+    extended
+        secondary color
+
+

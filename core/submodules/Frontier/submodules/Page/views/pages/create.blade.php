@@ -48,13 +48,15 @@
                 </v-flex>
 
                 <v-flex md3>
-                    {{-- @include("Theme::cards.saving") --}}
+                    <v-card class="elevation-1">
+                        @include("Theme::interactives.featured-image")
+                        <v-divider></v-divider>
 
-                    @include("Theme::interactives.featured-image")
+                        @include("Page::cards.page-attributes")
+                        <v-divider></v-divider>
 
-                    @include("Page::cards.page-attributes")
-
-                    @include("Category::cards.category")
+                        @include("Category::cards.category")
+                    </v-card>
                 </v-flex>
             </v-layout>
         </form>

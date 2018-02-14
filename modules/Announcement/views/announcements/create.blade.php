@@ -11,7 +11,7 @@
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
-        <form action="{{ route('announcements.store') }}" method="POST">
+        <form ref="form" action="{{ route('announcements.store') }}" method="POST">
         {{ csrf_field() }}
             @include("Theme::partials.banner")
 
