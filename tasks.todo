@@ -78,7 +78,7 @@ Dashboard:
 
        admin:
          at a glance
-           ☐ same as sa
+           ☐ same as super admin
 
          dashboard
            except
@@ -172,6 +172,7 @@ Layout Changes:
 index:
 @include("Theme::partials.banner") --> after @section("content")
 
+@include("Theme::partials.banner") --> after @section ("content-server")
 toolbar
    sticky
    secondary background color
@@ -186,6 +187,7 @@ data tables
     featured image circle
     title secondary color
     edit link on title/name
+    more actions tooltip on more_vert v-btn
 
 remove filter button
 
