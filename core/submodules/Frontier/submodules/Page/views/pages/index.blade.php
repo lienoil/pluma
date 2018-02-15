@@ -6,18 +6,6 @@
     <v-icon left dark>find_in_page</v-icon>
     <v-toolbar-title>{{ __('Pages') }}</v-toolbar-title>
 
-    {{-- <div slot="extension" style="width: 100% !important;">
-        <v-text-field
-            solo
-            label="Search"
-            append-icon=""
-            prepend-icon="search"
-            class="elevation-0"
-            v-model="dataset.searchform.query"
-            clearable
-        ></v-text-field>
-    </div> --}}
-
     <v-spacer></v-spacer>
 
     {{-- create --}}

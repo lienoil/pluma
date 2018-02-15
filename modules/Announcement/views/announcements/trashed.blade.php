@@ -128,7 +128,7 @@
                             <td class="grey--text text--darken-1" v-html="prop.item.removed"></td>
                             <td class="grey--text text--darken-1 text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile ripple @click="$refs[`restore_${prop.item.id}`].submit()">
                                             <v-list-tile-action>

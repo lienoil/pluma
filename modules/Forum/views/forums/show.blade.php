@@ -5,7 +5,7 @@
 @section("content")
     @include("Frontier::partials.banner")
 
-    <v-toolbar dark extended class="light-blue elevation-0">
+    <v-toolbar dark extended class="secondary elevation-0">
         <v-btn ripple flat href="{{ route('forums.index') }}">
             <v-icon left dark>arrow_back</v-icon>
             {{ __('Back') }}

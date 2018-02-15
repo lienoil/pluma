@@ -2,5 +2,5 @@
 
 return [
     'admin' => 'home',
-    'create' => 'new',
+    'create' => 'create',
 ];

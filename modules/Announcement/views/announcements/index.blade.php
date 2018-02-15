@@ -111,7 +111,7 @@
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile :href="route(urls.show, (prop.item.id))">
                                             <v-list-tile-action>

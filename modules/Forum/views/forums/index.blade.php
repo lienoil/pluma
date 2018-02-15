@@ -4,7 +4,7 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    <v-toolbar dark class="secondary elevation-1 sticky">
         <v-toolbar-title dark>{{ __('All Threads') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         {{-- Search --}}
@@ -133,7 +133,10 @@
                 </v-card>
 
                 @if (request()->all())
-                    <p class="mt-2 caption grey--text"><a href="{{ route('forums.index') }}">{{ __('Remove filters') }}</a></p>
+                <v-btn error flat href="{{ route('forums.index') }}">
+                    <v-icon left>remove_circle_outline</v-icon>
+                    {{ __('Remove filter') }}
+                </v-btn>
                 @endif
             </v-flex>
 

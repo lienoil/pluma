@@ -2,37 +2,12 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-toolbar dark class="light-blue elevation-1">
+
+    <v-toolbar dark class="secondary sticky elevation-1">
+        <v-icon dark left>format_line_spacing</v-icon>
         <v-toolbar-title>{{ __('Forms') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         {{-- Batch Commands --}}
-
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                label="Search"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            {{--  <v-select
-                label="Search"
-                chips
-                tags
-                solo
-                prepend-icon="search"
-                append-icon=""
-                clearable
-                autofocus
-                >
-            </v-select> --}}
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
 
         {{-- add --}}
         <v-btn icon v-tooltip:left="{ html: 'Create' }" href="{{ route('forms.create') }}"><v-icon>add</v-icon></v-btn>
@@ -80,6 +55,18 @@
         <v-layout row wrap>
             <v-flex sm12>
                 <v-card class="mb-3 elevation-1">
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
+
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.totalItems"
@@ -99,7 +86,7 @@
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td>
-                                <a class="td-n" :href="route(urls.forms.show, (prop.item.id))">
+                                <a class="td-n secondary--text" :href="route(urls.forms.edit, (prop.item.id))">
                                     <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
                                 </a>
                             </td>
@@ -110,7 +97,7 @@
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile :href="route(urls.forms.show, (prop.item.id))">
                                             <v-list-tile-action>
@@ -153,12 +140,25 @@
                     </v-data-table>
                 </v-card>
                 @if (\Illuminate\Support\Facades\Request::all())
-                <v-btn flat warning href="{{ route('forms.index') }}" class=""><v-icon left>remove_circle</v-icon> {{ __('Remove filters') }}</v-btn>
+                    <v-btn error flat href="{{ route('forms.index') }}" class="">
+                        <v-icon left>remove_circle_outline</v-icon>
+                        {{ __('Remove filter') }}
+                    </v-btn>
                 @endif
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
+
+@push('css')
+    <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
+    </style>
+@endpush
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>

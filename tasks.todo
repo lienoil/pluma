@@ -172,7 +172,6 @@ Layout Changes:
 index:
 @include("Theme::partials.banner") --> after @section("content")
 
-@include("Theme::partials.banner") --> after @section ("content-server")
 toolbar
    sticky
    secondary background color
@@ -216,3 +215,8 @@ toolbar
         secondary color
 
 
+-------------
+Modules to continue:
+  Course
+      trashed
+      show.layouts

@@ -217,7 +217,7 @@ class CourseController extends GeneralController
      */
     public function destroy(Request $request, $id)
     {
-        //
+        Course::destroy($request->has('id') ? $request->input('id') : $id);
 
         return redirect()->route('courses.index');
     }
@@ -247,7 +247,7 @@ class CourseController extends GeneralController
     {
         //
 
-        return redirect()->route('courses.trash');
+        return redirect()->route('courses.trashed');
     }
 
      /**

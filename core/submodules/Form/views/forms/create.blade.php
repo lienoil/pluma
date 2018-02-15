@@ -1,20 +1,21 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
-    <v-container fluid grid-list-lg>
-        @include("Theme::partials.banner")
+    @include("Theme::partials.banner")
+    <v-toolbar class="white sticky elevation-1">
+        <v-toolbar-title class="accent--text">{{ __('Create Form') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
 
-        <form action="{{ route('forms.store') }}" method="POST">
+    <v-container fluid grid-list-lg>
+        <form ref="form" action="{{ route('forms.store') }}" method="POST">
             <input type="hidden" name="type" value="forms">
             {{ csrf_field() }}
-            <v-layout row wrap>
-                <v-flex md9>
-                    <v-card class="mb-3 elevation-1">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ __('New Form') }}</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                        </v-toolbar>
 
+            <v-layout row wrap>
+                <v-flex md9 xs12>
+                    <v-card class="mb-3 elevation-1">
                         <v-card-text>
                             <v-text-field
                                 name="name"
@@ -71,8 +72,8 @@
                     </v-card>
                 </v-flex>
 
-                <v-flex md3>
-                    @include("Theme::cards.saving")
+                <v-flex md3 xs12>
+                    {{-- online --}}
                 </v-flex>
             </v-layout>
         </form>
