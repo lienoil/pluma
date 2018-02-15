@@ -221,14 +221,16 @@ if (! function_exists('get_modules_path')) {
 
         $m = [];
         foreach ($modules as $k => $module) {
-            if (is_dir("$module/submodules")) {
-                $m[] = $basenameOnly ? basename($module) : realpath($module);
-                $mmm = get_modules_path($basenameOnly, false, "$module/submodules");
-                foreach ($mmm as $mm) {
-                    $m[] = $basenameOnly ? basename($mm) : realpath($mm);
+            if (! in_array(basename($module), config('modules.disabled'))) {
+                if (is_dir("$module/submodules")) {
+                    $m[] = $basenameOnly ? basename($module) : realpath($module);
+                    $mmm = get_modules_path($basenameOnly, false, "$module/submodules");
+                    foreach ($mmm as $mm) {
+                        $m[] = $basenameOnly ? basename($mm) : realpath($mm);
+                    }
+                } else {
+                    $m[] = $basenameOnly ? basename($module) : realpath($module);
                 }
-            } else {
-                $m[] = $basenameOnly ? basename($module) : realpath($module);
             }
         }
 

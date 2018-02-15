@@ -26,13 +26,13 @@ return [
      */
     'disabled' => [
         'Single',
-        // 'Test',
+        'Test',
         'Calendar',
-        // 'Note',
+        'Note',
         'Chronos',
-        // 'Announcement',
-        // 'Bookmark',
-        // 'Yggdrasil',
-        // 'Forum',
+        'Announcement',
+        'Bookmark',
+        'Yggdrasil',
+        'Forum',
     ],
 ];
