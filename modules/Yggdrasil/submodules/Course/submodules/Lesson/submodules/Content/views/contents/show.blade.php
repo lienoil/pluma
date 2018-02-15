@@ -213,7 +213,7 @@
         </v-layout>
 
         <v-layout row wrap justify-center align-center>
-            <v-flex lg10 md10 sm12 xs12>
+            <v-flex lg10 md12 sm12 xs12>
                 <v-layout row wrap>
                     <v-flex md6 xs12>
                         {{-- Comments Section --}}
@@ -234,7 +234,6 @@
             </v-flex>
         </v-layout>
     </v-container>
-
 @endsection
 
 @section("back-to-top", "")
