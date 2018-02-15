@@ -6,6 +6,7 @@ use Assignment\Models\Assignment;
 use Catalogue\Models\Catalogue;
 use Category\Models\Category;
 use Comment\Models\Comment;
+use Comment\Requests\CommentRequest;
 use Content\Models\Content;
 use Course\Models\Course;
 use Course\Models\User;
@@ -256,11 +257,11 @@ class CourseController extends GeneralController
      /**
      * Comment the specified resource from storage permanently.
      *
-     * @param  \Story\Requests\StoryRequest  $request
+     * @param  \Comment\Requests\CommentRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function comment(Request $request, $id)
+    public function comment(CommentRequest $request, $id)
     {
         // dd($request->all());
         $comment = New Comment();

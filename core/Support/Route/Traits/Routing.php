@@ -4,7 +4,7 @@ namespace Pluma\Support\Routes\Traits;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Router;
+use Pluma\Routing\Router;
 use Pluma\Providers\InstallationServiceProvider;
 
 trait Routing

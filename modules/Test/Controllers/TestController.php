@@ -19,7 +19,7 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
-        return view("Test::tests.index");
+        return view("Test::index");
     }
 
     /**

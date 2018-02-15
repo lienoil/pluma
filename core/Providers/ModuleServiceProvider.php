@@ -165,6 +165,12 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $basename = basename($module);
 
+        // If module is disabled, skip.
+        // TODO: check in database.
+        if (in_array($basename, config('modules.disabled'))) {
+            return;
+        }
+
         // TODO: Scheduled for deprecation
         if (file_exists("$module/API/routes/api.php")) {
             Route::group([

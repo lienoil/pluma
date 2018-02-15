@@ -1,6 +1,6 @@
 Routing:
   - Added namespace on routes - avoid using the Qualified name namespace on your routes. E.g. use 'QuestController' instead of 'Quest\Controllers\QuestController'.
-                    - if you must override the namespace use a Fully qualified name. E.g. use '\Quest\Controllers\QuestController'.
+                    - if you must override the namespace use a FULLY Qualified Name. E.g. use '\Quest\Controllers\QuestController'.
 
   Fuzzy:
   - Removed the route core
@@ -14,15 +14,7 @@ Routing:
 ====================
 Non-Breaking Changes
 ====================
-Blacksmith:
-  Furnace:
-    ✔ Added PurgeSessionCommand @done (17-12-22 11:22)
-    ✔ Added PurgeViewCommand @done (17-12-22 11:22)
-    ✔ Modified PurgeCacheCommand to only affect the framework cache @done (17-12-22 11:22)
-    ✔ Optimized PurgeStorageCommand @done (17-12-22 11:22)
 
-Config:
-  ✔ added _config/download.php_, will replace _config/downloadables.php_ @done (17-12-22 11:22)
 
 Pluma\Providers\PlumaServiceProvider:
   ☐ remove registerBindings()

@@ -65,12 +65,12 @@ Form Builder:
   ☐ Add Evaluation (AnswerChecking)
   ☐ @critical Model Attachment (e.g. CourseHasManyForms)
   Submission:
-    ☐ index (change author to submitted by)
-    ☐ index.blade -> list of Form::paginate
-    ☐ show.blade -> list of users (->examinees)
-        ☐ graph
-        ☐ CanExportResultTrait export report generation
-        ☐ CanViewResultTrait
+    ✔ index (change author to submitted by) @done (18-02-15 17:40)
+    ✔ index.blade -> list of Form::paginate @done (18-02-15 17:40)
+    ✔ show.blade -> list of users (->examinees) @done (18-02-15 17:40)
+        ✔ graph @done (18-02-15 17:39)
+        ✔ CanExportResultTrait export report generation @done (18-02-10 09:59)
+        ✔ CanViewResultTrait @done (18-02-15 17:40)
 
 Server:
-  ☐ add subdomain oread.rippl3s.com
+  ☐ add subdomain oreo.rippl3s.com

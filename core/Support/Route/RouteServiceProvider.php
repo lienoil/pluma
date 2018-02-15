@@ -2,9 +2,9 @@
 
 namespace Pluma\Support\Route;
 
-use Illuminate\Routing\Router;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {

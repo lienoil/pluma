@@ -55,6 +55,7 @@ return [
     'aliases' => [
         // Pluma
         'Console' => Pluma\Support\Facades\Console::class,
+        // 'Route' => Pluma\Support\Facades\Route::class,
 
         // Illuminate
         'App' => Illuminate\Support\Facades\App::class,

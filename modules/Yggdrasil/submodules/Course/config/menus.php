@@ -92,7 +92,7 @@ return [
                 'routes' => [
                     'name' => 'courses.all',
                     'children' => [
-                        'courses.show',
+                        'courses.single',
                     ]
                 ],
                 'always_viewable' => false,
