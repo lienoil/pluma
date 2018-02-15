@@ -11,8 +11,9 @@ return [
     'test' => [
         'name' => 'test',
         'order' => 100,
-        'slug' => '/admin/tests',
-        'route' => 'tests.index',
+        'slug' => route('tests.index'),
+        'router' => 'index',
+        'routername' => 'tests',
         'always_viewable' => false,
         'icon' => 'developer_mode',
         'labels' => [
@@ -23,8 +24,9 @@ return [
             'index-tests' => [
                 'name' => 'index-tests',
                 'order' => 1,
-                'slug' => '/admin/tests/all',
-                'route' => 'tests.index',
+                'slug' => route('tests.index'),
+                'router' => 'index',
+                'routername' => 'tests',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Tests'),
@@ -34,8 +36,9 @@ return [
             'create-test' => [
                 'name' => 'create-test',
                 'order' => 2,
-                'slug' => '/admin/tests/new',
-                'route' => 'tests.new',
+                'slug' => route('tests.create'),
+                'router' => 'create',
+                'routername' => 'tests',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Add New Test'),
@@ -45,8 +48,9 @@ return [
             'trashed-tests' => [
                 'name' => 'trashed-tests',
                 'order' => 3,
-                'slug' => '/admin/tests/trashed',
-                'route' => 'tests.trashed',
+                'slug' => route('tests.trashed'),
+                'router' => 'trashed',
+                'routername' => 'tests',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Trashed Tests'),

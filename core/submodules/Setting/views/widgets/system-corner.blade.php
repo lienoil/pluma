@@ -48,7 +48,7 @@
                             </v-list-tile-avatar>
                             <v-list-tile-content>
                                 <v-list-tile-title>{{ __('Server Admin') }}</v-list-tile-title>
-                                <v-list-tile-sub-title>{{ $_SERVER['SERVER_ADMIN'] }}</v-list-tile-sub-title>
+                                <v-list-tile-sub-title>{{ @$_SERVER['SERVER_ADMIN'] }}</v-list-tile-sub-title>
                             </v-list-tile-content>
                         </v-list-tile>
                         <v-list-tile avatar>
