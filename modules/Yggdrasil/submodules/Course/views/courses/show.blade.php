@@ -118,6 +118,7 @@
                 </v-card>
 
                 @includeIf("Badge::widgets.badge")
+
             </v-flex>
 
             <v-flex flex md6 xs12 order-lg2>

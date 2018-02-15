@@ -21,6 +21,13 @@
                                 class="mx-3"
                                 flat
                             ></v-text-field>
+
+                            <v-text-field
+                                prepend-icon="search"
+                                 appen-icon="mic"
+                                 label="Search"
+                                 solo-inverted
+                            >
                             <v-tabs
                                 slot="extension"
                                 centered

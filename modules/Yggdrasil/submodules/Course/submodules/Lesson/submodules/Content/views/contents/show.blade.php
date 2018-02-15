@@ -208,6 +208,29 @@
                             </v-fade-transition>
                         </div>
                     </template>
+                    <v-divider></v-divider>
+
+                    <v-card-text light>
+                        <v-layout row wrap>
+                            <v-flex md4 xs12>
+                                <v-card-text>
+                                    <span class="body-1 grey--text">Published on: {{ $resource->created }}</span>
+                                    <div class="headline page-title">
+                                        <span class="grey--text">{{ $resource->course->title }}: </span>
+                                        <span>{{ $resource->lesson->title }},</span>
+                                    </div>
+                                </v-card-text>
+                            </v-flex>
+                            <v-flex md8 xs12>
+                                <v-card-text>
+                                    {!! $resource->lesson->body !!}
+
+                                    <v-btn large flat ripple outline class="grey--text lighten-1">Previous</v-btn>
+                                    <v-btn large flat ripple outline primary>Next</v-btn>
+                                </v-card-text>
+                            </v-flex>
+                        </v-layout>
+                    </v-card-text>
                 </v-card>
             </v-flex>
         </v-layout>
