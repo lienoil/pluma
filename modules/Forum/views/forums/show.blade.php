@@ -86,11 +86,11 @@
                     {{-- /author and created --}}
                 </v-card>
 
-                {{-- comment --}}
+                {{-- Comments Section --}}
                 <v-card class="elevation-1">
-                    @include("Forum::interactives.comments")
+                    @include("Forum::widgets.comments")
                 </v-card>
-                {{-- // comment --}}
+                {{-- Comments Section --}}
             </v-flex>
         </v-layout>
     </v-container>

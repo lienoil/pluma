@@ -127,4 +127,29 @@ class ForumController extends GeneralController
 
         return redirect()->route('forums.index');
     }
+
+    /**
+     * Comment the specified resource from storage permanently.
+     *
+     * @param  \Story\Requests\StoryRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function comment(Request $request, $id)
+    {
+        // dd($request->all());
+        $comment = New Comment();
+        $comment->user()->associate(User::find($request->input('user_id')));
+        $comment->approved = true;
+        $comment->body = $request->input('body');
+        $comment->delta = $request->input('delta');
+        $comment->parent_id = $request->input('parent_id');
+        $comment->user()->associate(User::find(user()->id));
+
+        $forum = Forum::findOrFail($id);
+        $forum->comments()->save($comment);
+        $forum->save();
+
+        return back();
+    }
 }

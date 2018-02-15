@@ -4,7 +4,7 @@
 
 
 @section("content")
-    <v-toolbar dark class="light-blue elevation-1">
+    <v-toolbar dark class="secondary elevation-1">
         <v-icon dark left>fa-question</v-icon>
         <v-toolbar-title dark primary-title>{{ __('Ask a Question') }}</v-toolbar-title>
     </v-toolbar>

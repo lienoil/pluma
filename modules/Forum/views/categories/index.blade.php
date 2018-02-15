@@ -11,8 +11,7 @@
                     {{ csrf_field() }}
                     <v-card class="elevation-1">
                         <v-toolbar flat class="transparent">
-                            <v-icon>label</v-icon>
-                            <v-toolbar-title class="subheading">{{ __("New Forum Category") }}</v-toolbar-title>
+                            <v-toolbar-title class="subheading">{{ __("Create") }}</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
                             <v-text-field
@@ -70,7 +69,7 @@
                             </v-menu>
                             <input type="hidden" name="type" value="{{ $type ?? 'forums' }}">
                         </v-card-text>
-                        <v-card-actions>
+                        <v-card-actions class="pa-3">
                             <v-spacer></v-spacer>
                             <v-btn type="submit" primary>{{ __('Save') }}</v-btn>
                         </v-card-actions>
@@ -78,9 +77,9 @@
                 </form>
             </v-flex>
             <v-flex sm9>
-
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar flat class="transparent">
+                        <v-icon left>label</v-icon>
                         <v-toolbar-title class="subheading">{{ __('All Forum Categories') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
 
@@ -90,34 +89,44 @@
                             flat
                             icon
                             v-model="bulk.commands.model"
-                            :class="bulk.commands.model ? 'btn--active error error--text' : ''"
+                            :class="bulk.commands.model ? 'btn--active error grey--text' : ''"
                             v-tooltip:left="{'html': '{{ __('Toggle the bulk command checboxes') }}'}"
                             @click.native="bulk.commands.model = !bulk.commands.model"
-                        ><v-icon>@{{ bulk.commands.model ? 'indeterminate_check_box' : 'check_box_outline_blank' }}</v-icon></v-btn>
+                        ><v-icon>@{{ bulk.commands.model ? 'delete' : 'check_circle' }}</v-icon></v-btn>
 
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                <form ref="deletemanyform" :action="route(urls.categories.destroy, false)" method="POST" class="inline">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <template v-for="item in dataset.selected">
-                                        <input type="hidden" name="id[]" :value="item.id">
-                                    </template>
-                                    <v-dialog full-width ref="permamanybox">
-                                        <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}"><v-icon error>delete_sweep</v-icon></v-btn>
-                                        <v-card>
-                                            <v-card-text>
-                                                {{ __('You are about to permanently delete items. Are you sure you want to proceed?') }}
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn flat error @click="$refs.deletemanyform.submit()">{{ __('Yes') }}</v-btn>
-                                                <v-btn flat @click="$refs.permamanybox = null">{{ __('Cancel') }}</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </form>
+                                <v-dialog transition="scale-transition" persistent v-model="dataset.dialog.model" lazy width="auto">
+                                    <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}">
+                                        <v-icon class="error--text">delete_forever</v-icon>
+                                    </v-btn>
+                                    <v-card class="elevation-4 text-xs-center">
+                                        <v-card-text class="pa-5">
+                                            <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
+                                            <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
+                                            <div class="grey--text text--darken-1">
+                                                <div class="mb-1">{{ __("You are about to permanently delete those resources.") }}</div>
+                                                <div>{{ __("This action is irreversible. Do you want to proceed?") }}</div>
+                                            </div>
+                                        </v-card-text>
+                                        <v-divider></v-divider>
+                                        <v-card-actions class="pa-3">
+                                            <v-btn class="grey--text grey lighten-2 elevation-0" flat @click.native.stop="dataset.dialog.model=false">{{ __('Cancel') }}</v-btn>
+                                            <v-spacer></v-spacer>
+                                            <form :action="route(urls.categories.destroy, false)" method="POST" class="inline">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <template v-for="item in dataset.selected">
+                                                <input type="hidden" name="id[]" :value="item.id">
+                                            </template>
+                                            <v-btn class="elevation-0 ma-0 error white--text" type="submit">
+                                                {{ __('Yes, delete it!') }}
+                                            </v-btn>
+                                            </form>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
                             </template>
                         </v-slide-y-transition>
                         {{-- /Bulk Delete --}}
@@ -158,51 +167,49 @@
                             <td v-show="bulk.commands.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td><v-icon v-html="prop.item.icon"></v-icon></td>
-                            <td><a :href="route(urls.categories.edit, (prop.item.id))"><strong v-html="prop.item.name"></strong></a></td>
+                            <td><a class="td-n secondary--text" :href="route(urls.categories.edit, (prop.item.id))"><strong v-html="prop.item.name"></strong></a></td>
                             <td v-html="prop.item.code"></td>
-                            <td v-html="prop.item.alias"></td>
+                            {{-- <td v-html="prop.item.alias"></td> --}}
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
-                                        <v-list-tile :href="route(urls.categories.edit, (prop.item.id))">
+                                        <v-list-tile ripple @click="setDialog(true, prop.item)">
                                             <v-list-tile-action>
-                                                <v-icon accent>edit</v-icon>
+                                                <v-icon error>delete</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{ __('Edit') }}
-                                                </v-list-tile-title>
+                                                {{ __('Delete Permanently') }}
                                             </v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile ripple @click="$refs.destroy.submit()">
-                                            <v-list-tile-action>
-                                                <v-icon warning>close</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>
-                                                    {{-- <span v-html="prop.item.id"></span> --}}
-                                                    <form ref="deleteform" :action="route(urls.categories.destroy, prop.item.id)" method="POST" class="inline">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('DELETE') }}
-                                                        <v-dialog full-width ref="permabox">
-                                                            <span slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}">{{ __('Delete Permanently...') }}</span>
-                                                            <v-card>
-                                                                <v-card-text>
-                                                                    {{ __('You are about to permanently delete this resource. Are you sure you want to proceed?') }}
-                                                                </v-card-text>
-                                                                <v-card-actions>
-                                                                    <v-spacer></v-spacer>
-                                                                    <v-btn flat error @click="$refs.deleteform.submit()">{{ __('Yes') }}</v-btn>
-                                                                    <v-btn flat @click="$refs.permabox = false">{{ __('Cancel') }}</v-btn>
-                                                                </v-card-actions>
-                                                            </v-card>
-                                                        </v-dialog>
-                                                    </form>
-                                                </v-list-tile-title>
-                                            </v-list-tile-content>
+
+                                            <v-dialog transition="scale-transition" v-model="resource.dialog.model" persistent width="400px" min-width="150px" max-width="400px">
+                                                <v-card class="text-xs-center elevation-4">
+                                                    <v-card-text class="pa-5">
+                                                        <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
+                                                        <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
+                                                        <div class="grey--text text--darken-1">
+                                                            <span class="mb-3">{{ __("You are about to permanently delete") }} <strong><em>@{{ prop.item.title }}</em></strong>.</span>
+                                                            <span>{{ __("This action is irreversible. Do you want to proceed?") }}</span>
+                                                        </div>
+                                                    </v-card-text>
+                                                    <v-divider></v-divider>
+                                                    <v-card-actions class="pa-3">
+                                                        <v-btn class="grey--text grey lighten-2 elevation-0" @click.native="resource.dialog.model=false">
+                                                            {{ __('Cancel') }}
+                                                        </v-btn>
+                                                        <v-spacer></v-spacer>
+                                                        <form
+                                                            :id="`delete_${prop.item.id}`" :ref="`delete_${prop.item.id}`"
+                                                            :action="route(urls.categories.destroy, prop.item.id)" method="POST">
+                                                                {{ csrf_field() }}
+                                                                {{ method_field('DELETE') }}
+                                                            <v-btn @click="$refs[`delete_${prop.item.id}`].submit()" class="elevation-0 ma-0 error white--text">{{ __('Yes, delete it!') }}</v-btn>
+                                                        </form>
+                                                    </v-card-actions>
+                                                </v-card>
+                                            </v-dialog>
                                         </v-list-tile>
                                     </v-list>
                                 </v-menu>
@@ -233,6 +240,9 @@
                             icon: '{{ old('icon') }}',
                             type: '{{ old('type') }}',
                         },
+                        dialog: {
+                            model: false
+                        },
                         errors: {!! json_encode($errors->getMessages()) !!},
                     },
 
@@ -255,12 +265,14 @@
                             { text: '{{ __("Icon") }}', align: 'left', value: 'icon' },
                             { text: '{{ __("Name") }}', align: 'left', value: 'name' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Alias") }}', align: 'left', value: 'alias' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
+                        dialog: {
+                            model: false,
+                        },
                         loading: true,
                         pagination: {
                             rowsPerPage: '{{ settings('items_per_page', 15) }}',
@@ -331,6 +343,11 @@
                             this.dataset.totalItems = data.items.total ? data.items.total : data.total;
                             this.dataset.loading = false;
                         });
+                },
+
+                setDialog (model, data) {
+                    this.resource.dialog.model = model;
+                    this.resource.dialog.data = data;
                 },
             },
 
