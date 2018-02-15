@@ -34,7 +34,7 @@
             </v-list-tile>
         </v-list>
     </v-navigation-drawer>
-    <v-toolbar dark extended class="text-xs-center course-content-grad elevation-0">
+    {{-- <v-toolbar dark extended class="text-xs-center cyan darken-1 elevation-0">
         <v-layout wrap justify-space-around align-center hidden-xs-only>
             <template v-if="previous">
                 <v-btn
@@ -70,12 +70,12 @@
             </template>
             <v-btn v-else disabled flat>{{ __('End of Lesson') }}</v-btn>
         </v-layout>
-    </v-toolbar>
-    <v-container grid-list-lg>
+    </v-toolbar> --}}
+    <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
                 <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn>
-                <v-card class="card--flex-toolbar card--filed-on-top">
+                <v-card class="elevation-1">
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -144,7 +144,7 @@
                                         <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
                                         <v-card-actions class="pa-0">
                                             <v-spacer></v-spacer>
-                                            <v-btn dark class="course-content-grad" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
+                                            <v-btn dark class="cyan darken-1" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
                                             <v-spacer></v-spacer>
                                         </v-card-actions>
                                         <v-spacer></v-spacer>
@@ -163,7 +163,7 @@
                                             <v-spacer></v-spacer>
                                             <v-card-actions class="pa-4">
                                                 <v-spacer></v-spacer>
-                                                <v-btn dark class="course-content-grad" @click="playInteraction()">
+                                                <v-btn dark class="cyan darken-1" @click="playInteraction()">
                                                     <v-icon left>play_circle_outline</v-icon>
                                                     <template v-if="resource.incomplete">{{ __('Continue') }}</template>
                                                     <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
@@ -208,11 +208,33 @@
                             </v-fade-transition>
                         </div>
                     </template>
-
                 </v-card>
             </v-flex>
         </v-layout>
+
+        <v-layout row wrap justify-center align-center>
+            <v-flex lg10 md10 sm12 xs12>
+                <v-layout row wrap>
+                    <v-flex md6 xs12>
+                        {{-- Comments Section --}}
+                        <v-card class="elevation-1">
+                            @include("Course::widgets.comments")
+                        </v-card>
+                        {{-- Comments Section --}}
+                    </v-flex>
+
+                    <v-flex md6 xs12>
+                        <v-card class="elevation-1">
+                            <v-card-text>
+                                <div class="subheading"><strong>{{ $resource->course->title }}</strong></div>
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+        </v-layout>
     </v-container>
+
 @endsection
 
 @section("back-to-top", "")
@@ -256,7 +278,7 @@
             padding: 0;
             margin: 0;
         }
-        .course-content-grad {
+        .course-content-grad{
             background: linear-gradient(45deg, #03A9F4 0%, #009688 100%);
         }
         .quill-text h1, h2, h3, h4, h5 {

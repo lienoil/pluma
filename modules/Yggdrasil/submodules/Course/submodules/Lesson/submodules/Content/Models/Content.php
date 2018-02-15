@@ -9,10 +9,16 @@ use Lesson\Support\Traits\BelongsToLesson;
 use Lesson\Support\Traits\HasCourseThroughLesson;
 use Library\Support\Traits\BelongsToLibrary;
 use Pluma\Models\Model;
+use Comment\Support\Relations\MorphManyComments;
 
 class Content extends Model
 {
-    use BelongsToLesson, HasCourseThroughLesson, BelongsToLibrary, ContentMutator, Status;
+    use BelongsToLesson,
+        HasCourseThroughLesson,
+        BelongsToLibrary,
+        ContentMutator,
+        MorphManyComments,
+        Status;
 
     protected $with = ['library', 'lesson'];
 

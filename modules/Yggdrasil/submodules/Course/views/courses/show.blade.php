@@ -103,7 +103,7 @@
         </v-layout>
     </v-parallax>
 
-    <v-container grid-list-lg>
+    <v-container fluid grid-list-lg>
 
         {{-- @include("Course::cards.evaluation") --}}
 
@@ -123,7 +123,7 @@
             <v-flex flex md6 xs12 order-lg2>
 
                 <v-card class="elevation-1 mb-3">
-                    <v-toolbar class="course-grad white--text transparent elevation-1">
+                    <v-toolbar class="cyan darken-1 white--text elevation-1">
                         <v-toolbar-title class="page-title white--text">{{ __('Course Content') }}</v-toolbar-title>
                     </v-toolbar>
 
@@ -240,17 +240,18 @@
                                                         </v-flex>
                                                         {{-- Assignment --}}
 
+
                                                         {{-- Content --}}
                                                         <v-flex order-lg2 order-md2 order-sm1 order-xs1 md6 xs12>
                                                             <v-card class="elevation-1 card--filed-on-top">
                                                                 <v-toolbar card class="course-grad lighten-1">
                                                                     <v-toolbar-title class="page-title white--text">{{ __('Lesson Contents') }}</v-toolbar-title>
                                                                 </v-toolbar>
+
                                                                 <v-divider></v-divider>
 
                                                                 <v-list three-line subheader class="pb-0">
                                                                     @foreach ($lesson->contents()->orderBy('sort')->get() as $content)
-                                                                        {{-- Open Only But don't play --}}
                                                                         <v-list-tile avatar ripple target="_blank" href="{{ route('contents.single', [$content->course->slug, $lesson->id, $content->id]) }}">
                                                                             <v-list-tile-avatar>
                                                                                 @if ($content->locked)
@@ -258,7 +259,7 @@
                                                                                 @elseif ($content->completed)
                                                                                     <v-icon class="course-grad lighten-3 white--text">check</v-icon>
                                                                                 @else
-                                                                                    <v-chip class="course-grad lighten-3 white--text">{{ $content->order }}</v-chip>
+                                                                                    <v-chip class="lighten-3 white--text">{{ $content->order }}</v-chip>
                                                                                 @endif
                                                                             </v-list-tile-avatar>
                                                                             <v-list-tile-content>
@@ -311,7 +312,7 @@
                 {{-- Get Course --}}
 
                 {{-- Course Progress --}}
-                @include("Course::widgets.course-progress")
+                {{-- @include("Course::widgets.course-progress") --}}
                 {{-- Course Progress --}}
 
                 {{-- Enrolled Students --}}

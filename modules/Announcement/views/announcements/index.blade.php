@@ -1,116 +1,83 @@
-@extends("Theme::layouts.public")
+@extends("Frontier::layouts.admin")
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-app>
 
+    <v-toolbar dark class="secondary elevation-1 sticky">
+        <v-icon left dark>announcement</v-icon>
+        <v-toolbar-title primary-title>{{ __($application->page->title) }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+
+        <v-btn
+            flat
+            icon
+            href="{{ route('announcements.create') }}"
+            v-tooltip:left="{'html': '{{ __('Create') }}'}"
+        ><v-icon>add</v-icon></v-btn>
+
+        {{-- <v-btn icon v-tooltip:left="{ html: 'Filter' }">
+            <v-icon class="subheading">fa fa-filter</v-icon>
+        </v-btn> --}}
+
+        {{-- Batch Commands --}}
+        <v-btn
+            v-show="dataset.selected.length < 2"
+            flat
+            icon
+            v-model="bulk.destroy.model"
+            :class="bulk.destroy.model ? 'btn--active primary primary--text' : ''"
+            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checkboxes') }}'}"
+            @click.native="bulk.destroy.model = !bulk.destroy.model"
+        ><v-icon>@{{ bulk.destroy.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
+
+        {{-- Bulk Delete --}}
+        <v-slide-y-transition>
+            <template v-if="dataset.selected.length > 1">
+                <form action="{{ route('announcements.destroy', 'false') }}" method="POST" class="inline">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <template v-for="item in dataset.selected">
+                        <input type="hidden" name="id[]" :value="item.id">
+                    </template>
+                    <v-btn
+                        flat
+                        icon
+                        type="submit"
+                        v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"
+                    ><v-icon warning>delete_sweep</v-icon></v-btn>
+                </form>
+            </template>
+        </v-slide-y-transition>
+        {{-- /Bulk Delete --}}
+        {{-- /Batch Commands --}}
+
+        {{-- Trashed --}}
+        <v-btn
+            icon
+            flat
+            href="{{ route('announcements.trashed') }}"
+            dark
+            v-tooltip:left="{'html': `View trashed items`}"
+        ><v-icon class="warning--after">archive</v-icon></v-btn>
+        {{-- /Trashed --}}
+    </v-toolbar>
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12>
+            <v-flex sm12>
                 <v-card class="mb-3 elevation-1">
-                    {{-- Search --}}
-                    <v-toolbar
-                        color="indigo lighten-1"
-                        flat
-                        dark
-                        tabs
-                        >
-                        {{-- search --}}
-                        <v-text-field
-                            solo
-                            label="Search"
-                            append-icon=""
-                            prepend-icon="search"
-                            solo-inverted
-                            flat
-                            v-model="dataset.searchform.query"
-                            clearable
-                        ></v-text-field>
-                        {{-- /search --}}
 
-                        {{-- <v-text-field
-                            prepend-icon="search"
-                            append-icon="mic"
-                            label="Search"
-                            solo-inverted
-                            class="mx-3"
-                            flat
-                        ></v-text-field> --}}
-                    </v-toolbar>
-                    {{-- /Search --}}
-
-                    <v-toolbar dark class="indigo lighten-1 elevation-0 sticky">
-                        <v-icon left dark>announcement</v-icon>
-                        <v-toolbar-title primary-title>{{ __($application->page->title) }}</v-toolbar-title>
-
-                        <v-spacer></v-spacer>
-
-                        <v-tooltip left>
-                            <v-btn
-                                href="{{ route('announcements.create') }}"
-                                flat
-                                icon
-                                close-delay="500"
-                                open-delay="500"
-                                slot="activator">
-                                <v-icon>add</v-icon>
-                            </v-btn>
-                            <span>{{ __('Create') }}</span>
-                        </v-tooltip>
-
-                        {{-- Batch Commands --}}
-
-                        <v-tooltip left>
-                            <v-btn
-                                v-show="dataset.selected.length < 2"
-                                flat
-                                icon
-                                v-model="bulk.destroy.model"
-                                :class="bulk.destroy.model ? 'btn--active primary primary--text' : ''"
-                                slot="activator"
-                                @click.native="bulk.destroy.model = !bulk.destroy.model"
-                            ><v-icon>@{{ bulk.destroy.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
-                            <span>{{ __('Toggle the bulk command checkboxes') }}</span>
-                        </v-tooltip>
-
-                        {{-- Bulk Delete --}}
-                        <v-slide-y-transition>
-                            <template v-if="dataset.selected.length > 1">
-                                <form action="{{ route('announcements.destroy', 'false') }}" method="POST" class="inline">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <template v-for="item in dataset.selected">
-                                        <input type="hidden" name="id[]" :value="item.id">
-                                    </template>
-                                    <v-tooltip left>
-                                        <v-btn
-                                            flat
-                                            icon
-                                            slot="activator"
-                                            type="submit"
-                                        ><v-icon warning>delete_sweep</v-icon></v-btn>
-                                        <span>{{ __('Move ${dataset.selected.length} selected items to Trash') }}</span>
-                                    </v-tooltip>
-                                </form>
-                            </template>
-                        </v-slide-y-transition>
-                        {{-- /Bulk Delete --}}
-                        {{-- /Batch Commands --}}
-
-                        {{-- Trashed --}}
-                        <v-tooltip left>
-                            <v-btn
-                                icon
-                                flat
-                                href="{{ route('announcements.trashed') }}"
-                                dark
-                                slot="activator"
-                            ><v-icon class="warning--after">archive</v-icon></v-btn>
-                            <span>{{ __('View trashed items') }}</span>
-                        </v-tooltip>
-                        {{-- /Trashed --}}
-                    </v-toolbar>
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
 
                     <v-data-table
                         :loading="dataset.loading"
@@ -124,10 +91,9 @@
                         v-bind:pagination.sync="dataset.pagination"
                         v-model="dataset.selected">
                         <template slot="headerCell" scope="props">
-                            <v-tooltip bottom>
-                                <span slot="activator">@{{ props.header.text }}</span>
-                                <span>@{{ props.header.text }}</span>
-                            </v-tooltip>
+                            <span v-tooltip:bottom="{'html': props.header.text}">
+                                @{{ props.header.text }}
+                            </span>
                         </template>
                         <template slot="items" scope="prop">
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
@@ -145,9 +111,7 @@
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}">
-                                        <v-icon light>more_vert</v-icon>
-                                    </v-btn>
+                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile :href="route(urls.show, (prop.item.id))">
                                             <v-list-tile-action>
@@ -190,6 +154,7 @@
                         </template>
                     </v-data-table>
                 </v-card>
+
                 @if (request()->all())
                     <v-btn error flat href="{{ route('announcements.index') }}">
                         <v-icon left>remove_circle_outline</v-icon>
@@ -199,13 +164,9 @@
             </v-flex>
         </v-layout>
     </v-container>
-</v-app>
 @endsection
 
 @push('css')
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <style>
         .search-bar label{
             padding-top: 8px;
@@ -217,8 +178,6 @@
 
 @push('pre-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
     <script>
         Vue.use(VueResource);
 

@@ -13,7 +13,7 @@ return [
         'order' => 51,
         'slug' => route('octocats.index'),
         'always_viewable' => false,
-        'icon' => '',
+        'icon' => 'pets',
         'labels' => [
             'title' => __('Octocats'),
             'description' => __('Manage octocats'),
