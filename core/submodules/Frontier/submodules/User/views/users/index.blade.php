@@ -3,25 +3,10 @@
 @section("content")
     @include("Theme::partials.banner")
 
-    <v-toolbar card dark class="secondary elevation-1 sticky">
-        <v-toolbar-title>{{ __($application->page->title) }}</v-toolbar-title>
+    <v-toolbar dark class="secondary elevation-1 sticky">
+        <v-icon dark left>account_box</v-icon>
+        <v-toolbar-title dark>{{ __($application->page->title) }}</v-toolbar-title>
         <v-spacer></v-spacer>
-
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                label="Search"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
 
         <v-btn icon v-tooltip:left="{ html: 'Filter' }">
             <v-icon class="subheading">fa fa-filter</v-icon>
@@ -77,7 +62,15 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <v-card class="mb-3 elevation-1">
-
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
 
                     <v-data-table
                         :loading="dataset.loading"
@@ -175,6 +168,11 @@
     <style>
         .no-decoration {
             text-decoration: none;
+        }
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
         }
     </style>
 @endpush
