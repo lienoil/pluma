@@ -66,17 +66,8 @@
         </v-slide-y-transition>
         {{-- /Bulk Delete --}}
         {{-- /Batch Commands --}}
-
-        {{-- Trashed --}}
-        <v-btn
-            icon
-            flat
-            href="{{ route('grants.trashed') }}"
-            dark
-            v-tooltip:left="{'html': `View trashed items`}"
-        ><v-icon class="warning--after">archive</v-icon></v-btn>
-        {{-- /Trashed --}}
     </v-toolbar>
+
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>

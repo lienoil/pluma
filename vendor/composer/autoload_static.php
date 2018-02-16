@@ -544,6 +544,7 @@ class ComposerStaticInit01e23fbcd000b1e38132d3a78429cedf
         'Course\\Support\\Scopes\\EnrolledToACourse' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Scopes/EnrolledToACourse.php',
         'Course\\Support\\Traits\\CourseResourceApiTrait' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/CourseResourceApiTrait.php',
         'Course\\Support\\Traits\\CourseResourcePublicTrait' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/CourseResourcePublicTrait.php',
+        'Course\\Support\\Traits\\CourseResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/CourseResourceSoftDeleteTrait.php',
         'Course\\Support\\Traits\\CourseUserMutator' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/CourseUserMutator.php',
         'Course\\Support\\Traits\\EnrolledUserMutator' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/EnrolledUserMutator.php',
         'Course\\Support\\Traits\\Status' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/Support/Traits/Status.php',

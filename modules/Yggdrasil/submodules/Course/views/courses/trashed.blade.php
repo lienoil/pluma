@@ -75,21 +75,6 @@
                         {{-- Bulk Delete --}}
 
                         {{-- Batch Commands --}}
-
-                        {{-- Search --}}
-                        <v-text-field
-                            append-icon="search"
-                            label="{{ _('Search') }}"
-                            single-line
-                            hide-details
-                            v-if="dataset.searchform.model"
-                            v-model="dataset.searchform.query"
-                            light
-                        ></v-text-field>
-                        <v-btn v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" icon flat light @click.native="dataset.searchform.model = !dataset.searchform.model; dataset.searchform.query = '';">
-                            <v-icon>@{{ !dataset.searchform.model ? 'search' : 'clear' }}</v-icon>
-                        </v-btn>
-                        {{-- Search --}}
                     </v-toolbar>
 
                     {{-- search --}}
@@ -105,8 +90,6 @@
                     {{-- /search --}}
 
                     <v-divider></v-divider>
-
-                    </v-text-field>
 
                     <v-data-table
                         :loading="dataset.loading"
@@ -124,12 +107,10 @@
                             <td class="grey--text text--darken-1"><strong v-html="prop.item.title"></strong></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.code"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.author"></td>
-                            <td class="grey--text text--darken-1" v-html="prop.item.template"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.created"></td>
-                            <td class="grey--text text--darken-1" v-html="prop.item.removed"></td>
                             <td class="grey--text text--darken-1 text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile ripple @click="$refs[`restore_${prop.item.id}`].submit()">
                                             <v-list-tile-action>
@@ -237,9 +218,7 @@
                             { text: '{{ __("Title") }}', align: 'left', value: 'title' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
-                            { text: '{{ __("Template") }}', align: 'left', value: 'template' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
-                            { text: '{{ __("Removed") }}', align: 'left', value: 'deleted_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],

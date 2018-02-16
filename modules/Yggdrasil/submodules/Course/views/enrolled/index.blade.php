@@ -1,15 +1,8 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="elevation-1 info sticky">
-        <v-menu transition="slide-y-transition">
-            <v-btn flat slot="activator" class="white--text">
-                <v-icon left>perm_media</v-icon>
-                <span>All</span>
-                <v-icon right>arrow_drop_down</v-icon>
-            </v-btn>
-        </v-menu>
-
+    <v-toolbar dark class="elevation-1 secondary sticky">
+        <v-toolbar-title>{{ __('My Courses') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <template>
             <v-text-field

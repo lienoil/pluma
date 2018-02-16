@@ -5,7 +5,7 @@
     <v-container grid-list-lg>
         <v-layout row wrap>
             <v-flex sm12>
-                <v-toolbar dark class="mb-2 info elevation-1 sticky">
+                <v-toolbar dark class="mb-2 secondary elevation-1 sticky">
                     <v-icon dark>fa-book</v-icon>
 
                     <v-toolbar-title primary-title class="page-title">

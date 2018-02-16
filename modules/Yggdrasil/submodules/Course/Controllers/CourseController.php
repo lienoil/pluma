@@ -12,6 +12,7 @@ use Course\Models\User;
 use Course\Requests\CourseRequest;
 use Course\Support\Traits\CourseResourceApiTrait;
 use Course\Support\Traits\CourseResourcePublicTrait;
+use Course\Support\Traits\CourseResourceSoftDeleteTrait;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
@@ -20,8 +21,8 @@ use Library\Models\Library;
 class CourseController extends GeneralController
 {
     use CourseResourceApiTrait,
-        CourseResourcePublicTrait;
-    //     CourseResourceSoftDeleteTrait;
+        CourseResourcePublicTrait,
+        CourseResourceSoftDeleteTrait;
 
     /**
      * Display a listing of the resource.
