@@ -36,13 +36,13 @@
         {{-- /Batch Commands --}}
 
         {{-- Trashed --}}
-       {{--  <v-btn
+        <v-btn
             icon
             flat
             href="{{ route('submissions.trashed') }}"
             dark
             v-tooltip:left="{'html': `View trashed items`}"
-        ><v-icon class="warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
+        ><v-icon class="warning--after">archive</v-icon></v-btn>
         {{-- /Trashed --}}
 
     </v-toolbar>
@@ -81,7 +81,7 @@
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td>
-                                <a class="td-n secondary--text" :href="route(urls.submissions.show, (prop.item.id))">
+                                <a class="td-n secondary--text" :href="route(urls.show, (prop.item.id))">
                                     <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
                                 </a>
                             </td>
@@ -91,7 +91,7 @@
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
-                                        <v-list-tile :href="route(urls.submissions.show, (prop.item.id))">
+                                        <v-list-tile :href="route(urls.show, (prop.item.id))">
                                             <v-list-tile-action>
                                                 <v-icon info>search</v-icon>
                                             </v-list-tile-action>
@@ -101,13 +101,13 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile ripple @click="$refs.destroy.submit()">
+                                        <v-list-tile ripple @click="$refs[`destroy_${prop.item.id}`].submit()">
                                             <v-list-tile-action>
                                                 <v-icon warning>delete</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form ref="destroy" :action="route(urls.submissions.destroy, prop.item.id)" method="POST">
+                                                    <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.destroy, prop.item.id)" method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Move to Trash') }}
@@ -154,11 +154,8 @@
                         },
                     },
                     urls: {
-                        submissions: {
-                            edit: '{{ route('submissions.edit', 'null') }}',
-                            show: '{{ route('submissions.show', 'null') }}',
-                            destroy: '{{ route('submissions.destroy', 'null') }}',
-                        }
+                        show: '{{ route('submissions.show', 'null') }}',
+                        destroy: '{{ route('submissions.destroy', 'null') }}',
                     },
                     dataset: {
                         headers: [

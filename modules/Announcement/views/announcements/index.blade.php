@@ -15,9 +15,6 @@
             v-tooltip:left="{'html': '{{ __('Create') }}'}"
         ><v-icon>add</v-icon></v-btn>
 
-        {{-- <v-btn icon v-tooltip:left="{ html: 'Filter' }">
-            <v-icon class="subheading">fa fa-filter</v-icon>
-        </v-btn> --}}
 
         {{-- Batch Commands --}}
         <v-btn
@@ -143,7 +140,6 @@
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Move to Trash') }}
-                                                        {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
                                                     </form>
                                                 </v-list-tile-title>
                                             </v-list-tile-content>

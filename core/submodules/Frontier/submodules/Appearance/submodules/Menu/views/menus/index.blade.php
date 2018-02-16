@@ -13,7 +13,7 @@
                 <v-card class="elevation-1">
                     <v-list three-line>
                         @foreach ($locations as $location)
-                        <v-list-tile href="{{ route('menus.edit', $location->code) }}">
+                        <v-list-tile ripple target="_blank" href="{{ route('menus.edit', $location->code) }}">
                             @if ($location->icon)
                                 <v-list-tile-avatar>
                                     <v-icon>{{ $location->icon }}</v-icon>

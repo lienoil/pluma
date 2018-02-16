@@ -14,18 +14,20 @@
 @endpush
 
 @section("content")
+
+    <v-toolbar class="elevation-1 white sticky">
+        <v-toolbar-title class="accent--text">{{ __('Edit Grant') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
+
+    @include("Theme::partials.banner")
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex sm8 offset-sm2>
-
-                @include("Theme::partials.banner")
-
+            <v-flex xs12>
                 <v-card class="grey--text elevation-1 mb-2">
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Edit Grant') }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                    </v-toolbar>
-                    <form action="{{ route('grants.update', $resource->id) }}" method="POST">
+                    
+                    <form ref="form" action="{{ route('grants.update', $resource->id) }}" method="POST">
                         <v-card-text>
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}
@@ -123,12 +125,6 @@
                                 </v-data-table>
                             </v-flex>
                         </v-layout>
-
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn type="submit" primary>{{ __('Update') }}</v-btn>
-                        </v-card-actions>
                     </form>
                 </v-card>
             </v-flex>

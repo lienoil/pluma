@@ -11,13 +11,14 @@
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
-            <v-flex sm3 md2>
+            <v-flex md4 sm6>
 
                 @include("Setting::partials.settingsbar")
 
             </v-flex>
 
-            <v-flex sm9 md4>
+            <v-flex sm6 md4>
+
 
                 <v-card flat class="mb-3">
                     <form action="{{ route('settings.branding.store') }}" method="POST" enctype="multipart/form-data">

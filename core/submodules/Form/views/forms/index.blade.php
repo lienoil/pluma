@@ -87,7 +87,7 @@
                             <td v-html="prop.item.id"></td>
                             <td>
                                 <a class="td-n secondary--text" :href="route(urls.forms.edit, (prop.item.id))">
-                                    <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
+                                    <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Edit details' }"></strong>
                                 </a>
                             </td>
                             <td v-html="prop.item.code"></td>

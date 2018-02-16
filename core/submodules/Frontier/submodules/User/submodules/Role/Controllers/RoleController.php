@@ -116,11 +116,11 @@ class RoleController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function trash()
+    public function trashed()
     {
         $resources = Role::onlyTrashed()->paginate();
 
-        return view("Theme::roles.trash")->with(compact('resources'));
+        return view("Theme::roles.trashed")->with(compact('resources'));
     }
 
     /**
@@ -149,6 +149,6 @@ class RoleController extends AdminController
         $role = Role::withTrashed()->findOrFail($id);
         $role->forceDelete();
 
-        return redirect()->route('roles.trash');
+        return redirect()->route('roles.trashed');
     }
 }

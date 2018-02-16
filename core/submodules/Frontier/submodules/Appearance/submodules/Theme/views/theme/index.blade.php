@@ -2,7 +2,7 @@
 
 @section("content")
 
-    <v-toolbar dark class="primary elevation-1 sticky">
+    <v-toolbar dark class="secondary elevation-1 sticky">
         <v-icon dark left>format_paint</v-icon>
         <v-toolbar-title>{{ __('Themes Settings') }}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -34,13 +34,13 @@
             {!! $active->description !!}
         </v-card-text>
         <v-card-actions>
-            <v-chip label class="primary white--text"><v-icon left>format_paint</v-icon>{{ __('currently applied as the site theme') }}</v-chip>
+            <v-chip label class="secondary white--text"><v-icon left>format_paint</v-icon>{{ __('currently applied as the site theme') }}</v-chip>
             <v-spacer></v-spacer>
             @if (settings('active_theme', 'default') !== settings('default_theme', 'default'))
                 <form action="{{ route('settings.store') }}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="active_theme" value="{{ settings('default_theme', 'default') }}">
-                    <v-btn v-tooltip:left="{html: `{{ __("This will revert the theme back to Pluma's Default theme") }}`}" type="submit" class="pink accent-4 primary elevation-1">{{ __('Restore Default Theme') }}</v-btn>
+                    <v-btn v-tooltip:left="{html: `{{ __("This will revert the theme back to Pluma's Default theme") }}`}" type="submit" flat class="success--text elevation-1">{{ __('Restore Default Theme') }}</v-btn>
                 </form>
             @endif
         </v-card-actions>
@@ -73,7 +73,7 @@
                                                     <h3 class="headline">{{ $resource->name }}</h3>
                                                     <v-spacer></v-spacer>
                                                     @if ($resource->timestamp >= date(strtotime('1 day ago')))
-                                                        <v-chip label class="pink white--text">{{ __('NEW') }}</v-chip>
+                                                        <v-chip label class="blue white--text">{{ __('NEW') }}</v-chip>
                                                     @endif
                                                 </v-card-title>
                                                 <v-card-text class="subheading">
@@ -87,9 +87,9 @@
                                     {{-- @click.native.stop="loadPreview('{{ json_encode($resource) }}')" --}}
                                     {{-- <v-btn ripple href="{{ route('themes.destroy', $resource->code) }}" class="error white--text elevation-1">{{ __('Delete') }}</v-btn> --}}
 
-                                    <v-btn ripple href="{{ route('themes.preview', $resource->code) }}" class="accent white--text elevation-1"><v-icon left>search</v-icon>{{ __('Preview') }}</v-btn>
+                                    <v-btn ripple href="{{ route('themes.preview', $resource->code) }}" flat class="grey elevation-1"><v-icon left>search</v-icon>{{ __('Preview') }}</v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn type="submit" primary class="elevation-1"><v-icon left>format_paint</v-icon>{{ __('Apply') }}</v-btn>
+                                    <v-btn type="submit" flat primary class="elevation-1"><v-icon left>format_paint</v-icon>{{ __('Apply') }}</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </form>

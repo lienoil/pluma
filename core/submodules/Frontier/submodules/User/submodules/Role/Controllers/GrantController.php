@@ -125,11 +125,11 @@ class GrantController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function trash()
+    public function trashed()
     {
         $resources = Grant::onlyTrashed()->paginate();
 
-        return view("Role::grants.trash")->with(compact('resources'));
+        return view("Role::grants.trashed")->with(compact('resources'));
     }
 
     /**
@@ -158,7 +158,7 @@ class GrantController extends AdminController
         $grant = Grant::withTrashed()->findOrFail($id);
         $grant->forceDelete();
 
-        return redirect()->route('grants.trash');
+        return redirect()->route('grants.trashed');
     }
 
     /**

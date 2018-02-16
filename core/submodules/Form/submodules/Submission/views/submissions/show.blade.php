@@ -22,7 +22,7 @@
                     <v-list style="max-height: 70vh; overflow-y: auto;">
                         @foreach ($resources as $resource)
                         <v-list-tile avatar ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }"
-                            href="{{ route('submissions.result', $resource->id) }}">
+                            href="{{ route('submissions.result', $resource->id) }}" target="_blank">
                             <v-list-tile-avatar>
                                 <img src="{{ $resource->user->avatar }}"/>
                             </v-list-tile-avatar>

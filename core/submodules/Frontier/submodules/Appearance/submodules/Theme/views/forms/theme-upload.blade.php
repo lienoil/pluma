@@ -1,5 +1,5 @@
 <v-dialog>
-    <v-btn slot="activator" class="white primary--text elevation-1">{{ __('Upload Theme') }}</v-btn>
+    <v-btn slot="activator" class="success elevation-1">{{ __('Upload Theme') }}</v-btn>
     <form action="{{ route('themes.upload') }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <v-card class="elevation-1">

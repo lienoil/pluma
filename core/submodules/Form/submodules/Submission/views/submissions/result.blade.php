@@ -5,9 +5,10 @@
 
     <v-toolbar dark extended class="indigo elevation-0">
         <v-btn
-            href=""
+            href="{{ route('submissions.index') }}"
             ripple
             flat
+            v-tooltip:right="{html: 'List of Submissions'}"
             >
             <v-icon left dark>arrow_back</v-icon>
             Back
