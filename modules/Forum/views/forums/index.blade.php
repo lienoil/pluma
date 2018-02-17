@@ -24,23 +24,6 @@
                 <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
         </template>
         {{-- /Search --}}
-
-        {{-- <v-btn icon href="{{ route('forums.create') }}" v-tooltip:left="{ 'html': 'Create Forum' }">
-            <v-icon>add</v-icon>
-        </v-btn> --}}
-
-        {{-- Sort --}}
-        {{-- <v-menu transition="slide-y-transition">
-            <v-btn icon v-tooltip:left="{ html: 'Sort' }" slot="activator"><v-icon>sort</v-icon></v-btn>
-            <v-list>
-                <v-list-tile v-for="n in 5" :key="n">
-                    <v-list-tile-title v-text="'Sort ' + n"></v-list-tile-title>
-                </v-list-tile>
-            </v-list>
-        </v-menu> --}}
-        {{-- /Sort --}}
-
-        {{-- <v-btn icon v-tooltip:left="{ html: 'Toggle the bulk command checkboxes' }"><v-icon>check_circle</v-icon></v-btn> --}}
         @can('trashed-forum')
             <v-btn icon v-tooltip:left="{ html: 'View archived threads' }" href="{{ route('forums.trashed') }}"><v-icon>archive</v-icon></v-btn>
         @endcan

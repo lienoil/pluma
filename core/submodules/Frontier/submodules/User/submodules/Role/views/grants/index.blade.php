@@ -5,26 +5,35 @@
 @section("content")
     @include("Theme::partials.banner")
 
-    <v-card class="elevation-0">
-        <form action="{{ route('grants.refresh.refresh') }}" method="POST" style="background: linear-gradient(45deg, #009688 0%, #3657aa 100%);">
-        {{ csrf_field() }}
-            <v-layout column class="media">
-                <v-card-text class="white--text text-xs-center">
-                    <v-flex md8 offset-md2 class="pt-5 pb-5">
-                        <div class="title pb-3"> {{ __('Automatic Grant-Permission Provisioning') }} </div>
-                        <div class="subheading pb-3">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}
-                        </div>
-                        <div class="subheading white--text pb-4">
-                            {{ __("Any edit you've made from existing grants might get overridden.") }}
-                        </div>
-                            <v-btn outline dark type="submit" v-tooltip:left="{'html': 'Doing this action is relatively safe'}">
-                                {{ __('Start') }}
-                            </v-btn>
-                    </v-flex>
-                </v-card-text>
-            </v-layout>
-        </form>
-    </v-card>
+    <v-slide-y-transition>
+        <v-card class="transparent" flat>   
+            <form action="{{ route('grants.refresh.refresh') }}" method="POST" style="background: linear-gradient(45deg, #009688 0%, #3657aa 100%);"  >
+                {{ csrf_field() }}
+
+                <v-toolbar class="transparent" flat>
+                    <v-spacer></v-spacer>
+                    <v-btn dark icon @click.native="grant = !grant" v-tooltip:left="{ 'html':  grant ? 'Show' : 'Hide' }">
+                        <v-icon>@{{ grant ? 'visibility' : 'visibility_off' }}</v-icon>
+                    </v-btn>
+                </v-toolbar> 
+                <v-layout column class="media" v-show="!grant" transition="slide-y-transition">
+                    <v-card-text class="white--text text-xs-center">
+                        <v-flex md8 offset-md2 class="pt-5 pb-5">
+                            <div class="title pb-3"> {{ __('Automatic Grant-Permission Provisioning') }} </div>
+                            <div class="subheading pb-3">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}
+                            </div>
+                            <div class="subheading white--text pb-4">
+                                {{ __("Any edit you've made from existing grants might get overridden.") }}
+                            </div>
+                                <v-btn outline dark type="submit" v-tooltip:left="{'html': 'Doing this action is relatively safe'}">
+                                    {{ __('Start') }}
+                                </v-btn>
+                        </v-flex>
+                    </v-card-text>
+                </v-layout>
+            </form>
+        </v-card>
+    </v-slide-y-transition>
 
     <v-toolbar dark class="secondary elevation-1 sticky">
         <v-icon left dark>lock_open</v-icon>
@@ -359,6 +368,7 @@
                         },
                     },
                     hidden: true,
+                    grant: false,
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
@@ -533,5 +543,10 @@
                 // this.dataset.pagination.rowsPerPage = this.dataset.totalItems <= 15 ? '-1' : this.dataset.totalItems;
             }
         });
+    </script>
+@endpush
+
+@push('js')
+    <script>
     </script>
 @endpush
