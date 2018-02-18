@@ -14,7 +14,7 @@ trait CourseMutator
      */
     public function getAuthorAttribute()
     {
-        return $this->user->displayname;
+        return $this->user;
     }
 
     /**
