@@ -85,7 +85,7 @@ Version: 1.0
                     </v-card>
                 </v-flex>
 
-                <v-flex md4 offset-md1 xs12 order-sm1 order-md2>
+                <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <h2 class="page-title display-1 primary--text"><strong>How it works</strong></h2>
                         <v-card-text>
@@ -171,7 +171,7 @@ Version: 1.0
                     </v-card>
                 </v-flex>
 
-                <v-flex md4 offset-md1 xs12 order-sm1 order-md2>
+                <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <h2 class="page-title display-1 primary--text"><strong>Try Now</strong></h2>
                         <v-card-text>
