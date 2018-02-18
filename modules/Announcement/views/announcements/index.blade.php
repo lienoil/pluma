@@ -1,6 +1,7 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
+    @include("Theme::partials.banner")
 
     <v-toolbar dark class="secondary elevation-1 sticky">
         <v-icon left dark>announcement</v-icon>
@@ -14,9 +15,6 @@
             v-tooltip:left="{'html': '{{ __('Create') }}'}"
         ><v-icon>add</v-icon></v-btn>
 
-        {{-- <v-btn icon v-tooltip:left="{ html: 'Filter' }">
-            <v-icon class="subheading">fa fa-filter</v-icon>
-        </v-btn> --}}
 
         {{-- Batch Commands --}}
         <v-btn
@@ -64,9 +62,6 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex sm12>
-
-                @include("Theme::partials.banner")
-
                 <v-card class="mb-3 elevation-1">
 
                     {{-- search --}}
@@ -113,7 +108,7 @@
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile :href="route(urls.show, (prop.item.id))">
                                             <v-list-tile-action>
@@ -145,7 +140,6 @@
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Move to Trash') }}
-                                                        {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
                                                     </form>
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
@@ -156,10 +150,11 @@
                         </template>
                     </v-data-table>
                 </v-card>
+
                 @if (request()->all())
                     <v-btn error flat href="{{ route('announcements.index') }}">
                         <v-icon left>remove_circle_outline</v-icon>
-                        {{ __('Remove filters') }}
+                        {{ __('Remove filter') }}
                     </v-btn>
                 @endif
             </v-flex>

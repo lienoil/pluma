@@ -11,7 +11,7 @@
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
-            <v-flex sm3 md2>
+            <v-flex md4 sm6>
 
                 @include("Setting::partials.settingsbar")
 

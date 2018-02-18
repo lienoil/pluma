@@ -4,7 +4,8 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    
+    <v-toolbar dark class="secondary elevation-1 sticky">
         <v-toolbar-title dark>{{ __('All Threads') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         {{-- Search --}}
@@ -23,23 +24,6 @@
                 <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
         </template>
         {{-- /Search --}}
-
-        {{-- <v-btn icon href="{{ route('forums.create') }}" v-tooltip:left="{ 'html': 'Create Forum' }">
-            <v-icon>add</v-icon>
-        </v-btn> --}}
-
-        {{-- Sort --}}
-        {{-- <v-menu transition="slide-y-transition">
-            <v-btn icon v-tooltip:left="{ html: 'Sort' }" slot="activator"><v-icon>sort</v-icon></v-btn>
-            <v-list>
-                <v-list-tile v-for="n in 5" :key="n">
-                    <v-list-tile-title v-text="'Sort ' + n"></v-list-tile-title>
-                </v-list-tile>
-            </v-list>
-        </v-menu> --}}
-        {{-- /Sort --}}
-
-        {{-- <v-btn icon v-tooltip:left="{ html: 'Toggle the bulk command checkboxes' }"><v-icon>check_circle</v-icon></v-btn> --}}
         @can('trashed-forum')
             <v-btn icon v-tooltip:left="{ html: 'View archived threads' }" href="{{ route('forums.trashed') }}"><v-icon>archive</v-icon></v-btn>
         @endcan
@@ -57,48 +41,42 @@
                         </a>
                         <v-spacer></v-spacer>
                         <v-menu bottom left>
-                            <v-btn icon flat slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
+                            <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                             <v-list>
-                                @can('view-forum')
-                                    <v-list-tile ripple :href="route(urls.show, (item.code))">
-                                        <v-list-tile-action>
-                                            <v-icon info>search</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ __('View details') }}
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                @endcan
-                                @can('edit-forum')
-                                    <v-list-tile ripple :href="route(urls.edit, (item.id))">
-                                        <v-list-tile-action>
-                                            <v-icon accent>edit</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ __('Edit') }}
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                @endcan
-                                @can('destroy-forum')
-                                    <v-list-tile ripple @click="$refs[`destroy_${item.id}`].submit()">
-                                        <v-list-tile-action>
-                                            <v-icon warning>delete</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                <form :id="`destroy_${item.id}`" :ref="`destroy_${item.id}`" :action="route(urls.destroy, item.id)" method="POST">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                    {{ __('Move to Trash') }}
-                                                </form>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                @endcan
+                                <v-list-tile :href="route(urls.show, (item.id))">
+                                    <v-list-tile-action>
+                                        <v-icon info>search</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>
+                                            {{ __('View details') }}
+                                        </v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile :href="route(urls.edit, (item.id))">
+                                    <v-list-tile-action>
+                                        <v-icon accent>edit</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>
+                                            {{ __('Edit') }}
+                                        </v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile ripple @click="$refs[`destroy_${item.id}`].submit()">
+                                    <v-list-tile-action>
+                                        <v-icon warning>delete</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>
+                                            <form :id="`destroy_${item.id}`" :ref="`destroy_${item.id}`" :action="route(urls.destroy, item.id)" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                {{ __('Move to Trash') }}
+                                            </form>
+                                        </v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
                             </v-list>
                         </v-menu>
                     </v-card-actions>
@@ -133,7 +111,10 @@
                 </v-card>
 
                 @if (request()->all())
-                    <p class="mt-2 caption grey--text"><a href="{{ route('forums.index') }}">{{ __('Remove filters') }}</a></p>
+                <v-btn error flat href="{{ route('forums.index') }}">
+                    <v-icon left>remove_circle_outline</v-icon>
+                    {{ __('Remove filter') }}
+                </v-btn>
                 @endif
             </v-flex>
 

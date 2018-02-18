@@ -8,7 +8,7 @@
             <p class="body-1">{{ __("Widgets are dynamic cards conveying easy to digest data.") }}</p>
             <p class="body-1">{{ __("Refreshing will install widgets specified by the modules installed.") }}</p>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="pa-3">
             <v-spacer></v-spacer>
             <v-btn type="submit" primary class="elevation-1">{{ __('Refresh') }}</v-btn>
         </v-card-actions>

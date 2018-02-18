@@ -121,7 +121,6 @@
                 v-model="menu.active"
                 no-action
                 ripple
-                {{-- :class="{'active--primary': menu.active}" --}}
             >
                 {{-- headmenu --}}
                 <v-list-tile
@@ -130,11 +129,12 @@
                     :title="menu.labels.description"
                     :class="{'active--primary': menu.active}"
                     v-model="menu.active"
-                >
+                    >
                     <v-list-tile-action v-if="menu.icon">
                         <v-icon
                             :dark.sync="dark"
                             :light.sync="light"
+                            class="white--text"
                         >@{{ menu.icon }}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
@@ -152,7 +152,7 @@
                 {{-- childmenu --}}
                 <template
                     v-for="(child, i) in menu.children"
-                >
+                    >
                     <v-divider v-if="child.is_divider"></v-divider>
                     <v-list-tile
                         ripple
@@ -191,6 +191,7 @@
                     <v-icon
                         :dark.sync="dark"
                         :light.sync="light"
+                        class="white--text"
                     >@{{ menu.icon }}</v-icon>
                 </v-list-tile-action>
 
@@ -200,9 +201,7 @@
                     </v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-
         </template>
-
     </v-list>
 
 </v-navigation-drawer>

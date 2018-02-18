@@ -13,17 +13,20 @@
 @endpush
 
 @section("content")
+    @include("Theme::partials.banner")
+
+    <v-toolbar class="white elevation-1 sticky">
+        <v-toolbar-title class="accent--text">{{ __('Edit Role') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
+                    
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex sm8 offset-sm2>
-                @include("Theme::partials.banner")
+            <v-flex xs12>
                 <v-card class="grey--text elevation-1 mb-2">
-                    <v-toolbar class="transparent elevation-0">
-                        <v-toolbar-title class="accent--text">{{ __('Edit Role') }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-btn flat href="{{ route('roles.index') }}"><v-icon>keyboard_backspace</v-icon>{{ _('Back') }}</v-btn>
-                    </v-toolbar>
-                    <form action="{{ route('roles.update', $resource->id) }}" method="POST">
+                    
+                    <form ref="form" action="{{ route('roles.update', $resource->id) }}" method="POST">
                         <v-card-text>
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}
@@ -124,10 +127,6 @@
                                 </v-data-table>
                             </v-flex>
                         </v-layout>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn primary type="submit" class="elevation-1">{{ _('Update') }}</v-btn>
-                        </v-card-actions>
                     </form>
                 </v-card>
             </v-flex>

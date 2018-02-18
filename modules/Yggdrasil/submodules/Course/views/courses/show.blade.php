@@ -103,7 +103,7 @@
         </v-layout>
     </v-parallax>
 
-    <v-container grid-list-lg>
+    <v-container fluid grid-list-lg>
 
         {{-- @include("Course::cards.evaluation") --}}
 
@@ -118,20 +118,21 @@
                 </v-card>
 
                 @includeIf("Badge::widgets.badge")
+
             </v-flex>
 
             <v-flex flex md6 xs12 order-lg2>
 
                 <v-card class="elevation-1 mb-3">
-                    <v-toolbar class="course-grad white--text transparent elevation-1">
+                    <v-toolbar class="secondary white--text elevation-1">
                         <v-toolbar-title class="page-title white--text">{{ __('Course Content') }}</v-toolbar-title>
                     </v-toolbar>
 
                     {{-- Empty Lessons --}}
                     @if ($resource->lessons->isEmpty())
                         <v-card-text class="text-xs-center pa-5">
-                            <div><v-icon class="display-4 cyan--text">fa-leaf</v-icon></div>
-                            <div class="cyan--text text--lighten-2">{{ __('No lessons available yet.') }}</div>
+                            <div><v-icon class="display-4 success--text">fa-leaf</v-icon></div>
+                            <div class="success--text text--lighten-2">{{ __('No lessons available yet.') }}</div>
                         </v-card-text>
                     @endif
                     {{-- Empty Lessons --}}
@@ -144,7 +145,7 @@
                                     @if ($lesson->locked)
                                         <v-icon left>lock</v-icon>
                                     @else
-                                        <v-chip class="cyan white--text">{{ $lesson->order }}</v-chip>
+                                        <v-chip class="success white--text">{{ $lesson->order }}</v-chip>
                                     @endif
 
                                     <v-toolbar-title class="accent--text body-2 page-title" :class="{'grey--text': '{{ $lesson->locked }}'}">
@@ -154,7 +155,7 @@
                                     <v-spacer></v-spacer>
 
                                     @if ($lesson->icon)
-                                        <v-chip label class="cyan white--text"><v-icon class="white--text">{{ $lesson->icon }}</v-icon></v-chip>
+                                        <v-chip label class="success white--text"><v-icon class="white--text">{{ $lesson->icon }}</v-icon></v-chip>
                                     @endif
 
                                     {{-- <v-chip label class="success white--text">{{ "{$lesson->completed}/{$lesson->contents->count()}" }}</v-chip> --}}
@@ -169,9 +170,9 @@
                                         <v-spacer></v-spacer>
                                         <v-dialog lazy fullscreen transition="dialog-bottom-transition" :overlay=false>
                                             @if ($resource->enrolled)
-                                                <v-btn ref="dialog-{{ $lesson->id }}" slot="activator" outline class="cyan cyan--text">{{ __('Start') }}</v-btn>
+                                                <v-btn ref="dialog-{{ $lesson->id }}" slot="activator" outline class="success success--text">{{ __('Start') }}</v-btn>
                                             @else
-                                                <v-btn ref="dialog-{{ $lesson->id }}" slot="activator" outline class="course-grad cyan--text">{{ __('View') }}</v-btn>
+                                                <v-btn ref="dialog-{{ $lesson->id }}" slot="activator" outline class="course-grad success--text">{{ __('View') }}</v-btn>
                                             @endif
                                             <v-card flat tile class="bg--light">
                                                 <v-parallax class="elevation-0 course-grad" src="{{ $lesson->feature }}" height="400">
@@ -240,25 +241,26 @@
                                                         </v-flex>
                                                         {{-- Assignment --}}
 
+
                                                         {{-- Content --}}
                                                         <v-flex order-lg2 order-md2 order-sm1 order-xs1 md6 xs12>
                                                             <v-card class="elevation-1 card--filed-on-top">
-                                                                <v-toolbar card class="course-grad lighten-1">
+                                                                <v-toolbar card class="secondary lighten-1">
                                                                     <v-toolbar-title class="page-title white--text">{{ __('Lesson Contents') }}</v-toolbar-title>
                                                                 </v-toolbar>
+
                                                                 <v-divider></v-divider>
 
                                                                 <v-list three-line subheader class="pb-0">
                                                                     @foreach ($lesson->contents()->orderBy('sort')->get() as $content)
-                                                                        {{-- Open Only But don't play --}}
                                                                         <v-list-tile avatar ripple target="_blank" href="{{ route('contents.single', [$content->course->slug, $lesson->id, $content->id]) }}">
                                                                             <v-list-tile-avatar>
                                                                                 @if ($content->locked)
                                                                                     <v-icon class="grey--text">lock</v-icon>
                                                                                 @elseif ($content->completed)
-                                                                                    <v-icon class="course-grad lighten-3 white--text">check</v-icon>
+                                                                                    <v-icon class="secondary lighten-3 white--text">check</v-icon>
                                                                                 @else
-                                                                                    <v-chip class="course-grad lighten-3 white--text">{{ $content->order }}</v-chip>
+                                                                                    <v-chip class="lighten-3 white--text">{{ $content->order }}</v-chip>
                                                                                 @endif
                                                                             </v-list-tile-avatar>
                                                                             <v-list-tile-content>
@@ -311,7 +313,7 @@
                 {{-- Get Course --}}
 
                 {{-- Course Progress --}}
-                @include("Course::widgets.course-progress")
+                {{-- @include("Course::widgets.course-progress") --}}
                 {{-- Course Progress --}}
 
                 {{-- Enrolled Students --}}

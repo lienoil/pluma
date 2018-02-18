@@ -8,17 +8,18 @@ Frontier Frontend Components:
   ☐ mediabox to dialog modal
   ☐ partials/pagination, limit pagination numbers
   ☐ support for default pluma icon set
-  ☐ toolbar layout (index)
+  ✔ toolbar layout (index) @done (18-02-16 23:51)
       - use color secondary
-  ☐ layout for all create.blade
+  ✔ layout for all create.blade @done (18-02-16 23:51)
       - add white/accent sticky toolbar with save (add, edit)
-  ☐ trashed.blade as is
+  ✔ trashed.blade as is @done (18-02-16 23:51)
       - delete permanently - add dialog prompt when perma deleting resources
-  ☐ Dialog (error, success) on trashed pages
+  ✔ Dialog (error, success) on trashed pages @done (18-02-16 23:51)
   ☐ theme generator
+  ✔ change breadcrumbs NEW to CREATE @done (18-02-16 23:51)
 FE:
   ☐ table sorting
-  ☐ sidebar icon, maintain white icon status when active
+  ✔ sidebar icon, maintain white icon status when active @done (18-02-17 00:16)
 
 Search Module:
   ☐ global search UI.
@@ -52,7 +53,7 @@ Page:
 
 Forum:
   ☐ @low solved / unsolved
-  ☐ replace comment layout
+  ✔ replace comment layout @done (18-02-17 00:18)
 
 Package:
   ☐ sorting (index.blade)
@@ -69,15 +70,16 @@ Dashboard:
             ☐ # of users (per role) - chartjs
 
           dashboard 1.xx
-            ☐ profile
+            ✔ profile @done (18-02-17 14:07)
             ☐ disable cpu usage
             ☐ activities/change logs
+            
           except
             ☐ announcement
 
        admin:
          at a glance
-           ☐ same as sa
+           ☐ same as super admin
 
          dashboard
            except
@@ -161,3 +163,82 @@ Server:
  ☐ create save button should be sticky toolbar with save button
  -> List of Submissions
     -> poll per questions (with # of students answered per value)
+
+
+
+--------------
+
+Layout Changes:
+
+index:
+@include("Theme::partials.banner") --> after @section("content")
+
+toolbar
+   sticky
+   secondary background color
+   icon left, before title
+   icon right - with tooltip on left
+       create
+       bulk
+       trashed
+
+data tables
+    search-bar
+    featured image circle
+    title secondary color
+    edit link on title/name
+    more actions tooltip on more_vert v-btn
+
+remove filter button
+
+create & edit:
+@include("Theme::partials.banner") --> after @section("content")
+
+create:
+change title from NEW to CREATE
+
+toolbar
+    make it on the top
+    sticky
+    save button on right
+    hasOne card (rightside)
+
+trashed:
+@include("Theme::partials.banner") --> after @section("content")
+
+just ctrl c + v the pages.trashed
+
+show:
+@include("Theme::partials.banner") --> after @section("content")
+
+toolbar
+    extended
+        secondary color
+
+
+-------------
+Modules to continue:
+  Course
+      trashed
+      show.layouts
+
+  Widgets for dashboard
+
+
+Move to trash button on forums
+Move to trash button on submissions
+Search form user
+
+
+
+
+--
+Monday:
+Grants show layout (lumang pluma)
+Roles show layout (lumang pluma)
+
+Create widget:
+    make awidget folder on views
+    create config (widgets.php)
+
+

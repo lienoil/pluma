@@ -3,12 +3,24 @@
 @section("head-title", __("Edit User"))
 
 @section("content")
+    @include("Theme::partials.banner")
+    
+    <v-toolbar class="elevation-1 white sticky">
+        <v-toolbar-title class="accent--text">{{ __("Edit User") }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-switch
+            label="{{ __('Show required fields only') }}"
+            v-model="suppliments.required_fields.model"
+            value
+            right
+            @click.native="setStorage('settings.show_required_fields_only', (suppliments.required_fields.model))"
+        ></v-switch>
+
+        @include("Theme::cards.save")
+    </v-toolbar>
 
     <v-container grid-list-lg>
-
-        @include("Theme::partials.banner")
-
-        <form action="{{ route('users.update', $resource->id) }}" method="POST">
+        <form ref="form" action="{{ route('users.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
 
@@ -48,18 +60,6 @@
                 <v-flex sm8 md7>
 
                     <v-card class="mb-3 elevation-1">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ __("Edit User") }}</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                            <v-switch
-                                label="{{ __('Show required fields only') }}"
-                                v-model="suppliments.required_fields.model"
-                                value
-                                right
-                                @click.native="setStorage('settings.show_required_fields_only', (suppliments.required_fields.model))"
-                            ></v-switch>
-                        </v-toolbar>
-
                         <v-subheader>{{ __('Basic Information') }}</v-subheader>
                         <v-card-text>
                             <v-layout row wrap>
@@ -218,10 +218,6 @@
                     {{-- Avatar --}}
                     @include("Theme::cards.avatar")
                     {{-- Avatar --}}
-
-                    {{-- Save --}}
-                    @include("Theme::cards.saving")
-                    {{-- /Save --}}
 
                 </v-flex>
             </v-layout>

@@ -1,7 +1,7 @@
-<v-card class="mb-3 elevation-1">
+{{-- <v-card class="mb-3 elevation-1"> --}}
     <v-toolbar card dense class="transparent">
-        <v-icon class="accent--text">landscape</v-icon>
-        <v-toolbar-title class="subheading accent--text">{{ __('Cover Image') }}</v-toolbar-title>
+        <v-icon left>panorama</v-icon>
+        <v-toolbar-title class="subheading body-2 accent--text">{{ __('Cover Image') }}</v-toolbar-title>
     </v-toolbar>
 
     <v-mediabox
@@ -19,7 +19,7 @@
         @selected="value => { resource.item.cover = value[0] }"
         @category-change="val => resource.feature.current = val"
         @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename}"
-    >
+        >
         <template slot="dropzone">
             <span class="caption">{{ __('Uploads will be catalogued as ') }}<em>@{{ resource.feature.current ? resource.feature.current.name : 'Uncategorized' }}</em></span>
             {{-- <v-card-text>
@@ -83,4 +83,4 @@
         <v-spacer></v-spacer>
         <v-btn flat ripple @click.stop="resource.cover.model = !resource.cover.model"><span v-html="resource.item.cover ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
     </v-card-actions>
-</v-card>
+{{-- </v-card> --}}

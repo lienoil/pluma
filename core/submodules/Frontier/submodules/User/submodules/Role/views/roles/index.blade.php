@@ -4,36 +4,15 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    <v-toolbar dark class="secondary elevation-1 sticky">
+        <v-icon left dark>supervisor_account</v-icon>
         <v-toolbar-title>{{ __('Roles') }}</v-toolbar-title>
         <v-spacer></v-spacer>
 
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                label="Search"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
-        <v-btn icon @click.native="hidden = !hidden" v-tooltip:left="{ 'html':  hidden ? 'Add' : 'Close' }">
+        <v-btn icon @click.native="hidden = !hidden" v-tooltip:left="{ 'html':  hidden ? 'Create' : 'Close' }">
             <v-icon>@{{ hidden ? 'add' : 'remove' }}</v-icon>
         </v-btn>
 
-        <v-btn icon v-tooltip:left="{ html: 'Filter' }">
-            <v-icon class="subheading">fa fa-filter</v-icon>
-        </v-btn>
-
-        <v-btn icon v-tooltip:left="{ html: 'Sort' }">
-            <v-icon class="subheading">fa fa-sort-amount-asc</v-icon>
-        </v-btn>
 
         {{-- Batch Commands --}}
         <v-btn
@@ -70,7 +49,7 @@
         <v-btn
             icon
             flat
-            href="{{ route('roles.trash') }}"
+            href="{{ route('roles.trashed') }}"
             light
             v-tooltip:left="{'html': `View trashed items`}"
         ><v-icon class="white--text warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn>
@@ -238,6 +217,18 @@
                 {{-- end create field --}}
 
                 <v-card class="mb-3 elevation-1">
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
+
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.totalItems"
@@ -265,8 +256,8 @@
                             </td>
                             <td>@{{ prop.item.id }}</td>
                             <td>
-                                <a class="black--text ripple no-decoration" :href="route(urls.roles.show, prop.item.id)">
-                                   <strong v-tooltip:bottom="{ html: 'Show Detail' }">@{{ prop.item.name }}</strong>
+                                <a class="secondary--text ripple no-decoration" :href="route(urls.roles.edit, prop.item.id)">
+                                   <strong v-tooltip:bottom="{ html: 'Edit Detail' }">@{{ prop.item.name }}</strong>
                                 </a>
                             </td>
                             <td>@{{ prop.item.alias }}</td>
@@ -277,7 +268,7 @@
                             <td>@{{ prop.item.created }}</td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile :href="route(urls.roles.show, (prop.item.id))">
                                             <v-list-tile-action>
@@ -336,6 +327,11 @@
 
 @push('css')
     <style>
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
         .no-decoration {
             text-decoration: none !important;
         }

@@ -2,33 +2,18 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-toolbar card dark class="light-blue elevation-1 sticky">
-        <v-toolbar-title>{{ __($application->page->title) }}</v-toolbar-title>
+
+    <v-toolbar dark class="secondary elevation-1 sticky">
+        <v-icon dark left>account_box</v-icon>
+        <v-toolbar-title dark>{{ __($application->page->title) }}</v-toolbar-title>
         <v-spacer></v-spacer>
-
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                label="Search"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
-
-        <v-btn icon v-tooltip:left="{ html: 'Filter' }">
-            <v-icon class="subheading">fa fa-filter</v-icon>
-        </v-btn>
-
-        <v-btn icon v-tooltip:left="{ html: 'Sort' }">
-            <v-icon class="subheading">fa fa-sort-amount-asc</v-icon>
-        </v-btn>
+        
+        <v-btn
+            flat
+            icon
+            href="{{ route('users.create') }}"
+            v-tooltip:left="{'html': '{{ __('Create') }}'}"
+        ><v-icon>add</v-icon></v-btn>
 
         {{-- Batch Commands --}}
         <v-btn
@@ -37,17 +22,18 @@
             icon
             v-model="bulk.destroy.model"
             :class="bulk.destroy.model ? 'btn--active primary primary--text' : ''"
-            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checboxes') }}'}"
+            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checkboxes') }}'}"
             @click.native="bulk.destroy.model = !bulk.destroy.model"
         ><v-icon>@{{ bulk.destroy.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
+
         {{-- Bulk Delete --}}
         <v-slide-y-transition>
             <template v-if="dataset.selected.length > 1">
-                <form action="{{ route('users.many.destroy') }}" method="POST" class="inline">
+                <form action="{{ route('users.destroy', 'false') }}" method="POST" class="inline">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <template v-for="item in dataset.selected">
-                        <input type="hidden" name="users[]" :value="item.id">
+                        <input type="hidden" name="id[]" :value="item.id">
                     </template>
                     <v-btn
                         flat
@@ -62,21 +48,30 @@
         {{-- /Batch Commands --}}
 
         {{-- Trashed --}}
-        {{-- <v-btn
+        <v-btn
             icon
             flat
-            href="{{ route('users.trash') }}"
+            href="{{ route('users.trashed') }}"
             dark
             v-tooltip:left="{'html': `View trashed items`}"
-        ><v-icon class="warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
+        ><v-icon class="warning--after">archive</v-icon></v-btn>
         {{-- /Trashed --}}
+
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
                 <v-card class="mb-3 elevation-1">
-
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
 
                     <v-data-table
                         :loading="dataset.loading"
@@ -111,8 +106,8 @@
                                 </v-avatar>
                             </td>
                             <td width="20%">
-                                <a class="black--text ripple no-decoration" :href="route(urls.roles.show, prop.item.id)">
-                                    <strong v-tooltip:bottom="{ html: 'Show Detail' }">@{{ prop.item.propername }}</strong>
+                                <a class="secondary--text ripple no-decoration" :href="route(urls.roles.edit, prop.item.id)">
+                                    <strong v-tooltip:bottom="{ html: 'Edit Detail' }">@{{ prop.item.propername }}</strong>
                                 </a>
                             </td>
                             <td>@{{ prop.item.username }}</td>
@@ -122,7 +117,7 @@
                             <td>@{{ prop.item.modified }}</td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat v-tooltip:left="{html: 'More Actions'}" slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile :href="route(urls.roles.show, (prop.item.id))">
                                             <v-list-tile-action>
@@ -174,6 +169,11 @@
     <style>
         .no-decoration {
             text-decoration: none;
+        }
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
         }
     </style>
 @endpush
@@ -268,11 +268,11 @@
 
                 'dataset.searchform.query': function (filter) {
                     setTimeout(() => {
-                        const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                        const { sortBy, descending, user, rowsPerPage } = this.dataset.pagination;
 
                         let query = {
                             descending: descending,
-                            page: page,
+                            user: user,
                             q: filter,
                             sort: sortBy,
                             take: rowsPerPage,
@@ -290,10 +290,10 @@
 
             methods: {
                 get () {
-                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
+                    const { sortBy, descending, user, rowsPerPage } = this.dataset.pagination;
                     let query = {
                         descending: descending,
-                        page: page,
+                        user: user,
                         sort: sortBy,
                         take: rowsPerPage,
                     };

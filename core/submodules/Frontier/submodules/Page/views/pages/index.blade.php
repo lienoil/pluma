@@ -6,18 +6,6 @@
     <v-icon left dark>find_in_page</v-icon>
     <v-toolbar-title>{{ __('Pages') }}</v-toolbar-title>
 
-    {{-- <div slot="extension" style="width: 100% !important;">
-        <v-text-field
-            solo
-            label="Search"
-            append-icon=""
-            prepend-icon="search"
-            class="elevation-0"
-            v-model="dataset.searchform.query"
-            clearable
-        ></v-text-field>
-    </div> --}}
-
     <v-spacer></v-spacer>
 
     {{-- create --}}
@@ -117,7 +105,12 @@
                         <td v-html="prop.item.modified"></td>
                         <td class="text-xs-center">
                             <v-menu bottom left>
-                                <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                <v-btn
+                                    icon
+                                    flat
+                                    slot="activator"
+                                    v-tooltip:left="{html: 'More Actions'}">
+                                    <v-icon>more_vert</v-icon></v-btn>
                                 <v-list>
                                     <v-list-tile :href="route(urls.pages.show, (prop.item.id))">
                                         <v-list-tile-action>
@@ -162,9 +155,9 @@
             </v-card>
             @if (request()->all())
                 <v-btn error flat href="{{ route('pages.index') }}">
-                        <v-icon left>remove_circle_outline</v-icon>
-                        {{ __('Remove filters') }}
-                    </v-btn>
+                    <v-icon left>remove_circle_outline</v-icon>
+                    {{ __('Remove filter') }}
+                </v-btn>
             @endif
         </v-flex>
     </v-layout>

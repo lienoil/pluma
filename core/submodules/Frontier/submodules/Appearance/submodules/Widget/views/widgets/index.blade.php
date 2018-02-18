@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="primary elevation-1 sticky">
+    <v-toolbar dark class="secondary elevation-1 sticky">
         <v-icon dark left>widgets</v-icon>
         <v-toolbar-title>{{ __('Widgets') }}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -23,7 +23,7 @@
                     </v-toolbar>
                     <v-list>
                         @foreach ($widgets as $widget)
-                            <v-list-tile ripple href="{{ route('widgets.edit', $widget->id) }}">
+                            <v-list-tile ripple target="_blank" href="{{ route('widgets.edit', $widget->id) }}">
                                 <v-list-tile-avatar>
                                     <v-icon>{{ $widget->icon }}</v-icon>
                                 </v-list-tile-avatar>

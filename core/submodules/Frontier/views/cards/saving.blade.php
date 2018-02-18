@@ -11,7 +11,7 @@
 
     </v-toolbar> --}}
 
-    {{-- <v-card-text class="grey--text"> --}}
+    <v-card-text class="grey--text">
         @stack("cards.saving.pre-fields")
 
         @section("cards.saving.fields")
@@ -30,13 +30,13 @@
 
         @stack("cards.saving.post-fields")
 
-    {{-- </v-card-text> --}}
+    </v-card-text>
 
     <v-card-actions>
         @stack("cards.saving.pre-actions")
 
         <v-spacer></v-spacer>
-        <v-btn primary type="submit" class="elevation-1">{{ __('Save') }}</v-btn>
+        {{-- <v-btn primary type="submit" class="elevation-1">{{ __('Save') }}</v-btn> --}}
 
         @stack("cards.saving.post-actions")
 

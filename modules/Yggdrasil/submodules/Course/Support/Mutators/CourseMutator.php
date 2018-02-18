@@ -8,9 +8,9 @@ use Course\Models\User;
 trait CourseMutator
 {
     /**
-     * Alias for BelongsToUser.
+     * Gets the user's display name.
      *
-     * @return \User\Models\User
+     * @return string
      */
     public function getAuthorAttribute()
     {

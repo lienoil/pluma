@@ -53,10 +53,10 @@ return [
             'trash-user' => [
                 'name' => 'trash-user',
                 'order' => 3,
-                'slug' => url(config('path.admin').'/pages/trashed'),
+                'slug' => url(config('path.admin').'/users/trashed'),
                 'always_viewable' => false,
                 'routes' => [
-                    'name' => 'users.trash',
+                    'name' => 'users.trashed',
                 ],
                 'labels' => [
                     'title' => __('Trashed Users'),

@@ -34,6 +34,7 @@ class SubmissionController extends GeneralController
 
         return view("Theme::submissions.index")->with(compact('form'));
     }
+
     /**
      * Display the specified resource.
      *
@@ -47,6 +48,7 @@ class SubmissionController extends GeneralController
 
         return view("Theme::submissions.show")->with(compact('resources', 'id'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,6 +59,7 @@ class SubmissionController extends GeneralController
         //
         return view("Theme::submissions.create");
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -72,6 +75,7 @@ class SubmissionController extends GeneralController
         $submission->save();
         return back();
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,6 +88,7 @@ class SubmissionController extends GeneralController
         //
         return view("Theme::submissions.edit");
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -95,6 +100,7 @@ class SubmissionController extends GeneralController
     {
         return back();
     }
+
     /**
      * Remove the specified resource from storage.
      *

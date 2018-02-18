@@ -1,15 +1,8 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-    <v-toolbar dark class="elevation-1 info sticky">
-        <v-menu transition="slide-y-transition">
-            <v-btn flat slot="activator" class="white--text">
-                <v-icon left>perm_media</v-icon>
-                <span>All</span>
-                <v-icon right>arrow_drop_down</v-icon>
-            </v-btn>
-        </v-menu>
-
+    <v-toolbar dark class="elevation-1 secondary sticky">
+        <v-toolbar-title>{{ __('My Courses') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <template>
             <v-text-field
@@ -41,7 +34,7 @@
                 <v-card ripple class="elevation-1 flex pa-0 c-lift" height="100%">
 
                     <v-layout column wrap fill-height class="ma-0">
-                        <a class="td-n" :href="route(urls.show, card.slug)">
+
                             <v-card-media class="accent lighten-3" :src="card.backdrop" height="250px" style="max-width:100%">
                                 <v-container fill-height fluid class="pa-0 white--text">
                                     <v-layout column>
@@ -109,7 +102,6 @@
                                     </v-layout>
                                 </v-container>
                             </v-card-media>
-                        </a>
 
                         <v-card-title primary-title>
                             <a v-if="!card.enrolled" :href="route(urls.show, card.slug)" class="accent--text td-n"><span class="accent--text" v-html="card.title"></span></a>

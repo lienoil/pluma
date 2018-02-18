@@ -15,26 +15,28 @@
                         <v-icon left dark>playlist_add_check</v-icon>
                         <v-toolbar-title>{{ __('List of Examinees') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-btn icon v-tooltip:left="{ html: 'Search examinees' }">
+                        <v-btn icon v-tooltip:left="{ html: '{{ __('Search examinees') }}' }">
                             <v-icon>search</v-icon>
                         </v-btn>
                     </v-toolbar>
                     <v-list style="max-height: 70vh; overflow-y: auto;">
+
                         @foreach ($resources as $resource)
-                        <v-list-tile avatar ripple
-                            href="{{ route('submissions.result', $resource->id) }}">
-                            <v-list-tile-avatar>
-                                <img src="{{ $resource->user->avatar }}"/>
-                            </v-list-tile-avatar>
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{ $resource->user->fullname }}</v-list-tile-title>
-                            </v-list-tile-content>
-                            <v-list-tile-action class="pt-3">
-                                <v-list-tile-action-text class="body-1">{{ $resource->created }}</v-list-tile-action-text>
-                                <v-icon></v-icon>
-                        </v-list-tile-action>
-                        </v-list-tile>
+                            <v-list-tile avatar ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }"
+                                href="{{ route('submissions.result', $resource->id) }}" target="_blank">
+                                <v-list-tile-avatar>
+                                    <img src="{{ $resource->user->avatar }}"/>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>{{ $resource->user->fullname }}</v-list-tile-title>
+                                </v-list-tile-content>
+                                <v-list-tile-action class="pt-3">
+                                    <v-list-tile-action-text class="body-1">{{ $resource->created }}</v-list-tile-action-text>
+                                    <v-icon></v-icon>
+                                </v-list-tile-action>
+                            </v-list-tile>
                         @endforeach
+
                     </v-list>
                 </v-card>
             </v-flex>

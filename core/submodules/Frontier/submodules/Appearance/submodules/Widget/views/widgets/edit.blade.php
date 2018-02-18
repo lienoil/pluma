@@ -3,11 +3,11 @@
 @section("head-title", __("Edit $resource->name Visibility"))
 
 @section("content")
-    <v-toolbar dark class="primary elevation-1 sticky">
-        <v-icon dark left>widgets</v-icon>
+    <v-toolbar light class="white elevation-1 sticky">
         <v-toolbar-title primary-title>{{ __('Edit Widget Visibility') }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn flat href="{{ route('widgets.index') }}">{{ __('Back') }}</v-btn>
+        <v-btn flat primary href="{{ route('widgets.index') }}">
+            <v-icon left primary>arrow_back</v-icon> {{ __('Back') }}</v-btn>
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
@@ -49,7 +49,7 @@
                             <input type="hidden" name="roles[]" v-for="(role, i) in roles.selected" :value="role.id ? role.id : role">
                         </v-card-text>
 
-                        <v-card-actions>
+                        <v-card-actions class="pa-3">
                             <v-spacer></v-spacer>
                             <v-btn primary class="elevation-1" type="submit">{{ __('Save') }}</v-btn>
                         </v-card-actions>

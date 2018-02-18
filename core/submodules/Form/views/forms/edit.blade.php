@@ -3,19 +3,20 @@
 @section("head-title", __('Edit Form'))
 
 @section("content")
-    <v-container fluid grid-list-lg>
-        @include("Theme::partials.banner")
+    @include("Theme::partials.banner")
+    <v-toolbar card class="white elevation-1 sticky">
+        <v-toolbar-title class="accent--text">{{ __('Edit Form') }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        @include("Theme::cards.save")
+    </v-toolbar>
 
-        <form action="{{ route('forms.update', $resource->id) }}" method="POST">
+    <v-container fluid grid-list-lg>
+        <form ref="form" action="{{ route('forms.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <v-layout row wrap>
                 <v-flex md9>
                     <v-card class="mb-3 elevation-1">
-                        <v-toolbar card class="transparent">
-                            <v-toolbar-title class="accent--text">{{ __('Edit Form') }}</v-toolbar-title>
-                            <v-spacer></v-spacer>
-                        </v-toolbar>
                         <v-card-text>
                             <v-text-field
                                 name="name"

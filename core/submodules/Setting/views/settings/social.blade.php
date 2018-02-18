@@ -11,16 +11,20 @@
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
-            <v-flex sm3 md2>
+            <v-flex md4 sm6>
+
                 @include("Setting::partials.settingsbar")
+
             </v-flex>
-            <v-flex sm9 md5>
+
+            <v-flex sm6 md4>
+
 
                 <form action="{{ route('settings.store') }}" method="POST">
                     {{ csrf_field() }}
 
-                    <v-card flat class="mb-3">
-                        <v-toolbar card class="transparent">
+                    <v-card class="transparent" flat>
+                        <v-toolbar class="transparent elevation-0">
                             <v-toolbar-title class="accent--text">{{ __('Social Media') }}</v-toolbar-title>
                         </v-toolbar>
 
@@ -51,7 +55,7 @@
 
                         </v-card-text>
 
-                        <v-card-actions class="pa-2">
+                        <v-card-actions>
                             <v-btn primary type="submit" class="elevation-1">{{ __('Save') }}</v-btn>
                             <v-spacer></v-spacer>
                         </v-card-actions>

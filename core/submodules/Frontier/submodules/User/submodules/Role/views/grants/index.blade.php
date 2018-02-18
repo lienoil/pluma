@@ -4,60 +4,45 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    <v-card class="elevation-0">
-        <form action="{{ route('grants.refresh.refresh') }}" method="POST" style="background: linear-gradient(141deg, rgb(0, 74, 107) 0%, rgb(25, 160, 255) 51%, rgb(0, 74, 107) 75%);">
-        {{ csrf_field() }}
-            <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.60); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
-            <v-layout column class="media">
-                <v-card-text class="white--text text-xs-center">
-                    <v-flex md8 offset-md2 class="pt-5 pb-5">
-                        <div class="title pb-3"> {{ __('Automatic Grant-Permission Provisioning') }} </div>
-                        <div class="subheading pb-3">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}
-                        </div>
-                        <div class="subheading white--text pb-4">
-                            {{ __("Any edit you've made from existing grants might get overridden.") }}
-                        </div>
-                            <v-btn outline dark type="submit" v-tooltip:left="{'html': 'Doing this action is relatively safe'}">
-                                {{ __('Start') }}
-                            </v-btn>
-                    </v-flex>
-                </v-card-text>
-            </v-layout>
-        </form>
-    </v-card>
 
-    <v-toolbar dark class="light-blue elevation-1 sticky">
+    <v-slide-y-transition>
+        <v-card class="transparent" flat>   
+            <form action="{{ route('grants.refresh.refresh') }}" method="POST" style="background: linear-gradient(45deg, #009688 0%, #3657aa 100%);"  >
+                {{ csrf_field() }}
+
+                <v-toolbar class="transparent" flat>
+                    <v-spacer></v-spacer>
+                    <v-btn dark icon @click.native="grant = !grant" v-tooltip:left="{ 'html':  grant ? 'Show' : 'Hide' }">
+                        <v-icon>@{{ grant ? 'visibility' : 'visibility_off' }}</v-icon>
+                    </v-btn>
+                </v-toolbar> 
+                <v-layout column class="media" v-show="!grant" transition="slide-y-transition">
+                    <v-card-text class="white--text text-xs-center">
+                        <v-flex md8 offset-md2 class="pt-5 pb-5">
+                            <div class="title pb-3"> {{ __('Automatic Grant-Permission Provisioning') }} </div>
+                            <div class="subheading pb-3">{{ __("Performing this action will automate most of the process of creating and grouping a collection of permissions into Grants. It will base its provisioning on the permissions configuration on each Modules installed.") }}
+                            </div>
+                            <div class="subheading white--text pb-4">
+                                {{ __("Any edit you've made from existing grants might get overridden.") }}
+                            </div>
+                                <v-btn outline dark type="submit" v-tooltip:left="{'html': 'Doing this action is relatively safe'}">
+                                    {{ __('Start') }}
+                                </v-btn>
+                        </v-flex>
+                    </v-card-text>
+                </v-layout>
+            </form>
+        </v-card>
+    </v-slide-y-transition>
+
+    <v-toolbar dark class="secondary elevation-1 sticky">
+        <v-icon left dark>lock_open</v-icon>
         <v-toolbar-title>{{ __('Grants') }}</v-toolbar-title>
         <v-spacer></v-spacer>
-
-        {{-- Search --}}
-        <template>
-            <v-text-field
-                :append-icon-cb="() => {dataset.searchform.model = !dataset.searchform.model}"
-                :prefix="dataset.searchform.prefix"
-                :prepend-icon="dataset.searchform.prepend"
-                append-icon="close"
-                light solo hide-details single-line
-                autofocus="autofocus"
-                label="Search"
-                class="grey--text"
-                v-model="dataset.searchform.query"
-                v-show="dataset.searchform.model"
-            ></v-text-field>
-            <v-btn v-show="!dataset.searchform.model" icon v-tooltip:left="{'html': dataset.searchform.model ? 'Clear' : 'Search resources'}" @click.native="dataset.searchform.model = !dataset.searchform.model;dataset,searchform.query = '';"><v-icon>search</v-icon></v-btn>
-        </template>
-        {{-- /Search --}}
         <v-btn icon @click.native="hidden = !hidden" v-tooltip:left="{ 'html':  hidden ? 'Add' : 'Close' }">
             <v-icon>@{{ hidden ? 'add' : 'remove' }}</v-icon>
         </v-btn>
 
-        <v-btn icon v-tooltip:left="{ html: 'Filter' }">
-            <v-icon class="subheading">fa fa-filter</v-icon>
-        </v-btn>
-
-        <v-btn icon v-tooltip:left="{ html: 'Sort' }">
-            <v-icon class="subheading">fa fa-sort-amount-asc</v-icon>
-        </v-btn>
 
         {{-- Batch Commands --}}
         <v-btn
@@ -66,17 +51,18 @@
             icon
             v-model="bulk.destroy.model"
             :class="bulk.destroy.model ? 'btn--active primary primary--text' : ''"
-            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checboxes') }}'}"
+            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checkboxes') }}'}"
             @click.native="bulk.destroy.model = !bulk.destroy.model"
         ><v-icon>@{{ bulk.destroy.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
+
         {{-- Bulk Delete --}}
         <v-slide-y-transition>
             <template v-if="dataset.selected.length > 1">
-                <form action="{{ route('grants.many.destroy') }}" method="POST" class="inline">
+                <form action="{{ route('grants.destroy', 'false') }}" method="POST" class="inline">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <template v-for="item in dataset.selected">
-                        <input type="hidden" name="grants[]" :value="item.id">
+                        <input type="hidden" name="id[]" :value="item.id">
                     </template>
                     <v-btn
                         flat
@@ -89,17 +75,8 @@
         </v-slide-y-transition>
         {{-- /Bulk Delete --}}
         {{-- /Batch Commands --}}
-
-        {{-- Trashed --}}
-        {{-- <v-btn
-            icon
-            flat
-            href="{{ route('grants.trash') }}"
-            light
-            v-tooltip:left="{'html': `View trashed items`}"
-        ><v-icon class="white--text warning--after" v-badge:{{ $trashed }}.overlap>archive</v-icon></v-btn> --}}
-        {{-- /Trashed --}}
     </v-toolbar>
+
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
@@ -238,8 +215,21 @@
                         </v-card-text>
                     </v-card>
                 </v-slide-y-transition>
+                {{-- /create field --}}
 
                 <v-card class="elevation-1">
+                    {{-- search --}}
+                    <v-text-field
+                        solo
+                        label="Search"
+                        append-icon=""
+                        prepend-icon="search"
+                        class="pa-2 elevation-1 search-bar"
+                        v-model="dataset.searchform.query"
+                        clearable
+                    ></v-text-field>
+                    {{-- /search --}}
+
                     <v-data-table
                         :loading="dataset.loading"
                         :total-items="dataset.totalItems"
@@ -268,8 +258,8 @@
                             </td>
                             <td>@{{ prop.item.id }}</td>
                             <td>
-                                <a class="black--text ripple no-decoration" :href="route(urls.grants.show, prop.item.id)">
-                                   <strong v-tooltip:bottom="{ html: 'Show Detail' }">@{{ prop.item.name }}</strong>
+                                <a class="secondary--text ripple no-decoration" :href="route(urls.grants.edit, prop.item.id)">
+                                   <strong v-tooltip:bottom="{ html: 'Edit Detail' }">@{{ prop.item.name }}</strong>
                                 </a>
                             </td>
                             <td>@{{ prop.item.code }}</td>
@@ -280,7 +270,7 @@
                             <td>@{{ prop.item.created }}</td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
-                                    <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
                                         <v-list-tile :href="route(urls.grants.show, (prop.item.id))">
                                             <v-list-tile-action>
@@ -354,6 +344,11 @@
         .weight-600 {
             font-weight: 600 !important;
         }
+        .search-bar label{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px !important;
+        }
     </style>
 @endpush
 @push('pre-scripts')
@@ -373,6 +368,7 @@
                         },
                     },
                     hidden: true,
+                    grant: false,
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
@@ -547,5 +543,10 @@
                 // this.dataset.pagination.rowsPerPage = this.dataset.totalItems <= 15 ? '-1' : this.dataset.totalItems;
             }
         });
+    </script>
+@endpush
+
+@push('js')
+    <script>
     </script>
 @endpush

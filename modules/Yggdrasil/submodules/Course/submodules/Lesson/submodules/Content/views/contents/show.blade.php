@@ -34,7 +34,7 @@
             </v-list-tile>
         </v-list>
     </v-navigation-drawer>
-    <v-toolbar dark extended class="text-xs-center course-content-grad elevation-0">
+    <v-toolbar dark extended class="text-xs-center secondary elevation-0">
         <v-layout wrap justify-space-around align-center hidden-xs-only>
             <template v-if="previous">
                 <v-btn
@@ -144,7 +144,7 @@
                                         <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
                                         <v-card-actions class="pa-0">
                                             <v-spacer></v-spacer>
-                                            <v-btn dark class="course-content-grad" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
+                                            <v-btn dark class="secondary" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
                                             <v-spacer></v-spacer>
                                         </v-card-actions>
                                         <v-spacer></v-spacer>
@@ -163,7 +163,7 @@
                                             <v-spacer></v-spacer>
                                             <v-card-actions class="pa-4">
                                                 <v-spacer></v-spacer>
-                                                <v-btn dark class="course-content-grad" @click="playInteraction()">
+                                                <v-btn dark class="primary" @click="playInteraction()">
                                                     <v-icon left>play_circle_outline</v-icon>
                                                     <template v-if="resource.incomplete">{{ __('Continue') }}</template>
                                                     <template v-else-if="resource.completed">{{ __('Play Again') }}</template>

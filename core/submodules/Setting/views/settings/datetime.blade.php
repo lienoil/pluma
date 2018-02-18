@@ -11,13 +11,14 @@
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
-            <v-flex sm3 md2>
+            <v-flex md4 sm6>
 
                 @include("Setting::partials.settingsbar")
 
             </v-flex>
 
-            <v-flex sm9 md5>
+            <v-flex sm6 md4>
+
 
                 <form action="{{ route('settings.store') }}" method="POST">
                     {{ csrf_field() }}

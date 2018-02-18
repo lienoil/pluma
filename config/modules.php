@@ -29,6 +29,7 @@ return [
         'Test',
         'Calendar',
         'Note',
+        // 'Octocat',
         'Chronos',
         'Announcement',
         'Bookmark',
