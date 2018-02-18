@@ -31,7 +31,7 @@ class CreateCommentsTable extends Migration
             $table->integer('parent_id')->unsigned()->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
-            $table->boolean('approved')->nullable();
+            $table->boolean('approved')->default(true)->nullable();
             $table->integer('upvotes')->default(0)->nullable();
             $table->integer('downvotes')->default(0)->nullable();
 

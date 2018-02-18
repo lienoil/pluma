@@ -2,8 +2,8 @@
 
 namespace Setting\Controllers;
 
+use Blacksmith\Support\Facades\Blacksmith;
 use Illuminate\Http\Request;
-use Pluma\Support\Facades\Console;
 use Setting\Controllers\SettingController;
 use Setting\Models\Setting;
 use Setting\Requests\SettingRequest;
@@ -30,7 +30,7 @@ class SystemConfigurationSettingController extends SettingController
     public function cache(Request $request)
     {
         try {
-            Console::call('config:cache');
+            Blacksmith::call('config:cache');
         } catch (\Exception $e) {
             dd($e->getMessage());
         }

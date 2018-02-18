@@ -1,12 +1,11 @@
 @if (empty($comments))
-    <div class="text-xs-center body-1 grey--text">{{ __('Lay thine eyes upon this field of discourse and thou shalt see that it is barren.') }}</div>
+    <div class="text-xs-center body-1 grey--text">{{ __('No comments yet.') }}</div>
 @endif
 @foreach ($comments as $comment)
     <v-card flat tile class="transparent">
         <v-list>
             <v-list-tile>
                 <v-list-tile-avatar>
-                    {{-- {{ $comment->user->avatar }} --}}
                     <img src="{{ $comment->user->avatar ?? '' }}">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
@@ -42,6 +41,7 @@
                                         {{-- <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
+                                            <v-btn type="submit">{{ __('Move to Trash') }}</v-btn>
                                         </form> --}}
                                     </v-list-tile-title>
                                 </v-list-tile-content>

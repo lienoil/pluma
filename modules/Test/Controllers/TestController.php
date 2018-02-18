@@ -43,9 +43,8 @@ class TestController extends GeneralController
      */
     public function create()
     {
-        $course = \Course\Models\Course::get()->first();
-
-        return view("Test::tests.create")->with(compact('course'));
+        $resource = \Course\Models\Course::get()->first();
+        return view("Test::tests.create")->with(compact('resource'));
     }
 
     /**

@@ -11,11 +11,11 @@
 
         <v-layout row wrap>
 
-            <v-flex sm3 md2>
+            <v-flex sm3 md3>
                 @include("Setting::partials.settingsbar")
             </v-flex>
 
-            <v-flex sm9 md10>
+            <v-flex sm9 md9>
                 <v-layout row wrap>
                     <v-flex sm9 md3>
                         <v-card class="grey body-1 white--text darken-2 elevation-10">

@@ -13,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('post-comment');
     }
 
     /**
@@ -36,7 +36,7 @@ class CommentRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'body.required' => 'The comment field is required.',
         ];
     }
 }

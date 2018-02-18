@@ -15,7 +15,7 @@
         <form ref="form" action="{{ route('courses.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-```
+{{-- ``` --}}
             <v-layout row wrap>
                 <v-flex sm9 xs12>
                     <v-card class="mb-3 elevation-1">

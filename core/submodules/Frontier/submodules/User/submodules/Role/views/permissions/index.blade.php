@@ -83,15 +83,15 @@
                                         <div class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></div>
                                     </v-card-text>
                                     <v-card-text>
-                                        {{ __("Performing this action will completely remove all Permissions data. The Application might not work properly after this action. You might need to setup the Users' Roles, Grants, and Permissions manually again. If you do not know what the message means, then for the love of Talos, DO NOT PROCEED!") }}
+                                        {{ __("Performing this action will completely remove all Permissions data. The Application might not work properly after this action. You might need to setup the Users' Roles, Grants, and Permissions manually again. If you do not want to upset the order of the Cosmos, then for the love of Talos, do not proceed!") }}
                                     </v-card-text>
 
                                     <v-card-text class="text-xs-center"><strong>{{ __("Would you like to proceed?") }}</strong></v-card-text>
 
                                     <v-card-actions class="pa-3">
-                                        <v-btn class="grey--text grey lighten-2 elevation-0" flat @click.native="permissions.dialog.model = false">Cancel</v-btn>
+                                        <v-btn flat @click.native="permissions.dialog.model = false">{{ __('No, Cancel') }}</v-btn>
                                         <v-spacer></v-spacer>
-                                        <v-btn class="elevation-0 ma-0 error--text" flat @click.native="proceed()">Yes, Proceed</v-btn>
+                                        <v-btn class="elevation-0 ma-0 error--text" flat @click.native="proceed()">{{ __('Skyrim belongs to the Nords! (Reset)') }}</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>

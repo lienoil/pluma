@@ -34,7 +34,7 @@ return [
                 'name' => 'commenting-settings',
                 'slug' => route('settings.commenting'),
                 'route' => 'settings.commenting',
-                'icon' => 'comments',
+                'icon' => 'comment',
                 'order' => 2,
                 'labels' => [
                     'title' => __('Commenting'),

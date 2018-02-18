@@ -11,11 +11,13 @@
 
         <v-layout row wrap>
 
-            <v-flex sm3 md2>
+            <v-flex md4 sm6>
+
                 @include("Setting::partials.settingsbar")
+
             </v-flex>
 
-            <v-flex sm7 md5>
+            <v-flex sm8 md6>
                 <form action="{{ route('settings.system.configuration.store') }}" method="POST">
                     {{ csrf_field() }}
                     <v-card flat dark class="transparent">
@@ -30,12 +32,12 @@
                                 value="{{ settings('APP_KEY', config('encryption.key', env('APP_KEY'))) }}"
                             ></v-text-field>
 
-                            <v-switch
+                            {{-- <v-switch
                                 dark
                                 :label="`{{ __('Debug Mode: ' . (v("resource.item.APP_DEBUG ? 'ON' : 'OFF'", true) )) }}`"
                                 v-model="resource.item.APP_DEBUG"
-                            ></v-switch>
-                            <input type="hidden" name="APP_DEBUG" v-model="resource.item.APP_DEBUG">
+                            ></v-switch> --}}
+                            {{-- <input type="hidden" name="APP_DEBUG" v-model="resource.item.APP_DEBUG"> --}}
                         </v-card-text>
                     </v-card>
                 </form>
@@ -50,6 +52,7 @@
                             <p class="body-1">{{ __('For larger applications, it is recommended that you use a more robust driver such as Memcached or Redis.') }}</p>
                             <small>{!! __('Performs the <code>blackmith/blackmith config:cache</code> command') !!}</small>
                         </v-card-text>
+                        <input type="text" name="test">
                         <v-card-actions class="ma-2">
                             <v-btn type="submit" primary>{{ __('Cache') }}</v-btn>
                         </v-card-actions>

@@ -12,34 +12,16 @@
         <v-container fluid>
             <v-flex sm12>
 
-                {{-- {{ dd($course) }} --}}
+                <v-card class="elevation-1 mb-3">
+                    <v-card-text>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea incidunt, veritatis quam inventore tenetur cumque natus iste ut fugiat dolorum aut illum. Pariatur temporibus suscipit eum ipsam veritatis recusandae voluptatum?</p>
+                        <v-btn primary class="elevation-1">{{ __('Submit') }}</v-btn>
+                    </v-card-text>
+                </v-card>
 
-                <div v-for="(c,i) in courses">
-                    {{--  --}}
-                </div>
-
-                <form action="{{ $resource->action ?? route('tests.store') }}" method="{{ $resource->method }}" {!! $resource->attributes !!}>
-                    {{ csrf_field() }}
-                    <input type="hidden" name="form_id" value="{{ $resource->id }}">
-                    <input type="hidden" name="type" value="forms">
-
-                    <v-card class="elevation-1">
-
-                        <v-toolbar class="elevation-0">
-                            <v-toolbar-title>{{ $resource->name }}</v-toolbar-title>
-                        </v-toolbar>
-
-                        @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
-                            <v-card-text>
-                                <div class="mb-2">{!! $field->template()->render() !!}</div>
-                            </v-card-text>
-                        @endforeach
-
-                        <v-card-actions>
-                            <v-btn type="submit">{{ __('Submit') }}</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </form>
+                <v-card class="elevation-1 mb-3">
+                    @include("Comment::comments.comments", [''])
+                </v-card>
 
             </v-flex>
         </v-container>

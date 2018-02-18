@@ -2,9 +2,9 @@
 
 @section("content")
 
-    <v-toolbar dark class="secondary elevation-1">
+    <v-toolbar dark class="sticky secondary elevation-1">
         <v-icon left dark>fa-twitter</v-icon>
-        <v-toolbar-title class="page-title">{{ __('Branding') }}</v-toolbar-title>
+        <v-toolbar-title>{{ __('Social Media') }}</v-toolbar-title>
     </v-toolbar>
 
     <v-container fluid grid-list-lg class="white">

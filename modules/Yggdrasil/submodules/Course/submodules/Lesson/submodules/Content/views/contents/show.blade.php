@@ -1,9 +1,9 @@
 @extends("Theme::layouts.public")
 
-@section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
+@section("head-title", "{$resource->course->title} - {$resource->lesson->title} - {$resource->title}")
 
 @push('post-meta')
-    {{-- <link rel="manifest" href="{{ url('manifest.json') }}"> --}}
+    <link rel="manifest" href="{{ assets('yggdrasil/manifest.json') }}">
 @endpush
 
 @section("content")
@@ -75,7 +75,7 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn>
-                <v-card class="card--flex-toolbar card--filed-on-top">
+                <v-card class="card--flex-toolbar card--filed-on-top" style="overflow: hidden">
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -161,7 +161,7 @@
                                                 {!! $resource->body !!}
                                             </v-card-text>
                                             <v-spacer></v-spacer>
-                                            <v-card-actions class="pa-4">
+                                            <v-card-actions>
                                                 <v-spacer></v-spacer>
                                                 <v-btn dark class="primary" @click="playInteraction()">
                                                     <v-icon left>play_circle_outline</v-icon>
@@ -178,16 +178,8 @@
                         <div id="interactive-container">
                             <v-fade-transition>
                                 <template v-if="course.started">
-                                    <div>
+                                    <div class="course-interactive-container">
                                         {!! $resource->html !!}
-                                        {{-- <object
-                                            class="interactive-content"
-                                            width="100%" height="640px" data="{{ $resource->interactive }}"
-                                            onbeforeunload="unloadSCO()"
-                                            onunload="unloadSCO()"
-                                        >
-                                            <embed src="{{ $resource->interactive }}">
-                                        </object> --}}
 
                                         <v-dialog v-model="messagebox.model" width="60vw" persistent>
                                             <v-card flat tile class="text-xs-center">
@@ -198,7 +190,7 @@
                                                 </v-card-text>
                                                 <v-card-actions>
                                                     <v-spacer></v-spacer>
-                                                    <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
+                                                    <v-btn :disabled="messagebox.btnDisabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
                                                     <v-spacer></v-spacer>
                                                 </v-card-actions>
                                             </v-card>
@@ -219,6 +211,9 @@
 
 @push('css')
     <style>
+        .course-interactive-container {
+            /**/
+        }
         .card::-webkit-full-screen,
         .card::-moz-full-screen
         .card::fullscreen {
@@ -234,7 +229,7 @@
 
         .interactive-content {
             width: 100%;
-            max-height: 100vh;
+            /*max-height: 100vh;*/
             display: block;
             text-align: center;
             margin: 0 auto;
@@ -288,7 +283,7 @@
                         model: false,
                         type: 'success',
                         exit: false,
-                        btnDiabled: false,
+                        btnDisabled: false,
                     },
                     course: {
                         started: false,
@@ -302,7 +297,7 @@
             },
             methods: {
                 playInteraction () {
-                    this.goFullscreen();
+                    // this.goFullscreen();
                     this.course.started = !this.course.started
                 },
                 unloadSCO () {
@@ -311,19 +306,16 @@
                 },
 
                 goFullscreen() {
-                    this.fullscreen.model = !this.fullscreen.model;
-                    // document.querySelector('#interactive-container')
-                    // window.API.stage.fullscreen();
                     window.API.stage.fullscreen(document.querySelector('#interactive-container'));
+                    this.fullscreen.model = !this.fullscreen.model;
                 },
-
 
                 lms () {
                     let self = this;
 
                     return {
                         exit () {
-                            self.messagebox.btnDiabled = !self.messagebox.btnDiabled;
+                            self.messagebox.btnDisabled = !self.messagebox.btnDisabled;
                             window.API.LMSFinish('');
                             // window.close();
                         },

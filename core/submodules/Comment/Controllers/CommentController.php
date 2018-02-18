@@ -6,6 +6,7 @@ use Comment\Models\Comment;
 use Comment\Requests\CommentRequest;
 use Comment\Support\Traits\CommentResourceApiTrait;
 use Comment\Support\Traits\CommentResourcePublicTrait;
+use Comment\Support\Traits\CommentResourceSoftDeleteTrait;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 
@@ -77,7 +78,15 @@ class CommentController extends GeneralController
      */
     public function store(CommentRequest $request)
     {
-        //
+        $comment = new Comment();
+        $comment->body = $request->input('body');
+        $comment->delta = $request->input('delta');
+        $comment->user_id = $request->input('user_id');
+        $comment->approved = 1;
+        $comment->parent_id = $request->input('parent_id');
+        $comment->commentable_id = $request->input('commentable_id');
+        $comment->commentable_type = $request->input('commentable_type');
+        $comment->save();
 
         return back();
     }

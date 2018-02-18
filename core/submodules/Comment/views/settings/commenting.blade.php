@@ -2,8 +2,9 @@
 
 @section("content")
 
-    <v-toolbar dark class="elevation-2 sticky accent">
-        <v-toolbar-title primary-title class="subheading page-title">{{ __('Commenting Settings') }}</v-toolbar-title>
+    <v-toolbar dark class="sticky secondary elevation-1">
+        <v-icon left dark>comment</v-icon>
+        <v-toolbar-title>{{ __('Commenting') }}</v-toolbar-title>
     </v-toolbar>
 
     <v-container fluid grid-list-lg class="white">
@@ -18,7 +19,7 @@
 
             </v-flex>
 
-            <v-flex sm6 md4>
+            <v-flex sm8 md6>
 
 
                 <form action="{{ route('settings.store') }}" method="POST">
@@ -26,7 +27,7 @@
                     <v-card flat class="mb-3">
                         <v-card-text>
                             <v-checkbox
-                                label="{{ __('Enable Comment Section for applicable Modules') }}"
+                                label="{{ __('Enable comment section for modules') }}"
                                 hint="{{ __('Only applicable for Modules that support commenting. Give roles an ability to comment through <a target="_blank" href="'.route('roles.index').'">Roles and Permissions</a>. ') }}"
                                 persistent-hint
                                 v-model="resource.item.is_commenting_enabled"
