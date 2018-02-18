@@ -6,6 +6,7 @@ use Comment\Models\Comment;
 use Content\Models\Content;
 use Content\Requests\ContentRequest;
 use Course\Models\Course;
+use Course\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 
@@ -164,9 +165,9 @@ class ContentController extends AdminController
         $comment->parent_id = $request->input('parent_id');
         $comment->user()->associate(User::find(user()->id));
 
-        $course = Course::findOrFail($id);
-        $course->comments()->save($comment);
-        $course->save();
+        $content = Content::findOrFail($id);
+        $content->comments()->save($comment);
+        $content->save();
 
         return back();
     }

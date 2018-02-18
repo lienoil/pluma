@@ -43,7 +43,7 @@
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
-                                        </form>
+                                        </form> --}}
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
@@ -81,7 +81,7 @@
             </v-card-actions>
             {{-- Replyform --}}
             <v-card flat class="mb-3" id="commentform-{{ $comment->id ?? 'random' }}" ref="commentform-{{ $comment->id ?? 'random' }}" :style="{display:'none',border:'1px solid rgba(0,0,0,0.3)'}">
-                @include("Course::partials.commentform", ['isPaper' => 'false'])
+                @include("Content::partials.commentform", ['isPaper' => 'false'])
             </v-card>
             {{-- Replyform --}}
 
@@ -89,7 +89,7 @@
 
             {{-- Replies --}}
             <v-card flat tile class="pl-5">
-                @include("Course::partials.comments-list", ['comments' => $comment->replies])
+                @include("Content::partials.comments-list", ['comments' => $comment->replies])
             </v-card>
             {{-- Replies --}}
         </v-card>

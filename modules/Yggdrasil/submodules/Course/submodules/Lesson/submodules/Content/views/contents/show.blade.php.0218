@@ -12,7 +12,7 @@
         v-model="drawer.model"
         light
         fixed
-        >
+    >
         <v-list class="pa-1">
             <v-list-tile avatar>
                 <v-list-tile-content>
@@ -34,8 +34,7 @@
             </v-list-tile>
         </v-list>
     </v-navigation-drawer> --}}
-
-    {{-- <v-toolbar dark extended class="text-xs-center secondary elevation-0">
+    <v-toolbar dark extended class="text-xs-center secondary elevation-0">
         <v-layout wrap justify-space-around align-center hidden-xs-only>
             <template v-if="previous">
                 <v-btn
@@ -71,12 +70,12 @@
             </template>
             <v-btn v-else disabled flat>{{ __('End of Lesson') }}</v-btn>
         </v-layout>
-    </v-toolbar> --}}
+    </v-toolbar>
     <v-container grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
                 {{-- <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn> --}}
-                <v-card class="mb-3 elevation-1">
+                <v-card class="card--flex-toolbar card--filed-on-top">
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -209,26 +208,6 @@
                             </v-fade-transition>
                         </div>
                     </template>
-
-                    <v-divider></v-divider>
-
-                    <v-layout row wrap justify-center align-center>
-                        <v-flex md6 xs12>
-                            <v-card-text>
-                                <p class="body-2 grey--text page-title mb-1">PUBLISHED ON {{ $resource->created }}</p>
-                                <h2 class="page-title display-1">{{ $resource->lesson->title }}:</h2>
-                                <h2 class="page-title display-1 grey--text">Introduction</h2>
-                            </v-card-text>
-                        </v-flex>
-
-                        <v-flex md6 xs12>
-                            <v-card-text class="text-xs-center">
-                                <v-btn success round outline large><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn> 
-                                 <v-btn success round outline large> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn> 
-                            </v-card-text>
-                        </v-flex>
-                    </v-layout>
-
                 </v-card>
 
                 {{-- <v-card flat> --}}
@@ -242,17 +221,17 @@
                         </v-flex>
 
                         <v-flex md6 xs12>
-                            <v-card class="elevation-1">
+                            <v-card flat>
                                 <v-list class="pa-1">
                                     <v-list-tile avatar>
                                         <v-list-tile-content>
-                                            <v-list-tile-title class="page-title">{{ $resource->course->title }}</v-list-tile-title>
+                                            <v-list-tile-title><strong>{{ $resource->lesson->title }}</strong></v-list-tile-title>
                                         </v-list-tile-content>
                                     </v-list-tile>
                                 </v-list>
                                 <v-divider></v-divider>
                                 <v-list>
-                                    <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'white--text': (resource.id == item.id)}">
+                                    <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'primary white--text': (resource.id == item.id)}">
                                         <v-list-tile-action>
                                             <v-icon left v-if="item.completed">check</v-icon>
                                             <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
