@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "75915a4db866e13d1d0d881eec0295e9",
+    "content-hash": "c8942d2be361f61f25064b83bd214a84",
     "packages": [
         {
             "name": "chumper/zipper",

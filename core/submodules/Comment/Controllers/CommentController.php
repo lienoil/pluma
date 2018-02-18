@@ -20,14 +20,14 @@ class CommentController extends GeneralController
      *
      * @var string
      */
-    protected $hintpath;
+    protected $hintpath = 'Theme::comments';
 
     /**
      * The category type of the resource.
      *
      * @var string
      */
-    protected $type;
+    protected $type = 'default';
 
     /**
      * Display a listing of the resource.
@@ -40,7 +40,7 @@ class CommentController extends GeneralController
         $hintpath = $this->hintpath;
         $resources = Comment::type($this->type)->paginate();
 
-        return view("Theme::comments.index");
+        return view("$hintpath.index");
     }
 
     /**

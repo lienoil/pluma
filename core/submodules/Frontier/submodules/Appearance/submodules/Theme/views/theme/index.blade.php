@@ -65,7 +65,7 @@
                             <input type="hidden" name="active_theme" value="{{ $resource->code }}">
                             <input type="hidden" name="site_timestamp" value="{{ date('YmdHis') }}">
                             <v-card class="mb-3 elevation-1">
-                                <v-card-media src="{{ $resource->preview }}" height="200px">
+                                <v-card-media src="{{ $resource->preview }}" class="secondary" height="200px">
                                     <v-layout column wrap flex-end fill-height>
                                         <v-flex sm12 fill-height>
                                             <v-card flat dark class="transparent">

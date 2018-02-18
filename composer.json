@@ -46,6 +46,7 @@
     "nesbot/carbon": "^1.22",
     "robmorgan/phinx": "^0.8.0",
     "swiftmailer/swiftmailer": "^6.0",
+    "symfony/polyfill-mbstring": "^1.7",
     "symfony/var-dumper": "^3.0",
     "vlucas/phpdotenv": "^2.4",
     "wikimedia/composer-merge-plugin": "^1.4"

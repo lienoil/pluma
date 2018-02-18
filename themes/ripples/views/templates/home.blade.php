@@ -9,7 +9,6 @@ Version: 1.0
 @extends("Theme::layouts.public")
 
 @section("content")
-    @include("Theme::menus.main-menu")
 
     <v-card class="elevation-0">
         <v-parallax class="elevation-1" src="{{ $page->feature }}" height="400"></v-parallax>

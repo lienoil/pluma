@@ -52,7 +52,7 @@ trait PageResourcePublicTrait
             }
 
             // Default to the index page.
-            return view("Theme::templates.index")->compact('page');
+            return view("Theme::templates.index")->with(compact('page'));
         }
 
         // The $code does not exist on the app's menus.
