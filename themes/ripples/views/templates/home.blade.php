@@ -20,7 +20,7 @@ Version: 1.0
                             <v-card flat dark class="transparent">
                                 <h2 class="page-title">{{ $application->site->title }}</h2>
                                 <p class="page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos unde architecto, mollitia, alias corporis autem delectus libero molestias iure! Hic iusto voluptates repellendus numquam! Optio architecto soluta hic magnam adipisci?</p>
-                                <p class="page-title">Relax! It is still under contruction.</p>
+                                <p class="page-title">Relax! It is still under construction.</p>
                             </v-card>
                         </v-flex>
                     </layout>
