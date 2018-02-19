@@ -7,96 +7,14 @@
 @endpush
 
 @section("content")
-    {{-- <v-navigation-drawer
-        temporary
-        v-model="drawer.model"
-        light
-        fixed
-        >
-        <v-list class="pa-1">
-            <v-list-tile avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title><strong>{{ $resource->lesson->title }}</strong></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-        <v-divider></v-divider>
-        <v-list>
-            <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'primary white--text': (resource.id == item.id)}">
-                <v-list-tile-action>
-                    <v-icon left v-if="item.completed">check</v-icon>
-                    <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
-                    <v-icon left v-else>lock</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-    </v-navigation-drawer> --}}
-
-    {{-- <v-toolbar dark extended class="text-xs-center secondary elevation-0">
-        <v-layout wrap justify-space-around align-center hidden-xs-only>
-            <template v-if="previous">
-                <v-btn
-                    v-if="previous"
-                    :href="previous.url"
-                    ripple
-                    flat
-                >
-                    <v-icon left dark v-if="previous.completed">check</v-icon>
-                    <v-icon left dark v-else-if="previous.locked">lock</v-icon>
-                    <v-icon left dark v-else-if="previous.current">play_circle_outline</v-icon>
-                    <v-icon left dark v-else>arrow_back</v-icon>
-                    <span v-html="previous.title"></span>
-                </v-btn>
-            </template>
-            <v-btn v-else disabled flat><span v-html="resource.lesson.title"></span></v-btn>
-
-            <span class="caption">{{ "$resource->order/{$resource->lesson->contents->count()}" }}</span>
-
-            <template v-if="next">
-                <v-btn
-                    v-if="next"
-                    :href="next.url"
-                    ripple
-                    flat
-                >
-                    <span v-html="next.title"></span>
-                    <v-icon right dark v-if="next.completed">check</v-icon>
-                    <v-icon right dark v-else-if="next.locked">lock</v-icon>
-                    <v-icon right dark v-else-if="next.current">play_circle_outline</v-icon>
-                    <v-icon right dark v-else>arrow_forward</v-icon>
-                </v-btn>
-            </template>
-            <v-btn v-else disabled flat>{{ __('End of Lesson') }}</v-btn>
-        </v-layout>
-    </v-toolbar> --}}
-    <v-container grid-list-lg>
+    <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
-                {{-- <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn> --}}
-                <v-card class="mb-3 elevation-1">
+                <v-card class="mb-2 elevation-1">
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
-                        {{-- <v-dialog max-width="90vw" width="80vw">
-                            <v-btn slot="activator" icon v-tooltip:left="{html: 'Close this window'}"><v-icon>close</v-icon></v-btn>
-                            <v-card>
-                                <v-card-title>
-                                    <span class="headline">{{ __("Close this window?") }}</span>
-                                </v-card-title>
-                                <v-card-text>
-                                    <p>{!! __("You are about to close this entire window. The LMS will try and save you're progress but it is <strong>not guaranteed</strong>.") !!}</p>
-                                    <p>{{ __("Do you want to proceed? Click anywhere to cancel.") }}</p>
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn primary class="elevation-1" @click="lms().exit()">Try Save &amp; Exit</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog> --}}
                     </v-toolbar>
                     <v-alert
                         icon="check"
@@ -155,25 +73,23 @@
                         </v-card>
                         <template v-else>
                             <v-card v-if="! course.started" flat class="grey--text text--darken-1">
-                                {{-- <v-card-media height="480px"> --}}
-                                    <v-container fill-height fluid>
-                                        <v-layout fill-height wrap column>
-                                            <v-card-text class="quill-text">
-                                                {!! $resource->body !!}
-                                            </v-card-text>
+                                <v-container fill-height fluid>
+                                    <v-layout fill-height wrap column>
+                                        <v-card-text class="quill-text">
+                                            {!! $resource->body !!}
+                                        </v-card-text>
+                                        <v-spacer></v-spacer>
+                                        <v-card-actions class="pa-4">
                                             <v-spacer></v-spacer>
-                                            <v-card-actions class="pa-4">
-                                                <v-spacer></v-spacer>
-                                                <v-btn dark class="primary" @click="playInteraction()">
-                                                    <v-icon left>play_circle_outline</v-icon>
-                                                    <template v-if="resource.incomplete">{{ __('Continue') }}</template>
-                                                    <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
-                                                    <template v-else>{{ __('Start') }}</template>
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-layout>
-                                    </v-container>
-                                {{-- </v-card-media> --}}
+                                            <v-btn dark class="primary" @click="playInteraction()">
+                                                <v-icon left>play_circle_outline</v-icon>
+                                                <template v-if="resource.incomplete">{{ __('Continue') }}</template>
+                                                <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
+                                                <template v-else>{{ __('Start') }}</template>
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-layout>
+                                </v-container>
                             </v-card>
                         </template>
                         <div id="interactive-container">
@@ -181,15 +97,6 @@
                                 <template v-if="course.started">
                                     <div>
                                         {!! $resource->html !!}
-                                        {{-- <object
-                                            class="interactive-content"
-                                            width="100%" height="640px" data="{{ $resource->interactive }}"
-                                            onbeforeunload="unloadSCO()"
-                                            onunload="unloadSCO()"
-                                        >
-                                            <embed src="{{ $resource->interactive }}">
-                                        </object> --}}
-
                                         <v-dialog v-model="messagebox.model" width="60vw" persistent>
                                             <v-card flat tile class="text-xs-center">
                                                 <v-icon class="display-4 success--text">check</v-icon>
@@ -228,45 +135,42 @@
                             </v-card-text>
                         </v-flex>
                     </v-layout>
-
                 </v-card>
+            </v-flex>
+        </v-layout>
 
-                {{-- <v-card flat> --}}
-                    <v-layout row wrap>
-                        <v-flex md6 xs12>
-                            {{-- Comments Section --}}
-                            <v-card class="elevation-1">
-                                @include("Content::widgets.comments")
-                            </v-card>
-                            {{-- Comments Section --}}
-                        </v-flex>
+        <v-layout row wrap justify-center align-center>
+            <v-flex lg10 md8 xs12>
+                <v-layout row wrap>
+                    <v-flex md6 xs12>
+                        {{-- Comments Section --}}
+                        <v-card class="elevation-1">
+                            @include("Content::widgets.comments")
+                        </v-card>
+                        {{-- Comments Section --}}
+                    </v-flex>
 
-                        <v-flex md6 xs12>
-                            <v-card class="elevation-1">
-                                <v-list class="pa-1">
-                                    <v-list-tile avatar>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title class="page-title">{{ $resource->course->title }}</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </v-list>
-                                <v-divider></v-divider>
-                                <v-list>
-                                    <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'white--text': (resource.id == item.id)}">
-                                        <v-list-tile-action>
-                                            <v-icon left v-if="item.completed">check</v-icon>
-                                            <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
-                                            <v-icon left v-else>lock</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-card>
-                        </v-flex>
-                    </v-layout>
-                {{-- </v-card> --}}
+                    <v-flex md6 xs12>
+                        <v-card class="elevation-1">
+                            <v-card-text>
+                                <div class="page-title mb-1"><strong>{{ $resource->course->title }}</strong>,</div>
+                                <div class="page-title">{{ $resource->lesson->title }}</div>
+                            </v-card-text>
+                            <v-list>
+                                <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'white--text': (resource.id == item.id)}">
+                                    <v-list-tile-action>
+                                        <v-icon left v-if="item.completed">check</v-icon>
+                                        <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
+                                        <v-icon left v-else>lock</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </v-list>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
             </v-flex>
         </v-layout>
     </v-container>

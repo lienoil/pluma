@@ -301,9 +301,9 @@
                 </v-card>
 
                 {{-- Comments Section --}}
-                <v-card class="elevation-1">
+                {{-- <v-card class="elevation-1">
                     @include("Course::widgets.comments")
-                </v-card>
+                </v-card> --}}
                 {{-- Comments Section --}}
             </v-flex>
 

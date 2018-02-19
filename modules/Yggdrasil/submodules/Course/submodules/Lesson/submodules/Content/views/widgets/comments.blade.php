@@ -7,7 +7,7 @@
 
     {{-- Comments Section --}}
     <v-card-text class="transparent pr-4">
-        @include("Course::partials.comments-list", ['comments' => $resource->comments()->parents()->paginate()->items()])
+        @include("Content::partials.comments-list", ['comments' => $resource->comments()->parents()->paginate()->items()])
     </v-card-text>
     {{-- Comments Section --}}
 
@@ -49,7 +49,7 @@
             <input type="hidden" name="type" value="contents">
 
             {{-- editor --}}
-            @include("Course::widgets.editor")
+            @include("Content::widgets.editor")
             {{-- editor --}}
 
             <v-divider></v-divider>
