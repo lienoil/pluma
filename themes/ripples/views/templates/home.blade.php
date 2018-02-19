@@ -9,8 +9,8 @@ Version: 1.0
 @extends("Theme::layouts.public")
 
 @section("content")
-    <template id="hero">
-        <v-card dark class="elevation-0">
+    <template>
+        <v-card id="hero" dark class="elevation-0">
             {{-- <v-card-media src="{{ $page->feature }}" height="90vh"> --}}
             <v-card-media src="{{ assets('frontier/images/placeholder/hero.jpg') }}" height="90vh">
                 {{-- <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.3); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
@@ -267,14 +267,13 @@ Version: 1.0
 
 @push('js')
     {{-- <script src="../build/three.js"></script> --}}
-    <script src="{{ assets('frontier/threejs/build/three.js') }}"></script>
+    {{-- <script src="{{ assets('frontier/threejs/build/three.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.module.js"></script>
+    {{-- <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script> --}}
+    {{-- <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script> --}}
 
-    {{-- <script src="js/renderers/Projector.js"></script> --}}
-    <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script>
-    <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script>
-    {{-- <script src="js/renderers/CanvasRenderer.js"></script> --}}
-
-   {{--  <script>
+    {{-- <script>
         var mouseX = 0, mouseY = 0,
 
         windowHalfX = window.innerWidth / 2,
@@ -295,7 +294,9 @@ Version: 1.0
             particles, particle;
 
             container = document.createElement('div');
-            document.body.appendChild(container);
+            container.classList.add('red-xsdsdsdadsasdadadasd');
+            var parent = document.querySelector('#banner');
+            parent.appendChild(container);
 
             camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
             camera.position.z = 100;

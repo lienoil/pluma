@@ -73,16 +73,6 @@ class RoutingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        parent::register();
-    }
-
-    /**
      * Register the router instance.
      *
      * @return void

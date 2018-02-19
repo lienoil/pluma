@@ -50,12 +50,11 @@ trait CommentResourceSoftDeleteTrait
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, $id)
+    public function delete(CommentOwnerRequest $request, $id)
     {
-        dd($id);
-        $comments = Comment::onlyTrashed()
-                     ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
-                     ->get();
+        $comments = Comment::withTrashed()
+                           ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
+                           ->get();
 
         foreach ($comments as $comment) {
             $comment->forceDelete();

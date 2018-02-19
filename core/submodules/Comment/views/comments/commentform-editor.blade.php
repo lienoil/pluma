@@ -45,14 +45,6 @@
                             }
                         }
                     },
-                    mediabox: {
-                        model: false,
-                        fonts: {!! json_encode(config('editor.fonts.enabled', [])) !!},
-                        url: '',
-                        resource: {
-                            thumbnail: '',
-                        },
-                    },
                 }
             },
         })

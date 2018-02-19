@@ -2,6 +2,7 @@
 
 namespace Comment\Requests;
 
+use Comment\Models\Comment;
 use Pluma\Requests\FormRequest;
 
 class CommentOwnerRequest extends FormRequest
@@ -13,8 +14,9 @@ class CommentOwnerRequest extends FormRequest
      */
     public function authorize()
     {
-        dd($this->comment);
-        return $this->user()->id;
+        $comment = Comment::find($this->comment);
+
+        return $this->user()->id == $comment->user->id;
     }
 
     /**

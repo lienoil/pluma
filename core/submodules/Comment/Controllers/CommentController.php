@@ -3,6 +3,7 @@
 namespace Comment\Controllers;
 
 use Comment\Models\Comment;
+use Comment\Requests\CommentOwnerRequest;
 use Comment\Requests\CommentRequest;
 use Comment\Support\Traits\CommentResourceApiTrait;
 use Comment\Support\Traits\CommentResourcePublicTrait;
@@ -59,18 +60,6 @@ class CommentController extends GeneralController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-
-        return view("Theme::comments.create");
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Comment\Requests\CommentRequest  $request
@@ -100,21 +89,24 @@ class CommentController extends GeneralController
      */
     public function edit(Request $request, $id)
     {
-        //
+        $resource = Comment::findOrFail($id);
 
-        return view("Theme::comments.edit");
+        return view("Theme::comments.edit")->with(compact('resource'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Comment\Requests\CommentRequest  $request
+     * @param  \Comment\Requests\CommentOwnerRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CommentRequest $request, $id)
+    public function update(CommentOwnerRequest $request, $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $comment->body = $request->input('body');
+        $comment->delta = $request->input('delta');
+        $comment->save();
 
         return back();
     }
@@ -128,48 +120,8 @@ class CommentController extends GeneralController
      */
     public function destroy(Request $request, $id)
     {
-        //
-
-        return redirect()->route('comments.index');
-    }
-
-    /**
-     * Display a listing of the trashed resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function trash()
-    {
-        $resources = Comment::onlyTrashed()->paginate();
-
-        return view("Theme::comments.trash")->with(compact('resources'));
-    }
-
-    /**
-     * Restore the specified resource from storage.
-     *
-     * @param  \Comment\Requests\CommentRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function restore(CommentRequest $request, $id)
-    {
-        //
+        Comment::destroy($request->has('id') ? $request->input('id') : $id);
 
         return back();
-    }
-
-    /**
-     * Delete the specified resource from storage permanently.
-     *
-     * @param  \Comment\Requests\CommentRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(CommentRequest $request, $id)
-    {
-        //
-
-        return redirect()->route('comments.trash');
     }
 }

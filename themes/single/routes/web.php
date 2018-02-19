@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Pluma\Support\Facades\Route;
 
 Route::any('s/{slug?}', function () {
     return view("Theme::layouts.public");

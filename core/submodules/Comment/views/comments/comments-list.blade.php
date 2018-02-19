@@ -16,23 +16,23 @@
                         <v-icon left class="body-1">access_time</v-icon> {{ $comment->created }}
                     </v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-list-tile-action>
-                    <v-menu bottom left>
-                        <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
-                        <v-list>
-                            {{-- <v-list-tile :href="route(urls.pages.edit, (prop.item.id))"> --}}
-                            {{-- <v-list-tile ripple>
-                                <v-list-tile-action>
-                                    <v-icon accent>edit</v-icon>
-                                </v-list-tile-action>
-                                <v-list-tile-content>
-                                    <v-list-tile-title>
-                                        {{ __('Edit') }}
-                                    </v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile> --}}
-                            @owned($comment->user->id)
-                                <v-list-tile ripple @click="$refs[`destroy_{{ $comment->id }}`].submit()">
+                @owned($comment->user->id)
+                    <v-list-tile-action>
+                        <v-menu bottom left>
+                            <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                            <v-list>
+                                {{-- <v-list-tile :href="route(urls.pages.edit, (prop.item.id))"> --}}
+                                <v-list-tile ripple href="{{ route('comments.edit', $comment->id) }}">
+                                    <v-list-tile-action>
+                                        <v-icon accent>edit</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>
+                                            {{ __('Edit Comment') }}
+                                        </v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                {{-- <v-list-tile ripple @click="$refs[`destroy_{{ $comment->id }}`].submit()">
                                     <v-list-tile-action>
                                         <v-icon warning>delete</v-icon>
                                     </v-list-tile-action>
@@ -45,16 +45,16 @@
                                             </form>
                                         </v-list-tile-title>
                                     </v-list-tile-content>
-                                </v-list-tile>
-                            @endowned
-                        </v-list>
-                    </v-menu>
-                </v-list-tile-action>
+                                </v-list-tile> --}}
+                            </v-list>
+                        </v-menu>
+                    </v-list-tile-action>
+                @endowned
             </v-list-tile>
         </v-list>
         <v-card flat class="pr-0 grey--text text--darken-2">
             <v-card-text class="page-content body-1">{!! filter_obscene_words($comment->body) !!}</v-card-text>
-            {{-- <v-card-text class="page-content body-1">{!! filter_obscene_words($comment->body) !!}</v-card-text> --}}
+
             <v-card-actions class="grey--text text--darken-2">
                 {{-- Upvotes / Downvotes --}}
                 <div>
@@ -81,7 +81,7 @@
             </v-card-actions>
             {{-- Replyform --}}
             <v-card flat class="mb-3" id="commentform-{{ $comment->id ?? 'random' }}" ref="commentform-{{ $comment->id ?? 'random' }}" :style="{display:'none',border:'1px solid rgba(0,0,0,0.3)'}">
-                @include("Course::partials.commentform", ['isPaper' => 'false'])
+                @include("Theme::comments.commentform", ['isPaper' => 'false'])
             </v-card>
             {{-- Replyform --}}
 
@@ -89,7 +89,7 @@
 
             {{-- Replies --}}
             <v-card flat tile class="pl-5">
-                @include("Course::partials.comments-list", ['comments' => $comment->replies])
+                @include("Theme::comments.comments-list", ['comments' => $comment->replies])
             </v-card>
             {{-- Replies --}}
         </v-card>
