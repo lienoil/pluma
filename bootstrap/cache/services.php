@@ -22,10 +22,9 @@
     18 => 'Pluma\\Providers\\EventServiceProvider',
     19 => 'Pluma\\Providers\\TranslationServiceProvider',
     20 => 'Pluma\\Providers\\ModuleServiceProvider',
-    21 => 'Pluma\\Providers\\RouteServiceProvider',
-    22 => 'Pluma\\Providers\\FormRequestServiceProvider',
-    23 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
-    24 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
+    21 => 'Pluma\\Providers\\FormRequestServiceProvider',
+    22 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    23 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
   ),
   'eager' => 
   array (
@@ -40,9 +39,8 @@
     8 => 'Pluma\\Providers\\EncryptionServiceProvider',
     9 => 'Pluma\\Providers\\EventServiceProvider',
     10 => 'Pluma\\Providers\\ModuleServiceProvider',
-    11 => 'Pluma\\Providers\\RouteServiceProvider',
-    12 => 'Pluma\\Providers\\FormRequestServiceProvider',
-    13 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    11 => 'Pluma\\Providers\\FormRequestServiceProvider',
+    12 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
   ),
   'deferred' => 
   array (

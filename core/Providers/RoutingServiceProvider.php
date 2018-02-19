@@ -2,10 +2,10 @@
 
 namespace Pluma\Providers;
 
-use Illuminate\Support\Facades\Route;
-use Pluma\Support\Route\RouteServiceProvider as ServiceProvider;
+use Pluma\Support\Facades\Route;
+use Pluma\Support\Route\RoutingServiceProvider as ServiceProvider;
 
-class RouteServiceProvider extends ServiceProvider
+class RoutingServiceProvider extends ServiceProvider
 {
     /**
      * This namespace is applied to your controller routes.

@@ -3,10 +3,10 @@
 namespace Pluma\Support\Route;
 
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
+use Illuminate\Routing\RoutingServiceProvider as ServiceProvider;
+use Pluma\Routing\Router;
 
-class RouteServiceProvider extends ServiceProvider
+class RoutingServiceProvider extends ServiceProvider
 {
     /**
      * The controller namespace for the application.
@@ -79,20 +79,18 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        parent::register();
     }
 
     /**
-     * Pass dynamic methods onto the router instance.
+     * Register the router instance.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
+     * @return void
      */
-    public function __call($method, $parameters)
+    protected function registerRouter()
     {
-        return call_user_func_array(
-            [$this->app->make(Router::class), $method], $parameters
-        );
+        $this->app->singleton('router', function ($app) {
+            return new Router($app['events'], $app);
+        });
     }
 }

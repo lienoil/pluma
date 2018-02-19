@@ -64,5 +64,13 @@ class UserServiceProvider extends AuthServiceProvider
         Blade::directive('enduser', function () {
             return "<?php endif; ?>";
         });
+
+        Blade::directive('owned', function ($expression) {
+            return "<?php if (user()->id === $expression) : ?>";
+        });
+
+        Blade::directive('endowned', function () {
+            return "<?php endif; ?>";
+        });
     }
 }

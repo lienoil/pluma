@@ -4,18 +4,16 @@ namespace Pluma\Routing;
 
 use Illuminate\Routing\PendingResourceRegistration;
 use Illuminate\Routing\Router as BaseRouter;
-use Pluma\Support\Route\SoftDeletesResourceRegistrar;
+use Pluma\Routing\SoftDeletesResourceRegistrar;
 
 class Router extends BaseRouter
 {
-    protected $resourceDefaults = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy', 'delete'];
-
     /**
      * Register an array of soft delete resource controllers.
      *
      * @param  string  $name
      * @param  string  $controller
-     * @param  array  $options
+     * @param  array   $options
      * @return \Illuminate\Routing\PendingResourceRegistration
      */
     public function softDeletes($name, $controller, array $options = [])

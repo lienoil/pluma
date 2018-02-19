@@ -21,7 +21,7 @@
                         <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                         <v-list>
                             {{-- <v-list-tile :href="route(urls.pages.edit, (prop.item.id))"> --}}
-                            <v-list-tile ripple>
+                            {{-- <v-list-tile ripple>
                                 <v-list-tile-action>
                                     <v-icon accent>edit</v-icon>
                                 </v-list-tile-action>
@@ -30,22 +30,23 @@
                                         {{ __('Edit') }}
                                     </v-list-tile-title>
                                 </v-list-tile-content>
-                            </v-list-tile>
-                            <v-list-tile ripple @click="$refs[`destroy_${prop.item.id}`].submit()">
-                                <v-list-tile-action>
-                                    <v-icon warning>delete</v-icon>
-                                </v-list-tile-action>
-                                <v-list-tile-content>
-                                    <v-list-tile-title>
-                                        {{ __('Move to Trash') }}
-                                        {{-- <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <v-btn type="submit">{{ __('Move to Trash') }}</v-btn>
-                                        </form> --}}
-                                    </v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
+                            </v-list-tile> --}}
+                            @owned($comment->user->id)
+                                <v-list-tile ripple @click="$refs[`destroy_{{ $comment->id }}`].submit()">
+                                    <v-list-tile-action>
+                                        <v-icon warning>delete</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>
+                                            {{ __('Delete Comment') }}
+                                            <form :id="`destroy_{{ $comment->id }}`" :ref="`destroy_{{ $comment->id }}`" action="{{ route('comments.delete', $comment->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                            </form>
+                                        </v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            @endowned
                         </v-list>
                     </v-menu>
                 </v-list-tile-action>

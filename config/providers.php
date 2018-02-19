@@ -26,7 +26,6 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
 
-
         // Application
         Pluma\Providers\ViewServiceProvider::class,
         Pluma\Providers\ApplicationServiceProvider::class,
@@ -35,7 +34,6 @@ return [
         Pluma\Providers\EventServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
-        Pluma\Providers\RouteServiceProvider::class,
         Pluma\Providers\FormRequestServiceProvider::class,
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
 
@@ -55,7 +53,7 @@ return [
     'aliases' => [
         // Pluma
         'Console' => Pluma\Support\Facades\Console::class,
-        // 'Route' => Pluma\Support\Facades\Route::class,
+        'Route' => Pluma\Support\Facades\Route::class,
 
         // Illuminate
         'App' => Illuminate\Support\Facades\App::class,
@@ -84,7 +82,7 @@ return [
         'Redis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
-        'Route' => Illuminate\Support\Facades\Route::class,
+        // 'Route' => Illuminate\Support\Facades\Route::class,
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,

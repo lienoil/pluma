@@ -3,6 +3,7 @@
 namespace Comment\Models;
 
 use Comment\Support\Relations\HasManyChildComments;
+use Comment\Support\Relations\MorphToCommentable;
 use Comment\Support\Scopes\ApprovedScope;
 use Comment\Support\Scopes\ParentCommentsTrait;
 use Comment\Support\Traits\CanBeVotedTrait;
@@ -21,6 +22,7 @@ class Comment extends Model
         HasOneParentComment,
         Ownable,
         ParentCommentsTrait,
+        MorphToCommentable,
         SoftDeletes,
         BelongsToUser;
 
@@ -37,40 +39,5 @@ class Comment extends Model
 
         // Only get all 'approved' comments.
         static::addGlobalScope(new ApprovedScope);
-    }
-
-    public function post()
-    {
-        return $this->belongsto(Post::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(\Pluma\Models\User::class);
-    }
-
-    public function authors()
-    {
-        //
-    }
-
-    public function course()
-    {
-        return $this->belongsTo(\Pluma\Models\Course::class);
-    }
-
-    public function forum()
-    {
-        return $this->hasMany(\Pluma\Models\Forum::class);
-    }
-
-    public function commentable()
-    {
-        return $this->morphTo();
-    }
-
-    public function votes()
-    {
-        return $this->morphMany(\Pluma\Models\Vote::class, 'votable');
     }
 }

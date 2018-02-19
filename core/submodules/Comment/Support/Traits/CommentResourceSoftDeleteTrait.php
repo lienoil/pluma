@@ -2,8 +2,9 @@
 
 namespace Comment\Support\Traits;
 
-use Illuminate\Http\Request;
 use Comment\Models\Comment;
+use Comment\Requests\CommentOwnerRequest;
+use Illuminate\Http\Request;
 
 trait CommentResourceSoftDeleteTrait
 {
@@ -45,12 +46,13 @@ trait CommentResourceSoftDeleteTrait
     /**
      * Delete the specified resource from storage permanently.
      *
-     * @param  Illuminate\Http\Request  $request
+     * @param  \Comment\Requests\CommentOwnerRequest  $request
      * @param  int  $id
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, $id)
     {
+        dd($id);
         $comments = Comment::onlyTrashed()
                      ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
                      ->get();
