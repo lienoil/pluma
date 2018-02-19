@@ -95,7 +95,7 @@
 
                     Chart.defaults.global.defaultFontColor = '#333';
                     var chart = new Chart(ctx, {
-                        type: 'line',
+                        type: 'bar',
                         scaleBeginAtZero : true,
                         data: {
                             labels: _labels,
@@ -121,7 +121,9 @@
                                         color: "rgba(255,99,132,0.2)"
                                     },
                                     ticks: {
-                                        display: true
+                                        display: true,
+                                        beginAtZero: true,
+                                        padding: 25,
                                     }
                                 }],
                                 xAxes: [{
@@ -129,7 +131,7 @@
                                         display: false
                                     },
                                     ticks: {
-                                        display: true
+                                        display: true,
                                     }
                                 }]
                             },
@@ -140,7 +142,8 @@
                             legend: {
                                 display: true,
                                 labels: {
-                                    fontColor: '#333'
+                                    fontColor: '#333',
+                                    fontSize: 18,
                                 }
                             }
                         }

@@ -10,7 +10,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex md6 xs12>
-                <v-card class="elevation-1" height="100%">
+                <v-card class="elevation-1" height="100%" style="min-height: 80vh;">
                     <v-toolbar dark flat class="secondary">
                         <v-icon left dark>playlist_add_check</v-icon>
                         <v-toolbar-title>{{ __('List of Examinees') }}</v-toolbar-title>
@@ -41,7 +41,7 @@
                 </v-card>
             </v-flex>
             <v-flex md6 xs12>
-                <v-card class="elevation-1" height="100%">
+                <v-card class="elevation-1" height="100%" style="min-height: 80vh;">
                     @include("Submission::widgets.results")
                 </v-card>
             </v-flex>
