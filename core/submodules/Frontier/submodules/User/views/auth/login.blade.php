@@ -12,7 +12,7 @@
                         <v-layout row wrap>
                             <v-flex md5 xs12 class="light-blue lighten-1">
                                 <v-card flat class="transparent white--text" height="100%">
-                                    <v-card-media height="100%" src="//source.unsplash.com/300x1800?solid" class="text-xs-center">
+                                    <v-card-media height="100%" src="{{ settings('login_background', 'https://images.unsplash.com/photo-1483512574207-bcacbd054175?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=600&h=1000&fit=crop&s=b1284f9e763dc8689ef76d16822e6c3f') }}" class="text-xs-center">
                                         <v-layout row wrap fill-height justify-center align-end>
                                             <v-card-text class="text-xs-center">
                                                 <p><img src="{{ $application->site->logo }}" width="30%"></p>

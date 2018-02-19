@@ -38,12 +38,10 @@
                                 </v-list-tile-action>
                                 <v-list-tile-content>
                                     <v-list-tile-title>
-                                            {{ __('Move to Trash') }}
+                                        {{ __('Move to Trash') }}
                                         {{-- <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            {{-- <v-btn type="submit">{{ __('Move to Trash') }}</v-btn> --}}
-                                        </form>
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>

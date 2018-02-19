@@ -109,6 +109,16 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
+                                        <v-list-tile :href="route(urls.submissions.show, (prop.item.id))">
+                                            <v-list-tile-action>
+                                                <v-icon info>playlist_add_check</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{ __('List of Submissions') }}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
                                         <v-list-tile :href="route(urls.forms.edit, (prop.item.id))">
                                             <v-list-tile-action>
                                                 <v-icon accent>edit</v-icon>
@@ -178,7 +188,10 @@
                             edit: '{{ route('forms.edit', 'null') }}',
                             show: '{{ route('forms.show', 'null') }}',
                             destroy: '{{ route('forms.destroy', 'null') }}',
-                        }
+                        },
+                        submissions: {
+                            show: '{{ route('submissions.show', 'null') }}',
+                        },
                     },
                     dataset: {
                         headers: [

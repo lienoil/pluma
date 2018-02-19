@@ -241,11 +241,11 @@ Version: 1.0
                                         <a class="td-n white--text mr-3" href="">HOW IT WORKS</a>
                                         <a class="td-n white--text" href="">CONTACT US</a>
                                 </v-card-text>
-                            </v-flex>   
+                            </v-flex>
                         </v-layout>
                     </v-card>
                 </v-flex>
-            </v-layout>                
+            </v-layout>
         </v-card>
     </template>
 @endsection

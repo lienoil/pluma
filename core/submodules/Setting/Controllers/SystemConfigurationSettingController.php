@@ -2,6 +2,7 @@
 
 namespace Setting\Controllers;
 
+use Blacksmith\Support\Facades\Blacksmith;
 use Illuminate\Http\Request;
 use Setting\Controllers\SettingController;
 use Setting\Models\Setting;
@@ -18,5 +19,22 @@ class SystemConfigurationSettingController extends SettingController
     public function index(Request $request)
     {
         return view("Setting::settings.configuration");
+    }
+
+    /**
+     * Store cache in a config file.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function cache(Request $request)
+    {
+        try {
+            Blacksmith::call('config:cache');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+
+        return back();
     }
 }

@@ -20,6 +20,10 @@ class Kernel extends BaseKernel
         Commands\App\AppRolesGenerateCommand::class,
         Commands\App\AppVersionCommand::class,
 
+        // Standalone
+        Commands\Standalone\AppInstallCommand::class,
+        Commands\Standalone\AppServeCommand::class,
+
         // Config
         Commands\Config\ConfigCacheCommand::class,
         Commands\Config\ConfigClearCommand::class,

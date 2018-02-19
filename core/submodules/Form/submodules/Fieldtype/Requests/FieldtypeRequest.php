@@ -26,7 +26,7 @@ class FieldtypeRequest extends FormRequest
                 }
                 break;
 
-            ase 'PATCH':
+            case 'PATCH':
                 if ($this->user()->can('restore-fieldtype')) {
                     return true;
                 }
@@ -59,6 +59,7 @@ class FieldtypeRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:fieldtypes'.$isUpdating,
+            'template' => 'required',
         ];
     }
 

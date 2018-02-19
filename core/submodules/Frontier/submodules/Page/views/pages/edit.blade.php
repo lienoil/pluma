@@ -93,8 +93,8 @@
                             category_id: '{{ $resource->category_id }}',
                         },
                         quill: {
-                            html: '{!! $resource->body !!}',
-                            delta: JSON.parse({!! json_encode($resource->delta) !!}),
+                            html: {!! json_encode(old('body') ?? $resource->body) !!},
+                            delta: JSON.parse({!! json_encode(old('delta') ?? $resource->delta) !!}),
                         },
                         template: '{{ $resource->template }}',
                         category_id: '{!! json_encode($resource->category_id) !!}',

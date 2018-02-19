@@ -12,6 +12,8 @@ return [
         'name' => 'test',
         'order' => 100,
         'slug' => route('tests.index'),
+        'router' => 'index',
+        'routername' => 'tests',
         'always_viewable' => false,
         'icon' => 'developer_mode',
         'labels' => [
@@ -19,10 +21,12 @@ return [
             'description' => __('Manage tests'),
         ],
         'children' => [
-            'view-test' => [
-                'name' => 'view-test',
+            'index-tests' => [
+                'name' => 'index-tests',
                 'order' => 1,
                 'slug' => route('tests.index'),
+                'router' => 'index',
+                'routername' => 'tests',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Tests'),
@@ -33,22 +37,26 @@ return [
                 'name' => 'create-test',
                 'order' => 2,
                 'slug' => route('tests.create'),
+                'router' => 'create',
+                'routername' => 'tests',
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Create Test'),
+                    'title' => __('Add New Test'),
                     'description' => __('Create a Test'),
                 ],
             ],
-            // 'trash-test' => [
-            //     'name' => 'trash-test',
-            //     'order' => 3,
-            //     'slug' => route('tests.trash'),
-            //     'always_viewable' => false,
-            //     'labels' => [
-            //         'title' => __('Trashed Tests'),
-            //         'description' => __('View list of all tests moved to trash'),
-            //     ],
-            // ],
+            'trashed-tests' => [
+                'name' => 'trashed-tests',
+                'order' => 3,
+                'slug' => route('tests.trashed'),
+                'router' => 'trashed',
+                'routername' => 'tests',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Trashed Tests'),
+                    'description' => __('View list of all tests moved to trashed'),
+                ],
+            ],
         ],
     ],
 ];

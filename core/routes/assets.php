@@ -16,7 +16,6 @@ Route::get('assets/{module?}/{file?}', function ($module = null, $file = null) {
     $extension = File::extension($path);
 
     if (in_array($extension, config('download.restricted', []))) {
-
         return abort(403);
     }
 

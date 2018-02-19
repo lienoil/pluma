@@ -54,6 +54,7 @@ return [
                 'name' => 'trash-user',
                 'order' => 3,
                 'slug' => url(config('path.admin').'/users/trashed'),
+                'icon' => 'delete',
                 'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.trashed',

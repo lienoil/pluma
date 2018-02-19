@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Page\Models\Page;
 use Test\Models\Test;
 use Test\Requests\TestRequest;
+use User\Models\Detail;
 
 class TestController extends GeneralController
 {
@@ -18,9 +19,7 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
-        $resources = Test::all();
-
-        return view("Theme::tests.index");
+        return view("Test::index");
     }
 
     /**
@@ -44,9 +43,8 @@ class TestController extends GeneralController
      */
     public function create()
     {
-        $course = \Course\Models\Course::get()->first();
-
-        return view("Test::tests.create")->with(compact('course'));
+        $resource = \Course\Models\Course::get()->first();
+        return view("Test::tests.create")->with(compact('resource'));
     }
 
     /**
@@ -57,6 +55,15 @@ class TestController extends GeneralController
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
+        collect($request->input('details'))->each(function ($value, $key) {
+            $detail = Detail::firstOrNew(['key' => $key]);
+            $detail->key = $key;
+            $detail->value = $value;
+            user()->details()->save($detail);
+        });
+
         // $sub new
         // $sub->result = serialize($request->except(['_token', 'form_id']));
         // $sub->form()->associate(Form::find());

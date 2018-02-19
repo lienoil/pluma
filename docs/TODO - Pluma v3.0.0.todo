@@ -1,0 +1,37 @@
+# v2.5.0 -> v3.0.0
+
+Misc:
+  ☐ @high refactor frontend code.
+    - A.K.A walang uwian sessions 1, 2, ...n
+
+  ☐ Upgrade vuetify to v1.
+    - update all components
+
+Core:
+  Role:
+    ☐ @high refactor grants, permissions
+      - @see http://demo.antaresproject.io/frontend/acl.html
+  Assistant:
+    - this module will handle the browser installation of the app
+    ☐ move all Installation files to this module
+  Taxonomy:
+    ☐ Add empty module Taxonomy
+  Taxonomy/Category:
+    ☐ move Category to Taxonomy
+  Taxonomy/Tag:
+    ☐ Add Tag Module
+  Comment:
+    ☐ move comment module to core
+  Blog:
+    ☐ @low Add Blog Module
+    ☐ Integrate Comment module
+
+Blacksmith:
+
+Module:
+
+Theme:
+
+Nice to Have's:
+  ☐ Multilingual support
+    - uhm...

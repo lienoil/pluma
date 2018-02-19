@@ -2,6 +2,7 @@
 
 namespace Frontier\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ThemeServiceProvider extends ServiceProvider
@@ -74,6 +75,8 @@ class ThemeServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerViews();
+
+        $this->registerRoutes();
     }
 
     /**
@@ -106,6 +109,12 @@ class ThemeServiceProvider extends ServiceProvider
         $this->registerDefaultViews();
     }
 
+    /**
+     * Registers the default views from modules.
+     *
+     * @param  array $modules
+     * @return void
+     */
     public function registerDefaultViews($modules = null)
     {
         $modules = $modules ? $modules : modules(true, null, false);
@@ -115,6 +124,25 @@ class ThemeServiceProvider extends ServiceProvider
                 $module = $name;
             }
             $this->loadViewsFrom("$module/views", $this->basename);
+        }
+    }
+
+    /**
+     * Registers the theme routes.
+     *
+     * @return void
+     */
+    public function registerRoutes()
+    {
+        $activeTheme = @settings('active_theme', 'default');
+
+        if (file_exists(themes_path("$activeTheme/routes/web.php"))) {
+            Route::group([
+                'middleware' => ['web'],
+                'prefix' => config('routes.web.slug', ''),
+            ], function () use ($activeTheme) {
+                include_file(themes_path("$activeTheme/routes"), "web.php");
+            });
         }
     }
 }

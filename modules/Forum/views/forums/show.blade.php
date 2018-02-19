@@ -60,13 +60,15 @@
                     {{-- title and actions --}}
 
                     {{-- category --}}
-                    <v-card-text class="px-4 pt-0">
-                        <a class="grey--text td-n" class="fw-500"
-                            :href="`{{ route('forums.index') }}?category_id=${resource.category_id}`">
-                            <v-icon class="orange--text mr-2">{{ $resource->category->icon }}</v-icon>
-                            <span>{{ $resource->category->name }}</span>
-                        </a>
-                    </v-card-text>
+                    @if ($resource->category)
+                        <v-card-text class="px-4 pt-0">
+                            <a class="grey--text td-n" class="fw-500"
+                                :href="`{{ route('forums.index') }}?category_id=${resource.category_id}`">
+                                <v-icon class="orange--text mr-2">{{ $resource->category->icon }}</v-icon>
+                                <span>{{ $resource->category->name }}</span>
+                            </a>
+                        </v-card-text>
+                    @endif
                     {{-- /category --}}
 
                     {{-- body --}}

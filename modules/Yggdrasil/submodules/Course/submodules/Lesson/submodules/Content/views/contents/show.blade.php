@@ -223,8 +223,8 @@
 
                         <v-flex md6 xs12>
                             <v-card-text class="text-xs-center">
-                                <v-btn success round outline large><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn> 
-                                 <v-btn success round outline large> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn> 
+                                <v-btn success round outline large><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
+                                 <v-btn success round outline large> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn>
                             </v-card-text>
                         </v-flex>
                     </v-layout>

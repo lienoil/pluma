@@ -25,9 +25,15 @@ return [
      * will only look here if no module entry was found there.
      */
     'disabled' => [
+        'Single',
+        // 'Test',
         'Calendar',
-        'Test',
+        'Note',
         'Octocat',
         'Chronos',
+        // 'Announcement',
+        // 'Bookmark',
+        // 'Yggdrasil',
+        // 'Forum',
     ],
 ];

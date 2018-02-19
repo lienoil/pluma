@@ -1,25 +1,25 @@
 <v-navigation-drawer
     :dark.sync="dark"
     :floating="sidebar.floating"
-    light
     :light.sync="light"
     :mini-variant.sync="sidebar.mini"
-    @click.native.stop="setStorage('sidebar.mini', sidebar.mini)"
-    class="navigation-drawer--is-booted elevation-1"
+    app
+    class="navigation-drawer--is-booted elevation-1 {{ user()->detail('backdrop') }}"
     enable-resize-watcher
+    light
     overflow
     persistent
     v-model="sidebar.drawer"
-    app
+    @click.native.stop="setStorage('sidebar.mini', sidebar.mini)"
 >
-    <v-list>
+    <v-list class="transparent">
         <v-list-tile>
             <v-list-tile-avatar tile size="40px">
                 @include("Frontier::partials.brand")
             </v-list-tile-avatar>
             <v-list-tile-content>
                 <v-list-tile-title><strong>{{ $application->site->title }}</strong></v-list-tile-title>
-                <span class="caption">{{ $application->site->tagline }}</span>
+                <v-list-tile-sub-title class="caption">{{ $application->site->tagline }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
                 <v-btn
@@ -37,7 +37,7 @@
 
     {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
 
-    <v-list>
+    <v-list class="transparent">
         <template v-for="(menu, i) in navigation.sidebar">
             {{-- Avatar --}}
             <template v-if="menu.is_avatar">
@@ -97,7 +97,7 @@
         </template>
     </v-list>
 
-    <v-list ripple>{{-- <v-list dense> --}}
+    <v-list ripple class="transparent">{{-- <v-list dense> --}}
 
         <template v-for="(menu, i) in navigation.sidebar">
             {{-- if is avatar --}}

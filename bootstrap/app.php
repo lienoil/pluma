@@ -27,6 +27,11 @@ $app->singleton(
 );
 
 $app->singleton(
+    \Illuminate\Contracts\Console\Kernel::class,
+    \Blacksmith\Console\Kernel::class
+);
+
+$app->singleton(
     \Illuminate\Contracts\Debug\ExceptionHandler::class,
     \Pluma\Exceptions\Handler::class
 );

@@ -121,7 +121,7 @@
                         </template>
                     </v-data-table>
                 </v-card>
-                @if (\Illuminate\Support\Facades\Request::all())
+                @if (request()->all())
                 <v-btn flat warning href="{{ route('submissions.index') }}" class=""><v-icon left>remove_circle</v-icon> {{ __('Remove filters') }}</v-btn>
                 @endif
             </v-flex>
@@ -162,7 +162,7 @@
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Form Name") }}', align: 'left', value: 'form_id' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
-                            { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
+                            { text: '{{ __("Modified") }}', align: 'left', value: 'updated_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
@@ -219,7 +219,7 @@
                         page: page,
                         sort: sortBy,
                         take: rowsPerPage,
-                        search: {!! @json_encode(\Illuminate\Support\Facades\Request::all()) !!},
+                        search: {!! @json_encode(request()->all()) !!},
                     };
                     this.api().get('{{ route('api.submissions.all') }}', query)
                         .then((data) => {

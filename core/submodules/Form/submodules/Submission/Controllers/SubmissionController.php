@@ -1,5 +1,7 @@
 <?php
+
 namespace Submission\Controllers;
+
 use Form\Models\Form;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
@@ -11,6 +13,7 @@ use Submission\Support\Traits\SubmissionResourceApiTrait;
 use Submission\Support\Traits\SubmissionResourcePublicTrait;
 use Submission\Support\Traits\SubmissionResourceSoftDeleteTrait;
 use User\Models\User;
+
 class SubmissionController extends GeneralController
 {
     use CanExportResultTrait,
@@ -28,6 +31,7 @@ class SubmissionController extends GeneralController
     public function index(Request $request)
     {
         $form = Form::search($request->all())->paginate();
+
         return view("Theme::submissions.index")->with(compact('form'));
     }
 
@@ -38,11 +42,11 @@ class SubmissionController extends GeneralController
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id = null)
     {
         $resources = Form::findOrFail($id)->submissions;
 
-        return view("Theme::submissions.show")->with(compact('resources'));
+        return view("Theme::submissions.show")->with(compact('resources', 'id'));
     }
 
     /**
@@ -108,6 +112,6 @@ class SubmissionController extends GeneralController
     {
         Submission::destroy($request->has('id') ? $request->input('id') : $id);
 
-        return redirect()->route('submissions.index');
+        return back();
     }
 }

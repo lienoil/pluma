@@ -44,6 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Pluma\Middleware\EncryptCookies::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
+            \Pluma\Middleware\CORS::class,
         ],
     ];
 

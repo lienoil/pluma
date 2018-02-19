@@ -1,6 +1,7 @@
 @extends("Frontier::layouts.admin")
 
 @section("content")
+
     @include("Theme::partials.banner")
 
     <v-toolbar dark class="secondary elevation-1 sticky">

@@ -2,7 +2,12 @@
 
 @section("content")
 
-    <v-container fluid grid-list-lg>
+    <v-toolbar dark class="sticky secondary elevation-1">
+        <v-icon left dark>fa-twitter</v-icon>
+        <v-toolbar-title>{{ __('Social Media') }}</v-toolbar-title>
+    </v-toolbar>
+
+    <v-container fluid grid-list-lg class="white">
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
@@ -52,6 +57,7 @@
 
                         <v-card-actions>
                             <v-btn primary type="submit" class="elevation-1">{{ __('Save') }}</v-btn>
+                            <v-spacer></v-spacer>
                         </v-card-actions>
                     </v-card>
                 </form>

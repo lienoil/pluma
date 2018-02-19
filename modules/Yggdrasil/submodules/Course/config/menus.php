@@ -5,6 +5,7 @@ return [
      *--------------------------------------------------------------------------
      * Courses Menus
      *--------------------------------------------------------------------------
+     *
      * Specify here the menus to appear on the sidebar.
      *
      */
@@ -19,42 +20,35 @@ return [
             'description' => __('Manage courses'),
         ],
         'children' => [
-            'manage-courses-group' => [
-                'name' => 'manage-courses-group',
-                'slug' => route('courses.index'),
+
+            /**
+             *------------------------------------------------------------------
+             * Administrative Routes for Courses
+             *------------------------------------------------------------------
+             *
+             * These routes will be handled by CourseController.
+             * This are the typical CRUD menus including index, create,
+             * and trashed.
+             *
+             */
+            'view-course' => [
+                'name' => 'view-course',
                 'order' => 1,
-                'is_group_link' => true,
-                'always_viewable' => false,
-                'display_as_header' => true,
-                'icon' => 'supervisor_account',
-                'labels' => [
-                    'title' => __('Manage Courses'),
-                    'description' => __('Manage all courses.'),
-                ],
+                'slug' => route('courses.index'),
                 'routes' => [
                     'name' => 'courses.index',
                     'children' => [
                         'courses.edit',
-                        // 'courses.create',
                         'courses.show',
-                        'courses.trashed',
                     ]
                 ],
-                'children' => [
-                    'view-course' => [
-                        'name' => 'view-course',
-                        'order' => 1,
-                        'slug' => route('courses.index'),
-                        'route' => 'courses.index',
-                        // 'icon' => 'supervisor_account',
-                        'always_viewable' => false,
-                        'labels' => [
-                            'title' => __('All Courses'),
-                            'description' => __('Manage list of all courses'),
-                        ],
-                    ],
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Manage Courses'),
+                    'description' => __('Manage list of all courses'),
                 ],
             ],
+
             'create-course' => [
                 'name' => 'create-course',
                 'order' => 2,
@@ -67,62 +61,86 @@ return [
                     'description' => __('Create a Course'),
                 ],
             ],
+
             'trashed-course' => [
                 'name' => 'trashed-course',
-                'order' => 3,
+                'order' => 11,
                 'slug' => route('courses.trashed'),
                 'route' => 'courses.trashed',
+                'icon' => 'delete',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Trashed Courses'),
                     'description' => __('View list of all courses moved to trash'),
                 ],
             ],
-            'view-enrolled-courses' => [
-                'name' => 'view-enrolled-courses',
-                'order' => 2,
-                'slug' => route('courses.enrolled.index'),
-                'always_viewable' => true,
-                'routes' => [
-                    'name' => 'courses.enrolled.index',
-                    'children' => [
-                        'courses.enrolled.show',
-                    ]
-                ],
-                'labels' => [
-                    'title' => __('My Courses'),
-                    'description' => __('View your currently enrolled courses'),
-                ],
-            ],
+
+            /**
+             *------------------------------------------------------------------
+             * Public Courses
+             *------------------------------------------------------------------
+             *
+             * These entry includes routes from routes/public.php and serves as
+             * a sidebar shortcut link.
+             *
+             */
             'all-courses' => [
                 'name' => 'all-courses',
-                'order' => 2,
+                'order' => 5,
                 'slug' => route('courses.all'),
+                'always_viewable' => true,
                 'routes' => [
                     'name' => 'courses.all',
                     'children' => [
                         'courses.single',
                     ]
                 ],
-                'always_viewable' => true,
+                'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Courses'),
-                    'description' => __('View the list of all courses'),
+                    'description' => __('View list of all courses'),
                 ],
             ],
 
-            'view-bookmarked-courses' => [
-                'name' => 'view-bookmarked-courses',
-                'order' => 10,
-                'icon' => 'bookmark',
-                'slug' => route('courses.bookmark.index'),
-                'always_viewable' => true,
+            /**
+             *------------------------------------------------------------------
+             * My Courses
+             *------------------------------------------------------------------
+             *
+             * These routes will be handled by MyCourseController.
+             * They can be found in routes/admin.php # My Courses
+             *
+             */
+            'my-courses' => [
+                'name' => 'my-courses',
+                'order' => 6,
+                'slug' => route('courses.my'),
+                'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Bookmarked'),
+                    'title' => __('My Courses'),
+                    'description' => __('View your current courses'),
+                ],
+            ],
+
+            'bookmarked-courses' => [
+                'name' => 'bookmarked-courses',
+                'order' => 7,
+                'slug' => route('courses.bookmarked'),
+                'icon' => 'bookmark',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Bookmarked Courses'),
                     'description' => __('View all your bookmarked courses'),
                 ],
             ],
 
+
+            /**
+             *------------------------------------------------------------------
+             * Category Menu
+             *------------------------------------------------------------------
+             *
+             */
             'divider-for-course-category' => [
                 'name' => 'divider-for-course-category',
                 'is_header' => true,
@@ -144,27 +162,4 @@ return [
             ],
         ],
     ],
-
-
-    /**
-     *--------------------------------------------------------------------------
-     * Profile Menus
-     *--------------------------------------------------------------------------
-     *
-     * Specify here the menus to appear on the sidebar.
-     *
-     */
-    // 'show-course' => [
-    //     'name' => 'show-course',
-    //     'order' => 55,
-    //     'slug' => route('profile.courses.show', user()->handlename),
-    //     'route' => 'profile.courses.show',
-    //     'always_viewable' => false,
-    //     'parent' => 'profile-group',
-    //     'icon' => 'fa-book',
-    //     'labels' => [
-    //         'title' => __('My Courses'),
-    //         'description' => __('View your courses here'),
-    //     ],
-    // ],
 ];

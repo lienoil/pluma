@@ -6,6 +6,7 @@ use Assignment\Models\Assignment;
 use Catalogue\Models\Catalogue;
 use Category\Models\Category;
 use Comment\Models\Comment;
+use Comment\Requests\CommentRequest;
 use Content\Models\Content;
 use Course\Models\Course;
 use Course\Models\User;
@@ -13,6 +14,7 @@ use Course\Requests\CourseRequest;
 use Course\Support\Traits\CourseResourceApiTrait;
 use Course\Support\Traits\CourseResourcePublicTrait;
 use Course\Support\Traits\CourseResourceSoftDeleteTrait;
+use Course\Support\Traits\MyCourseResourceTrait;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
@@ -22,7 +24,8 @@ class CourseController extends GeneralController
 {
     use CourseResourceApiTrait,
         CourseResourcePublicTrait,
-        CourseResourceSoftDeleteTrait;
+        CourseResourceSoftDeleteTrait,
+        MyCourseResourceTrait;
 
     /**
      * Display a listing of the resource.
@@ -96,7 +99,7 @@ class CourseController extends GeneralController
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;
             $lesson->icon = $input->icon;
-            $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
+            // $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
             $lesson->course()->associate($course);
             if (! empty($input->assignment->title)) {
                 $lesson->assignment()->associate(Assignment::create((array) $input->assignment));
@@ -111,7 +114,7 @@ class CourseController extends GeneralController
                     $content->title = $input->title;
                     $content->body = $input->body;
                     $content->delta = $input->delta;
-                    $content->lockable = isset($input->lockable) ? $input->lockable : false;
+                    // $content->lockable = isset($input->lockable) ? $input->lockable : false;
                     $content->lesson()->associate($lesson);
                     $content->library()->associate(Library::find($input->library_id));
                     $content->save();
@@ -176,7 +179,7 @@ class CourseController extends GeneralController
             $lesson->body = $input->body;
             $lesson->delta = $input->delta;
             $lesson->icon = $input->icon;
-            $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
+            // $lesson->lockable = isset($input->lockable) ? $input->lockable : false;
             $lesson->course()->associate($course);
             if (! empty($input->assignment->title)) {
                 $lesson->assignment()->associate(Assignment::updateorCreate(['id' => $input->assignment->id ?? null], (array) $input->assignment));
@@ -192,7 +195,7 @@ class CourseController extends GeneralController
                     $content->title = $input->title;
                     $content->body = $input->body;
                     $content->delta = $input->delta;
-                    $content->lockable = isset($input->lockable) ? $input->lockable : false;
+                    // $content->lockable = isset($input->lockable) ? $input->lockable : false;
                     $content->lesson()->associate($lesson);
                     $content->library()->associate(Library::find($input->library_id));
                     $content->save();
@@ -254,11 +257,11 @@ class CourseController extends GeneralController
      /**
      * Comment the specified resource from storage permanently.
      *
-     * @param  \Story\Requests\StoryRequest  $request
+     * @param  \Comment\Requests\CommentRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function comment(Request $request, $id)
+    public function comment(CommentRequest $request, $id)
     {
         // dd($request->all());
         $comment = New Comment();

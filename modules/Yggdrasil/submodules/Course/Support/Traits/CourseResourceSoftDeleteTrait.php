@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 trait CourseResourceSoftDeleteTrait
 {
-	/**
+    /**
      * Display a listing of the trashed resource.
      *
      * @param  Illuminate\Http\Request $request
@@ -16,8 +16,8 @@ trait CourseResourceSoftDeleteTrait
     public function trashed(Request $request)
     {
         $resources = Course::onlyTrashed()
-        						 ->search($request->all())
-        						 ->paginate();
+                           ->search($request->all())
+                           ->paginate();
 
         return view("Theme::courses.trashed")->with(compact('resources'));
     }
@@ -32,8 +32,8 @@ trait CourseResourceSoftDeleteTrait
     public function restore(Request $request, $id)
     {
         $courses = Course::onlyTrashed()
-        					->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
-        					->get();
+                         ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
+                         ->get();
 
         foreach ($courses as $course) {
             $course->restore();
@@ -52,10 +52,10 @@ trait CourseResourceSoftDeleteTrait
     public function delete(Request $request, $id)
     {
         $courses = Course::onlyTrashed()
-	                     ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
-	                     ->get();
+                         ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
+                         ->get();
 
-	    foreach ($courses as $course) {
+        foreach ($courses as $course) {
             $course->forceDelete();
         }
 

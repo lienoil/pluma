@@ -13,6 +13,6 @@ trait BelongsToManyCourses
      */
     public function courses()
     {
-        return $this->BelongsToMany(Course::class);
+        return $this->belongsToMany(Course::class);
     }
 }

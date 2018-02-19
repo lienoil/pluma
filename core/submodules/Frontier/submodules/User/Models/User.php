@@ -13,15 +13,15 @@ use Setting\Support\Traits\SettingTrait;
 use User\Scopes\Avatar;
 use User\Support\Relations\HasManyDetails;
 use User\Support\Traits\CanResetPasswordTrait;
-use User\Support\Traits\DetailTrait;
 use User\Support\Traits\HasOneActivation;
+use User\Support\Traits\WhereDetailTrait;
 
 class User extends Authenticatable
 {
     use Avatar,
         BelongsToManyRoles,
         CanResetPasswordTrait,
-        HasManyDetails, DetailTrait,
+        HasManyDetails, WhereDetailTrait,
         HasManyNotes,
         HasManySettings, SettingTrait,
         HasOneActivation;

@@ -9,7 +9,14 @@ use Submission\Support\Dompdf\PDF;
 trait CanExportResultTrait
 {
     /**
-     * Export to spread sheet or pdf the given resource.
+     * The instance of the file exporter.
+     *
+     * @var mixed
+     */
+    protected $file;
+
+    /**
+     * Export to pdf the given resource.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  string  $id
@@ -19,15 +26,41 @@ trait CanExportResultTrait
     {
         $resource = Submission::findOrFail($id);
 
-        $file = new PDF();
-        $file->loadView("Submission::templates.submissions", [
-                'resource' => $resource,
+        switch ($request->input('export_type')) {
+            case 'spreadsheet':
+            case 'xlsx':
+            case 'xls':
+                dd("Oops! this is not supported yet");
+                break;
+
+            case 'pdf':
+            case 'PDF':
+            default:
+                $this->file = new PDF();
+                return $this->exportToPdf($request, $resource);
+                break;
+        }
+    }
+
+    /**
+     * Exports to PDF format.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Submission\Models\Submission $submission
+     * @return void
+     */
+    public function exportToPdf(Request $request, Submission $submission)
+    {
+        $this->file->loadView("Submission::templates.submissions", [
+                'resource' => $submission,
              ])
-             ->setPaper('A4')
+             ->setPaper($request->input('paper_size') ?? 'A4')
              ->render();
 
-        return $file->stream(settings("export_name_pdf", "{$resource->form->name} - {$resource->user->fullname}"), [
-            "Attachment" => $request->input('attachment') ?? false
-        ]);
+        return $this->file->stream(
+            $request->input('filename')
+                ?? "{$submission->form->name} - {$submission->user->fullname}",
+            ["Attachment" => $request->input('attachment') ?? false]
+        );
     }
 }

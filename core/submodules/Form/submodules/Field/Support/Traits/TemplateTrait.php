@@ -104,8 +104,9 @@ trait TemplateTrait
         $template = preg_replace('/%tabindex%/', $this->sort, $template);
         $template = preg_replace('/%field_id%/', $this->id, $template);
         $template = preg_replace('/%type%/', $this->type, $template);
-        $template = preg_replace('/%value%/', $this->value, $template);
         $template = preg_replace('/%attributes%/', $this->attributed, $template);
+        $template = preg_replace('/%value%/', '', $template);
+        // $template = preg_replace('/%value%/', $this->value, $template);
 
         return $template;
     }
@@ -124,11 +125,14 @@ trait TemplateTrait
             case 'vuetify-checkbox':
             case 'select':
             case 'radio':
+            case 'radio-field':
             case 'checkbox':
                 $values = explode('|', $this->value);
+
                 foreach ($values as &$value) {
                     $value = str_replace('*', '', $value);
                 }
+
                 $template = preg_replace('/%items%/', json_encode($values, ENT_QUOTES), $template);
                 return $template;
                 break;

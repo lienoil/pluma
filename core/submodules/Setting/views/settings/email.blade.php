@@ -2,8 +2,9 @@
 
 @section("content")
 
-    <v-toolbar dark class="elevation-2 sticky accent">
-        <v-toolbar-title primary-title class="subheading page-title">{{ __('Email Options') }}</v-toolbar-title>
+    <v-toolbar dark class="sticky secondary elevation-1">
+        <v-icon left dark>fa-envelope</v-icon>
+        <v-toolbar-title>{{ __('Email Options') }}</v-toolbar-title>
     </v-toolbar>
 
     <v-container fluid grid-list-lg class="white">

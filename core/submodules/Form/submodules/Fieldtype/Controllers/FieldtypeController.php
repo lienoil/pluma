@@ -92,9 +92,9 @@ class FieldtypeController extends GeneralController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Illuminate\Http\Request  $request
-     * @param  Fieldtype\Models\Fieldtype  $fieldtype
-     * @return Illuminate\Http\Response
+     * @param  \Fieldtype\Requests\FieldtypeRequest  $request
+     * @param  \Fieldtype\Models\Fieldtype  $fieldtype
+     * @return \Illuminate\Http\Response
      */
     public function update(FieldtypeRequest $request, $id)
     {

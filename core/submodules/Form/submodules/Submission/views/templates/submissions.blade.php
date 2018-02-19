@@ -1,3 +1,11 @@
+{{--
+Template Name: Default Template
+Type: Submission
+Description: The default submission template displaying the submitted results.
+Author: Pluma CMS
+Version: 2.0.1
+--}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,7 +89,7 @@
             @foreach ($resource->fields() as $field)
                 <tr class="padded-large">
                     <th>{{ $field->question->label }}</th>
-                    <td>{!! $field->answer ?? '<em>no answer</em>' !!}</td>
+                    <td>{!! $field->guess ?? '<em>no answer</em>' !!}</td>
                 </tr>
             @endforeach
         </tbody>
