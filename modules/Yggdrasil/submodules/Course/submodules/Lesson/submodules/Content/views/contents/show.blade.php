@@ -124,6 +124,7 @@
                         <v-flex md6 xs12>
                             <v-card-text>
                                 <p class="body-2 grey--text page-title mb-1">PUBLISHED ON {{ $resource->created }}</p>
+                                <p class="subheading grey--text text--darken-1 page-title mb-1"><strong>{{ $resource->course->title }}</strong></p>
                                 <h2 class="page-title display-1">{{ $resource->lesson->title }}:</h2>
                                 <h2 class="page-title display-1 grey--text">{{ $resource->title }}</h2>
                             </v-card-text>
@@ -157,10 +158,9 @@
 
                     <v-flex md4 xs12>
                         <v-card class="elevation-1 mb-3">
-                            <v-card-text class="pa-3">
-                                <div class="page-title mb-1"><strong>{{ $resource->course->title }}:</strong></div>
-                                <div class="page-title">{{ $resource->lesson->title }}</div>
-                            </v-card-text>
+                            <v-toolbar flat>
+                                <v-toolbar-title class="page-title">{{ $resource->lesson->title }}</v-toolbar-title>
+                            </v-toolbar>
                             <v-list class="mb-3">
                                 <v-list-tile
                                     :href="item.url"
