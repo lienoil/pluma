@@ -9,6 +9,7 @@ use Course\Models\Course;
 use Course\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use Lesson\Models\Lesson;
 
 class ContentController extends AdminController
 {
@@ -36,8 +37,9 @@ class ContentController extends AdminController
     {
         $resource = Content::findOrFail($id);
         $contents = $resource->lesson->contents;
+        $lesson = Lesson::findOrFail($id);
 
-        return view("Theme::contents.show")->with(compact('resource', 'contents'));
+        return view("Theme::contents.show")->with(compact('resource', 'contents', 'lesson'));
     }
 
     /**

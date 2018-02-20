@@ -2,6 +2,7 @@
 
 namespace Content\Models;
 
+use Comment\Support\Relations\MorphManyComments;
 use Content\Support\Traits\ContentMutator;
 use Course\Support\Traits\Status;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +10,6 @@ use Lesson\Support\Traits\BelongsToLesson;
 use Lesson\Support\Traits\HasCourseThroughLesson;
 use Library\Support\Traits\BelongsToLibrary;
 use Pluma\Models\Model;
-use Comment\Support\Relations\MorphManyComments;
 
 class Content extends Model
 {
