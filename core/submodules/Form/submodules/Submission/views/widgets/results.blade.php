@@ -9,36 +9,39 @@
             <v-icon>@{{ p1 ? 'add' : 'remove' }}</v-icon>
         </v-btn> --}}
     </v-toolbar>
-    <v-slide-y-transition>
-        <v-card class="elevation-0 transparent" v-show="!p1" transition="slide-y-transition" style="max-height: 70vh; overflow-y: auto;">
-            <v-card-text>
-                <v-container fluid grid-list-lg>
-                    <v-layout row wrap justify-center align-center>
-                        <v-flex xs12>
-                            <div class="chart-container mb-3">
-                                {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
-                                @foreach ($resource->fields() as $field)
+    <v-card class="elevation-0 transparent" style="max-height: 70vh; overflow-y: auto;">
+        <v-container fluid grid-list-lg>
+            <v-layout row wrap justify-center align-center>
+                <v-flex xs12>
+                    <div class="chart-container mb-3">
+                        {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
+                        <template v-for="(charts, i) in chartVariables.items">
+                           <v-card-text class="px-0">
                                 <ul>
                                     <li>
-                                        <p>{{ $field->question->label }}</p>
+                                        <h1 class="subheading" v-html="charts.label"></h1>
+                                        <canvas :id="`chart-${i}`"></canvas>
                                     </li>
                                 </ul>
-                                <canvas :key="i" v-for="(charts, i) in chartVariables.items" :id="`chart-${i}`"></canvas>
-                                @endforeach
-                            </div>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-card-text>
-        </v-card>
-    </v-slide-y-transition>
+                           </v-card-text>
+                       </template>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-card>
 </v-card>
 
 @push('css')
     <style>
         .chart-container {
             position: relative;
-            height: 200px;
+            height: 80vh;
+        }
+        #chartDiv,
+        .chartjs-render-monitor {
+            width: 100%;
+            max-height: 250px !important;
         }
     </style>
 @endpush
@@ -51,12 +54,6 @@
         mixins.push({
             data () {
                 return {
-                    p1: false,
-                    year: [
-                        { title: 'Quarterly' },
-                        { title: 'Monthly' },
-                        { title: 'Yearly' }
-                    ],
                     chartVariables: [],
                 }
             },

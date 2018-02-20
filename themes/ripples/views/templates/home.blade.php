@@ -38,26 +38,31 @@ Version: 1.0
 
         {{-- banner-content --}}
         {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.50); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
-        <div class="insert-overlay" style="background: rgba(49, 44, 58, 0.74); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+        <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
         <v-card flat class="transparent threejs-section">
             {{-- <v-card-text class="white--text text-xs-center">
                 <h2 class="page-title display-4"><strong>{{ $application->site->title }}</strong></h2>
                 <h4 class="page-title headline">{!! $page->body !!}</h4>
             </v-card-text> --}}
-            <v-layout row wrap justify-center align-center>
-                <v-flex md6 xs12>
-                    <v-card flat class="transparent">
-                        <v-card-text class="white--text text-xs-center">
-                            <h2 class="page-title display-2"><strong>{{ $application->site->title }}</strong></h2>
-                            <h4 class="page-title headline">{!! $page->body !!}</h4>
-                        </v-card-text>
-                    </v-card>
-                </v-flex>
 
-                <v-flex md6 xs12>
-                    <v-card flat class="transparent">
-                        <img src="{{ assets('frontier/images/placeholder/iso-elearning.png') }}" alt="" width="100%">
-                    </v-card>
+            <v-layout row wrap justify-center align-center>
+                <v-flex md10 xs12>
+                    <v-layout row wrap justify-center align-center>
+                        <v-flex sm6 xs12>
+                            <v-card flat class="transparent">
+                                <v-card-text class="white--text">
+                                    <h2 class="page-title display-3"><strong>{{ $application->site->title }}</strong></h2>
+                                    <h4 class="page-title headline">{!! $page->body !!}</h4>
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+
+                        <v-flex sm6 xs12>
+                            <v-card flat class="transparent">
+                                <img src="{{ assets('frontier/images/placeholder/iso-elearning.png') }}" alt="" width="100%">
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
                 </v-flex>
             </v-layout>
         </v-card>
@@ -66,11 +71,9 @@ Version: 1.0
     {{-- /banner --}}
 
 
-    <template id="hero">
+    {{-- <template id="hero">
         <v-card dark class="elevation-0">
-            {{-- <v-card-media src="{{ $page->feature }}" height="90vh"> --}}
             <v-card-media src="{{ assets('frontier/images/placeholder/hero.jpg') }}" height="90vh">
-                {{-- <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.3); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                 <v-container fill-height>
                     <layout row wrap justify-center align-left>
                         <v-flex md5 xs12>
@@ -84,7 +87,7 @@ Version: 1.0
                 </v-container>
             </v-card-media>
         <v-card>
-    </template>
+    </template> --}}
 
     {{-- divider --}}
     <v-card flat height="200px"></v-card>
@@ -171,6 +174,16 @@ Version: 1.0
             </v-layout>
         </div>
     </template>
+
+    {{-- divider --}}
+    <v-card flat height="200px"></v-card>
+    {{-- /divider --}}
+
+    {{-- full-width threejs --}}
+    <div id="threejs-width">
+
+    </div>
+    {{-- /full-width threejs --}}
 
     {{-- divider --}}
     <v-card flat height="200px"></v-card>
@@ -314,10 +327,13 @@ Version: 1.0
             height: 100vh !important;
         }
         .threejs-section {
-            position: absolute !important;
+            /*position: absolute !important;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);*/
+            position: absolute !important;
+            top: 50%;
+            transform: translateY(-50%);
         }
         #home-menu {
             position: absolute !important;
@@ -403,7 +419,7 @@ Version: 1.0
 
             // lines
 
-            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xca3784, opacity: 0.5 } ) );
+            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0x66b3f0, opacity: 0.5 } ) );
             scene.add( line );
 
             document.addEventListener( 'mousemove', onDocumentMouseMove, false );

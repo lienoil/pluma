@@ -10,7 +10,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex md6 xs12>
-                <v-card class="elevation-1" height="100%" style="min-height: 80vh;">
+                <v-card class="elevation-1" height="100%">
                     <v-toolbar dark flat class="secondary">
                         <v-icon left dark>playlist_add_check</v-icon>
                         <v-toolbar-title>{{ __('List of Examinees') }}</v-toolbar-title>
@@ -19,8 +19,7 @@
                             <v-icon>search</v-icon>
                         </v-btn>
                     </v-toolbar>
-                    <v-list style="max-height: 70vh; overflow-y: auto;">
-
+                    <v-list class="list-container">
                         @foreach ($resources as $resource)
                             <v-list-tile avatar ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }"
                                 href="{{ route('submissions.result', $resource->id) }}" target="_blank">
@@ -36,12 +35,11 @@
                                 </v-list-tile-action>
                             </v-list-tile>
                         @endforeach
-
                     </v-list>
                 </v-card>
             </v-flex>
             <v-flex md6 xs12>
-                <v-card class="elevation-1" height="100%" style="min-height: 80vh;">
+                <v-card class="elevation-1" height="100%">
                     @include("Submission::widgets.results")
                 </v-card>
             </v-flex>
@@ -55,6 +53,12 @@
         .td-n:hover,
         .td-n:focus:visited {
             text-decoration: none !important;
+        }
+
+        .list-container {
+            position: relative;
+            height: 70vh;
+            overflow-y: auto !important;
         }
     </style>
 @endpush

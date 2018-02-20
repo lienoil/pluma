@@ -16,6 +16,7 @@
                         <v-spacer></v-spacer>
                         <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
                     </v-toolbar>
+
                     <v-alert
                         icon="check"
                         class="success ma-0"
@@ -24,7 +25,7 @@
                         transition="slide-y-transition"
                         :timeout="2000"
                         style="z-index: 2"
-                    >
+                        >
                         <v-card style="margin-bottom: -2rem" class="elevation-1 mb--2">
                             <v-card-text class="grey--text text--darken-1 text-xs-center">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</v-card-text>
                         </v-card>
