@@ -124,14 +124,18 @@
                             <v-card-text>
                                 <p class="body-2 grey--text page-title mb-1">PUBLISHED ON {{ $resource->created }}</p>
                                 <h2 class="page-title display-1">{{ $resource->lesson->title }}:</h2>
-                                <h2 class="page-title display-1 grey--text">Introduction</h2>
+                                <h2 class="page-title display-1 grey--text">{{ $resource->title }}</h2>
                             </v-card-text>
                         </v-flex>
 
                         <v-flex md6 xs12>
-                            <v-card-text class="text-xs-center">
-                                <v-btn success round outline large><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
-                                 <v-btn success round outline large> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn>
+                            <v-card-text>
+                                <p class="grey--text">{{ $resource->excerpt }}</p>
+                            </v-card-text>
+
+                            <v-card-text class="text-xs-right">
+                                <v-btn success outline><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
+                                 <v-btn success outline> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn>
                             </v-card-text>
                         </v-flex>
                     </v-layout>
@@ -142,7 +146,7 @@
         <v-layout row wrap justify-center align-center>
             <v-flex lg10 md8 xs12>
                 <v-layout row wrap>
-                    <v-flex md6 xs12>
+                    <v-flex md8 xs12>
                         {{-- Comments Section --}}
                         <v-card class="elevation-1">
                             @include("Content::widgets.comments")
@@ -150,7 +154,7 @@
                         {{-- Comments Section --}}
                     </v-flex>
 
-                    <v-flex md6 xs12>
+                    <v-flex md4 xs12>
                         <v-card class="elevation-1 mb-3">
                             <v-card-text>
                                 <div class="page-title mb-1"><strong>{{ $resource->course->title }}</strong>,</div>
@@ -179,8 +183,12 @@
                             <v-card-text>
                                 @include("Content::widgets.assignment")
                             </v-card-text>
-                            {{-- / Assignment --}}
+                            {{-- /Assignment --}}
                         </v-card>
+
+                        {{-- Content Progress --}}
+                            @include("Course::widgets.lesson-progress")
+                        {{-- /Content Progress --}}
                     </v-flex>
                 </v-layout>
             </v-flex>
