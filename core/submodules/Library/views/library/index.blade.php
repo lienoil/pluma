@@ -200,7 +200,7 @@
                                 <v-layout fill-height wrap column>
                                     <div class="text-xs-right pa-2">
                                         <v-menu bottom left>
-                                            <v-btn v-tooltip:left="{ html: 'More Action' }" dark icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
+                                            <v-btn v-tooltip:left="{ html: 'More Action' }" icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                             <v-list>
                                                 <v-list-tile ripple @click="$refs[`destroy_${prop.item.id}`].submit()">
                                                    <v-list-tile-action>

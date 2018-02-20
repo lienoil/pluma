@@ -136,7 +136,11 @@
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.destroy, prop.item.id)" method="POST">
+                                                    <form
+                                                        :id="`destroy_${prop.item.id}`"
+                                                        :ref="`destroy_${prop.item.id}`"
+                                                        :action="route(urls.destroy, prop.item.id)"
+                                                        method="POST">
                                                         {{ csrf_field() }}
                                                         {{ method_field('DELETE') }}
                                                         {{ __('Move to Trash') }}

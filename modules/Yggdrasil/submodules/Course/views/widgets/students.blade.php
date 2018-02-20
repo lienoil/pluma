@@ -25,7 +25,7 @@
                         <v-list-tile-title>{{ $student->displayname }}</v-list-tile-title>
                     </v-list-tile-content>
                     <v-list-tile-action class="grey--text">
-                        {{ $student->course()->find($resource->id)->progress }}
+                        {{ $student->courses()->find($resource->id)->progress }}
                     </v-list-tile-action>
                 </v-list-tile>
             @endforeach

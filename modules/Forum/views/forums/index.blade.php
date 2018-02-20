@@ -4,7 +4,7 @@
 
 @section("content")
     @include("Theme::partials.banner")
-    
+
     <v-toolbar dark class="secondary elevation-1 sticky">
         <v-toolbar-title dark>{{ __('All Threads') }}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -40,45 +40,16 @@
                             @{{ item.name }}
                         </a>
                         <v-spacer></v-spacer>
-                        <v-menu bottom left>
-                            <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
-                            <v-list>
-                                <v-list-tile :href="route(urls.show, (item.id))">
-                                    <v-list-tile-action>
-                                        <v-icon info>search</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            {{ __('View details') }}
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile :href="route(urls.edit, (item.id))">
-                                    <v-list-tile-action>
-                                        <v-icon accent>edit</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            {{ __('Edit') }}
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                                <v-list-tile ripple @click="$refs[`destroy_${item.id}`].submit()">
-                                    <v-list-tile-action>
-                                        <v-icon warning>delete</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            <form :id="`destroy_${item.id}`" :ref="`destroy_${item.id}`" :action="route(urls.destroy, item.id)" method="POST">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                {{ __('Move to Trash') }}
-                                            </form>
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                            </v-list>
-                        </v-menu>
+                        <v-btn :href="route(urls.edit, (item.id))" icon v-tooltip:bottom="{ html: 'Edit' }"><v-icon>edit</v-icon></v-btn>
+                        <form
+                            :id="`destroy_${item.id}`"
+                            :ref="`destroy_${item.id}`"
+                            :action="route(urls.destroy, item.id)"
+                            method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <v-btn icon type="submit"  v-tooltip:bottom="{ html: 'Move to Trash' }"><v-icon>delete</v-icon></v-btn>
+                        </form>
                     </v-card-actions>
                     {{-- /title and actions --}}
 

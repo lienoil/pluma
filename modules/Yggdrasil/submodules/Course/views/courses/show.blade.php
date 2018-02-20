@@ -145,7 +145,7 @@
                                     @if ($lesson->locked)
                                         <v-icon left>lock</v-icon>
                                     @else
-                                        <v-chip class="success white--text">{{ $lesson->order }}</v-chip>
+                                        <v-chip class="indigo lighten-2 white--text">{{ $lesson->order }}</v-chip>
                                     @endif
 
                                     <v-toolbar-title class="accent--text body-2 page-title" :class="{'grey--text': '{{ $lesson->locked }}'}">
@@ -155,7 +155,7 @@
                                     <v-spacer></v-spacer>
 
                                     @if ($lesson->icon)
-                                        <v-chip label class="success white--text"><v-icon class="white--text">{{ $lesson->icon }}</v-icon></v-chip>
+                                        <v-chip label class="indigo lighten-2 white--text"><v-icon class="white--text">{{ $lesson->icon }}</v-icon></v-chip>
                                     @endif
 
                                 </v-toolbar>

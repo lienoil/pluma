@@ -26,7 +26,7 @@
                         :timeout="2000"
                         style="z-index: 2"
                         >
-                        <v-card style="margin-bottom: -2rem" class="elevation-1 mb--2">
+                        <v-card style="margin-bottom: -2rem" class="elevation-1 mb-2">
                             <v-card-text class="grey--text text--darken-1 text-xs-center">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</v-card-text>
                         </v-card>
                     </v-alert>
@@ -157,7 +157,7 @@
 
                     <v-flex md4 xs12>
                         <v-card class="elevation-1 mb-3">
-                            <v-card-text>
+                            <v-card-text class="pa-3">
                                 <div class="page-title mb-1"><strong>{{ $resource->course->title }}:</strong></div>
                                 <div class="page-title">{{ $resource->lesson->title }}</div>
                             </v-card-text>

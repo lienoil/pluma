@@ -104,7 +104,7 @@
                         <template slot="items" scope="prop">
                             <td class="grey--text text--darken-1" v-show="bulk.commands.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.id"></td>
-                            <td class="grey--text text--darken-1"><strong v-html="prop.item.title"></strong></td>
+                            <td class="grey--text text--darken-1"><strong v-html="prop.item.name"></strong></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.code"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.author"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.template"></td>
