@@ -71,7 +71,6 @@
                                 <v-card dark flat class="transparent">
                                     <h2 class="display-1"><strong>{{ $resource->title }}</strong></h2>
 
-
                                     <v-chip dark label small class="pl-0 white--text ma-0 subheading transparent elevation-0">
                                         <v-icon left small class="subheading">fa-tasks</v-icon>&nbsp;
                                         <span>{{ $resource->lessons->count() }} {{ $resource->lessons->count() <= 1 ? __('Part') : __('Parts') }}</span>
@@ -122,7 +121,6 @@
             </v-flex>
 
             <v-flex flex md6 xs12 order-lg2>
-
                 <v-card class="elevation-1 mb-3">
                     <v-toolbar class="secondary white--text elevation-1">
                         <v-toolbar-title class="page-title white--text">{{ __('Course Content') }}</v-toolbar-title>
