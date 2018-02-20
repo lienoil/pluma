@@ -11,5 +11,5 @@ storage/logs
 storage/public
 vendor/
 !storage/**/.gitkeep
-pluma.todo
+rippl3s.todo
 tasks.todo
