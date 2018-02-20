@@ -123,7 +123,7 @@
             <v-flex flex md6 xs12 order-lg2>
 
                 <v-card class="elevation-1 mb-3">
-                    <v-toolbar class="secondary white--text elevation-1">
+                    <v-toolbar class="blue lighten-1 white--text" flat>
                         <v-toolbar-title class="page-title white--text">{{ __('Course Content') }}</v-toolbar-title>
                     </v-toolbar>
 
@@ -162,6 +162,31 @@
                                 <v-card-text class="grey--text text--darken-2 page-content body-1">
                                     {!! $lesson->body !!}
                                 </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    @if ($lesson->contents->count())
+                                        @if ($resource->enrolled)
+                                        @foreach ($lesson->contents()->orderBy('sort')->get() as $content)
+                                            <v-btn
+                                                href="{{ route('contents.single', [$content->course->slug, $lesson->id, $content->id]) }}"
+                                                outline
+                                                class="success success--text">
+                                                {{ __('Start') }}
+                                            </v-btn>
+                                        @endforeach
+                                        @else
+                                            @foreach ($lesson->contents()->orderBy('sort')->get() as $content)
+                                                <v-btn
+                                                    href="{{ route('contents.single', [$content->course->slug, $lesson->id, $content->id]) }}"
+                                                    outline
+                                                    class="success success--text">
+                                                    {{ __('View') }}
+                                                </v-btn>
+                                            @endforeach
+                                        @endif
+                                    @endif
+                                </v-card-actions>
 
                                 {{-- Lesson Content --}}
                                 @if ($lesson->contents->count())
