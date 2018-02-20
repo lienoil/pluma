@@ -12,6 +12,13 @@
         <v-container fluid>
             <v-flex sm12>
 
+                <form action="{{ route('settings.store') }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="text" name='site_title' value="">
+                        <input type="hidden" name="user_id" value="{{ user()->id }}">
+                        <button type="submit">Save</button>
+                    </form>
+
                 <v-card class="elevation-1 mb-3">
                     <v-card-text>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea incidunt, veritatis quam inventore tenetur cumque natus iste ut fugiat dolorum aut illum. Pariatur temporibus suscipit eum ipsam veritatis recusandae voluptatum?</p>

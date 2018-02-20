@@ -17,7 +17,10 @@
                         <v-flex xs12>
                             <div class="chart-container mb-3">
                                 {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
-                                <canvas :key="i" v-for="(charts, i) in chartVariables.items" :id="`chart-${i}`"></canvas>
+                                <template v-for="(charts, i) in chartVariables.items">
+                                    <p v-html="charts.label"></p>
+                                    <canvas :id="`chart-${i}`"></canvas>
+                                </template>
                             </div>
                             {{-- @foreach ($resource->fields() as $field) --}}
                                 {{-- <div class="fw-500 mb-3"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>

@@ -56,11 +56,13 @@ class SettingController extends AdminController
      */
     public function store(Request $request)
     {
-        // echo "<pre>";
-        //     var_dump( $request->all() ); die();
-        // echo "</pre>";
-        foreach ($request->except(['_token']) as $key => $value) {
-            Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
+        foreach ($request->except(['_token', 'user_id']) as $key => $value) {
+            Setting::updateOrCreate([
+                'key' => $key,
+            ], [
+                'value' => is_array($value) ? serialize($value) : $value,
+                'user_id' => $request->input('user_id'),
+            ]);
         }
 
         return back();

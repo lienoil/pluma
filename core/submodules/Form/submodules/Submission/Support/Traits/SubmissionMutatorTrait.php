@@ -35,9 +35,9 @@ trait SubmissionMutatorTrait
         foreach (collect($this->resulted)->except(['type']) as $name => $resulted) {
             $fields[$name]['question'] = $field = Field::find($resulted['field_id']);
             $fields[$name]['guess'] = $resulted[$name] ?? null;
-            $fields[$name]['choices'] = $this->choices($field->value);
-            $fields[$name]['answer'] = $this->getCorrectAnswer($field->value);
-            $fields[$name]['isCorrect'] = $this->isCorrect($field->value, $resulted[$name]);
+            $fields[$name]['choices'] = $this->choices($field->value ?? '');
+            $fields[$name]['answer'] = $this->getCorrectAnswer($field->value ?? '');
+            $fields[$name]['isCorrect'] = $this->isCorrect($field->value ?? '', $resulted[$name]);
         }
 
         return json_decode(json_encode($fields));

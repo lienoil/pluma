@@ -138,22 +138,24 @@ class NavigationViewComposer extends BaseViewComposer
         $old = "";
 
         foreach ($url as &$segment) {
-            if (is_numeric($segment)) {
-                $segment = $this->guessStringFromNumeric($segment, $old);
-            }
-            $old .= "/$segment";
-            $segment = $this->swapWord($segment);
+            if (! empty($segment)) {
+                if (is_numeric($segment)) {
+                    $segment = $this->guessStringFromNumeric($segment, $old);
+                }
+                $old .= "/$segment";
+                $segment = $this->swapWord($segment);
 
-            $segment = [
-                'last' => end($url) === $segment,
-                'active' => $this->hasRouteNameFromUrl(strtolower(url($old))),
-                'label' => $this->transformStringToHumanPresentable($segment),
-                'name' => $segment,
-                'slug' => $old,
-                'url' => $this->hasRouteNameFromUrl(strtolower(url($old)))
-                            ? strtolower(url($old))
-                            : '',
-            ];
+                $segment = [
+                    'last' => end($url) === $segment,
+                    'active' => $this->hasRouteNameFromUrl(strtolower(url($old))),
+                    'label' => $this->transformStringToHumanPresentable($segment),
+                    'name' => $segment,
+                    'slug' => $old,
+                    'url' => $this->hasRouteNameFromUrl(strtolower(url($old)))
+                                ? strtolower(url($old))
+                                : '',
+                ];
+            }
         }
 
         $this->breadcrumbs = $url;
@@ -239,7 +241,7 @@ class NavigationViewComposer extends BaseViewComposer
     {
         $this->menus = $this->unsetForbiddenRoutes($this->menus);
 
-        foreach ($this->menus as $i => &$current) {
+        foreach (($this->menus ?? []) as $i => &$current) {
             // This will remove all parent where the only child is a header/divider.
             if (count($current['children']) == 1) {
                 $firstChild = reset($current['children']);

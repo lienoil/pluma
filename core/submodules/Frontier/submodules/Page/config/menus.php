@@ -14,6 +14,7 @@ return [
         'children' => [
             'view-page' => [
                 'name' => 'view-page',
+                'routename' => 'pages.index',
                 'parent' => 'page',
                 'order' => 1,
                 'slug' => route('pages.index'),
@@ -31,9 +32,10 @@ return [
             ],
             'create-page' => [
                 'name' => 'create-page',
+                'routename' => 'pages.create',
                 'parent' => 'page',
                 'order' => 2,
-                'slug' => url(config('path.admin').'/pages/create'),
+                'slug' => route('pages.create'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Create Page'),
@@ -41,6 +43,7 @@ return [
             ],
             'trashed-page' => [
                 'name' => 'trashed-page',
+                'routename' => 'pages.trashed',
                 'order' => 3,
                 'slug' => route('pages.trashed'),
                 'always_viewable' => false,

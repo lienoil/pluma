@@ -12,6 +12,8 @@
     <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>static/manifest.json">
     <meta name="theme-color" content="#4DBA87">
 
+    <meta name="csrf-token" content="posuaosdoakdi(8776a987768798#9080">
+
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -31,7 +33,18 @@
     <noscript>
       This is your fallback content in case JavaScript fails to load.
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <v-app>
+        <v-navigation-drawer app></v-navigation-drawer>
+        <v-content>
+          <v-toolbar app></v-toolbar>
+          <breadcrumbs></breadcrumbs>
+          <v-slide-x-transition mode="out-in">
+            <router-view></router-view>
+          </v-slide-x-transition>
+        </v-content>
+      </v-app>
+    </div>
     <!-- Todo: only include in production -->
     <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
     <!-- built files will be auto injected -->

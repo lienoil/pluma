@@ -131,9 +131,13 @@ trait TemplateTrait
 
                 foreach ($values as &$value) {
                     $value = str_replace('*', '', $value);
+                    $value = html_entity_decode(str_replace("’", "'", $value));
+                    $value = html_entity_decode(str_replace("'", "'", $value));
                 }
+                // dd($values);
 
                 $template = preg_replace('/%items%/', json_encode($values, ENT_QUOTES), $template);
+
                 return $template;
                 break;
 

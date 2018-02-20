@@ -67,6 +67,24 @@
         .fw-500 {
             font-weight: 500 !important;
         }
+        .input-group.radio {
+            height: auto !important;
+            position: relative !important;
+            /*display: block !important;*/
+        }
+        .input-group.radio label {
+            position: relative !important;
+            height: auto !important;
+            /*overflow: hidden !important;*/
+            padding-left: 30px !important;
+            /*word-wrap: break-word !important;*/
+            float: left !important;
+            margin-top: -30px;
+            white-space: normal !important;
+        }
+        .input-group.radio .input-group__input{
+            order: -1;
+        }
     </style>
 @endpush
 

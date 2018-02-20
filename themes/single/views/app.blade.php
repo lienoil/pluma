@@ -4,16 +4,21 @@
   <div id="app" data-root-application>
     <v-app>
 
-      @stack("before-content")
-
       <v-content>
-        <component :is="component"></component>
-      </v-content>
+        @stack("before-content")
 
-      @stack("after-content")
+        <v-slide-x-reverse-transition mode="out-in">
+          <router-view></router-view>
+        </v-slide-x-reverse-transition>
+
+        <v-btn primary @click="localstorage('theme.dark', theme.dark = ! theme.dark)">{{ __('Toggle Dark Theme') }}</v-btn>
+        {{-- <component :is="component"></component> --}}
+
+        @stack("after-content")
+      </v-content>
 
     </v-app>
   </div>
-@endsection
+@show
 
 @include("Theme::partials.foot")

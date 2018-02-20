@@ -49,7 +49,7 @@ class BaseViewComposer
      *
      * @param string $urlPath
      */
-    protected function setCurrentUrl($urlPath)
+    public function setCurrentUrl($urlPath)
     {
         $this->currentUrl = rtrim($urlPath, '/');
     }
@@ -69,7 +69,7 @@ class BaseViewComposer
      *
      * @param string $currentRouteName
      */
-    protected function setCurrentRouteName($currentRouteName)
+    public function setCurrentRouteName($currentRouteName)
     {
         $this->currentRouteName = $currentRouteName;
     }
