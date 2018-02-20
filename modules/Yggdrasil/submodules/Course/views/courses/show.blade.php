@@ -123,9 +123,10 @@
             <v-flex flex md6 xs12 order-lg2>
 
                 <v-card class="elevation-1 mb-3">
-                    <v-toolbar class="blue lighten-1 white--text" flat>
-                        <v-toolbar-title class="page-title white--text">{{ __('Course Content') }}</v-toolbar-title>
+                    <v-toolbar light flat class="transparent">
+                        <v-toolbar-title class="page-title">{{ __('Course Content') }}</v-toolbar-title>
                     </v-toolbar>
+                    <v-divider></v-divider>
 
                     {{-- Empty Lessons --}}
                     @if ($resource->lessons->isEmpty())
@@ -157,7 +158,6 @@
                                         <v-chip label class="success white--text"><v-icon class="white--text">{{ $lesson->icon }}</v-icon></v-chip>
                                     @endif
 
-                                    {{-- <v-chip label class="success white--text">{{ "{$lesson->completed}/{$lesson->contents->count()}" }}</v-chip> --}}
                                 </v-toolbar>
                                 <v-card-text class="grey--text text--darken-2 page-content body-1">
                                     {!! $lesson->body !!}

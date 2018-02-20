@@ -2,8 +2,8 @@
     <v-toolbar class="elevation-0">
         <v-toolbar-title>{{ __('Statistics') }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon v-tooltip:left="{html: 'Export to PDF'}">
-            <v-icon>file_download</v-icon>
+        <v-btn flat primary v-tooltip:left="{html: 'Export Statistics Result'}">
+            <v-icon left>fa fa-file-pdf-o</v-icon> Export to PDF
         </v-btn>
         {{-- <v-btn icon @click="p1 = !p1" v-tooltip:left="{ 'html':  p1 ? 'Show Analytics' : 'Hide Analytics' }">
             <v-icon>@{{ p1 ? 'add' : 'remove' }}</v-icon>
@@ -17,25 +17,16 @@
                         <v-flex xs12>
                             <div class="chart-container mb-3">
                                 {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
+                                @foreach ($resource->fields() as $field)
+                                <ul>
+                                    <li>
+                                        <p>{{ $field->question->label }}</p>
+                                    </li>
+                                </ul>
                                 <canvas :key="i" v-for="(charts, i) in chartVariables.items" :id="`chart-${i}`"></canvas>
+                                @endforeach
                             </div>
-                            {{-- @foreach ($resource->fields() as $field) --}}
-                                {{-- <div class="fw-500 mb-3"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
-                                 --}}
-                                {{-- <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->answer }}</div> --}}
-                            {{-- @endforeach --}}
-
                         </v-flex>
-                        {{-- <v-flex md4 xs12>
-                            <v-layout row wrap justify-center align-center>
-                                <v-card-text class="pa-0 text-xs-center">
-                                    <div class="accent--text body-2">Top 3 Most Courses Enrolled</div>
-                                </v-card-text>
-                                <v-flex xs12>
-                                    @include("Submission::widgets.donut")
-                                </v-flex>
-                            </v-layout>
-                        </v-flex> --}}
                     </v-layout>
                 </v-container>
             </v-card-text>
@@ -100,7 +91,8 @@
                         data: {
                             labels: _labels,
                             datasets: [{
-                                label: label,
+                                // label: null,
+                                wrapText: true,
                                 backgroundColor: gradient_2,
                                 borderColor: "rgba(0, 188, 212, 1)", //blue
                                 borderWidth: 3,
@@ -123,7 +115,7 @@
                                     ticks: {
                                         display: true,
                                         beginAtZero: true,
-                                        padding: 25,
+                                        padding: 10,
                                     }
                                 }],
                                 xAxes: [{
@@ -140,7 +132,7 @@
                                 easing: 'easeOutCubic'
                             },
                             legend: {
-                                display: true,
+                                display: false,
                                 labels: {
                                     fontColor: '#333',
                                     fontSize: 18,
