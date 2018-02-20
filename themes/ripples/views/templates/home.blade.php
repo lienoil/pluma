@@ -44,11 +44,11 @@ Version: 1.0
                 <h2 class="page-title display-4"><strong>{{ $application->site->title }}</strong></h2>
                 <h4 class="page-title headline">{!! $page->body !!}</h4>
             </v-card-text> --}}
-            <v-layout row wrap>
+            <v-layout row wrap justify-center align-center>
                 <v-flex md6 xs12>
                     <v-card flat class="transparent">
                         <v-card-text class="white--text text-xs-center">
-                            <h2 class="page-title display-4"><strong>{{ $application->site->title }}</strong></h2>
+                            <h2 class="page-title display-2"><strong>{{ $application->site->title }}</strong></h2>
                             <h4 class="page-title headline">{!! $page->body !!}</h4>
                         </v-card-text>
                     </v-card>
