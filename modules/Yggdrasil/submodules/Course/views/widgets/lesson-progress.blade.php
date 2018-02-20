@@ -9,13 +9,13 @@
                 v-bind:size="150"
                 v-bind:width="20"
                 v-bind:value="value"
-                class="indigo--text text--lighten-2"
+                class="blue--text text--lighten-2"
                 >
                 @{{ value }}
             </v-progress-circular>
         </div>
     </v-card-text>
-    <v-card-text class="text-xs-center indigo lighten-1">
+    <v-card-text class="text-xs-center blue lighten-1">
         <div>
             <v-subheading class="white--text">Lesson Complete:</v-subheading>
         </div>
@@ -39,7 +39,7 @@
                     :size="150"
                     :width="20"
                     :value="{{ $lesson->progress }}"
-                    class="secondary--text text--lighten-3"
+                    class="blue--text text--lighten-3"
                 >
                     <span>{{ $lesson->progress }}%</span>
                 </v-progress-circular>
@@ -48,7 +48,7 @@
                     :size="150"
                     :width="20"
                     :value="0"
-                    class="secondary--text text--lighten-3"
+                    class="blue--text text--lighten-3"
                 >
                     <span>{{ __('00%') }}</span>
                 </v-progress-circular>
@@ -57,7 +57,7 @@
             @endif
             <v-spacer></v-spacer>
         </v-card-text>
-        <v-card-text class="secondary lighten-4 white--text text-xs-center">
+        <v-card-text class="blue lighten-4 white--text text-xs-center">
             <div class="headline">{{ $lesson->completed . __(" of ") . $lesson->contents->count() }}</div>
             <div class="subheading">{{ __('Contents Completed') }}</div>
         </v-card-text>

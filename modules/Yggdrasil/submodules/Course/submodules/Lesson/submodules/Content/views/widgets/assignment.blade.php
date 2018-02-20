@@ -1,4 +1,4 @@
-<v-card class="elevation-1 mb-3">
+<v-card class="elevation-1">
     <v-toolbar card class="transparent">
         <v-toolbar-title class="page-title subheading accent--text">{{ __('Assignment') }}</v-toolbar-title>
         <v-spacer></v-spacer>

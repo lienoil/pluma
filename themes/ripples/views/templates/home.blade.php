@@ -6,18 +6,66 @@ Author: John Lioneil Dionisio
 Version: 1.0
 --}}
 
-@extends("Theme::layouts.public")
+@extends("Theme::layouts.home")
 
 @section("content")
+    {{-- banner --}}
     <div id="banner">
-        <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.50); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+        {{-- main menu --}}
+        <v-toolbar id="home-menu" dark flat class="transparent">
+            <a href="{{ url('/') }}">
+                <v-avatar tile>
+                    <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+                </v-avatar>
+            </a>
+
+            <v-toolbar-title class="subheading white--text">
+                <div href="{{ url('/') }}">{{ $application->site->title }}</div>
+                <div class="caption">{{ $application->site->tagline }}</div>
+            </v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-toolbar-items>
+                @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+
+                @if (settings('show_login_at_main_menu', true))
+                    <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
+                @endif
+            </v-toolbar-items>
+        </v-toolbar>
+        {{-- /main menu --}}
+
+        {{-- banner-content --}}
+        {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.50); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
+        <div class="insert-overlay" style="background: rgba(49, 44, 58, 0.74); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
         <v-card flat class="transparent threejs-section">
-            <v-card-text class="white--text text-xs-center">
-                <h2 class="page-title display-4">{{ $application->site->title }}</h2>
+            {{-- <v-card-text class="white--text text-xs-center">
+                <h2 class="page-title display-4"><strong>{{ $application->site->title }}</strong></h2>
                 <h4 class="page-title headline">{!! $page->body !!}</h4>
-            </v-card-text>
+            </v-card-text> --}}
+            <v-layout row wrap>
+                <v-flex md6 xs12>
+                    <v-card flat class="transparent">
+                        <v-card-text class="white--text text-xs-center">
+                            <h2 class="page-title display-4"><strong>{{ $application->site->title }}</strong></h2>
+                            <h4 class="page-title headline">{!! $page->body !!}</h4>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+
+                <v-flex md6 xs12>
+                    <v-card flat class="transparent">
+                        <img src="{{ assets('frontier/images/placeholder/iso-elearning.png') }}" alt="" width="100%">
+                    </v-card>
+                </v-flex>
+            </v-layout>
         </v-card>
+        {{-- banner-content --}}
     </div>
+    {{-- /banner --}}
+
+
     <template id="hero">
         <v-card dark class="elevation-0">
             {{-- <v-card-media src="{{ $page->feature }}" height="90vh"> --}}
@@ -271,17 +319,18 @@ Version: 1.0
             left: 50%;
             transform: translate(-50%, -50%);
         }
+        #home-menu {
+            position: absolute !important;
+            z-index: 100;
+        }
     </style>
 @endpush
 
 @push('js')
-    {{-- <script src="../build/three.js"></script> --}}
     <script src="{{ assets('frontier/threejs/build/three.js') }}"></script>
 
-    <script src="js/renderers/Projector.js"></script>
     <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script>
     <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script>
-    {{-- <script src="js/renderers/CanvasRenderer.js"></script> --}}
 
     <script>
         var mouseX = 0, mouseY = 0,

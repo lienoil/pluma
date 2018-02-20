@@ -144,7 +144,7 @@
         </v-layout>
 
         <v-layout row wrap justify-center align-center>
-            <v-flex lg10 md8 xs12>
+            <v-flex lg10 md11 xs12>
                 <v-layout row wrap>
                     <v-flex md8 xs12>
                         {{-- Comments Section --}}
@@ -157,7 +157,7 @@
                     <v-flex md4 xs12>
                         <v-card class="elevation-1 mb-3">
                             <v-card-text>
-                                <div class="page-title mb-1"><strong>{{ $resource->course->title }}</strong>,</div>
+                                <div class="page-title mb-1"><strong>{{ $resource->course->title }}:</strong></div>
                                 <div class="page-title">{{ $resource->lesson->title }}</div>
                             </v-card-text>
                             <v-list class="mb-3">
