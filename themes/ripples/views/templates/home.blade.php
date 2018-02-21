@@ -345,7 +345,7 @@ Version: 1.0
 @endpush
 
 @push('js')
-    <script src="{{ assets('frontier/threejs/build/three.js') }}"></script>
+    <script src="{{ assets('frontier/threejs/build/three.min.js') }}"></script>
 
     <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script>
     <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script>
