@@ -51,7 +51,7 @@ return [
 
             'create-course' => [
                 'name' => 'create-course',
-                'order' => 2,
+                'order' => 3,
                 'slug' => route('courses.create'),
                 'route' => 'courses.create',
                 // 'icon' => 'fa-book',
@@ -64,7 +64,7 @@ return [
 
             'trashed-course' => [
                 'name' => 'trashed-course',
-                'order' => 11,
+                'order' => 100,
                 'slug' => route('courses.trashed'),
                 'route' => 'courses.trashed',
                 'icon' => 'delete',
@@ -86,7 +86,7 @@ return [
              */
             'all-courses' => [
                 'name' => 'all-courses',
-                'order' => 5,
+                'order' => 4,
                 'slug' => route('courses.all'),
                 'always_viewable' => true,
                 'routes' => [
@@ -113,7 +113,7 @@ return [
              */
             'my-courses' => [
                 'name' => 'my-courses',
-                'order' => 6,
+                'order' => 5,
                 'slug' => route('courses.my'),
                 'always_viewable' => false,
                 'labels' => [
@@ -124,7 +124,7 @@ return [
 
             'bookmarked-courses' => [
                 'name' => 'bookmarked-courses',
-                'order' => 7,
+                'order' => 6,
                 'slug' => route('courses.bookmarked'),
                 'icon' => 'bookmark',
                 'always_viewable' => false,
@@ -146,12 +146,12 @@ return [
                 'is_header' => true,
                 'is_divider' => true,
                 'parent' => 'course',
-                'order' => 12,
+                'order' => 7,
             ],
 
             'course-category' => [
                 'name' => 'course-category',
-                'order' => 13,
+                'order' => 8,
                 'slug' => route('courses.categories.index'),
                 'always_viewable' => false,
                 'icon' => 'label',

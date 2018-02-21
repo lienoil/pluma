@@ -67,17 +67,6 @@
         .fw-500 {
             font-weight: 500 !important;
         }
-
-        .input-group--selection-controls.radio label {
-            overflow: visible !important;
-            text-overflow: unset !important;
-            white-space: pre-wrap !important;
-        }
-
-        .input-group.input-group--selection-controls.radio label {
-            position: relative !important;
-            height: auto !important;
-        }
     </style>
 @endpush
 

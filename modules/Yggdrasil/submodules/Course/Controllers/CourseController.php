@@ -9,6 +9,7 @@ use Comment\Models\Comment;
 use Comment\Requests\CommentRequest;
 use Content\Models\Content;
 use Course\Models\Course;
+use Course\Models\Student;
 use Course\Models\User;
 use Course\Requests\CourseRequest;
 use Course\Support\Traits\CourseResourceApiTrait;
@@ -278,4 +279,19 @@ class CourseController extends GeneralController
 
         return back();
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function students(Request $request)
+    {
+        $students = Course::all();
+        $resource = Course::all();
+
+        return view("Theme::courses.students")->with(compact('resource', 'students'));
+    }
+
 }

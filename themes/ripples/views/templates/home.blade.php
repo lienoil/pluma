@@ -142,12 +142,14 @@ Version: 1.0
                 <v-flex md6 xs12 order-sm2 order-md1>
                     <v-card flat class="mb-3">
                         <img src="{{ assets('frontier/images/placeholder/section-2.jpg') }}" width="100%">
+                        {{-- <img src="{{ assets('frontier/images/placeholder/test.png') }}" width="100%"> --}}
+                        <img src="{{ assets('frontier/images/placeholder/section-1.jpg') }}" alt="">
                     </v-card>
                 </v-flex>
 
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
-                        <h2 class="page-title display-1 primary--text"><strong>How it works</strong></h2>
+                        <h2 class="page-title display-1 cyan--text darken-1"><strong>How it works</strong></h2>
                         <v-card-text>
                             <v-card-actions>
                                 <v-avatar size="40px" tile class="mr-4">

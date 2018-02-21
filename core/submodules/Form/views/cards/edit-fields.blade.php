@@ -76,18 +76,19 @@
                                     <v-card-text>
                                         <input type="hidden" :name="`fields[${key}][id]`" :value="draggable.resource.id">
                                         <input type="hidden" :name="`fields[${key}][sort]`" :value="key">
+
+                                        <v-text-field
+                                            label="{{ __('Field Title') }}"
+                                            :name="`fields[${key}][label]`"
+                                            :error-messages="resource.errors[`fields.${key}.label`]"
+                                            v-model="draggable.resource.label"
+                                        ></v-text-field>
+
                                         <v-text-field
                                             label="{{ __('Name') }}"
                                             :name="`fields[${key}][name]`"
                                             :error-messages="resource.errors[`fields.${key}.name`]"
                                             v-model="draggable.resource.name"
-                                        ></v-text-field>
-
-                                        <v-text-field
-                                            label="{{ __('Label') }}"
-                                            :name="`fields[${key}][label]`"
-                                            :error-messages="resource.errors[`fields.${key}.label`]"
-                                            v-model="draggable.resource.label"
                                         ></v-text-field>
 
                                         <v-select
@@ -108,14 +109,6 @@
                                             :name="`fields[${key}][value]`"
                                             :error-messages="resource.errors[`fields.${key}.value`]"
                                             v-model="draggable.resource.value"
-                                        ></v-text-field>
-
-                                        <v-text-field
-                                            label="{{ __('Attributes') }}"
-                                            :name="`fields[${key}][attribute]`"
-                                            :error-messages="resource.errors[`fields.${key}.attribute`]"
-                                            v-model="draggable.resource.attribute"
-                                            multi-line
                                         ></v-text-field>
                                     </v-card-text>
                                 </v-flex>

@@ -26,9 +26,6 @@
                                     <p class="subheading">{{ $course->title }}</p>
                                 @endforeach
                             </v-card-text>
-                            {{-- <v-card-actions>
-                                <v-spacer></v-spacer>
-                            </v-card-actions> --}}
                         </v-card>
                     </v-flex>
                 </v-layout>

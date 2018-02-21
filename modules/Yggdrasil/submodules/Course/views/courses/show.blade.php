@@ -167,23 +167,19 @@
                                     <v-spacer></v-spacer>
                                     @if ($lesson->contents->count())
                                         @if ($resource->enrolled)
-                                        @foreach ($lesson->contents()->orderBy('sort')->get() as $content)
-                                            <v-btn
-                                                href="{{ route('contents.single', [$content->course->slug, $lesson->id, $content->id]) }}"
-                                                outline
-                                                class="success success--text">
-                                                {{ __('Start') }}
-                                            </v-btn>
-                                        @endforeach
+                                        <v-btn
+                                            href={{ route('contents.single', [$lesson->course->slug, $lesson->id, $lesson->contents()->orderBy('sort')->first()->id]) }}
+                                            outline
+                                            class="success success--text">
+                                            {{ __('Start') }}
+                                        </v-btn>
                                         @else
-                                            @foreach ($lesson->contents()->orderBy('sort')->get() as $content)
-                                                <v-btn
-                                                    href="{{ route('contents.single', [$content->course->slug, $lesson->id, $content->id]) }}"
-                                                    outline
-                                                    class="success success--text">
-                                                    {{ __('View') }}
-                                                </v-btn>
-                                            @endforeach
+                                        <v-btn
+                                            href={{ route('contents.single', [$lesson->course->slug, $lesson->id, $lesson->contents()->orderBy('sort')->first()->id]) }}
+                                            outline
+                                            class="success success--text">
+                                            {{ __('View') }}
+                                        </v-btn>
                                         @endif
                                     @endif
                                 </v-card-actions>
@@ -193,12 +189,6 @@
                     @endforeach
                     {{-- Lessons --}}
                 </v-card>
-
-                {{-- Comments Section --}}
-                {{-- <v-card class="elevation-1">
-                    @include("Course::widgets.comments")
-                </v-card> --}}
-                {{-- Comments Section --}}
             </v-flex>
 
             <v-flex flex md3 xs12 order-lg3>

@@ -35,28 +35,26 @@
                     </v-menu>
                 </v-toolbar>
                 <v-card-media v-show="!hidecourse" src="{{ assets('frontier/images/placeholder/gradient.png') }}" height="100%">
-                    <v-container fill-height>
-                        <v-layout column>
-                            <v-card-text>
-                                <div class="text-xs-center mb-4">
-                                    <v-avatar class="mb-3" size="80px">
-                                        <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">
-                                    </v-avatar>
-                                    <p class="body-1 white--text page-title mb-1">Solve Problems and Make Decisions at Supervisory Level</p>
-                                </div>
-                                <v-divider class="grey darken-2 mb-3"></v-divider>
-                                <p class="body-2 white--text page-title mb-1"><strong>Performance Statement 1:</strong></p>
-                                <h2 class="body-2 white--text page-title"><strong>Introduction</strong></h2>
-                                <p class="body-1 white--text">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum odio labore placeat fuga obcaecati delectus impedit quam dolores minima autem ut cum, eos, tempora esse quod. Deserunt porro, magnam soluta.
-                                </p>
-                                <div class="text-xs-center">
-                                    <v-btn flat primary>Continue</v-btn>
-                                </div>
-                            </v-card-text>
-                        </v-layout>
-                    </v-container>
+                    <v-card-text>
+                        <div class="text-xs-center mb-4">
+                            <v-avatar class="mb-3" size="80px">
+                                <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">
+                            </v-avatar>
+                            <p class="body-1 white--text page-title mb-1">Solve Problems and Make Decisions at Supervisory Level</p>
+                        </div>
+                    </v-card-text>
                 </v-card-media>
+                <v-card-text>
+                    <p class="body-2 page-title mb-1"><strong>Performance Statement 1:</strong></p>
+                    <h2 class="body-2 page-title"><strong>Introduction</strong></h2>
+                    <p class="body-1">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum odio labore placeat fuga obcaecati delectus impedit quam dolores minima autem ut cum, eos, tempora esse quod. Deserunt porro, magnam soluta.
+                    </p>
+                </v-card-text>
+                <v-card-actions class="px-3">
+                    <v-spacer></v-spacer>
+                    <v-btn flat primary>Continue</v-btn>
+                </v-card-actions>
             </v-card>
         </v-slide-y-transition>
     </draggable>
