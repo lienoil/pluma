@@ -158,9 +158,10 @@
 
                     <v-flex md4 xs12>
                         <v-card class="elevation-1 mb-3">
-                            <v-toolbar flat>
+                            <v-toolbar flat class="transparent">
                                 <v-toolbar-title class="page-title">{{ $resource->lesson->title }}</v-toolbar-title>
                             </v-toolbar>
+                            <v-divider></v-divider>
                             <v-list class="mb-3">
                                 <v-list-tile
                                     :href="item.url"

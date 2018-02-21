@@ -72,14 +72,9 @@
                 chartData (_data, _labels, label, id) {
                     var ctx = document.getElementById(id).getContext('2d');
                     var gradient = ctx.createLinearGradient(0, 0, 0, 100);
-                    gradient.addColorStop(0.25, 'rgba(236, 64, 122, .8)');
-                    gradient.addColorStop(0.5, 'rgba(236, 64, 122, .6)');
-                    gradient.addColorStop(1, 'rgba(236, 64, 122, .2)');
-
-                    var gradient_2 = ctx.createLinearGradient(0, 0, 0, 100);
-                    gradient_2.addColorStop(0.25, 'rgba(0, 188, 212, .8)');
-                    gradient_2.addColorStop(0.5, 'rgba(0, 188, 212, .6)');
-                    gradient_2.addColorStop(1, 'rgba(0, 188, 212, .2)');
+                    gradient.addColorStop(0.25, 'rgba(28, 160, 244, .8)');
+                    gradient.addColorStop(0.5, 'rgba(28, 160, 244, .8)');
+                    gradient.addColorStop(1, 'rgba(28, 160, 244, .8)');
 
                     Chart.defaults.global.defaultFontColor = '#333';
                     var chart = new Chart(ctx, {
@@ -90,8 +85,8 @@
                             datasets: [{
                                 // label: null,
                                 wrapText: true,
-                                backgroundColor: gradient_2,
-                                borderColor: "rgba(0, 188, 212, 1)", //blue
+                                backgroundColor: gradient,
+                                borderColor: "rgba(28, 160, 244, 1)", //blue
                                 borderWidth: 3,
                                 pointRadius: 5,
                                 hoverBackgroundColor: "rgba(3, 169, 244, .8)",
