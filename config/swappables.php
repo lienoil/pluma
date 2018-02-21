@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'admin' => 'home',
+    'admin' => 'dashboard',
     'create' => 'create',
 ];

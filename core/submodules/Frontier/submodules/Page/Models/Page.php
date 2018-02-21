@@ -19,7 +19,7 @@ class Page extends Model
 
     protected $fillable = ['id', 'title', 'code', 'body', 'delta'];
 
-    protected $appends = ['author', 'created', 'modified', 'removed'];
+    protected $appends = ['author', 'authoravatar', 'created', 'modified', 'removed'];
 
     protected $searchables = ['title', 'code', 'body', 'template', 'created_at', 'updated_at'];
 }

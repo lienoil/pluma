@@ -1,4 +1,4 @@
-@include("Theme::partials.header")
+@include("Frontier::partials.header")
 
 @yield("pre-content")
 
@@ -20,4 +20,4 @@
     @stack("post-scripts")
 @show
 
-@include("Theme::partials.footer")
+@include("Frontier::partials.footer")

@@ -49,7 +49,7 @@
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar flat class="transparent">
                         <v-icon left>text_format</v-icon>
-                        <v-toolbar-title class="subheading">{{ __('All Announcement Categories') }}</v-toolbar-title>
+                        <v-toolbar-title class="subheading">{{ __('All Fieldtype Categories') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
 
                         {{-- Batch Commands --}}

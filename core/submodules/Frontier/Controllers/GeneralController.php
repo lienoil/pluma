@@ -56,7 +56,7 @@ class GeneralController extends Controller implements GenericResourceInterface
 
         $this->middleware('auth.roles')->only($this->methodsAdmin);
 
-        $this->middleware('api')->only($this->methodsApi);
+        $this->middleware(['api', 'cors'])->only($this->methodsApi);
     }
 
     /**

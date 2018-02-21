@@ -26,7 +26,7 @@ class AuthenticateUserRole
     /**
      * The route instance.
      *
-     * @var \Illuminate\Routing\Router
+     * @var Pluma\Routing\Router
      */
     protected $route;
 

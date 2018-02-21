@@ -39,6 +39,6 @@ class APIController extends BaseController
      */
     public function __construct()
     {
-        $this->middleware(['api']);
+        $this->middleware(['api', 'cors']);
     }
 }

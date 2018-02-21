@@ -31,13 +31,6 @@ export default {
         .then(response => {
           this.breadcrumbs = response.data
         })
-    },
-    test () {
-      this.breadcrumbs = [
-        { disabled: false, url: '/admin/pages/1/edit', name: 'Home', text: 'Admin' },
-        { disabled: false, url: '/admin/pages', name: 'Page', text: 'Page' },
-        { disabled: false, url: 'edit', name: 'All', text: 'New' }
-      ]
     }
   },
   watch: {
@@ -47,7 +40,6 @@ export default {
   },
   mounted () {
     this.get()
-    // this.test()
   }
 }
 </script>

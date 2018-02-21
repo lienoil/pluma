@@ -14,6 +14,9 @@ class SubmissionObserver
      */
     public function created(Submission $resource)
     {
+        $resource->score = $resource->compute();
+        $resource->save();
+
         // save fields
         session()->flash('title', $resource->name);
         session()->flash('message', "Submission successfully created");

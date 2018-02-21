@@ -134,6 +134,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     public function setBreadcrumbs($currentUrl)
     {
+        $currentUrl = ltrim($currentUrl, '/');
         $url = explode('/', $currentUrl);
         $old = "";
 

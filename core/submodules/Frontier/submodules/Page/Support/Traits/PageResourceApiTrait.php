@@ -10,42 +10,20 @@ use User\Models\User;
 trait PageResourceApiTrait
 {
     /**
-     * Retrieve the resource(s) with the parameters.
+     * Retrieve the resource with the parameters.
      *
      * @param  Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
      */
     public function postFind(Request $request)
     {
-        $searches = $request->get('search') !== 'null' && $request->get('search')
+        $parameters = $request->get('search') !== 'null' && $request->get('search')
                         ? $request->get('search')
                         : $request->all();
 
-        $onlyTrashed = $request->get('only_trashed') !== 'null' && $request->get('only_trashed')
-                        ? $request->get('only_trashed')
-                        : false;
+        $page = Page::search($parameters)->first();
 
-        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null'
-                        ? 'DESC'
-                        : 'ASC';
-
-        $sort = $request->get('sort') && $request->get('sort') !== 'null'
-                        ? $request->get('sort')
-                        : 'id';
-
-        $take = $request->get('take') && $request->get('take') > 0
-                        ? $request->get('take')
-                        : 0;
-
-        $resources = Page::search($searches)->orderBy($sort, $order);
-
-        if ($onlyTrashed) {
-            $resources->onlyTrashed();
-        }
-
-        $pages = $resources->paginate($take);
-
-        return response()->json($pages);
+        return response()->json($page);
     }
 
     /**
@@ -101,8 +79,8 @@ trait PageResourceApiTrait
         $page->feature = $request->input('feature');
         $page->body = $request->input('body');
         $page->delta = $request->input('delta');
-        $page->template = $request->input('template');
-        $page->user()->associate(User::find($request->input('user_id')));
+        $page->template = $request->input('template') ?? 'generic';
+        $page->user()->associate(User::find($request->input('user_id') ?? user()->id));
         $page->save();
 
         return response()->json($page->id);

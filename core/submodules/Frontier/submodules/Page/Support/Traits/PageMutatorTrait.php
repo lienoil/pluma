@@ -15,4 +15,9 @@ trait PageMutatorTrait
     {
         return ! $this->user ?: $this->user->displayname;
     }
+
+    public function getAuthoravatarAttribute()
+    {
+        return ! $this->user ?: $this->user->displayavatar;
+    }
 }

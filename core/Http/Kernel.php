@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Pluma\Support\Http\Middleware\VerifyPostSize::class,
+        // \Pluma\Middleware\CORS::class,
     ];
 
     /**
@@ -38,13 +39,13 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            'throttle:80,1',
             'bindings',
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
+            \Pluma\Middleware\CORS::class,
             \Pluma\Middleware\EncryptCookies::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
-            \Pluma\Middleware\CORS::class,
         ],
     ];
 
@@ -62,5 +63,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \Pluma\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'cors' => \Pluma\Middleware\CORS::class,
     ];
 }

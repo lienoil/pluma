@@ -4,7 +4,7 @@ namespace Pluma\Support\Http;
 
 use Exception;
 use Throwable;
-use Illuminate\Routing\Router;
+use Pluma\Routing\Router;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -24,7 +24,7 @@ class Kernel implements KernelContract
     /**
      * The router instance.
      *
-     * @var \Illuminate\Routing\Router
+     * @var \Pluma\Routing\Router
      */
     protected $router;
 
@@ -36,8 +36,8 @@ class Kernel implements KernelContract
     protected $bootstrappers = [
         'Pluma\Support\Bootstrap\DetectEnvironment',
         'Pluma\Support\Bootstrap\LoadConfiguration',
-        // 'Pluma\Support\Bootstrap\ConfigureLogging',
-        // 'Pluma\Support\Bootstrap\HandleExceptions',
+        'Pluma\Support\Bootstrap\ConfigureLogging',
+        'Pluma\Support\Bootstrap\HandleExceptions',
         'Pluma\Support\Bootstrap\RegisterFacades',
         'Pluma\Support\Bootstrap\RegisterProviders',
         'Pluma\Support\Bootstrap\BootProviders',
@@ -84,7 +84,7 @@ class Kernel implements KernelContract
      * Create a new HTTP kernel instance.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @param  \Illuminate\Routing\Router  $router
+     * @param  \Pluma\Routing\Router  $router
      * @return void
      */
     public function __construct(Application $app, Router $router)

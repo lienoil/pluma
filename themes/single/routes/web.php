@@ -6,17 +6,17 @@ use Pluma\Support\Facades\Route;
 
 Route::get('admin', function () {
   return redirect()->route('dashboard');
-});
+})->middleware(['auth.admin', 'cors']);
 
 Route::any('admin/{slug?}', function () {
     return view("Theme::layouts.admin");
-})->middleware('auth.admin')->where('slug', '.*');
+})->middleware(['auth.admin', 'cors'])->where('slug', '.*');
 
 Route::any('s/{slug?}', function () {
     return view("Theme::layouts.public");
 })->where('slug', '.*');
 
-Route::group(['prefix' => 'api/v1', 'middleware' => 'api'], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function () {
     Route::post('misc/breadcrumbs', function (Request $request) {
         $composer = new NavigationViewComposer();
         $composer->setMenus(

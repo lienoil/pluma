@@ -24,11 +24,21 @@ trait SubmissionMutatorTrait
         return ! $this->user ?: $this->user->displayname;
     }
 
+    /**
+     * Get the unserialized results column.
+     *
+     * @return array
+     */
     public function getResultedAttribute()
     {
-        return unserialize($this->results);
+        return unserialize($this->results) ?? [];
     }
 
+    /**
+     * Collection of unserialized results with metadata.
+     *
+     * @return Object
+     */
     public function fields()
     {
         $fields = [];
@@ -37,6 +47,7 @@ trait SubmissionMutatorTrait
             $fields[$name]['guess'] = $resulted[$name] ?? null;
             $fields[$name]['choices'] = $this->choices($field->value ?? '');
             $fields[$name]['answer'] = $this->getCorrectAnswer($field->value ?? '');
+            $fields[$name]['points'] = $field->points;
             $fields[$name]['isCorrect'] = $this->isCorrect($field->value ?? '', $resulted[$name]);
         }
 
@@ -88,5 +99,33 @@ trait SubmissionMutatorTrait
     public function isCorrect($value, $guess)
     {
         return $this->getCorrectAnswer($value) === $guess;
+    }
+
+    /**
+     * Computes the score of resource.
+     *
+     * @return string
+     */
+    public function compute()
+    {
+        $fields = $this->fields();
+        $score = [];
+        foreach ($fields as $field) {
+            if ($field->isCorrect) {
+                $score[] = $field->points;
+            }
+        }
+
+        return array_sum($score);
+    }
+
+    /**
+     * Gets the mutated score column.
+     *
+     * @return string
+     */
+    public function getScoredAttribute()
+    {
+        return $this->score . "/" . count((array) $this->fields());
     }
 }

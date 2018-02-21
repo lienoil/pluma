@@ -8,7 +8,6 @@ use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Events\EventServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
-use Pluma\Providers\RoutingServiceProvider;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
@@ -17,6 +16,7 @@ use Pluma\Application\EnvironmentDetector;
 use Pluma\Application\ProviderRepository;
 use Pluma\Providers\DatabaseServiceProvider;
 use Pluma\Providers\PlumaServiceProvider;
+use Pluma\Providers\RoutingServiceProvider;
 use Pluma\Support\Facades\AliasLoader;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -1138,7 +1138,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'redirect'             => ['Illuminate\Routing\Redirector'],
             'redis'                => ['Illuminate\Redis\Database', 'Illuminate\Contracts\Redis\Database'],
             'request'              => ['Illuminate\Http\Request', 'Symfony\Component\HttpFoundation\Request'],
-            'router'               => ['Illuminate\Routing\Router', 'Illuminate\Contracts\Routing\Registrar'],
+            'router'               => ['Pluma\Routing\Router', 'Illuminate\Contracts\Routing\Registrar'],
             'session'              => ['Illuminate\Session\SessionManager'],
             'session.store'        => ['Illuminate\Session\Store', 'Symfony\Component\HttpFoundation\Session\SessionInterface'],
             'url'                  => ['Illuminate\Routing\UrlGenerator', 'Illuminate\Contracts\Routing\UrlGenerator'],

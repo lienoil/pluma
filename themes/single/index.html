@@ -12,7 +12,7 @@
     <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>static/manifest.json">
     <meta name="theme-color" content="#4DBA87">
 
-    <meta name="csrf-token" content="posuaosdoakdi(8776a987768798#9080">
+    <meta name="csrf-token" content="VmU4DeJY13U0OQLouteSfLLiZFX1W0lWbf7befxP">
 
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,14 +35,15 @@
     </noscript>
     <div id="app">
       <v-app>
-        <v-navigation-drawer app></v-navigation-drawer>
+        <v-navigation-drawer dark app></v-navigation-drawer>
+        <v-toolbar app scroll-off-screen></v-toolbar>
         <v-content>
-          <v-toolbar app></v-toolbar>
           <breadcrumbs></breadcrumbs>
           <v-slide-x-transition mode="out-in">
             <router-view></router-view>
           </v-slide-x-transition>
         </v-content>
+        <v-footer app inset absolute></v-footer>
       </v-app>
     </div>
     <!-- Todo: only include in production -->

@@ -18,6 +18,7 @@ class Kernel extends BaseKernel
         Commands\App\AppHomepageCommand::class,
         Commands\App\AppPermissionsRefreshCommand::class,
         Commands\App\AppRolesGenerateCommand::class,
+        Commands\App\AppThemeCommand::class,
         Commands\App\AppVersionCommand::class,
 
         // Standalone

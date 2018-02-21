@@ -9,7 +9,7 @@ class DashboardServiceProvider extends ServiceProvider
     /**
      * The app's router instance.
      *
-     * @var Illuminate\Routing\Router
+     * @var Pluma\Routing\Router
      */
     protected $router;
 

@@ -30,6 +30,7 @@ class CreateFieldsTable extends Migration
             $table->string('name');
             $table->string('label')->nullable();
             $table->integer('sort')->nullable();
+            $table->integer('points')->default(1);
             $table->text('value')->nullable();
             $table->text('attribute')->nullable();
             $table->integer('fieldtype_id')->unsigned();
@@ -42,6 +43,7 @@ class CreateFieldsTable extends Migration
                 ->on('fieldtypes')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+
             $table->foreign('form_id')->references('id')
                 ->on('forms')
                 ->onUpdate('CASCADE')

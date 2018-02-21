@@ -4,83 +4,123 @@
       <v-icon left>find_in_page</v-icon>
       <v-toolbar-title>All Page</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip left>
-        <v-btn slot="activator" icon :to="{name: 'pages.create'}"><v-icon>note_add</v-icon></v-btn>
-        <span>Add new page</span>
-      </v-tooltip>
-    </v-toolbar>
-  <v-container fluid grid-list-lg>
-    <v-layout row wrap>
-      <v-flex sm12>
-        <v-card>
-          <v-toolbar color="primary" card dark>
-            <v-text-field
-              prepend-icon="search"
-              label="Search"
-              solo-inverted
-              class="mx-2"
-              clearable
-              v-model="dataset.search.query"
-              flat
-            ></v-text-field>
-          </v-toolbar>
 
-          <v-data-table
-            :headers="dataset.headers"
-            :items="dataset.items"
-            :search="dataset.search.query"
-            :pagination.sync="dataset.pagination"
-            :total-items="dataset.pagination.totalItems"
-            :loading="dataset.loading"
-            no-data-text="No pages found"
-          >
-            <v-progress-linear v-if="dataset.loading" slot="progress" color="primary" indeterminate></v-progress-linear>
-            <template slot="items" slot-scope="props">
-              <td class="text-xs-center"><v-avatar color="grey lighten-1" size="30px"><img v-if="props.item.feature" :src="props.item.feature"></v-avatar></td>
-              <td><router-link exact :to="{name: 'pages.edit', params: {page: props.item.id}}"><strong v-html="props.item.title"></strong></router-link></td>
-              <td><a v-html="props.item.author"></a></td>
-              <td v-html="props.item.template"></td>
-              <td v-html="props.item.created"></td>
-              <td v-html="props.item.modified"></td>
-              <td class="text-xs-center">
-                <v-menu bottom left>
-                  <v-btn icon slot="activator">
-                    <v-icon>more_vert</v-icon>
-                  </v-btn>
-                  <v-list dense>
-                    <v-list-tile ripple exact :to="{name: 'pages.show', params: {page: props.item.id}}">
-                      <v-list-tile-action>
-                        <v-icon color="info">search</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Preview Page</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile ripple exact :to="{name: 'pages.edit', params: {page: props.item.id}}">
-                      <v-list-tile-action>
-                        <v-icon color="success">edit</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Edit Page</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <!-- <v-list-tile ripple exact :to="{name: 'pages.destroy', params: {page: props.item.id}}">
-                      <v-list-tile-action>
-                        <v-icon color="warning">delete</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Move to Trash</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile> -->
-                  </v-list>
-                </v-menu>
-              </td>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+      <v-slide-y-reverse-transition>
+        <template v-if="! dataset.bulk.model">
+          <v-tooltip bottom>
+            <v-btn slot="activator" icon :to="{name: 'pages.create'}"><v-icon>note_add</v-icon></v-btn>
+            <span>Create new page</span>
+          </v-tooltip>
+        </template>
+      </v-slide-y-reverse-transition>
+
+      <v-slide-y-reverse-transition>
+        <template v-if="! dataset.bulk.model">
+          <v-tooltip bottom>
+            <v-btn slot="activator" icon :to="{name: 'pages.trashed'}"><v-icon>archive</v-icon></v-btn>
+            <span>View trashed pages</span>
+          </v-tooltip>
+        </template>
+      </v-slide-y-reverse-transition>
+
+      <!-- Bulk Commands -->
+      <v-slide-y-transition mode="out-in">
+        <template v-if="dataset.bulk.model">
+          <v-tooltip bottom>
+            <v-btn slot="activator" icon ripple @click><v-icon>delete_sweep</v-icon></v-btn>
+            <span>Move selected to trash</span>
+          </v-tooltip>
+        </template>
+      </v-slide-y-transition>
+      <v-tooltip bottom>
+        <v-btn slot="activator" icon ripple @click="dataset.bulk.model = ! dataset.bulk.model"><v-icon :color="dataset.bulk.model ? 'accent': ''">check_circle</v-icon></v-btn>
+        <span>Toggle bulk commands</span>
+      </v-tooltip>
+      <!-- Bulk Commands -->
+
+    </v-toolbar>
+    <v-container fluid grid-list-lg>
+      <v-layout row wrap>
+        <v-flex sm12>
+          <v-card>
+            <v-toolbar color="primary" card dark>
+              <v-text-field
+                prepend-icon="search"
+                label="Search"
+                solo-inverted
+                class="mx-2"
+                clearable
+                v-model="dataset.search.query"
+                flat
+              ></v-text-field>
+            </v-toolbar>
+
+            <v-data-table
+              :headers="dataset.headers"
+              :items="dataset.items"
+              :search="dataset.search.query"
+              :pagination.sync="dataset.pagination"
+              :total-items="dataset.pagination.totalItems"
+              :loading="dataset.loading"
+              item-key="id"
+              no-data-text="No pages found"
+              v-bind="dataset.bulk.model ? {'select-all':'accent'} : []"
+              v-model="dataset.selected"
+            >
+              <v-progress-linear slot="progress" color="accent" indeterminate></v-progress-linear>
+
+              <template slot="items" slot-scope="props">
+                <tr :active="props.selected" @click="(dataset.bulk.model ? props.selected = ! props.selected : null)">
+                  <td v-if="dataset.bulk.model"><v-checkbox hide-details :input-value="props.selected"></v-checkbox></td>
+                  <td class="text-xs-center"><v-avatar color="grey lighten-1" size="35px"><img v-if="props.item.feature" :src="props.item.feature"></v-avatar></td>
+                  <td><router-link exact :to="{name: 'pages.edit', params: {page: props.item.id}}"><strong v-html="props.item.title"></strong></router-link></td>
+                  <td>
+                    <v-avatar size="25px"><img :src="props.item.authoravatar"></v-avatar>
+                    <a v-html="props.item.author"></a>
+                  </td>
+                  <td v-html="props.item.template"></td>
+                  <td v-html="props.item.created"></td>
+                  <td v-html="props.item.modified"></td>
+                  <td class="text-xs-center">
+                    <v-menu bottom left>
+                      <v-btn icon slot="activator">
+                        <v-icon>more_vert</v-icon>
+                      </v-btn>
+                      <v-list dense>
+                        <v-list-tile ripple exact :to="{name: 'pages.show', params: {page: props.item.id}}">
+                          <v-list-tile-action>
+                            <v-icon color="info">search</v-icon>
+                          </v-list-tile-action>
+                          <v-list-tile-content>
+                            <v-list-tile-title>Preview Page</v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile ripple exact :to="{name: 'pages.edit', params: {page: props.item.id}}">
+                          <v-list-tile-action>
+                            <v-icon color="success">edit</v-icon>
+                          </v-list-tile-action>
+                          <v-list-tile-content>
+                            <v-list-tile-title>Edit Page</v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                        <!-- <v-list-tile ripple exact :to="{name: 'pages.destroy', params: {page: props.item.id}}">
+                          <v-list-tile-action>
+                            <v-icon color="warning">delete</v-icon>
+                          </v-list-tile-action>
+                          <v-list-tile-content>
+                            <v-list-tile-title>Move to Trash</v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile> -->
+                      </v-list>
+                    </v-menu>
+                  </td>
+                </tr>
+              </template>
+            </v-data-table>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </v-container>
 </template>
 
@@ -89,9 +129,11 @@ export default {
   data () {
     return {
       dataset: {
+        bulk: {
+          model: false
+        },
         loading: true,
         headers: [
-          { text: 'ID', align: 'left', value: 'id', visible: false },
           { text: 'Featured Image', align: 'left', value: 'feature' },
           { text: 'Title', align: 'left', value: 'title' },
           { text: 'Author', align: 'left', value: 'user_id' },
@@ -102,11 +144,13 @@ export default {
         ],
         items: [],
         pagination: {
+          sortBy: 'id',
           totalItems: 0
         },
         search: {
           query: ''
-        }
+        },
+        selected: []
       }
     }
   },
