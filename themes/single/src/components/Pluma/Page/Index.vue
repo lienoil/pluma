@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0">
+  <div>
     <v-toolbar dark color="secondary" class="sticky elevation-1">
       <v-icon left>find_in_page</v-icon>
       <v-toolbar-title>All Page</v-toolbar-title>
@@ -121,7 +121,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -212,3 +212,37 @@ export default {
   }
 }
 </script>
+
+<style>
+  /*TODO: add to global css*/
+  .font-size-5 {
+    zoom: 1.5;
+    -moz-transform: scale(1.5);
+    -moz-transform-origin: 0 0;
+  }
+  .font-size-4 {
+    zoom: 1.4;
+    -moz-transform: scale(1.4);
+    -moz-transform-origin: 0 0;
+  }
+  .font-size-3 {
+    zoom: 1.3;
+    -moz-transform: scale(1.3);
+    -moz-transform-origin: 0 0;
+  }
+  .font-size-2 {
+    zoom: 1.2;
+    -moz-transform: scale(1.2);
+    -moz-transform-origin: 0 0;
+  }
+  .font-size-1 {
+    zoom: 1;
+    -moz-transform: scale(1.1);
+    -moz-transform-origin: 0 0;
+  }
+  .font-size--1 {
+    zoom: 0.9;
+    -moz-transform: scale(0.9);
+    -moz-transform-origin: 0 0;
+  }
+</style>

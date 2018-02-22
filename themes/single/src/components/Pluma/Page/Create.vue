@@ -60,19 +60,6 @@
         </v-layout>
       </v-form>
     </v-container>
-    <v-snackbar
-      :timeout="snackbar.timeout"
-      :color="snackbar.color"
-      :top="snackbar.y === 'top'"
-      :bottom="snackbar.y === 'bottom'"
-      :right="snackbar.x === 'right'"
-      :left="snackbar.x === 'left'"
-      v-model="snackbar.model"
-    >
-      <v-icon color="snackbar.color">{{ snackbar.icon }}</v-icon>
-      &nbsp;<span v-html="snackbar.text"></span>
-      <v-btn dark flat ripple @click="snackbar.model = false">Close</v-btn>
-    </v-snackbar>
   </div>
 </template>
 
@@ -99,15 +86,6 @@ export default {
         token: this.$token,
         errors: [],
         form: { model: true }
-      },
-      snackbar: {
-        color: 'info',
-        icon: 'info',
-        timeout: 10000,
-        model: false,
-        text: '',
-        x: 'right',
-        y: 'top'
       }
     }
   },
@@ -120,12 +98,6 @@ export default {
           switch (response.status) {
             case 200:
             default:
-              this.snackbar = Object.assign(this.snackbar, {
-                color: 'success',
-                icon: 'check',
-                model: true,
-                text: 'Page successfully saved'
-              })
               setTimeout(function () {
                 self.$router.push({name: 'pages.index'})
               }, 900)
@@ -133,12 +105,6 @@ export default {
           }
         })
         .catch(error => {
-          this.snackbar = Object.assign(this.snackbar, {
-            color: 'error',
-            icon: 'error',
-            model: true,
-            text: 'An error occurred'
-          })
           switch (error.response.status) {
             case 422:
             default:
@@ -156,12 +122,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   /*DITO MUNA TO HA Pero lipat to sa global pag-kwan ;)*/
 .sticky {
   position: -webkit-sticky;
   position:sticky;
   top:0;
-  z-index:4
+  z-index:4;
 }
 </style>

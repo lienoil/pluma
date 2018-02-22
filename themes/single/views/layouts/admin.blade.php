@@ -14,5 +14,6 @@
 @endpush
 
 @push("after-content")
+  @include("Theme::partials.flash")
   @include("Theme::partials.footer")
 @endpush

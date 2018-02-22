@@ -46,6 +46,9 @@ new Vue({
   data () {
     return {
       app: {},
+      settings: {
+        fontsize: this.localstorage('settings.fontsize') ? this.localstorage('settings.fontsize') : 1
+      },
       view: {
         current: 'PageIndex'
       },
@@ -81,7 +84,7 @@ new Vue({
        *
        */
       snackbar: {
-        color: 'info',
+        color: 'secondary',
         icon: 'info',
         timeout: 10000,
         model: false,
@@ -101,7 +104,27 @@ new Vue({
         floating: this.localstorage('rightsidebar.floating') === 'true',
         mini: this.localstorage('rightsidebar.mini') === 'true',
         model: false
+      },
+
+      /**
+       *------------------------------------------
+       * Flash Session
+       *------------------------------------------
+       *
+       * FLASH! Ah-haaaaaaaaa
+       * Saviour of the universe!
+       * FLASH! Ah-haaaaaaaaa
+       * He'll save everyone of us!
+       *
+       */
+      flash: {
+        model: false
       }
+    }
+  },
+  watch: {
+    '$route': function (router) {
+      // this.snackbar.model = true
     }
   },
   methods: {

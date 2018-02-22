@@ -15,7 +15,7 @@
           <router-view></router-view>
         </v-slide-x-reverse-transition>
 
-        <v-btn primary @click="localstorage('theme.dark', theme.dark = ! theme.dark)">{{ __('Toggle Dark Theme') }}</v-btn>
+        {{-- <v-btn primary @click="localstorage('theme.dark', theme.dark = ! theme.dark)">{{ __('Toggle Dark Theme') }}</v-btn> --}}
 
         @stack("after-inner-content")
 
