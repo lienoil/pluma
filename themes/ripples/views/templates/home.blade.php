@@ -364,7 +364,8 @@ Version: 1.0
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize( window.innerWidth, window.innerHeight );
             container.appendChild( renderer.domElement );
-            // renderer.setClearColor( 0x66b3f0 );
+            renderer = new THREE.CanvasRenderer({ alpha: true }); // gradient; this can be swapped for WebGLRenderer
+            // renderer.setClearColor( 0xffffff, 0 );
 
             // particles
 
