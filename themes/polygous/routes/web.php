@@ -1,5 +1,5 @@
 <?php
 
-Route::any('p/admin/{slug?}', function () {
+Route::any('poly/admin/{slug?}', function () {
     return view("Theme::app");
-})->where('slug', '.*');
+})->middleware(['auth.admin'])->where('slug', '.*');
