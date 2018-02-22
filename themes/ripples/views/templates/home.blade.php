@@ -11,7 +11,7 @@ Version: 1.0
 
 @section("content")
     {{-- banner --}}
-    <div id="banner">
+    <div id="banner" class="js-section">
         {{-- main menu --}}
         <v-toolbar id="home-menu" dark flat class="transparent">
             <a href="{{ url('/') }}">
@@ -38,13 +38,8 @@ Version: 1.0
         {{-- /main menu --}}
 
         {{-- banner-content --}}
-        {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.50); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
         <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
         <v-card flat class="transparent threejs-section">
-            {{-- <v-card-text class="white--text text-xs-center">
-                <h2 class="page-title display-4"><strong>{{ $application->site->title }}</strong></h2>
-                <h4 class="page-title headline">{!! $page->body !!}</h4>
-            </v-card-text> --}}
 
             <v-layout row wrap justify-center align-center>
                 <v-flex md10 xs12>
@@ -60,7 +55,7 @@ Version: 1.0
 
                         <v-flex sm6 xs12>
                             <v-card flat class="transparent">
-                                <img src="{{ assets('frontier/images/placeholder/iso/iso-elearning.png') }}" alt="" width="100%">
+                                <img src="{{ assets('frontier/images/placeholder/iso/iso-video.svg') }}" alt="" width="100%">
                             </v-card>
                         </v-flex>
                     </v-layout>
@@ -71,27 +66,6 @@ Version: 1.0
     </div>
     {{-- /banner --}}
 
-
-    {{-- <template id="hero">
-        <v-card dark class="elevation-0">
-            <v-card-media src="{{ assets('frontier/images/placeholder/hero.jpg') }}" height="90vh">
-                <v-container fill-height>
-                    <layout row wrap justify-center align-left>
-                        <v-flex md5 xs12>
-                            <v-card flat dark class="transparent">
-                                <h2 class="page-title">{{ $application->site->title }}</h2>
-                                <p class="page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos unde architecto, mollitia, alias corporis autem delectus libero molestias iure! Hic iusto voluptates repellendus numquam! Optio architecto soluta hic magnam adipisci?</p>
-
-                                <p class="page-title">Relax! It is still under construction.</p>
-                            </v-card>
-                        </v-flex>
-                    </layout>
-                </v-container>
-            </v-card-media>
-        <v-card>
-
-    </template> --}}
-
     {{-- divider --}}
     <v-card flat height="200px"></v-card>
     {{-- /divider --}}
@@ -101,8 +75,8 @@ Version: 1.0
             <v-layout row wrap justify-right align-center>
                 <v-flex md5 offset-md1 xs12>
                     <v-card flat>
-                        <h2 class="page-title display-1 primary--text"><strong>Why Us</strong></h2>
                         <v-card-text>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Why Us</strong></h2>
                             <v-card-actions>
                                 <v-avatar size="40px" tile class="mr-4">
                                     <img src="{{ assets('frontier/images/placeholder/home/computer.png') }}" alt="" width="100%">
@@ -128,7 +102,7 @@ Version: 1.0
 
                 <v-flex md6 xs12>
                     <v-card flat>
-                        <img src="{{ assets('frontier/images/placeholder/section-1.jpg') }}" width="100%">
+                        <img src="{{ assets('frontier/images/placeholder/iso/7.png') }}" width="100%">
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -150,8 +124,8 @@ Version: 1.0
 
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
-                        <h2 class="page-title display-1 cyan--text darken-1"><strong>How it works</strong></h2>
                         <v-card-text>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>How it works</strong></h2>
                             <v-card-actions>
                                 <v-avatar size="40px" tile class="mr-4">
                                     <img src="{{ assets('frontier/images/placeholder/home/networking.png') }}" alt="">
@@ -197,7 +171,7 @@ Version: 1.0
             <v-layout row wrap justify-right align-center>
                 <v-flex md5 offset-md1 xs12>
                     <v-card flat>
-                        <h2 class="page-title display-1 primary--text"><strong>Pricing</strong></h2>
+                        <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Pricing</strong></h2>
                         <v-card-text>
                             <v-card-actions>
                                 <v-avatar size="40px" tile class="mr-4">
@@ -246,8 +220,8 @@ Version: 1.0
 
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
-                        <h2 class="page-title display-1 primary--text"><strong>Try Now</strong></h2>
                         <v-card-text>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Try Now</strong></h2>
                             <v-card-actions>
                                 <v-avatar size="40px" tile class="mr-4">
                                     <img src="{{ assets('frontier/images/placeholder/home/pie-chart.png') }}" alt="">
@@ -328,6 +302,7 @@ Version: 1.0
         #banner {
             position: relative !important;
             height: 100vh !important;
+            background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;
         }
         .threejs-section {
             /*position: absolute !important;
@@ -341,6 +316,9 @@ Version: 1.0
         #home-menu {
             position: absolute !important;
             z-index: 100;
+        }
+        .js-section {
+            background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;
         }
     </style>
 @endpush
@@ -373,7 +351,7 @@ Version: 1.0
 
 
             container = document.createElement('div');
-            container.classList.add('3d-section');
+            container.classList.add('js-section');
             var parent = document.querySelector('#banner');
             parent.appendChild(container);
 
@@ -386,6 +364,7 @@ Version: 1.0
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize( window.innerWidth, window.innerHeight );
             container.appendChild( renderer.domElement );
+            // renderer.setClearColor( 0x66b3f0 );
 
             // particles
 
