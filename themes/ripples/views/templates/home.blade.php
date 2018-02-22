@@ -171,8 +171,8 @@ Version: 1.0
             <v-layout row wrap justify-right align-center>
                 <v-flex md5 offset-md1 xs12>
                     <v-card flat>
-                        <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Pricing</strong></h2>
                         <v-card-text>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Pricing</strong></h2>
                             <v-card-actions>
                                 <v-avatar size="40px" tile class="mr-4">
                                     <img src="{{ assets('frontier/images/placeholder/home/bar-chart.png') }}" alt="" width="100%">
@@ -221,8 +221,8 @@ Version: 1.0
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Try Now</strong></h2>
                             <v-card-actions>
+                                <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Try Now</strong></h2>
                                 <v-avatar size="40px" tile class="mr-4">
                                     <img src="{{ assets('frontier/images/placeholder/home/pie-chart.png') }}" alt="">
                                 </v-avatar>
@@ -364,8 +364,9 @@ Version: 1.0
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize( window.innerWidth, window.innerHeight );
             container.appendChild( renderer.domElement );
-            renderer = new THREE.CanvasRenderer({ alpha: true }); // gradient; this can be swapped for WebGLRenderer
-            // renderer.setClearColor( 0xffffff, 0 );
+            // renderer = new THREE.CanvasRenderer({ alpha: true });
+            // renderer = new THREE.CanvasRenderer();
+            renderer.setClearColor( 0xffffff, 0 );
 
             // particles
 
@@ -402,7 +403,7 @@ Version: 1.0
 
             // lines
 
-            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0x66b3f0, opacity: 0.5 } ) );
+            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0x420a53, opacity: 0.5 } ) );
             scene.add( line );
 
             document.addEventListener( 'mousemove', onDocumentMouseMove, false );
