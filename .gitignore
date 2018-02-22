@@ -12,3 +12,4 @@ storage/public
 vendor/
 !storage/**/.gitkeep
 tasks.todo
+rippl3s.todo
