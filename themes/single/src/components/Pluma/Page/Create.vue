@@ -43,6 +43,9 @@
           </v-flex>
           <v-flex sm4>
 
+            <mediabox icon="landscape" title="Featured Image"></mediabox>
+            <v-divider></v-divider>
+
             <v-card>
               <v-card-text>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil maiores aliquam sit dolore facere saepe laborum velit ducimus error ipsa, quo cum non, impedit iure voluptatibus ullam illum tempore. Hic!
@@ -74,8 +77,11 @@
 </template>
 
 <script>
+import Mediabox from '@/components/components/Mediabox.vue'
+
 export default {
   name: 'Create',
+  components: { Mediabox },
   data () {
     return {
       resource: {

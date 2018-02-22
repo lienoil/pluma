@@ -45,6 +45,11 @@ new Vue({
   },
   data () {
     return {
+      app: {},
+      view: {
+        current: 'PageIndex'
+      },
+
       /**
        *------------------------------------------
        * Theme Settings
@@ -109,5 +114,8 @@ new Vue({
         return true
       }
     }
+  },
+  mounted () {
+    this.app = this
   }
 })

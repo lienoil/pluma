@@ -15,9 +15,9 @@ return [
         'name' => 'avatar',
         'always_viewable' => true,
         'labels' => [
-            'avatar' => user()->avatar,
-            'name' => user()->fullname,
-            'role' => user()->displayrole,
+            'avatar' => user()->avatar ?? '',
+            'name' => user()->fullname ?? '',
+            'role' => user()->displayrole ?? '',
         ],
         'children' => [
             /**
@@ -30,7 +30,7 @@ return [
              */
             'profile-group' => [
                 'name' => 'profile-group',
-                'slug' => route('profile.show', user()->handlename),
+                'slug' => route('profile.show', user()->handlename ?? ''),
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'icon' => 'account_circle',
@@ -49,7 +49,7 @@ return [
                     'show-profile' => [
                         'name' => 'show-profile',
                         'order' => 1,
-                        'slug' => route('profile.show', user()->handlename),
+                        'slug' => route('profile.show', user()->handlename ?? ''),
                         'route' => 'profile.show',
                         'always_viewable' => true,
                         'icon' => 'account_circle',
@@ -72,7 +72,7 @@ return [
             'profile-settings-group' => [
                 'name' => 'profile-settings-group',
                 'order' => 2,
-                'slug' => route('credentials.edit', user()->handlename),
+                'slug' => route('credentials.edit', user()->handlename ?? ''),
                 'always_viewable' => true,
                 'is_group_link' => true,
                 'icon' => 'settings',
@@ -84,7 +84,7 @@ return [
                     'edit-credentials' => [
                         'name' => 'edit-credentials',
                         'order' => 1,
-                        'slug' => route('credentials.edit', user()->handlename),
+                        'slug' => route('credentials.edit', user()->handlename ?? ''),
                         'route' => 'credentials.edit',
                         'always_viewable' => true,
                         'icon' => 'vpn_key',
@@ -96,7 +96,7 @@ return [
                     'edit-email' => [
                         'name' => 'edit-email',
                         'order' => 1,
-                        'slug' => route('profile.emails.edit', user()->handlename),
+                        'slug' => route('profile.emails.edit', user()->handlename ?? ''),
                         'route' => 'profile.emails.edit',
                         'always_viewable' => true,
                         'icon' => 'mail',

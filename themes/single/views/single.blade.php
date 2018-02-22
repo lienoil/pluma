@@ -11,10 +11,11 @@
         @stack("before-inner-content")
 
         <v-slide-x-reverse-transition mode="out-in">
+          {{-- <component is="Breadcrumbs" keep-alive></component> --}}
           <router-view></router-view>
         </v-slide-x-reverse-transition>
 
-        {{-- <component :is="component"></component> --}}
+        <v-btn primary @click="localstorage('theme.dark', theme.dark = ! theme.dark)">{{ __('Toggle Dark Theme') }}</v-btn>
 
         @stack("after-inner-content")
 

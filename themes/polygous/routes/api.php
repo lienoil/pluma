@@ -1,16 +1,6 @@
 <?php
 
 use Frontier\Composers\NavigationViewComposer;
-use Illuminate\Http\Request;
-use Pluma\Support\Facades\Route;
-
-// Route::get('admin', function () {
-//   return redirect()->route('dashboard');
-// })->middleware(['auth.admin', 'cors']);
-
-// Route::any('admin/{slug?}', function () {
-//     return view("Theme::layouts.admin");
-// })->middleware(['auth.admin', 'cors'])->where('slug', '.*');
 
 Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function () {
     Route::post('misc/breadcrumbs', function (Request $request) {
@@ -28,7 +18,3 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
         return response()->json($breadcrumbs);
     })->name('api.misc.breadcrumbs');
 });
-
-Route::any('#/{slug?}', function () {
-    return view("Theme::layouts.public");
-})->where('slug', '.*');

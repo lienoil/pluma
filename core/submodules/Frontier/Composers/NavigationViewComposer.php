@@ -107,10 +107,10 @@ class NavigationViewComposer extends BaseViewComposer
             }
 
             $menu['can_be_accessed'] = false;
-            if (user()->isRoot() ||
+            if (user() && user()->isRoot() ||
                 (isset($menu['always_viewable']) && $menu['always_viewable']) ||
                 (isset($menu['is_header']) && $menu['is_header']) ||
-                user()->isPermittedTo($menu['name']) ||
+                (user() && user()->isPermittedTo($menu['name'])) ||
                 (isset($menu['permission']) && user()->isPermittedTo($menu['permission']))) {
                 $menu['can_be_accessed'] = true;
             }
@@ -293,7 +293,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     public function unsetForbiddenRoutes(&$menus = null)
     {
-        if (user()->isRoot()) {
+        if (user() && user()->isRoot()) {
             return $menus;
         }
 

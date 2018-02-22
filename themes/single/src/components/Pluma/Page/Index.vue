@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-toolbar dark color="secondary" class="elevation-1">
+    <v-toolbar dark color="secondary" class="sticky elevation-1">
       <v-icon left>find_in_page</v-icon>
       <v-toolbar-title>All Page</v-toolbar-title>
       <v-spacer></v-spacer>

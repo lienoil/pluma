@@ -1,4 +1,4 @@
-@extends("Frontier::layouts.admin")
+@extends("Theme::layouts.admin")
 
 @section("content")
 

@@ -39,12 +39,7 @@
   @show
 
   @stack("css")
-    <link rel="preload" href="{{ theme('assets/static/js/vendor.min.js') }}" as="script">
-    <link rel="preload" href="{{ theme('assets/static/js/app.min.js') }}" as="script">
-    <link rel="preload" href="{{ theme('assets/static/css/app.min.css') }}" as="style">
-    <link rel="preload" href="{{ theme('assets/js/manifest.min.js') }}" as="script">
-
-    <link rel="stylesheet" href="{{ theme('dist/static/css/app.min.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/vuetify/dist/vuetify.min.css">
   @show
 </head>
 <body>
