@@ -42,7 +42,7 @@
                                         {{-- <form :id="`destroy_${prop.item.id}`" :ref="`destroy_${prop.item.id}`" :action="route(urls.pages.destroy, prop.item.id)" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                        </form> --}}
+
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>

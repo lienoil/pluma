@@ -69,6 +69,7 @@ class BaseViewComposer
      *
      * @param string $currentRouteName
      */
+
     public function setCurrentRouteName($currentRouteName)
     {
         $this->currentRouteName = $currentRouteName;

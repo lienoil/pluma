@@ -13,11 +13,11 @@
             <v-flex sm12>
 
                 <form action="{{ route('settings.store') }}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="text" name='site_title' value="">
-                        <input type="hidden" name="user_id" value="{{ user()->id }}">
-                        <button type="submit">Save</button>
-                    </form>
+                    {{ csrf_field() }}
+                    <input type="text" name='site_title' value="">
+                    <input type="hidden" name="user_id" value="{{ user()->id }}">
+                    <button type="submit">Save</button>
+                </form>
 
                 <v-card class="elevation-1 mb-3">
                     <v-card-text>

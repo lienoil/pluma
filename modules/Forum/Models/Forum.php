@@ -3,7 +3,6 @@
 namespace Forum\Models;
 
 use Category\Support\Relations\BelongsToCategory;
-use Comment\Models\Comment;
 use Comment\Support\Relations\MorphManyComments;
 use Forum\Support\Traits\ForumMutatorTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;

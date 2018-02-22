@@ -54,7 +54,6 @@
         </v-list>
         <v-card flat class="pr-0 grey--text text--darken-2">
             <v-card-text class="page-content body-1">{!! filter_obscene_words($comment->body) !!}</v-card-text>
-
             <v-card-actions class="grey--text text--darken-2">
                 {{-- Upvotes / Downvotes --}}
                 <div>

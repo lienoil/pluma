@@ -6,28 +6,91 @@ Author: John Lioneil Dionisio
 Version: 1.0
 --}}
 
-@extends("Theme::layouts.public")
+
+@extends("Theme::layouts.home")
 
 @section("content")
-    <template>
-        <v-card id="hero" dark class="elevation-0">
-            {{-- <v-card-media src="{{ $page->feature }}" height="90vh"> --}}
+    {{-- banner --}}
+    <div id="banner">
+        {{-- main menu --}}
+        <v-toolbar id="home-menu" dark flat class="transparent">
+            <a href="{{ url('/') }}">
+                <v-avatar tile>
+                    <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+                </v-avatar>
+            </a>
+
+            <v-toolbar-title class="subheading white--text">
+                <div href="{{ url('/') }}">{{ $application->site->title }}</div>
+                <div class="caption">{{ $application->site->tagline }}</div>
+            </v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-toolbar-items>
+                @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+
+                @if (settings('show_login_at_main_menu', true))
+                    <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
+                @endif
+            </v-toolbar-items>
+        </v-toolbar>
+        {{-- /main menu --}}
+
+        {{-- banner-content --}}
+        {{-- <div class="insert-overlay" style="background: rgba(56, 43, 80, 0.50); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
+        <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+        <v-card flat class="transparent threejs-section">
+            {{-- <v-card-text class="white--text text-xs-center">
+                <h2 class="page-title display-4"><strong>{{ $application->site->title }}</strong></h2>
+                <h4 class="page-title headline">{!! $page->body !!}</h4>
+            </v-card-text> --}}
+
+            <v-layout row wrap justify-center align-center>
+                <v-flex md10 xs12>
+                    <v-layout row wrap justify-center align-center>
+                        <v-flex sm6 xs12>
+                            <v-card flat class="transparent">
+                                <v-card-text class="white--text">
+                                    <h2 class="page-title display-3"><strong>{{ $application->site->title }}</strong></h2>
+                                    <h4 class="page-title headline">{!! $page->body !!}</h4>
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+
+                        <v-flex sm6 xs12>
+                            <v-card flat class="transparent">
+                                <img src="{{ assets('frontier/images/placeholder/iso-elearning.png') }}" alt="" width="100%">
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
+            </v-layout>
+        </v-card>
+        {{-- banner-content --}}
+    </div>
+    {{-- /banner --}}
+
+
+    {{-- <template id="hero">
+        <v-card dark class="elevation-0">
             <v-card-media src="{{ assets('frontier/images/placeholder/hero.jpg') }}" height="90vh">
-                {{-- <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.3); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
                 <v-container fill-height>
                     <layout row wrap justify-center align-left>
                         <v-flex md5 xs12>
                             <v-card flat dark class="transparent">
                                 <h2 class="page-title">{{ $application->site->title }}</h2>
                                 <p class="page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos unde architecto, mollitia, alias corporis autem delectus libero molestias iure! Hic iusto voluptates repellendus numquam! Optio architecto soluta hic magnam adipisci?</p>
-                                <p class="page-title">Relax! It is still under contruction.</p>
+
+                                <p class="page-title">Relax! It is still under construction.</p>
                             </v-card>
                         </v-flex>
                     </layout>
                 </v-container>
             </v-card-media>
         <v-card>
-    </template>
+
+    </template> --}}
 
     {{-- divider --}}
     <v-card flat height="200px"></v-card>
@@ -82,12 +145,14 @@ Version: 1.0
                 <v-flex md6 xs12 order-sm2 order-md1>
                     <v-card flat class="mb-3">
                         <img src="{{ assets('frontier/images/placeholder/section-2.jpg') }}" width="100%">
+                        {{-- <img src="{{ assets('frontier/images/placeholder/test.png') }}" width="100%"> --}}
+                        <img src="{{ assets('frontier/images/placeholder/section-1.jpg') }}" alt="">
                     </v-card>
                 </v-flex>
 
-                <v-flex md4 offset-md1 xs12 order-sm1 order-md2>
+                <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
-                        <h2 class="page-title display-1 primary--text"><strong>How it works</strong></h2>
+                        <h2 class="page-title display-1 cyan--text darken-1"><strong>How it works</strong></h2>
                         <v-card-text>
                             <v-card-actions>
                                 <v-avatar size="40px" tile class="mr-4">
@@ -114,6 +179,16 @@ Version: 1.0
             </v-layout>
         </div>
     </template>
+
+    {{-- divider --}}
+    <v-card flat height="200px"></v-card>
+    {{-- /divider --}}
+
+    {{-- full-width threejs --}}
+    <div id="threejs-width">
+
+    </div>
+    {{-- /full-width threejs --}}
 
     {{-- divider --}}
     <v-card flat height="200px"></v-card>
@@ -171,7 +246,7 @@ Version: 1.0
                     </v-card>
                 </v-flex>
 
-                <v-flex md4 offset-md1 xs12 order-sm1 order-md2>
+                <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <h2 class="page-title display-1 primary--text"><strong>Try Now</strong></h2>
                         <v-card-text>
@@ -252,28 +327,33 @@ Version: 1.0
 
 @push('css')
     <style>
-        /*#info {
-            position: absolute;
-            top: 10px; width: 100%;
-            color: red;
-            padding: 5px;
-            font-family: Monospace;
-            font-size: 13px;
-            text-align: center;
-            z-index:100;
-        }*/
+        #banner {
+            position: relative !important;
+            height: 100vh !important;
+        }
+        .threejs-section {
+            /*position: absolute !important;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);*/
+            position: absolute !important;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        #home-menu {
+            position: absolute !important;
+            z-index: 100;
+        }
     </style>
 @endpush
 
 @push('js')
-    {{-- <script src="../build/three.js"></script> --}}
-    {{-- <script src="{{ assets('frontier/threejs/build/three.js') }}"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.module.js"></script>
-    {{-- <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script> --}}
-    {{-- <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script> --}}
+    <script src="{{ assets('frontier/threejs/build/three.min.js') }}"></script>
 
-    {{-- <script>
+    <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script>
+    <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script>
+
+    <script>
         var mouseX = 0, mouseY = 0,
 
         windowHalfX = window.innerWidth / 2,
@@ -293,8 +373,9 @@ Version: 1.0
             var container, separation = 100, amountX = 50, amountY = 50,
             particles, particle;
 
+
             container = document.createElement('div');
-            container.classList.add('red-xsdsdsdadsasdadadasd');
+            container.classList.add('3d-section');
             var parent = document.querySelector('#banner');
             parent.appendChild(container);
 
@@ -343,7 +424,7 @@ Version: 1.0
 
             // lines
 
-            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 0.5 } ) );
+            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0x66b3f0, opacity: 0.5 } ) );
             scene.add( line );
 
             document.addEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -421,5 +502,5 @@ Version: 1.0
 
             renderer.render( scene, camera );
         }
-    </script> --}}
+    </script>
 @endpush

@@ -5,7 +5,7 @@ return [
         'name' => 'page',
         'is_parent' => true,
         'order' => 30,
-        'slug' => url('admin/pages'),
+        'slug' => route('pages.index'),
         'always_viewable' => false,
         'icon' => 'find_in_page',
         'labels' => [
@@ -17,7 +17,7 @@ return [
                 'routename' => 'pages.index',
                 'parent' => 'page',
                 'order' => 1,
-                'slug' => url('admin/pages'),
+                'slug' => route('pages.index'),
                 'always_viewable' => false,
                 'routes' => [
                     'name' => 'pages.index',
@@ -35,7 +35,7 @@ return [
                 'routename' => 'pages.create',
                 'parent' => 'page',
                 'order' => 2,
-                'slug' => url('admin/pages/create'),
+                'slug' => route('pages.create'),
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Create Page'),
@@ -45,7 +45,7 @@ return [
                 'name' => 'trashed-page',
                 'routename' => 'pages.trashed',
                 'order' => 3,
-                'slug' => url('admin/pages/trashed'),
+                'slug' => route('pages.trashed'),
                 'always_viewable' => false,
                 'icon' => 'delete',
                 'labels' => [

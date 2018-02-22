@@ -4,15 +4,25 @@
 
 namespace Composer\Autoload;
 
+<<<<<<< HEAD
 class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
+=======
+class ComposerStaticInitc88f341a7f493545d82f8130a1c573c8
+>>>>>>> dev
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+<<<<<<< HEAD
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+=======
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+>>>>>>> dev
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -27,7 +37,10 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         ),
         'S' => 
         array (
+<<<<<<< HEAD
             'Symfony\\Polyfill\\Php70\\' => 23,
+=======
+>>>>>>> dev
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
@@ -125,10 +138,13 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
+<<<<<<< HEAD
         'Symfony\\Polyfill\\Php70\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php70',
         ),
+=======
+>>>>>>> dev
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -409,8 +425,11 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Announcement\\Support\\Traits\\AnnouncementResourcePublicTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementResourcePublicTrait.php',
         'Announcement\\Support\\Traits\\AnnouncementResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/modules/Announcement/Support/Traits/AnnouncementResourceSoftDeleteTrait.php',
         'Appearance\\Providers\\AppearanceServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/Providers/AppearanceServiceProvider.php',
+<<<<<<< HEAD
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
+=======
+>>>>>>> dev
         'Assignment\\API\\Controllers\\AssignmentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/API/Controllers/AssignmentController.php',
         'Assignment\\Controllers\\AssignmentController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/Controllers/AssignmentController.php',
         'Assignment\\Models\\Assignment' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Assignment/Models/Assignment.php',
@@ -474,9 +493,12 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Calendar\\Jobs\\AdjustCalendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Jobs/AdjustCalendar.php',
         'Calendar\\Models\\Calendar' => __DIR__ . '/../..' . '/core/submodules/Calendar/Models/Calendar.php',
         'Calendar\\Support\\Holidays\\HolidaysTrait' => __DIR__ . '/../..' . '/core/submodules/Calendar/Support/Holidays/HolidaysTrait.php',
+<<<<<<< HEAD
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
+=======
+>>>>>>> dev
         'Catalogue\\API\\Controllers\\CatalogueController' => __DIR__ . '/../..' . '/core/submodules/Library/submodules/Catalogue/API/Controllers/CatalogueController.php',
         'Catalogue\\Controllers\\CatalogueController' => __DIR__ . '/../..' . '/core/submodules/Library/submodules/Catalogue/Controllers/CatalogueController.php',
         'Catalogue\\Controllers\\CatalogueManyController' => __DIR__ . '/../..' . '/core/submodules/Library/submodules/Catalogue/Controllers/CatalogueManyController.php',
@@ -500,11 +522,14 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Category\\Support\\Traits\\CategoryResourceApiTrait' => __DIR__ . '/../..' . '/core/submodules/Category/Support/Traits/CategoryResourceApiTrait.php',
         'Category\\Support\\Traits\\CategoryResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/core/submodules/Category/Support/Traits/CategoryResourceSoftDeleteTrait.php',
         'Chronos\\Providers\\ChronosServiceProvider' => __DIR__ . '/../..' . '/modules/Chronos/Providers/ChronosServiceProvider.php',
+<<<<<<< HEAD
         'Chumper\\Zipper\\Facades\\Zipper' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Facades/Zipper.php',
         'Chumper\\Zipper\\Repositories\\RepositoryInterface' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Repositories/RepositoryInterface.php',
         'Chumper\\Zipper\\Repositories\\ZipRepository' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Repositories/ZipRepository.php',
         'Chumper\\Zipper\\Zipper' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/Zipper.php',
         'Chumper\\Zipper\\ZipperServiceProvider' => __DIR__ . '/..' . '/chumper/zipper/src/Chumper/Zipper/ZipperServiceProvider.php',
+=======
+>>>>>>> dev
         'Comment\\Controllers\\API\\CommentController' => __DIR__ . '/../..' . '/core/submodules/Comment/Controllers/API/CommentController.php',
         'Comment\\Controllers\\CommentController' => __DIR__ . '/../..' . '/core/submodules/Comment/Controllers/CommentController.php',
         'Comment\\Controllers\\CommentingSettingController' => __DIR__ . '/../..' . '/core/submodules/Comment/Controllers/CommentingSettingController.php',
@@ -606,6 +631,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'CreateTimesheetsTable' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/database/migrations/20170906095634_create_timesheets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/00000000000001_create_users_table.php',
         'CreateWidgetsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/database/migrations/20180116085940_create_widgets_table.php',
+<<<<<<< HEAD
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/DayOfMonthField.php',
@@ -616,11 +642,14 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Cron\\MinutesField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/MonthField.php',
         'Cron\\YearField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/YearField.php',
+=======
+>>>>>>> dev
         'Crowfeather\\Dictionary\\ObsceneWord' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Dictionary/ObsceneWord.php',
         'Crowfeather\\Traverser\\Contracts\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Contracts/Traverser.php',
         'Crowfeather\\Traverser\\Traverser' => __DIR__ . '/../..' . '/core/Support/Crowfeather/Traverser/Traverser.php',
         'Dashboard\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/core/submodules/Dashboard/Controllers/DashboardController.php',
         'Dashboard\\Providers\\DashboardServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Dashboard/Providers/DashboardServiceProvider.php',
+<<<<<<< HEAD
         'DivisionByZeroError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
         'Doctrine\\Common\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector/Inflector.php',
         'Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
@@ -767,6 +796,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
         'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
+=======
+>>>>>>> dev
         'Field\\Controllers\\FieldController' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Field/Controllers/FieldController.php',
         'Field\\Models\\Field' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Field/Models/Field.php',
         'Field\\Observers\\FieldObserver' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Field/Observers/FieldObserver.php',
@@ -790,6 +821,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Fieldtype\\Support\\Traits\\FieldtypeResourceApiTrait' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Fieldtype/Support/Traits/FieldtypeResourceApiTrait.php',
         'Fieldtype\\Support\\Traits\\FieldtypeResourcePublicTrait' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Fieldtype/Support/Traits/FieldtypeResourcePublicTrait.php',
         'Fieldtype\\Support\\Traits\\FieldtypeResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/core/submodules/Form/submodules/Fieldtype/Support/Traits/FieldtypeResourceSoftDeleteTrait.php',
+<<<<<<< HEAD
         'FontLib\\AdobeFontMetrics' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/AdobeFontMetrics.php',
         'FontLib\\Autoloader' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Autoloader.php',
         'FontLib\\BinaryStream' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/BinaryStream.php',
@@ -826,6 +858,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'FontLib\\WOFF\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/File.php',
         'FontLib\\WOFF\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/Header.php',
         'FontLib\\WOFF\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/TableDirectoryEntry.php',
+=======
+>>>>>>> dev
         'Form\\Controllers\\FormController' => __DIR__ . '/../..' . '/core/submodules/Form/Controllers/FormController.php',
         'Form\\Models\\Form' => __DIR__ . '/../..' . '/core/submodules/Form/Models/Form.php',
         'Form\\Observers\\FormObserver' => __DIR__ . '/../..' . '/core/submodules/Form/Observers/FormObserver.php',
@@ -875,6 +909,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
         'HTML5_Tokenizer' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
         'HTML5_TreeBuilder' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
+<<<<<<< HEAD
         'Illuminate\\Auth\\Access\\AuthorizationException' => __DIR__ . '/..' . '/illuminate/auth/Access/AuthorizationException.php',
         'Illuminate\\Auth\\Access\\Gate' => __DIR__ . '/..' . '/illuminate/auth/Access/Gate.php',
         'Illuminate\\Auth\\Access\\HandlesAuthorization' => __DIR__ . '/..' . '/illuminate/auth/Access/HandlesAuthorization.php',
@@ -1520,6 +1555,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/illuminate/view/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/illuminate/view/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/illuminate/view/ViewServiceProvider.php',
+=======
+>>>>>>> dev
         'Lesson\\Controllers\\LessonController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Controllers/LessonController.php',
         'Lesson\\Models\\Lesson' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Models/Lesson.php',
         'Lesson\\Providers\\LessonServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Course/submodules/Lesson/Providers/LessonServiceProvider.php',
@@ -1550,6 +1587,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Menu\\Support\\Traits\\BelongsToMenu' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Menu/Support/Traits/BelongsToMenu.php',
         'Menu\\Support\\Traits\\MenuBuilderTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Menu/Support/Traits/MenuBuilderTrait.php',
         'ModifyDetailsTable' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/database/migrations/20180125153815_modify_details_table.php',
+<<<<<<< HEAD
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
         'Monolog\\Formatter\\ChromePHPFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
         'Monolog\\Formatter\\ElasticaFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php',
@@ -1638,6 +1676,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Monolog\\Processor\\UidProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/UidProcessor.php',
         'Monolog\\Processor\\WebProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/WebProcessor.php',
         'Monolog\\Registry' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Registry.php',
+=======
+>>>>>>> dev
         'Note\\Controllers\\NoteController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Note/Controllers/NoteController.php',
         'Note\\Models\\Note' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Note/Models/Note.php',
         'Note\\Observers\\NoteObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Note/Observers/NoteObserver.php',
@@ -1673,6 +1713,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Page\\Support\\Traits\\PageResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Page/Support/Traits/PageResourceSoftDeleteTrait.php',
         'Parchment\\Helpers\\Chart' => __DIR__ . '/../..' . '/core/Support/Parchment/Helpers/Chart.php',
         'Parchment\\Helpers\\Word' => __DIR__ . '/../..' . '/core/Support/Parchment/Helpers/Word.php',
+<<<<<<< HEAD
         'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
         'PermissionsTableSeeder' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/seeds/PermissionsTableSeeder.php',
@@ -1715,6 +1756,9 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Phinx\\Seed\\SeedInterface' => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx/Seed/SeedInterface.php',
         'Phinx\\Util\\Util' => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx/Util/Util.php',
         'Phinx\\Wrapper\\TextWrapper' => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx/Wrapper/TextWrapper.php',
+=======
+        'PermissionsTableSeeder' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/seeds/PermissionsTableSeeder.php',
+>>>>>>> dev
         'Pluma\\API\\Controllers\\APIController' => __DIR__ . '/../..' . '/core/API/Controllers/APIController.php',
         'Pluma\\Application\\Application' => __DIR__ . '/../..' . '/core/Application/Application.php',
         'Pluma\\Application\\EnvironmentDetector' => __DIR__ . '/../..' . '/core/Application/EnvironmentDetector.php',
@@ -1825,6 +1869,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Profile\\Requests\\ProfileRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Requests/ProfileRequest.php',
         'Profile\\Support\\Traits\\CanUploadToStorageApiTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Support/Traits/CanUploadToStorageApiTrait.php',
         'Profile\\Support\\Traits\\ProfileResourcePublicTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Profile/Support/Traits/ProfileResourcePublicTrait.php',
+<<<<<<< HEAD
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -1887,6 +1932,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Ramsey\\Uuid\\UuidFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactory.php',
         'Ramsey\\Uuid\\UuidFactoryInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactoryInterface.php',
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
+=======
+>>>>>>> dev
         'Registrar\\Controllers\\RegistrarController' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Registrar/Controllers/RegistrarController.php',
         'Registrar\\Models\\Registrar' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Registrar/Models/Registrar.php',
         'Registrar\\Providers\\RegistrarServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/submodules/Registrar/Providers/RegistrarServiceProvider.php',
@@ -1917,6 +1964,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Role\\Support\\Traits\\BelongsToManyPermissionsThroughRoles' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Support/Traits/BelongsToManyPermissionsThroughRoles.php',
         'Role\\Support\\Traits\\BelongsToManyRoles' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/Support/Traits/BelongsToManyRoles.php',
         'RolesTableSeeder' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/submodules/Role/database/seeds/RolesTableSeeder.php',
+<<<<<<< HEAD
         'Sabberworm\\CSS\\CSSList\\AtRuleBlockList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/AtRuleBlockList.php',
         'Sabberworm\\CSS\\CSSList\\CSSBlockList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/CSSBlockList.php',
         'Sabberworm\\CSS\\CSSList\\CSSList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/CSSList.php',
@@ -1951,6 +1999,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Sabberworm\\CSS\\Value\\Value' => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Value.php',
         'Sabberworm\\CSS\\Value\\ValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/ValueList.php',
         'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
+=======
+>>>>>>> dev
         'Setting\\Controllers\\BrandingSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/BrandingSettingController.php',
         'Setting\\Controllers\\DateTimeSettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/DateTimeSettingController.php',
         'Setting\\Controllers\\DisplaySettingController' => __DIR__ . '/../..' . '/core/submodules/Setting/Controllers/DisplaySettingController.php',
@@ -1987,6 +2037,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Support\\Database\\Relations\\BelongsToManyThrough' => __DIR__ . '/../..' . '/core/Support/Database/Relations/BelongsToManyThrough.php',
         'Support\\Database\\Relations\\HasManyToManyThrough' => __DIR__ . '/../..' . '/core/Support/Database/Relations/HasManyToManyThrough.php',
         'Support\\Database\\Traits\\BaseRelation' => __DIR__ . '/../..' . '/core/Support/Database/Traits/BaseRelation.php',
+<<<<<<< HEAD
         'Svg\\DefaultStyle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/DefaultStyle.php',
         'Svg\\Document' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Document.php',
         'Svg\\Gradient\\Stop' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Gradient/Stop.php',
@@ -2663,6 +2714,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Symfony\\Component\\Yaml\\Yaml' => __DIR__ . '/..' . '/symfony/yaml/Yaml.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'Symfony\\Polyfill\\Php70\\Php70' => __DIR__ . '/..' . '/symfony/polyfill-php70/Php70.php',
+=======
+>>>>>>> dev
         'Template\\Controllers\\TemplateController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Template/Controllers/TemplateController.php',
         'Template\\Models\\Template' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Template/Models/Template.php',
         'Template\\Observers\\TemplateObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Template/Observers/TemplateObserver.php',
@@ -2679,12 +2732,15 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Theme\\Observers\\ThemeObserver' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Theme/Observers/ThemeObserver.php',
         'Theme\\Providers\\ThemeServiceProvider' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Theme/Providers/ThemeServiceProvider.php',
         'Theme\\Requests\\ThemeRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Theme/Requests/ThemeRequest.php',
+<<<<<<< HEAD
         'TijsVerkoyen\\CssToInlineStyles\\CssToInlineStyles' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/CssToInlineStyles.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+=======
+>>>>>>> dev
         'Timesheet\\Controllers\\TimesheetController' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Controllers/TimesheetController.php',
         'Timesheet\\Models\\Daily' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Models/Daily.php',
         'Timesheet\\Models\\Timesheet' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Models/Timesheet.php',
@@ -2695,7 +2751,10 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Timesheet\\Support\\Traits\\BelongsToTimesheet' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/BelongsToTimesheet.php',
         'Timesheet\\Support\\Traits\\HasManyDailies' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/HasManyDailies.php',
         'Timesheet\\Support\\Traits\\TimesheetMutator' => __DIR__ . '/../..' . '/modules/Chronos/submodules/Timesheet/Support/Traits/TimesheetMutator.php',
+<<<<<<< HEAD
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
+=======
+>>>>>>> dev
         'User\\API\\Controllers\\LoginController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/LoginController.php',
         'User\\API\\Controllers\\UserController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/API/Controllers/UserController.php',
         'User\\Controllers\\ForgotPasswordController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Controllers/ForgotPasswordController.php',
@@ -2736,6 +2795,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'User\\Support\\Traits\\UserResourceApiTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/UserResourceApiTrait.php',
         'User\\Support\\Traits\\UserResourceSoftDeleteTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/UserResourceSoftDeleteTrait.php',
         'User\\Support\\Traits\\WhereDetailTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/User/Support/Traits/WhereDetailTrait.php',
+<<<<<<< HEAD
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',
         'Whoops\\Exception\\Frame' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Frame.php',
@@ -2754,6 +2814,8 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
+=======
+>>>>>>> dev
         'Widget\\Composers\\WidgetViewComposer' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Composers/WidgetViewComposer.php',
         'Widget\\Controllers\\WidgetController' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Controllers/WidgetController.php',
         'Widget\\Models\\Widget' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Models/Widget.php',
@@ -2762,6 +2824,7 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Widget\\Requests\\WidgetRequest' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Requests/WidgetRequest.php',
         'Widget\\Support\\Scopes\\ScopeFromTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Support/Scopes/ScopeFromTrait.php',
         'Widget\\Support\\Scopes\\WidgetTrait' => __DIR__ . '/../..' . '/core/submodules/Frontier/submodules/Appearance/submodules/Widget/Support/Traits/WidgetTrait.php',
+<<<<<<< HEAD
         'Wikimedia\\Composer\\Logger' => __DIR__ . '/..' . '/wikimedia/composer-merge-plugin/src/Logger.php',
         'Wikimedia\\Composer\\MergePlugin' => __DIR__ . '/..' . '/wikimedia/composer-merge-plugin/src/MergePlugin.php',
         'Wikimedia\\Composer\\Merge\\ExtraPackage' => __DIR__ . '/..' . '/wikimedia/composer-merge-plugin/src/Merge/ExtraPackage.php',
@@ -2769,16 +2832,25 @@ class ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7
         'Wikimedia\\Composer\\Merge\\NestedArray' => __DIR__ . '/..' . '/wikimedia/composer-merge-plugin/src/Merge/NestedArray.php',
         'Wikimedia\\Composer\\Merge\\PluginState' => __DIR__ . '/..' . '/wikimedia/composer-merge-plugin/src/Merge/PluginState.php',
         'Wikimedia\\Composer\\Merge\\StabilityFlags' => __DIR__ . '/..' . '/wikimedia/composer-merge-plugin/src/Merge/StabilityFlags.php',
+=======
+>>>>>>> dev
         'Yggdrasil\\Providers\\YggdrasilServiceProvider' => __DIR__ . '/../..' . '/modules/Yggdrasil/Providers/YggdrasilServiceProvider.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+<<<<<<< HEAD
             $loader->prefixLengthsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit6cf99491397bf8987b8fc1fa6ca192c7::$classMap;
+=======
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc88f341a7f493545d82f8130a1c573c8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc88f341a7f493545d82f8130a1c573c8::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc88f341a7f493545d82f8130a1c573c8::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc88f341a7f493545d82f8130a1c573c8::$classMap;
+>>>>>>> dev
 
         }, null, ClassLoader::class);
     }

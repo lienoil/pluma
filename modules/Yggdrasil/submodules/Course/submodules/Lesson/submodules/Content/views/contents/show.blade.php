@@ -1,5 +1,6 @@
 @extends("Theme::layouts.public")
 
+<<<<<<< HEAD
 @section("head-title", "{$resource->course->title} - {$resource->lesson->title} - {$resource->title}")
 
 @push('post-meta')
@@ -76,10 +77,24 @@
             <v-flex xs12>
                 <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn>
                 <v-card class="card--flex-toolbar card--filed-on-top" style="overflow: hidden">
+=======
+@section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
+
+@push('post-meta')
+    {{-- <link rel="manifest" href="{{ url('manifest.json') }}"> --}}
+@endpush
+
+@section("content")
+    <v-container fluid grid-list-lg>
+        <v-layout row wrap>
+            <v-flex xs12>
+                <v-card class="mb-2 elevation-1">
+>>>>>>> dev
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
+<<<<<<< HEAD
                         {{-- <v-dialog max-width="90vw" width="80vw">
                             <v-btn slot="activator" icon v-tooltip:left="{html: 'Close this window'}"><v-icon>close</v-icon></v-btn>
                             <v-card>
@@ -97,6 +112,10 @@
                             </v-card>
                         </v-dialog> --}}
                     </v-toolbar>
+=======
+                    </v-toolbar>
+
+>>>>>>> dev
                     <v-alert
                         icon="check"
                         class="success ma-0"
@@ -105,8 +124,13 @@
                         transition="slide-y-transition"
                         :timeout="2000"
                         style="z-index: 2"
+<<<<<<< HEAD
                     >
                         <v-card style="margin-bottom: -2rem" class="elevation-1 mb--2">
+=======
+                        >
+                        <v-card style="margin-bottom: -2rem" class="elevation-1 mb-2">
+>>>>>>> dev
                             <v-card-text class="grey--text text--darken-1 text-xs-center">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</v-card-text>
                         </v-card>
                     </v-alert>
@@ -154,6 +178,7 @@
                         </v-card>
                         <template v-else>
                             <v-card v-if="! course.started" flat class="grey--text text--darken-1">
+<<<<<<< HEAD
                                 {{-- <v-card-media height="480px"> --}}
                                     <v-container fill-height fluid>
                                         <v-layout fill-height wrap column>
@@ -173,14 +198,38 @@
                                         </v-layout>
                                     </v-container>
                                 {{-- </v-card-media> --}}
+=======
+                                <v-container fill-height fluid>
+                                    <v-layout fill-height wrap column>
+                                        <v-card-text class="quill-text">
+                                            {!! $resource->body !!}
+                                        </v-card-text>
+                                        <v-spacer></v-spacer>
+                                        <v-card-actions class="pa-4">
+                                            <v-spacer></v-spacer>
+                                            <v-btn dark class="primary" @click="playInteraction()">
+                                                <v-icon left>play_circle_outline</v-icon>
+                                                <template v-if="resource.incomplete">{{ __('Continue') }}</template>
+                                                <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
+                                                <template v-else>{{ __('Start') }}</template>
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-layout>
+                                </v-container>
+>>>>>>> dev
                             </v-card>
                         </template>
                         <div id="interactive-container">
                             <v-fade-transition>
                                 <template v-if="course.started">
+<<<<<<< HEAD
                                     <div class="course-interactive-container">
                                         {!! $resource->html !!}
 
+=======
+                                    <div>
+                                        {!! $resource->html !!}
+>>>>>>> dev
                                         <v-dialog v-model="messagebox.model" width="60vw" persistent>
                                             <v-card flat tile class="text-xs-center">
                                                 <v-icon class="display-4 success--text">check</v-icon>
@@ -190,7 +239,11 @@
                                                 </v-card-text>
                                                 <v-card-actions>
                                                     <v-spacer></v-spacer>
+<<<<<<< HEAD
                                                     <v-btn :disabled="messagebox.btnDisabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
+=======
+                                                    <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
+>>>>>>> dev
                                                     <v-spacer></v-spacer>
                                                 </v-card-actions>
                                             </v-card>
@@ -201,9 +254,89 @@
                         </div>
                     </template>
 
+<<<<<<< HEAD
                 </v-card>
             </v-flex>
         </v-layout>
+=======
+                    <v-divider></v-divider>
+
+                    <v-layout row wrap justify-center align-center>
+                        <v-flex md6 xs12>
+                            <v-card-text>
+                                <p class="body-2 grey--text page-title mb-1">PUBLISHED ON {{ $resource->created }}</p>
+                                <p class="subheading grey--text text--darken-1 page-title mb-1"><strong>{{ $resource->course->title }}</strong></p>
+                                <h2 class="page-title display-1">{{ $resource->lesson->title }}:</h2>
+                                <h2 class="page-title display-1 grey--text">{{ $resource->title }}</h2>
+                            </v-card-text>
+                        </v-flex>
+
+                        <v-flex md6 xs12>
+                            <v-card-text>
+                                <p class="grey--text">{{ $resource->excerpt }}</p>
+                            </v-card-text>
+
+                            <v-card-text class="text-xs-right">
+                                <v-btn success outline><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
+                                 <v-btn success outline> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn>
+                            </v-card-text>
+                        </v-flex>
+                    </v-layout>
+                </v-card>
+            </v-flex>
+        </v-layout>
+
+        <v-layout row wrap justify-center align-center>
+            <v-flex lg10 md11 xs12>
+                <v-layout row wrap>
+                    <v-flex md8 xs12>
+                        {{-- Comments Section --}}
+                        <v-card class="elevation-1">
+                            @include("Content::widgets.comments")
+                        </v-card>
+                        {{-- Comments Section --}}
+                    </v-flex>
+
+                    <v-flex md4 xs12>
+                        <v-card class="elevation-1 mb-3">
+                            <v-toolbar flat class="transparent">
+                                <v-toolbar-title class="page-title">{{ $resource->lesson->title }}</v-toolbar-title>
+                            </v-toolbar>
+                            <v-divider></v-divider>
+                            <v-list class="mb-3">
+                                <v-list-tile
+                                    :href="item.url"
+                                    v-for="(item, i) in drawer.items"
+                                    :key="i"
+                                    :class="{'white--text': (resource.id == item.id)}"
+                                    ripple
+                                    v-bind:ripple="{ class: 'primary--text' }">
+                                    <v-list-tile-action>
+                                        <v-icon left v-if="item.completed">check</v-icon>
+                                        <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
+                                        <v-icon left v-else>lock</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </v-list>
+
+                            {{-- Assignment --}}
+                            <v-card-text>
+                                @include("Content::widgets.assignment")
+                            </v-card-text>
+                            {{-- /Assignment --}}
+                        </v-card>
+
+                        {{-- Content Progress --}}
+                            @include("Course::widgets.lesson-progress")
+                        {{-- /Content Progress --}}
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+        </v-layout>
+>>>>>>> dev
     </v-container>
 @endsection
 
@@ -211,9 +344,12 @@
 
 @push('css')
     <style>
+<<<<<<< HEAD
         .course-interactive-container {
             /**/
         }
+=======
+>>>>>>> dev
         .card::-webkit-full-screen,
         .card::-moz-full-screen
         .card::fullscreen {
@@ -229,7 +365,11 @@
 
         .interactive-content {
             width: 100%;
+<<<<<<< HEAD
             /*max-height: 100vh;*/
+=======
+            max-height: 100vh;
+>>>>>>> dev
             display: block;
             text-align: center;
             margin: 0 auto;
@@ -283,7 +423,11 @@
                         model: false,
                         type: 'success',
                         exit: false,
+<<<<<<< HEAD
                         btnDisabled: false,
+=======
+                        btnDiabled: false,
+>>>>>>> dev
                     },
                     course: {
                         started: false,
@@ -297,7 +441,11 @@
             },
             methods: {
                 playInteraction () {
+<<<<<<< HEAD
                     // this.goFullscreen();
+=======
+                    this.goFullscreen();
+>>>>>>> dev
                     this.course.started = !this.course.started
                 },
                 unloadSCO () {
@@ -306,16 +454,30 @@
                 },
 
                 goFullscreen() {
+<<<<<<< HEAD
                     window.API.stage.fullscreen(document.querySelector('#interactive-container'));
                     this.fullscreen.model = !this.fullscreen.model;
                 },
 
+=======
+                    this.fullscreen.model = !this.fullscreen.model;
+                    // document.querySelector('#interactive-container')
+                    // window.API.stage.fullscreen();
+                    window.API.stage.fullscreen(document.querySelector('#interactive-container'));
+                },
+
+
+>>>>>>> dev
                 lms () {
                     let self = this;
 
                     return {
                         exit () {
+<<<<<<< HEAD
                             self.messagebox.btnDisabled = !self.messagebox.btnDisabled;
+=======
+                            self.messagebox.btnDiabled = !self.messagebox.btnDiabled;
+>>>>>>> dev
                             window.API.LMSFinish('');
                             // window.close();
                         },

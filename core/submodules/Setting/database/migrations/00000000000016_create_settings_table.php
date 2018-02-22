@@ -33,7 +33,10 @@ class CreateSettingsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+<<<<<<< HEAD
             $table->unique(['key', 'user_id']);
+=======
+>>>>>>> dev
         });
     }
 

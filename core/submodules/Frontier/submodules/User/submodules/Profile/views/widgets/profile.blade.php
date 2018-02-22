@@ -44,11 +44,19 @@
                     <div><strong>{{ user()->fullname }}</strong></div>
                     <div class="body-1 grey--text darken-1">{{ user()->displayrole }}</div>
                     <v-card-text class="body-1">
+<<<<<<< HEAD
                         <div>{{ user()->detail('gender') }}</div> 
                         <div>{{ user()->detail('birthday') }}</div> 
                         <div>{{ user()->email }}</div> 
                     </v-card-text>
                     <v-btn outline round href="profile/{{ user()->username }}" class="{{ user()->detail('backdrop', 'accent lighten-1') }} white--text">Edit profile</v-btn>
+=======
+                        <div>{{ user()->detail('gender') }}</div>
+                        <div>{{ user()->detail('birthday') }}</div>
+                        <div>{{ user()->email }}</div>
+                    </v-card-text>
+                    <v-btn outline round href="profile/{{ user()->username }}" class="{{ user()->detail('backdrop', 'accent lighten-1') }}">Edit profile</v-btn>
+>>>>>>> dev
                 </v-card-text>
             </v-card>
         </v-slide-y-transition>
@@ -74,4 +82,8 @@
             });
         </script>
     @endpush
+<<<<<<< HEAD
 @endviewable
+=======
+@endviewable
+>>>>>>> dev

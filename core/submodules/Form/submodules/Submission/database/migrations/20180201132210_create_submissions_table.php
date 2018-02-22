@@ -28,7 +28,10 @@ class CreateSubmissionsTable extends Migration
         $this->schema->create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->text('results')->nullable();
+<<<<<<< HEAD
             $table->text('score')->nullable();
+=======
+>>>>>>> dev
             $table->integer('form_id')->unsigned();
             $table->integer('user_id')->unsigned();
 

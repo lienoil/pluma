@@ -12,9 +12,19 @@
 
     <v-spacer></v-spacer>
 
+<<<<<<< HEAD
     @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
 
     @if (settings('show_login_at_main_menu', true))
         <v-btn outline round href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
     @endif
+=======
+    <v-toolbar-items>
+        @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+
+        @if (settings('show_login_at_main_menu', true))
+            <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
+        @endif
+    </v-toolbar-items>
+>>>>>>> dev
 </v-toolbar>

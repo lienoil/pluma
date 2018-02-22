@@ -55,7 +55,6 @@ trait CommentResourceSoftDeleteTrait
         $comments = Comment::withTrashed()
                            ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
                            ->get();
-
         foreach ($comments as $comment) {
             $comment->forceDelete();
         }

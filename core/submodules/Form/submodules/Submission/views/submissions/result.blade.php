@@ -49,17 +49,24 @@
                                         <v-icon>schedule</v-icon>
                                         <span>{{ $resource->created }}</span>
                                     </v-card-actions>
+<<<<<<< HEAD
                                     <p class="my-3 body-2"><v-icon left>fa-edit</v-icon> {{ __('Scored: ') }} {{ $resource->scored }}</p>
+=======
+>>>>>>> dev
                                 </v-card-text>
 
                                 {{-- questions --}}
                                 <v-card-text class="pa-4">
                                     @foreach ($resource->fields() as $field)
                                         <div class="fw-500"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
+<<<<<<< HEAD
                                         <div class="pt-2 pl-4 warning--text text--darken-1">{{ __('Answered: ') }}{{ $field->guess }}</div>
                                         @isset ($field->answer)
                                             <div class="pb-2 pl-4 success--text text--darken-1">{{ __('Correct answer: ') }}{{ $field->answer }}</div>
                                         @endisset
+=======
+                                        <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->guess }}</div>
+>>>>>>> dev
                                     @endforeach
                                 </v-card-text>
                             </v-card>

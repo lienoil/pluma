@@ -15,6 +15,7 @@
                         <v-icon left dark>playlist_add_check</v-icon>
                         <v-toolbar-title>{{ __('List of Examinees') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
+<<<<<<< HEAD
                         {{-- <v-btn icon v-tooltip:left="{ html: '{{ __('Search examinees') }}' }">
                             <v-icon>search</v-icon>
                         </v-btn> --}}
@@ -23,13 +24,25 @@
 
                         @foreach ($resources as $resource)
                             <v-list-tile avatar ripple
+=======
+                        <v-btn icon v-tooltip:left="{ html: '{{ __('Search examinees') }}' }">
+                            <v-icon>search</v-icon>
+                        </v-btn>
+                    </v-toolbar>
+                    <v-list class="list-container">
+                        @foreach ($resources as $resource)
+                            <v-list-tile avatar ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }"
+>>>>>>> dev
                                 href="{{ route('submissions.result', $resource->id) }}" target="_blank">
                                 <v-list-tile-avatar>
                                     <img src="{{ $resource->user->avatar }}"/>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content>
                                     <v-list-tile-title>{{ $resource->user->fullname }}</v-list-tile-title>
+<<<<<<< HEAD
                                     <v-list-tile-sub-title>{{ __('Scored') }}: {{ $resource->scored }} {{ __('points') }}</v-list-tile-sub-title>
+=======
+>>>>>>> dev
                                 </v-list-tile-content>
                                 <v-list-tile-action class="pt-3">
                                     <v-list-tile-action-text class="body-1">{{ $resource->created }}</v-list-tile-action-text>
@@ -37,7 +50,10 @@
                                 </v-list-tile-action>
                             </v-list-tile>
                         @endforeach
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
                     </v-list>
                 </v-card>
             </v-flex>
@@ -57,6 +73,15 @@
         .td-n:focus:visited {
             text-decoration: none !important;
         }
+<<<<<<< HEAD
+=======
+
+        .list-container {
+            position: relative;
+            height: 70vh;
+            overflow-y: auto !important;
+        }
+>>>>>>> dev
     </style>
 @endpush
 

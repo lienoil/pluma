@@ -73,7 +73,10 @@ class SubmissionController extends GeneralController
         $submission->form()->associate(Form::find($request->input('form_id')));
         $submission->user()->associate(User::find(user()->id));
         $submission->save();
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
         return back();
     }
 

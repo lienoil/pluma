@@ -1,4 +1,4 @@
-@extends("Frontier::layouts.auth")
+@extends("Theme::layouts.auth")
 
 @section("content")
     <main id="main" class="main">

@@ -2,55 +2,46 @@
     <v-toolbar class="elevation-0">
         <v-toolbar-title>{{ __('Statistics') }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon v-tooltip:left="{html: 'Export to PDF'}">
-            <v-icon>file_download</v-icon>
+        <v-btn flat primary v-tooltip:left="{html: 'Export Statistics Result'}">
+            <v-icon left>fa fa-file-pdf-o</v-icon> {{ __('Export to PDF') }}
         </v-btn>
         {{-- <v-btn icon @click="p1 = !p1" v-tooltip:left="{ 'html':  p1 ? 'Show Analytics' : 'Hide Analytics' }">
             <v-icon>@{{ p1 ? 'add' : 'remove' }}</v-icon>
         </v-btn> --}}
     </v-toolbar>
-    <v-slide-y-transition>
-        <v-card class="elevation-0 transparent" v-show="!p1" transition="slide-y-transition" style="max-height: 70vh; overflow-y: auto;">
-            <v-card-text>
-                <v-container fluid grid-list-lg>
-                    <v-layout row wrap justify-center align-center>
-                        <v-flex xs12>
-                            <div class="chart-container mb-3">
-                                {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
-                                <template v-for="(charts, i) in chartVariables.items">
-                                    <p v-html="charts.label"></p>
-                                    <canvas :id="`chart-${i}`"></canvas>
-                                </template>
-                            </div>
-                            {{-- @foreach ($resource->fields() as $field) --}}
-                                {{-- <div class="fw-500 mb-3"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
-                                 --}}
-                                {{-- <div class="pa-3 grey--text text--darken-1" style="padding-left: 21px !important;">{{ $field->answer }}</div> --}}
-                            {{-- @endforeach --}}
-
-                        </v-flex>
-                        {{-- <v-flex md4 xs12>
-                            <v-layout row wrap justify-center align-center>
-                                <v-card-text class="pa-0 text-xs-center">
-                                    <div class="accent--text body-2">Top 3 Most Courses Enrolled</div>
-                                </v-card-text>
-                                <v-flex xs12>
-                                    @include("Submission::widgets.donut")
-                                </v-flex>
-                            </v-layout>
-                        </v-flex> --}}
-                    </v-layout>
-                </v-container>
-            </v-card-text>
-        </v-card>
-    </v-slide-y-transition>
+    <v-card class="elevation-0 transparent" style="max-height: 70vh; overflow-y: auto;">
+        <v-container fluid grid-list-lg>
+            <v-layout row wrap justify-center align-center>
+                <v-flex xs12>
+                    <div class="chart-container mb-3">
+                        {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
+                        <template v-for="(charts, i) in chartVariables.items">
+                           <v-card-text class="px-0">
+                                <ul>
+                                    <li>
+                                        <h1 class="subheading" v-html="charts.label"></h1>
+                                        <canvas :id="`chart-${i}`"></canvas>
+                                    </li>
+                                </ul>
+                           </v-card-text>
+                       </template>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-card>
 </v-card>
 
 @push('css')
     <style>
         .chart-container {
             position: relative;
-            height: 200px;
+            height: 80vh;
+        }
+        #chartDiv,
+        .chartjs-render-monitor {
+            width: 100%;
+            max-height: 250px !important;
         }
     </style>
 @endpush
@@ -63,12 +54,6 @@
         mixins.push({
             data () {
                 return {
-                    p1: false,
-                    year: [
-                        { title: 'Quarterly' },
-                        { title: 'Monthly' },
-                        { title: 'Yearly' }
-                    ],
                     chartVariables: [],
                 }
             },
@@ -87,25 +72,21 @@
                 chartData (_data, _labels, label, id) {
                     var ctx = document.getElementById(id).getContext('2d');
                     var gradient = ctx.createLinearGradient(0, 0, 0, 100);
-                    gradient.addColorStop(0.25, 'rgba(236, 64, 122, .8)');
-                    gradient.addColorStop(0.5, 'rgba(236, 64, 122, .6)');
-                    gradient.addColorStop(1, 'rgba(236, 64, 122, .2)');
-
-                    var gradient_2 = ctx.createLinearGradient(0, 0, 0, 100);
-                    gradient_2.addColorStop(0.25, 'rgba(0, 188, 212, .8)');
-                    gradient_2.addColorStop(0.5, 'rgba(0, 188, 212, .6)');
-                    gradient_2.addColorStop(1, 'rgba(0, 188, 212, .2)');
+                    gradient.addColorStop(0.25, 'rgba(28, 160, 244, .8)');
+                    gradient.addColorStop(0.5, 'rgba(28, 160, 244, .8)');
+                    gradient.addColorStop(1, 'rgba(28, 160, 244, .8)');
 
                     Chart.defaults.global.defaultFontColor = '#333';
                     var chart = new Chart(ctx, {
-                        type: 'line',
+                        type: 'bar',
                         scaleBeginAtZero : true,
                         data: {
                             labels: _labels,
                             datasets: [{
-                                label: label,
-                                backgroundColor: gradient_2,
-                                borderColor: "rgba(0, 188, 212, 1)", //blue
+                                // label: null,
+                                wrapText: true,
+                                backgroundColor: gradient,
+                                borderColor: "rgba(28, 160, 244, 1)", //blue
                                 borderWidth: 3,
                                 pointRadius: 5,
                                 hoverBackgroundColor: "rgba(3, 169, 244, .8)",
@@ -124,7 +105,9 @@
                                         color: "rgba(255,99,132,0.2)"
                                     },
                                     ticks: {
-                                        display: true
+                                        display: true,
+                                        beginAtZero: true,
+                                        padding: 10,
                                     }
                                 }],
                                 xAxes: [{
@@ -132,7 +115,7 @@
                                         display: false
                                     },
                                     ticks: {
-                                        display: true
+                                        display: true,
                                     }
                                 }]
                             },
@@ -141,9 +124,10 @@
                                 easing: 'easeOutCubic'
                             },
                             legend: {
-                                display: true,
+                                display: false,
                                 labels: {
-                                    fontColor: '#333'
+                                    fontColor: '#333',
+                                    fontSize: 18,
                                 }
                             }
                         }
