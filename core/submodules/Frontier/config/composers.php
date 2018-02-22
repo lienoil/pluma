@@ -9,6 +9,7 @@ return [
             'Theme::partials.settingsbar',
             'Setting::partials.settingsbar',
             'Setting::settings.*',
+            '*',
         ],
         'class' => \Frontier\Composers\NavigationViewComposer::class
     ],

@@ -1,9 +1,8 @@
 @extends("Theme::layouts.admin")
 
 @section("content")
-
     <v-toolbar dark class="grey darken-4 elevation-0">
-        <v-icon class="white--text">{{ navigations('current')->icon }}</v-icon>
+        <v-icon class="white--text">{{ navigations('current', false)->icon }}</v-icon>
         <v-toolbar-title class="white--text">{{ __('System Information') }}</v-toolbar-title>
     </v-toolbar>
 
