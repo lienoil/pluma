@@ -186,7 +186,7 @@ class ModuleServiceProvider extends ServiceProvider
         // API routes
         if (file_exists("$module/routes/api.php")) {
             Route::group([
-                'middleware' => ['api', 'cors'],
+                'middleware' => ['api', 'cors', 'auth.admin'],
                 'as' => 'api.',
                 'prefix' => config('routes.api.slug', 'api'),
                 'namespace' => "$basename\Controllers",

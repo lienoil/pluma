@@ -7,7 +7,6 @@
       :key="i"
       exact
       v-for="(breadcrumb, i) in breadcrumbs"
-      ripple
     >
       <small v-html="breadcrumb.label"></small>
     </v-breadcrumbs-item>
