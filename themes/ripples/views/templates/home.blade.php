@@ -60,7 +60,7 @@ Version: 1.0
 
                         <v-flex sm6 xs12>
                             <v-card flat class="transparent">
-                                <img src="{{ assets('frontier/images/placeholder/iso-elearning.png') }}" alt="" width="100%">
+                                <img src="{{ assets('frontier/images/placeholder/iso/iso-elearning.png') }}" alt="" width="100%">
                             </v-card>
                         </v-flex>
                     </v-layout>
@@ -144,9 +144,7 @@ Version: 1.0
             <v-layout row wrap justify-left align-center>
                 <v-flex md6 xs12 order-sm2 order-md1>
                     <v-card flat class="mb-3">
-                        <img src="{{ assets('frontier/images/placeholder/section-2.jpg') }}" width="100%">
-                        {{-- <img src="{{ assets('frontier/images/placeholder/test.png') }}" width="100%"> --}}
-                        <img src="{{ assets('frontier/images/placeholder/section-1.jpg') }}" alt="">
+                        <img src="{{ assets('frontier/images/placeholder/iso/5.png') }}" width="100%">
                     </v-card>
                 </v-flex>
 
