@@ -1,83 +1,5 @@
 @extends("Theme::layouts.public")
 
-<<<<<<< HEAD
-@section("head-title", "{$resource->course->title} - {$resource->lesson->title} - {$resource->title}")
-
-@push('post-meta')
-    <link rel="manifest" href="{{ assets('yggdrasil/manifest.json') }}">
-@endpush
-
-@section("content")
-    <v-navigation-drawer
-        temporary
-        v-model="drawer.model"
-        light
-        fixed
-    >
-        <v-list class="pa-1">
-            <v-list-tile avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title><strong>{{ $resource->lesson->title }}</strong></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-        <v-divider></v-divider>
-        <v-list>
-            <v-list-tile :href="item.url" v-for="(item, i) in drawer.items" :key="i" ripple :class="{'primary white--text': (resource.id == item.id)}">
-                <v-list-tile-action>
-                    <v-icon left v-if="item.completed">check</v-icon>
-                    <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
-                    <v-icon left v-else>lock</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-    </v-navigation-drawer>
-    <v-toolbar dark extended class="text-xs-center secondary elevation-0">
-        <v-layout wrap justify-space-around align-center hidden-xs-only>
-            <template v-if="previous">
-                <v-btn
-                    v-if="previous"
-                    :href="previous.url"
-                    ripple
-                    flat
-                >
-                    <v-icon left dark v-if="previous.completed">check</v-icon>
-                    <v-icon left dark v-else-if="previous.locked">lock</v-icon>
-                    <v-icon left dark v-else-if="previous.current">play_circle_outline</v-icon>
-                    <v-icon left dark v-else>arrow_back</v-icon>
-                    <span v-html="previous.title"></span>
-                </v-btn>
-            </template>
-            <v-btn v-else disabled flat><span v-html="resource.lesson.title"></span></v-btn>
-
-            <span class="caption">{{ "$resource->order/{$resource->lesson->contents->count()}" }}</span>
-
-            <template v-if="next">
-                <v-btn
-                    v-if="next"
-                    :href="next.url"
-                    ripple
-                    flat
-                >
-                    <span v-html="next.title"></span>
-                    <v-icon right dark v-if="next.completed">check</v-icon>
-                    <v-icon right dark v-else-if="next.locked">lock</v-icon>
-                    <v-icon right dark v-else-if="next.current">play_circle_outline</v-icon>
-                    <v-icon right dark v-else>arrow_forward</v-icon>
-                </v-btn>
-            </template>
-            <v-btn v-else disabled flat>{{ __('End of Lesson') }}</v-btn>
-        </v-layout>
-    </v-toolbar>
-    <v-container grid-list-lg>
-        <v-layout row wrap>
-            <v-flex xs12>
-                <v-btn style="z-index: 2" fab bottom left primary dark medium fixed v-tooltip:right="{html: 'Table of Contents'}" @click.stop="drawer.model = !drawer.model"><v-icon>menu</v-icon></v-btn>
-                <v-card class="card--flex-toolbar card--filed-on-top" style="overflow: hidden">
-=======
 @section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
 
 @push('post-meta')
@@ -89,33 +11,12 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <v-card class="mb-2 elevation-1">
->>>>>>> dev
                     <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
-<<<<<<< HEAD
-                        {{-- <v-dialog max-width="90vw" width="80vw">
-                            <v-btn slot="activator" icon v-tooltip:left="{html: 'Close this window'}"><v-icon>close</v-icon></v-btn>
-                            <v-card>
-                                <v-card-title>
-                                    <span class="headline">{{ __("Close this window?") }}</span>
-                                </v-card-title>
-                                <v-card-text>
-                                    <p>{!! __("You are about to close this entire window. The LMS will try and save you're progress but it is <strong>not guaranteed</strong>.") !!}</p>
-                                    <p>{{ __("Do you want to proceed? Click anywhere to cancel.") }}</p>
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn primary class="elevation-1" @click="lms().exit()">Try Save &amp; Exit</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog> --}}
-                    </v-toolbar>
-=======
                     </v-toolbar>
 
->>>>>>> dev
                     <v-alert
                         icon="check"
                         class="success ma-0"
@@ -124,13 +25,8 @@
                         transition="slide-y-transition"
                         :timeout="2000"
                         style="z-index: 2"
-<<<<<<< HEAD
-                    >
-                        <v-card style="margin-bottom: -2rem" class="elevation-1 mb--2">
-=======
                         >
                         <v-card style="margin-bottom: -2rem" class="elevation-1 mb-2">
->>>>>>> dev
                             <v-card-text class="grey--text text--darken-1 text-xs-center">{{ __("You have already finished this part of the lesson. Though no data will be recorded, you may still view this lesson again.") }}</v-card-text>
                         </v-card>
                     </v-alert>
@@ -178,27 +74,6 @@
                         </v-card>
                         <template v-else>
                             <v-card v-if="! course.started" flat class="grey--text text--darken-1">
-<<<<<<< HEAD
-                                {{-- <v-card-media height="480px"> --}}
-                                    <v-container fill-height fluid>
-                                        <v-layout fill-height wrap column>
-                                            <v-card-text class="quill-text">
-                                                {!! $resource->body !!}
-                                            </v-card-text>
-                                            <v-spacer></v-spacer>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn dark class="primary" @click="playInteraction()">
-                                                    <v-icon left>play_circle_outline</v-icon>
-                                                    <template v-if="resource.incomplete">{{ __('Continue') }}</template>
-                                                    <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
-                                                    <template v-else>{{ __('Start') }}</template>
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-layout>
-                                    </v-container>
-                                {{-- </v-card-media> --}}
-=======
                                 <v-container fill-height fluid>
                                     <v-layout fill-height wrap column>
                                         <v-card-text class="quill-text">
@@ -216,20 +91,13 @@
                                         </v-card-actions>
                                     </v-layout>
                                 </v-container>
->>>>>>> dev
                             </v-card>
                         </template>
                         <div id="interactive-container">
                             <v-fade-transition>
                                 <template v-if="course.started">
-<<<<<<< HEAD
-                                    <div class="course-interactive-container">
-                                        {!! $resource->html !!}
-
-=======
                                     <div>
                                         {!! $resource->html !!}
->>>>>>> dev
                                         <v-dialog v-model="messagebox.model" width="60vw" persistent>
                                             <v-card flat tile class="text-xs-center">
                                                 <v-icon class="display-4 success--text">check</v-icon>
@@ -239,11 +107,7 @@
                                                 </v-card-text>
                                                 <v-card-actions>
                                                     <v-spacer></v-spacer>
-<<<<<<< HEAD
-                                                    <v-btn :disabled="messagebox.btnDisabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
-=======
                                                     <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
->>>>>>> dev
                                                     <v-spacer></v-spacer>
                                                 </v-card-actions>
                                             </v-card>
@@ -254,11 +118,6 @@
                         </div>
                     </template>
 
-<<<<<<< HEAD
-                </v-card>
-            </v-flex>
-        </v-layout>
-=======
                     <v-divider></v-divider>
 
                     <v-layout row wrap justify-center align-center>
@@ -336,7 +195,6 @@
                 </v-layout>
             </v-flex>
         </v-layout>
->>>>>>> dev
     </v-container>
 @endsection
 
@@ -344,12 +202,6 @@
 
 @push('css')
     <style>
-<<<<<<< HEAD
-        .course-interactive-container {
-            /**/
-        }
-=======
->>>>>>> dev
         .card::-webkit-full-screen,
         .card::-moz-full-screen
         .card::fullscreen {
@@ -365,11 +217,7 @@
 
         .interactive-content {
             width: 100%;
-<<<<<<< HEAD
-            /*max-height: 100vh;*/
-=======
             max-height: 100vh;
->>>>>>> dev
             display: block;
             text-align: center;
             margin: 0 auto;
@@ -423,11 +271,7 @@
                         model: false,
                         type: 'success',
                         exit: false,
-<<<<<<< HEAD
-                        btnDisabled: false,
-=======
                         btnDiabled: false,
->>>>>>> dev
                     },
                     course: {
                         started: false,
@@ -441,11 +285,7 @@
             },
             methods: {
                 playInteraction () {
-<<<<<<< HEAD
                     // this.goFullscreen();
-=======
-                    this.goFullscreen();
->>>>>>> dev
                     this.course.started = !this.course.started
                 },
                 unloadSCO () {
@@ -454,30 +294,16 @@
                 },
 
                 goFullscreen() {
-<<<<<<< HEAD
                     window.API.stage.fullscreen(document.querySelector('#interactive-container'));
                     this.fullscreen.model = !this.fullscreen.model;
                 },
 
-=======
-                    this.fullscreen.model = !this.fullscreen.model;
-                    // document.querySelector('#interactive-container')
-                    // window.API.stage.fullscreen();
-                    window.API.stage.fullscreen(document.querySelector('#interactive-container'));
-                },
-
-
->>>>>>> dev
                 lms () {
                     let self = this;
 
                     return {
                         exit () {
-<<<<<<< HEAD
                             self.messagebox.btnDisabled = !self.messagebox.btnDisabled;
-=======
-                            self.messagebox.btnDiabled = !self.messagebox.btnDiabled;
->>>>>>> dev
                             window.API.LMSFinish('');
                             // window.close();
                         },

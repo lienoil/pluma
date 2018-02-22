@@ -6,15 +6,10 @@ use Comment\Models\Comment;
 use Content\Models\Content;
 use Content\Requests\ContentRequest;
 use Course\Models\Course;
-<<<<<<< HEAD
-use Frontier\Controllers\AdminController;
-use Illuminate\Http\Request;
-=======
 use Course\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
->>>>>>> dev
 
 class ContentController extends AdminController
 {
@@ -42,14 +37,9 @@ class ContentController extends AdminController
     {
         $resource = Content::findOrFail($id);
         $contents = $resource->lesson->contents;
-<<<<<<< HEAD
-
-        return view("Theme::contents.show")->with(compact('resource', 'contents'));
-=======
         $lesson = Lesson::findOrFail($id);
 
         return view("Theme::contents.show")->with(compact('resource', 'contents', 'lesson'));
->>>>>>> dev
     }
 
     /**
@@ -177,15 +167,9 @@ class ContentController extends AdminController
         $comment->parent_id = $request->input('parent_id');
         $comment->user()->associate(User::find(user()->id));
 
-<<<<<<< HEAD
-        $course = Course::findOrFail($id);
-        $course->comments()->save($comment);
-        $course->save();
-=======
         $content = Content::findOrFail($id);
         $content->comments()->save($comment);
         $content->save();
->>>>>>> dev
 
         return back();
     }

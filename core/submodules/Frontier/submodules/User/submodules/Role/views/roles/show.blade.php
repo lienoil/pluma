@@ -4,8 +4,6 @@
 
 @section("content")
     @include("Frontier::partials.banner")
-<<<<<<< HEAD
-=======
     <v-toolbar dark extended class="secondary elevation-0">
         <v-btn
             href="{{ route('roles.index') }}"
@@ -16,18 +14,12 @@
             Back
         </v-btn>
     </v-toolbar>
->>>>>>> dev
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex sm8 xs12 offset-sm2>
-<<<<<<< HEAD
-                <v-card class="grey--text elevation-1 mb-2">
-                    <v-toolbar class="transparent elevation-0">
-=======
                 <v-card class="card--flex-toolbar grey--text elevation-1 mb-2">
                     <v-toolbar class="elevation-0 transparent">
->>>>>>> dev
                         <v-toolbar-title class="accent--text">{{ __($resource->name) }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-menu bottom left>
@@ -43,21 +35,7 @@
                                         </v-list-tile-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
-<<<<<<< HEAD
-                                {{-- <v-list-tile @click.native.stop="post(route(urls.roles.api.clone, ('{{ $resource->id }}')))">
-                                    <v-list-tile-action>
-                                        <v-icon accent>content_copy</v-icon>
-                                    </v-list-tile-action>
-                                    <v-list-tile-content>
-                                        <v-list-tile-title>
-                                            {{ __('Clone') }}
-                                        </v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile> --}}
-                                <v-list-tile
-=======
                                 <v-list-tile ripple
->>>>>>> dev
                                     @click.native.stop="destroy(route(urls.roles.api.destroy, '{{ $resource->id }}'),
                                     {
                                         '_token': '{{ csrf_token() }}'
@@ -74,65 +52,6 @@
                             </v-list>
                         </v-menu>
                     </v-toolbar>
-<<<<<<< HEAD
-                    <v-card-text>
-                        <v-layout row wrap>
-                            <v-flex xs4>
-                                <v-subheader>{{ __('Name') }}</v-subheader>
-                            </v-flex>
-                            <v-flex xs8>
-                                <v-text-field
-                                    name="name"
-                                    label="{{ __('Name') }}"
-                                    value="{{ $resource->name }}"
-                                    disabled
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                            <v-flex xs4>
-                                <v-subheader>{{ __('Code') }}</v-subheader>
-                            </v-flex>
-                            <v-flex xs8>
-                                <v-text-field
-                                    name="code"
-                                    label="{{ __('Code') }}"
-                                    value="{{ $resource->code }}"
-                                    disabled
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                            <v-flex xs4>
-                                <v-subheader>{{ __('Description') }}</v-subheader>
-                            </v-flex>
-                            <v-flex xs8>
-                                <v-text-field
-                                    name="description"
-                                    label="{{ __('Description') }}"
-                                    value="{{ $resource->description }}"
-                                    disabled
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                            <v-flex xs4>
-                                <v-subheader>{{ __('Grants') }}</v-subheader>
-                            </v-flex>
-                            <v-flex xs8>
-                                <v-expansion-panel class="elevation-0" expand>
-                                    <v-expansion-panel-content v-for="(grant, i) in resource.item.grants" :key="i">
-                                        <div slot="header">@{{ grant.name }}</div>
-                                        <v-card>
-                                            <v-card-text class="grey lighten-4">
-                                                <ul>
-                                                    <li v-for="(permission, i) in grant.permissions">
-                                                        <strong>@{{ permission.code }}</strong>
-                                                        <br>
-                                                        <span>@{{ permission.name }}</span>
-                                                    </li>
-                                                </ul>
-=======
                     <v-divider></v-divider>
                     <v-card-text>
                         <v-layout row wrap>
@@ -186,7 +105,6 @@
                                                         </v-list-tile-content>
                                                     </v-list-tile>
                                                 </v-list>
->>>>>>> dev
                                             </v-card-text>
                                         </v-card>
                                     </v-expansion-panel-content>
@@ -194,21 +112,12 @@
                             </v-flex>
                         </v-layout>
                     </v-card-text>
-<<<<<<< HEAD
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn flat href="{{ route('roles.index') }}"><v-icon>keyboard_backspace</v-icon>{{ _('Back') }}</v-btn>
-                    </v-card-actions>
-=======
->>>>>>> dev
                 </v-card>
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
 
-<<<<<<< HEAD
-=======
 @push('css')
     <style>
         .card--flex-toolbar {
@@ -217,7 +126,6 @@
     </style>
 @endpush
 
->>>>>>> dev
 @push('pre-scripts')
     <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script>
