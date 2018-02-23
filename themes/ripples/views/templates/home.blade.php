@@ -360,7 +360,7 @@ Version: 1.0
 
             scene = new THREE.Scene();
 
-            renderer = new THREE.CanvasRenderer();
+            renderer = new THREE.CanvasRenderer({alpha: true});
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize( window.innerWidth, window.innerHeight );
             container.appendChild( renderer.domElement );
