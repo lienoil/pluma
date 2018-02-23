@@ -27,13 +27,13 @@ trait ContentMutator
     public function getNextAttribute()
     {
         $sort = $this->sort;
-        $contents = $this->course->contents()->orderBy('sort', 'ASC')->get();
+        $contents = $this->course->contents;
 
         $next = null;
         foreach ($contents as $i => $content) {
             if ($content->sort == $sort) {
                 if (isset($contents[$i+1])) {
-                    return $contents[$i+1];
+                    return $contents[$i+1]->url ?? false;
                 }
             }
         }
@@ -55,7 +55,7 @@ trait ContentMutator
         foreach ($contents as $i => $content) {
             if ($content->sort == $sort) {
                 if (isset($contents[$i-1])) {
-                    return $contents[$i-1];
+                    return $contents[$i-1]->url ?? false;
                 }
             }
         }
@@ -218,5 +218,53 @@ trait ContentMutator
         }
 
         return null;
+    }
+
+    /**
+     * Gets the mutated status column from course_user's pivot column.
+     *
+     * @return boolean
+     */
+    public function getCompletedAttribute()
+    {
+        $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
+
+        return $entry->status === "done";
+    }
+
+    /**
+     * Gets the mutated status column from course_user's pivot column.
+     *
+     * @return boolean
+     */
+    public function getCurrentAttribute()
+    {
+        $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
+
+        return $entry->status === "current";
+    }
+
+    /**
+     * Gets the mutated status column from course_user's pivot column.
+     *
+     * @return boolean
+     */
+    public function getLockedAttribute()
+    {
+        $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
+
+        return $entry->status === "pending";
+    }
+
+    /**
+     * Gets the mutated status column from course_user's pivot column.
+     *
+     * @return boolean
+     */
+    public function getIncompleteAttribute()
+    {
+        $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
+
+        return $entry->status === "incomplete" || $entry->status === "current";
     }
 }

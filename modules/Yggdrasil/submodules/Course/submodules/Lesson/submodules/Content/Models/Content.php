@@ -17,8 +17,7 @@ class Content extends Model
         HasCourseThroughLesson,
         BelongsToLibrary,
         ContentMutator,
-        MorphManyComments,
-        Status;
+        MorphManyComments;
 
     protected $with = ['library', 'lesson'];
 

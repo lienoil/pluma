@@ -159,7 +159,7 @@
 
                                 {{-- Meta Card --}}
                                 <v-divider></v-divider>
-                                @include("Course::cards.meta")
+                                {{-- @include("Course::cards.meta") --}}
                                 {{-- /Meta Card --}}
                             </v-card>
                         {{-- </v-scale-transition> --}}

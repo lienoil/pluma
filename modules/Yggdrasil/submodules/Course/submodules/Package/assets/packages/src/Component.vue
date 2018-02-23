@@ -38,18 +38,8 @@
     <v-layout row wrap>
         <!-- Empty State -->
         <v-card-text fluid grid-list-lg v-if="!dataset.items.length && !bulk.upload.model">
-            <v-layout row wrap align-end justify-center>
-                <v-flex xs12>
-                    <div class="text-xs-center grey--text">
-                        <v-card-media class="mb-3">
-                            <img src="{{ assets('frontier/images/placeholder/zip.png') }}" style="width: 120px;">
-                        </v-card-media>
-                        <div class="headline">{{ __('Your library is empty') }}</div>
-                        <div class="subheading mb-3">Everything you upload will be here.</div>
-                        <div><v-btn primary round class="elevation-0" @click="bulk.upload.model = !bulk.upload.model">{{ __('Start Upload') }}</v-btn></div>
-                    </div>
-                </v-flex>
-            </v-layout>
+            <slot name="empty-state"></slot>
+            <div class="text-xs-center grey--text"><v-btn primary round class="elevation-0" @click="bulk.upload.model = !bulk.upload.model">Start Upload</v-btn></div>
         </v-card-text>
 
         <v-flex xs12>

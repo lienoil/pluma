@@ -13,8 +13,9 @@
 
         @include("Theme::partials.banner")
 
-        <form action="{{ route('forums.store') }}" method="POST">
+        <form action="{{ route('forums.update', $resource->id) }}" method="POST">
             {{ csrf_field() }}
+            {{ method_field('PUT') }}
             <v-layout row wrap>
                 <v-flex xs12 sm9>
 

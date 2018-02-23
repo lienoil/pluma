@@ -88,6 +88,7 @@ new Vue({
         icon: 'info',
         timeout: 10000,
         model: false,
+        title: '',
         text: '',
         x: 'right',
         y: 'top'
@@ -124,7 +125,20 @@ new Vue({
   },
   watch: {
     '$route': function (router) {
-      // this.snackbar.model = true
+      // Get sessions every page transition
+      this.$http.post('/sessions')
+        .then(response => {
+          if (typeof response.data.message !== 'undefined') {
+            this.snackbar = Object.assign(this.snackbar, {
+              model: true,
+              color: response.data.type ? response.data.type : 'secondary',
+              icon: response.data.icon ? response.data.icon : 'info',
+              timeout: response.data.timeout ? response.data.timeout : 10000,
+              text: response.data.message,
+              title: response.data.title ? response.data.title : ''
+            })
+          }
+        })
     }
   },
   methods: {

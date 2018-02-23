@@ -3,7 +3,7 @@
 namespace Pluma\Support\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Exception\PostTooLargeException;
+use Illuminate\Http\Exceptions\PostTooLargeException;
 
 class VerifyPostSize
 {

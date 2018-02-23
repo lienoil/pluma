@@ -41,7 +41,7 @@
     </v-toolbar>
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
-        <v-flex sm12>
+        <v-flex xs12 sm12>
           <v-card>
             <v-toolbar color="primary" card dark>
               <v-text-field

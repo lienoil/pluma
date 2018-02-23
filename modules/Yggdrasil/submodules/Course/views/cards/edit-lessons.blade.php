@@ -96,7 +96,7 @@
                                         <v-spacer></v-spacer>
                                         <v-btn flat ripple @click="draggable.options.feature.model = !draggable.options.feature.model">{{ __("Browse") }}</v-btn>
                                     </v-card-actions>
-                                </v-card> 
+                                </v-card>
                                 <input v-if="draggable.resource.feature" type="hidden" :name="`lessons[${key}][feature]`" :value="draggable.resource.feature.thumbnail">
 
                                 <v-divider></v-divider>
@@ -163,7 +163,7 @@
 
                                 {{-- Meta Card --}}
                                 <v-divider></v-divider>
-                                @include("Course::cards.meta")
+                                {{-- @include("Course::cards.meta") --}}
                                 {{-- /Meta Card --}}
                             </v-card>
                         {{-- </v-scale-transition> --}}

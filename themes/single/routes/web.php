@@ -29,6 +29,10 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
     })->name('api.misc.breadcrumbs');
 });
 
+Route::post('sessions', function () {
+    return session()->all();
+})->name('sessions.all');
+
 Route::any('#/{slug?}', function () {
     return view("Theme::layouts.public");
 })->where('slug', '.*');

@@ -40,14 +40,15 @@ Route::resource('forums/categories', 'CategoryController', [
     ]);
 
 // SoftDelete routes
-Route::get('forums/trashed', 'ForumController@trashed')
-     ->name('forums.trashed');
+Route::softDeletes('forums', 'ForumController');
+// Route::get('forums/trashed', 'ForumController@trashed')
+//      ->name('forums.trashed');
 
-Route::patch('forums/restore/{forum}', 'ForumController@restore')
-     ->name('forums.restore');
+// Route::patch('forums/restore/{forum}', 'ForumController@restore')
+//      ->name('forums.restore');
 
-Route::delete('forums/delete/{forum}', 'ForumController@delete')
-     ->name('forums.delete');
+// Route::delete('forums/delete/{forum}', 'ForumController@delete')
+//      ->name('forums.delete');
 
 // Admin routes
 Route::resource('forums', 'ForumController');

@@ -106,7 +106,7 @@ class ForumController extends GeneralController
     {
         $forum = Forum::findOrFail($id);
         $forum->name = $request->input('name');
-        $forum->code = $request->input('code');
+        // $forum->code = $request->input('code');
         $forum->body = $request->input('body');
         $forum->category()->associate(Category::find($request->input('category_id')));
         $forum->save();

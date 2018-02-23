@@ -19,8 +19,8 @@ use User\Support\Traits\BelongsToUser;
 class Course extends Model
 {
     use BelongsToCategory,
-        BelongsToManyUsers,
-        BelongsToUser,
+        BelongsToManyUsers, // Students of the Course (course_user)
+        BelongsToUser, // Author of the Course (courses.user_id)
         MorphManyBookmarks,
         CourseMutator,
         EnrolledUserMutator,

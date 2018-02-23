@@ -1,4 +1,4 @@
-@viewable(widgets('system-corner'))
+@viewable('system-corner')
     <draggable
         class="sortable-container"
         :options="{animation: 150, handle: '.sortable-handle', group: 'widgets', draggable: '.draggable-widget', forceFallback: true}"

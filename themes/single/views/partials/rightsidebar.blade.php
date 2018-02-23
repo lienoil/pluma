@@ -2,7 +2,7 @@
   temporary
   right
   v-model="rightsidebar.model"
-  absolute
+  fixed
   :dark="theme.dark"
 >
   <v-toolbar card class="transparent">

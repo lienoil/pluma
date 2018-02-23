@@ -92,6 +92,11 @@
               <v-divider></v-divider>
             @else
               <v-list-tile ripple exact :to="{name: '{{ $submenu->routename ?? 'index' }}'}">
+                {{-- @isset($submenu->icon)
+                  <v-list-tile-action>
+                    <v-icon>{{ $submenu->icon }}</v-icon>
+                  </v-list-tile-action>
+                @endisset --}}
                 @isset ($submenu->labels->title)
                   <v-list-tile-content>
                     <v-list-tile-title>{{ $submenu->labels->title }}</v-list-tile-title>

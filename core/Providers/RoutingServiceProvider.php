@@ -76,7 +76,7 @@ class RoutingServiceProvider extends ServiceProvider
     {
         if (file_exists(core_path('routes/api.php'))) {
             Route::prefix('api')
-                ->middleware(['api', 'cors'])
+                ->middleware(['api'])
                 ->namespace($this->namespace)
                 ->group(core_path('routes/api.php'));
         }
