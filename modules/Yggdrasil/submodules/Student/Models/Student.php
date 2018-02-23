@@ -1,11 +1,11 @@
 <?php
 
-namespace Octocat\Models;
+namespace Student\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 
-class Octocat extends Model
+class Student extends Model
 {
     use SoftDeletes;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Octocat\Requests;
+namespace Student\Requests;
 
 use Pluma\Requests\FormRequest;
 
-class OctocatRequest extends FormRequest
+class StudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,19 +15,19 @@ class OctocatRequest extends FormRequest
     {
         switch ($this->method()) {
             case 'POST':
-                if ($this->user()->can('store-octocat')) {
+                if ($this->user()->can('store-student')) {
                     return true;
                 }
                 break;
 
             case 'PUT':
-                if ($this->user()->can('update-octocat')) {
+                if ($this->user()->can('update-student')) {
                     return true;
                 }
                 break;
 
             case 'DELETE':
-                if ($this->user()->can('destroy-octocat')) {
+                if ($this->user()->can('destroy-student')) {
                     return true;
                 }
                 break;
@@ -51,7 +51,7 @@ class OctocatRequest extends FormRequest
 
         return [
             'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:octocats'.$isUpdating,
+            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:students'.$isUpdating,
         ];
     }
 

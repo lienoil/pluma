@@ -115,7 +115,7 @@
                                         display: false
                                     },
                                     ticks: {
-                                        display: true,
+                                        display: false,
                                     }
                                 }]
                             },

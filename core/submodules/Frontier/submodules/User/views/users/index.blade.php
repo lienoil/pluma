@@ -7,7 +7,7 @@
         <v-icon dark left>account_box</v-icon>
         <v-toolbar-title dark>{{ __($application->page->title) }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        
+
         <v-btn
             flat
             icon

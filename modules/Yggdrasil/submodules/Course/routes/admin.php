@@ -36,7 +36,7 @@ Route::delete('courses/delete/{course}', 'CourseController@delete')
      ->name('courses.delete');
 
 // Students
-Route::get('courses/students', 'CourseController@students')->name('courses.students');
+Route::get('courses/{course}/students', 'CourseController@students')->name('courses.students');
 
 // Course
 Route::resource('courses', 'CourseController');

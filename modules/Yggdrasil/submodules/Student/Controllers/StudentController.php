@@ -1,13 +1,13 @@
 <?php
 
-namespace Octocat\Controllers;
+namespace Student\Controllers;
 
-use Octocat\Models\Octocat;
-use Octocat\Requests\OctocatRequest;
+use Student\Models\Student;
+use Student\Requests\StudentRequest;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 
-class OctocatController extends GeneralController
+class StudentController extends GeneralController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class OctocatController extends GeneralController
     {
         //
 
-        return view("Theme::octocats.index");
+        return view("Theme::students.index");
     }
 
     /**
@@ -33,7 +33,7 @@ class OctocatController extends GeneralController
     {
         //
 
-        return view("Theme::octocats.show");
+        return view("Theme::students.show");
     }
 
     /**
@@ -45,16 +45,16 @@ class OctocatController extends GeneralController
     {
         //
 
-        return view("Theme::octocats.create");
+        return view("Theme::students.create");
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Octocat\Requests\OctocatRequest  $request
+     * @param  \Student\Requests\StudentRequest  $request
      * @return Illuminate\Http\Response
      */
-    public function store(OctocatRequest $request)
+    public function store(StudentRequest $request)
     {
         //
 
@@ -72,17 +72,17 @@ class OctocatController extends GeneralController
     {
         //
 
-        return view("Theme::octocats.edit");
+        return view("Theme::students.edit");
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Octocat\Requests\OctocatRequest  $request
+     * @param  Student\Requests\StudentRequest  $request
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    public function update(OctocatRequest $request, $id)
+    public function update(StudentRequest $request, $id)
     {
         //
 

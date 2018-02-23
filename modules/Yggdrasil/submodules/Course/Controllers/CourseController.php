@@ -278,4 +278,20 @@ class CourseController extends GeneralController
 
         return back();
     }
+
+    /**
+     * Student the specified resource from storage permanently.
+     *
+     * @param  \Comment\Requests\CommentRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function students(Request $request) {
+
+        $resource = Course::whereSlug($slug)
+            ->with('lessons.contents')
+            ->firstOrFail();
+
+        return view("Theme::courses.show")->with(compact('resource'));
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Octocat\Providers;
+namespace Student\Providers;
 
 use Pluma\Support\Providers\ServiceProvider;
 
-class OctocatServiceProvider extends ServiceProvider
+class StudentServiceProvider extends ServiceProvider
 {
     /**
      * Array of observable models.
@@ -12,7 +12,7 @@ class OctocatServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observables = [
-        [\Octocat\Models\Octocat::class, '\Octocat\Observers\OctocatObserver'],
+        [\Student\Models\Student::class, '\Student\Observers\StudentObserver'],
     ];
 
     /**

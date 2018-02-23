@@ -36,8 +36,8 @@ class Kernel implements KernelContract
     protected $bootstrappers = [
         'Pluma\Support\Bootstrap\DetectEnvironment',
         'Pluma\Support\Bootstrap\LoadConfiguration',
-        'Pluma\Support\Bootstrap\ConfigureLogging',
-        'Pluma\Support\Bootstrap\HandleExceptions',
+        // 'Pluma\Support\Bootstrap\ConfigureLogging',
+        // 'Pluma\Support\Bootstrap\HandleExceptions',
         'Pluma\Support\Bootstrap\RegisterFacades',
         'Pluma\Support\Bootstrap\RegisterProviders',
         'Pluma\Support\Bootstrap\BootProviders',
