@@ -45,7 +45,7 @@ Version: 1.0
                 <v-flex md10 xs12>
                     <v-layout align-center justify-center>
                         <v-flex md6 sm6 xs12>
-                            <v-card flat class="transparent">
+                            <v-card flat class="transparent" data-aos="fade-right">
                                 <v-card-text class="white--text">
                                     <h2 class="page-title display-3"><strong>{{ __('The Rippl3s Effect') }}</strong></h2>
                                     <ul class="page-title headline">
@@ -64,7 +64,7 @@ Version: 1.0
                         </v-flex>
 
                         <v-flex md6 sm6 xs12>
-                            <v-card flat class="transparent">
+                            <v-card flat class="transparent" data-aos="fade-left">
                                 <img src="{{ assets('frontier/images/placeholder/iso/cityillustration.png') }}" alt="" width="100%">
                             </v-card>
                         </v-flex>
@@ -97,7 +97,7 @@ Version: 1.0
 
                     <v-layout row wrap justify-center align-center>
                         <v-flex md7 xs12>
-                            <v-card flat>
+                            <v-card flat data-aos="fade-right">
                                 <v-card-text>
                                     <img src="{{ assets('frontier/images/placeholder/iso/webdash.png') }}" width="100%" style="max-width: 500px;">
                                 </v-card-text>
@@ -173,7 +173,9 @@ Version: 1.0
 
                 <v-flex md6 xs12>
                     <v-card flat>
-                        <img src="{{ assets('frontier/images/placeholder/iso/people-hero2@2x.png') }}" width="100%">
+                        <div data-aos="fade-up">
+                            <img src="{{ assets('frontier/images/placeholder/iso/people-hero2@2x.png') }}" width="100%">
+                        </div>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -189,7 +191,9 @@ Version: 1.0
             <v-layout row wrap justify-left align-center>
                 <v-flex md6 xs12 order-sm2 order-md1>
                     <v-card flat class="mb-3">
-                        <img src="{{ assets('frontier/images/placeholder/iso/engagement.png') }}" width="100%">
+                        <div data-aos="fade-up">
+                            <img src="{{ assets('frontier/images/placeholder/iso/engagement.png') }}" width="100%">
+                        </div>
                     </v-card>
                 </v-flex>
 
@@ -224,8 +228,12 @@ Version: 1.0
                         </p>
                     </v-card-text>
                     <v-card-text>
-                        <img src="{{ assets('frontier/images/placeholder/iso/image-table.png') }}" width="300" alt="">
-                        <img src="{{ assets('frontier/images/placeholder/iso/img05.png') }}" width="300" alt="">
+                        <span data-aos="zoom-in-right">
+                            <img src="{{ assets('frontier/images/placeholder/iso/image-table.png') }}" width="300" alt="">
+                        </span>
+                        <span data-aos="zoom-in-left">
+                            <img src="{{ assets('frontier/images/placeholder/iso/img05.png') }}" width="300" alt="">
+                        </span>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -253,7 +261,7 @@ Version: 1.0
                 </v-flex>
 
                 <v-flex md6 xs12>
-                    <v-card flat>
+                    <v-card flat data-aos="fade-up">
                         <img src="{{ assets('frontier/images/placeholder/iso/ship.png') }}" width="100%">
                     </v-card>
                 </v-flex>
@@ -269,7 +277,7 @@ Version: 1.0
         <div class="white">
             <v-layout row wrap justify-left align-center>
                 <v-flex md6 xs12 order-sm2 order-md1>
-                    <v-card flat class="mb-3">
+                    <v-card flat class="mb-3" data-aos="fade-up">
                         <img src="{{ assets('frontier/images/placeholder/iso/laptopIllustration.png') }}" width="100%">
                     </v-card>
                 </v-flex>
@@ -302,10 +310,10 @@ Version: 1.0
                             </h2>
                             <p class="white--text page-title"><em>..from wherever you are, to whenever you want to.</em></p>
 
-                            <v-btn round large class="elevation-1 px-4" primary>Sign up now</v-btn>
+                            <v-btn round large outline class="elevation-1 px-4 white--text">Sign up now</v-btn>
                         </v-card-text>
                     </v-card>
-                    <v-divider class="grey"></v-divider>
+                    <v-divider class="white"></v-divider>
                     <v-card flat class="transparent py-3">
                         <v-layout row wrap justify-center align-center>
                             <v-flex md6 xs12>
@@ -314,7 +322,7 @@ Version: 1.0
                                         <img src="{{ $application->site->logo }}" alt="">
                                     </v-avatar>
                                     <v-card-text class="caption">
-                                        <p class="mb-1 grey--text"> Copyright &copy; 2018 Rippl3s. All rights reserved.</p>
+                                        <p class="mb-1 white--text"> Copyright &copy; 2018 Rippl3s. All rights reserved.</p>
                                         <span><a class="white--text td-n" href="">Privacy Policy</a></span>
                                     </v-card-text>
                                 </v-card-actions>
@@ -334,9 +342,12 @@ Version: 1.0
             </v-layout>
         </v-card>
     </template>
+
+    @include("Template::widgets.home")
 @endsection
 
 @push('css')
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <style>
         #banner {
             position: relative !important;
@@ -376,9 +387,10 @@ Version: 1.0
 
 @push('js')
     <script src="{{ assets('frontier/threejs/build/three.min.js') }}"></script>
-
     <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script>
     <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script>
+
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
 
     <script>
         var mouseX = 0, mouseY = 0,
@@ -530,5 +542,11 @@ Version: 1.0
 
             renderer.render( scene, camera );
         }
+
+        
+        // AOS Animation
+        AOS.init({
+            duration: 1000,
+        })
     </script>
 @endpush
