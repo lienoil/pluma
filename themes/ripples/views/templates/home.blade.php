@@ -80,7 +80,7 @@ Version: 1.0
     <v-card flat height="100px"></v-card>
     {{-- /divider --}}
 
-    <template id="round">
+    <template id="webdash">
         <div class="white">
             <v-layout row wrap justify-center align-center>
                 <v-flex md9 xs12>
@@ -112,8 +112,8 @@ Version: 1.0
                                         </v-avatar>
                                         <v-card flat>
                                             <v-card-text>
-                                                <h2 class="title">Customizable Profiles</h2>
-                                                <p class="subheading grey--text text--darken-1">Build customizable profiles of your account</p>
+                                                <h2 class="title page-title">Customizable Profiles</h2>
+                                                <p class="subheading page-title grey--text text--darken-1">Build customizable profiles of your account</p>
                                             </v-card-text>
                                         </v-card>
                                     </v-card-actions>
@@ -126,8 +126,8 @@ Version: 1.0
                                         </v-avatar>
                                         <v-card flat>
                                             <v-card-text>
-                                                <h2 class="title">Search</h2>
-                                                <p class="subheading grey--text text--darken-1">Search and filter amongst all user and courses</p>
+                                                <h2 class="title page-title">Search</h2>
+                                                <p class="subheading page-title grey--text text--darken-1">Search and filter amongst all user and courses</p>
                                             </v-card-text>
                                         </v-card>
                                     </v-card-actions>
@@ -140,8 +140,8 @@ Version: 1.0
                                         </v-avatar>
                                         <v-card flat>
                                             <v-card-text>
-                                                <h2 class="title">User Profiles</h2>
-                                                <p class="subheading grey--text text--darken-1">Manually create your own user profiles</p>
+                                                <h2 class="title page-title">User Profiles</h2>
+                                                <p class="subheading page-title grey--text text--darken-1">Manually create your own user profiles</p>
                                             </v-card-text>
                                         </v-card>
                                     </v-card-actions>
@@ -164,7 +164,7 @@ Version: 1.0
                 <v-flex md5 offset-md1 xs12>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-3"><strong>Why Rippl3s</strong></h2>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>Why Rippl3s</strong></h2>
                             <h2 class="title page-title">{{ __('It’s an engaging learning experience right at your fingertips') }}</h2>
                             <p class="subheading page-title">{{ __('Through our focused responsive portal where technology and curriculum work seamlessly together, we deliver convenience on different devices, thus cutting down your learning time and keeping track of your milestones without having to leave the comforts of your home.') }}</p>
                         </v-card-text>
@@ -173,7 +173,7 @@ Version: 1.0
 
                 <v-flex md6 xs12>
                     <v-card flat>
-                        <img src="{{ assets('frontier/images/placeholder/iso/ship.png') }}" width="100%">
+                        <img src="{{ assets('frontier/images/placeholder/iso/people-hero2@2x.png') }}" width="100%">
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -196,7 +196,7 @@ Version: 1.0
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-3"><strong>How it works</strong></h2>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>How it works</strong></h2>
                             <h2 class="title page-title">Far far away, behind the word mountains</h2>
                             <p class="subheading page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
                         </v-card-text>
@@ -210,13 +210,30 @@ Version: 1.0
     <v-card flat height="200px"></v-card>
     {{-- /divider --}}
 
-    {{-- full-width threejs --}}
+    {{-- full-width gradient --}}
     <div id="full-width">
         <v-card flat class="transparent" height="100px"></v-card>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis sed vitae est, temporibus? Debitis, consequuntur ducimus! Illum mollitia quaerat aliquid labore quasi, earum amet magnam ullam ea harum, ex quidem.
+        
+        <v-layout row wrap justify-center align-center>
+            <v-flex md8 xs12>
+                <v-card flat class="text-xs-center white--text transparent">
+                    <v-card-text>
+                        <h2 class="display-2 page-title"><strong>Olla, seniorita!</strong></h2>
+                        <p class="headline page-title">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad perspiciatis quos maiores, praesentium modi cumque debitis magni 
+                        </p>
+                    </v-card-text>
+                    <v-card-text>
+                        <img src="{{ assets('frontier/images/placeholder/iso/image-table.png') }}" width="300" alt="">
+                        <img src="{{ assets('frontier/images/placeholder/iso/img05.png') }}" width="300" alt="">
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+
         <v-card flat class="transparent" height="100px"></v-card>
     </div>
-    {{-- /full-width threejs --}}
+    {{-- /full-width gradient --}}
 
     {{-- divider --}}
     <v-card flat height="200px"></v-card>
@@ -228,7 +245,7 @@ Version: 1.0
                 <v-flex md5 offset-md1 xs12>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-3"><strong>Pricing</strong></h2>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>Pricing</strong></h2>
                             <h2 class="title page-title">Far far away, behind the word mountains</h2>
                             <p class="subheading page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
                         </v-card-text>
@@ -237,7 +254,7 @@ Version: 1.0
 
                 <v-flex md6 xs12>
                     <v-card flat>
-                        <img src="{{ assets('frontier/images/placeholder/iso/people-hero2@2x.png') }}" width="100%">
+                        <img src="{{ assets('frontier/images/placeholder/iso/ship.png') }}" width="100%">
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -260,7 +277,7 @@ Version: 1.0
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-3"><strong>Try Now</strong></h2>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>Try Now</strong></h2>
                             <h2 class="title page-title">Far far away, behind the word mountains</h2>
                             <p class="subheading page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
                         </v-card-text>
@@ -275,7 +292,7 @@ Version: 1.0
     {{-- /divider --}}
 
     <template id="footer">
-        <v-card flat style="background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82));">
+        <v-card flat style="background: linear-gradient(135deg, #003073, #029797);">
             <v-layout row wrap justify-center align-center>
                 <v-flex md8 xs12>
                     <v-card flat class="transparent text-xs-center py-5">
@@ -328,12 +345,12 @@ Version: 1.0
             /*background: linear-gradient(45deg, rgb(2, 136, 209) 0%, rgb(38, 198, 218) 100%) !important;*/
             /*background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;*/
 
-            background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0, #003073), color-stop(100%, #029797));
-            background-image: -webkit-linear-gradient(135deg, #003073, #029797);
-            background-image: -moz-linear-gradient(45deg, #003073, #029797);
-            background-image: -ms-linear-gradient(45deg, #003073 0, #029797 100%);
-            background-image: -o-linear-gradient(45deg, #003073, #029797);
-            background-image: linear-gradient(135deg, #003073, #029797);
+            background: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0, #003073), color-stop(100%, #029797));
+            background: -webkit-linear-gradient(135deg, #003073, #029797);
+            background: -moz-linear-gradient(45deg, #003073, #029797);
+            background: -ms-linear-gradient(45deg, #003073 0, #029797 100%);
+            background: -o-linear-gradient(45deg, #003073, #029797);
+            background: linear-gradient(135deg, #003073, #029797);
 
             box-shadow: 0 1px 3px rgba(0,0,0,.2),0 1px 1px rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12)!important;
         }
@@ -350,6 +367,9 @@ Version: 1.0
         }
         #full-width {
             background: linear-gradient(159deg,#512dcf 31%,#10a3d5 100%) #512dcf;
+        }
+        #footer {
+            background: linear-gradient(135deg, #003073, #029797);
         }
     </style>
 @endpush
