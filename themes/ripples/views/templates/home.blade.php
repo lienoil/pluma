@@ -43,8 +43,8 @@ Version: 1.0
 
             <v-layout row wrap align-center justify-center>
                 <v-flex md10 xs12>
-                    <v-layout align-center justify-center>
-                        <v-flex md6 sm6 xs12>
+                    <v-layout row wrap align-center justify-center>
+                        <v-flex sm6 xs12>
                             <v-card flat class="transparent" data-aos="fade-right">
                                 <v-card-text class="white--text">
                                     <h2 class="page-title display-3"><strong>{{ __('The Rippl3s Effect') }}</strong></h2>
@@ -63,7 +63,7 @@ Version: 1.0
                             </v-card>
                         </v-flex>
 
-                        <v-flex md6 sm6 xs12>
+                        <v-flex sm6 xs12>
                             <v-card flat class="transparent" data-aos="fade-left">
                                 <img src="{{ assets('frontier/images/placeholder/iso/cityillustration.png') }}" alt="" width="100%">
                             </v-card>
@@ -172,10 +172,8 @@ Version: 1.0
                 </v-flex>
 
                 <v-flex md6 xs12>
-                    <v-card flat>
-                        <div data-aos="fade-up">
-                            <img src="{{ assets('frontier/images/placeholder/iso/people-hero2@2x.png') }}" width="100%">
-                        </div>
+                    <v-card flat data-aos="fade-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/people-hero2@2x.png') }}" width="100%">
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -190,10 +188,8 @@ Version: 1.0
         <div class="white">
             <v-layout row wrap justify-left align-center>
                 <v-flex md6 xs12 order-sm2 order-md1>
-                    <v-card flat class="mb-3">
-                        <div data-aos="fade-up">
-                            <img src="{{ assets('frontier/images/placeholder/iso/engagement.png') }}" width="100%">
-                        </div>
+                    <v-card flat class="mb-3" data-aos="fade-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/engagement.png') }}" width="100%">
                     </v-card>
                 </v-flex>
 
@@ -222,18 +218,14 @@ Version: 1.0
             <v-flex md8 xs12>
                 <v-card flat class="text-xs-center white--text transparent">
                     <v-card-text>
-                        <h2 class="display-2 page-title"><strong>Olla, seniorita!</strong></h2>
+                        <h2 class="display-2 page-title"><strong>Feedback/Affiliations</strong></h2>
                         <p class="headline page-title">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad perspiciatis quos maiores, praesentium modi cumque debitis magni 
+                            Our goal is to bring personalised and adaptive learning experience to people. Here are some of our learners’ success stories.
                         </p>
                     </v-card-text>
-                    <v-card-text>
-                        <span data-aos="zoom-in-right">
-                            <img src="{{ assets('frontier/images/placeholder/iso/image-table.png') }}" width="300" alt="">
-                        </span>
-                        <span data-aos="zoom-in-left">
-                            <img src="{{ assets('frontier/images/placeholder/iso/img05.png') }}" width="300" alt="">
-                        </span>
+                    <v-card-text data-aos="zoom-in-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/image-table.png') }}" width="300" alt="">
+                        <img src="{{ assets('frontier/images/placeholder/iso/img05.png') }}" width="300" alt="">
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -377,7 +369,9 @@ Version: 1.0
             z-index: 100;
         }
         #full-width {
-            background: linear-gradient(159deg,#512dcf 31%,#10a3d5 100%) #512dcf;
+            /*background: linear-gradient(159deg,#512dcf 31%,#10a3d5 100%) #512dcf;*/
+            /*background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82));*/
+            background: linear-gradient(159deg,#9C27B0 31%,#2196F3 100%);
         }
         #footer {
             background: linear-gradient(135deg, #003073, #029797);

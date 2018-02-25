@@ -8,47 +8,16 @@ return [
      * Specify here the menus to appear on the sidebar.
      *
      */
-    'student' => [
-        'name' => 'student',
-        'order' => 51,
+    'view-students' => [
+        'name' => 'view-students',
+        'order' => 6,
+        'parent' => 'course',
+        'icon' => 'supervisor-account',
         'slug' => route('students.index'),
         'always_viewable' => false,
-        'icon' => '',
         'labels' => [
-            'title' => __('Students'),
-            'description' => __('Manage students'),
-        ],
-        'children' => [
-            'view-student' => [
-                'name' => 'view-student',
-                'order' => 1,
-                'slug' => route('students.index'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('All Students'),
-                    'description' => __('View the list of all students'),
-                ],
-            ],
-            'create-student' => [
-                'name' => 'create-student',
-                'order' => 2,
-                'slug' => route('students.create'),
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Create Student'),
-                    'description' => __('Create a Student'),
-                ],
-            ],
-            // 'trash-student' => [
-            //     'name' => 'trash-student',
-            //     'order' => 3,
-            //     'slug' => route('students.trash'),
-            //     'always_viewable' => false,
-            //     'labels' => [
-            //         'title' => __('Trashed Students'),
-            //         'description' => __('View list of all students moved to trash'),
-            //     ],
-            // ],
+            'title' => __('All Students'),
+            'description' => __('View the list of all students'),
         ],
     ],
 ];
