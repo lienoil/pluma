@@ -26,7 +26,7 @@
 </v-card> --}}
 
 {{-- @viewable(widgets('course-progress')) --}}
-    <v-card class="elevation-1">
+    <v-card class="elevation-1 mb-3">
         <v-toolbar card class="transparent">
             <v-toolbar-title class="page-title subheading accent--text">{{ __('Your Progress') }}</v-toolbar-title>
             <v-spacer></v-spacer>

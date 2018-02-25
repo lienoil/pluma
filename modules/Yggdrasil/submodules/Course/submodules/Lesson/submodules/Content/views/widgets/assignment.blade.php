@@ -1,7 +1,13 @@
-<v-card class="grey lighten-4 elevation-0" style="border-radius: 8px;">
+<v-card class="grey lighten-4 elevation-1">
+    <v-toolbar flat class="transparent">
+        <v-toolbar-title class="page-title subheading">
+            {{ __('Assignments') }}
+    </v-toolbar>
+    <v-divider></v-divider>
+
     @if (is_null($lesson->assignment))
-        <v-card-text class="text-xs-center red--text text--lighten-3">
-            <v-icon class="display-1 red--text text--lighten-3">content_copy</v-icon>
+        <v-card-text class="pa-5 text-xs-center red--text text--lighten-3">
+            <v-icon class="display-1 red--text text--lighten-3 mb-3">content_copy</v-icon>
             <div label class="body-1">
                 {!! __('No assignment<br>for this lesson.') !!}
             </div>
