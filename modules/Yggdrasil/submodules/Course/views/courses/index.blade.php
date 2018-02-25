@@ -124,7 +124,7 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile href="route(urls.show, prop.item.id)">
+                                        <v-list-tile :href="route(urls.show, (prop.item.id))">
                                             <v-list-tile-action>
                                                 <v-icon success>playlist_add_check</v-icon>
                                             </v-list-tile-action>

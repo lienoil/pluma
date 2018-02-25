@@ -286,12 +286,11 @@ class CourseController extends GeneralController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function students(Request $request) {
-
+    public function students(Request $request, $slug) 
+    {
         $resource = Course::whereSlug($slug)
-            ->with('lessons.contents')
             ->firstOrFail();
 
-        return view("Theme::courses.show")->with(compact('resource'));
+        return view("Theme::students.index")->with(compact('resource'));
     }
 }

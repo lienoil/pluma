@@ -52,8 +52,8 @@
                 >
                     <span>{{ __('00%') }}</span>
                 </v-progress-circular>
-                <div class="body-1 grey--text">{{ __('Login to view your progress.') }}</div>
-                <v-btn flat primary href="{{ route('login.show', ['redirect_to' => route('courses.show', $resource->slug)]) }}">{{ __('Login') }}</v-btn>
+                {{-- <div class="body-1 grey--text">{{ __('Login to view your progress.') }}</div> --}}
+                {{-- <v-btn flat primary href="{{ route('login.show', ['redirect_to' => route('courses.show', $resource->slug)]) }}">{{ __('Login') }}</v-btn> --}}
             @endif
             <v-spacer></v-spacer>
         </v-card-text>

@@ -120,27 +120,11 @@
 
                     <v-divider></v-divider>
 
-                    <v-layout row wrap justify-center align-center>
-                        <v-flex md6 xs12>
-                            <v-card-text>
-                                <p class="body-2 grey--text page-title mb-1">PUBLISHED ON {{ $resource->created }}</p>
-                                <p class="subheading grey--text text--darken-1 page-title mb-1"><strong>{{ $resource->course->title }}</strong></p>
-                                <h2 class="page-title display-1">{{ $resource->lesson->title }}:</h2>
-                                <h2 class="page-title display-1 grey--text">{{ $resource->title }}</h2>
-                            </v-card-text>
-                        </v-flex>
-
-                        <v-flex md6 xs12>
-                            <v-card-text>
-                                <p class="grey--text">{{ $resource->excerpt }}</p>
-                            </v-card-text>
-
-                            <v-card-text class="text-xs-right">
-                                <v-btn success outline><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
-                                 <v-btn success outline> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn>
-                            </v-card-text>
-                        </v-flex>
-                    </v-layout>
+                    <v-card-actions class="pa-5">
+                        <v-spacer></v-spacer>
+                        <v-btn success outline><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
+                        <v-btn success outline> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -149,6 +133,16 @@
             <v-flex lg10 md11 xs12>
                 <v-layout row wrap>
                     <v-flex md8 xs12>
+                        <v-card class="elevation-1 mb-3">
+                            <v-card-text>
+                                <p class="body-2 grey--text page-title mb-1">PUBLISHED ON {{ $resource->created }}</p>
+                                <p class="subheading grey--text text--darken-1 page-title mb-1"><strong>{{ $resource->course->title }}</strong></p>
+                                <h2 class="page-title display-1">{{ $resource->lesson->title }}:</h2>
+                                <h2 class="page-title display-1 grey--text">{{ $resource->title }}</h2>
+                                <p class="grey--text">{{ $resource->excerpt }}</p>
+                            </v-card-text>
+                        </v-card>
+
                         {{-- Comments Section --}}
                         <v-card class="elevation-1">
                             @include("Content::widgets.comments")
@@ -159,7 +153,7 @@
                     <v-flex md4 xs12>
                         <v-card class="elevation-1 mb-3">
                             <v-toolbar flat class="transparent">
-                                <v-toolbar-title class="page-title">{{ $resource->lesson->title }}</v-toolbar-title>
+                                <v-toolbar-title class="page-title">Table of Contents</v-toolbar-title>
                             </v-toolbar>
                             <v-divider></v-divider>
                             <v-list class="mb-3">
