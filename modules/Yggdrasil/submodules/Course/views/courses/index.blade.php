@@ -124,7 +124,7 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile :href="route(urls.show, (prop.item.slug))">
+                                        <v-list-tile :href="route(urls.students, (prop.item.slug))">
                                             <v-list-tile-action>
                                                 <v-icon success>playlist_add_check</v-icon>
                                             </v-list-tile-action>
@@ -204,6 +204,7 @@
                     urls: {
                         edit: '{{ route('courses.edit', 'null') }}',
                         show: '{{ route('courses.show', 'null') }}',
+                        students: '{{ route('courses.students', 'null') }}',
                         destroy: '{{ route('courses.destroy', 'null') }}',
                     },
                     dataset: {
