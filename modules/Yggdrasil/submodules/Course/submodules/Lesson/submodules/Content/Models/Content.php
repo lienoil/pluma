@@ -22,9 +22,13 @@ class Content extends Model
     protected $with = ['library', 'lesson'];
 
     protected $appends = [
-        'current', 'locked',
-        'completed', 'incomplete',
-        'url', 'interactive'
+        'active',
+        'completed',
+        'current',
+        'incomplete',
+        'interactive',
+        'locked',
+        'url',
     ];
 
     protected $searchables = ['title', 'body', 'created_at', 'updated_at'];

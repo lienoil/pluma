@@ -5,6 +5,7 @@ namespace Content\Support\Traits;
 use Course\Models\Scormvar;
 use Course\Models\Status;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Request;
 use SimpleXMLElement;
 
 trait ContentMutator
@@ -266,5 +267,15 @@ trait ContentMutator
         $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
 
         return $entry->status === "incomplete" || $entry->status === "current";
+    }
+
+    /**
+     * Gets the status from comparing current url to resource's own url.
+     *
+     * @return boolean
+     */
+    public function getActiveAttribute()
+    {
+        return $this->url == Request::url();
     }
 }
