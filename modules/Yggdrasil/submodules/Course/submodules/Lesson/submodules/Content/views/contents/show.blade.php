@@ -1,9 +1,9 @@
-@extends("Theme::layouts.admin")
+@extends("Theme::layouts.public")
 
 @section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
 
 @push('post-meta')
-    {{-- <link rel="manifest" href="{{ url('manifest.json') }}"> --}}
+    <link rel="manifest" href="{{ url('manifest.json') }}">
 @endpush
 
 @section("content")
@@ -11,11 +11,11 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <v-card class="mb-2 elevation-1">
-                    <v-toolbar card dense class="transparent">
+                    {{-- <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-btn icon @click="goFullscreen"><v-icon>@{{ fullscreen.model ? 'fullscreen' : 'fullscreen_exit' }}</v-icon></v-btn>
-                    </v-toolbar>
+                    </v-toolbar> --}}
 
                     <v-alert
                         icon="check"
@@ -64,7 +64,7 @@
                                         <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
                                         <v-card-actions class="pa-0">
                                             <v-spacer></v-spacer>
-                                            <v-btn dark class="secondary" ripple :href="previous.url"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
+                                            <v-btn dark class="secondary" ripple href="{{ $resource->previous }}"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
                                             <v-spacer></v-spacer>
                                         </v-card-actions>
                                         <v-spacer></v-spacer>
@@ -73,57 +73,46 @@
                             </v-card-media>
                         </v-card>
                         <template v-else>
-                            <v-card v-if="! course.started" flat class="grey--text text--darken-1">
-                                <v-container fill-height fluid>
-                                    <v-layout fill-height wrap column>
-                                        <v-card-text class="quill-text">
-                                            {!! $resource->body !!}
-                                        </v-card-text>
-                                        <v-spacer></v-spacer>
-                                        <v-card-actions class="pa-4">
-                                            <v-spacer></v-spacer>
-                                            <v-btn dark class="primary" @click="playInteraction()">
-                                                <v-icon left>play_circle_outline</v-icon>
-                                                <template v-if="resource.incomplete">{{ __('Continue') }}</template>
-                                                <template v-else-if="resource.completed">{{ __('Play Again') }}</template>
-                                                <template v-else>{{ __('Start') }}</template>
-                                            </v-btn>
-                                        </v-card-actions>
-                                    </v-layout>
-                                </v-container>
-                            </v-card>
+                            <div id="interactive-container">
+                                <v-fade-transition>
+                                    <template>
+                                        <div>
+                                            {!! $resource->html !!}
+                                            <v-dialog v-model="messagebox.model" width="60vw" persistent>
+                                                <v-card flat tile class="text-xs-center">
+                                                    <v-icon class="display-4 success--text">check</v-icon>
+                                                    <v-card-text class="headline success--text text-xs-center">{{ __("Completed") }}</v-card-text>
+                                                    <v-card-text class="grey--text text--darken-1">
+                                                        {{ __("You have finished this Interaction. Click below to continue.") }}
+                                                    </v-card-text>
+                                                    <v-card-actions>
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
+                                                        <v-spacer></v-spacer>
+                                                    </v-card-actions>
+                                                </v-card>
+                                            </v-dialog>
+                                        </div>
+                                    </template>
+                                </v-fade-transition>
+                            </div>
                         </template>
-                        <div id="interactive-container">
-                            <v-fade-transition>
-                                <template v-if="course.started">
-                                    <div>
-                                        {!! $resource->html !!}
-                                        <v-dialog v-model="messagebox.model" width="60vw" persistent>
-                                            <v-card flat tile class="text-xs-center">
-                                                <v-icon class="display-4 success--text">check</v-icon>
-                                                <v-card-text class="headline success--text text-xs-center">{{ __("Completed") }}</v-card-text>
-                                                <v-card-text class="grey--text text--darken-1">
-                                                    {{ __("You have finished this Interaction. Click below to continue.") }}
-                                                </v-card-text>
-                                                <v-card-actions>
-                                                    <v-spacer></v-spacer>
-                                                    <v-btn :disabled="messagebox.btnDiabled" primary @click="messagebox.model = !messagebox.model">{{ __("Okay") }}</v-btn>
-                                                    <v-spacer></v-spacer>
-                                                </v-card-actions>
-                                            </v-card>
-                                        </v-dialog>
-                                    </div>
-                                </template>
-                            </v-fade-transition>
-                        </div>
                     </template>
 
                     <v-divider></v-divider>
 
-                    <v-card-actions class="pa-5">
+                    <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn success outline><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
-                        <v-btn success outline> Next <v-icon success right>keyboard_arrow_right</v-icon> </v-btn>
+                        @if ($resource->previous)
+                            <v-btn success outline href="{{ $resource->previous }}"><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
+                        @else
+                            <v-btn disabled success outline><v-icon left>keyboard_arrow_left</v-icon> Previous</v-btn>
+                        @endif
+                        @if ($resource->next)
+                            <v-btn success outline href="{{ $resource->next }}"> Next <v-icon success right>keyboard_arrow_right</v-icon></v-btn>
+                        @else
+                            <v-btn disabled outline href="{{ $resource->next }}"> Next <v-icon right>keyboard_arrow_right</v-icon></v-btn>
+                        @endif
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -133,15 +122,22 @@
             <v-flex lg10 md11 xs12>
                 <v-layout row wrap>
                     <v-flex md8 xs12>
-                        <v-card class="elevation-1 mb-3">
+
+                        {{-- Description --}}
+                        <v-card class="mb-3 elevation-1">
                             <v-card-text>
-                                <p class="body-2 grey--text page-title mb-1">PUBLISHED ON {{ $resource->created }}</p>
-                                <p class="subheading grey--text text--darken-1 page-title mb-1">{{ $resource->course->title }}</p>
-                                <h2 class="page-title title">{{ $resource->lesson->title }}:</h2>
-                                <h2 class="page-title title grey--text text--darken-3">{{ $resource->title }}</h2>
-                                <p class="grey--text text--darken-3">{{ $resource->excerpt }}</p>
+                                <h2 class="page-title display-1">{{ $resource->course->title }}:</h2>
+                                <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
                             </v-card-text>
+                            <v-card-text>
+                                {!! $resource->body !!}
+                            </v-card-text>
+                            <v-card-actions class="pa-3">
+                                <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
+                                <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"><strong>{{ $resource->course->title }}</strong></p>
+                            </v-card-actions>
                         </v-card>
+                        {{-- Description --}}
 
                         {{-- Comments Section --}}
                         <v-card class="elevation-1">
@@ -153,11 +149,31 @@
                     <v-flex md4 xs12>
                         <v-card class="elevation-1 mb-3">
                             <v-toolbar flat class="transparent">
-                                <v-toolbar-title class="page-title subheading">Table of Contents</v-toolbar-title>
+                                <v-toolbar-title class="page-title">{{ $resource->lesson->title }}</v-toolbar-title>
                             </v-toolbar>
                             <v-divider></v-divider>
                             <v-list class="mb-3">
-                                <v-list-tile
+                                @foreach ($resource->lesson->contents as $content)
+                                    <v-list-tile
+                                        href="{{ $content->url }}"
+                                        {{-- :class="{'white--text': (resource.id == item.id)}" --}}
+                                        ripple
+                                    >
+                                        <v-list-tile-action>
+                                            @if ($content->completed)
+                                                <v-icon left>check</v-icon>
+                                            @elseif ($content->current)
+                                                <v-icon left>play_circle_outline</v-icon>
+                                            @else
+                                                <v-icon left>lock</v-icon>
+                                            @endif
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>{{ $content->title }}</v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                @endforeach
+                                {{-- <v-list-tile
                                     :href="item.url"
                                     v-for="(item, i) in drawer.items"
                                     :key="i"
@@ -172,18 +188,19 @@
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
                                     </v-list-tile-content>
-                                </v-list-tile>
+                                </v-list-tile> --}}
                             </v-list>
-                        </v-card>
 
+                            {{-- Assignment --}}
+                            <v-card-text>
+                                @include("Content::widgets.assignment")
+                            </v-card-text>
+                            {{-- /Assignment --}}
+                        </v-card>
 
                         {{-- Content Progress --}}
                             @include("Course::widgets.lesson-progress")
                         {{-- /Content Progress --}}
-
-                        {{-- Assignment --}}
-                            @include("Content::widgets.assignment")
-                        {{-- /Assignment --}}
                     </v-flex>
                 </v-layout>
             </v-flex>
