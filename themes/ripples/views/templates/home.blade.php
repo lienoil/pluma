@@ -213,7 +213,7 @@ Version: 1.0
     {{-- full-width gradient --}}
     <div id="full-width">
         <v-card flat class="transparent" height="100px"></v-card>
-        
+
         <v-layout row wrap justify-center align-center>
             <v-flex md8 xs12>
                 <v-card flat class="text-xs-center white--text transparent">
@@ -537,10 +537,10 @@ Version: 1.0
             renderer.render( scene, camera );
         }
 
-        
+
         // AOS Animation
         AOS.init({
-            duration: 1000,
+            duration: 1200,
         })
     </script>
 @endpush
