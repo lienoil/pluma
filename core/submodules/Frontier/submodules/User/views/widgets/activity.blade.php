@@ -1,4 +1,4 @@
-@viewable(widgets('activity'))
+@viewable('activity')
 	<v-card class="elevation-1 mb-3">
 		<v-toolbar card class="transparent">
 			<v-toolbar-title primary-title class="subheading">{{ __('Activity') }}</v-toolbar-title>

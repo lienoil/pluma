@@ -16,6 +16,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('pages/{page}', 'PageController@getShow')->name('pages.show');
     Route::post('pages/save', 'PageController@postStore')->name('pages.save');
     Route::post('pages/store', 'PageController@postStore')->name('pages.store');
+    Route::delete('pages/{page}/destroy', 'PageController@deleteDestroy')->name('pages.destroy');
 });
 
 // v2

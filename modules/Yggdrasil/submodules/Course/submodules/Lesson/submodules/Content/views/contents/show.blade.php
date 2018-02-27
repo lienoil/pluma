@@ -126,13 +126,13 @@
                         {{-- Description --}}
                         <v-card class="mb-3 elevation-1">
                             <v-card-text>
-                                <h2 class="page-title display-1">{{ $resource->course->title }}:</h2>
+                                <h2 class="page-title display-1">{{ $resource->course->title }}</h2>
                                 <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
                             </v-card-text>
                             <v-card-text>
                                 {!! $resource->body !!}
                             </v-card-text>
-                            <v-card-actions class="pa-3">
+                            <v-card-actions>
                                 <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
                                 <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"><strong>{{ $resource->course->title }}</strong></p>
                             </v-card-actions>
@@ -175,11 +175,11 @@
                                 @endforeach
                                 {{-- <v-list-tile
                                     :href="item.url"
-                                    v-for="(item, i) in drawer.items"
                                     :key="i"
-                                    :class="{'white--text': (resource.id == item.id)}"
                                     ripple
-                                    v-bind:ripple="{ class: 'primary--text' }">
+                                    v-for="(item, i) in playlist"
+                                    v-model="item.active"
+                                >
                                     <v-list-tile-action>
                                         <v-icon left v-if="item.completed">check</v-icon>
                                         <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
@@ -290,6 +290,7 @@
                     previous: {!! json_encode($resource->previous) !!},
                     next: {!! json_encode($resource->next) !!},
                     scorm: null,
+                    playlist: {!! json_encode($resource->lesson->contents) !!},
                     lesson_status_completed: false,
                 }
             },

@@ -8,7 +8,7 @@
     <v-container fluid grid-list-lg>
       <v-form ref="form" v-model="resource.form.model">
         <v-layout row wrap>
-          <v-flex sm8>
+          <v-flex xs12 sm8>
             <input type="hidden" name="_token" :value="resource.token">
 
             <div class="mb-3">
@@ -37,23 +37,20 @@
                   v-validate="'required'"
                 ></v-text-field>
               </v-card-text>
-              <v-text-field box multi-line></v-text-field>
-              <!-- <img src="@/assets/editor.png" width="100%"> -->
+
+              <editor name="body" v-model="resource.item.body"></editor>
+
             </v-card>
           </v-flex>
-          <v-flex sm4>
-
-            <mediabox icon="landscape" title="Featured Image"></mediabox>
-            <v-divider></v-divider>
+          <v-flex xs12 sm4>
 
             <v-card>
-              <v-card-text>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil maiores aliquam sit dolore facere saepe laborum velit ducimus error ipsa, quo cum non, impedit iure voluptatibus ullam illum tempore. Hic!
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis nihil aut voluptas, laborum quasi. Possimus autem ipsum unde omnis, rem aliquid illo, voluptates! Dolore nobis nostrum, veritatis ut eum deserunt!
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis repellat, officiis adipisci laborum sunt! Delectus, optio qui, officiis magni reiciendis quidem eveniet expedita, saepe culpa rem distinctio error ad voluptatem.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore amet id obcaecati, exercitationem eveniet? Autem accusamus eius similique suscipit in! Optio minima atque laboriosam accusamus, facere deserunt laudantium nobis cum.
-                ad ab eaque maiores voluptatum aperiam, magni excepturi blanditiis quibusdam consequatur quos neque odio fuga labore quis earum dignissimos repudiandae eius natus! Libero at non obcaecati esse similique, expedita animi inventore doloremque qui accusamus suscipit laboriosam recusandae possimus mollitia eligendi quae consequuntur est natus, dignissimos quam cupiditate? Adipisci eaque ad dolorum ipsam dolorem inventore maiores laboriosam fuga eveniet earum excepturi, ea consequatur laborum, atque expedita alias rem dolore autem sed iste. Tempore vitae ab aliquid at dicta ipsa iste eos voluptatibus porro, aliquam, cupiditate ipsam sunt accusantium excepturi? Perspiciatis corrupti eveniet perferendis architecto laudantium tenetur, voluptatibus, facere sed quidem iusto minima autem illum cum temporibus voluptas et error repudiandae sint possimus sunt cumque ad minus nulla quo! Et totam, repellendus nisi quidem laborum porro ullam architecto ab obcaecati natus enim veniam iure tempore eligendi odio, sit eveniet vel repudiandae est vitae hic esse qui ex eaque! Dignissimos assumenda illo debitis iure voluptates sequi aliquam asperiores cum aperiam beatae delectus laudantium aut cupiditate sunt quis sint, minima velit nemo rerum deserunt ab in, veniam facere. Fugiat, dicta ut. Voluptatum asperiores, sapiente dolor necessitatibus iste optio voluptatem quod accusantium, distinctio hic impedit aut voluptate harum placeat laborum nostrum facilis rerum dolorem. Sequi, perferendis! Iure cum deleniti atque voluptas! Molestias magnam reprehenderit nemo eveniet, velit quisquam odio voluptatibus esse aliquam ipsa totam quidem dolorem officia sequi, earum quae magni molestiae commodi fugit recusandae quaerat, quia eligendi mollitia! Autem blanditiis fugit dolorum laudantium asperiores similique, fugiat quasi error maiores quas modi, vitae libero minus!
-              </v-card-text>
+              <attributes class="elevation-0" v-model="resource.item.template"></attributes>
+              <v-divider></v-divider>
+              <mediabox name="feature" class="elevation-0" multiple v-model="resource.item.feature" icon="image" title="Featured Image"></mediabox>
+              <span v-html="resource.item.feature"></span>
+              <v-divider></v-divider>
+              <mediabox class="elevation-0" icon="landscape" title="Cover Photo"></mediabox>
             </v-card>
 
           </v-flex>
@@ -65,20 +62,23 @@
 
 <script>
 import Mediabox from '@/components/components/Mediabox.vue'
+import Editor from '@/components/components/Editor.vue'
+import Attributes from '@/components/components/Attributes.vue'
 
 export default {
   name: 'Create',
-  components: { Mediabox },
+  components: { Mediabox, Editor, Attributes },
   data () {
     return {
       resource: {
         item: {
-          title: '',
-          code: '',
-          feature: '',
-          user_id: '',
           body: '',
-          delta: ''
+          code: '',
+          delta: '',
+          feature: null,
+          template: '',
+          title: '',
+          user_id: ''
         },
         lock: {
           code: true

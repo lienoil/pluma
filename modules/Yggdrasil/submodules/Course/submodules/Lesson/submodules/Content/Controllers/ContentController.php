@@ -37,7 +37,7 @@ class ContentController extends AdminController
     {
         $resource = Content::findOrFail($id);
         $contents = $resource->lesson->contents;
-        $lesson = Lesson::findOrFail($id);
+        $lesson = Lesson::findOrFail($lesson);
 
         return view("Theme::contents.show")->with(compact('resource', 'contents', 'lesson'));
     }

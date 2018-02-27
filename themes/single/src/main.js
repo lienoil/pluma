@@ -47,7 +47,7 @@ new Vue({
     return {
       app: {},
       settings: {
-        fontsize: this.localstorage('settings.fontsize') ? this.localstorage('settings.fontsize') : 1
+        fontsize: this.localstorage('single.settings.fontsize') ? this.localstorage('single.settings.fontsize') : 1
       },
       view: {
         current: 'PageIndex'
@@ -60,8 +60,8 @@ new Vue({
        *
        */
       theme: {
-        dark: this.localstorage('theme.dark') === 'true',
-        light: this.localstorage('theme.light') === 'true'
+        dark: this.localstorage('single.theme.dark') === 'true',
+        light: this.localstorage('single.theme.light') === 'true'
       },
 
       /**
@@ -71,9 +71,9 @@ new Vue({
        *
        */
       sidebar: {
-        clipped: this.localstorage('sidebar.clipped') === 'true',
-        floating: this.localstorage('sidebar.floating') === 'true',
-        mini: this.localstorage('sidebar.mini') === 'true',
+        clipped: this.localstorage('single.sidebar.clipped') === 'true',
+        floating: this.localstorage('single.sidebar.floating') === 'true',
+        mini: this.localstorage('single.sidebar.mini') === 'true',
         model: true
       },
 
@@ -88,6 +88,7 @@ new Vue({
         icon: 'info',
         timeout: 10000,
         model: false,
+        title: '',
         text: '',
         x: 'right',
         y: 'top'
@@ -100,9 +101,9 @@ new Vue({
        *
        */
       rightsidebar: {
-        clipped: this.localstorage('rightsidebar.clipped') === 'true',
-        floating: this.localstorage('rightsidebar.floating') === 'true',
-        mini: this.localstorage('rightsidebar.mini') === 'true',
+        clipped: this.localstorage('single.rightsidebar.clipped') === 'true',
+        floating: this.localstorage('single.rightsidebar.floating') === 'true',
+        mini: this.localstorage('single.rightsidebar.mini') === 'true',
         model: false
       },
 
@@ -124,7 +125,20 @@ new Vue({
   },
   watch: {
     '$route': function (router) {
-      // this.snackbar.model = true
+      // Get sessions every page transition
+      this.$http.post('/admin/sessions')
+        .then(response => {
+          if (typeof response.data.message !== 'undefined') {
+            this.snackbar = Object.assign(this.snackbar, {
+              model: true,
+              color: response.data.type ? response.data.type : 'secondary',
+              icon: response.data.icon ? response.data.icon : 'info',
+              timeout: response.data.timeout ? response.data.timeout : 10000,
+              text: response.data.message,
+              title: response.data.title ? response.data.title : ''
+            })
+          }
+        })
     }
   },
   methods: {

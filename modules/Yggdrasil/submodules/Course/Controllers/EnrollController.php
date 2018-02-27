@@ -73,25 +73,36 @@ class EnrollController extends AdminController
     public function enroll(Request $request, $course_id, $user_id)
     {
         $course = Course::findOrFail($course_id);
-        $contents = array_column($course->contents->toArray(), 'id');
+        $contents = array_column(
+            $course->contents()->orderBy('sort')->get()->toArray(),
+            'id'
+        );
 
-        if (! $course->users()->where('user_id', $user_id)->exists()) {
+        foreach ($course->contents()->orderBy('sort')->get() as $sort => $content) {
             $course->users()->attach(User::find($user_id), [
-                'previous' => null,
-                'current' => $course->contents->first() ? $course->contents->first()->id : null,
-                'next' => $course->contents->first()->next ? $course->contents->first()->next->id : null,
-                'status' => 1,
+                'content_id' => $content->id,
+                'current' => $sort == 0,
+                'previous' => $sort < 0,
+                'next' => $sort > 0,
+                'status' => $sort == 0 ? 'current' : 'pending',
             ]);
-
-            foreach ($course->contents as $sort => $content) {
-                $status = $sort == 0 ? 'current' : null;
-                Status::updateOrCreate([
-                    'course_id' => $course->id,
-                    'content_id' => $content->id,
-                    'user_id' => $user_id,
-                ], ['status' => $status]);
-            }
         }
+        // if (! $course->users()->where('user_id', $user_id)->exists()) {
+        //     $course->users()->attach(User::find($user_id), [
+        //         'current' => $course->contents->first() ? $course->contents->first()->id : null,
+        //         'next' => $course->contents->first()->next ? $course->contents->first()->next->id : null,
+        //         'status' => 1,
+        //     ]);
+
+        //     foreach ($course->contents as $sort => $content) {
+        //         $status = $sort == 0 ? 'current' : null;
+        //         Status::updateOrCreate([
+        //             'course_id' => $course->id,
+        //             'content_id' => $content->id,
+        //             'user_id' => $user_id,
+        //         ], ['status' => $status]);
+        //     }
+        // }
 
         return redirect()->route('courses.enrolled.show', $course->slug);
     }

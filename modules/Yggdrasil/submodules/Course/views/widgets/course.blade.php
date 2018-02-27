@@ -1,4 +1,4 @@
-@viewable(widgets('course'))
+@viewable('course')
     <draggable
         class="sortable-container"
         :options="{animation: 150, handle: '.sortable-handle', group: 'widgets', draggable: '.draggable-widget', forceFallback: true}"

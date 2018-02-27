@@ -49,8 +49,9 @@
                   md3
                   lg2
                 >
-                  <v-card role="button" @click="prop.selected = true">
-                    <v-card-media class="accent" height="200px" :src="props.item.src"></v-card-media>
+                  <v-card role="button">
+                    <v-card-media class="accent" height="180px" :src="props.item.src"></v-card-media>
+                    <v-btn @click="select(props.item)">Click</v-btn>
                   </v-card>
                 </v-flex>
               </v-data-iterator>
@@ -74,10 +75,15 @@ export default {
   props: {
     icon: { default: 'landscape' },
     title: { default: 'Media Manager' },
+    multiple: { default: false },
     url: {}
+  },
+  model: {
+    prop: 'selected'
   },
   data () {
     return {
+      selected: null,
       media: {
         box: {
           model: false
@@ -107,6 +113,18 @@ export default {
           rowsPerPageItems: 4
         }
       }
+    }
+  },
+  methods: {
+    select (item) {
+      if (this.multiple) {
+        this.selected.push(item)
+      } else {
+        this.selected = item
+        this.media.box.model = !this.media.box.model
+      }
+      console.log(this.selected)
+      this.media.selected = item
     }
   }
 }

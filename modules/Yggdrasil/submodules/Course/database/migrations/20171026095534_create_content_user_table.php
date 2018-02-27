@@ -26,12 +26,16 @@ class CreateContentUserTable extends Migration
         }
 
         $this->schema->create($this->tablename, function (Blueprint $table) {
-            // $table->increments('id');
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('content_id')->unsigned();
+            $table->integer('course_id')->unsigned();
+            $table->string('status')->nullable();
             $table->timestamps();
 
-            // $table->
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('content_id')->references('id')->on('contents');
+            $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 

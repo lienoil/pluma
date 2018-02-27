@@ -1,4 +1,4 @@
-@viewable(widgets('glance'))
+@viewable('glance')
 
     @if (view()->exists("Theme::widgets.glance-" . user()->roles->first()->code))
         {{-- expr --}}

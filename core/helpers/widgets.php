@@ -57,7 +57,7 @@ if (! function_exists('widgets')) {
     }
 }
 
-if (! function_exists('get_widgets_raw')) {
+if (! function_exists('get_raw_widgets')) {
     /**
      * Get all widgets from file.
      *

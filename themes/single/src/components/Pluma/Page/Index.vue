@@ -41,7 +41,7 @@
     </v-toolbar>
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
-        <v-flex sm12>
+        <v-flex xs12 sm12>
           <v-card>
             <v-toolbar color="primary" card dark>
               <v-text-field
@@ -103,14 +103,14 @@
                             <v-list-tile-title>Edit Page</v-list-tile-title>
                           </v-list-tile-content>
                         </v-list-tile>
-                        <!-- <v-list-tile ripple exact :to="{name: 'pages.destroy', params: {page: props.item.id}}">
+                        <v-list-tile ripple exact @click="destroy(props.item.id)">
                           <v-list-tile-action>
                             <v-icon color="warning">delete</v-icon>
                           </v-list-tile-action>
                           <v-list-tile-content>
                             <v-list-tile-title>Move to Trash</v-list-tile-title>
                           </v-list-tile-content>
-                        </v-list-tile> -->
+                        </v-list-tile>
                       </v-list>
                     </v-menu>
                   </td>
@@ -204,6 +204,13 @@ export default {
           this.dataset.items = response.data.data
           this.dataset.pagination.totalItems = response.data.total
           this.dataset.loading = false
+        })
+    },
+    destroy (id) {
+      this.$http.delete('/api/v1/pages/' + id + '/destroy')
+        .then(response => {
+          console.log(response)
+          this.dataset.items.splice(id)
         })
     }
   },

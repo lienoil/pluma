@@ -46,6 +46,7 @@ class Kernel extends HttpKernel
             \Pluma\Middleware\CORS::class,
             \Pluma\Middleware\EncryptCookies::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
+            \Pluma\Middleware\CORS::class,
         ],
     ];
 
