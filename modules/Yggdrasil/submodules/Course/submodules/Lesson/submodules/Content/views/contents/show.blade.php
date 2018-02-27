@@ -64,7 +64,7 @@
                                         <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
                                         <v-card-actions class="pa-0">
                                             <v-spacer></v-spacer>
-                                            <v-btn dark class="secondary" ripple href="{{ $resource->previous }}"><v-icon left>arrow_back</v-icon>{{ __('Go to Previous') }}</v-btn>
+                                            <v-btn dark class="secondary" ripple href="{{ $resource->playing }}"><v-icon left>arrow_back</v-icon>{{ __('Go to Current Lesson') }}</v-btn>
                                             <v-spacer></v-spacer>
                                         </v-card-actions>
                                         <v-spacer></v-spacer>
@@ -134,7 +134,7 @@
                             </v-card-text>
                             <v-card-actions>
                                 <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
-                                <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"><strong>{{ $resource->course->title }}</strong></p>
+                                <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }} <a target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a></p>
                             </v-card-actions>
                         </v-card>
                         {{-- Description --}}
@@ -321,6 +321,22 @@
 
                         get () {
                             window.API.on('BeforeInitialize', function (cache) {
+                                window.onload = function () {
+                                    var interactiveType = document.querySelector('.interactive-content').getAttribute('data-type');
+                                    if (interactiveType.match('image.*')) {
+                                        window.API.LMSSetValue("cmi.core.lesson_status", 'completed');
+                                        window.API.Cache().set("cmi.core.lesson_status", 'completed');
+                                        let cache = JSON.parse(JSON.stringify(window.API.Cache().get()));
+                                        self.$http.post(window.API.options.COMMIT, cache).then(response => {
+                                            if (response.status === 200) {
+                                                window.API.LMSFinish('');
+                                                return "true";
+                                            }
+                                            return response.bodyText;
+                                        });
+                                    }
+                                }
+
                                 // Start getting the initial values from the LMS.
                                 // This is done in the custom (non-SCORM) function BeforeInitialize, because the request
                                 // is asynchronous.
@@ -355,11 +371,10 @@
                             });
 
                             window.API.on('LMSGetValue', function (varname, cache) {
-                                // console.log("CACHED-----", JSON.parse(JSON.stringify(cache)));
                             });
 
                             window.API.on('LMSCommit', function (string, cache, query) {
-                                console.log("Commit", JSON.parse(JSON.stringify(cache)));
+                                alert('committed')
                                 setTimeout(function () {
                                     self.$http.post(window.API.options.COMMIT, cache).then(response => {
                                         if (response.status === 200) {
@@ -372,6 +387,7 @@
 
                             window.API.on('LMSFinish', function (string, cache, query) {
                                 self.$http.post(window.API.options.FINISH, {_token: '{{ csrf_token() }}'}).then(response => {
+                                    alert('asd');
                                     self.drawer.items = response.body;
                                     for (var i = self.drawer.items.length - 1; i >= 0; i--) {
                                         let current  = self.drawer.items[i];
@@ -395,13 +411,11 @@
                         listen () {
                         //     window.API.on('LMSFinish', function() {
                         //         // window.API.LMSGetValue("");
-                        //         console.log('[LMS]', "Finished")
 
                         //         return "true";
                         //     });
 
                         //     window.API.on("LMSGetValue", function (cmiElement) {
-                        //         console.log('[LMS]', "GetValue")
                         //         console.info(cmiElement);
                         //         // ret =
                         //         // return ret;
@@ -432,7 +446,6 @@
                     }
                 },
                 'window.API.done': function (value) {
-                    console.log('value', value);
                 }
 
             }

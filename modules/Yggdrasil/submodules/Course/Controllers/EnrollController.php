@@ -73,36 +73,18 @@ class EnrollController extends AdminController
     public function enroll(Request $request, $course_id, $user_id)
     {
         $course = Course::findOrFail($course_id);
-        $contents = array_column(
-            $course->contents()->orderBy('sort')->get()->toArray(),
-            'id'
-        );
+        // $contents = array_column(
+        //     $course->contents()->orderBy('sort')->get()->toArray(),
+        //     'id'
+        // );
 
+        $course->users()->attach(User::find($user_id));
         foreach ($course->contents()->orderBy('sort')->get() as $sort => $content) {
-            $course->users()->attach(User::find($user_id), [
-                'content_id' => $content->id,
-                'current' => $sort == 0,
-                'previous' => $sort < 0,
-                'next' => $sort > 0,
+            $content->users()->attach(User::find($user_id), [
+                'course_id' => $course->id,
                 'status' => $sort == 0 ? 'current' : 'pending',
             ]);
         }
-        // if (! $course->users()->where('user_id', $user_id)->exists()) {
-        //     $course->users()->attach(User::find($user_id), [
-        //         'current' => $course->contents->first() ? $course->contents->first()->id : null,
-        //         'next' => $course->contents->first()->next ? $course->contents->first()->next->id : null,
-        //         'status' => 1,
-        //     ]);
-
-        //     foreach ($course->contents as $sort => $content) {
-        //         $status = $sort == 0 ? 'current' : null;
-        //         Status::updateOrCreate([
-        //             'course_id' => $course->id,
-        //             'content_id' => $content->id,
-        //             'user_id' => $user_id,
-        //         ], ['status' => $status]);
-        //     }
-        // }
 
         return redirect()->route('courses.enrolled.show', $course->slug);
     }

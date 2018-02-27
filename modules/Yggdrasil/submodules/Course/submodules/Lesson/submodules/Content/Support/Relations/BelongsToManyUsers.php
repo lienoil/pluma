@@ -1,6 +1,6 @@
 <?php
 
-namespace Course\Support\Relations;
+namespace Content\Support\Relations;
 
 use Course\Models\User;
 
@@ -14,6 +14,6 @@ trait BelongsToManyUsers
      */
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('status');
     }
 }

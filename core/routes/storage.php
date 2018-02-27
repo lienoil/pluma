@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
  */
 
 Route::get('storage/{file?}', function ($file = '/') {
-    $path = storage_path($file);
+    $path = storage_path(urldecode($file));
     $extension = File::extension($path);
 
     if (in_array($extension, config('download.restricted', []))) {

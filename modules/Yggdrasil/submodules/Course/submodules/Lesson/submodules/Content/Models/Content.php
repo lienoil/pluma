@@ -3,6 +3,7 @@
 namespace Content\Models;
 
 use Comment\Support\Relations\MorphManyComments;
+use Content\Support\Relations\BelongsToManyUsers;
 use Content\Support\Traits\ContentMutator;
 use Course\Support\Traits\Status;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,6 +18,7 @@ class Content extends Model
         HasCourseThroughLesson,
         BelongsToLibrary,
         ContentMutator,
+        BelongsToManyUsers,
         MorphManyComments;
 
     protected $with = ['library', 'lesson'];

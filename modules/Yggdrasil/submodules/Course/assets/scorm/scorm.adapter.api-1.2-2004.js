@@ -74,6 +74,8 @@ let scormAPI = {
 
     this.misc.debug(true, "BeforeInitialize Event", 'will be dispatched.');
 
+    this.misc.style();
+
     window.dispatchEvent(event);
   },
 
@@ -148,6 +150,12 @@ let scormAPI = {
   },
 
   LMSFinish (dummyString) {
+    let event2 = new CustomEvent('CourseEnded', { detail: {dummyString: dummyString} });
+    window.dispatchEvent(event2);
+
+    let event = new CustomEvent('LMSFinish', { detail: {dummyString: dummyString} });
+    window.dispatchEvent(event);
+
     if (this.flags().get('finished')) {
       // already finished - prevent repeat call
       this.misc.debug(true, "[LMSFinish]", "-----------");
@@ -160,11 +168,7 @@ let scormAPI = {
 
     // Commit values
     scormAPI.LMSCommit(''); // commit the cached values to database.
-    let event2 = new CustomEvent('CourseEnded', { detail: {dummyString: dummyString} });
-    window.dispatchEvent(event2);
 
-    let event = new CustomEvent('LMSFinish', { detail: {dummyString: dummyString} });
-    window.dispatchEvent(event);
     // It's done.
     this.flags().set('finished', true);
     this.misc.debug(true, "[LMSFinish]", "-----------");
@@ -309,7 +313,7 @@ let scormAPI = {
       },
 
       get (key) {
-        return self.flags[key];
+        return self.flags()[key];
       },
     };
   },
@@ -325,6 +329,7 @@ let scormAPI = {
       if (interactive) {
         var height = interactive.offsetWidth*9/16; // 16:9 aspect ratio
         interactive.setAttribute('height', height+'px');
+        interactive.style.height = height + 'px';
       }
 
       window.onresize = function (e) {

@@ -193,17 +193,20 @@ class ScormvarController extends APIController
     public function LMSCommit(Request $request, $course_id, $content_id)
     {
         try {
-            if (! Content::find($content_id)->completed) {
+            if (! Content::find($content_id)->completed && $content = Content::find($content_id)) {
+                $user_id = $request->input('user_id') ? $request->input('user_id') : user()->id;
                 foreach ($request->except('_token') as $varname => $value) {
                     $scormvar = Scormvar::updateOrCreate([
                         'course_id' => $course_id,
                         'content_id' => $content_id,
-                        'user_id' => $request->input('user_id') ? $request->input('user_id') : user()->id,
+                        'user_id' => $user_id,
                         'name' => $varname,
                     ], [
                         'val' => $value
                     ]);
                 }
+
+                $this->unlock($request, $course_id, $content_id, $scormvar->val);
             }
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 200);
@@ -241,26 +244,11 @@ class ScormvarController extends APIController
      */
     public function unlock(Request $request, $course_id, $content_id, $status)
     {
-        $content = Content::find($content_id);
-        $state = Status::firstOrNew([
-                    'course_id' => $course_id,
-                    'content_id' => $content_id,
-                    'user_id' => $request->input('user_id') ? $request->input('user_id') : user()->id,
-                ]);
-
-        if ($state->exists) {
-            $state->status = $status;
-            $state->save();
-
-            if ($content->next && $status !== 'incomplete') {
-                Status::updateOrCreate([
-                        'course_id' => $course_id,
-                        'content_id' => $content->next->id,
-                        'user_id' => $request->input('user_id') ? $request->input('user_id') : user()->id,
-                    ], ['status' => 'current']);
-            }
+        if ($request->get($this->cmiCoreLessonStatus) == 'completed') {
+            $course = Course::find($course_id);
+            $course->commit($content_id);
         }
 
-        return response()->json($content->lesson->contents);
+        return response()->json($course->id);
     }
 }

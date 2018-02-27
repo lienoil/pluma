@@ -35,7 +35,7 @@ trait EnrolledUserMutator
     public function getEnrolledAttribute()
     {
         return isset(user()->id)
-                ? User::find(user()->id)->courses()->where('courses.id', $this->id)->exists()
+                ? $this->users()->where('user_id', user()->id)->exists()
                 : false;
     }
 
