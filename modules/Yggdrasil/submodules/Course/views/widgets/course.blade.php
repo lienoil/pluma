@@ -34,27 +34,42 @@
                         </v-list>
                     </v-menu>
                 </v-toolbar>
-                <v-card-media v-show="!hidecourse" src="{{ assets('frontier/images/placeholder/gradient.png') }}" height="100%">
-                    <v-card-text>
-                        <div class="text-xs-center mb-4">
-                            <v-avatar class="mb-3" size="80px">
-                                <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">
-                            </v-avatar>
-                            <p class="body-1 white--text page-title mb-1">Solve Problems and Make Decisions at Supervisory Level</p>
-                        </div>
-                    </v-card-text>
-                </v-card-media>
-                <v-card-text>
-                    <p class="body-2 page-title mb-1"><strong>Performance Statement 1:</strong></p>
-                    <h2 class="body-2 page-title"><strong>Introduction</strong></h2>
-                    <p class="body-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum odio labore placeat fuga obcaecati delectus impedit quam dolores minima autem ut cum, eos, tempora esse quod. Deserunt porro, magnam soluta.
-                    </p>
-                </v-card-text>
-                <v-card-actions class="px-3">
-                    <v-spacer></v-spacer>
-                    <v-btn flat primary>Continue</v-btn>
-                </v-card-actions>
+
+                <v-divider></v-divider>
+                {{-- list of courses --}}
+                <v-list two-line subheader v-show="!hidecourse">
+                    <v-subheader>Folders</v-subheader>
+                    <v-list-tile avatar @click="" :ripple="{ class: 'primary--text' }">
+                        <v-list-tile-avatar>
+                            <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ __('Performance Statement 1: Introduction') }}</v-list-tile-title>
+                            <v-list-tile-sub-title>{{ __('Solve Problems and Make Decisions at Supervisory Level') }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            <v-btn icon ripple v-tooltip:left="{ html: 'Details' }">
+                                <v-icon class="grey--text text--lighten-1">info</v-icon>
+                            </v-btn>
+                        </v-list-tile-action>
+                    </v-list-tile>
+                    <v-divider inset></v-divider>
+                    <v-list-tile avatar @click="" :ripple="{ class: 'primary--text' }">
+                        <v-list-tile-avatar>
+                            <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ __('Performance Statement 3: Animation') }}</v-list-tile-title>
+                            <v-list-tile-sub-title>{{ __('Develop Personal Effectiveness at Supervisory Level') }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            <v-btn icon ripple v-tooltip:left="{ html: 'Details' }">
+                                <v-icon class="grey--text text--lighten-1">info</v-icon>
+                            </v-btn>
+                        </v-list-tile-action>
+                    </v-list-tile>
+                </v-list>
+                {{-- /list of courses --}}
             </v-card>
         </v-slide-y-transition>
     </draggable>

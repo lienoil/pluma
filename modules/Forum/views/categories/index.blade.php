@@ -6,7 +6,7 @@
         @include("Theme::partials.banner")
 
         <v-layout row wrap>
-            <v-flex sm3>
+            <v-flex sm3 xs12>
                 <form action="{{ route('forums.categories.store', 'forums') }}" method="POST">
                     {{ csrf_field() }}
                     <v-card class="elevation-1">
@@ -76,7 +76,7 @@
                     </v-card>
                 </form>
             </v-flex>
-            <v-flex sm9>
+            <v-flex sm9 xs12>
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar flat class="transparent">
                         <v-icon left>label</v-icon>

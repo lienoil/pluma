@@ -83,7 +83,7 @@
                         data: {
                             labels: _labels,
                             datasets: [{
-                                // label: null,
+                                // label: _labels,
                                 wrapText: true,
                                 backgroundColor: gradient,
                                 borderColor: "rgba(28, 160, 244, 1)", //blue
@@ -96,6 +96,10 @@
                         },
 
                         options: {
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false
+                            },
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
@@ -115,7 +119,7 @@
                                         display: false
                                     },
                                     ticks: {
-                                        display: false,
+                                        display: true,
                                     }
                                 }]
                             },
@@ -130,17 +134,6 @@
                                     fontSize: 18,
                                 }
                             },
-                            tooltips: {
-                              callbacks: {
-                                label: function(tooltipItem, data) {
-                                  let label = data.datasets[tooltipItem.datasetIndex].label;
-                                  let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                                  return label + ': ' + value;
-                                },
-                                footer: function(tooltipItems, data) {
-                                }
-                              }
-                            }
                         }
                     });
                 },
