@@ -2,18 +2,16 @@
 
 return [
     /**
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Tests Menus
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Specify here the menus to appear on the sidebar.
      *
      */
     'test' => [
         'name' => 'test',
-        'order' => 100,
+        'order' => 51,
         'slug' => route('tests.index'),
-        'router' => 'index',
-        'routername' => 'tests',
         'always_viewable' => false,
         'icon' => 'developer_mode',
         'labels' => [
@@ -21,12 +19,10 @@ return [
             'description' => __('Manage tests'),
         ],
         'children' => [
-            'index-tests' => [
-                'name' => 'index-tests',
+            'view-test' => [
+                'name' => 'view-test',
                 'order' => 1,
                 'slug' => route('tests.index'),
-                'router' => 'index',
-                'routername' => 'tests',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All Tests'),
@@ -37,26 +33,22 @@ return [
                 'name' => 'create-test',
                 'order' => 2,
                 'slug' => route('tests.create'),
-                'router' => 'create',
-                'routername' => 'tests',
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Add New Test'),
+                    'title' => __('Create Test'),
                     'description' => __('Create a Test'),
                 ],
             ],
-            'trashed-tests' => [
-                'name' => 'trashed-tests',
-                'order' => 3,
-                'slug' => route('tests.trashed'),
-                'router' => 'trashed',
-                'routername' => 'tests',
-                'always_viewable' => false,
-                'labels' => [
-                    'title' => __('Trashed Tests'),
-                    'description' => __('View list of all tests moved to trashed'),
-                ],
-            ],
+            // 'trash-test' => [
+            //     'name' => 'trash-test',
+            //     'order' => 3,
+            //     'slug' => route('tests.trash'),
+            //     'always_viewable' => false,
+            //     'labels' => [
+            //         'title' => __('Trashed Tests'),
+            //         'description' => __('View list of all tests moved to trash'),
+            //     ],
+            // ],
         ],
     ],
 ];

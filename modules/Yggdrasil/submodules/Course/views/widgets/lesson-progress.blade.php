@@ -26,7 +26,7 @@
 </v-card> --}}
 
 {{-- @viewable(widgets('course-progress')) --}}
-    <v-card class="elevation-1">
+    <v-card class="elevation-1 mb-3">
         <v-toolbar card class="transparent">
             <v-toolbar-title class="page-title subheading accent--text">{{ __('Your Progress') }}</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -52,8 +52,8 @@
                 >
                     <span>{{ __('00%') }}</span>
                 </v-progress-circular>
-                <div class="body-1 grey--text">{{ __('Login to view your progress.') }}</div>
-                <v-btn flat primary href="{{ route('login.show', ['redirect_to' => route('courses.show', $resource->slug)]) }}">{{ __('Login') }}</v-btn>
+                {{-- <div class="body-1 grey--text">{{ __('Login to view your progress.') }}</div> --}}
+                {{-- <v-btn flat primary href="{{ route('login.show', ['redirect_to' => route('courses.show', $resource->slug)]) }}">{{ __('Login') }}</v-btn> --}}
             @endif
             <v-spacer></v-spacer>
         </v-card-text>

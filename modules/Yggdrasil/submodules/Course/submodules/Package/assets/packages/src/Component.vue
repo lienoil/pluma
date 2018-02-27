@@ -1,6 +1,6 @@
 <template>
 <div>
-<v-toolbar dark class="light-blue elevation-1">
+<v-toolbar dark class="secondary elevation-1">
     <v-toolbar-title v-html="title"></v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn icon ripple :class="bulk.upload.model ? 'btn--active primary' : ''" @click="bulk.upload.model = !bulk.upload.model" v-model="bulk.upload.model"><v-icon>cloud_upload</v-icon></v-btn>

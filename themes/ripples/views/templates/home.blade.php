@@ -38,24 +38,34 @@ Version: 1.0
         {{-- /main menu --}}
 
         {{-- banner-content --}}
-        <div class="insert-overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+        {{-- <div class="overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
         <v-card flat class="transparent threejs-section">
 
-            <v-layout row wrap justify-center align-center>
+            <v-layout row wrap align-center justify-center>
                 <v-flex md10 xs12>
-                    <v-layout row wrap justify-center align-center>
+                    <v-layout row wrap align-center justify-center>
                         <v-flex sm6 xs12>
-                            <v-card flat class="transparent">
+                            <v-card flat class="transparent" data-aos="fade-right">
                                 <v-card-text class="white--text">
-                                    <h2 class="page-title display-3"><strong>{{ $application->site->title }}</strong></h2>
-                                    <h4 class="page-title headline">{!! $page->body !!}</h4>
+                                    <h2 class="page-title display-3"><strong>{{ __('The Rippl3s Effect') }}</strong></h2>
+                                    <ul class="page-title headline">
+                                        <li>{{ __('Portable and convenient') }}</li>
+                                        <li>{{ __('System tailored for maximum results') }}</li>
+                                        <li>{{ __('Organised analytics tools to track progress') }}</li>
+                                    </ul>
+                                </v-card-text>
+                                <v-card-text>
+                                    <h2 class="white--text page-title headline">
+                                        {{ __('Already using Rippl3s? ') }}
+                                    </h2>
+                                    <v-btn round round outline large class="px-4 elevation-1 white--text">Sign in here</v-btn>
                                 </v-card-text>
                             </v-card>
                         </v-flex>
 
                         <v-flex sm6 xs12>
-                            <v-card flat class="transparent">
-                                <img src="{{ assets('frontier/images/placeholder/iso/iso-video.svg') }}" alt="" width="100%">
+                            <v-card flat class="transparent" data-aos="fade-left">
+                                <img src="{{ assets('frontier/images/placeholder/iso/cityillustration.png') }}" alt="" width="100%">
                             </v-card>
                         </v-flex>
                     </v-layout>
@@ -67,42 +77,103 @@ Version: 1.0
     {{-- /banner --}}
 
     {{-- divider --}}
+    <v-card flat height="100px"></v-card>
+    {{-- /divider --}}
+
+    <template id="webdash">
+        <div class="white">
+            <v-layout row wrap justify-center align-center>
+                <v-flex md9 xs12>
+                    <v-card flat class="text-xs-center">
+                        <v-card-text>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-2"><strong>Explore the Infinite Possibilities</strong></h2>
+                            <p class="headline page-title">We create learning paths where you are at the centre of the experience, tailored specifically to suit your needs.</em></p>
+                        </v-card-text>
+                    </v-card>
+
+                    {{-- divider --}}
+                    <v-card flat height="100px"></v-card>
+                    {{-- /divider --}}
+
+                    <v-layout row wrap justify-center align-center>
+                        <v-flex md7 xs12>
+                            <v-card flat data-aos="fade-right">
+                                <v-card-text>
+                                    <img src="{{ assets('frontier/images/placeholder/iso/webdash.png') }}" width="100%" style="max-width: 500px;">
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+                        <v-flex md5 xs12>
+                            <v-card flat>
+                                <v-card-text>
+                                    <v-card-actions class="pa-0">
+                                        <v-avatar size="40px" class="elevation-5">
+                                            <v-icon class="blue-grey--text">format_color_fill</v-icon>
+                                        </v-avatar>
+                                        <v-card flat>
+                                            <v-card-text>
+                                                <h2 class="title page-title">Customizable Profiles</h2>
+                                                <p class="subheading page-title grey--text text--darken-1">Build customizable profiles of your account</p>
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-card-actions>
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions class="mt-3 pa-0">
+                                        <v-avatar size="40px" class="elevation-5">
+                                            <v-icon class="blue-grey--text">search</v-icon>
+                                        </v-avatar>
+                                        <v-card flat>
+                                            <v-card-text>
+                                                <h2 class="title page-title">Search</h2>
+                                                <p class="subheading page-title grey--text text--darken-1">Search and filter amongst all user and courses</p>
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-card-actions>
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions class="mt-3 pa-0">
+                                        <v-avatar size="40px" class="elevation-5">
+                                            <v-icon class="blue-grey--text">account_circle</v-icon>
+                                        </v-avatar>
+                                        <v-card flat>
+                                            <v-card-text>
+                                                <h2 class="title page-title">User Profiles</h2>
+                                                <p class="subheading page-title grey--text text--darken-1">Manually create your own user profiles</p>
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-card-actions>
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
+            </v-layout>
+        </div>
+    </template>
+
+    {{-- divider --}}
     <v-card flat height="200px"></v-card>
     {{-- /divider --}}
 
     <template id="why-us">
         <div class="white">
-            <v-layout row wrap justify-right align-center>
+            <v-layout row wrap justify-right align-center justify-space-between>
                 <v-flex md5 offset-md1 xs12>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Why Us</strong></h2>
-                            <v-card-actions>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/computer.png') }}" alt="" width="100%">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
-
-                            <v-card-actions>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/laptop.png') }}" alt="">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>Why Rippl3s</strong></h2>
+                            <h2 class="title page-title">{{ __('It’s an engaging learning experience right at your fingertips') }}</h2>
+                            <p class="subheading page-title">{{ __('Through our focused responsive portal where technology and curriculum work seamlessly together, we deliver convenience on different devices, thus cutting down your learning time and keeping track of your milestones without having to leave the comforts of your home.') }}</p>
                         </v-card-text>
                     </v-card>
                 </v-flex>
 
                 <v-flex md6 xs12>
-                    <v-card flat>
-                        <img src="{{ assets('frontier/images/placeholder/iso/7.png') }}" width="100%">
+                    <v-card flat data-aos="fade-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/people-hero2@2x.png') }}" width="100%">
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -117,34 +188,17 @@ Version: 1.0
         <div class="white">
             <v-layout row wrap justify-left align-center>
                 <v-flex md6 xs12 order-sm2 order-md1>
-                    <v-card flat class="mb-3">
-                        <img src="{{ assets('frontier/images/placeholder/iso/5.png') }}" width="100%">
+                    <v-card flat class="mb-3" data-aos="fade-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/engagement.png') }}" width="100%">
                     </v-card>
                 </v-flex>
 
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>How it works</strong></h2>
-                            <v-card-actions>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/networking.png') }}" alt="">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
-
-                            <v-card-actions>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/user.png') }}" alt="">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>How it works</strong></h2>
+                            <h2 class="title page-title">Far far away, behind the word mountains</h2>
+                            <p class="subheading page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -156,11 +210,30 @@ Version: 1.0
     <v-card flat height="200px"></v-card>
     {{-- /divider --}}
 
-    {{-- full-width threejs --}}
-    <div id="threejs-width">
+    {{-- full-width gradient --}}
+    <div id="full-width">
+        <v-card flat class="transparent" height="100px"></v-card>
 
+        <v-layout row wrap justify-center align-center>
+            <v-flex md8 xs12>
+                <v-card flat class="text-xs-center white--text transparent">
+                    <v-card-text>
+                        <h2 class="display-2 page-title"><strong>Feedback/Affiliations</strong></h2>
+                        <p class="headline page-title">
+                            Our goal is to bring personalised and adaptive learning experience to people. Here are some of our learners’ success stories.
+                        </p>
+                    </v-card-text>
+                    <v-card-text data-aos="zoom-in-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/image-table.png') }}" width="300" alt="">
+                        <img src="{{ assets('frontier/images/placeholder/iso/img05.png') }}" width="300" alt="">
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+
+        <v-card flat class="transparent" height="100px"></v-card>
     </div>
-    {{-- /full-width threejs --}}
+    {{-- /full-width gradient --}}
 
     {{-- divider --}}
     <v-card flat height="200px"></v-card>
@@ -172,33 +245,16 @@ Version: 1.0
                 <v-flex md5 offset-md1 xs12>
                     <v-card flat>
                         <v-card-text>
-                            <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Pricing</strong></h2>
-                            <v-card-actions>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/bar-chart.png') }}" alt="" width="100%">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
-
-                            <v-card-actions>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/directions.png') }}" alt="">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>Pricing</strong></h2>
+                            <h2 class="title page-title">Far far away, behind the word mountains</h2>
+                            <p class="subheading page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
                         </v-card-text>
                     </v-card>
                 </v-flex>
 
                 <v-flex md6 xs12>
-                    <v-card flat>
-                        <img src="{{ assets('frontier/images/placeholder/section-3.jpg') }}" width="100%">
+                    <v-card flat data-aos="fade-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/ship.png') }}" width="100%">
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -213,34 +269,17 @@ Version: 1.0
         <div class="white">
             <v-layout row wrap justify-left align-center>
                 <v-flex md6 xs12 order-sm2 order-md1>
-                    <v-card flat class="mb-3">
-                        <img src="{{ assets('frontier/images/placeholder/section-4.jpg') }}" width="100%">
+                    <v-card flat class="mb-3" data-aos="fade-up">
+                        <img src="{{ assets('frontier/images/placeholder/iso/laptopIllustration.png') }}" width="100%">
                     </v-card>
                 </v-flex>
 
                 <v-flex md5 offset-md1 xs12 order-sm1 order-md2>
                     <v-card flat>
                         <v-card-text>
-                            <v-card-actions>
-                                <h2 class="page-title display-2 blue-grey--text text--lighten-4"><strong>Try Now</strong></h2>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/pie-chart.png') }}" alt="">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
-
-                            <v-card-actions>
-                                <v-avatar size="40px" tile class="mr-4">
-                                    <img src="{{ assets('frontier/images/placeholder/home/worldwide.png') }}" alt="">
-                                </v-avatar>
-                                <v-card-text>
-                                    <p><strong>Far far away, behind the word mountains</strong></p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
-                                </v-card-text>
-                            </v-card-actions>
+                            <h2 class="page-title display-2 blue-grey--text text--lighten-3 pb-4"><strong>Try Now</strong></h2>
+                            <h2 class="title page-title">Far far away, behind the word mountains</h2>
+                            <p class="subheading page-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis deserunt, aut, ratione vitae natus sunt voluptas dolorum.</p>
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -253,7 +292,7 @@ Version: 1.0
     {{-- /divider --}}
 
     <template id="footer">
-        <v-card flat style="background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82));">
+        <v-card flat style="background: linear-gradient(135deg, #003073, #029797);">
             <v-layout row wrap justify-center align-center>
                 <v-flex md8 xs12>
                     <v-card flat class="transparent text-xs-center py-5">
@@ -263,10 +302,10 @@ Version: 1.0
                             </h2>
                             <p class="white--text page-title"><em>..from wherever you are, to whenever you want to.</em></p>
 
-                            <v-btn round large class="elevation-1 px-4" primary>Sign up now</v-btn>
+                            <v-btn round large outline class="elevation-1 px-4 white--text">Sign up now</v-btn>
                         </v-card-text>
                     </v-card>
-                    <v-divider class="grey"></v-divider>
+                    <v-divider class="white"></v-divider>
                     <v-card flat class="transparent py-3">
                         <v-layout row wrap justify-center align-center>
                             <v-flex md6 xs12>
@@ -275,7 +314,7 @@ Version: 1.0
                                         <img src="{{ $application->site->logo }}" alt="">
                                     </v-avatar>
                                     <v-card-text class="caption">
-                                        <p class="mb-1 grey--text"> Copyright &copy; 2018 Rippl3s. All rights reserved.</p>
+                                        <p class="mb-1 white--text"> Copyright &copy; 2018 Rippl3s. All rights reserved.</p>
                                         <span><a class="white--text td-n" href="">Privacy Policy</a></span>
                                     </v-card-text>
                                 </v-card-actions>
@@ -295,39 +334,57 @@ Version: 1.0
             </v-layout>
         </v-card>
     </template>
+
+    @include("Template::widgets.home")
 @endsection
 
 @push('css')
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <style>
         #banner {
             position: relative !important;
             height: 100vh !important;
-            background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;
+            width: 100% !important;
+            /*background: linear-gradient(45deg, rgb(2, 136, 209) 0%, rgb(38, 198, 218) 100%) !important;*/
+            /*background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;*/
+
+            background: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0, #003073), color-stop(100%, #029797));
+            background: -webkit-linear-gradient(135deg, #003073, #029797);
+            background: -moz-linear-gradient(45deg, #003073, #029797);
+            background: -ms-linear-gradient(45deg, #003073 0, #029797 100%);
+            background: -o-linear-gradient(45deg, #003073, #029797);
+            background: linear-gradient(135deg, #003073, #029797);
+
+            box-shadow: 0 1px 3px rgba(0,0,0,.2),0 1px 1px rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12)!important;
         }
         .threejs-section {
-            /*position: absolute !important;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);*/
             position: absolute !important;
             top: 50%;
             transform: translateY(-50%);
+            width: 100%;
+            height: 100%;
         }
         #home-menu {
             position: absolute !important;
             z-index: 100;
         }
-        .js-section {
-            background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;
+        #full-width {
+            /*background: linear-gradient(159deg,#512dcf 31%,#10a3d5 100%) #512dcf;*/
+            /*background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82));*/
+            background: linear-gradient(159deg,#9C27B0 31%,#2196F3 100%);
+        }
+        #footer {
+            background: linear-gradient(135deg, #003073, #029797);
         }
     </style>
 @endpush
 
 @push('js')
     <script src="{{ assets('frontier/threejs/build/three.min.js') }}"></script>
-
     <script src="{{ assets('frontier/threejs/examples/js/renderers/Projector.js') }}"></script>
     <script src="{{ assets('frontier/threejs/examples/js/renderers/CanvasRenderer.js') }}"></script>
+
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
 
     <script>
         var mouseX = 0, mouseY = 0,
@@ -364,8 +421,6 @@ Version: 1.0
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize( window.innerWidth, window.innerHeight );
             container.appendChild( renderer.domElement );
-            // renderer = new THREE.CanvasRenderer({ alpha: true });
-            // renderer = new THREE.CanvasRenderer();
             renderer.setClearColor( 0xffffff, 0 );
 
             // particles
@@ -403,10 +458,10 @@ Version: 1.0
 
             // lines
 
-            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0x420a53, opacity: 0.5 } ) );
+            var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0x0288d1, opacity: 0.5 } ) );
             scene.add( line );
 
-            document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+            document.addEventListener( 'mouseover', onDocumentMouseMove, false );
             document.addEventListener( 'touchstart', onDocumentTouchStart, false );
             document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
@@ -481,5 +536,11 @@ Version: 1.0
 
             renderer.render( scene, camera );
         }
+
+
+        // AOS Animation
+        AOS.init({
+            duration: 1200,
+        })
     </script>
 @endpush

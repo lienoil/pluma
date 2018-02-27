@@ -153,7 +153,27 @@
                             </v-toolbar>
                             <v-divider></v-divider>
                             <v-list class="mb-3">
-                                <v-list-tile
+                                @foreach ($resource->lesson->contents as $content)
+                                    <v-list-tile
+                                        href="{{ $content->url }}"
+                                        {{-- :class="{'white--text': (resource.id == item.id)}" --}}
+                                        ripple
+                                    >
+                                        <v-list-tile-action>
+                                            @if ($content->completed)
+                                                <v-icon left>check</v-icon>
+                                            @elseif ($content->current)
+                                                <v-icon left>play_circle_outline</v-icon>
+                                            @else
+                                                <v-icon left>lock</v-icon>
+                                            @endif
+                                        </v-list-tile-action>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>{{ $content->title }}</v-list-tile-title>
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                @endforeach
+                                {{-- <v-list-tile
                                     :href="item.url"
                                     :key="i"
                                     ripple
@@ -168,7 +188,7 @@
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
                                     </v-list-tile-content>
-                                </v-list-tile>
+                                </v-list-tile> --}}
                             </v-list>
 
                             {{-- Assignment --}}

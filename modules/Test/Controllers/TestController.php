@@ -2,12 +2,10 @@
 
 namespace Test\Controllers;
 
-use Frontier\Controllers\GeneralController;
-use Illuminate\Http\Request;
-use Page\Models\Page;
 use Test\Models\Test;
 use Test\Requests\TestRequest;
-use User\Models\Detail;
+use Frontier\Controllers\GeneralController;
+use Illuminate\Http\Request;
 
 class TestController extends GeneralController
 {
@@ -19,7 +17,9 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
-        return view("Test::index");
+        //
+
+        return view("Theme::tests.index");
     }
 
     /**
@@ -43,8 +43,9 @@ class TestController extends GeneralController
      */
     public function create()
     {
-        $resource = \Course\Models\Course::get()->first();
-        return view("Test::tests.create")->with(compact('resource'));
+        //
+
+        return view("Theme::tests.create");
     }
 
     /**
@@ -53,20 +54,9 @@ class TestController extends GeneralController
      * @param  \Test\Requests\TestRequest  $request
      * @return Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TestRequest $request)
     {
-        // dd($request->all());
-
-        collect($request->input('details'))->each(function ($value, $key) {
-            $detail = Detail::firstOrNew(['key' => $key]);
-            $detail->key = $key;
-            $detail->value = $value;
-            user()->details()->save($detail);
-        });
-
-        // $sub new
-        // $sub->result = serialize($request->except(['_token', 'form_id']));
-        // $sub->form()->associate(Form::find());
+        //
 
         return back();
     }

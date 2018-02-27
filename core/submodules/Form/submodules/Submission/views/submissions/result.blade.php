@@ -56,9 +56,14 @@
                                 <v-card-text class="pa-4">
                                     @foreach ($resource->fields() as $field)
                                         <div class="fw-500"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
-                                        <div class="pt-2 pl-4 warning--text text--darken-1">{{ __('Answered: ') }}{{ $field->guess }}</div>
+                                        <div class="pt-3 pl-4 submission">
+                                            <span class="ans warning--text">{{ __('Answered: ') }}</span>
+                                            <span class="text grey--text text--darken-2">{{ $field->guess }}</div></span>
                                         @isset ($field->answer)
-                                            <div class="pb-2 pl-4 success--text text--darken-1">{{ __('Correct answer: ') }}{{ $field->answer }}</div>
+                                            <div class="py-3 pl-4 submission">
+                                                <span class="cor success--text">{{ __('Correct answer: ') }}</span>
+                                                <span class="text grey--text">{{ $field->answer }}</span>
+                                            </div>
                                         @endisset
                                     @endforeach
                                 </v-card-text>
@@ -81,6 +86,25 @@
         }
         .fw-500 {
             font-weight: 500 !important;
+        }
+
+        .submission .ans {
+            display: table-cell;
+            width: 10%;
+            font-size: 100%;
+            vertical-align: top;
+        }
+
+        .submission .text {
+            display: table-cell;
+            padding: 0 0 0 20px;
+        }
+
+        .submission .cor {
+            display: table-cell;
+            width: 20%;
+            font-size: 100%;
+            vertical-align: top;
         }
     </style>
 @endpush

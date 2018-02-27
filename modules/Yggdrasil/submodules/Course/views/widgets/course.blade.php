@@ -5,7 +5,7 @@
     >
         <v-slide-y-transition>
             <v-card v-show="!removecourse" transition="slide-y-transition" class="elevation-1 mb-3 draggable-widget">
-                <v-toolbar flat class="transparent">
+                <v-toolbar flat class="transparent sortable-handle">
                     <v-toolbar-title class="page-title subheading">Continue Course</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-menu bottom left>
