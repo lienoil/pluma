@@ -16,4 +16,12 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('courses/search', 'CourseController@postFind')->name('courses.search');
     Route::get('courses/{course}', 'CourseController@getShow')->name('courses.show');
     Route::delete('courses/{course}', 'CourseController@deleteDestroy')->name('courses.destroy');
+
+    //Students
+    Route::get('students/all', 'StudentController@getAll')->name('students.all');
+    Route::get('students/find', 'StudentController@postFind')->name('students.find');
+    Route::get('students/search', 'StudentController@postFind')->name('students.search');
+    Route::get('students/{sudent}', 'StudentController@getShow')->name('students.show');
+    Route::delete('students/{sudent}', 'StudentController@deleteDestroy')->name('students.destroy');
 });
+
