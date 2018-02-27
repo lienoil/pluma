@@ -28,22 +28,57 @@ return [
              * Specify here the menus to appear on the sidebar.
              *
              */
-            'profile-group' => [
-                'name' => 'profile-group',
+            // 'profile-group' => [
+            //     'name' => 'profile-group',
+            //     'slug' => route('profile.show', user()->handlename ?? ''),
+            //     'is_group_link' => true,
+            //     'always_viewable' => false,
+            //     'icon' => 'account_circle',
+            //     'labels' => [
+            //         'title' => __('My Profile'),
+            //         'description' => __('Manage your account.'),
+            //     ],
+            //     'routes' => [
+            //         'name' => 'profile.show',
+            //         'children' => [
+            //             'profile.show',
+            //             'profile.edit',
+            //         ]
+            //     ],
+            //     'children' => [
+            //         'show-profile' => [
+            //             'name' => 'show-profile',
+            //             'order' => 1,
+            //             'slug' => route('profile.show', user()->handlename ?? ''),
+            //             'route' => 'profile.show',
+            //             'always_viewable' => true,
+            //             'icon' => 'account_circle',
+            //             'routes' => [
+            //                 'name' => 'profile.show',
+            //                 'children' => [
+            //                     'profile.edit',
+            //                     'profile.show',
+            //                     'notes.show',
+            //                 ]
+            //             ],
+            //             'labels' => [
+            //                 'title' => __('My Profile'),
+            //                 'description' => __('Manage profile'),
+            //             ],
+            //         ],
+            //     ],
+            // ],
+
+            'profile-settings-group' => [
+                'name' => 'profile-settings-group',
+                'order' => 2,
                 'slug' => route('profile.show', user()->handlename ?? ''),
+                'always_viewable' => true,
                 'is_group_link' => true,
-                'always_viewable' => false,
                 'icon' => 'account_circle',
                 'labels' => [
                     'title' => __('My Profile'),
-                    'description' => __('Manage your account.'),
-                ],
-                'routes' => [
-                    'name' => 'profile.show',
-                    'children' => [
-                        'profile.show',
-                        'profile.edit',
-                    ]
+                    'description' => __('Manage profile'),
                 ],
                 'children' => [
                     'show-profile' => [
@@ -66,21 +101,6 @@ return [
                             'description' => __('Manage profile'),
                         ],
                     ],
-                ],
-            ],
-
-            'profile-settings-group' => [
-                'name' => 'profile-settings-group',
-                'order' => 2,
-                'slug' => route('credentials.edit', user()->handlename ?? ''),
-                'always_viewable' => true,
-                'is_group_link' => true,
-                'icon' => 'settings',
-                'labels' => [
-                    'title' => __('Settings'),
-                    'description' => __('Manage credentials, change password, and more'),
-                ],
-                'children' => [
                     'edit-credentials' => [
                         'name' => 'edit-credentials',
                         'order' => 1,

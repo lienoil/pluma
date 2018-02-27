@@ -33,8 +33,6 @@
         </v-list-tile>
     </v-list>
 
-    <v-divider :dark.sync="dark" :light.sync="light"></v-divider>
-
     {{-- <v-divider :dark.sync="dark" :light.sync="light"></v-divider> --}}
 
     <v-list class="transparent">
