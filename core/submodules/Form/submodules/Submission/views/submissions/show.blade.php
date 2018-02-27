@@ -41,7 +41,7 @@
             </v-flex>
             <v-flex md6 xs12>
                 <v-card class="elevation-1" height="100%">
-                    @include("Submission::widgets.results")
+                    @include("Submission::widgets.statistics")
                 </v-card>
             </v-flex>
         </v-layout>

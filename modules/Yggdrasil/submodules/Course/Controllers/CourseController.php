@@ -286,7 +286,7 @@ class CourseController extends GeneralController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function students(Request $request, $slug) 
+    public function students(Request $request, $slug)
     {
         $resource = Course::whereSlug($slug)
             ->firstOrFail();

@@ -19,9 +19,8 @@ Route::group(['prefix' => 'v1'], function () {
 
     //Students
     Route::get('students/all', 'StudentController@getAll')->name('students.all');
-    Route::get('students/find', 'StudentController@postFind')->name('students.find');
-    Route::get('students/search', 'StudentController@postFind')->name('students.search');
-    Route::get('students/{sudent}', 'StudentController@getShow')->name('students.show');
-    Route::delete('students/{sudent}', 'StudentController@deleteDestroy')->name('students.destroy');
+    // Route::get('students/find', 'StudentController@postFind')->name('students.find');
+    // Route::get('students/search', 'StudentController@postFind')->name('students.search');
+    // Route::get('students/{student}', 'StudentController@getShow')->name('students.show');
+    // Route::delete('students/{student}', 'StudentController@deleteDestroy')->name('students.destroy');
 });
-
