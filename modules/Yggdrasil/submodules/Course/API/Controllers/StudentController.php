@@ -4,7 +4,8 @@ namespace Course\API\Controllers;
 
 use Catalogue\Models\Catalogue;
 use Course\Models\Course;
-use Course\Models\Student;
+// use Course\Models\Student;
+use Course\Models\User;
 use Illuminate\Http\Request;
 use Pluma\API\Controllers\APIController;
 
@@ -24,11 +25,13 @@ class StudentController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = Student::search($search)->orderBy($sort, $order);
+        $resources = Course::search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
         $resources = $resources->get();
+
+        $resource = $resource(edit);
 
         return response()->json($resources);
     }
@@ -47,7 +50,7 @@ class StudentController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = Student::search($search)->orderBy($sort, $order);
+        $resources = User::search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
@@ -69,7 +72,7 @@ class StudentController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
 
-        $permissions = Student::search($search)->orderBy($sort, $order)->onlyTrashed()->paginate($take);
+        $permissions = Course::search($search)->orderBy($sort, $order)->onlyTrashed()->paginate($take);
 
         return response()->json($permissions);
     }
@@ -84,7 +87,7 @@ class StudentController extends APIController
     public function destroy(Request $request, $id)
     {
         try {
-            $student = Student::findOrFail($id);
+            $student = Course::findOrFail($id);
             $student->delete();
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
@@ -104,7 +107,7 @@ class StudentController extends APIController
      */
     public function restore(Request $request, $id)
     {
-        $student = Student::onlyTrashed()->findOrFail($id);
+        $student = Course::onlyTrashed()->findOrFail($id);
         $student->restore();
 
         return response()->json($this->successResponse);
@@ -118,7 +121,7 @@ class StudentController extends APIController
      */
     public function delete(Request $request, $id)
     {
-        $student = Student::withTrashed()->findOrFail($id);
+        $student = Course::withTrashed()->findOrFail($id);
         $student->forceDelete();
 
         return response()->json($this->successResponse);

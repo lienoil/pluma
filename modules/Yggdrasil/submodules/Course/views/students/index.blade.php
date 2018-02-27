@@ -12,58 +12,25 @@
                     </v-toolbar>
                     <v-card-text>
                         <v-text-field
-                            :error-messages="resource.errors.name"
                             label="{{ __('Name') }}"
                             name="name"
-                            v-model="resource.item.name"
-                            @input="resource.item.code = $options.filters.slugify(resource.item.name)"
                         ></v-text-field>
 
                         <v-text-field
-                            :error-messages="resource.errors.code"
                             label="{{ __('Code') }}"
                             name="code"
-                            v-model="resource.item.code"
                         ></v-text-field>
 
                         <v-text-field
-                            :error-messages="resource.errors.alias"
                             label="{{ __('Alias') }}"
                             name="alias"
-                            v-model="resource.item.alias"
                         ></v-text-field>
 
                         <v-text-field
-                            :error-messages="resource.errors.description"
                             label="{{ __('Description') }}"
                             name="description"
-                            v-model="resource.item.description"
                         ></v-text-field>
 
-                        <v-menu full-width offset-y offset-x>
-                            <v-text-field
-                                :append-icon="resource.item.icon ? resource.item.icon : 'more_horiz'"
-                                :error-messages="resource.errors.icon"
-                                hint="{{ __('Click to show list of default icons') }}"
-                                label="{{ __('Icon') }}"
-                                name="icon"
-                                persistent-hint
-                                slot="activator"
-                                v-model="resource.item.icon"
-                            ></v-text-field>
-                            <v-card>
-                                <v-list>
-                                    <v-list-tile ripple @click="resource.item.icon = icon" :key="i" v-for="(icon, i) in misc.icons">
-                                        <v-list-tile-avatar>
-                                            <v-icon v-html="icon"></v-icon>
-                                        </v-list-tile-avatar>
-                                        <v-list-tile-content>
-                                            <span v-html="icon"></span>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-card>
-                        </v-menu>
                         <input type="hidden" name="type" value="{{ $type ?? 'forums' }}">
                     </v-card-text>
                     <v-card-actions class="pa-3">
@@ -105,17 +72,18 @@
                         <template slot="items" scope="prop">
                             <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
+                            <td v-html="prop.item.displayname"></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                         </template>
                     </v-data-table>
                 </v-card>
-                @if (\Illuminate\Support\Facades\Request::all())
+                {{-- @if (\Illuminate\Support\Facades\Request::all())
                     <v-btn error flat href="{{ route('students.index') }}" class="">
                         <v-icon left>remove_circle_outline</v-icon>
                         {{ __('Remove filter') }}
                     </v-btn>
-                @endif
+                @endif --}}
             </v-flex>
         </v-layout>
     </v-container>
@@ -147,13 +115,9 @@
                     dataset: {
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
-                            { text: '{{ __("Title") }}', align: 'left', value: 'title' },
-                            { text: '{{ __("Code") }}', align: 'left', value: 'code' },
-                            { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
-                            { text: '{{ __("Method") }}', align: 'left', value: 'method' },
+                            { text: '{{ __("Full Name") }}', align: 'left', value: 'displayname' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
-                            { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
                         loading: true,
