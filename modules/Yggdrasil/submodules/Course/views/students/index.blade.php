@@ -120,43 +120,43 @@
                 },
 
                 'dataset.searchform.query': function (filter) {
-                    // setTimeout(() => {
-                    //     const { sortBy, descending, student, rowsPerPage } = this.dataset.pagination;
+                     setTimeout(() => {
+                        const { sortBy, descending, student, rowsPerPage } = this.dataset.pagination;
 
-                    //     let query = {
-                    //         descending: descending,
-                    //         student: student,
-                    //         search: filter,
-                    //         sort: sortBy,
-                    //         take: rowsPerPage,
-                    //     };
+                        let query = {
+                            descending: descending,
+                            student: student,
+                            search: filter,
+                            sort: sortBy,
+                            take: rowsPerPage,
+                        };
 
-                    //     this.api().search('{{ route('api.students.all') }}', query)
-                    //         .then((data) => {
-                    //             this.dataset.items = data.items.data ? data.items.data : data.items;
-                    //             this.dataset.totalItems = data.items.total ? data.items.total : data.total;
-                    //             this.dataset.loading = false;
-                    //         });
-                    // }, 1000);
+                        this.api().search('{{ route('api.students.all') }}', query)
+                            .then((data) => {
+                                this.dataset.items = data.items.data ? data.items.data : data.items;
+                                this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                                this.dataset.loading = false;
+                            });
+                    }, 1000);
                 },
             },
 
             methods: {
                 get () {
-                    // const { sortBy, descending, student, rowsPerPage } = this.dataset.pagination;
-                    // let query = {
-                    //     descending: descending,
-                    //     student: student,
-                    //     sort: sortBy,
-                    //     take: rowsPerPage,
-                    //     search: {!! @json_encode(request()->all()) !!},
-                    // };
-                    // this.api().get('{{ route('api.students.all') }}', query)
-                    //     .then((data) => {
-                    //         this.dataset.items = data.items.data ? data.items.data : data.items;
-                    //         this.dataset.totalItems = data.items.total ? data.items.total : data.total;
-                    //         this.dataset.loading = false;
-                    //     });
+                    const { sortBy, descending, student, rowsPerPage } = this.dataset.pagination;
+                    let query = {
+                        descending: descending,
+                        student: student,
+                        sort: sortBy,
+                        take: rowsPerPage,
+                        search: {!! @json_encode(request()->all()) !!},
+                    };
+                    this.api().get('{{ route('api.students.all') }}', query)
+                        .then((data) => {
+                            this.dataset.items = data.items.data ? data.items.data : data.items;
+                            this.dataset.totalItems = data.items.total ? data.items.total : data.total;
+                            this.dataset.loading = false;
+                        });
                 },
             },
         });
