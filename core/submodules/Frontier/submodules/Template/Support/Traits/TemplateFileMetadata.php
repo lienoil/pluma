@@ -11,7 +11,7 @@ trait TemplateFileMetadata
      *
      * @var array
      */
-    protected static $headers = ["Template Name", "Author", "Description", "Version"];
+    protected static $headers = ["Template Name", "Author", "Description", "Icon", "Version"];
 
     /**
      * Array of view templates.
@@ -72,6 +72,7 @@ trait TemplateFileMetadata
             $instance->templates[basename($template->getFileName())] = [
                 'path' => $template->getPathName(),
                 'name' => $meta['templateName'],
+                'icon' => isset($meta['icon']) && ! empty($meta['icon']) ? $meta['icon'] : 'label',
                 'value' => str_replace(".blade.php", "", $template->getFileName()),
                 'metadata' => $meta,
             ];

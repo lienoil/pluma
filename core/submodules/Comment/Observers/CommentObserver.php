@@ -16,7 +16,7 @@ class CommentObserver
     {
         // save fields
         session()->flash('title', $resource->name);
-        session()->flash('message', "Comment successfully created");
+        session()->flash('message', "Comment successfully posted");
         session()->flash('type', 'success');
     }
 

@@ -150,12 +150,6 @@ let scormAPI = {
   },
 
   LMSFinish (dummyString) {
-    let event2 = new CustomEvent('CourseEnded', { detail: {dummyString: dummyString} });
-    window.dispatchEvent(event2);
-
-    let event = new CustomEvent('LMSFinish', { detail: {dummyString: dummyString} });
-    window.dispatchEvent(event);
-
     if (this.flags().get('finished')) {
       // already finished - prevent repeat call
       this.misc.debug(true, "[LMSFinish]", "-----------");
@@ -168,6 +162,12 @@ let scormAPI = {
 
     // Commit values
     scormAPI.LMSCommit(''); // commit the cached values to database.
+
+    let event2 = new CustomEvent('CourseEnded', { detail: {dummyString: dummyString} });
+    window.dispatchEvent(event2);
+
+    let event = new CustomEvent('LMSFinish', { detail: {dummyString: dummyString} });
+    window.dispatchEvent(event);
 
     // It's done.
     this.flags().set('finished', true);
@@ -434,5 +434,5 @@ let scormAPI = {
 }
 
 window.API = window.API_1484_11 || scormAPI;
-window.onunload = scormAPI.LMSFinish('');
-window.onbeforeunload = scormAPI.LMSFinish('');
+window.onunload = window.API.LMSFinish('');
+window.onbeforeunload = window.API.LMSFinish('');

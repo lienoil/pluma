@@ -8,7 +8,7 @@
     <v-container fluid grid-list-lg>
       <v-form ref="form" v-model="resource.form.model">
         <v-layout row wrap>
-          <v-flex xs12 sm8>
+          <v-flex xs12 sm8 md9>
             <input type="hidden" name="_token" :value="resource.token">
 
             <div class="mb-3">
@@ -19,9 +19,9 @@
                 solo
                 v-model="resource.item.title"
                 v-validate="'required'"
-                @input="resource.item.code = $options.filters.slugify(resource.item.title)"
+                @input="slugify"
               ></v-text-field>
-              <p class="caption error--text mt-1" v-if="errors.has('title')" v-html="errors.first('title')"></p>
+              <small class="caption error--text mt-1" v-if="errors.has('title')" v-html="errors.first('title')"></small>
             </div>
 
             <v-card>
@@ -30,9 +30,13 @@
                   :append-icon-cb="() => {resource.lock.code = !resource.lock.code}"
                   :append-icon="resource.lock.code ? 'lock' : 'lock_open'"
                   :error-messages="errors.collect('code')"
-                  label="Code"
+                  @blur="resource.lock.code = true"
+                  @focus="resource.lock.code = false"
+                  @input="slugify($value)"
+                  label="Slug Code"
                   name="code"
-                  v-bind="{'readonly': resource.lock.code}"
+                  persistent-hint
+                  v-bind="{'hint': 'This will be used as the slug for generating URLs. ' + (resource.lock.code ? 'Auto-suggestion mode is turned OFF' : 'Auto-suggestion mode is turned ON')}"
                   v-model="resource.item.code"
                   v-validate="'required'"
                 ></v-text-field>
@@ -42,15 +46,20 @@
 
             </v-card>
           </v-flex>
-          <v-flex xs12 sm4>
+          <v-flex xs12 sm4 md3>
 
             <v-card>
-              <attributes class="elevation-0" v-model="resource.item.template"></attributes>
+              <attributes
+                :tag-items="resource.tags.items"
+                :template-items="resource.template.items"
+                class="elevation-0"
+                title="Page Attributes"
+                v-model="resource.item.attributes"
+              ></attributes>
               <v-divider></v-divider>
-              <mediabox name="feature" class="elevation-0" multiple v-model="resource.item.feature" icon="image" title="Featured Image"></mediabox>
-              <span v-html="resource.item.feature"></span>
+              <mediabox :multiple="true" name="feature" class="elevation-0" v-model="resource.item.feature" icon="image" title="Featured Image"></mediabox>
               <v-divider></v-divider>
-              <mediabox class="elevation-0" icon="landscape" title="Cover Photo"></mediabox>
+              <mediabox name="cover" class="elevation-0" v-model="resource.item.cover" icon="landscape" title="Cover Photo"></mediabox>
             </v-card>
 
           </v-flex>
@@ -76,20 +85,35 @@ export default {
           code: '',
           delta: '',
           feature: null,
-          template: '',
-          title: '',
-          user_id: ''
+          attributes: {
+            template: '',
+            tags: []
+          },
+          title: ''
         },
         lock: {
-          code: true
+          code: false
         },
         token: this.$token,
         errors: [],
-        form: { model: true }
+        form: { model: true },
+        template: { items: [] },
+        tags: { items: [] }
       }
     }
   },
   methods: {
+    mountAttributes () {
+      this.$http.post('/api/v1/pages/templates')
+        .then(response => {
+          this.resource.template.items = response.data
+        })
+
+      this.$http.post('/api/v1/pages/tags')
+        .then(response => {
+          this.resource.tags.items = response.data
+        })
+    },
     save (resource) {
       this.$http.post('/api/v1/pages/save', resource)
         .then(response => {
@@ -114,10 +138,24 @@ export default {
               break
           }
         })
+    },
+    slugify ($value) {
+      if (!this.resource.lock.code) {
+        if (typeof val === 'undefined') {
+          this.resource.item.code = this.$options.filters.slugify(this.resource.item.title)
+        } else {
+          this.resource.item.code = this.$options.filters.slugify($value)
+        }
+      }
+    }
+  },
+  watch: {
+    'resource.item.code': function (val) {
+      this.$options.filters.slugify(val)
     }
   },
   mounted () {
-    //
+    this.mountAttributes()
   }
 }
 </script>

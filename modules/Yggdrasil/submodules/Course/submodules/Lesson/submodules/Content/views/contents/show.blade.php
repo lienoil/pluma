@@ -153,10 +153,9 @@
                             </v-toolbar>
                             <v-divider></v-divider>
                             <v-list class="mb-3">
-                                @foreach ($resource->lesson->contents as $content)
+                                {{-- @foreach ($resource->lesson->contents as $content)
                                     <v-list-tile
                                         href="{{ $content->url }}"
-                                        {{-- :class="{'white--text': (resource.id == item.id)}" --}}
                                         ripple
                                     >
                                         <v-list-tile-action>
@@ -172,13 +171,14 @@
                                             <v-list-tile-title>{{ $content->title }}</v-list-tile-title>
                                         </v-list-tile-content>
                                     </v-list-tile>
-                                @endforeach
-                                {{-- <v-list-tile
+                                @endforeach --}}
+                                <v-list-tile
                                     :href="item.url"
                                     :key="i"
                                     ripple
                                     v-for="(item, i) in playlist"
-                                    v-model="item.active"
+                                    {{-- @click="openWindow(item.url)" --}}
+                                    {{-- v-model="item.active" --}}
                                 >
                                     <v-list-tile-action>
                                         <v-icon left v-if="item.completed">check</v-icon>
@@ -188,7 +188,7 @@
                                     <v-list-tile-content>
                                         <v-list-tile-title v-html="item.title"></v-list-tile-title>
                                     </v-list-tile-content>
-                                </v-list-tile> --}}
+                                </v-list-tile>
                             </v-list>
 
                             {{-- Assignment --}}
@@ -295,6 +295,10 @@
                 }
             },
             methods: {
+                openWindow (url) {
+                    window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+                },
+
                 playInteraction () {
                     // this.goFullscreen();
                     this.course.started = !this.course.started
@@ -321,38 +325,38 @@
 
                         get () {
                             window.API.on('BeforeInitialize', function (cache) {
-                                window.onload = function () {
-                                    var interactiveType = document.querySelector('.interactive-content').getAttribute('data-type');
-                                    if (interactiveType.match('image.*')) {
-                                        window.API.LMSSetValue("cmi.core.lesson_status", 'completed');
-                                        window.API.Cache().set("cmi.core.lesson_status", 'completed');
-                                        let cache = JSON.parse(JSON.stringify(window.API.Cache().get()));
-                                        self.$http.post(window.API.options.COMMIT, cache).then(response => {
-                                            if (response.status === 200) {
-                                                window.API.LMSFinish('');
-                                                return "true";
-                                            }
-                                            return response.bodyText;
-                                        });
-                                    }
-                                }
+                                // window.onload = function () {
+                                    // var interactiveType = document.querySelector('.interactive-content').getAttribute('data-type');
+                                    // if (interactiveType.match('image.*')) {
+                                    //     window.API.LMSSetValue("cmi.core.lesson_status", 'completed');
+                                    //     window.API.Cache().set("cmi.core.lesson_status", 'completed');
+                                    //     let cache = JSON.parse(JSON.stringify(window.API.Cache().get()));
+                                    //     self.$http.post(window.API.options.COMMIT, cache).then(response => {
+                                    //         if (response.status === 200) {
+                                    //             window.API.LMSFinish('');
+                                    //             return "true";
+                                    //         }
+                                    //         return response.bodyText;
+                                    //     });
+                                    // }
+                                // }
 
                                 // Start getting the initial values from the LMS.
                                 // This is done in the custom (non-SCORM) function BeforeInitialize, because the request
                                 // is asynchronous.
                                 if (! self.resource.locked) {
-                                    self.$http.post('{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}', {_token: '{{ csrf_token() }}'}).then(response => {
-                                        window.API.Cache().setMultiple(response.body);
-                                        window.API.Cache().set("cmi.core.student_name", '{{ user()->displayname }}');
-                                        window.API.Cache().set("cmi.core.student_id", '{{ user()->id }}');
-                                    });
+                                    // self.$http.post('{{ route('api.scorm.lmsinitialize', [$resource->lesson->course->id, $resource->id]) }}', {_token: '{{ csrf_token() }}'}).then(response => {
+                                    //     window.API.Cache().setMultiple(response.body);
+                                    //     window.API.Cache().set("cmi.core.student_name", '{{ user()->displayname }}');
+                                    //     window.API.Cache().set("cmi.core.student_id", '{{ user()->id }}');
+                                    // });
                                 }
                             });
 
                             // Initialize the API with options.
                             window.API.init('{{ $resource->version }}', {
                                 _token: '{{ csrf_token() }}',
-                                debug: '{{ env('APP_DEBUG') ?? 'false' }}',
+                                debug: false, //'{{ env('APP_DEBUG') ?? 'false' }}',
                                 COMMIT: '{{ route('api.scorm.lmscommit', [$resource->lesson->course->id, $resource->id]) }}',
                                 FINISH: '{{ route('api.scorm.lmsfinish', [$resource->lesson->course->id, $resource->id]) }}',
                                 GET: '{{ route('api.scorm.lmsgetvalue', [$resource->lesson->course->id, $resource->id]) }}',
@@ -364,20 +368,32 @@
                             //
                             window.API.on('LMSInitialize', function (dummyString, cache) {
                                 // window.API.LMSCommit('');
+                                console.log('INIT WAS INIT')
+                                self.$http.post(window.API.options.INIT, {_token: '{{ csrf_token() }}'})
+                                    .then(response => {
+                                        window.API.Cache().setMultiple(response.body);
+                                        window.API.Cache().set("cmi.core.student_name", '{{ user()->displayname }}');
+                                        window.API.Cache().set("cmi.core.student_id", '{{ user()->id }}');
+                                        console.log('INIT WAS INIT POST', response.body, JSON.parse(JSON.stringify(window.API.Cache().get())))
+                                    });
                             });
 
                             window.API.on('LMSSetValue', function (varname, value, cache) {
-                                // //
+                                window.API.Cache().set(varname, value);
+                                console.log('SET WAS CALLED', varname, value)
+                                // console.log('SET WAS CALLED', JSON.parse(JSON.stringify(window.API.Cache().get())))
                             });
 
                             window.API.on('LMSGetValue', function (varname, cache) {
+                                console.log('GET WAS CALLED', varname)
+                                return window.API.Cache().get(varname)
                             });
 
                             window.API.on('LMSCommit', function (string, cache, query) {
-                                alert('committed')
                                 setTimeout(function () {
                                     self.$http.post(window.API.options.COMMIT, cache).then(response => {
                                         if (response.status === 200) {
+                                            window.API.misc.debug(true, "[LMSCommit]", "Comitted these values: ", JSON.parse(JSON.stringify(cache)));
                                             return "true";
                                         }
                                         return response.bodyText;
@@ -387,7 +403,6 @@
 
                             window.API.on('LMSFinish', function (string, cache, query) {
                                 self.$http.post(window.API.options.FINISH, {_token: '{{ csrf_token() }}'}).then(response => {
-                                    alert('asd');
                                     self.drawer.items = response.body;
                                     for (var i = self.drawer.items.length - 1; i >= 0; i--) {
                                         let current  = self.drawer.items[i];
@@ -432,19 +447,13 @@
 
             mounted () {
                 this.lms().get();
+                this.lms().mounted();
                 if (this.course.started) {
-                    this.lms().mounted();
                     // this.lms().listen();
                 }
             },
 
             watch: {
-                'course.started': function (value) {
-                    if (value) {
-                        this.lms().mounted();
-                        this.lms().listen();
-                    }
-                },
                 'window.API.done': function (value) {
                 }
 

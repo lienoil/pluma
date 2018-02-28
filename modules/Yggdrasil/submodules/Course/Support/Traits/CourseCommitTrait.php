@@ -17,7 +17,9 @@ trait CourseCommitTrait
     {
         try {
             $student = Student::find(user()->id);
-            $current = $student->contents()->where('content_id', $content_id)->first();
+            $current = $student->contents()
+                        ->where('content_id', $content_id)
+                        ->where('status', 'current')->first();
             if ($current) {
                 $current->pivot->status = 'done';
                 $current->pivot->save();

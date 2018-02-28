@@ -6,6 +6,7 @@
     <v-divider></v-divider>
     <v-card-text class="text-xs-center">
         <v-spacer></v-spacer>
+        {{ dd($resource) }}
         @if ($resource->enrolled)
             <v-progress-circular
                 :size="150"
