@@ -14,13 +14,6 @@ trait BelongsToManyUsers
      */
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot(
-            'current',
-            'next',
-            'previous',
-            'content_id',
-            'status',
-            'meta'
-        );
+        return $this->belongsToMany(User::class);
     }
 }

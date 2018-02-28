@@ -9,7 +9,7 @@ trait Status
     /**
      * Belongs to a status.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Course\Models\Status
      */
     public function status()
     {

@@ -65,6 +65,20 @@ trait ContentMutator
     }
 
     /**
+     * Gets the currently playing url from playlist.
+     *
+     * @return string
+     */
+    public function getPlayingAttribute()
+    {
+        $content_id = collect($this->lesson->playlist)
+                            ->where('status', 'current')
+                            ->first()
+                            ->content_id ?? null;
+        return $content_id ? $this->find($content_id)->url : false;
+    }
+
+    /**
      * Gets the current order of the resource.
      *
      * @return integer
@@ -96,7 +110,8 @@ trait ContentMutator
                         if (file_exists(storage_path("$path/imsmanifest.xml"))) {
                             $xml = $this->imsmanifest;
                             $entrypoint = isset($xml->resources->resource['href'])
-                                            ? utf8_decode(urldecode($xml->resources->resource['href']))
+                                            // ? utf8_decode(urldecode($xml->resources->resource['href']))
+                                            ? urlencode($xml->resources->resource['href'])
                                             : 'index.html';
 
                             $entrypoint = url("storage/$path/$entrypoint");
@@ -157,6 +172,8 @@ trait ContentMutator
      */
     public function getHtmlAttribute()
     {
+        $interactive = urldecode($this->interactive);
+        // $interactive = $this->interactive;
         $html = "No Data";
         if ($this->library) {
             switch ($this->library->mimetype) {
@@ -165,22 +182,22 @@ trait ContentMutator
                 case 'application/x-zip-compressed':
                 case 'application/x-rar-compressed':
                 case 'application/*':
-                    $html = "<object data={$this->interactive} class='interactive-content' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
-                                <param name='src' value={$this->interactive}>
+                    $html = "<object data-type='{$this->type}' data={$interactive} class='interactive-content' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
+                                <param name='src' value={$interactive}>
                                 <param name='autoplay' value=false>
                                 <param name='autoStart' value=0>
-                                <embed src={$this->interactive}>
+                                <embed src={$interactive}>
                             </object>";
                     break;
 
                 case 'video/ogg':
                 case 'video/mp4':
                 case 'video/wmv':
-                    $html = "<video class='interactive-content' autobuffer autoplay controls width='100%' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
-                                <source src='{$this->interactive}'>
-                                <source src='{$this->interactive}'>
-                                <object type='{$this->library->mimetype}' data='{$this->interactive}'>
-                                    <param name='src' value='{$this->interactive}'>
+                    $html = "<video data-type='{$this->type}' class='interactive-content' autobuffer autoplay controls width='100%' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
+                                <source src='{$interactive}'>
+                                <source src='{$interactive}'>
+                                <object type='{$this->library->mimetype}' data='{$interactive}'>
+                                    <param name='src' value='{$interactive}'>
                                     <param name='autoplay' value='false'>
                                     <param name='autoStart' value='0'>
                                 </object>
@@ -188,11 +205,11 @@ trait ContentMutator
                     break;
 
                 default:
-                    $html = "<object class='interactive-content' data={$this->interactive} width=100% height=auto onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
-                                <param name='src' value={$this->interactive}>
+                    $html = "<object data-type='{$this->type}' class='interactive-content' data={$interactive} width=100% height=auto onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
+                                <param name='src' value={$interactive}>
                                 <param name='autoplay' value=false>
                                 <param name='autoStart' value=0>
-                                <embed type='{$this->library->mimetype}' src={$this->interactive}>
+                                <embed type='{$this->library->mimetype}' src={$interactive}>
                             </object>";
                     break;
             }
@@ -230,7 +247,7 @@ trait ContentMutator
     {
         $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
 
-        return $entry->status === "done";
+        return ($entry->status ?? false) === "done" || ($entry->status ?? false) === "previous";
     }
 
     /**
@@ -242,7 +259,7 @@ trait ContentMutator
     {
         $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
 
-        return $entry->status === "current";
+        return ($entry->status ?? false) === "current";
     }
 
     /**
@@ -254,7 +271,7 @@ trait ContentMutator
     {
         $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
 
-        return $entry->status === "pending";
+        return ($entry->status ?? false) === "pending";
     }
 
     /**
@@ -266,7 +283,7 @@ trait ContentMutator
     {
         $entry = collect($this->lesson->playlist)->where('content_id', $this->id)->first();
 
-        return $entry->status === "incomplete" || $entry->status === "current";
+        return ($entry->status ?? false) === "incomplete" || ($entry->status ?? false) === "current";
     }
 
     /**
@@ -277,5 +294,15 @@ trait ContentMutator
     public function getActiveAttribute()
     {
         return $this->url == Request::url();
+    }
+
+    /**
+     * Gets the library mimetype of the resource.
+     *
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        return $this->library->mimetype;
     }
 }

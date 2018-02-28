@@ -3,6 +3,7 @@
 namespace Content\Support\Traits;
 
 use Content\Models\Content;
+use Course\Models\User as Student;
 
 trait HasManyContents
 {
@@ -23,11 +24,12 @@ trait HasManyContents
      */
     public function getPlaylistAttribute()
     {
-        $pivots = $this->course->users()->where('user_id', user()->id)->get();
+        $student = Student::find(user()->id);
+        $contents = $student->contents;
         $playlist = [];
 
-        foreach ($pivots as $pivot) {
-            $playlist[] = $pivot->pivot;
+        foreach ($contents as $content) {
+            $playlist[] = $content->pivot;
         }
 
         return $playlist;
