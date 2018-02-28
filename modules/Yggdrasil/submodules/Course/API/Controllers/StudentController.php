@@ -50,7 +50,7 @@ class StudentController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = User::search($search)->orderBy($sort, $order);
+        $resources = Student::search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }

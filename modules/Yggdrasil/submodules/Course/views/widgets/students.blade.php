@@ -7,7 +7,6 @@
                     <div class="display-3 white--text">{{ $resource->students->count() }}</div>
                     <div class="headline white--text">{{ $resource->students->count() <= 1 ? __('Learner') : __('Learners') }}</div>
                     <div class="body-1 white--text">{{ __('taking this course') }}</div>
-                    <v-btn outline round href="{{ route('contents.show') }}">View learners</v-btn>
                 </v-card-text>
             </v-card>
         </v-layout>
