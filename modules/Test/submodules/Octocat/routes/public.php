@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('octocats', 'OctocatController');
+// Route::resource('octocats', 'OctocatController');

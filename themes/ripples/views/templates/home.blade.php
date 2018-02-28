@@ -11,72 +11,70 @@ Version: 1.0
 
 @section("content")
     {{-- banner --}}
-    <v-card flat class="transparent">
-        <div id="banner" class="js-section">
-            {{-- main menu --}}
-            {{-- <v-card flat class="transparent">
-                <v-toolbar id="home-menu" dark flat class="transparent">
-                    <a href="{{ url('/') }}">
-                        <v-avatar tile>
-                            <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
-                        </v-avatar>
-                    </a>
+    <div id="banner" class="js-section">
+        {{-- main menu --}}
+        <v-card flat class="transparent">
+            <v-toolbar id="home-menu" dark flat class="transparent">
+                <a href="{{ url('/') }}">
+                    <v-avatar tile>
+                        <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+                    </v-avatar>
+                </a>
 
-                    <v-toolbar-title class="subheading white--text">
-                        <div href="{{ url('/') }}">{{ $application->site->title }}</div>
-                        <div class="caption">{{ $application->site->tagline }}</div>
-                    </v-toolbar-title>
+                <v-toolbar-title class="subheading white--text">
+                    <div href="{{ url('/') }}">{{ $application->site->title }}</div>
+                    <div class="caption">{{ $application->site->tagline }}</div>
+                </v-toolbar-title>
 
-                    <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
 
-                    <v-toolbar-items>
-                        @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+                <v-toolbar-items>
+                    @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
 
-                        @if (settings('show_login_at_main_menu', true))
-                            <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
-                        @endif
-                    </v-toolbar-items>
-                </v-toolbar>
-            </v-card> --}}
-            {{-- /main menu --}}
+                    @if (settings('show_login_at_main_menu', true))
+                        <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
+                    @endif
+                </v-toolbar-items>
+            </v-toolbar>
+        </v-card>
+        {{-- /main menu --}}
 
-            {{-- banner-content --}}
-            {{-- <div class="overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
-            <v-card flat class="transparent threejs-section">
-                <v-layout row wrap align-center justify-center>
-                    <v-flex md10 xs12>
-                        <v-layout row wrap align-center justify-center>
-                            <v-flex sm6 xs12>
-                                <v-card flat class="transparent" data-aos="fade-right">
-                                    <v-card-text class="white--text">
-                                        <h2 class="page-title display-3"><strong>{{ __('The Rippl3s Effect') }}</strong></h2>
-                                        <ul class="page-title headline">
-                                            <li>{{ __('Portable and convenient') }}</li>
-                                            <li>{{ __('System tailored for maximum results') }}</li>
-                                            <li>{{ __('Organised analytics tools to track progress') }}</li>
-                                        </ul>
-                                    </v-card-text>
-                                    <v-card-text>
-                                        <h2 class="white--text page-title headline">
-                                            {{ __('Already using Rippl3s? ') }}
-                                        </h2>
-                                        <v-btn round round outline large class="px-4 elevation-1 white--text" href="{{ route('login.show') }}">Sign in here</v-btn>
-                                    </v-card-text>
-                                </v-card>
-                            </v-flex>
+        {{-- banner-content --}}
+        {{-- <div class="overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
+        <v-card flat class="transparent threejs-section">
+            <v-layout row wrap align-center justify-center>
+                <v-flex md10 xs12>
+                    <v-layout row wrap align-center justify-center>
+                        <v-flex sm6 xs12>
+                            <v-card flat class="transparent" data-aos="fade-right">
+                                <v-card-text class="white--text">
+                                    <h2 class="page-title display-3"><strong>{{ __('The Rippl3s Effect') }}</strong></h2>
+                                    <ul class="page-title headline">
+                                        <li>{{ __('Portable and convenient') }}</li>
+                                        <li>{{ __('System tailored for maximum results') }}</li>
+                                        <li>{{ __('Organised analytics tools to track progress') }}</li>
+                                    </ul>
+                                </v-card-text>
+                                <v-card-text>
+                                    <h2 class="white--text page-title headline">
+                                        {{ __('Already using Rippl3s? ') }}
+                                    </h2>
+                                    <v-btn round round outline large class="px-4 elevation-1 white--text" href="{{ route('login.show') }}">Sign in here</v-btn>
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
 
-                            <v-flex sm6 xs12>
-                                <v-card flat class="transparent" data-aos="fade-left">
-                                    <img src="{{ assets('frontier/images/placeholder/iso/cityillustration.png') }}" alt="" width="100%">
-                                </v-card>
-                            </v-flex>
-                        </v-layout>
-                    </v-flex>
-                </v-layout>
-            </v-card>
-            {{-- banner-content --}}
-        </div>
-    </v-card>
+                        <v-flex sm6 xs12>
+                            <v-card flat class="transparent" data-aos="fade-left">
+                                <img src="{{ assets('frontier/images/placeholder/iso/cityillustration.png') }}" alt="" width="100%">
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
+            </v-layout>
+        </v-card>
+        {{-- banner-content --}}
+    </div>
     {{-- /banner --}}
 
     {{-- divider --}}

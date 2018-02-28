@@ -3,9 +3,12 @@
 namespace Course\API\Controllers;
 
 use Catalogue\Models\Catalogue;
+use Content\Support\Traits\Student;
+use Course\Controllers\Student;
 use Course\Models\Course;
-// use Course\Models\Student;
+use Course\Models\Student;
 use Course\Models\User;
+use Course\Support\Traits\Student;
 use Illuminate\Http\Request;
 use Pluma\API\Controllers\APIController;
 
@@ -50,7 +53,7 @@ class StudentController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = Course::search($search)->orderBy($sort, $order);
+        $resources = Student::search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
