@@ -58,7 +58,7 @@ Version: 1.0
                                     <h2 class="white--text page-title headline">
                                         {{ __('Already using Rippl3s? ') }}
                                     </h2>
-                                    <v-btn round round outline large class="px-4 elevation-1 white--text">Sign in here</v-btn>
+                                    <v-btn round round outline large class="px-4 elevation-1 white--text" href="{{ route('login.show') }}">Sign in here</v-btn>
                                 </v-card-text>
                             </v-card>
                         </v-flex>
@@ -302,7 +302,7 @@ Version: 1.0
                             </h2>
                             <p class="white--text page-title"><em>..from wherever you are, to whenever you want to.</em></p>
 
-                            <v-btn round large outline class="elevation-1 px-4 white--text">Sign up now</v-btn>
+                            <v-btn round large outline class="elevation-1 px-4 white--text" href="{{ route('register.show') }}">Sign up now</v-btn>
                         </v-card-text>
                     </v-card>
                     <v-divider class="white"></v-divider>

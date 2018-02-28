@@ -13,9 +13,9 @@
                             <v-flex md5 xs12 class="accent">
                                 <v-card flat class="transparent white--text" height="100%">
                                     <v-card-media height="100%" src="{{ settings('login_background', '') }}" class="text-xs-center">
-                                        <v-layout row wrap fill-height justify-center align-end>
+                                        <v-layout row wrap fill-height justify-center align-center>
                                             <v-card-text class="text-xs-center">
-                                                <p><img src="{{ $application->site->logo }}" width="30%"></p>
+                                                <p><img src="{{ $application->site->logo }}" width="100%" style="max-width: 170px !important;"></p>
                                                 <h4>{{ $application->site->title }}</h4>
                                                 <p>{{ __($application->site->tagline) }}</p>
                                             </v-card-text>
