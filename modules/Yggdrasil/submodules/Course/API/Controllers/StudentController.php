@@ -3,12 +3,9 @@
 namespace Course\API\Controllers;
 
 use Catalogue\Models\Catalogue;
-use Content\Support\Traits\Student;
-use Course\Controllers\Student;
 use Course\Models\Course;
 use Course\Models\Student;
 use Course\Models\User;
-use Course\Support\Traits\Student;
 use Illuminate\Http\Request;
 use Pluma\API\Controllers\APIController;
 
@@ -63,7 +60,7 @@ class StudentController extends APIController
     }
 
     /**
-     * Get all resources.
+     * Get all resources.`
      *
      * @param  Illuminate\Http\Request $request [description]
      * @return Illuminate\Http\Response
