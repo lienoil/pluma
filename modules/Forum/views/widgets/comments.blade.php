@@ -1,13 +1,13 @@
 <a name="comments"></a>
 <v-card flat class="transparent">
     <v-toolbar class="transparent elevation-0">
-        <v-toolbar-title class="page-title subheading">{{ __("Discourse") }}</v-toolbar-title>
+        <v-toolbar-title class="page-title subheading">{{ __("Post a comment") }}</v-toolbar-title>
     </v-toolbar>
     <v-divider></v-divider>
 
     {{-- Comments Section --}}
     <v-card-text class="transparent pr-4">
-        @include("Course::partials.comments-list", ['comments' => $resource->comments()->parents()->paginate()->items()])
+        @include("Content::partials.comments-list", ['comments' => $resource->comments()->parents()->paginate()->items()])
     </v-card-text>
     {{-- Comments Section --}}
 
@@ -49,7 +49,7 @@
             <input type="hidden" name="type" value="forums">
 
             {{-- editor --}}
-            @include("Course::widgets.editor")
+            @include("Content::widgets.editor")
             {{-- editor --}}
 
             <v-divider></v-divider>
@@ -61,7 +61,7 @@
                         <v-btn type="submit" flat primary>{{ __('Post Comment') }}</v-btn>
                     @endcan
                 @else
-                    <span class="pa-2 body-1 grey--text"><a class="td-n" href="{{ route('login.show', ['redirect_to' => route('forums.show', $resource->slug) . '#post-comments']) }}">{{ __('Login') }}</a> {{ __('and join the disforum.') }}</span>
+                    <span class="pa-2 body-1 grey--text"><a class="td-n" href="{{ route('login.show', ['redirect_to' => route('forums.show', $resource->slug) . '#post-comments']) }}">{{ __('Login') }}</a> {{ __('and join the discourse.') }}</span>
                     <v-spacer></v-spacer>
                     <v-btn disabled flat primary>{{ __('Post Comment') }}</v-btn>
                 @endif

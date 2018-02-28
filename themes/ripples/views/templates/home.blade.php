@@ -13,28 +13,30 @@ Version: 1.0
     {{-- banner --}}
     <div id="banner" class="js-section">
         {{-- main menu --}}
-        <v-toolbar id="home-menu" dark flat class="transparent">
-            <a href="{{ url('/') }}">
-                <v-avatar tile>
-                    <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
-                </v-avatar>
-            </a>
+        <div class="relative">
+            <v-toolbar id="home-menu" dark flat class="transparent">
+                <a href="{{ url('/') }}">
+                    <v-avatar tile>
+                        <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+                    </v-avatar>
+                </a>
 
-            <v-toolbar-title class="subheading white--text">
-                <div href="{{ url('/') }}">{{ $application->site->title }}</div>
-                <div class="caption">{{ $application->site->tagline }}</div>
-            </v-toolbar-title>
+                <v-toolbar-title class="subheading white--text">
+                    <div href="{{ url('/') }}">{{ $application->site->title }}</div>
+                    <div class="caption">{{ $application->site->tagline }}</div>
+                </v-toolbar-title>
 
-            <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
 
-            <v-toolbar-items>
-                @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+                <v-toolbar-items>
+                    @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
 
-                @if (settings('show_login_at_main_menu', true))
-                    <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
-                @endif
-            </v-toolbar-items>
-        </v-toolbar>
+                    @if (settings('show_login_at_main_menu', true))
+                        <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
+                    @endif
+                </v-toolbar-items>
+            </v-toolbar>
+        </div>
         {{-- /main menu --}}
 
         {{-- banner-content --}}
@@ -345,11 +347,9 @@ Version: 1.0
             position: relative !important;
             height: 100vh !important;
             width: 100% !important;
-            /*background: linear-gradient(45deg, rgb(2, 136, 209) 0%, rgb(38, 198, 218) 100%) !important;*/
-            /*background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;*/
 
             background: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0, #003073), color-stop(100%, #029797));
-            background: -webkit-linear-gradient(135deg, #003073, #029797);
+            background: -webkit-linear-gradient(1335deg, #003073, #029797);
             background: -moz-linear-gradient(45deg, #003073, #029797);
             background: -ms-linear-gradient(45deg, #003073 0, #029797 100%);
             background: -o-linear-gradient(45deg, #003073, #029797);
@@ -359,10 +359,14 @@ Version: 1.0
         }
         .threejs-section {
             position: absolute !important;
-            top: 50%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            /*top: 50%;
             transform: translateY(-50%);
             width: 100%;
-            height: 100%;
+            height: 100%;*/
         }
         #home-menu {
             position: absolute !important;
@@ -375,6 +379,9 @@ Version: 1.0
         }
         #footer {
             background: linear-gradient(135deg, #003073, #029797);
+        }
+        .relative {
+            position: relative !important;
         }
     </style>
 @endpush
