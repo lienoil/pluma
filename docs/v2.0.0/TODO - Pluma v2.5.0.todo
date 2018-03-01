@@ -4,4 +4,4 @@ Core:
   ☐ remove config/downloadables.php
     - will be replaced by config/downloads.php
     - **Check for breaking changes**
-  ☐ Routing: remove routes if module is disabled
+  ✔ Routing: remove routes if module is disabled @done (18-03-01 09:18)
