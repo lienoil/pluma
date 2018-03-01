@@ -86,6 +86,6 @@ class EnrollController extends AdminController
             ]);
         }
 
-        return redirect()->route('courses.enrolled.show', $course->slug);
+        return redirect()->route('courses.show', $course->slug);
     }
 }

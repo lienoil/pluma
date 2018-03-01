@@ -206,7 +206,7 @@ class ScormvarController extends APIController
                     ]);
                 }
 
-                $this->unlock($request, $course_id, $content_id, $scormvar->val);
+                return $this->unlock($request, $course_id, $content_id);
             }
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 200);
@@ -225,13 +225,7 @@ class ScormvarController extends APIController
      */
     public function LMSFinish(Request $request, $course_id, $content_id)
     {
-        $scormvar = Scormvar::where('course_id', $course_id)
-                             ->where('content_id', $content_id)
-                             ->where('user_id', $request->input('user_id') ? $request->input('user_id') : user()->id)
-                             ->where('name', $this->cmiCoreLessonStatus)
-                             ->first();
-
-        return $this->unlock($request, $course_id, $content_id, $scormvar->val);
+        return $this->unlock($request, $course_id, $content_id);
     }
 
     /**
@@ -242,13 +236,13 @@ class ScormvarController extends APIController
      * @param  string $status
      * @return void
      */
-    public function unlock(Request $request, $course_id, $content_id, $status)
+    public function unlock(Request $request, $course_id, $content_id)
     {
         if ($request->get($this->cmiCoreLessonStatus) == 'completed') {
             $course = Course::find($course_id);
             $course->commit($content_id);
         }
 
-        return response()->json($course->id);
+        return response()->json($course->id ?? false);
     }
 }

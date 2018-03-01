@@ -6,8 +6,8 @@ export default {
       value = value.toLowerCase()
 
       // remove accents, swap ñ for n, etc
-      var from = 'ãàáäâẽèéëêìíïîõòóöôùúüûñç·,:;\'"/'
-      var to = 'aaaaaeeeeeiiiiooooouuuunc--------'
+      var from = 'ãàáäâẽèéëêìíïîõòóöôùúüûñç·,:;!\'"/'
+      var to = 'aaaaaeeeeeiiiiooooouuuunc---------'
       for (var i = 0, l = from.length; i < l; i++) {
         value = value.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
       }
