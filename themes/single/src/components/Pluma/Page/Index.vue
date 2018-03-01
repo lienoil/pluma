@@ -209,8 +209,22 @@ export default {
     destroy (id) {
       this.$http.delete('/api/v1/pages/' + id + '/destroy')
         .then(response => {
-          console.log(response)
-          this.dataset.items.splice(id)
+          console.log(id, response)
+          this.dataset.items.map((item, key) => {
+            if (response.status === 200) {
+              if (item.id === id) {
+                this.dataset.items.splice(key, 1)
+              }
+
+              this.snackbar = Object.assign(this.snackbar, {
+                model: true,
+                color: response.data.type ? response.data.type : 'secondary',
+                icon: response.data.icon ? response.data.icon : 'info',
+                timeout: response.data.timeout ? response.data.timeout : 10000,
+                text: response.data.message ? response.data.message : 'Resource was moved to trash'
+              })
+            }
+          })
         })
     }
   },

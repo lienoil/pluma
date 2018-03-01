@@ -1,68 +1,15 @@
 v2.0.1:
 
-VERSION 3:
-  ☐ @high UPDATE TO NEXT.VUETIFYJS.COM
-
-Frontier Frontend Components:
-  ☐ write Mediabox to support multiple instance.
-  ☐ grid / list view support
-  ☐ mediabox: pagination support
-  ☐ mediabox to dialog modal
-  ☐ partials/pagination, limit pagination numbers
-  ☐ support for default pluma icon set
-  ✔ toolbar layout (index) @done (18-02-16 23:51)
-      - use color secondary
-  ✔ layout for all create.blade @done (18-02-16 23:51)
-      - add white/accent sticky toolbar with save (add, edit)
-  ✔ trashed.blade as is @done (18-02-16 23:51)
-      - delete permanently - add dialog prompt when perma deleting resources
-  ✔ Dialog (error, success) on trashed pages @done (18-02-16 23:51)
-  ☐ theme generator
-  ✔ change breadcrumbs NEW to CREATE @done (18-02-16 23:51)
-FE:
-  ☐ table sorting
-  ✔ sidebar icon, maintain white icon status when active @done (18-02-17 00:16)
-
-Search Module:
-  ☐ global search UI.
-  ☐ global search BE.
-
-Profile:
-  ✔ Account Details -> move settings to my-profile-group @done (18-02-27 10:39)
-  ☐ My Activity
-
-Comment:
-  ☐ @critical CRUD
-  ☐ Downvote/Upvote
-  ☐ @low hide other replybox on click
-
 Assignment:
   ☐ Separate CRUD
   ☐ seperate lesson
-
-Long Ago:
-  ☐ User theming
-        - colors
-        - set predefined color schemes
 
 MISC:
   ☐ Empty state text blurb (all)
   ☐ public footer layout (partials/endnote.blade)
 
-Page:
-  ☐ fix search layout index.blade
-  ☐ add conditional cards e.g. if home == code include (home cards)
-
 Forum:
   ☐ @low solved / unsolved
-  ✔ replace comment layout @done (18-02-17 00:18)
-
-Package:
-  ☐ sorting (index.blade)
-
-Lesson:
-  ☐ lock, order number, done icon
-  ☐ single view layout
 
 Dashboard:
     create a widget:
@@ -76,7 +23,6 @@ Dashboard:
             ☐ # of users (per role) - chartjs
 
           dashboard 1.xx
-            ✔ profile @done (18-02-17 14:07)
             ☐ disable cpu usage
             ☐ activities/change logs
 
@@ -135,37 +81,58 @@ Dashboard:
           ☐ theme
 
 Content:
-  ☐ fix layout for swf file
+  ☐ resize issue
 
 Course:
   ☐ role based -> all, My, bookmaked courses
   ☐ Enroll
-  ☐ List view of students (per courses) -> data table
-      course.index
-        add action -> view list of students
-        views -> students (edit, index, show)
-  ☐ change course title (single.blade show.blade) to 'page-title'
 
 Form Builder:
-  ☐ Add Evaluation (AnswerChecking)
   ☐ @critical Model Attachment (e.g. CourseHasManyForms)
   ☐ Overall/Total Score
+  ☐ chart long labels
 
   Submission:
-    ✔ index (change author to submitted by) @done (18-02-06 16:32)
-    ✔ index.blade -> list of Form::paginate @done (18-02-21 10:49)
-    ✔ show.blade -> list of users (-> examinees) @done (18-02-21 10:49)
-        ✔ graph @done (18-02-21 10:49)
-        ✔ CanExportResultTrait export report generation @done (18-02-07 11:54)
-        ✔ CanViewResultTrait @done (18-02-07 11:54)
 
     code->name for fields/edit-fields
     unique display for submission index and show
 
-Server:
-  ✔ add subdomain oread.rippl3s.com @done (18-02-26 18:36)
+Registration:
+  ☐ Email Notification
+  ☐ Email template
+  ✔ Email Settings Management @done (18-03-01 14:57)
 
 
 
-
-
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ change course title (single.blade show.blade) to 'page-title' @done (18-03-01 10:43) @project(Course)
+ ✔ List view of students (per courses) -> data tablex @done (18-03-01 10:43) @project(Course)
+  course.index
+  add action -> view list of students
+  views -> students (edit, index, show)
+ ✔ fix layout for swf file @done (18-03-01 10:24) @project(Content)
+ ✔ Add Evaluation (AnswerChecking) @done (18-03-01 10:18) @project(Form Builder)
+ ✔ sorting (index.blade) @done (18-03-01 10:17) @project(Package)
+ ✔ single view layout @done (18-03-01 10:17) @project(Lesson)
+ ✔ partials/pagination, limit pagination numbers @done (18-03-01 10:17) @project(Frontier Frontend Components)
+ ✔ lock, order number, done icon @done (18-03-01 10:17) @project(Lesson)
+ ✔ User theming @done (18-03-01 10:13) @project(Long Ago)
+ ✔ @low hide other replybox on click @done (18-03-01 10:10) @project(Comment)
+ ✔ @critical CRUD @done (18-03-01 10:10) @project(Comment)
+ ✔ Account Details -> move settings to my-profile-group @done (18-02-27 10:39) @project(Profile)
+ ✔ add subdomain oread.rippl3s.com @done (18-02-26 18:36) @project(Server)
+ ✔ show.blade -> list of users (-> examinees) @done (18-02-21 10:49) @project(Form Builder / Submission)
+ ✔ index.blade -> list of Form::paginate @done (18-02-21 10:49) @project(Form Builder / Submission)
+ ✔ graph @done (18-02-21 10:49) @project(Form Builder / Submission)
+ ✔ profile @done (18-02-17 14:07) @project(Dashboard / widgets: / superadmin)
+ ✔ replace comment layout @done (18-02-17 00:18) @project(Forum)
+ ✔ sidebar icon, maintain white icon status when active @done (18-02-17 00:16) @project(FE)
+ ✔ trashed.blade as is @done (18-02-16 23:51) @project(Frontier Frontend Components)
+ ✔ toolbar layout (index) @done (18-02-16 23:51) @project(Frontier Frontend Components)
+ ✔ layout for all create.blade @done (18-02-16 23:51) @project(Frontier Frontend Components)
+ ✔ change breadcrumbs NEW to CREATE @done (18-02-16 23:51) @project(Frontier Frontend Components)
+ ✔ Dialog (error, success) on trashed pages @done (18-02-16 23:51) @project(Frontier Frontend Components)
+ ✔ CanViewResultTrait @done (18-02-07 11:54) @project(Form Builder / Submission)
+ ✔ CanExportResultTrait export report generation @done (18-02-07 11:54) @project(Form Builder / Submission)
+ ✔ index (change author to submitted by) @done (18-02-06 16:32) @project(Form Builder / Submission)

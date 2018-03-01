@@ -57,9 +57,21 @@
                 v-model="resource.item.attributes"
               ></attributes>
               <v-divider></v-divider>
-              <mediabox :multiple="true" name="feature" class="elevation-0" v-model="resource.item.feature" icon="image" title="Featured Image"></mediabox>
+              <mediabox name="feature" class="elevation-0" :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}" v-model="resource.item.feature" icon="image" item-value="thumbnail" item-text="name" title="Featured Image">
+                <template slot="menus" slot-scope="{props}">
+                  <v-list-tile v-model="props.menus.upload.model" @click="props.toggle(props.menus.upload)">
+                    <v-list-tile-action>
+                      <v-icon>{{ props.menus.upload.icon }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ props.menus.upload.name }}</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                  <div class="text-xs-center"><small class="grey--text">Powered by Mediabox v3.0.0</small></div>
+                </template>
+              </mediabox>
               <v-divider></v-divider>
-              <mediabox name="cover" class="elevation-0" v-model="resource.item.cover" icon="landscape" title="Cover Photo"></mediabox>
+              <mediabox name="cover" class="elevation-0" :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}" v-model="resource.item.cover" icon="landscape" item-value="thumbnail" item-text="name" title="Cover Photo"></mediabox>
             </v-card>
 
           </v-flex>

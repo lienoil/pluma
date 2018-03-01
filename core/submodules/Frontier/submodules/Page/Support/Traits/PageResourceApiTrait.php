@@ -73,7 +73,6 @@ trait PageResourceApiTrait
      */
     public function postStore(PageRequest $request)
     {
-        var_dump($request->all()); exit();
         $page = new Page();
         $page->title = $request->input('title');
         $page->code = $request->input('code');
