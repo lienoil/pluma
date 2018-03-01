@@ -39,16 +39,25 @@ return [
                     'description' => __('Create a Test'),
                 ],
             ],
-            // 'trash-test' => [
-            //     'name' => 'trash-test',
-            //     'order' => 3,
-            //     'slug' => route('tests.trash'),
-            //     'always_viewable' => false,
-            //     'labels' => [
-            //         'title' => __('Trashed Tests'),
-            //         'description' => __('View list of all tests moved to trash'),
-            //     ],
-            // ],
+            'divider-for-octocat' => [
+                'name' => 'divider-for-octocat',
+                'is_header' => true,
+                'is_divider' => true,
+                'parent' => 'test',
+                'order' => 12,
+            ],
+
+            'view-octocat' => [
+                'name' => 'view-octocat',
+                'order' => 13,
+                'slug' => route('tests.octocats.index'),
+                'always_viewable' => false,
+                'icon' => 'bubble_chart',
+                'labels' => [
+                    'title' => __('Octocat'),
+                    'description' => __('For test module purposes.'),
+                ],
+            ],
         ],
     ],
 ];

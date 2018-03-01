@@ -105,7 +105,8 @@
                             slug: '',
                             code: '',
                             body: '',
-                            cover: '{!! json_encode(old('cover_obj')) !!}',
+                            cover: '{!! old('cover_obj') !!}' ? JSON.parse('{!! old('cover_obj') !!}') : null,
+
                             feature: '{!! old('feature_obj') !!}' ? JSON.parse('{!! old('feature_obj') !!}') : null,
                             category: JSON.parse({!! json_encode(old('category')) !!}),
                         },

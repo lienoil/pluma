@@ -13,34 +13,35 @@ Version: 1.0
     {{-- banner --}}
     <div id="banner" class="js-section">
         {{-- main menu --}}
-        <v-toolbar id="home-menu" dark flat class="transparent">
-            <a href="{{ url('/') }}">
-                <v-avatar tile>
-                    <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
-                </v-avatar>
-            </a>
+        <v-card flat class="transparent">
+            <v-toolbar id="home-menu" dark flat class="transparent">
+                <a href="{{ url('/') }}">
+                    <v-avatar tile>
+                        <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+                    </v-avatar>
+                </a>
 
-            <v-toolbar-title class="subheading white--text">
-                <div href="{{ url('/') }}">{{ $application->site->title }}</div>
-                <div class="caption">{{ $application->site->tagline }}</div>
-            </v-toolbar-title>
+                <v-toolbar-title class="subheading white--text">
+                    <div href="{{ url('/') }}">{{ $application->site->title }}</div>
+                    <div class="caption">{{ $application->site->tagline }}</div>
+                </v-toolbar-title>
 
-            <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
 
-            <v-toolbar-items>
-                @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+                <v-toolbar-items>
+                    @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
 
-                @if (settings('show_login_at_main_menu', true))
-                    <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
-                @endif
-            </v-toolbar-items>
-        </v-toolbar>
+                    @if (settings('show_login_at_main_menu', true))
+                        <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>
+                    @endif
+                </v-toolbar-items>
+            </v-toolbar>
+        </v-card>
         {{-- /main menu --}}
 
         {{-- banner-content --}}
         {{-- <div class="overlay" style="background: rgba(0, 0, 0, 0.2); position: absolute; width: 100%; height: 100%; z-index: 0;"></div> --}}
         <v-card flat class="transparent threejs-section">
-
             <v-layout row wrap align-center justify-center>
                 <v-flex md10 xs12>
                     <v-layout row wrap align-center justify-center>
@@ -58,7 +59,7 @@ Version: 1.0
                                     <h2 class="white--text page-title headline">
                                         {{ __('Already using Rippl3s? ') }}
                                     </h2>
-                                    <v-btn round round outline large class="px-4 elevation-1 white--text">Sign in here</v-btn>
+                                    <v-btn round round outline large class="px-4 elevation-1 white--text" href="{{ route('login.show') }}">Sign in here</v-btn>
                                 </v-card-text>
                             </v-card>
                         </v-flex>
@@ -302,7 +303,7 @@ Version: 1.0
                             </h2>
                             <p class="white--text page-title"><em>..from wherever you are, to whenever you want to.</em></p>
 
-                            <v-btn round large outline class="elevation-1 px-4 white--text">Sign up now</v-btn>
+                            <v-btn round large outline class="elevation-1 px-4 white--text" href="{{ route('register.show') }}">Sign up now</v-btn>
                         </v-card-text>
                     </v-card>
                     <v-divider class="white"></v-divider>
@@ -345,11 +346,9 @@ Version: 1.0
             position: relative !important;
             height: 100vh !important;
             width: 100% !important;
-            /*background: linear-gradient(45deg, rgb(2, 136, 209) 0%, rgb(38, 198, 218) 100%) !important;*/
-            /*background: linear-gradient(to top, rgb(95, 11, 89), rgb(63, 10, 82)) !important;*/
 
             background: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0, #003073), color-stop(100%, #029797));
-            background: -webkit-linear-gradient(135deg, #003073, #029797);
+            background: -webkit-linear-gradient(1335deg, #003073, #029797);
             background: -moz-linear-gradient(45deg, #003073, #029797);
             background: -ms-linear-gradient(45deg, #003073 0, #029797 100%);
             background: -o-linear-gradient(45deg, #003073, #029797);
@@ -367,6 +366,7 @@ Version: 1.0
         #home-menu {
             position: absolute !important;
             z-index: 100;
+            height: 64px !important;
         }
         #full-width {
             /*background: linear-gradient(159deg,#512dcf 31%,#10a3d5 100%) #512dcf;*/
@@ -375,6 +375,9 @@ Version: 1.0
         }
         #footer {
             background: linear-gradient(135deg, #003073, #029797);
+        }
+        .relative {
+            position: relative !important;
         }
     </style>
 @endpush

@@ -4,7 +4,7 @@ namespace Course\API\Controllers;
 
 use Catalogue\Models\Catalogue;
 use Course\Models\Course;
-// use Course\Models\Student;
+use Course\Models\Student;
 use Course\Models\User;
 use Illuminate\Http\Request;
 use Pluma\API\Controllers\APIController;
@@ -50,7 +50,7 @@ class StudentController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = Course::search($search)->orderBy($sort, $order);
+        $resources = Student::search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
@@ -60,14 +60,14 @@ class StudentController extends APIController
     }
 
     /**
-     * Get all resources.
+     * Get all resources.`
      *
      * @param  Illuminate\Http\Request $request [description]
      * @return Illuminate\Http\Response
      */
     public function getTrash(Request $request)
     {
-        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $seach = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';

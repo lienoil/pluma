@@ -1,9 +1,9 @@
 @extends("Theme::layouts.auth")
 
 @section("content")
-    <v-card flat class="blue lighten-1" height="100vh">
+    <v-card flat class="accent" height="100vh">
         {{-- <div class="red" style="height: 3px;"></div> --}}
-        <v-toolbar class="blue lighten-1 elevation-0" extended></v-toolbar>
+        <v-toolbar class="accent elevation-0" extended></v-toolbar>
         <v-layout>
             <v-flex md6 hidden-sm-and-down>
                 <v-container fluid class="white--text text-xs-center">
@@ -11,8 +11,8 @@
                         <v-flex style="text-shadow: 0 1px 1px rgba(0,0,0,0.3)">
                             {{-- <img class="brand-logo" width="200" avatar src="{{ $application->site->logo }}" alt="{{ $application->site->title }}"> --}}
                             <img title="replace image" src="{{ $application->site->logo }}" width="200">
-                            <h1 class="display-3 white--text"><strong>{{ __('Welcome, brave traveller') }}</strong></h1>
-                            <p class="headline">Replace this image! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae obcaecati ex ut vel ducimus, officiis et sapiente enim vitae suscipit, at modi minima asperiores nam ipsa non esse corporis molestiae.</p>
+                            <h1 class="display-3 white--text page-title"><strong>{{ __('Welcome, ') }}{{ $application->site->title }}</strong></h1>
+                            <p class="page-title headline">Replace this image! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae obcaecati ex ut vel ducimus, officiis et sapiente enim vitae suscipit, at modi minima asperiores nam ipsa non esse corporis molestiae.</p>
                         </v-flex>
                     </v-layout>
                 </v-container>

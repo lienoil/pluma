@@ -132,7 +132,7 @@
                             <v-card-text>
                                 {!! $resource->body !!}
                             </v-card-text>
-                            <v-card-actions>
+                            <v-card-actions class="pa-3">
                                 <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
                                 <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }} <a target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a></p>
                             </v-card-actions>

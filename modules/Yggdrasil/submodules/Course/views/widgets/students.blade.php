@@ -6,7 +6,12 @@
                 <v-card-text class="white--text text-xs-center">
                     <div class="display-3 white--text">{{ $resource->students->count() }}</div>
                     <div class="headline white--text">{{ $resource->students->count() <= 1 ? __('Learner') : __('Learners') }}</div>
-                    <div class="body-1 white--text">{{ __('taking this course') }}</div>
+                    <div class="body-1 white--text mb-3">{{ __('taking this course') }}</div>
+
+                    <v-btn round outline class="white--text"
+                        v-tooltip:left="{ html: 'View list of students enrolled' }">
+                        {{ __('View All') }}
+                    </v-btn>
                 </v-card-text>
             </v-card>
         </v-layout>
@@ -14,7 +19,7 @@
     {{-- <v-divider></v-divider> --}}
     <v-card-text class="pa-0">
         <v-list subheader>
-            <v-subheader class="">{{ __('List of learners and their progress') }}:</v-subheader>
+            <v-subheader class="mt-2 ml-2">{{ __('List of learners and their progress') }}:</v-subheader>
             @foreach ($resource->students as $student)
                 {{-- TODO: click, href go to students profile page, course progress --}}
                 <v-list-tile avatar ripple>
