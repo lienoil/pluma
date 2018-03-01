@@ -11,7 +11,9 @@
                     <v-menu bottom left>
                         <v-btn icon slot="activator" v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
                        <v-list>
-                            <v-list-tile @click="removecourse = !removecourse" ripple>
+                            <v-list-tile @click="removecourse = !removecourse"
+                                ripple
+                                v-bind:ripple="{ class: 'indigo--text text--darken-2' }">
                                 <v-list-tile-action>
                                     <v-icon error class="error--text">remove_circle</v-icon>
                                 </v-list-tile-action>
@@ -21,7 +23,9 @@
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
-                            <v-list-tile @click="setStorage('widget.hidecourse', (hidecourse = !hidecourse))" ripple>
+                            <v-list-tile @click="setStorage('widget.hidecourse', (hidecourse = !hidecourse))"
+                                ripple
+                                v-bind:ripple="{ class: 'indigo--text text--darken-2' }">
                                 <v-list-tile-action>
                                     <v-icon class="grey--text">@{{ hidecourse ? 'visibility' : 'visibility_off' }}</v-icon>
                                 </v-list-tile-action>
@@ -38,7 +42,7 @@
                 <v-divider></v-divider>
                 {{-- list of courses --}}
                 <v-list two-line subheader v-show="!hidecourse">
-                    <v-subheader>Folders</v-subheader>
+                    <v-subheader>{{ __('Courses') }}</v-subheader>
                     <v-list-tile avatar @click="" ripple>
                         <v-list-tile-avatar>
                             <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">

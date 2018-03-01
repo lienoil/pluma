@@ -35,3 +35,28 @@ Theme:
 Nice to Have's:
   ☐ Multilingual support
     - uhm...
+
+Comment:
+  ☐ Downvote/Upvote
+
+Search Module:
+  ☐ global search UI.
+  ☐ global search BE.
+
+Page:
+  ☐ fix search layout index.blade
+  ☐ add conditional cards e.g. if home == code include (home cards)
+
+Profile:
+  ☐ My Activity @low
+
+Frontier Frontend Components:
+  ☐ write Mediabox to support multiple instance.
+  ☐ grid / list view support
+  ☐ mediabox: pagination support
+  ☐ mediabox to dialog modal
+  ☐ support for default pluma icon set
+  ☐ theme generator
+  ☐ data-table filter
+  ☐ save widgets positions / switch state
+  ☐ sweetAlertjs2 dialog

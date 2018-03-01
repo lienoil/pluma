@@ -181,8 +181,8 @@
                                     {{-- v-model="item.active" --}}
                                 >
                                     <v-list-tile-action>
-                                        <v-icon left v-if="item.completed">check</v-icon>
-                                        <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
+                                        <v-icon left v-if="item.completed" class="success--text">check</v-icon>
+                                        <v-icon left v-else-if="item.current" class="grey--text">play_circle_outline</v-icon>
                                         <v-icon left v-else>lock</v-icon>
                                     </v-list-tile-action>
                                     <v-list-tile-content>

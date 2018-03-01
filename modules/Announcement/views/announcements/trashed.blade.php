@@ -104,10 +104,9 @@
                         <template slot="items" scope="prop">
                             <td class="grey--text text--darken-1" v-show="bulk.commands.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.id"></td>
-                            <td class="grey--text text--darken-1"><strong v-html="prop.item.title"></strong></td>
+                            <td class="grey--text text--darken-1"><strong v-html="prop.item.name"></strong></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.code"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.author"></td>
-                            <td class="grey--text text--darken-1" v-html="prop.item.template"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.created"></td>
                             <td class="grey--text text--darken-1" v-html="prop.item.removed"></td>
                             <td class="grey--text text--darken-1 text-xs-center">
@@ -128,7 +127,7 @@
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
-                                        <v-list-tile id="success" ripple @click="$refs[`restore_${prop.item.id}`].submit()">
+                                        <v-list-tile id="success" ripple @click="setDialog(true, prop.item)">
                                             <v-list-tile-action>
                                                 <v-icon error>delete_forever</v-icon>
                                             </v-list-tile-action>
@@ -144,7 +143,7 @@
                                                         <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
                                                         <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
                                                         <div class="grey--text text--darken-1">
-                                                            <span class="mb-3">{{ __("You are about to permanently delete") }} <strong><em>@{{ prop.item.title }}</em></strong>.</span>
+                                                            <span class="mb-3">{{ __("You are about to permanently delete") }} <strong><em>@{{ prop.item.name }}</em></strong>.</span>
                                                             <span>{{ __("This action is irreversible. Do you want to proceed?") }}</span>
                                                         </div>
                                                     </v-card-text>
@@ -220,7 +219,6 @@
                             { text: '{{ __("Title") }}', align: 'left', value: 'title' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
-                            { text: '{{ __("Template") }}', align: 'left', value: 'template' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Removed") }}', align: 'left', value: 'deleted_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },

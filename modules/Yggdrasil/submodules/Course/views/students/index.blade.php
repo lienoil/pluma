@@ -5,42 +5,29 @@
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            {{-- <v-flex md3 xs12>
+
+            <v-flex md3 xs12>
                 <v-card class="elevation-1">
-                    <v-toolbar flat class="transparent">
-                        <v-toolbar-title class="subheading">{{ __("Create") }}</v-toolbar-title>
-                    </v-toolbar>
                     <v-card-text>
-                        <v-text-field
-                            label="{{ __('Name') }}"
-                            name="name"
-                        ></v-text-field>
 
-                        <v-text-field
-                            label="{{ __('Code') }}"
-                            name="code"
-                        ></v-text-field>
+                        <v-select
+                            auto
+                            clearable
+                            append-icon="keyboard_arrow_down"
+                            :input-value="resource.item.user_id"
+                            item-value="id"
+                            item-text="name"
+                            label="{{ __('Fieldtype') }}"
+                            :items="resource.fieldtypes.items"
+                            v-model="draggable.resource.user_id">
+                        </v-select>
+                        <input type="hidden" :name="`fields[${key}][user_id]`" :value="draggable.resource.user_id">
 
-                        <v-text-field
-                            label="{{ __('Alias') }}"
-                            name="alias"
-                        ></v-text-field>
-
-                        <v-text-field
-                            label="{{ __('Description') }}"
-                            name="description"
-                        ></v-text-field>
-
-                        <input type="hidden" name="type" value="{{ $type ?? 'forums' }}">
                     </v-card-text>
-                    <v-card-actions class="pa-3">
-                        <v-spacer></v-spacer>
-                        <v-btn type="submit" primary>{{ __('Save') }}</v-btn>
-                    </v-card-actions>
                 </v-card>
-            </v-flex> --}}
+            </v-flex>
 
-            <v-flex xs12>
+            <v-flex md9 xs12>
                 <v-card class="mb-3 elevation-1">
                     {{-- search --}}
                     <v-text-field
@@ -75,15 +62,32 @@
                             <td v-html="prop.item.displayname"></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
+                            <td class="text-xs-center">
+                                <v-menu bottom left>
+                                    <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
+                                    <v-list>
+                                        <v-list-tile ripple @click="">
+                                            <v-list-tile-action>
+                                                <v-icon warning>delete</v-icon>
+                                            </v-list-tile-action>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>
+                                                    {{__('Move to Trash')}}
+                                                </v-list-tile-title>
+                                            </v-list-tile-content>
+                                        </v-list-tile>
+                                    </v-list>
+                                </v-menu>
+                            </td>
                         </template>
                     </v-data-table>
                 </v-card>
-                {{-- @if (\Illuminate\Support\Facades\Request::all())
+                @if (\Illuminate\Support\Facades\Request::all())
                     <v-btn error flat href="{{ route('students.index') }}" class="">
                         <v-icon left>remove_circle_outline</v-icon>
                         {{ __('Remove filter') }}
                     </v-btn>
-                @endif --}}
+                @endif
             </v-flex>
         </v-layout>
     </v-container>
@@ -107,6 +111,11 @@
         mixins.push({
             data () {
                 return {
+                    resource: {
+                        users: {
+                            items: {!! json_encode($users->toArray()) !!}
+                        }
+                    },
                     bulk: {
                         destroy: {
                             model: false,
@@ -118,6 +127,7 @@
                             { text: '{{ __("Full Name") }}', align: 'left', value: 'displayname' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
+                            { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
                         loading: true,
@@ -173,6 +183,7 @@
                         page: page,
                         sort: sortBy,
                         take: rowsPerPage,
+                        course_id: {{ $resource->id }},
                         search: {!! @json_encode(\Illuminate\Support\Facades\Request::all()) !!},
                     };
                     this.api().get('{{ route('api.students.all') }}', query)
