@@ -96,21 +96,25 @@ export const settings = {
         `@/${component}`
       )
     },
-    alert (snackbar) {
+    alert (snackbar, fetchFromServer) {
       // Get sessions every page transition
-      this.$http.post('/admin/sessions')
-        .then(response => {
-          if (typeof response.data.message !== 'undefined') {
-            this.snackbar = Object.assign(this.snackbar, {
-              model: true,
-              color: response.data.type ? response.data.type : 'secondary',
-              icon: response.data.icon ? response.data.icon : 'info',
-              timeout: response.data.timeout ? response.data.timeout : 10000,
-              text: response.data.message,
-              title: response.data.title ? response.data.title : ''
-            }, snackbar)
-          }
-        })
+      if (fetchFromServer) {
+        this.$http.post('/admin/sessions')
+          .then(response => {
+            if (typeof response.data.message !== 'undefined') {
+              this.snackbar = Object.assign(this.snackbar, {
+                model: true,
+                color: response.data.type ? response.data.type : 'secondary',
+                icon: response.data.icon ? response.data.icon : 'info',
+                timeout: response.data.timeout ? response.data.timeout : 10000,
+                text: response.data.message,
+                title: response.data.title ? response.data.title : ''
+              }, snackbar)
+            }
+          })
+      } else {
+        this.snackbar = Object.assign(this.snackbar, snackbar, { model: true })
+      }
     }
   }
 }

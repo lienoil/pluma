@@ -79,7 +79,7 @@ trait PageResourceApiTrait
         $page->feature = $request->input('feature');
         $page->body = $request->input('body');
         $page->delta = $request->input('delta');
-        $page->template = $request->input('template') ?? 'generic';
+        $page->template = $request->input('attributes')['template'] ?? 'generic';
         $page->user()->associate(User::find($request->input('user_id') ?? user()->id));
         $page->save();
 
