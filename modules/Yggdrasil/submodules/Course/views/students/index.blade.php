@@ -5,41 +5,45 @@
 
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-
             <v-flex md3 xs12>
-                <v-card class="elevation-1">
+                <v-card class="elevation-1 mb-3">
+                    <v-toolbar flat class="transparent">
+                        <v-toolbar-title class="subheading">{{ __('Enroll Students') }}</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-actions class="pa-0">
+                        <v-subheader class="caption grey--text"><em>{{ __('You may enroll multiple students to this course') }}</em></v-subheader>
+                    </v-card-actions>
+
                     <v-card-text>
-
                         <v-select
-                            auto
+                            :error-messages="resource.errors.users"
+                            :items="suppliments.users.items"
+                            autocomplete
                             clearable
-                            append-icon="keyboard_arrow_down"
-                            :input-value="resource.item.user_id"
-                            item-value="id"
                             item-text="name"
-                            label="{{ __('Fieldtype') }}"
-                            :items="resource.fieldtypes.items"
-                            v-model="draggable.resource.user_id">
-                        </v-select>
-                        <input type="hidden" :name="`fields[${key}][user_id]`" :value="draggable.resource.user_id">
-
+                            item-value="id"
+                            label="{{ __('Users') }}"
+                            multiple
+                            persistent-hint
+                            prepend-icon="supervisor_account"
+                            v-model="suppliments.users.selected"
+                        ></v-select>
+                        <input type="hidden" name="users[]" :value="id" v-for="(id, i) in suppliments.users.selected" :key="i">
                     </v-card-text>
+
+                    <v-card-actions class="pa-3">
+                        <v-spacer></v-spacer>
+                        <v-btn primary class="elevation-1">{{ __('Enroll') }}</v-btn>
                 </v-card>
             </v-flex>
 
+
             <v-flex md9 xs12>
                 <v-card class="mb-3 elevation-1">
-                    {{-- search --}}
-                    <v-text-field
-                        solo
-                        label="Search"
-                        append-icon=""
-                        prepend-icon="search"
-                        class="pa-2 elevation-1 search-bar"
-                        v-model="dataset.searchform.query"
-                        clearable
-                    ></v-text-field>
-                    {{-- /search --}}
+
+                    <v-toolbar flat class="transparent">
+                        <v-toolbar-title class="subheading">{{ __('Students Enrolled') }}</v-toolbar-title>
+                    </v-toolbar>
 
                     <v-data-table
                         :loading="dataset.loading"
@@ -112,9 +116,33 @@
             data () {
                 return {
                     resource: {
+                        item: {
+                            user_id: '{{ @(old('user_id') ?? $resource->user->id) }}',
+                        },
+                        users: {!! json_encode($users->toArray()) !!},
+                        errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
+                    },
+                    suppliments: {
                         users: {
-                            items: {!! json_encode($users->toArray()) !!}
-                        }
+                            headers: [
+                                { text: '{{ __("Name") }}', align: 'left', value: 'name' },
+                                { text: '{{ __("Code") }}', align: 'left', value: 'code' },
+                                { text: '{{ __("Description") }}', align: 'left', value: 'description' },
+                            ],
+                            pagination: {
+                                rowsPerPage: '{{ settings('items_per_page', 15) }}',
+                                totalItems: 0,
+                            },
+                            items: [],
+                            selected: [],
+                            searchform: {
+                                query: '',
+                                model: true,
+                            }
+                        },
+                        required_fields: {
+                            model: false,
+                        },
                     },
                     bulk: {
                         destroy: {
@@ -130,6 +158,9 @@
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
+                        dialog: {
+                            model: false,
+                        },
                         loading: true,
                         pagination: {
                             rowsPerPage: '{{ settings('items_per_page', 15) }}',
@@ -176,6 +207,37 @@
             },
 
             methods: {
+                mountSuppliments () {
+                    let items = {!! json_encode($users) !!};
+                    let g = [];
+                    for (var i in items) {
+                        g.push({
+                            id: items[i].id,
+                            name: items[i].name,
+                            code: items[i].code,
+                            description: items[i].description,
+                        });
+                    }
+                    this.suppliments.users.items = g;
+
+                    let selected = {!! json_encode(old('users')) !!};
+                    let s = [];
+                    if (selected) {
+                        for (var i in selected) {
+                            for (var j = items.length - 1; j >= 0; j--) {
+                                if (selected[i] == items[j].id) {
+                                    let instance = items[j];
+                                    s.push({
+                                        id: instance.id,
+                                        name: instance.name,
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    this.suppliments.users.selected = s ? s : [];
+                },
+
                 get () {
                     const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
                     let query = {
@@ -196,7 +258,7 @@
             },
 
             mounted () {
-                // this.get();
+                this.mountSuppliments();
             }
         });
     </script>

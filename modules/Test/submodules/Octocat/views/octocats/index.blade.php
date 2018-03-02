@@ -18,10 +18,10 @@
                                 >
                                 <v-list-tile-avatar>
                                     <v-avatar size="32px" tile>
-                                        <img src="@{{ tile.img }}" :alt="tile.title">
+                                        <img :src="tile.img" :alt="tile.title">
                                     </v-avatar>
                                 </v-list-tile-avatar>
-                                <v-list-tile-title>@{{ tile.title }}</v-list-tile-title>
+                                <v-list-tile-title v-html="tile.title"></v-list-tile-title>
                             </v-list-tile>
                         </v-list>
                     </v-bottom-sheet>

@@ -19,7 +19,7 @@ use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
 use Library\Models\Library;
-use User\Models\User;
+// use User\Models\User;
 
 class CourseController extends GeneralController
 {
@@ -294,6 +294,6 @@ class CourseController extends GeneralController
 
         $users = User::all();
 
-        return view("Theme::students.index")->with(compact('resource'));
+        return view("Theme::students.index")->with(compact('resource', 'users'));
     }
 }
