@@ -41,7 +41,9 @@
         <v-toolbar app scroll-off-screen></v-toolbar>
         <v-content>
           <breadcrumbs></breadcrumbs>
+          <!-- <v-btn @click="navigate('components/Pluma/Page/Create')">Component</v-btn> -->
           <v-slide-x-transition mode="out-in">
+            <!-- <component :is="pageview.current"></component> -->
             <router-view></router-view>
           </v-slide-x-transition>
         </v-content>

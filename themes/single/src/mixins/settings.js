@@ -4,8 +4,8 @@ export const settings = {
       settings: {
         fontsize: this.localstorage('single.settings.fontsize') ? this.localstorage('single.settings.fontsize') : 1
       },
-      view: {
-        current: 'PageIndex'
+      pageview: {
+        current: null
       },
 
       /**
@@ -41,6 +41,7 @@ export const settings = {
       snackbar: {
         color: 'secondary',
         icon: 'info',
+        type: 'success',
         timeout: 10000,
         model: false,
         title: '',
@@ -87,6 +88,29 @@ export const settings = {
         window.localStorage.setItem(key, value)
         return true
       }
+    },
+    navigate (component) {
+      // this.view.current = () => import(`@/components/${component}`)
+      this.pageview.current = () => import(
+        /* webpackChunkName: "group-page" */
+        `@/${component}`
+      )
+    },
+    alert (snackbar) {
+      // Get sessions every page transition
+      this.$http.post('/admin/sessions')
+        .then(response => {
+          if (typeof response.data.message !== 'undefined') {
+            this.snackbar = Object.assign(this.snackbar, {
+              model: true,
+              color: response.data.type ? response.data.type : 'secondary',
+              icon: response.data.icon ? response.data.icon : 'info',
+              timeout: response.data.timeout ? response.data.timeout : 10000,
+              text: response.data.message,
+              title: response.data.title ? response.data.title : ''
+            }, snackbar)
+          }
+        })
     }
   }
 }

@@ -56,7 +56,8 @@
             @isset($submenu->is_divider)
               <v-divider></v-divider>
             @else
-              <v-list-tile ripple exact {{ isset($submenu->routename) ? ":to={name: '$submenu->routename'}" : "href=$submenu->url" }}>
+              {{-- {{ isset($submenu->routename) ? ":to={name: '$submenu->routename'}" : "href=$submenu->url" }} --}}
+              <v-list-tile ripple exact @click="navigate('components/Pluma/Page/Show')">
                 @isset ($submenu->icon)
                   <v-list-tile-avatar>
                     <v-icon>{{ $submenu->icon }}</v-icon>

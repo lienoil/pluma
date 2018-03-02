@@ -1,8 +1,8 @@
 <template>
   <v-card>
-    <v-toolbar card class="transparent">
+    <v-toolbar card>
       <v-icon v-html="icon"></v-icon>
-      <v-toolbar-title class="body-2 grey--text text--darken-2" v-html="title"></v-toolbar-title>
+      <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
     </v-toolbar>
     <v-card-text>
       <!-- Template -->
@@ -14,6 +14,7 @@
               :selected="data.selected"
               @input="data.parent.selectItem(data.item)"
               class="chip--select-multi"
+              color="accent"
               label
             >
               <v-icon left v-if="data.item.icon" v-html="data.item.icon"></v-icon>
@@ -42,6 +43,7 @@
               :selected="data.selected"
               class="chip--select-multi"
               :key="JSON.stringify(data.item)"
+              color="accent"
               label
             >
               {{ data.item }}

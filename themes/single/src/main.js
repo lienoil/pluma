@@ -1,14 +1,15 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import 'vuetify/dist/vuetify.min.css'
+import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
 import filters from './filters'
 import router from './router'
-import { settings } from './mixins/settings'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
+import { settings } from './mixins/settings'
 
 Vue.use(filters)
 Vue.use(VeeValidate)
@@ -39,7 +40,7 @@ new Vue({
   el: '#app',
   router,
   components: {
-    Breadcrumbs
+    Breadcrumbs, AlertIcon
   },
   http: {
     headers: {
@@ -49,19 +50,19 @@ new Vue({
   watch: {
     '$route': function (router) {
       // Get sessions every page transition
-      this.$http.post('/admin/sessions')
-        .then(response => {
-          if (typeof response.data.message !== 'undefined') {
-            this.snackbar = Object.assign(this.snackbar, {
-              model: true,
-              color: response.data.type ? response.data.type : 'secondary',
-              icon: response.data.icon ? response.data.icon : 'info',
-              timeout: response.data.timeout ? response.data.timeout : 10000,
-              text: response.data.message,
-              title: response.data.title ? response.data.title : ''
-            })
-          }
-        })
+      // this.$http.post('/admin/sessions')
+      //   .then(response => {
+      //     if (typeof response.data.message !== 'undefined') {
+      //       this.snackbar = Object.assign(this.snackbar, {
+      //         model: true,
+      //         color: response.data.type ? response.data.type : 'secondary',
+      //         icon: response.data.icon ? response.data.icon : 'info',
+      //         timeout: response.data.timeout ? response.data.timeout : 10000,
+      //         text: response.data.message,
+      //         title: response.data.title ? response.data.title : ''
+      //       })
+      //     }
+      //   })
     }
   },
   methods: {

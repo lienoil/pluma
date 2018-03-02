@@ -1,15 +1,19 @@
 <template>
   <v-card class="card-mediabox">
-    <v-toolbar card class="transroot">
+    <v-toolbar card>
       <v-icon v-html="icon"></v-icon>
-      <v-toolbar-title class="body-2 grey--text text--darken-2" v-html="title"></v-toolbar-title>
+      <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
     </v-toolbar>
     <div class="card-mediabox-container grey lighten-3">
       <template v-if="(selected instanceof Array) && selected.length !== 0">
-        <img class="stacked" width="100%" height="auto" v-for="(s, i) in selected" :key="i" :src="s">
+        <v-card flat ripple>
+          <img class="stacked" width="100%" height="auto" v-for="(s, i) in selected" :key="i" :src="s">
+        </v-card>
       </template>
       <template v-else-if="typeof selected === 'string' && selected">
-        <img width="100%" height="auto" :src="selected">
+        <v-card flat ripple>
+          <img width="100%" height="auto" :src="selected">
+        </v-card>
       </template>
       <template v-else>
         <p class="grey--text text-xs-center no-image-caption">No image selected</p>
@@ -24,17 +28,17 @@
     <!-- Dialog -->
     <template>
       <v-dialog class="white" v-model="media.box.model" max-width="100%" lazy scrollable persistent>
-        <v-card height="90vh">
-          <v-toolbar :dark="$root.theme.dark" :light="!$root.theme.dark" card class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
+        <v-card height="90vh" :dark="$root.theme.dark" :light="!$root.theme.dark">
+          <v-toolbar :dark="$root.theme.dark" :light="!$root.theme.dark" class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
             <v-btn icon @click.stop="media.sidebar.mini = !media.sidebar.mini"><v-icon>{{ media.sidebar.mini ? 'chevron_right' : 'chevron_left' }}</v-icon></v-btn>
-            <v-text-field prepend-icon="search" v-model="media.search.query" v-bind="{'solo': !$root.theme.dark, 'solo-inverted': $root.theme.dark}" label="Search"></v-text-field>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="media.box.model = false"><v-icon>close</v-icon></v-btn>
+            <v-text-field class="mr-3" prepend-icon="search" v-model="media.search.query" v-bind="{'solo': !$root.theme.dark, 'solo-inverted': $root.theme.dark}" label="Search"></v-text-field>
+            <v-spacer class="hidden-sm-and-down"></v-spacer>
+            <v-btn class="hidden-sm-and-down" icon @click="media.box.model = false"><v-icon>close</v-icon></v-btn>
           </v-toolbar>
           <v-card-text>
             <v-navigation-drawer :dark="$root.theme.dark" :light="!$root.theme.dark" permanent height="100%" :mini-variant="media.sidebar.mini" absolute width="280">
               <v-list :dark="$root.theme.dark" :light="!$root.theme.dark">
-                <v-list-tile>
+                <v-list-tile @click="media.sidebar.mini = !media.sidebar.mini">
                   <v-list-tile-action>
                     <v-icon>{{ icon }}</v-icon>
                   </v-list-tile-action>
@@ -43,7 +47,8 @@
                   </v-list-tile-content>
                 </v-list-tile>
               </v-list>
-              <v-list>
+              <v-divider></v-divider>
+              <v-list class="pt-0">
                 <v-list-tile v-model="menus.upload.model" @click="menuToggle(menus.upload)">
                   <v-list-tile-action>
                     <v-icon>{{ menus.upload.icon }}</v-icon>
@@ -52,22 +57,22 @@
                     <v-list-tile-title>{{ menus.upload.name }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-subheader>Filters</v-subheader>
-                <v-list-tile v-model="menu.model" v-for="(menu, i) in menus.items" :key="i" @click="menuToggle(menu)">
-                  <v-list-tile-action>
-                    <v-icon>{{ menu.icon }}</v-icon>
-                  </v-list-tile-action>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ menu.name }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-                <slot name="menus" :props="{ menus, toggle: (b) => { menuToggle(b) } }"></slot>
+                <slot name="menus" :props="{ menus: menus.items, toggle: (b, u) => { menuToggle(b, u) } }">
+                  <v-list-tile v-model="menu.model" v-for="(menu, i) in menus.items" :key="i" @click="menuToggle(menu, menu.url)">
+                    <v-list-tile-action>
+                      <v-icon>{{ menu.icon }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ menu.name }}</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </slot>
               </v-list>
             </v-navigation-drawer>
 
             <v-slide-y-transition>
-              <v-card v-if="menus.upload.model" flat height="100vh" class="sidebar-main-content grey lighten-3">
-                <v-card-text></v-card-text>
+              <v-card v-if="menus.upload.model" flat :dark="$root.theme.dark" :light="!$root.theme.dark" height="100vh" class="sidebar-main-content">
+                <v-card-text>Upload something something blurb</v-card-text>
               </v-card>
             </v-slide-y-transition>
 
@@ -124,6 +129,7 @@ export default {
     multiple: { default: false },
     title: { default: 'Mediabox' },
     uploadText: { default: 'Upload' },
+    menuItems: { default: () => { return [] } },
     url: { default: () => { return { all: '', search: '' } } }
   },
   model: {
@@ -159,6 +165,9 @@ export default {
     },
     'media.search.query': function (val) {
       this.search(val)
+    },
+    'menuItems': function (val) {
+      this.menus.items = val
     }
   },
   methods: {
@@ -218,19 +227,24 @@ export default {
         this.selected = ''
       }
     },
-    menuToggle (menu) {
+    menuToggle (menu, url, items) {
       this.menus.upload.model = false
-      this.menus.items.map(item => {
+      items = typeof items === 'undefined' ? this.menus.items : items
+      items.map(item => {
         item.model = false
       })
-      menu.model = !menu.model
-      if (menu.url) {
-        this.media.url = menu.url
+      if (menu) {
+        menu.model = !menu.model
+      }
+      if (url) {
+        this.media.url = url
       }
     }
   },
   mounted () {
     this.get()
+
+    this.menus.items = this.menuItems
   }
 }
 </script>

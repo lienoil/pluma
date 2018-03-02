@@ -109,7 +109,7 @@
                     },
                     resource: {
                         quill: {
-                            html: '{!! old('body') !!}',
+                            html: "{{ json_encode(old('body')) }}",
                             delta: JSON.parse({!! json_encode(old('delta')) !!}),
                         },
                         item: {

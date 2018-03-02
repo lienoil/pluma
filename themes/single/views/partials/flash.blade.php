@@ -1,15 +1,19 @@
 <v-snackbar
-  :timeout="snackbar.timeout"
-  :color="snackbar.color"
-  :top="snackbar.y === 'top'"
   :bottom="snackbar.y === 'bottom'"
-  :right="snackbar.x === 'right'"
+  :color="snackbar.color"
   :left="snackbar.x === 'left'"
-  multi-line
+  :dark="snackbar.theme === 'dark'"
+  :light="snackbar.theme === 'light'"
+  :multi-line="snackbar.mode === 'multi-line'"
+  :right="snackbar.x === 'right'"
+  :timeout="snackbar.timeout"
+  :top="snackbar.y === 'top'"
+  :vertical="snackbar.mode === 'vertical'"
   v-model="snackbar.model"
+  multi-line
 >
-  <v-icon left color="snackbar.color" v-html="snackbar.icon"></v-icon>
-  {{-- &nbsp; <span v-html="snackbar.text"></span> --}}
-  &nbsp; <span>Lorem ipsum dolor sit amet, consectetur eos quis voluptatibus laudantium?</span>
-  <v-btn dark flat @click="snackbar.model = false">Close</v-btn>
+  <alert-icon :class="snackbar.color" small :mode="snackbar.type"></alert-icon>
+  {{-- <v-icon left dark color="snackbar.color" v-html="snackbar.icon"></v-icon> --}}
+  &nbsp; <span v-html="snackbar.text"></span>
+  <v-btn :dark="snackbar.theme === 'dark'" :light="snackbar.theme === 'light'" flat @click="snackbar.model = false">Close</v-btn>
 </v-snackbar>
