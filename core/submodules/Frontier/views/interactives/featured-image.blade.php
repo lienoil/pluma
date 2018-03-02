@@ -55,7 +55,7 @@
         </v-fade-transition>
     {{-- </v-card-text> --}}
 
-    <div v-else>
+    <div>
         <img
             width="100%"
             :src="featuredImage.new ? featuredImage.new.thumbnail : ''"

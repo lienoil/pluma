@@ -35,11 +35,15 @@
     </noscript>
     <div id="app">
       <v-app>
-        <v-navigation-drawer dark app></v-navigation-drawer>
+        <v-navigation-drawer :dark="theme.dark" :light="!theme.dark" app>
+          <v-btn @click="theme.dark = !theme.dark">Toogle theme</v-btn>
+        </v-navigation-drawer>
         <v-toolbar app scroll-off-screen></v-toolbar>
         <v-content>
           <breadcrumbs></breadcrumbs>
+          <!-- <v-btn @click="navigate('components/Pluma/Page/Create')">Component</v-btn> -->
           <v-slide-x-transition mode="out-in">
+            <!-- <component :is="pageview.current"></component> -->
             <router-view></router-view>
           </v-slide-x-transition>
         </v-content>

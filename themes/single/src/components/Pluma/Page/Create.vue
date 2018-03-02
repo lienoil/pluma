@@ -11,7 +11,7 @@
           <v-flex xs12 sm8 md9>
             <input type="hidden" name="_token" :value="resource.token">
 
-            <div class="mb-3">
+            <div class="mb-5">
               <v-text-field
                 :error-messages="errors.collect('title')"
                 label="Title"
@@ -57,9 +57,25 @@
                 v-model="resource.item.attributes"
               ></attributes>
               <v-divider></v-divider>
-              <mediabox :multiple="true" name="feature" class="elevation-0" v-model="resource.item.feature" icon="image" title="Featured Image"></mediabox>
+              <mediabox name="feature" class="elevation-0" :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}" v-model="resource.item.feature" icon="image" item-value="thumbnail" item-text="name" title="Featured Image" :menu-items="resource.library.categories.items">
+                <template slot="menus" slot-scope="{props}">
+                  <v-subheader>Catalogue</v-subheader>
+                  <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
+                    <v-list-tile-action>
+                      <v-icon>{{ menu.icon }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ menu.name }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <v-chip>{{ menu.count }}</v-chip>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <div class="text-xs-center"><small class="grey--text">Powered by Mediabox v3.0.0</small></div>
+                </template>
+              </mediabox>
               <v-divider></v-divider>
-              <mediabox name="cover" class="elevation-0" v-model="resource.item.cover" icon="landscape" title="Cover Photo"></mediabox>
+              <mediabox name="cover" class="elevation-0" :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}" v-model="resource.item.cover" icon="landscape" item-value="thumbnail" item-text="name" title="Cover Photo"></mediabox>
             </v-card>
 
           </v-flex>
@@ -73,10 +89,11 @@
 import Mediabox from '@/components/components/Mediabox.vue'
 import Editor from '@/components/components/Editor.vue'
 import Attributes from '@/components/components/Attributes.vue'
+import AlertIcon from '@/components/partials/AlertIcon.vue'
 
 export default {
   name: 'Create',
-  components: { Mediabox, Editor, Attributes },
+  components: { Mediabox, Editor, Attributes, AlertIcon },
   data () {
     return {
       resource: {
@@ -98,7 +115,8 @@ export default {
         errors: [],
         form: { model: true },
         template: { items: [] },
-        tags: { items: [] }
+        tags: { items: [] },
+        library: { categories: { items: [] } }
       }
     }
   },
@@ -113,6 +131,11 @@ export default {
         .then(response => {
           this.resource.tags.items = response.data
         })
+
+      this.$http.post('/api/v1/library/catalogues')
+        .then(response => {
+          this.resource.library.categories.items = response.data
+        })
     },
     save (resource) {
       this.$http.post('/api/v1/pages/save', resource)
@@ -120,8 +143,12 @@ export default {
           let self = this
 
           switch (response.status) {
+            case 422:
+              this.$root.alert({type: 'error', text: `Please check fields for errors.`})
+              break
             case 200:
             default:
+              this.$root.alert({color: 'secondary', type: 'success', text: `${resource.title} page successfully saved.`})
               setTimeout(function () {
                 self.$router.push({name: 'pages.index'})
               }, 900)
@@ -131,10 +158,14 @@ export default {
         .catch(error => {
           switch (error.response.status) {
             case 422:
-            default:
+              this.$root.alert({type: 'error', text: `Please check fields for errors.`})
               for (var key in error.response.data) {
                 this.errors.add(key, error.response.data[key].join('\n'), 'server')
               }
+              break
+
+            default:
+              this.$root.alert({type: 'error', text: `Oops! something went wrong.`})
               break
           }
         })

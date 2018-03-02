@@ -1,5 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import 'vuetify/dist/vuetify.min.css'
+import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
 import filters from './filters'
@@ -7,7 +9,7 @@ import router from './router'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
+import { settings } from './mixins/settings'
 
 Vue.use(filters)
 Vue.use(VeeValidate)
@@ -23,122 +25,44 @@ Vue.use(Vuetify, {
   }
 })
 
-Vue.config.productionTip = false
-
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
 
+Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
+
+// Mixins
+Vue.mixin(settings)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: {
-    Breadcrumbs
+    Breadcrumbs, AlertIcon
   },
   http: {
     headers: {
       'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
   },
-  data () {
-    return {
-      app: {},
-      settings: {
-        fontsize: this.localstorage('single.settings.fontsize') ? this.localstorage('single.settings.fontsize') : 1
-      },
-      view: {
-        current: 'PageIndex'
-      },
-
-      /**
-       *------------------------------------------
-       * Theme Settings
-       *------------------------------------------
-       *
-       */
-      theme: {
-        dark: this.localstorage('single.theme.dark') === 'true',
-        light: this.localstorage('single.theme.light') === 'true'
-      },
-
-      /**
-       *------------------------------------------
-       * Sidebar Settings
-       *------------------------------------------
-       *
-       */
-      sidebar: {
-        clipped: this.localstorage('single.sidebar.clipped') === 'true',
-        floating: this.localstorage('single.sidebar.floating') === 'true',
-        mini: this.localstorage('single.sidebar.mini') === 'true',
-        model: true
-      },
-
-      /**
-       *------------------------------------------
-       * Snackbar Settings
-       *------------------------------------------
-       *
-       */
-      snackbar: {
-        color: 'secondary',
-        icon: 'info',
-        timeout: 10000,
-        model: false,
-        title: '',
-        text: '',
-        x: 'right',
-        y: 'top'
-      },
-
-      /**
-       *------------------------------------------
-       * Rightsidebar Settings
-       *------------------------------------------
-       *
-       */
-      rightsidebar: {
-        clipped: this.localstorage('single.rightsidebar.clipped') === 'true',
-        floating: this.localstorage('single.rightsidebar.floating') === 'true',
-        mini: this.localstorage('single.rightsidebar.mini') === 'true',
-        model: false
-      },
-
-      /**
-       *------------------------------------------
-       * Flash Session
-       *------------------------------------------
-       *
-       * FLASH! Ah-haaaaaaaaa
-       * Saviour of the universe!
-       * FLASH! Ah-haaaaaaaaa
-       * He'll save everyone of us!
-       *
-       */
-      flash: {
-        model: false
-      }
-    }
-  },
   watch: {
     '$route': function (router) {
       // Get sessions every page transition
-      this.$http.post('/admin/sessions')
-        .then(response => {
-          if (typeof response.data.message !== 'undefined') {
-            this.snackbar = Object.assign(this.snackbar, {
-              model: true,
-              color: response.data.type ? response.data.type : 'secondary',
-              icon: response.data.icon ? response.data.icon : 'info',
-              timeout: response.data.timeout ? response.data.timeout : 10000,
-              text: response.data.message,
-              title: response.data.title ? response.data.title : ''
-            })
-          }
-        })
+      // this.$http.post('/admin/sessions')
+      //   .then(response => {
+      //     if (typeof response.data.message !== 'undefined') {
+      //       this.snackbar = Object.assign(this.snackbar, {
+      //         model: true,
+      //         color: response.data.type ? response.data.type : 'secondary',
+      //         icon: response.data.icon ? response.data.icon : 'info',
+      //         timeout: response.data.timeout ? response.data.timeout : 10000,
+      //         text: response.data.message,
+      //         title: response.data.title ? response.data.title : ''
+      //       })
+      //     }
+      //   })
     }
   },
   methods: {
@@ -153,6 +77,6 @@ new Vue({
     }
   },
   mounted () {
-    this.app = this
+    //
   }
 })

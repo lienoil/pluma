@@ -58,6 +58,7 @@
                         </v-list-tile-action>
                     </v-list-tile>
                     <v-divider inset></v-divider>
+
                     <v-list-tile avatar @click="" ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }">
                         <v-list-tile-avatar>
                             <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">

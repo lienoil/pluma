@@ -33,6 +33,7 @@ class Catalogue extends Category
             $array[$i+1]['name'] = $catalogue->name;
             $array[$i+1]['url'] = route('api.library.catalogue', [$catalogue->id]);
             $array[$i+1]['icon'] = $catalogue->icon;
+            $array[$i+1]['model'] = $i == 0 ? true : false;
         }
 
         return $array;

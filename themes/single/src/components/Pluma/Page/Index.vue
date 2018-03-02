@@ -209,8 +209,17 @@ export default {
     destroy (id) {
       this.$http.delete('/api/v1/pages/' + id + '/destroy')
         .then(response => {
-          console.log(response)
-          this.dataset.items.splice(id)
+          this.dataset.items.map((item, key) => {
+            if (response.status === 200) {
+              if (item.id === id) {
+                this.dataset.items.splice(key, 1)
+                this.$root.alert({color: 'secondary', type: 'success', text: `${item.title} page moved to trash.`})
+              }
+            }
+          })
+        })
+        .catch(error => {
+          this.$root.alert({color: 'secondary', type: 'error', text: `Oops! Something went wrong. ${error.response.data}`})
         })
     }
   },

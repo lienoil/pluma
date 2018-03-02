@@ -75,14 +75,14 @@
         mixins.push({
             data () {
                 return {
-                    featuredImage: {
-                        new: {
-                            thumbnail: '{{ $resource->feature }}',
-                        },
-                        old: [{
-                            thumbnail: '{{ $resource->feature }}',
-                        }],
-                    },
+                    // featuredImage: {
+                    //     new: {
+                    //         thumbnail: '{!! $resource->feature !!}',
+                    //     },
+                    //     old: [{
+                    //         thumbnail: '{!! $resource->feature !!}',
+                    //     }],
+                    // },
                     resource: {
                         item: {
                             title: '{{ $resource->title }}',
