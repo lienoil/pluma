@@ -48,6 +48,7 @@
                                     slot="activator"
                                     v-model="resource.item.method"
                                 ></v-text-field>
+
                                 <v-card>
                                     <v-list>
                                         <v-list-tile ripple @click="resource.item.method = method" :key="i" v-for="(method, i) in misc.methods">

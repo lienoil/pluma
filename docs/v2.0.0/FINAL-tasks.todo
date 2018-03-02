@@ -97,6 +97,10 @@ Form Builder:
     code->name for fields/edit-fields
     unique display for submission index and show
 
+Registration:
+  ☐ Email Notification
+  ☐ Email template
+  ✔ Email Settings Management @done (18-03-01 14:57)
 
 
 

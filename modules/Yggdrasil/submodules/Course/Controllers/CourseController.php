@@ -19,7 +19,6 @@ use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
 use Library\Models\Library;
-// use User\Models\User;
 
 class CourseController extends GeneralController
 {
@@ -279,6 +278,7 @@ class CourseController extends GeneralController
 
         return back();
     }
+
 
     /**
      * Student the specified resource from storage permanently.
