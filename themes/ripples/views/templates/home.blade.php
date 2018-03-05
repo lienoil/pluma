@@ -386,6 +386,21 @@ Version: 1.0
         .relative {
             position: relative !important;
         }
+
+        /* wave background */
+        /*.wave {
+            position: absolute;
+            background-image: url(https://www.looop.co/wp-content/themes/looop2017B/img/background-wave.svg);
+            bottom: 0;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            background-position-x: 50%;
+            background-position-y: bottom;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }*/
+        /* wave background */
     </style>
 @endpush
 
