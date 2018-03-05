@@ -6,44 +6,80 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex md3 xs12>
-                <v-card class="elevation-1 mb-3">
-                    <v-toolbar flat class="transparent">
-                        <v-toolbar-title class="subheading">{{ __('Enroll Students') }}</v-toolbar-title>
-                    </v-toolbar>
-                    <v-card-actions class="pa-0">
-                        <v-subheader class="caption grey--text"><em>{{ __('You may enroll multiple students to this course') }}</em></v-subheader>
-                    </v-card-actions>
+                <form action="{{ route('students.store', [$resource->id, user()->id]) }}" method="POST">
+                    {{ csrf_field() }}
+                    <v-card class="elevation-1 mb-3">
+                        <v-toolbar flat class="transparent">
+                            <v-toolbar-title class="subheading">{{ __('Enroll Students') }}</v-toolbar-title>
+                        </v-toolbar>
+                        <v-card-actions class="pa-0">
+                            <v-subheader class="caption grey--text"><em>{{ __('You may enroll multiple students to this course') }}</em></v-subheader>
+                        </v-card-actions>
 
-                    <v-card-text>
-                        <v-select
-                            :error-messages="resource.errors.users"
-                            :items="suppliments.users.items"
-                            autocomplete
-                            clearable
-                            item-text="name"
-                            item-value="id"
-                            label="{{ __('Users') }}"
-                            multiple
-                            persistent-hint
-                            prepend-icon="supervisor_account"
-                            v-model="suppliments.users.selected"
-                        ></v-select>
-                        <input type="hidden" name="users[]" :value="id" v-for="(id, i) in suppliments.users.selected" :key="i">
-                    </v-card-text>
+                        <v-card-text>
+                            <v-select
+                                :error-messages="resource.errors.users"
+                                :items="suppliments.users.items"
+                                autocomplete
+                                item-text="name"
+                                item-value="id"
+                                label="{{ __('Users') }}"
+                                multiple
+                                persistent-hint
+                                prepend-icon="supervisor_account"
+                                v-model="suppliments.users.selected"
+                            ></v-select>
+                            <input type="hidden" name="users[]" :value="id" v-for="(id, i) in suppliments.users.selected" :key="i">
 
-                    <v-card-actions class="pa-3">
-                        <v-spacer></v-spacer>
-                        <v-btn primary class="elevation-1">{{ __('Enroll') }}</v-btn>
-                    </v-card-actions>
-                </v-card>
+                            <v-card-actions class="pa-3">
+                                <v-spacer></v-spacer>
+                                <v-btn primary class="elevation-1" type="submit">{{ __('Enroll') }}</v-btn>
+                            </v-card-actions>
+                        </v-card-text>
+                    </v-card>
+                </form>
             </v-flex>
-
 
             <v-flex md9 xs12>
                 <v-card class="mb-3 elevation-1">
 
-                    <v-toolbar flat class="transparent">
-                        <v-toolbar-title class="subheading">{{ __('Students Enrolled') }}</v-toolbar-title>
+                    <v-toolbar flat>
+                        <v-icon left>extension</v-icon>
+                        <v-toolbar-title primary-title>{{ __('Students Enrolled') }}</v-toolbar-title>
+                        <v-spacer></v-spacer>
+
+                        {{-- Batch Commands --}}
+                        <v-btn
+                            v-show="dataset.selected.length < 2"
+                            flat
+                            icon
+                            v-model="bulk.drop.model"
+                            :class="bulk.drop.model ? 'btn--active primary primary--text' : ''"
+                            v-tooltip:left="{'html': '{{ __('Toggle the bulk command checkboxes') }}'}"
+                            @click.native="bulk.drop.model = !bulk.drop.model"
+                        ><v-icon>@{{ bulk.drop.model ? 'check_circle' : 'check_circle' }}</v-icon></v-btn>
+
+                        {{-- Bulk Delete --}}
+                        <v-slide-y-transition>
+                            <template v-if="dataset.selected.length > 1">
+                                <form action="{{ route('students.drop', $resource->id) }}" method="POST" class="inline">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <template v-for="item in dataset.selected">
+                                        <input type="hidden" name="user_id[]" :value="item.id">
+                                    </template>
+                                    <v-btn
+                                        flat
+                                        icon
+                                        type="submit"
+                                        v-tooltip:left="{'html': `Move ${dataset.selected.length} selected items to Trash`}"
+                                    ><v-icon warning>delete_sweep</v-icon></v-btn>
+                                </form>
+                            </template>
+                        </v-slide-y-transition>
+                        {{-- /Bulk Delete --}}
+                        {{-- /Batch Commands --}}
+
                     </v-toolbar>
 
                     <v-data-table
@@ -51,7 +87,7 @@
                         :total-items="dataset.totalItems"
                         class="elevation-0"
                         no-data-text="{{ _('No resource found') }}"
-                        v-bind="bulk.destroy.model?{'select-all':'primary'}:[]"
+                        v-bind="bulk.drop.model?{'select-all':'primary'}:[]"
                         v-bind:headers="dataset.headers"
                         v-bind:items="dataset.items"
                         v-bind:pagination.sync="dataset.pagination"
@@ -62,11 +98,10 @@
                             </span>
                         </template>
                         <template slot="items" scope="prop">
-                            <td v-show="bulk.destroy.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
+                            <td v-show="bulk.drop.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td v-html="prop.item.displayname"></td>
-                            <td v-html="prop.item.created"></td>
-                            <td v-html="prop.item.modified"></td>
+                            <td v-html="prop.item.enrolled"></td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
@@ -116,12 +151,20 @@
         mixins.push({
             data () {
                 return {
+                    bulk: {
+                        drop: {
+                            model: false,
+                        },
+                    },
                     resource: {
                         item: {
                             user_id: '{{ @(old('user_id') ?? $resource->user->id) }}',
                         },
                         users: {!! json_encode($users->toArray()) !!},
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
+                    },
+                    urls: {
+                        drop: '{{ route('students.drop', 'null') }}',
                     },
                     suppliments: {
                         users: {
@@ -146,7 +189,7 @@
                         },
                     },
                     bulk: {
-                        destroy: {
+                        drop: {
                             model: false,
                         },
                     },
@@ -154,8 +197,7 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Full Name") }}', align: 'left', value: 'displayname' },
-                            { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
-                            { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },
+                            { text: '{{ __("Enrolled") }}', align: 'left', value: 'enrolled_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },
                         ],
                         items: [],
@@ -209,14 +251,12 @@
 
             methods: {
                 mountSuppliments () {
-                    let items = {!! json_encode($users) !!};
+                    let items = {!! json_encode($users->toArray()) !!};
                     let g = [];
                     for (var i in items) {
                         g.push({
                             id: items[i].id,
-                            name: items[i].name,
-                            code: items[i].code,
-                            description: items[i].description,
+                            name: items[i].fullname,
                         });
                     }
                     this.suppliments.users.items = g;
@@ -237,6 +277,7 @@
                         }
                     }
                     this.suppliments.users.selected = s ? s : [];
+                    // console.log(this.suppliments.users.items);
                 },
 
                 get () {

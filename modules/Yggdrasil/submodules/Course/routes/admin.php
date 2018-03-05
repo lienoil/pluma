@@ -36,7 +36,9 @@ Route::delete('courses/delete/{course}', 'CourseController@delete')
      ->name('courses.delete');
 
 // Students
-Route::get('courses/{course}/students', 'CourseController@students')->name('courses.students');
+Route::get('courses/{course}/students', 'StudentController@index')->name('courses.students');
+Route::post('courses/{course}/{user}', 'StudentController@store')->name('students.store');
+Route::delete('courses/drop/{course}', 'StudentController@drop')->name('students.drop');
 
 // Course
 Route::resource('courses', 'CourseController');

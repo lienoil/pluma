@@ -56,7 +56,7 @@
         <v-btn
             icon
             flat
-            href="{{ route('forms.trashed') }}"
+            href="{{ route('courses.trashed') }}"
             dark
             v-tooltip:left="{'html': `View trashed items`}"
         ><v-icon class="warning--after">archive</v-icon></v-btn>
