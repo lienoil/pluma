@@ -17,6 +17,8 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
+        dd(\Course\Models\User::notEnrolledToCourse(1)->get());
+
         $course = \Course\Models\Course::find(1);
         $course->commit(2);
 

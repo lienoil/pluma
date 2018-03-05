@@ -131,7 +131,7 @@ trait PageResourceApiTrait
      */
     public function deleteDestroy(Request $request, $id = null)
     {
-        $success = Page::destroy($id ? $id : $request->input('id'));
+        $success = Page::destroy($request->has('id') ? $request->input('id') : $id);
 
         return response()->json($success);
     }

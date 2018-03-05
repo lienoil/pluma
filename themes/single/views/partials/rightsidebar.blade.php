@@ -19,7 +19,7 @@
         class="caption"
         :label="theme.dark ? `{{ __('Dark Theme') }}` : `{{ __('Light Theme') }}`"
         v-model="theme.dark"
-        @change="localstorage('theme.dark', theme.dark)"
+        @change="localstorage('single.theme.dark', theme.dark)"
       ></v-switch>
     </v-card-text>
 
@@ -32,7 +32,7 @@
         role="button"
         thumb-label
         v-model="settings.fontsize"
-        @input="localstorage('settings.fontsize', settings.fontsize)"
+        @input="localstorage('single.settings.fontsize', settings.fontsize)"
       ></v-slider>
     </v-card-text>
   </v-card>

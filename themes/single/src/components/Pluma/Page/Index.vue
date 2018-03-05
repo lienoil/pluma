@@ -27,7 +27,7 @@
       <v-slide-y-transition mode="out-in">
         <template v-if="dataset.bulk.model">
           <v-tooltip bottom>
-            <v-btn slot="activator" icon ripple @click><v-icon>delete_sweep</v-icon></v-btn>
+            <v-btn slot="activator" icon ripple @click="destroy('false', dataset.selected)"><v-icon>delete_sweep</v-icon></v-btn>
             <span>Move selected to trash</span>
           </v-tooltip>
         </template>
@@ -206,17 +206,27 @@ export default {
           this.dataset.loading = false
         })
     },
-    destroy (id) {
-      this.$http.delete('/api/v1/pages/' + id + '/destroy')
+    destroy (id, params) {
+      if (typeof params !== 'undefined' && !params.length) {
+        this.$root.alert({color: 'secondary', type: 'warning', text: `Please select items to move to trash`})
+        return
+      }
+
+      params = params.map(item => {
+        return item.id
+      })
+
+      this.$http.delete('/api/v1/pages/' + id + '/destroy', {params: { id: params }})
         .then(response => {
-          this.dataset.items.map((item, key) => {
-            if (response.status === 200) {
-              if (item.id === id) {
-                this.dataset.items.splice(key, 1)
-                this.$root.alert({color: 'secondary', type: 'success', text: `${item.title} page moved to trash.`})
-              }
+          if (response.status === 200) {
+            this.all()
+            this.dataset.selected = []
+            if (typeof params !== 'undefined') {
+              this.$root.alert({color: 'secondary', type: 'success', text: `${params.length} ${params.length === 1 ? 'page' : 'pages'} moved to trash.`})
+            } else {
+              this.$root.alert({color: 'secondary', type: 'success', text: `Page moved to trash.`})
             }
-          })
+          }
         })
         .catch(error => {
           this.$root.alert({color: 'secondary', type: 'error', text: `Oops! Something went wrong. ${error.response.data}`})

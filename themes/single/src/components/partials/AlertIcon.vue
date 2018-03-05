@@ -1,7 +1,8 @@
 <template>
   <div class="contextual-alert-icon-container" :class="{
     'contextual-alert-icon-small': small === true,
-    'contextual-alert-icon-large': large === true
+    'contextual-alert-icon-large': large === true,
+    'contextual-alert-icon-medium': medium === true
   }">
     <div v-if="mode === 'error'" class="contextual-alert-icon alert-icon-error animate">
       <span class="alert-icon-x-mark">
@@ -23,6 +24,10 @@
       <div class="alert-icon-placeholder"></div>
       <div class="alert-icon-fix"></div>
     </div>
+
+    <div v-else-if="mode === 'prompt'" class="contextual-alert-icon alert-icon-prompt scalePrompt">
+      <span class="alert-icon-question-mark">?</span>
+    </div>
   </div>
 </template>
 
@@ -32,6 +37,7 @@ export default {
   props: {
     small: { type: Boolean, default: false },
     large: { type: Boolean, default: false },
+    medium: { type: Boolean, default: false },
     mode: { default: 'success' }
   },
   data () {
@@ -43,18 +49,29 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="stylus">
+@import '~@/assets/stylus/main'
+
+// Container
 .contextual-alert-icon-container {
   position: relative;
   background: inherit;
   padding: 1rem;
 }
+
+// Size
 .contextual-alert-icon-small .contextual-alert-icon {
   zoom: 0.5;
 }
 .contextual-alert-icon-large .contextual-alert-icon {
   zoom: 1.5;
 }
+.contextual-alert-icon-medium .contextual-alert-icon {
+  zoom: 1;
+}
+
+// Generic
+// Contextual
 .contextual-alert-icon {
   background: inherit;
   border-radius: 50%;
@@ -67,157 +84,196 @@ export default {
   position: relative;
   width: 80px;
   zoom: 0.8;
-}
-.contextual-alert-icon.alert-icon-success, .contextual-alert-icon.alert-icon-error {
-  border-color: #A5DC86;
-}
-.contextual-alert-icon.alert-icon-success:after, .contextual-alert-icon.alert-icon-success:before, .contextual-alert-icon.alert-icon-error:after, .contextual-alert-icon.alert-icon-error:before {
-  background: inherit;
-  content: '';
-  height: 120px;
-  position: absolute;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-  width: 60px;
-}
-.contextual-alert-icon.alert-icon-success:before, .contextual-alert-icon.alert-icon-error:before {
-  border-radius: 120px 0 0 120px;
-  left: -33px;
-  top: -7px;
-  -webkit-transform-origin: 60px 60px;
-          transform-origin: 60px 60px;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-}
-.contextual-alert-icon.alert-icon-success:after, .contextual-alert-icon.alert-icon-error:after {
-  border-radius: 0 120px 120px 0;
-  left: 30px;
-  top: -11px;
-  -webkit-transform-origin: 0 60px;
-          transform-origin: 0 60px;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-}
-.contextual-alert-icon.alert-icon-success .alert-icon-placeholder, .contextual-alert-icon.alert-icon-error .alert-icon-placeholder {
-  border-radius: 50%;
-  border: 4px solid rgba(165, 220, 134, 0.2);
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-  height: 80px;
-  left: -4px;
-  position: absolute;
-  top: -4px;
-  width: 80px;
-  z-index: 2;
-}
-.contextual-alert-icon.alert-icon-success .alert-icon-fix, .contextual-alert-icon.alert-icon-error .alert-icon-fix {
-  background-color: inherit;
-  height: 90px;
-  left: 28px;
-  position: absolute;
-  top: 8px;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-  width: 5px;
-  z-index: 1;
-}
-.contextual-alert-icon.alert-icon-success .alert-icon-line, .contextual-alert-icon.alert-icon-error .alert-icon-line {
-  background-color: #A5DC86;
-  border-radius: 2px;
-  display: block;
-  height: 5px;
-  position: absolute;
-  z-index: 2;
-}
-.contextual-alert-icon.alert-icon-success .alert-icon-line.alert-icon-tip, .contextual-alert-icon.alert-icon-error .alert-icon-line.alert-icon-tip {
-  left: 14px;
-  top: 46px;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-  width: 25px;
-}
-.contextual-alert-icon.alert-icon-success .alert-icon-line.alert-icon-long, .contextual-alert-icon.alert-icon-error .alert-icon-line.alert-icon-long {
-  right: 8px;
-  top: 38px;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-  width: 47px;
-}
-.contextual-alert-icon.alert-icon-error {
-  border-color: #F27474;
-}
-.contextual-alert-icon.alert-icon-error .alert-icon-x-mark {
-  display: block;
-  position: relative;
-  z-index: 2;
-}
-.contextual-alert-icon.alert-icon-error .alert-icon-placeholder {
-  border: 4px solid rgba(200, 0, 0, 0.2);
-}
-.contextual-alert-icon.alert-icon-error .alert-icon-line {
-  background-color: #F27474;
-  top: 37px;
-  width: 47px;
-}
-.contextual-alert-icon.alert-icon-error .alert-icon-line.alert-icon-left {
-  left: 17px;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-}
-.contextual-alert-icon.alert-icon-error .alert-icon-line.alert-icon-right {
-  right: 16px;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-}
-.contextual-alert-icon.alert-icon-warning {
-  border-color: #F8BB86;
-}
-.contextual-alert-icon.alert-icon-warning:before {
-  -webkit-animation: pulseWarning 2s linear infinite;
-          animation: pulseWarning 2s linear infinite;
-  background-color: inherit;
-  border-radius: 50%;
-  content: "";
-  display: inline-block;
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-}
-.contextual-alert-icon.alert-icon-warning:after {
-  background-color: inherit;
-  border-radius: 50%;
-  content: '';
-  display: block;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-}
-.contextual-alert-icon.alert-icon-warning .alert-icon-body {
-  background-color: #F8BB86;
-  border-radius: 2px;
-  height: 47px;
-  left: 50%;
-  margin-left: -2px;
-  position: absolute;
-  top: 10px;
-  width: 5px;
-  z-index: 2;
-}
-.contextual-alert-icon.alert-icon-warning .alert-icon-dot {
-  background-color: #F8BB86;
-  border-radius: 50%;
-  bottom: 10px;
-  height: 7px;
-  left: 50%;
-  margin-left: -3px;
-  position: absolute;
-  width: 7px;
-  z-index: 2;
-}
-.contextual-alert-icon + .contextual-alert-icon {
-  margin-top: 50px;
+
+  // Generic
+  &.alert-icon-success, &.alert-icon-error {
+    border-color: transparentify($theme.success, $theme.success, 0.5);
+
+    &:after, &:before {
+      background: inherit;
+      content: '';
+      height: 120px;
+      position: absolute;
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+      width: 60px;
+    }
+
+    &:before {
+      border-radius: 120px 0 0 120px;
+      left: -33px;
+      top: -7px;
+      -webkit-transform-origin: 60px 60px;
+              transform-origin: 60px 60px;
+      -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg);
+    }
+
+    &:after {
+      border-radius: 0 120px 120px 0;
+      left: 30px;
+      top: -11px;
+      -webkit-transform-origin: 0 60px;
+              transform-origin: 0 60px;
+      -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg);
+    }
+
+    .alert-icon-placeholder {
+      border-radius: 50%;
+      border: 4px solid rgba(165, 220, 134, 0.2);
+      -webkit-box-sizing: content-box;
+              box-sizing: content-box;
+      height: 80px;
+      left: -4px;
+      position: absolute;
+      top: -4px;
+      width: 80px;
+      z-index: 2;
+    }
+
+    .alert-icon-fix {
+      background-color: inherit;
+      height: 90px;
+      left: 28px;
+      position: absolute;
+      top: 8px;
+      -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg);
+      width: 5px;
+      z-index: 1;
+    }
+
+    .alert-icon-line {
+      background-color: $theme.success;
+      border-radius: 2px;
+      display: block;
+      height: 5px;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .alert-icon-line.alert-icon-tip {
+      left: 14px;
+      top: 46px;
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+      width: 25px;
+    }
+
+    .alert-icon-line.alert-icon-long {
+      right: 8px;
+      top: 38px;
+      -webkit-transform: rotate(-45deg);
+              transform: rotate(-45deg);
+      width: 47px;
+    }
+  }
+
+  & + .contextual-alert-icon {
+    margin-top: 50px;
+  }
+
+  // Error
+  &.alert-icon-error {
+    border-color: $theme.error;
+
+    .alert-icon-x-mark {
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .alert-icon-placeholder {
+      border: 4px solid transparentify($theme.error, $theme.error, 0.2);
+    }
+
+    .alert-icon-line {
+      background-color: $theme.error;
+      top: 37px;
+      width: 47px;
+
+      &.alert-icon-left {
+        left: 17px;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+      }
+
+      &.alert-icon-right {
+        right: 16px;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+      }
+    }
+  }
+
+  // Warning
+  &.alert-icon-warning {
+    border-color: transparentify($theme.warning, $theme.warning, 0.5);
+
+    &:before {
+      -webkit-animation: pulseWarning 2s linear infinite;
+              animation: pulseWarning 2s linear infinite;
+      background-color: inherit;
+      border-radius: 50%;
+      content: "";
+      display: inline-block;
+      height: 100%;
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+    }
+
+    &:after {
+      background-color: inherit;
+      border-radius: 50%;
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .alert-icon-body {
+      background-color: $theme.warning;
+      border-radius: 2px;
+      height: 47px;
+      left: 50%;
+      margin-left: -2px;
+      position: absolute;
+      top: 10px;
+      width: 5px;
+      z-index: 2;
+    }
+
+    .alert-icon-dot {
+      background-color: $theme.warning;
+      border-radius: 50%;
+      bottom: 10px;
+      height: 7px;
+      left: 50%;
+      margin-left: -3px;
+      position: absolute;
+      width: 7px;
+      z-index: 2;
+    }
+  }
+
+  // Prompt
+  &.alert-icon-prompt {
+    border-color: transparentify($theme.info, $theme.info, 0.5);
+
+    .alert-icon-question-mark {
+      color: $theme.info;
+      font-size: 5rem;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      position: absolute;
+      z-index: 2;
+    }
+  }
 }
 
 .animateSuccessTip {

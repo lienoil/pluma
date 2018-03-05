@@ -52,6 +52,24 @@ export const settings = {
 
       /**
        *------------------------------------------
+       * Dialog Settings
+       *------------------------------------------
+       *
+       */
+      dialog: {
+        color: 'secondary',
+        icon: 'info',
+        type: 'success',
+        timeout: 10000,
+        model: false,
+        title: '',
+        text: '',
+        x: 'right',
+        y: 'top'
+      },
+
+      /**
+       *------------------------------------------
        * Rightsidebar Settings
        *------------------------------------------
        *
