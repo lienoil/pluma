@@ -14,7 +14,7 @@ class User extends BaseUser
 
     protected $with = ['roles'];
 
-    protected $appends = ['handlename', 'propername', 'displayname', 'displayrole', 'fullname', 'created', 'modified'];
+    protected $appends = ['handlename', 'propername', 'displayname', 'displayrole', 'fullname', 'created', 'modified', 'enrolled'];
 
     protected $searchables = ['firstname', 'middlename', 'lastname', 'username', 'prefixname', 'email'];
 }
