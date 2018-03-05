@@ -34,6 +34,7 @@
                     <v-card-actions class="pa-3">
                         <v-spacer></v-spacer>
                         <v-btn primary class="elevation-1">{{ __('Enroll') }}</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
 

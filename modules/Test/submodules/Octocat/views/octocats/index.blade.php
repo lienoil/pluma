@@ -37,6 +37,26 @@
                     <button id="question">Question</button>
                 </v-card>
             </v-flex>
+
+            <v-flex xs4>
+                <v-card class="elevation-1">
+                    <v-toolbar flat class="transparent">
+                        <v-toolbar-title>
+                            {{ __('Full Courses') }}
+                        </v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-switch
+                            :label="`Switch 1: ${switch1.toString()}`"
+                            v-model="switch1"
+                        ></v-switch>
+                    </v-toolbar>
+                    <v-divider></v-divider>
+                    <v-card-text>
+                        <v-checkbox label="Jane" v-model="selected" value="Jane"></v-checkbox>
+                        <v-checkbox label="Joe" v-model="selected" value="Joe"></v-checkbox>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
         </v-layout>
     </v-container>
 
@@ -58,6 +78,8 @@
         mixins.push({
             data() {
                 return {
+                    switch1: true,
+                    selected: ['Jane'],
                     sheet: false,
                     tiles: [
                         {

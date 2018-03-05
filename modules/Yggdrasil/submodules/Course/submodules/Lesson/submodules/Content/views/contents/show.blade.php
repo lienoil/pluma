@@ -99,8 +99,6 @@
                         </template>
                     </template>
 
-                    <v-divider></v-divider>
-
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         @if ($resource->previous)
