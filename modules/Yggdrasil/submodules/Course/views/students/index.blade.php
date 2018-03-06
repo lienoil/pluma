@@ -159,18 +159,6 @@
                                                     {{ method_field('DELETE') }}
                                                 <v-btn @click="$refs[`drop_${prop.item.id}`].submit()" class="elevation-0 ma-0 error white--text">{{ __('Yes') }}</v-btn>
                                             </form>
-
-                                           {{--  <form action="{{ route('students.drop', $resource->id) }}" method="POST" class="inline">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <template v-for="item in dataset.selected">
-                                                    <input type="hidden" name="user_id[]" :value="item.id">
-                                                </template>
-                                                <v-btn
-                                                    class="elevation-0 ma-0 error white--text"
-                                                    type="submit"
-                                                >{{ __('Yes') }}</v-btn>
-                                            </form> --}}
                                         </v-card-actions>
                                     </v-card>
                                 </v-dialog>
