@@ -77,6 +77,10 @@
                             <v-switch v-bind:label="`Mini sidebar`" v-on:change="setStorage('sidebar.mini', sidebar.mini)" v-model="sidebar.mini"></v-switch>
                         </v-card-text>
 
+                        <v-card-text>
+                            @include("Theme::partials.widget")
+                        </v-card-text>
+
                         {{-- Color Scheme --}}
                         {{-- <v-card-text>
                             <div class="text-xs-left">

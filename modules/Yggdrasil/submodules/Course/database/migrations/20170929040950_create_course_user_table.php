@@ -29,7 +29,8 @@ class CreateCourseUserTable extends Migration
             $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->timestamps();
+            $table->timestamp('enrolled_at');
+            $table->timestamp('dropped_at')->nullable();
             $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('user_id')->references('id')->on('users');
         });

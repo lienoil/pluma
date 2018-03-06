@@ -22,7 +22,7 @@
 
         @if (user())
             <v-card-text class="text-xs-center">
-                <v-btn large primary ripple class="px-4" href="{{ route('courses.enroll.index', [$resource->slug, user()->id]) }}">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
+                <v-btn large primary ripple class="px-4" depressed href="{{ route('courses.enroll.index', [$resource->slug, user()->id]) }}">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
             </v-card-text>
        @endif
     </v-card>

@@ -56,7 +56,7 @@
         <v-btn
             icon
             flat
-            href="{{ route('forms.trashed') }}"
+            href="{{ route('courses.trashed') }}"
             dark
             v-tooltip:left="{'html': `View trashed items`}"
         ><v-icon class="warning--after">archive</v-icon></v-btn>
@@ -126,11 +126,11 @@
                                         </v-list-tile>
                                         <v-list-tile :href="route(urls.students, (prop.item.slug))">
                                             <v-list-tile-action>
-                                                <v-icon success>playlist_add_check</v-icon>
+                                                <v-icon success>extension</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>
-                                                    {{ __('List of Students') }}
+                                                    {{ __('Manage Students') }}
                                                 </v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>

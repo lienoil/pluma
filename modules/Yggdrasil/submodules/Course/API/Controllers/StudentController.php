@@ -49,12 +49,13 @@ class StudentController extends APIController
         $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
+        $course_id = $request->get('course_id');
 
-        $resources = Student::search($search)->orderBy($sort, $order);
-        if ($onlyTrashed) {
-            $resources->onlyTrashed();
-        }
-        $resources = $resources->get();
+        $resources = Course::find($course_id)->users;
+        // if ($onlyTrashed) {
+        //     $resources->onlyTrashed();
+        // }
+        // $resources = $resources->get();
 
         return response()->json($resources);
     }

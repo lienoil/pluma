@@ -104,8 +104,6 @@
 
     <v-container fluid grid-list-lg>
 
-        {{-- @include("Course::cards.evaluation") --}}
-
         <v-layout row wrap>
             <v-flex flex md3 xs12 order-lg1>
                 <v-card class="mb-3 elevation-1">
@@ -195,10 +193,6 @@
                 {{-- Get Course --}}
                 @include("Course::widgets.enrolled")
                 {{-- Get Course --}}
-
-                {{-- Course Progress --}}
-                {{-- @include("Course::widgets.course-progress") --}}
-                {{-- Course Progress --}}
 
                 {{-- Enrolled Students --}}
                 @include("Course::widgets.students")

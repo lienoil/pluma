@@ -10,7 +10,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
-                <v-card class="mb-2 elevation-1">
+                <v-card class="mb-2 elevation-0">
                     {{-- <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
                         <v-spacer></v-spacer>
@@ -99,10 +99,27 @@
                         </template>
                     </template>
 
-                    <v-divider></v-divider>
+                    {{-- Description --}}
+                    <v-flex sm6 xs12>
+                        <v-card class="mb-3 elevation-0">
+                            <v-card-text class="px-4">
+                                <h2 class="page-title title">{{ $resource->course->title }}:
+                                    <span class="grey--text">{{ $resource->lesson->title }}</span>
+                                </h2>
+                                {{-- <h2 class="page-title title">{{ $resource->lesson->title }}</h2> --}}
+                                <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
+                                <p class="subheading">{!! $resource->body !!}</p>
+                            </v-card-text>
+                            <v-card-actions class="pa-3">
+                                <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
+                                <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }} <a target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a></p>
+                            </v-card-actions>
+                        </v-card>
+                    </v-flex>
+                    {{-- Description --}}
 
+                    {{-- Previous and Next btn --}}
                     <v-card-actions>
-                        <v-spacer></v-spacer>
                         @if ($resource->previous)
                             <v-btn success outline href="{{ $resource->previous }}"><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
                         @else
@@ -114,6 +131,7 @@
                             <v-btn disabled outline href="{{ $resource->next }}"> Next <v-icon right>keyboard_arrow_right</v-icon></v-btn>
                         @endif
                     </v-card-actions>
+                    {{-- Previous and Next btn --}}
                 </v-card>
             </v-flex>
         </v-layout>
@@ -124,7 +142,7 @@
                     <v-flex md8 xs12>
 
                         {{-- Description --}}
-                        <v-card class="mb-3 elevation-1">
+                        {{-- <v-card class="mb-3 elevation-0">
                             <v-card-text>
                                 <h2 class="page-title display-1">{{ $resource->course->title }}</h2>
                                 <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
@@ -136,7 +154,7 @@
                                 <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
                                 <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }} <a target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a></p>
                             </v-card-actions>
-                        </v-card>
+                        </v-card> --}}
                         {{-- Description --}}
 
                         {{-- Comments Section --}}
@@ -181,8 +199,8 @@
                                     {{-- v-model="item.active" --}}
                                 >
                                     <v-list-tile-action>
-                                        <v-icon left v-if="item.completed">check</v-icon>
-                                        <v-icon left v-else-if="item.current">play_circle_outline</v-icon>
+                                        <v-icon left v-if="item.completed" class="success--text">check</v-icon>
+                                        <v-icon left v-else-if="item.current" class="grey--text">play_circle_outline</v-icon>
                                         <v-icon left v-else>lock</v-icon>
                                     </v-list-tile-action>
                                     <v-list-tile-content>

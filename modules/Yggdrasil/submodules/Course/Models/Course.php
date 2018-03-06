@@ -54,5 +54,7 @@ class Course extends Model
         'slug',
         'title',
         'updated_at',
+        'enrolled_at',
+        'dropped_at',
     ];
 }
