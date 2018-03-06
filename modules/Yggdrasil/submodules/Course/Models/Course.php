@@ -40,7 +40,6 @@ class Course extends Model
         'author',
         'bookmarked',
         'created',
-        'enrolled',
         'excerpt',
         'modified',
     ];

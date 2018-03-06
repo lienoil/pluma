@@ -21,8 +21,8 @@ class StudentController extends AdminController
         $resource = Course::whereSlug($slug)
             ->firstOrFail();
 
-        // $users = User::all();
-        $users = User::notEnrolledToCourse($resource->id)->get();
+        $users = User::all();
+        // $users = User::notEnrolledToCourse($resource->id)->get();
 
         return view("Theme::students.index")->with(compact('resource', 'users'));
     }
