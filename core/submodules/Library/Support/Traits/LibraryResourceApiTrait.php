@@ -54,9 +54,7 @@ trait LibraryResourceApiTrait
                         ? $request->get('take')
                         : 0;
 
-        $resources = Library::search($parameters)
-                        ->type($request->get('catalogue_id'), 'catalogue_id')
-                        ->orderBy($sort, $order);
+        $resources = Library::search($parameters)->orderBy($sort, $order);
 
         if ($onlyTrashed) {
             $resources->onlyTrashed();

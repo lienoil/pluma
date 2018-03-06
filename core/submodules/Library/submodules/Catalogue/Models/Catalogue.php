@@ -38,4 +38,31 @@ class Catalogue extends Category
 
         return $array;
     }
+
+    /**
+     * Lists of catalogues.
+     *
+     * @return array
+     */
+    public static function catalogued()
+    {
+        $array[] = [
+            'count' => Library::count(),
+            'name' => __('All Media'),
+            'icon' => 'perm_media',
+            'url' => route('api.library.all'),
+            'model' => true,
+        ];
+
+        foreach (self::all() as $i => $catalogue) {
+            $array[$i+1]['id'] = $catalogue->id;
+            $array[$i+1]['count'] = $catalogue->libraries->count();
+            $array[$i+1]['name'] = $catalogue->name;
+            $array[$i+1]['url'] = route('api.library.all', ['catalogue_id' => $catalogue->id]);
+            $array[$i+1]['icon'] = $catalogue->icon;
+            $array[$i+1]['model'] = false;
+        }
+
+        return $array;
+    }
 }

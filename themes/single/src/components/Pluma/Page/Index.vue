@@ -103,7 +103,7 @@
                             <v-list-tile-title>Edit Page</v-list-tile-title>
                           </v-list-tile-content>
                         </v-list-tile>
-                        <v-list-tile ripple exact @click="destroy(props.item.id)">
+                        <v-list-tile :ripple="{color: 'primary'}" exact @click="destroy(props.item.id)">
                           <v-list-tile-action>
                             <v-icon color="warning">delete</v-icon>
                           </v-list-tile-action>
@@ -212,11 +212,11 @@ export default {
         return
       }
 
-      params = params.map(item => {
-        return item.id
-      })
+      if (params) {
+        params = { id: params.map(item => { return item.id }) }
+      }
 
-      this.$http.delete('/api/v1/pages/' + id + '/destroy', {params: { id: params }})
+      this.$http.delete('/api/v1/pages/' + id + '/destroy', { params: params })
         .then(response => {
           if (response.status === 200) {
             this.all()
