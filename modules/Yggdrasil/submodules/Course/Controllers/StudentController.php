@@ -5,12 +5,16 @@ namespace Course\Controllers;
 use Course\Models\Course;
 use Course\Models\Scormvar;
 use Course\Models\User;
+use Course\Support\Traits\StudentResourceSoftDeleteTrait;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends AdminController
 {
+
+    use StudentResourceSoftDeleteTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +63,6 @@ class StudentController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function drop(Request $request, $id)
     {
         // punyemas! two lines!, delete nyo to pagnabasa nyo
@@ -76,6 +79,20 @@ class StudentController extends AdminController
         }
 
         return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        Course::destroy($request->has('id') ? $request->input('id') : $id);
+
+        return redirect()->route('students.index');
     }
 
 }
