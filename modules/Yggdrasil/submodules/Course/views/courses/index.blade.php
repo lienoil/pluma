@@ -126,7 +126,7 @@
                                         </v-list-tile>
                                         <v-list-tile :href="route(urls.students, (prop.item.slug))">
                                             <v-list-tile-action>
-                                                <v-icon success>extension</v-icon>
+                                                <v-icon success>supervisor_account</v-icon>
                                             </v-list-tile-action>
                                             <v-list-tile-content>
                                                 <v-list-tile-title>

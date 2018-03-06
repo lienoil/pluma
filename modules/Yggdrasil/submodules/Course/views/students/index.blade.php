@@ -12,30 +12,40 @@
                         <v-toolbar flat class="transparent">
                             <v-toolbar-title class="subheading">{{ __('Enroll Students') }}</v-toolbar-title>
                         </v-toolbar>
-                        <v-card-actions class="pa-0">
-                            <v-subheader class="caption grey--text"><em>{{ __('You may enroll multiple students to this course') }}</em></v-subheader>
-                        </v-card-actions>
 
-                        <v-card-text>
-                            <v-select
-                                :error-messages="resource.errors.users"
-                                :items="suppliments.users.items"
-                                autocomplete
-                                item-text="name"
-                                item-value="id"
-                                label="{{ __('Users') }}"
-                                multiple
-                                persistent-hint
-                                prepend-icon="supervisor_account"
-                                v-model="suppliments.users.selected"
-                            ></v-select>
-                            <input type="hidden" name="users[]" :value="id" v-for="(id, i) in suppliments.users.selected" :key="i">
-
-                            <v-card-actions class="pa-3">
-                                <v-spacer></v-spacer>
-                                <v-btn primary class="elevation-1" type="submit">{{ __('Enroll') }}</v-btn>
+                        <template v-if="resource.users.length">
+                            <v-card-actions class="pa-0">
+                                <v-subheader class="caption grey--text"><em>{{ __('You may enroll multiple students to this course') }}</em></v-subheader>
                             </v-card-actions>
-                        </v-card-text>
+
+                            <v-card-text>
+                                <v-select
+                                    :error-messages="resource.errors.users"
+                                    :items="suppliments.users.items"
+                                    autocomplete
+                                    item-text="name"
+                                    item-value="id"
+                                    label="{{ __('Users') }}"
+                                    multiple
+                                    persistent-hint
+                                    prepend-icon="supervisor_account"
+                                    v-model="suppliments.users.selected"
+                                ></v-select>
+                                <input type="hidden" name="users[]" :value="id" v-for="(id, i) in suppliments.users.selected" :key="i">
+
+                                <v-card-actions class="pa-3">
+                                    <v-spacer></v-spacer>
+                                    <v-btn primary class="elevation-1" type="submit">{{ __('Enroll') }}</v-btn>
+                                </v-card-actions>
+                            </v-card-text>
+                        </template>
+                        <template v-else>
+                            <v-card-text>
+                                <p class="text-xs-center body-1 grey--text">
+                                    <em>{{ __('No available users to enroll') }}</em>
+                                </p>
+                            </v-card-text>
+                        </template>
                     </v-card>
                 </form>
             </v-flex>
@@ -43,9 +53,9 @@
             <v-flex md9 xs12>
                 <v-card class="mb-3 elevation-1">
 
-                    <v-toolbar flat>
-                        <v-icon left>extension</v-icon>
-                        <v-toolbar-title primary-title>{{ __('Students Enrolled') }}</v-toolbar-title>
+                    <v-toolbar flat class="transparent">
+                        <v-icon left>supervisor_account</v-icon>
+                        <v-toolbar-title primary-title class="subheading">{{ __('Students Enrolled') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
 
                         {{-- Batch Commands --}}
@@ -101,7 +111,7 @@
                             <td v-show="bulk.drop.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td v-html="prop.item.displayname"></td>
-                            <td v-html="prop.item.enrolled"></td>
+                            {{-- <td v-html="prop.item.enrolled"></td> --}}
                             <td class="text-xs-center">
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>

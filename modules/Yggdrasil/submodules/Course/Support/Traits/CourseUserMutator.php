@@ -28,6 +28,6 @@ trait CourseUserMutator
      */
     public function getEnrolledAttribute()
     {
-        return Carbon::createFromTimeStamp(strtotime($this->pivot->enrolled_at))->diffForHumans(); //date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->created_at));
+        return Carbon::createFromTimeStamp(strtotime($this->enrolled_at))->diffForHumans(); //date(config('settings.date_format', 'F d, Y \(h:iA\)'), strtotime($this->created_at));
     }
 }

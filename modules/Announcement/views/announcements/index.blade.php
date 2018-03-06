@@ -106,6 +106,7 @@
                             <td><span v-if="prop.item.category"><v-icon left class="body-2 mr-1" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('announcements.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
+
                             <td class="text-xs-center">
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
