@@ -9,4 +9,4 @@
  *
  */
 
-Route::get('u/@{handlename}', 'ProfileController@single')->name('profile.single');
+// Route::get('u/@{handlename}', 'ProfileController@single')->name('profile.single');
