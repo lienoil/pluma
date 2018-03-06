@@ -3,6 +3,7 @@
 namespace Course\Controllers;
 
 use Course\Models\Course;
+use Course\Models\Scormvar;
 use Course\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
@@ -32,7 +33,6 @@ class StudentController extends AdminController
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int  $course_id
-     * @param  int $user_id
      * @return \Illuminate\Auth\Access\Response
      */
     public function store(Request $request, $course_id)
@@ -40,8 +40,8 @@ class StudentController extends AdminController
         $course = Course::findOrFail($course_id);
         $course->users()->attach(! empty($request->input('users')) ? $request->input('users') : []);
 
-        foreach ($course->contents()->orderBy('sort')->get() as $sort => $content) {
-            foreach ($request->input('users') as $user_id) {
+        foreach ($request->input('users') as $user_id) {
+            foreach ($course->contents()->orderBy('sort')->get() as $sort => $content) {
                 $content->users()->attach(User::find($user_id), [
                     'course_id' => $course->id,
                     'status' => $sort == 0 ? 'current' : 'pending',
@@ -62,11 +62,18 @@ class StudentController extends AdminController
 
     public function drop(Request $request, $id)
     {
+        // punyemas! two lines!, delete nyo to pagnabasa nyo
         $course = Course::find($id);
-        $courseUser = DB::table('course_user')
-           ->whereIn('user_id', $request->input('user_id'))
-           ->where('course_id', $course->id)
-           ->update(['dropped_at' => date('Y-m-d H:i:s')]);
+        $course->users()->detach($request->input('user_id'));
+
+        // Then remove content_user
+        foreach ($request->input('user_id') as $id) {
+            $user = User::find($id);
+            $user->contents()->detach();
+
+            // Then remove scormvars
+            Scormvar::where('course_id', $course->id)->where('user_id', $id)->delete();
+        }
 
         return back();
     }

@@ -35,7 +35,7 @@ trait EnrolledUserMutator
     public function getEnrolledAttribute()
     {
         return isset(user()->id)
-                ? $this->users()->where('user_id', user()->id)->exists()
+                ? $this->users()->where('user_id', user()->id)->whereNull('dropped_at')->exists()
                 : false;
     }
 

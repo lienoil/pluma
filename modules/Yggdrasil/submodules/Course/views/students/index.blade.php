@@ -60,7 +60,7 @@
 
                         {{-- Batch Commands --}}
                         <v-btn
-                            v-show="dataset.selected.length < 2"
+                            v-show="dataset.selected.length <= 1"
                             flat
                             icon
                             v-model="bulk.drop.model"
@@ -71,7 +71,7 @@
 
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
-                            <template v-if="dataset.selected.length > 1">
+                            <template v-if="dataset.selected.length >= 1">
                                 <form action="{{ route('students.drop', $resource->id) }}" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}

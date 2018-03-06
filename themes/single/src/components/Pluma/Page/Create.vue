@@ -166,7 +166,7 @@ export default {
               for (var key in error.response.data) {
                 this.errors.add(key, error.response.data[key].join('\n'), 'server')
               }
-              this.$root.alert({color: 'secondary', type: 'warning', text: `Please check fields for errors.`})
+              this.$root.alert({color: 'secondary', type: 'error', text: `Please check fields for errors.`})
               break
 
             default:
