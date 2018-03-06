@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-@import '~@/assets/stylus/main'
+@import '~@/assets/stylus/theme'
 
 // Container
 .contextual-alert-icon-container {

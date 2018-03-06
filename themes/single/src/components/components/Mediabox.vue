@@ -152,6 +152,7 @@ export default {
         }
       },
       menus: {
+        current: {},
         upload: { name: 'Upload', icon: 'cloud_upload', model: false },
         items: [
           { name: 'All Media', icon: 'image', model: true, url: this.url.all }
@@ -174,6 +175,7 @@ export default {
     get () {
       const { sortBy, descending, page, rowsPerPage } = this.media.pagination
       let query = {
+        catalogue_id: this.menus.current.catalogue_id,
         descending: descending,
         page: page,
         sort: sortBy,
@@ -233,12 +235,17 @@ export default {
       items.map(item => {
         item.model = false
       })
+
       if (menu) {
         menu.model = !menu.model
+        this.menus.current = menu
       }
+
       if (url) {
         this.media.url = url
       }
+
+      console.log(this.menus.current)
     }
   },
   mounted () {
