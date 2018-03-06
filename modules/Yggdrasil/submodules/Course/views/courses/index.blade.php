@@ -106,7 +106,7 @@
                             <td><a class="secondary--text td-n" :href="route(urls.edit, (prop.item.id))" class="no-decoration td-n"><strong v-html="prop.item.title"></strong></a></td>
                             <td v-html="prop.item.code"></td>
                             <td><a :href="`{{ route('courses.index') }}?user_id=${prop.item.user_id}`" class="td-n black--text" v-html="prop.item.user.fullname"></a></td>
-                            <td><v-chip v-if="prop.item.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip></td>
+                            {{-- <td><v-chip v-if="prop.item.enrolled" small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip></td> --}}
                             <td><span v-if="prop.item.category"><v-icon left class="body-2" v-html="prop.item.category.icon"></v-icon><a :href="`{{ route('courses.index') }}?category_id=${prop.item.category_id}`" class="td-n black--text"><span v-html="prop.item.category.name"></span></span></a></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
@@ -214,7 +214,6 @@
                             { text: '{{ __("Title") }}', align: 'left', value: 'title' },
                             { text: '{{ __("Code") }}', align: 'left', value: 'code' },
                             { text: '{{ __("Author") }}', align: 'left', value: 'user_id' },
-                            { text: '{{ __("Status") }}', align: 'left', value: 'enrolled' },
                             { text: '{{ __("Category") }}', align: 'left', value: 'category_at' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'modified_at' },

@@ -6,7 +6,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex md3 xs12>
-                <form action="{{ route('students.store', [$resource->id, user()->id]) }}" method="POST">
+                <form action="{{ route('students.store', $resource->id) }}" method="POST">
                     {{ csrf_field() }}
                     <v-card class="elevation-1 mb-3">
                         <v-toolbar flat class="transparent">
@@ -111,7 +111,7 @@
                             <td v-show="bulk.drop.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
                             <td v-html="prop.item.id"></td>
                             <td v-html="prop.item.displayname"></td>
-                            {{-- <td v-html="prop.item.enrolled"></td> --}}
+                            <td v-html="prop.item.enrolled"></td>
                             <td class="text-xs-center">
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator" v-tooltip:left="{html: 'More Actions'}"><v-icon>more_vert</v-icon></v-btn>
