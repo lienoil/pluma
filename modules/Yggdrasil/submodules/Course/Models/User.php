@@ -6,6 +6,7 @@ use Content\Support\Relations\BelongsToManyContents;
 use Course\Support\Relations\BelongsToManyCourses;
 use Course\Support\Scopes\EnrolledToACourse;
 use Course\Support\Traits\CourseUserMutator;
+use Illuminate\Database\Eloquent\Builder;
 use User\Models\User as BaseUser;
 
 class User extends BaseUser

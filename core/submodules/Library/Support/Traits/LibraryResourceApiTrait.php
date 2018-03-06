@@ -1,13 +1,13 @@
 <?php
 
-namespace Page\Support\Traits;
+namespace Library\Support\Traits;
 
 use Illuminate\Http\Request;
-use Page\Models\Page;
-use Page\Requests\PageRequest;
+use Library\Models\Library;
+use Library\Requests\LibraryRequest;
 use User\Models\User;
 
-trait PageResourceApiTrait
+trait LibraryResourceApiTrait
 {
     /**
      * Retrieve the resource with the parameters.
@@ -21,9 +21,9 @@ trait PageResourceApiTrait
                         ? $request->get('search')
                         : $request->all();
 
-        $page = Page::search($parameters)->first();
+        $library = Library::search($parameters)->first();
 
-        return response()->json($page);
+        return response()->json($library);
     }
 
     /**
@@ -42,7 +42,7 @@ trait PageResourceApiTrait
                         ? 'DESC'
                         : 'ASC';
 
-        $searches = $request->get('search') !== 'null' && $request->get('search')
+        $parameters = $request->get('search') !== 'null' && $request->get('search')
                         ? $request->get('search')
                         : $request->all();
 
@@ -54,36 +54,39 @@ trait PageResourceApiTrait
                         ? $request->get('take')
                         : 0;
 
-        $resources = Page::search($searches)->orderBy($sort, $order);
+        $resources = Library::search($parameters)
+                        ->type($request->get('catalogue_id'), 'catalogue_id')
+                        ->orderBy($sort, $order);
 
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
 
-        $pages = $resources->paginate($take);
+        $libraries = $resources->paginate($take);
 
-        return response()->json($pages);
+        return response()->json($libraries);
     }
 
     /**
      * Store a newly created resource in storage
      *
-     * @param  Page\Requests\PageRequest $request
+     * @param  Library\Requests\LibraryRequest $request
      * @return Illuminate\Http\Response
      */
-    public function postStore(PageRequest $request)
+    public function postStore(LibraryRequest $request)
     {
-        $page = new Page();
-        $page->title = $request->input('title');
-        $page->code = $request->input('code');
-        $page->feature = $request->input('feature');
-        $page->body = $request->input('body');
-        $page->delta = $request->input('delta');
-        $page->template = $request->input('attributes')['template'] ?? 'generic';
-        $page->user()->associate(User::find($request->input('user_id') ?? user()->id));
-        $page->save();
+        // $library = new Library();
+        // $library->title = $request->input('title');
+        // $library->code = $request->input('code');
+        // $library->feature = $request->input('feature');
+        // $library->body = $request->input('body');
+        // $library->delta = $request->input('delta');
+        // $library->template = $request->input('attributes')['template'] ?? 'generic';
+        // $library->user()->associate(User::find($request->input('user_id') ?? user()->id));
+        // $library->save();
 
-        return response()->json($page->id);
+        // return response()->json($library->id);
+        return null;
     }
 
     /**
@@ -95,9 +98,9 @@ trait PageResourceApiTrait
      */
     public function getShow(Request $request, $slug = null)
     {
-        $page = Page::codeOrFail($slug);
+        $library = Library::codeOrFail($slug);
 
-        return response()->json($page);
+        return response()->json($library);
     }
 
     /**
@@ -109,17 +112,18 @@ trait PageResourceApiTrait
      */
     public function putUpdate(Request $request, $id)
     {
-        $page = Page::findOrFail($id);
-        $page->title = $request->input('title');
-        $page->code = $request->input('code');
-        $page->feature = $request->input('feature');
-        $page->body = $request->input('body');
-        $page->delta = $request->input('delta');
-        $page->template = $request->input('template');
-        $page->user()->associate(User::find($request->input('user_id')));
-        $page->save();
+        // $library = Library::findOrFail($id);
+        // $library->title = $request->input('title');
+        // $library->code = $request->input('code');
+        // $library->feature = $request->input('feature');
+        // $library->body = $request->input('body');
+        // $library->delta = $request->input('delta');
+        // $library->template = $request->input('template');
+        // $library->user()->associate(User::find($request->input('user_id')));
+        // $library->save();
 
-        return response()->json($page->id);
+        // return response()->json($library->id);
+        return null;
     }
 
     /**
@@ -131,9 +135,9 @@ trait PageResourceApiTrait
      */
     public function deleteDestroy(Request $request, $id = null)
     {
-        $success = Page::destroy($request->has('id') ? $request->input('id') : $id);
+        $status = Library::destroy($request->has('id') ? $request->input('id') : $id);
 
-        return response()->json($success);
+        return response()->json($status);
     }
 
     /**
@@ -145,17 +149,19 @@ trait PageResourceApiTrait
      */
     public function postRestore(Request $request, $id = null)
     {
-        $page = Page::onlyTrashed()->find($id);
-        $page->exists() || $page->restore();
+        $library = Library::onlyTrashed()->find($id);
+        $library->exists() || $library->restore();
 
         if (is_array($request->input('id'))) {
             foreach ($request->input('id') as $id) {
-                $page = Page::onlyTrashed()->find($id);
-                $page->restore();
+                $library = Library::onlyTrashed()->find($id);
+                $library->exists() || $library->restore();
             }
         }
 
-        return response()->json($success);
+        $status = true;
+
+        return response()->json($status);
     }
 
     /**
@@ -167,8 +173,8 @@ trait PageResourceApiTrait
      */
     public function deleteDelete(Request $request, $id = null)
     {
-        $success = Page::forceDelete($id ? $id : $request->input('id'));
+        $status = Library::forceDelete($id ? $id : $request->input('id'));
 
-        return response()->json($success);
+        return response()->json($status);
     }
 }

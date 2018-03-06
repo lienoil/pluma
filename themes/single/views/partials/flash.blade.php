@@ -13,7 +13,6 @@
   multi-line
 >
   <alert-icon :class="snackbar.color" small :mode="snackbar.type"></alert-icon>
-  {{-- <v-icon left dark color="snackbar.color" v-html="snackbar.icon"></v-icon> --}}
   &nbsp; <span v-html="snackbar.text"></span>
   <v-btn :dark="snackbar.theme === 'dark'" :light="snackbar.theme === 'light'" flat @click="snackbar.model = false">Close</v-btn>
 </v-snackbar>

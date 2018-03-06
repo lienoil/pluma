@@ -37,6 +37,20 @@
       <v-app>
         <v-navigation-drawer :dark="theme.dark" :light="!theme.dark" app>
           <v-btn @click="theme.dark = !theme.dark">Toogle theme</v-btn>
+          <v-btn color="info" @click="dialog.type='prompt';dialog.theme='dark';dialog.text='A prompt occurred!'; dialog.model = !dialog.model;dialog.color='secondary'">Dialog Question Test</v-btn>
+          <v-dialog v-model="dialog.model" width="50%">
+            <v-card flat :dark="theme.dark" :light="!theme.dark">
+              <alert-icon medium mode="prompt"></alert-icon>
+              <v-card-text class="grey--text text-xs-center">
+                <p class="headline">Looks like Lorem ipsum dolor sit amet, consectetur.</p>
+                <p class="subheading">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque magni rem delectus. Impedit tempora quo temporibus magni, itaque dolorum nostrum voluptates dolores asperiores, ipsum pariatur, voluptatibus reprehenderit tempore voluptate consequatur.</p>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color=primary @click="dialog.model = false">Okay</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-navigation-drawer>
         <v-toolbar app scroll-off-screen></v-toolbar>
         <v-content>

@@ -1,6 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import 'vuetify/dist/vuetify.min.css'
+import '@/assets/stylus/main.styl'
 import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
@@ -16,12 +16,12 @@ Vue.use(VeeValidate)
 Vue.use(Vuetify, {
   theme: {
     primary: '#bb2481',
-    secondary: '#222d32',
-    accent: '#fdbe3c',
-    error: '#FF5252',
+    accent: '#FFC107',
+    secondary: '#350423',
     info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FFC107'
+    warning: '#F8BB86',
+    error: '#FF5252',
+    success: '#4CAF50'
   }
 })
 

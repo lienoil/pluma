@@ -10,6 +10,8 @@ use Library\Requests\LibraryRequest;
 
 class LibraryController extends AdminController
 {
+    use LibraryResourceApiTrait;
+
     /**
      * Display a listing of the resource.
      *

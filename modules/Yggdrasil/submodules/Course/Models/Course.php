@@ -8,6 +8,7 @@ use Category\Support\Relations\BelongsToCategory;
 use Comment\Support\Relations\MorphManyComments;
 use Course\Support\Mutators\CourseMutator;
 use Course\Support\Relations\BelongsToManyUsers;
+use Course\Support\Scopes\EnrolledToACourse;
 use Course\Support\Scopes\OnlyBookmarkedByScope;
 use Course\Support\Traits\CourseCommitTrait;
 use Course\Support\Traits\EnrolledUserMutator;
@@ -25,6 +26,7 @@ class Course extends Model
         MorphManyBookmarks,
         CourseCommitTrait,
         CourseMutator,
+        EnrolledToACourse,
         EnrolledUserMutator,
         HasManyContentsThroughLesson,
         HasManyLessons,

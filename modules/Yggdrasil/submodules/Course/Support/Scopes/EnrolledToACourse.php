@@ -16,9 +16,14 @@ trait EnrolledToACourse
     public function scopeNotEnrolledToCourse(Builder $builder, $course_id)
     {
         $users = [];
-        $courses = DB::table('course_user')->where('course_id', $course_id)->get();
+        $courses = DB::table('course_user')
+                     ->where('course_id', $course_id)
+                     ->get();
+
         foreach ($courses as $course) {
-            $users[] = $course->user_id;
+            if (is_null($course->dropped_at)) {
+                $users[] = $course->user_id;
+            }
         }
 
         return $builder->whereNotIn('id', $users);

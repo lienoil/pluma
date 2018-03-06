@@ -14,12 +14,12 @@
             <div class="mb-5">
               <v-text-field
                 :error-messages="errors.collect('title')"
+                @input="slugify"
                 label="Title"
                 name="title"
                 solo
                 v-model="resource.item.title"
                 v-validate="'required'"
-                @input="slugify"
               ></v-text-field>
               <small class="caption error--text mt-1" v-if="errors.has('title')" v-html="errors.first('title')"></small>
             </div>
@@ -32,7 +32,6 @@
                   :error-messages="errors.collect('code')"
                   @blur="resource.lock.code = true"
                   @focus="resource.lock.code = false"
-                  @input="slugify($value)"
                   label="Slug Code"
                   name="code"
                   persistent-hint
@@ -57,7 +56,17 @@
                 v-model="resource.item.attributes"
               ></attributes>
               <v-divider></v-divider>
-              <mediabox name="feature" class="elevation-0" :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}" v-model="resource.item.feature" icon="image" item-value="thumbnail" item-text="name" title="Featured Image" :menu-items="resource.library.categories.items">
+              <mediabox
+                :menu-items="resource.library.categories.items"
+                :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}"
+                class="elevation-0"
+                icon="image"
+                item-text="name"
+                item-value="thumbnail"
+                name="feature"
+                title="Featured Image"
+                v-model="resource.item.feature"
+              >
                 <template slot="menus" slot-scope="{props}">
                   <v-subheader>Catalogue</v-subheader>
                   <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
@@ -141,11 +150,7 @@ export default {
       this.$http.post('/api/v1/pages/save', resource)
         .then(response => {
           let self = this
-
           switch (response.status) {
-            case 422:
-              this.$root.alert({type: 'error', text: `Please check fields for errors.`})
-              break
             case 200:
             default:
               this.$root.alert({color: 'secondary', type: 'success', text: `${resource.title} page successfully saved.`})
@@ -158,31 +163,26 @@ export default {
         .catch(error => {
           switch (error.response.status) {
             case 422:
-              this.$root.alert({type: 'error', text: `Please check fields for errors.`})
               for (var key in error.response.data) {
                 this.errors.add(key, error.response.data[key].join('\n'), 'server')
               }
+              this.$root.alert({color: 'secondary', type: 'warning', text: `Please check fields for errors.`})
               break
 
             default:
-              this.$root.alert({type: 'error', text: `Oops! something went wrong.`})
+              this.$root.alert({color: 'secondary', type: 'error', text: `Oops! something went wrong.`})
               break
           }
         })
     },
     slugify ($value) {
       if (!this.resource.lock.code) {
-        if (typeof val === 'undefined') {
+        if (typeof $value === 'undefined') {
           this.resource.item.code = this.$options.filters.slugify(this.resource.item.title)
         } else {
           this.resource.item.code = this.$options.filters.slugify($value)
         }
       }
-    }
-  },
-  watch: {
-    'resource.item.code': function (val) {
-      this.$options.filters.slugify(val)
     }
   },
   mounted () {
