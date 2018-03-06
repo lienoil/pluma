@@ -60,14 +60,12 @@ class StudentController extends AdminController
      */
     public function drop(Request $request, $id)
     {
-        $courses = DB::table('course_user')->where('course_id', $id)
-                        ->whereIn('user_id', $request->input('user_id'))
-                        ->get();
-
         $course = Course::find($id);
 
         foreach ($course->users as $user) {
-            // $user->updateExistingPivot(['dropped_at' => date('Y-m-d H:i:s')]);
+            $course->users()->updateExistingPivot($user->id, [
+                'dropped_at' => date('Y-m-d H:i:s')
+            ]);
         }
 
         return back();

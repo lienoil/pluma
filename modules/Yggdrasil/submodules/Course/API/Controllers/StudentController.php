@@ -51,7 +51,7 @@ class StudentController extends APIController
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
         $course_id = $request->get('course_id');
 
-        $resources = Course::find($course_id)->users;
+        $resources = Course::find($course_id)->users()->whereNull('dropped_at')->get();
         // if ($onlyTrashed) {
         //     $resources->onlyTrashed();
         // }
