@@ -13,7 +13,7 @@
   </v-toolbar>
   <v-divider></v-divider>
   <v-card flat class="transparent">
-    <v-subheader><v-icon></v-icon>{{ __('Theme') }}</v-subheader>
+    <v-subheader>{{ __('Theme') }}</v-subheader>
     <v-card-text>
       <v-switch
         class="caption"
@@ -23,16 +23,18 @@
       ></v-switch>
     </v-card-text>
 
-    <v-subheader><v-icon></v-icon>{{ __('Font Size') }}</v-subheader>
+    <v-subheader>{{ __('Font Size') }}</v-subheader>
     <v-card-text>
       <v-slider
         :max="5"
         :min="-1"
-        step="1"
+        @input="localstorage('single.settings.fontsize', settings.fontsize)"
+        :prepend-icon="settings.fontsize === 1 ? 'font_download' : 'refresh'"
+        :prepend-icon-cb="() => { localstorage('single.settings.fontsize', (settings.fontsize=1)) }"
         role="button"
+        step="1"
         thumb-label
         v-model="settings.fontsize"
-        @input="localstorage('single.settings.fontsize', settings.fontsize)"
       ></v-slider>
     </v-card-text>
   </v-card>

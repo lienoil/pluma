@@ -3,7 +3,20 @@
     <v-toolbar light color="white" class="elevation-1 sticky">
       <v-toolbar-title class="grey--text text--darken-1">Create Page</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn ripple color="primary" @click="save(resource.item)">Save</v-btn>
+      <v-menu>
+        <v-btn slot="activator" icon small><v-icon small>settings</v-icon></v-btn>
+        <v-list>
+          <v-list-tile @click="">
+            <v-list-tile-action>
+              <v-icon>drafts</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Save as Draft</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+      <v-btn :loading="resource.saving" ripple color="primary" @click="save(resource.item)">Save</v-btn>
     </v-toolbar>
     <v-container fluid grid-list-lg>
       <v-form ref="form" v-model="resource.form.model">
@@ -56,35 +69,34 @@
                 v-model="resource.item.attributes"
               ></attributes>
               <v-divider></v-divider>
-              <mediabox
-                :menu-items="resource.library.categories.items"
-                :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}"
-                class="elevation-0"
-                icon="image"
-                item-text="name"
-                item-value="thumbnail"
-                name="feature"
-                title="Featured Image"
-                v-model="resource.item.feature"
-              >
-                <template slot="menus" slot-scope="{props}">
-                  <v-subheader>Catalogue</v-subheader>
-                  <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
-                    <v-list-tile-action>
-                      <v-icon>{{ menu.icon }}</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{ menu.name }}</v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action>
-                      <v-chip>{{ menu.count }}</v-chip>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <div class="text-xs-center"><small class="grey--text">Powered by Mediabox v3.0.0</small></div>
-                </template>
-              </mediabox>
-              <v-divider></v-divider>
-              <mediabox name="cover" class="elevation-0" :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}" v-model="resource.item.cover" icon="landscape" item-value="thumbnail" item-text="name" title="Cover Photo"></mediabox>
+              <template v-for="(mediabox, i) in mediaboxes.items">
+                <mediabox
+                  :icon="mediabox.icon"
+                  :menu-items="resource.library.categories.items"
+                  :name="mediabox.name"
+                  :title="mediabox.title"
+                  :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}"
+                  class="elevation-0"
+                  item-text="name"
+                  item-value="thumbnail"
+                  v-model="resource.item[mediabox.name]"
+                >
+                  <template slot="menus" slot-scope="{props}">
+                    <v-subheader>Catalogue</v-subheader>
+                    <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
+                      <v-list-tile-action>
+                        <v-icon>{{ menu.icon }}</v-icon>
+                      </v-list-tile-action>
+                      <v-list-tile-content>
+                        <v-list-tile-title>{{ menu.name }}</v-list-tile-title>
+                      </v-list-tile-content>
+                      <v-list-tile-action>{{ menu.count }}</v-list-tile-action>
+                    </v-list-tile>
+                    <div class="text-xs-center"><small class="grey--text">Powered by Mediabox v3.0.0</small></div>
+                  </template>
+                </mediabox>
+                <v-divider></v-divider>
+              </template>
             </v-card>
 
           </v-flex>
@@ -125,7 +137,14 @@ export default {
         form: { model: true },
         template: { items: [] },
         tags: { items: [] },
-        library: { categories: { items: [] } }
+        library: { categories: { items: [] } },
+        saving: false
+      },
+      mediaboxes: {
+        items: [
+          { name: 'feature', title: 'Featured Image', icon: 'image' },
+          { name: 'cover', title: 'Cover Photo', icon: 'landscape' }
+        ]
       }
     }
   },
@@ -147,6 +166,7 @@ export default {
         })
     },
     save (resource) {
+      this.resource.saving = true
       this.$http.post('/api/v1/pages/save', resource)
         .then(response => {
           let self = this
@@ -154,6 +174,7 @@ export default {
             case 200:
             default:
               this.$root.alert({color: 'secondary', type: 'success', text: `${resource.title} page successfully saved.`})
+              this.resource.saving = false
               setTimeout(function () {
                 self.$router.push({name: 'pages.index'})
               }, 900)
@@ -173,6 +194,8 @@ export default {
               this.$root.alert({color: 'secondary', type: 'error', text: `Oops! something went wrong.`})
               break
           }
+
+          this.resource.saving = false
         })
     },
     slugify ($value) {

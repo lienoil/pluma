@@ -72,6 +72,9 @@
                         <v-divider></v-divider>
 
                         @include("Theme::cards.category")
+                        <v-divider></v-divider>
+
+                        @include("Course::cards.survey")
                     </v-card>
                 </v-flex>
             </v-layout>

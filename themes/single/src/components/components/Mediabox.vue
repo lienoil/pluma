@@ -71,14 +71,18 @@
             </v-navigation-drawer>
 
             <v-slide-y-transition>
-              <v-card v-if="menus.upload.model" flat :dark="$root.theme.dark" :light="!$root.theme.dark" height="100vh" class="sidebar-main-content">
-                <v-card-text>Upload something something blurb</v-card-text>
+              <v-card v-if="menus.upload.model" flat :dark="$root.theme.dark" :light="!$root.theme.dark" height="calc(100vh - 230px)" class="sidebar-main-content">
+                <upload class="elevation-0"></upload>
               </v-card>
             </v-slide-y-transition>
 
             <v-slide-y-transition>
-              <v-card v-if="!menus.upload.model" flat height="100vh" class="sidebar-main-content">
+              <v-card v-if="!menus.upload.model" flat height="calc(100vh - 230px)" class="sidebar-main-content">
+                <v-toolbar card class="transparent">
+                  <v-toolbar-title v-html="menus.current.name"></v-toolbar-title>
+                </v-toolbar>
                 <v-container fluid>
+
                   <v-data-iterator
                     :items="media.items"
                     :loading="media.loading"
@@ -120,6 +124,8 @@
 </template>
 
 <script>
+import Upload from './Upload.vue'
+
 export default {
   props: {
     closeOnClick: { default: true },
@@ -135,6 +141,7 @@ export default {
   model: {
     prop: 'selected'
   },
+  components: { Upload },
   data () {
     return {
       selected: [],
@@ -169,6 +176,12 @@ export default {
     },
     'menuItems': function (val) {
       this.menus.items = val
+    },
+    'media.pagination': {
+      handler () {
+        this.get()
+      },
+      deep: true
     }
   },
   methods: {
@@ -186,7 +199,7 @@ export default {
       this.media.loading = true
       this.$http.get(this.media.url, {params: query})
         .then(response => {
-          this.media.items = response.data
+          this.media.items = response.data.data ? response.data.data : response.data
           this.media.pagination.totalItems = response.data.total
           this.media.loading = false
         })
@@ -244,14 +257,13 @@ export default {
       if (url) {
         this.media.url = url
       }
-
-      console.log(this.menus.current)
     }
   },
   mounted () {
     this.get()
 
     this.menus.items = this.menuItems
+    this.menuToggle(this.menus.items[0], this.menus.items[0].url)
   }
 }
 </script>

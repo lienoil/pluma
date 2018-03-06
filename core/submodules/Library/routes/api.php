@@ -5,10 +5,8 @@ use Catalogue\Models\Catalogue;
 Route::group(['prefix' => 'v1'], function () {
     # Catalogues
     Route::post('library/catalogues', function () {
-        return response()->json(Catalogue::mediabox());
+        return response()->json(Catalogue::catalogued());
     })->name('library.catalogues');
-
-    Route::get('library/catalogue/{catalogue}', 'LibraryController@fromCatalogue')->name('library.catalogue');
 
     # API normal routes
     Route::get('library/all', 'LibraryController@getAll')->name('library.all');
