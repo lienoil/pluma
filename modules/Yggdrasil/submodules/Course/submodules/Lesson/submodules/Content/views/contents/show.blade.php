@@ -102,7 +102,7 @@
                     @endif
 
                     {{-- Description --}}
-                    <v-flex sm6 xs12>
+                    <v-flex md6 xs12>
                         <v-card class="mb-3 elevation-0">
                             <v-card-text class="px-4">
                                 <h2 class="page-title title">{{ $resource->course->title }}:
@@ -112,28 +112,57 @@
                                 <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
                                 <p class="subheading">{!! $resource->body !!}</p>
                             </v-card-text>
-                            <v-card-actions class="pa-3">
-                                <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
-                                <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }} <a target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a></p>
-                            </v-card-actions>
                         </v-card>
                     </v-flex>
                     {{-- Description --}}
 
-                    {{-- Previous and Next btn --}}
-                    <v-card-actions>
-                        @if ($resource->previous)
-                            <v-btn success outline href="{{ $resource->previous }}"><v-icon success left>keyboard_arrow_left</v-icon> Previous</v-btn>
-                        @else
-                            <v-btn disabled success outline><v-icon left>keyboard_arrow_left</v-icon> Previous</v-btn>
-                        @endif
-                        @if ($resource->next)
-                            <v-btn success outline href="{{ $resource->next }}"> Next <v-icon success right>keyboard_arrow_right</v-icon></v-btn>
-                        @else
-                            <v-btn disabled outline href="{{ $resource->next }}"> Next <v-icon right>keyboard_arrow_right</v-icon></v-btn>
-                        @endif
-                    </v-card-actions>
-                    {{-- Previous and Next btn --}}
+                    <v-flex md6 xs12>
+                        <v-card flat>
+                            {{-- Previous and Next btn --}}
+                            <template v-if="previous">
+                                <v-btn
+                                    v-if="previous"
+                                    :href="previous.url"
+                                    ripple
+                                    flat
+                                >
+                                    <v-icon left dark v-if="previous.completed">check</v-icon>
+                                    <v-icon left dark v-else-if="previous.locked">lock</v-icon>
+                                    <v-icon left dark v-else-if="previous.current">play_circle_outline</v-icon>
+                                    <v-icon left dark v-else>arrow_back</v-icon>
+                                    <span v-html="previous.title"></span>
+                                </v-btn>
+                            </template>
+                            <v-btn v-else disabled flat><span v-html="resource.lesson.title"></span></v-btn>
+
+                            <span class="caption">{{ "$resource->order/{$resource->lesson->contents->count()}" }}</span>
+
+                            <template v-if="next">
+                                <v-btn
+                                    v-if="next"
+                                    :href="next.url"
+                                    ripple
+                                    flat
+                                >
+                                    <span v-html="next.title"></span>
+                                    <v-icon right dark v-if="next.completed">check</v-icon>
+                                    <v-icon right dark v-else-if="next.locked">lock</v-icon>
+                                    <v-icon right dark v-else-if="next.current">play_circle_outline</v-icon>
+                                    <v-icon right dark v-else>arrow_forward</v-icon>
+                                </v-btn>
+                            </template>
+                            <v-btn v-else disabled flat>{{ __('End of Lesson') }}</v-btn>
+                            {{-- Previous and Next btn --}}
+
+
+                            <v-card-text class="px-4">
+                                <p class="body-2 grey--text text--darken-1 page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
+                                {{-- <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }}
+                                    <a class="success--text td-n" target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a>
+                                </p> --}}
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -142,22 +171,6 @@
             <v-flex lg10 md11 xs12>
                 <v-layout row wrap>
                     <v-flex md8 xs12>
-
-                        {{-- Description --}}
-                        {{-- <v-card class="mb-3 elevation-0">
-                            <v-card-text>
-                                <h2 class="page-title display-1">{{ $resource->course->title }}</h2>
-                                <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
-                            </v-card-text>
-                            <v-card-text>
-                                {!! $resource->body !!}
-                            </v-card-text>
-                            <v-card-actions class="pa-3">
-                                <p class="body-1 grey--text page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
-                                <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }} <a target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a></p>
-                            </v-card-actions>
-                        </v-card> --}}
-                        {{-- Description --}}
 
                         {{-- Comments Section --}}
                         <v-card class="elevation-1">
