@@ -39,12 +39,6 @@ export default {
     large: { type: Boolean, default: false },
     medium: { type: Boolean, default: false },
     mode: { default: 'success' }
-  },
-  data () {
-    return []
-  },
-  mounted () {
-    // alert(this.large)
   }
 }
 </script>

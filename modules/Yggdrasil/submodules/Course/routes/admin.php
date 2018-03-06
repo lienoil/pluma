@@ -17,7 +17,7 @@ Route::post('courses/{course}/comment', '\Course\Controllers\CourseController@co
 
 // Enroll
 Route::get('enroll/{course}', '\Course\Controllers\EnrollController@show')->name('courses.enroll.index');
-Route::post('courses/{course}/{user}', '\Course\Controllers\EnrollController@enroll')->name('courses.enroll');
+// Route::post('courses/{course}/{user}', '\Course\Controllers\EnrollController@enroll')->name('courses.enroll');
 
 // Profile
 // Route::get('profile/{handle}/courses', 'CourseProfileController@show')->name('profile.courses.show');
@@ -37,7 +37,7 @@ Route::delete('courses/delete/{course}', 'CourseController@delete')
 
 // Students
 Route::get('courses/{course}/students', 'StudentController@index')->name('courses.students');
-Route::post('courses/{course}/{user}', 'StudentController@store')->name('students.store');
+Route::post('courses/{course}/students', 'StudentController@store')->name('students.store');
 Route::delete('courses/drop/{course}', 'StudentController@drop')->name('students.drop');
 
 // Course

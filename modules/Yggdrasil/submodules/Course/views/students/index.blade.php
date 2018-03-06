@@ -6,7 +6,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex md3 xs12>
-                <form action="{{ route('students.store', [$resource->id, user()->id]) }}" method="POST">
+                <form action="{{ route('students.store', $resource->id) }}" method="POST">
                     {{ csrf_field() }}
                     <v-card class="elevation-1 mb-3">
                         <v-toolbar flat class="transparent">
@@ -60,7 +60,7 @@
 
                         {{-- Batch Commands --}}
                         <v-btn
-                            v-show="dataset.selected.length < 2"
+                            v-show="dataset.selected.length <= 1"
                             flat
                             icon
                             v-model="bulk.drop.model"
@@ -71,7 +71,7 @@
 
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
-                            <template v-if="dataset.selected.length > 1">
+                            <template v-if="dataset.selected.length >= 1">
                                 <form action="{{ route('students.drop', $resource->id) }}" method="POST" class="inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}

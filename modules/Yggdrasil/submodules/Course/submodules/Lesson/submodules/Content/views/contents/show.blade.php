@@ -31,7 +31,7 @@
                         </v-card>
                     </v-alert>
 
-                    <template v-if="! resource.lesson.course.enrolled">
+                    @if (! $resource->course->enrolled)
                         <div class="text-xs-center">
                             <img src="{{ assets('course/images/no-courses.png') }}" alt="{{ __('Not enrolled') }}">
                         </div>
@@ -53,26 +53,28 @@
                                 <v-spacer></v-spacer>
                             </v-layout>
                         </v-container>
-                    </template>
-                    <template v-else>
-                        <v-card flat class="grey--text text--darken-1" v-if="resource.locked">
-                            <v-card-media height="480px">
-                                <v-container fill-height fluid>
-                                    <v-layout fill-height wrap column>
-                                        <v-spacer></v-spacer>
-                                        <v-icon class="display-4">lock</v-icon>
-                                        <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
-                                        <v-card-actions class="pa-0">
+                    @else
+
+                        {{-- if locked --}}
+                        @if ($resource->locked)
+                            <v-card flat class="grey--text text--darken-1" v-if="resource.locked">
+                                <v-card-media height="480px">
+                                    <v-container fill-height fluid>
+                                        <v-layout fill-height wrap column>
                                             <v-spacer></v-spacer>
-                                            <v-btn dark class="secondary" ripple href="{{ $resource->playing }}"><v-icon left>arrow_back</v-icon>{{ __('Go to Current Lesson') }}</v-btn>
+                                            <v-icon class="display-4">lock</v-icon>
+                                            <div class="pa-4 subheading text-xs-center">{{ __('This part is still locked. Please finish the previous interaction.') }}</div>
+                                            <v-card-actions class="pa-0">
+                                                <v-spacer></v-spacer>
+                                                <v-btn dark class="secondary" ripple href="{{ $resource->playing }}"><v-icon left>arrow_back</v-icon>{{ __('Go to Current Lesson') }}</v-btn>
+                                                <v-spacer></v-spacer>
+                                            </v-card-actions>
                                             <v-spacer></v-spacer>
-                                        </v-card-actions>
-                                        <v-spacer></v-spacer>
-                                    </v-layout>
-                                </v-container>
-                            </v-card-media>
-                        </v-card>
-                        <template v-else>
+                                        </v-layout>
+                                    </v-container>
+                                </v-card-media>
+                            </v-card>
+                        @else
                             <div id="interactive-container">
                                 <v-fade-transition>
                                     <template>
@@ -96,8 +98,8 @@
                                     </template>
                                 </v-fade-transition>
                             </div>
-                        </template>
-                    </template>
+                        @endif
+                    @endif
 
                     {{-- Description --}}
                     <v-flex sm6 xs12>

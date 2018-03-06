@@ -38,7 +38,7 @@ export default {
           })
         })
         .catch(error => {
-          console.log(error)
+          this.$root.alert({type: 'error', text: `Oops! something went wrong to the Editor! ${error}`})
         })
     },
     reboot () {
