@@ -1,5 +1,6 @@
 <template>
   <v-card flat>
+    <label class="body-1 grey--text text--darken-2" v-html="label"></label>
     <textarea ref="wysiwyg-editor" :name="name" v-model="body"></textarea>
   </v-card>
 </template>
@@ -14,6 +15,7 @@ export default {
   },
   props: {
     name: { default: 'body' },
+    label: { type: String, default: 'Body' },
     body: null
   },
   data () {

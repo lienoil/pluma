@@ -5,6 +5,7 @@ namespace Form\Models;
 use Field\Support\Relations\HasManyFields;
 use Form\Support\Relations\BelongsToForm;
 use Form\Support\Traits\FormMutatorTrait;
+use Frontier\Support\Traits\TypeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 use Pluma\Support\Database\Scopes\SlugOrFail;
@@ -16,6 +17,7 @@ class Form extends Model
     use BelongsToForm,
         BelongsToUser,
         FormMutatorTrait,
+        TypeTrait,
         HasManyFields,
         HasManySubmissions,
         SlugOrFail,

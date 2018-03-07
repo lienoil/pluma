@@ -24,7 +24,3 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
 Route::post('admin/sessions', function () {
     return session()->all();
 })->middleware('auth.admin')->name('sessions.all');
-
-Route::any('#/{slug?}', function () {
-    return view("Theme::layouts.public");
-})->where('slug', '.*');

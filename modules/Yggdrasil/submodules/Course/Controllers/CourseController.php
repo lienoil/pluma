@@ -15,6 +15,7 @@ use Course\Support\Traits\CourseResourceApiTrait;
 use Course\Support\Traits\CourseResourcePublicTrait;
 use Course\Support\Traits\CourseResourceSoftDeleteTrait;
 use Course\Support\Traits\MyCourseResourceTrait;
+use Form\Models\Form;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
@@ -65,8 +66,9 @@ class CourseController extends GeneralController
     {
         $catalogues = Catalogue::mediabox();
         $categories = Category::all();
+        $surveys = Form::type('courses')->get();
 
-        return view("Theme::courses.create")->with(compact('catalogues', 'categories'));
+        return view("Theme::courses.create")->with(compact('catalogues', 'categories', 'surveys'));
     }
 
     /**
@@ -143,8 +145,9 @@ class CourseController extends GeneralController
         $resource = Course::lockForUpdate()->findOrFail($id);
         $catalogues = Catalogue::mediabox();
         $categories = Category::all();
+        $surveys = Form::type('courses')->get();
 
-        return view("Theme::courses.edit")->with(compact('resource', 'catalogues', 'categories'));
+        return view("Theme::courses.edit")->with(compact('resource', 'catalogues', 'categories', 'surveys'));
     }
 
     /**
