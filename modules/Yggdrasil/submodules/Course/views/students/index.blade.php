@@ -52,7 +52,6 @@
 
             <v-flex md9 xs12>
                 <v-card class="mb-3 elevation-1">
-
                     <v-toolbar flat class="transparent">
                         <v-icon left>supervisor_account</v-icon>
                         <v-toolbar-title primary-title class="subheading">{{ __('Students Enrolled') }}</v-toolbar-title>
@@ -157,11 +156,11 @@
                                                 method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
+                                                <input type="hidden" name="user_id" :value="prop.item.id">
                                                 <v-btn @click="$refs[`drop${prop.item.id}`].submit()"
                                                     class="elevation-0 ma-0 error white--text">
                                                     {{ __('Yes') }}
                                                 </v-btn>
-                                                <input type="hidden" name="user_id" :value="prop.item.id">
                                             </form>
                                         </v-card-actions>
                                     </v-card>

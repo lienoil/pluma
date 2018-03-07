@@ -30,7 +30,9 @@
                                     <v-icon class="red--text">bookmark_outline</v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-title>
-                                    <form ref="bookmark_form" action="{{ route('courses.bookmark', $resource->id) }}" method="POST">
+                                    <form
+                                        ref="bookmark_form" action="{{ route('courses.bookmark', $resource->id) }}"
+                                        method="POST">
                                         {{ csrf_field() }}
                                         {{ __('Bookmark this Course') }}
                                     </form>

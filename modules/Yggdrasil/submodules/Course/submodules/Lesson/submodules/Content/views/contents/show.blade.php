@@ -42,7 +42,43 @@
                                 <div class="mb-3 headline">{{ __("You are not enrolled to this course.") }}</div>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn class="primary primary--text" outline ripple @click="">{{ __("Request Course") }}</v-btn>
+
+                                    {{-- Dialog pop-up form --}}
+                                    <v-dialog v-model="enroll.form.dialog" persistent width="500px">
+                                        <v-btn class="primary primary--text" outline ripple slot="activator">{{ __("Request Course") }}</v-btn>
+                                        <v-card>
+                                            <v-card-title>
+                                                <span class="headline">Enroll This Course</span>
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-container grid-list-md>
+                                                    <v-layout wrap>
+                                                        <v-flex xs12 md6>
+                                                            <v-text-field label="First Name" required></v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs12 md6>
+                                                            <v-text-field label="First Name" required></v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs12>
+                                                            <v-text-field label="Email" required></v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs12>
+                                                            <v-text-field label="Message" multi-line></v-text-field>
+                                                        </v-flex>
+                                                    </v-layout>
+                                                </v-container>
+                                                <small>*indicates required field</small>
+                                            </v-card-text>
+                                            <v-card-actions class="pa-3">
+                                                <v-spacer></v-spacer>
+                                                <v-btn class="grey" depressed
+                                                    @click.native="enroll.form.dialog = false">Close</v-btn>
+                                                <v-btn success depressed @click.native="enroll.form.dialog = false">Submit</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                    {{-- Dialog pop-up form --}}
+
                                     <form v-if="!resource.lesson.course.bookmarked" action="{{ route("courses.bookmark.bookmark", $resource->lesson->course->id) }}" method="POST">
                                         {{ csrf_field() }}
                                         <v-btn type="submit" class="red red--text" outline ripple><v-icon left>bookmark_outline</v-icon>{{ __("Bookmark") }}</v-btn>
@@ -172,7 +208,6 @@
             <v-flex lg10 md11 xs12>
                 <v-layout row wrap>
                     <v-flex md8 xs12>
-
                         {{-- Comments Section --}}
                         <v-card class="elevation-1">
                             @include("Content::widgets.comments")
@@ -187,25 +222,6 @@
                             </v-toolbar>
                             <v-divider></v-divider>
                             <v-list class="mb-3">
-                                {{-- @foreach ($resource->lesson->contents as $content)
-                                    <v-list-tile
-                                        href="{{ $content->url }}"
-                                        ripple
-                                    >
-                                        <v-list-tile-action>
-                                            @if ($content->completed)
-                                                <v-icon left>check</v-icon>
-                                            @elseif ($content->current)
-                                                <v-icon left>play_circle_outline</v-icon>
-                                            @else
-                                                <v-icon left>lock</v-icon>
-                                            @endif
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>{{ $content->title }}</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                @endforeach --}}
                                 <v-list-tile
                                     :href="item.url"
                                     :key="i"
@@ -304,6 +320,11 @@
         mixins.push({
             data () {
                 return {
+                    enroll: {
+                        form: {
+                            dialog: false,
+                        }
+                    },
                     fullscreen: {
                         model: true
                     },
