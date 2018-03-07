@@ -105,19 +105,17 @@
                     <v-flex md6 xs12>
                         <v-card class="mb-3 elevation-0">
                             <v-card-text class="px-4">
-                                <h2 class="page-title title">{{ $resource->course->title }}:
-                                    <span class="grey--text">{{ $resource->lesson->title }}</span>
+                                <h2 class="page-title title">
+                                    {{ $resource->course->title }}:
+                                </h2>
+                                <h2 class="page-title title grey--text text--darken-1">
+                                    {{ $resource->lesson->title }}
                                 </h2>
                                 {{-- <h2 class="page-title title">{{ $resource->lesson->title }}</h2> --}}
-                                <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
+                                <h2 class="headline"><strong>{{ $resource->title }}</strong></h2>
                                 <p class="subheading">{!! $resource->body !!}</p>
                             </v-card-text>
-                        </v-card>
-                    </v-flex>
-                    {{-- Description --}}
 
-                    <v-flex md6 xs12>
-                        <v-card flat>
                             {{-- Previous and Next btn --}}
                             <template v-if="previous">
                                 <v-btn
@@ -154,15 +152,17 @@
                             <v-btn v-else disabled flat>{{ __('End of Lesson') }}</v-btn>
                             {{-- Previous and Next btn --}}
 
-
                             <v-card-text class="px-4">
-                                <p class="body-2 grey--text text--darken-1 page-title mb-1">{{ __('PUBLISHED') }} {{ $resource->created }}</p>
+                                <p class="body-2 grey--text text--darken-1 page-title mb-1">
+                                    <v-icon>schedule</v-icon>
+                                    {{ __('PUBLISHED') }} {{ $resource->created }}</p>
                                 {{-- <p class="subheading grey--text text--darken-1 body-1 page-title mb-1"> {{ __('on') }}
                                     <a class="success--text td-n" target="_blank" href="{{ route('courses.single', $resource->course->slug) }}"><strong>{{ $resource->course->title }}</strong></a>
                                 </p> --}}
                             </v-card-text>
                         </v-card>
                     </v-flex>
+                    {{-- Description --}}
                 </v-card>
             </v-flex>
         </v-layout>
