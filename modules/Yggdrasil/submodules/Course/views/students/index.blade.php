@@ -154,7 +154,6 @@
                                             <form
                                                 :id="`drop_${prop.item.id}`" :ref="`drop_${prop.item.id}`"
                                                 :action="route(urls.students.drop, prop.item.id)" method="POST">
-                                                <input type="hidden" name="user_id[]" :value="prop.item.id">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                 <v-btn @click="$refs[`drop_${prop.item.id}`].submit()" class="elevation-0 ma-0 error white--text">{{ __('Yes') }}</v-btn>
