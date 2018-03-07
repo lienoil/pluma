@@ -33,22 +33,24 @@
 
                 @if (! $resource->course->enrolled)
                     <div class="text-xs-center">
-                        <img src="{{ assets('course/images/no-courses.png') }}" alt="{{ __('Not enrolled') }}">
+                        <img src="{{ assets('Frontier/images/placeholder/maintenance.png') }}"
+                            alt="{{ __('Not enrolled') }}"
+                            style="-webkit-filter: grayscale(95%); filter: grayscale(95%);">
                     </div>
                     <v-container fill-height class="pa-0 pb-4">
                         <v-layout fill-height wrap column>
                             <v-spacer></v-spacer>
                             <div class="subheading text-xs-center grey--text">
-                                <div class="mb-3 headline">{{ __("You are not enrolled to this course.") }}</div>
+                                <div class="mb-3 subheading page-title">{{ __("You are not enrolled to this course.") }}</div>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
 
                                     {{-- Dialog pop-up form --}}
                                     <v-dialog v-model="enroll.form.dialog" persistent width="500px">
-                                        <v-btn class="primary primary--text" outline ripple slot="activator">{{ __("Request Course") }}</v-btn>
+                                        <v-btn class="primary primary--text px-4" large outline ripple slot="activator">{{ __("Request Course") }}</v-btn>
                                         <v-card>
                                             <v-card-title>
-                                                <span class="headline">Enroll This Course</span>
+                                                <span class="page-title subheading">Enroll This Course</span>
                                             </v-card-title>
                                             <v-card-text>
                                                 <v-container grid-list-md>
@@ -70,10 +72,10 @@
                                                 <small>*indicates required field</small>
                                             </v-card-text>
                                             <v-card-actions class="pa-3">
+                                                <v-btn class="grey lighten-2 elevation-0" dark depressed
+                                                    @click.native="enroll.form.dialog = false">Cancel</v-btn>
                                                 <v-spacer></v-spacer>
-                                                <v-btn class="grey" depressed
-                                                    @click.native="enroll.form.dialog = false">Close</v-btn>
-                                                <v-btn success depressed @click.native="enroll.form.dialog = false">Submit</v-btn>
+                                                <v-btn success depressed class="elevation-0" @click.native="enroll.form.dialog = false">Submit</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
@@ -143,8 +145,10 @@
                         <v-card-text class="px-4">
                             <h2 class="page-title title">
                                 {{ $resource->course->title }}:
+                                <span class="page-title headline grey--text text--darken-1">
+                                    {{ $resource->lesson->title }}</span>
                             </h2>
-                            <h2 class="page-title title grey--text text--darken-1">
+                            <h2 class="page-title headline grey--text text--darken-1">
                                 {{ $resource->lesson->title }}
                             </h2>
                             {{-- <h2 class="page-title title">{{ $resource->lesson->title }}</h2> --}}
