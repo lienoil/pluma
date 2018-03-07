@@ -150,16 +150,15 @@
                                             </v-btn>
                                             <v-spacer></v-spacer>
                                             <form
-                                                :id="`drop${prop.item.id}`"
-                                                :ref="`drop${prop.item.id}`"
+                                                :id="`drop_${prop.item.id}`"
+                                                :ref="`drop_${prop.item.id}`"
                                                 action="{{ route('students.drop', $resource->id) }}"
                                                 method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                                 <input type="hidden" name="user_id" :value="prop.item.id">
-                                                <v-btn @click="$refs[`drop${prop.item.id}`].submit()"
-                                                    class="elevation-0 ma-0 error white--text">
-                                                    {{ __('Yes') }}
+                                                <v-btn @click="$refs[`drop_${prop.item.id}`].submit()"
+                                                    class="elevation-0 ma-0 error white--text">{{ __('Yes') }}
                                                 </v-btn>
                                             </form>
                                         </v-card-actions>

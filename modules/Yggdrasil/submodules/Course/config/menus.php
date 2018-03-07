@@ -95,7 +95,7 @@ return [
                         'courses.single',
                     ]
                 ],
-                'always_viewable' => false,
+                'always_viewable' => true,
                 'labels' => [
                     'title' => __('All Courses'),
                     'description' => __('View list of all courses'),

@@ -69,6 +69,7 @@ Version: 1.0
 
                                 <v-flex sm6 xs12>
                                     <v-card flat class="transparent" data-aos="fade-left">
+                                        {{-- <img src="{{ assets('frontier/images/placeholder/iso/landing-page.png') }}" alt="" width="100%"> --}}
                                         <img src="{{ assets('frontier/images/placeholder/iso/cityillustration.png') }}" alt="" width="100%">
                                     </v-card>
                                 </v-flex>

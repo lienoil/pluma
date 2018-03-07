@@ -145,11 +145,8 @@
                         <v-card-text class="px-4">
                             <h2 class="page-title title">
                                 {{ $resource->course->title }}:
-                                <span class="page-title headline grey--text text--darken-1">
+                                <span class="page-title title grey--text text--darken-1">
                                     {{ $resource->lesson->title }}</span>
-                            </h2>
-                            <h2 class="page-title headline grey--text text--darken-1">
-                                {{ $resource->lesson->title }}
                             </h2>
                             {{-- <h2 class="page-title title">{{ $resource->lesson->title }}</h2> --}}
                             <h2 class="headline"><strong>{{ $resource->title }}</strong></h2>
@@ -246,7 +243,7 @@
                             </v-list>
 
                             {{-- Assignment --}}
-                            <v-card-text>
+                            <v-card-text class="pa-4">
                                 @include("Content::widgets.assignment")
                             </v-card-text>
                             {{-- /Assignment --}}
