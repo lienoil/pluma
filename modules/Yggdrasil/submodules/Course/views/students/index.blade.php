@@ -134,14 +134,13 @@
                             <td v-html="prop.item.enrolled"></td>
                             <td class="text-xs-center">
                                 <v-btn v-tooltip:left="{ html: 'Drop a student' }" @click="setDialog(true, prop.item)" icon><v-icon>delete</v-icon></v-btn>
-
                                 <v-dialog transition="scale-transition" v-model="resource.dialog.model" persistent width="400px" min-width="150px" max-width="400px">
                                     <v-card class="text-xs-center elevation-4">
                                         <v-card-text class="pa-5">
                                             <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
                                             <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
                                             <div class="grey--text text--darken-1">
-                                                <span class="mb-3">{{ __("You are about to permanently delete") }} <strong><em>@{{ prop.item.displayname }}</em></strong>.</span>
+                                                <span class="mb-3">{{ __("You are about to drop") }} <strong><em>@{{ prop.item.displayname }} </em></strong> {{ __('from this course.') }}</span>
                                                 <span>{{ __("This action is irreversible. Do you want to proceed?") }}</span>
                                             </div>
                                         </v-card-text>
@@ -152,15 +151,17 @@
                                             </v-btn>
                                             <v-spacer></v-spacer>
                                             <form
-                                                :id="`drop_${prop.item.id}`" :ref="`drop_${prop.item.id}`"
-                                                :action="route(urls.students.drop, prop.item.id)" method="POST">
-                                                    <template v-for="item in dataset.selected">
-                                                        <input type="hidden" name="user_id[]" :value="prop.item.id">
-                                                    </template>
-
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                <v-btn @click="$refs[`drop_${prop.item.id}`].submit()" class="elevation-0 ma-0 error white--text">{{ __('Yes') }}</v-btn>
+                                                :id="`drop${prop.item.id}`"
+                                                :ref="`drop${prop.item.id}`"
+                                                action="{{ route('students.drop', $resource->id) }}"
+                                                method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <v-btn @click="$refs[`drop${prop.item.id}`].submit()"
+                                                    class="elevation-0 ma-0 error white--text">
+                                                    {{ __('Yes') }}
+                                                </v-btn>
+                                                <input type="hidden" name="user_id" :value="prop.item.id">
                                             </form>
                                         </v-card-actions>
                                     </v-card>
