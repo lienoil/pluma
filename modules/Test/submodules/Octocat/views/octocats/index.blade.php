@@ -6,7 +6,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
-                <v-card flat class="elevation-1">
+                <v-card flat class="elevation-1 mb-3">
                     <v-bottom-sheet v-model="sheet">
                         <v-btn slot="activator" color="purple" dark>Click me</v-btn>
                         <v-list>
@@ -25,6 +25,22 @@
                             </v-list-tile>
                         </v-list>
                     </v-bottom-sheet>
+                </v-card>
+
+                <v-card flat>
+                    <v-card-text>
+                        <h1
+                            v-text="new Date()"
+                            class="page-title subheading">
+
+                        </h1>
+                    </v-card-text>
+                    <v-card-text>
+                        <h1 class="subheading page-title" v-text="new Date()"></h1>
+                        <ul>
+                            <li v-for="tasks in task"></li>
+                        </ul>
+                    </v-card-text>
                 </v-card>
             </v-flex>
 
