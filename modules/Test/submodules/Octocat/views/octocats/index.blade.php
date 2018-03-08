@@ -64,6 +64,28 @@
                         <v-checkbox label="Jane" v-model="selected" value="Jane"></v-checkbox>
                         <v-checkbox label="Joe" v-model="selected" value="Joe"></v-checkbox>
                     </v-card-text>
+
+                    <v-card-texxt>
+                        <v-checkbox label="Anna" v-model="selected" value="Anna">
+                    </v-card-texxt>
+                </v-card>
+            </v-flex>
+
+            <v-flex xs4>
+                <v-card class="elevation-1">
+                    <v-toolbar flat class="transparent">
+                        <v-card-title class="page-title">
+                            {{ __('Switch 1: Roles') }}
+                        </v-card-title>
+                    </v-toolbar>
+                </v-card>
+            </v-flex>
+
+            <v-flex xs4 xs12>
+                <v-card class="elevation-1">
+                    <v-toolbar flat class="transparent">
+
+                    </v-toolbar>
                 </v-card>
             </v-flex>
         </v-layout>
