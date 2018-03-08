@@ -60,3 +60,77 @@ Frontier Frontend Components:
   ☐ data-table filter
   ☐ save widgets positions / switch state
   ☐ sweetAlertjs2 dialog
+
+
+ Form Builder:
+       ☐ widgets
+
+ Dashboard:
+    widgets front-end (layout):
+        superadmin:
+          at a glance
+            ✔ manage modules to sys conf @done (18-03-08 12:01)
+            ☐ # of users (per role) - chartjs
+
+          dashboard 1.xx
+            ☐ disable cpu usage
+            ☐ activities/change logs
+
+          except
+            ☐ announcement
+
+       admin:
+         at a glance
+           ☐ same as super admin
+
+         dashboard
+           except
+             ☐ sys conf
+
+       super trainer:
+         at a glance
+            (same as trainer) ->except my courses
+
+         dashboard
+           ☐ Top 3 Most Courses Enrolled
+           ☐ Courses with Low Trainer Ratings
+           ☐ top 5 trainers (v-list) -> link to profile.show
+           ☐ ???
+
+       trainer:
+         at a glance
+           ☐ my courses
+           ☐ list of students (overall)
+           ☐ Top 3 Most Courses Enrolled
+           ☐
+
+         except
+           ☐ sys conf
+           ☐ theme
+
+         dashboard
+           ☐ lists of students enrolled per course
+           ☐ latest assignment submission
+           ☐ top students
+
+       students:
+        at a glance
+          ☐ # of courses enrolled
+          ☐ # of bookmarked courses
+          ☐ # of forum qs asked
+          ☐ # of pending assignment
+
+        dashboard
+          ☐ badge
+          ☐ current courses
+          ☐ assignment
+          ☐ activities
+
+        except
+          ☐ sys conf
+          ☐ theme
+
+       right sidebar:
+           ✔ widget management @done (18-03-06 09:11)
+
+
