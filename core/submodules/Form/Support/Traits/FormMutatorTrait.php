@@ -25,4 +25,14 @@ trait FormMutatorTrait
     {
         return $this->submissions;
     }
+
+    /**
+     * Gets the employee count submitted.
+     *
+     * @return string
+     */
+    public function getCountAttribute()
+    {
+        return ! $this->submissions ?: $this->submissions->count();
+    }
 }

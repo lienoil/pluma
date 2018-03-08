@@ -85,7 +85,7 @@
                                     <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
                                 </a>
                             </td>
-                            <td class="text-xs-center" v-html="prop.item.id"></td>
+                            <td class="text-xs-center" v-html="prop.item.count"></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">

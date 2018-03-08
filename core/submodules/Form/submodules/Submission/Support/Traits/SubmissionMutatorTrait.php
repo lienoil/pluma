@@ -31,7 +31,7 @@ trait SubmissionMutatorTrait
      */
     public function getCountAttribute()
     {
-        return ! $this->user ?: $this->user->count;
+        return $this->count();
     }
 
     /**
