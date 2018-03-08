@@ -9,6 +9,7 @@ use Submission\Models\Submission;
 use Submission\Requests\SubmissionRequest;
 use Submission\Support\Traits\CanExportResultTrait;
 use Submission\Support\Traits\CanViewResultTrait;
+use Submission\Support\Traits\SubmissionMutatorTrait;
 use Submission\Support\Traits\SubmissionResourceApiTrait;
 use Submission\Support\Traits\SubmissionResourcePublicTrait;
 use Submission\Support\Traits\SubmissionResourceSoftDeleteTrait;
@@ -20,6 +21,7 @@ class SubmissionController extends GeneralController
         CanViewResultTrait,
         SubmissionResourcePublicTrait,
         SubmissionResourceSoftDeleteTrait,
+        SubmissionMutatorTrait,
         SubmissionResourceApiTrait;
 
     /**

@@ -15,7 +15,7 @@ class Submission extends Model
 
     protected $with = ['form'];
 
-    protected $appends = ['author', 'created', 'modified', 'removed'];
+    protected $appends = ['author', 'created', 'modified', 'removed', 'count'];
 
     protected $searchables = ['name', 'created_at', 'updated_at'];
 }

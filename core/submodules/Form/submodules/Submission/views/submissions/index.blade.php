@@ -85,7 +85,7 @@
                                     <strong v-html="prop.item.name" v-tooltip:bottom="{ html: 'Show details' }"></strong>
                                 </a>
                             </td>
-                            {{-- <td>{{ $forms->submissions->count() }}</td> --}}
+                            <td class="text-xs-center" v-html="prop.item.id"></td>
                             <td v-html="prop.item.created"></td>
                             <td v-html="prop.item.modified"></td>
                             <td class="text-xs-center">
@@ -162,7 +162,7 @@
                         headers: [
                             { text: '{{ __("ID") }}', align: 'left', value: 'id' },
                             { text: '{{ __("Form Name") }}', align: 'left', value: 'form_id' },
-                            { text: '{{ __("Number of Employees submitted") }}', align: 'left', value: 'employees' },
+                            { text: '{{ __("Number of Employees") }}', align: 'center', value: 'employees' },
                             { text: '{{ __("Created") }}', align: 'left', value: 'created_at' },
                             { text: '{{ __("Modified") }}', align: 'left', value: 'updated_at' },
                             { text: '{{ __("Actions") }}', align: 'center', sortable: false },

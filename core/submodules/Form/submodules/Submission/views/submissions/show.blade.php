@@ -15,10 +15,9 @@
                         <v-icon left dark>playlist_add_check</v-icon>
                         <v-toolbar-title>{{ __('List of Examinees') }}</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        {{-- <v-btn icon v-tooltip:left="{ html: '{{ __('Search examinees') }}' }">
-                            <v-icon>search</v-icon>
-                        </v-btn> --}}
+                        <v-chip class="primary white--text">{{ $resources->count() }}</v-chip>
                     </v-toolbar>
+
                     <v-list class="list-container">
                         @foreach ($resources as $resource)
                             <v-list-tile avatar ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }"
