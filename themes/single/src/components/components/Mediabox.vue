@@ -1,25 +1,27 @@
 <template>
   <v-card class="card-mediabox">
-    <v-toolbar card>
+    <v-toolbar card v-if="!hideToolbar">
       <v-icon v-html="icon"></v-icon>
       <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
     </v-toolbar>
-    <div class="card-mediabox-container grey lighten-3">
+    <v-card flat tile class="card-mediabox-container grey lighten-3" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
       <template v-if="(selected instanceof Array) && selected.length !== 0">
-        <v-card flat ripple @click.native="media.box.model = !media.box.model">
+        <slot name="thumbnail" :props="{item: selected}">
           <img class="stacked" width="100%" height="auto" v-for="(s, i) in selected" :key="i" :src="s">
-        </v-card>
+        </slot>
       </template>
       <template v-else-if="typeof selected === 'string' && selected">
-        <v-card flat ripple @click.native="media.box.model = !media.box.model">
+        <slot name="thumbnail" :props="{item: selected}">
           <img width="100%" height="auto" :src="selected">
-        </v-card>
+        </slot>
       </template>
       <template v-else>
-        <p class="grey--text text-xs-center no-image-caption">No image selected</p>
+        <slot name="no-image-text" :props="{text: noImageText}">
+          <p class="grey--text text-xs-center no-image-caption" v-html="noImageText"></p>
+        </slot>
       </template>
-    </div>
-    <v-card-actions>
+    </v-card>
+    <v-card-actions v-if="!hideActions">
       <v-btn v-if="selected.length !== 0" ref="mediabox-clear-button" flat @click="remove(selected)">Remove</v-btn>
       <v-spacer></v-spacer>
       <v-btn ref="mediabox-browser-button" flat @click="media.box.model = ! media.box.model">{{ selected.length === 0 ? 'Browse' : 'Change' }}</v-btn>
@@ -155,15 +157,19 @@ import Upload from './Upload.vue'
 
 export default {
   props: {
-    closeOnClick: { default: true },
-    icon: { default: 'landscape' },
-    itemText: { default: 'text' },
-    itemValue: { default: 'value' },
-    multiple: { default: false },
-    title: { default: 'Mediabox' },
-    uploadText: { default: 'Upload' },
-    menuItems: { default: () => { return [] } },
-    url: { default: () => { return { all: '', search: '' } } }
+    closeOnClick: { type: Boolean, default: true },
+    height: { type: String, default: 'auto' },
+    hideActions: { type: Boolean, default: false },
+    hideToolbar: { type: Boolean, default: false },
+    icon: { type: String, default: 'landscape' },
+    itemText: { type: String, default: 'text' },
+    itemValue: { type: String, default: 'value' },
+    menuItems: { type: Array, default: () => { return [] } },
+    multiple: { type: Boolean, default: false },
+    noImageText: { type: String, default: 'No image selected' },
+    title: { type: String, default: 'Mediabox' },
+    uploadText: { type: String, default: 'Upload' },
+    url: { type: Object, default: () => { return { all: '/', search: '/' } } }
   },
   model: {
     prop: 'selected'

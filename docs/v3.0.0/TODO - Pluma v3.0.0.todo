@@ -4,6 +4,9 @@ Misc:
   ☐ @high refactor frontend code.
     - A.K.A walang uwian sessions 1, 2, ...n
 
+  ☐ @high change header.blade -> head.blade
+  ☐ @high change footer.blade -> foot.blade
+
   ☐ Upgrade vuetify to v1.
     - update all components
 
@@ -44,11 +47,10 @@ Search Module:
   ☐ global search BE.
 
 Page:
-  ☐ fix search layout index.blade
-  ☐ add conditional cards e.g. if home == code include (home cards)
+  ☐ Templating: add conditional cards e.g. if home == code include (home cards)
 
 Profile:
-  ☐ My Activity @low
+  ☐ My Activity
 
 Frontier Frontend Components:
   ☐ write Mediabox to support multiple instance.

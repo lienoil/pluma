@@ -1,15 +1,8 @@
 v2.0.1:
 
-Assignment:
-  ☐ Separate CRUD
-  ☐ seperate lesson
-
-MISC:
-  ☐ Empty state text blurb (all)
-  ☐ public footer layout (partials/endnote.blade)
 
 Forum:
-  ☐ @low solved / unsolved
+  ✔ @low solved / unsolved @done (18-03-08 10:16)
 
 Dashboard:
     create a widget:
@@ -81,19 +74,18 @@ Dashboard:
           ☐ theme
 
 Content:
-  ☐ resize issue
+  ✔ resize issue @done (18-03-08 10:16)
 
 Course:
   ☐ role based -> all, My, bookmaked courses
-  ☐ Enroll
+  ✔ Enroll / Student @done (18-03-08 10:16)
 
 Form Builder:
   ☐ @critical Model Attachment (e.g. CourseHasManyForms)
-  ☐ Overall/Total Score
+  ✔ Overall/Total Score @done (18-03-08 10:16)
   ☐ chart long labels
 
   Submission:
-
     code->name for fields/edit-fields
     unique display for submission index and show
 
