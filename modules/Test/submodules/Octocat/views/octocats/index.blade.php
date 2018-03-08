@@ -33,6 +33,7 @@
                             v-text="new Date()"
                             class="page-title subheading">
                         </h1>
+                        <h1 class="page-title subheading"></h1>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -44,6 +45,15 @@
                     <button id="warning">Warning</button>
                     <button id="info">Info</button>
                     <button id="question">Question</button>
+                </v-card>
+            </v-flex>
+
+            <v-flex xs12>
+                <v-card flat class="elevation-1">
+                    <v-btn id="success" success large>{{ __('Success') }}</v-btn>
+                    <v-btn id="error" error large>{{ __('Error') }}</v-btn>
+                    <v-btn id="warning" warning large>{{ __('Warning') }}</v-btn>
+                    <v-btn id="info" info large>{{ __('Info') }}</v-btn>
                 </v-card>
             </v-flex>
 
@@ -70,26 +80,9 @@
                     </v-card-texxt>
                 </v-card>
             </v-flex>
-
-            <v-flex xs4>
-                <v-card class="elevation-1">
-                    <v-toolbar flat class="transparent">
-                        <v-card-title class="page-title">
-                            {{ __('Switch 1: Roles') }}
-                        </v-card-title>
-                    </v-toolbar>
-                </v-card>
-            </v-flex>
-
-            <v-flex xs4 xs12>
-                <v-card class="elevation-1">
-                    <v-toolbar flat class="transparent">
-
-                    </v-toolbar>
-                </v-card>
-            </v-flex>
-        </v-layout>
+        </v-checkbox>
     </v-container>
+
 
 
 @endsection

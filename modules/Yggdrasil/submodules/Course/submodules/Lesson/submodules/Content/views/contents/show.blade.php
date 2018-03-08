@@ -50,7 +50,7 @@
                                             <p class="headline ma-2 mb-4"><v-icon round class="success--text display-4">check_circle</v-icon></p>
                                             <h2 class="display-1 grey--text text--darken-2 page-title"><strong>{{ __('Thank you!') }}</strong></h2>
                                             <div class="grey--text text--darken-2">
-                                                <span class="mb-3 page-title">{{ __("Your request has been sent successfully. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem recusandae rerum quidem optio nisi vero. Provident possimus veritatis reiciendis.") }} <strong></span>
+                                                <span class="mb-3 page-title">{{ __("Your request has been submitted successfully. You will receive an e-mail confirmation from us once our trainer for this course approves the request. We are excited to learn with you!") }} <strong></span>
                                             </div>
                                         </v-card-text>
                                         <v-card-actions class="py-4">
