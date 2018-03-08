@@ -32,14 +32,7 @@
                         <h1
                             v-text="new Date()"
                             class="page-title subheading">
-
                         </h1>
-                    </v-card-text>
-                    <v-card-text>
-                        <h1 class="subheading page-title" v-text="new Date()"></h1>
-                        <ul>
-                            <li v-for="tasks in task"></li>
-                        </ul>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -94,6 +87,9 @@
         mixins.push({
             data() {
                 return {
+                    tasks: {
+
+                    },
                     switch1: true,
                     selected: ['Jane'],
                     sheet: false,
