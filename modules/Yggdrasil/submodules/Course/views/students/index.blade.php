@@ -29,11 +29,12 @@
                                     multiple
                                     persistent-hint
                                     prepend-icon="supervisor_account"
+                                    color="primary"
                                     v-model="suppliments.users.selected"
                                 ></v-select>
                                 <input type="hidden" name="users[]" :value="id" v-for="(id, i) in suppliments.users.selected" :key="i">
 
-                                <v-card-actions class="pa-3">
+                                <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn primary class="elevation-1" type="submit">{{ __('Enroll') }}</v-btn>
                                 </v-card-actions>
@@ -71,7 +72,7 @@
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                <v-dialog transition="scale-transition" persistent v-model="dataset.dialog.model" lazy width="auto">
+                                <v-dialog transition="scale-transition" v-model="dataset.dialog.model" lazy width="auto">
                                     <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}">
                                         <v-icon class="error--text">delete_forever</v-icon>
                                     </v-btn>
@@ -127,13 +128,21 @@
                             </span>
                         </template>
                         <template slot="items" scope="prop">
-                            <td v-show="bulk.drop.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
+                            <td v-show="bulk.drop.model">
+                                <v-checkbox
+                                    hide-details
+                                    class="primary--text"
+                                    v-model="prop.selected">
+                                </v-checkbox>
+                            </td>
                             <td v-html="prop.item.id"></td>
                             <td v-html="prop.item.displayname"></td>
                             <td v-html="prop.item.enrolled"></td>
                             <td class="text-xs-center">
                                 <v-dialog v-model="prop.item.model" transition="scale-transition" persistent width="400px" min-width="150px" max-width="400px">
-                                    <v-btn slot="activator" v-tooltip:left="{ html: 'Drop a student' }" icon><v-icon>delete</v-icon></v-btn>
+                                    <v-btn slot="activator" v-tooltip:left="{ html: 'Drop a student' }" icon>
+                                        <v-icon>delete</v-icon>
+                                    </v-btn>
                                     <v-card class="text-xs-center elevation-4">
                                         <v-card-text class="pa-5">
                                             <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
@@ -146,7 +155,7 @@
                                         <v-divider></v-divider>
                                         <v-card-actions class="pa-3">
                                             <v-btn class="grey--text grey lighten-2 elevation-0"
-                                                @click="prop.item.model = false">
+                                                @click="prop.item.model=false">
                                                 {{ __('Cancel') }}
                                             </v-btn>
                                             <v-spacer></v-spacer>
@@ -157,11 +166,10 @@
                                                 method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
-                                                <input type="hidden" name="user_id" :value="prop.item.id">
+                                                <input type="hidden" name="user_id[]" :value="prop.item.id">
                                                 <v-btn @click="$refs[`drop_${prop.item.id}`].submit()"
                                                     class="elevation-0 ma-0 error white--text">{{ __('Yes') }}
                                                 </v-btn>
-
                                             </form>
                                         </v-card-actions>
                                     </v-card>
@@ -203,11 +211,6 @@
                         drop: {
                             model: false,
                         },
-                    },
-                    prop: {
-                        item: {
-                            model: false
-                        }
                     },
                     resource: {
                         item: {

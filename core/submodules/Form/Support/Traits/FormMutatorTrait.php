@@ -33,6 +33,6 @@ trait FormMutatorTrait
      */
     public function getCountAttribute()
     {
-        return ! $this->submissions ?: $this->submissions->count();
+        return $this->submissions->count();
     }
 }

@@ -31,7 +31,6 @@ class StudentController extends AdminController
         return view("Theme::students.index")->with(compact('resource', 'users'));
     }
 
-
     /**
      * Stores the students into a resource (e.g. Course).
      *
@@ -77,6 +76,11 @@ class StudentController extends AdminController
             // Then remove scormvars
             Scormvar::where('course_id', $course->id)->where('user_id', $id)->delete();
         }
-        return back();
+
+        session()->flash('title', "Success");
+        session()->flash('message', "Student successfully dropped");
+        session()->flash('type', 'success');
+
+        return redirect()->route('courses.students', $course->slug);
     }
 }
