@@ -13,7 +13,7 @@ const router = new VueRouter({
   routes
 })
 
-// Check before loading the requested route
+// // Check before loading the requested route
 // router.beforeEach((to, from, next) => {
 //   if (!to.matched.length) {
 //     next('/404')

@@ -55,7 +55,8 @@ new Vue({
   },
   watch: {
     '$route': function (router) {
-      //
+      this.routed()
+      // this.$root.alert({type: 'success', text: `Hey you've changed the page! Awesome!`})
     }
   },
   methods: {
@@ -73,14 +74,17 @@ new Vue({
       // Populate the routes variable
       this.$http.get('/$/routes')
         .then(response => {
+          let routes = []
           for (var i = 0; i < response.data.length; i++) {
             let current = response.data[i]
-            self.$router.addRoutes([{
+            this.$router.options.routes.push({
               name: current.name,
               path: current.uri,
               component: require('@/' + current.component)
-            }])
+            })
           }
+          self.$router.addRoutes(routes)
+          console.log('[ROUTER]', this.$router.options.routes)
           // this.$root.alert({theme: 'light', color: 'white', type: 'success', text: `Welcome to the site!`})
         })
         .catch(error => {
