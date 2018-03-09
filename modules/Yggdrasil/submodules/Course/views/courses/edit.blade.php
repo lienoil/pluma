@@ -129,7 +129,7 @@
                                 thumbnail: '{!! $resource->feature !!}',
                             },
                             category: {!! json_encode($resource->category) !!},
-                            survey_id: '{{ old('survey_id') }}'
+                            survey_id: '{{ $resource->forms()->type('courses')->first()->id ?? null }}'
                         },
                         feature: {
                             model: false,

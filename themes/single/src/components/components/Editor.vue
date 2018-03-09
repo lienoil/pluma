@@ -56,9 +56,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+@import '~@/assets/stylus/theme'
+
 .ck-editor__editable {
   padding-top: 15px;
   min-height: 120px;
+
+  &.ck-focused {
+    border: 1px solid #bfbfbf;
+    box-shadow: none;
+    border-bottom: 2px solid $theme.primary;
+  }
 }
 </style>

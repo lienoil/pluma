@@ -4,74 +4,6 @@ v2.0.1:
 Forum:
   ✔ @low solved / unsolved @done (18-03-08 10:16)
 
-Dashboard:
-    create a widget:
-      make a widget folder on views
-      create config (widgets.php)
-
-    widgets::
-        superadmin:
-          at a glance
-            ☐ manage modules to sys conf
-            ☐ # of users (per role) - chartjs
-
-          dashboard 1.xx
-            ☐ disable cpu usage
-            ☐ activities/change logs
-
-          except
-            ☐ announcement
-
-       admin:
-         at a glance
-           ☐ same as super admin
-
-         dashboard
-           except
-             ☐ sys conf
-
-       super trainer:
-         at a glance
-            (same as trainer) ->except my courses
-
-         dashboard
-           ☐ Top 3 Most Courses Enrolled
-           ☐ Courses with Low Trainer Ratings
-           ☐ top 5 trainers (v-list) -> link to profile.show
-           ☐ ???
-
-       trainer:
-         at a glance
-           ☐ my courses
-           ☐ list of students (overall)
-           ☐ Top 3 Most Courses Enrolled
-           ☐
-
-         except
-           ☐ sys conf
-           ☐ theme
-
-         dashboard
-           ☐ lists of students enrolled per course
-           ☐ latest assignment submission
-           ☐ top students
-
-      students:
-        at a glance
-          ☐ # of courses enrolled
-          ☐ # of bookmarked courses
-          ☐ # of forum qs asked
-          ☐ # of pending assignment
-
-        dashboard
-          ☐ badge
-          ☐ current courses
-          ☐ assignment
-          ☐ activities
-
-        except
-          ☐ sys conf
-          ☐ theme
 
 Content:
   ✔ resize issue @done (18-03-08 10:16)
@@ -83,7 +15,7 @@ Course:
 Form Builder:
   ☐ @critical Model Attachment (e.g. CourseHasManyForms)
   ✔ Overall/Total Score @done (18-03-08 10:16)
-  ☐ chart long labels
+  ✔ chart long labels @done (18-03-09 15:37)
 
   Submission:
     code->name for fields/edit-fields

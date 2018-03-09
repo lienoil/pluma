@@ -29,6 +29,18 @@ class CourseController extends GeneralController
         MyCourseResourceTrait;
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('auth.admin')->only(array_merge($this->methodsAdmin, ['current', 'bookmarked']));
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param  Request $request
@@ -91,6 +103,8 @@ class CourseController extends GeneralController
         $course->category()->associate(Category::find($request->input('category_id')));
         $course->user()->associate(user());
         $course->save();
+
+        $course->forms()->save(Form::find($request->input('survey_id')));
 
         // Lessons
         collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
@@ -171,6 +185,8 @@ class CourseController extends GeneralController
         $course->category()->associate(Category::find($request->input('category_id')));
         // $course->user()->associate(user()); // Don't Change the original author
         $course->save();
+
+        $course->forms()->sync($request->input('survey_id'));
 
         // Lessons
         $course->lessons()->whereNotIn('id', array_column($request['lessons'], 'id'))->delete();

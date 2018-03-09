@@ -170,7 +170,7 @@
                                             class="elevation-0"
                                             icon="play_circle_filled"
                                             no-image-text="Add Media"
-                                            height="150px"
+                                            height="200px"
                                             hide-actions
                                             hide-toolbar
                                             item-text="name"

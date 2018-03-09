@@ -24,3 +24,19 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
 Route::post('admin/sessions', function () {
     return session()->all();
 })->middleware('auth.admin')->name('sessions.all');
+
+Route::get('$/routes', function () {
+    $routes = Route::getRoutes();
+    $data = [];
+
+    foreach ($routes as $route) {
+        $data[] = [
+            "methods" => $route->methods(),
+            "uri" => "/{$route->uri()}",
+            "name" => $route->getName(),
+            "component" => "components/Pluma/Page/Edit.vue",
+        ];
+    }
+
+    return response()->json($data);
+});

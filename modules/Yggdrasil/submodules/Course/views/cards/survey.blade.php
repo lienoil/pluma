@@ -14,7 +14,7 @@
             item-value="id"
             label="{{ __('Survey Form') }}"
             persistent-hint
-            v-model="resource.item.form_id"
+            v-model="resource.item.survey_id"
         ></v-select>
         <input type="hidden" name="survey_id" :value="resource.item.survey_id">
     </v-card-text>

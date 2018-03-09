@@ -56,8 +56,8 @@
             @isset($submenu->is_divider)
               <v-divider></v-divider>
             @else
-              {{-- {{ isset($submenu->routename) ? ":to={name: '$submenu->routename'}" : "href=$submenu->url" }} --}}
-              <v-list-tile ripple exact @click="navigate('components/Pluma/Page/Show')">
+              {{-- {{ isset($submenu->name) ? ":to={name: '$submenu->name'}" : "href=$submenu->url" }} --}}
+              <v-list-tile ripple exact :to="{name: '{{ $submenu->routename ?? $submenu->name }}'}">
                 @isset ($submenu->icon)
                   <v-list-tile-avatar>
                     <v-icon>{{ $submenu->icon }}</v-icon>
@@ -92,7 +92,8 @@
             @isset($submenu->is_divider)
               <v-divider></v-divider>
             @else
-              <v-list-tile ripple exact :to="{name: '{{ $submenu->routename ?? 'index' }}'}">
+              {{-- {{ isset($submenu->name) ? ":to={name: '$submenu->name'}" : "href=$submenu->url" }} --}}
+              <v-list-tile ripple exact :to="{name: '{{ $submenu->routename ?? $submenu->name }}'}" data-to="{{ $submenu->name }}">
                 {{-- @isset($submenu->icon)
                   <v-list-tile-action>
                     <v-icon>{{ $submenu->icon }}</v-icon>

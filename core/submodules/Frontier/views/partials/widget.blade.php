@@ -17,7 +17,7 @@
                     <img :src="tile.img" :alt="tile.title">
                 </v-avatar>
             </v-list-tile-avatar>
-            <v-list-tile-tile v-html="tile.title"></v-list-tile-tile>
+            <v-list-tile-title v-html="tile.title"></v-list-tile-title>
         </v-list-tile>
         {{-- /remove widgets --}}
 
