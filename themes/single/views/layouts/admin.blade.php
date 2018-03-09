@@ -17,7 +17,7 @@
     <v-btn color="warning" @click="snackbar.type='warning';snackbar.theme='dark';snackbar.text='Oops! Looks like something went wrong'; snackbar.model = !snackbar.model">Snackbar Warning Test</v-btn>
     <v-btn color="error" @click="snackbar.type='error';snackbar.theme='dark';snackbar.text='An error occurred!'; snackbar.model = !snackbar.model;snackbar.color='secondary'">Snackbar Error Test</v-btn>
     <v-btn color="info" @click="dialog.type='prompt';dialog.theme='dark';dialog.text='A prompt occurred!'; dialog.model = !dialog.model;dialog.color='secondary'">Dialog Question Test</v-btn>
-    <v-dialog v-model="dialog.model">
+    <v-dialog v-model="dialog.model" width="auto">
       <v-card flat :dark="theme.dark" :light="!theme.dark">
         <alert-icon medium mode="prompt"></alert-icon>
         <v-card-text class="grey--text">

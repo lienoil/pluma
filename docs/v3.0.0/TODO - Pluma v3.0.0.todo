@@ -133,3 +133,8 @@ Frontier Frontend Components:
           ☐ sys conf
           ☐ theme
 
+
+
+To Upgrade:
+  ☐ permissions use `pages.index` as the code to check
+  ☐ config/menus.php use `pages.index` as name to reflect permissions

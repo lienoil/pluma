@@ -26,17 +26,18 @@ Route::post('admin/sessions', function () {
 })->middleware('auth.admin')->name('sessions.all');
 
 Route::get('$/routes', function () {
-    $routes = Route::getRoutes();
+    $routes = navigations('sidebar');
     $data = [];
 
     foreach ($routes as $route) {
+      var_dump($route); exit();
         $data[] = [
-            "methods" => $route->methods(),
-            "uri" => "/{$route->uri()}",
-            "name" => $route->getName(),
-            "component" => "components/Pluma/Page/Edit.vue",
+            // "methods" => $route->methods(),
+            "uri" => "/{$route->url}",
+            "name" => $route->routename ?? $route->name,
+            "component" =>  $route->component ?? "components/Pluma/Page/Index.vue",
         ];
     }
 
     return response()->json($data);
-});
+})->middleware(['api', 'cors']);
