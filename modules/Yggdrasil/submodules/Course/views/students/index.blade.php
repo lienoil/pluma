@@ -139,7 +139,8 @@
                             <td v-html="prop.item.displayname"></td>
                             <td v-html="prop.item.enrolled"></td>
                             <td class="text-xs-center">
-                                <v-dialog v-model="prop.item.model" transition="scale-transition" persistent width="400px" min-width="150px" max-width="400px">
+
+                                <v-dialog v-model="resource.dialog.model" transition="scale-transition" persistent width="400px" min-width="150px" max-width="400px">
                                     <v-btn slot="activator" v-tooltip:left="{ html: 'Drop a student' }" icon>
                                         <v-icon>delete</v-icon>
                                     </v-btn>
@@ -155,7 +156,7 @@
                                         <v-divider></v-divider>
                                         <v-card-actions class="pa-3">
                                             <v-btn class="grey--text grey lighten-2 elevation-0"
-                                                @click="prop.item.model=false">
+                                                @click.native.stop="resource.dialog.model=false">
                                                 {{ __('Cancel') }}
                                             </v-btn>
                                             <v-spacer></v-spacer>
