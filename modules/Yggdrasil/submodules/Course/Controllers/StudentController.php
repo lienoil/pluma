@@ -77,7 +77,6 @@ class StudentController extends AdminController
             // Then remove scormvars
             Scormvar::where('course_id', $course->id)->where('user_id', $id)->delete();
         }
-
         return back();
     }
 }
