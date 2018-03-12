@@ -25,6 +25,19 @@ Route::post('admin/sessions', function () {
     return session()->all();
 })->middleware('auth.admin')->name('sessions.all');
 
-Route::any('#/{slug?}', function () {
-    return view("Theme::layouts.public");
-})->where('slug', '.*');
+Route::get('$/routes', function () {
+    $routes = navigations('sidebar');
+    $data = [];
+
+    foreach ($routes as $route) {
+      var_dump($route); exit();
+        $data[] = [
+            // "methods" => $route->methods(),
+            "uri" => "/{$route->url}",
+            "name" => $route->routename ?? $route->name,
+            "component" =>  $route->component ?? "components/Pluma/Page/Index.vue",
+        ];
+    }
+
+    return response()->json($data);
+})->middleware(['api', 'cors']);

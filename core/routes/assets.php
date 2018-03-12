@@ -45,3 +45,23 @@ Route::get('core/{file?}', function ($file = null) {
 
     return abort(404);
 })->where('file', '.*');
+
+Route::get('static/{file?}', function ($file = null) {
+    $path = base_path(config('path.themes', 'themes')
+            . '/'
+            . settings('active_theme', 'default'))
+            . "/dist/static/$file";
+    $extension = File::extension($path);
+
+    if (in_array($extension, config('download.restricted', []))) {
+        return abort(403);
+    }
+
+    if (File::exists($path)) {
+        $contentType = config("mimetypes.$extension", 'txt');
+
+        return response()->file($path, array('Content-Type' => $contentType));
+    }
+
+    return abort(404);
+})->where('file', '.*');

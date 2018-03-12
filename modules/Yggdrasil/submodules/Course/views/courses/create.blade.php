@@ -112,6 +112,7 @@
 
                             feature: '{!! old('feature_obj') !!}' ? JSON.parse('{!! old('feature_obj') !!}') : null,
                             category: JSON.parse({!! json_encode(old('category')) !!}),
+                            survey_id: '{{ old('survey_id') }}'
                         },
                         feature: {
                             model: false,
@@ -121,6 +122,7 @@
                         cover: {
                             model: false,
                         },
+                        surveys: {!! json_encode($surveys) !!},
                         slug: {
                             readonly: true,
                         },

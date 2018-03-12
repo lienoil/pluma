@@ -16,16 +16,6 @@
 
         @stack("after-inner-content")
 
-        @if (config('debugging.debug'))
-          {{-- <v-card dark>
-            <alert-icon small></alert-icon>
-            <alert-icon mode="warning"></alert-icon>
-          </v-card> --}}
-          <v-btn color="success" @click="snackbar.color='secondary';snackbar.type='success';snackbar.theme='dark';snackbar.text='The Succession successfully succeeded!'; snackbar.model = !snackbar.model">Snackbar Success Test</v-btn>
-          <v-btn color="warning" @click="snackbar.type='warning';snackbar.theme='dark';snackbar.text='Oops! Looks like something went wrong'; snackbar.model = !snackbar.model">Snackbar Warning Test</v-btn>
-          <v-btn color="error" @click="snackbar.type='error';snackbar.theme='dark';snackbar.text='An error occurred!'; snackbar.model = !snackbar.model;snackbar.color='secondary'">Snackbar Error Test</v-btn>
-        @endif
-
       </v-content>
 
       @stack("after-content")

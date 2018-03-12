@@ -1,19 +1,32 @@
 <template>
-  <v-container fluid>
-    <v-slide-y-transition mode="out-in">
-      <v-layout column align-center>
-        <img src="@/assets/logo.png" alt="Vuetify.js" class="mb-5">
-        <blockquote>
-          &#8220;Show PAGE
-          <footer>
-            <small>
-              <em>&mdash;John Johnson</em>
-            </small>
-          </footer>
-        </blockquote>
-      </v-layout>
-    </v-slide-y-transition>
-  </v-container>
+  <div>
+    <v-toolbar light color="white" class="elevation-1 sticky">
+      <v-toolbar-title class="grey--text text--darken-1">Create Page</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-menu>
+        <v-btn slot="activator" icon small><v-icon small>settings</v-icon></v-btn>
+        <v-list>
+          <v-list-tile @click="">
+            <v-list-tile-action>
+              <v-icon>drafts</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Save as Draft</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+      <v-btn :loading="resource.saving" ripple color="primary" @click="save(resource.item)">Save</v-btn>
+    </v-toolbar>
+    <v-container fluid grid-list-lg>
+      <v-form ref="form" v-model="resource.form.model">
+        <v-layout row wrap>
+          <v-flex xs12 sm8 md9>
+          </v-flex>
+        </v-layout>
+      </v-form>
+    </v-container>
+  </div>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

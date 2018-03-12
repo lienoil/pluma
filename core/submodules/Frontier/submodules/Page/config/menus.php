@@ -15,6 +15,7 @@ return [
             'view-page' => [
                 'name' => 'view-page',
                 'routename' => 'pages.index',
+                'component' => 'components/Pluma/Page/Index.vue',
                 'parent' => 'page',
                 'order' => 1,
                 'slug' => route('pages.index'),
@@ -33,6 +34,7 @@ return [
             'create-page' => [
                 'name' => 'create-page',
                 'routename' => 'pages.create',
+                'component' => 'components/Pluma/Page/Create.vue',
                 'parent' => 'page',
                 'order' => 2,
                 'slug' => route('pages.create'),
@@ -44,6 +46,7 @@ return [
             'trashed-page' => [
                 'name' => 'trashed-page',
                 'routename' => 'pages.trashed',
+                'component' => 'components/Pluma/Page/Trashed.vue',
                 'order' => 3,
                 'slug' => route('pages.trashed'),
                 'always_viewable' => false,

@@ -1,25 +1,27 @@
 <template>
   <v-card class="card-mediabox">
-    <v-toolbar card>
+    <v-toolbar card v-if="!hideToolbar">
       <v-icon v-html="icon"></v-icon>
       <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
     </v-toolbar>
-    <div class="card-mediabox-container grey lighten-3">
+    <v-card flat tile class="card-mediabox-container grey lighten-3" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
       <template v-if="(selected instanceof Array) && selected.length !== 0">
-        <v-card flat ripple>
+        <slot name="thumbnail" :props="{item: selected}">
           <img class="stacked" width="100%" height="auto" v-for="(s, i) in selected" :key="i" :src="s">
-        </v-card>
+        </slot>
       </template>
       <template v-else-if="typeof selected === 'string' && selected">
-        <v-card flat ripple>
+        <slot name="thumbnail" :props="{item: selected}">
           <img width="100%" height="auto" :src="selected">
-        </v-card>
+        </slot>
       </template>
       <template v-else>
-        <p class="grey--text text-xs-center no-image-caption">No image selected</p>
+        <slot name="no-image-text" :props="{text: noImageText}">
+          <p class="grey--text text-xs-center no-image-caption" v-html="noImageText"></p>
+        </slot>
       </template>
-    </div>
-    <v-card-actions>
+    </v-card>
+    <v-card-actions v-if="!hideActions">
       <v-btn v-if="selected.length !== 0" ref="mediabox-clear-button" flat @click="remove(selected)">Remove</v-btn>
       <v-spacer></v-spacer>
       <v-btn ref="mediabox-browser-button" flat @click="media.box.model = ! media.box.model">{{ selected.length === 0 ? 'Browse' : 'Change' }}</v-btn>
@@ -29,16 +31,43 @@
     <template>
       <v-dialog class="white" v-model="media.box.model" max-width="100%" lazy scrollable persistent>
         <v-card height="90vh" :dark="$root.theme.dark" :light="!$root.theme.dark">
-          <v-toolbar :dark="$root.theme.dark" :light="!$root.theme.dark" class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
-            <v-btn icon @click.stop="media.sidebar.mini = !media.sidebar.mini"><v-icon>{{ media.sidebar.mini ? 'chevron_right' : 'chevron_left' }}</v-icon></v-btn>
-            <v-text-field class="mr-3" prepend-icon="search" v-model="media.search.query" v-bind="{'solo': !$root.theme.dark, 'solo-inverted': $root.theme.dark}" label="Search"></v-text-field>
+
+          <v-toolbar card :dark="$root.theme.dark" :light="!$root.theme.dark" class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
+            <v-btn icon class="hidden-sm-and-down" ripple @click.stop="$root.localstorage('single.media.sidebar.mini', (media.sidebar.mini = !media.sidebar.mini))"><v-icon>{{ media.sidebar.mini ? 'chevron_right' : 'chevron_left' }}</v-icon></v-btn>
+            <v-icon class="hidden-sm-and-down grey--text" left>{{ menus.current.icon }}</v-icon>
+            <v-toolbar-title class="hidden-sm-and-down subheading grey--text" v-html="menus.current.name"></v-toolbar-title>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
+            <v-text-field class="mx-3" prepend-icon="search" v-model="media.search.query" v-bind="{'solo': !$root.theme.dark, 'solo-inverted': $root.theme.dark}" label="Search"></v-text-field>
             <v-btn class="hidden-sm-and-down" icon @click="media.box.model = false"><v-icon>close</v-icon></v-btn>
           </v-toolbar>
-          <v-card-text>
-            <v-navigation-drawer :dark="$root.theme.dark" :light="!$root.theme.dark" permanent height="100%" :mini-variant="media.sidebar.mini" absolute width="280">
+
+          <v-divider></v-divider>
+
+          <v-card-text class="pa-0">
+            <v-tabs v-model="menus.current.tabmodel" icons-and-text centered class="hidden-sm-and-up" :dark="$root.theme.dark" :light="!$root.theme.dark">
+              <v-tabs-slider color="primary"></v-tabs-slider>
+              <v-tab
+                :key="menu.name"
+                ripple
+                v-for="(menu, i) in menus.items"
+                @click="menuToggle(menu, menu.url)"
+              >
+                {{ menu.name }}
+                <v-icon v-html="menu.icon"></v-icon>
+              </v-tab>
+              <v-tab
+                :key="menus.upload.name"
+                ripple
+                @click="menuToggle(menus.upload)"
+              >
+                {{ menus.upload.name }}
+                <v-icon v-html="menus.upload.icon"></v-icon>
+              </v-tab>
+            </v-tabs>
+            <v-divider class="hidden-sm-and-up"></v-divider>
+            <v-navigation-drawer class="hidden-sm-and-down" :dark="$root.theme.dark" :light="!$root.theme.dark" permanent height="100%" :mini-variant="media.sidebar.mini" absolute width="280">
               <v-list :dark="$root.theme.dark" :light="!$root.theme.dark">
-                <v-list-tile @click="media.sidebar.mini = !media.sidebar.mini">
+                <v-list-tile @click="$root.localstorage('single.media.sidebar.mini', (media.sidebar.mini = !media.sidebar.mini))">
                   <v-list-tile-action>
                     <v-icon>{{ icon }}</v-icon>
                   </v-list-tile-action>
@@ -70,18 +99,17 @@
               </v-list>
             </v-navigation-drawer>
 
-            <v-slide-y-transition>
-              <v-card v-if="menus.upload.model" flat :dark="$root.theme.dark" :light="!$root.theme.dark" height="calc(100vh - 230px)" class="sidebar-main-content">
-                <upload class="elevation-0"></upload>
+            <v-slide-y-transition mode="in-out">
+              <v-card v-if="menus.upload.model" flat :dark="$root.theme.dark" :light="!$root.theme.dark" height="calc(100vh - 191px)" class="sidebar-main-content transparent">
+                <v-card-text>
+                  <upload class="elevation-0" :categories="menus.items"></upload>
+                </v-card-text>
               </v-card>
             </v-slide-y-transition>
 
-            <v-slide-y-transition>
-              <v-card v-if="!menus.upload.model" flat height="calc(100vh - 230px)" class="sidebar-main-content">
-                <v-toolbar card class="transparent">
-                  <v-toolbar-title v-html="menus.current.name"></v-toolbar-title>
-                </v-toolbar>
-                <v-container fluid>
+            <v-slide-y-transition mode="in-out">
+              <v-card v-if="!menus.upload.model" flat height="calc(100vh - 191px)" class="sidebar-main-content transparent">
+                <v-container fluid grid-list-lg>
 
                   <v-data-iterator
                     :items="media.items"
@@ -106,6 +134,7 @@
                       </v-card>
                     </v-flex>
                   </v-data-iterator>
+
                 </v-container>
               </v-card>
             </v-slide-y-transition>
@@ -128,15 +157,19 @@ import Upload from './Upload.vue'
 
 export default {
   props: {
-    closeOnClick: { default: true },
-    icon: { default: 'landscape' },
-    itemText: { default: 'text' },
-    itemValue: { default: 'value' },
-    multiple: { default: false },
-    title: { default: 'Mediabox' },
-    uploadText: { default: 'Upload' },
-    menuItems: { default: () => { return [] } },
-    url: { default: () => { return { all: '', search: '' } } }
+    closeOnClick: { type: Boolean, default: true },
+    height: { type: String, default: 'auto' },
+    hideActions: { type: Boolean, default: false },
+    hideToolbar: { type: Boolean, default: false },
+    icon: { type: String, default: 'landscape' },
+    itemText: { type: String, default: 'text' },
+    itemValue: { type: String, default: 'value' },
+    menuItems: { type: Array, default: () => { return [] } },
+    multiple: { type: Boolean, default: false },
+    noImageText: { type: String, default: 'No image selected' },
+    title: { type: String, default: 'Mediabox' },
+    uploadText: { type: String, default: 'Upload' },
+    url: { type: Object, default: () => { return { all: '/', search: '/' } } }
   },
   model: {
     prop: 'selected'
@@ -150,7 +183,10 @@ export default {
         items: [],
         loading: true,
         search: { query: '' },
-        sidebar: { model: false, mini: false },
+        sidebar: {
+          model: false,
+          mini: this.$root.localstorage('single.media.sidebar.mini') === 'true'
+        },
         url: this.url.all,
         pagination: {
           rowsPerPageItems: [5, 10, 25, {'text': 'All', 'value': -1}],
@@ -159,10 +195,10 @@ export default {
         }
       },
       menus: {
-        current: {},
+        current: { tabmodel: 'Upload' },
         upload: { name: 'Upload', icon: 'cloud_upload', model: false },
         items: [
-          { name: 'All Media', icon: 'image', model: true, url: this.url.all }
+          { id: null, name: 'All Media', icon: 'image', model: true, url: this.url.all }
         ]
       }
     }
@@ -252,6 +288,7 @@ export default {
       if (menu) {
         menu.model = !menu.model
         this.menus.current = menu
+        // this.menus.current.tabmodel = menu.name
       }
 
       if (url) {
@@ -262,13 +299,23 @@ export default {
   mounted () {
     this.get()
 
-    this.menus.items = this.menuItems
+    this.menus.items = this.menus.items.concat(this.menuItems)
     this.menuToggle(this.menus.items[0], this.menus.items[0].url)
   }
 }
 </script>
 
-<style scoped>
+<style lang="stylus">
+@import '~vuetify/src/stylus/settings/_variables'
+
+// Main Content
+.sidebar-main-content {
+  .data-iterator {
+    & > div:first-child {
+      height: 100%;
+    }
+  }
+}
 .sidebar-main-toolbar {
   width: auto;
 }
@@ -325,5 +372,12 @@ export default {
 .card-mediabox-container .stacked:nth-child(4) {
   margin-top: 45px;
   margin-left: 45px;
+}
+
+@media (max-width: $grid-breakpoints.sm) {
+  .sidebar-main-toolbar,
+  .navigation-drawer + .sidebar-main-content {
+    margin-left: 0;
+  }
 }
 </style>

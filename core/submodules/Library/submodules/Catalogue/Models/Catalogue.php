@@ -54,7 +54,7 @@ class Catalogue extends Category
             'model' => true,
         ];
 
-        foreach (self::all() as $i => $catalogue) {
+        foreach (self::orderBy('name')->get() as $i => $catalogue) {
             $array[$i+1]['id'] = $catalogue->id;
             $array[$i+1]['count'] = $catalogue->libraries->count();
             $array[$i+1]['name'] = $catalogue->name;

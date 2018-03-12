@@ -4,6 +4,9 @@ Misc:
   ☐ @high refactor frontend code.
     - A.K.A walang uwian sessions 1, 2, ...n
 
+  ☐ @high change header.blade -> head.blade
+  ☐ @high change footer.blade -> foot.blade
+
   ☐ Upgrade vuetify to v1.
     - update all components
 
@@ -44,11 +47,10 @@ Search Module:
   ☐ global search BE.
 
 Page:
-  ☐ fix search layout index.blade
-  ☐ add conditional cards e.g. if home == code include (home cards)
+  ☐ Templating: add conditional cards e.g. if home == code include (home cards)
 
 Profile:
-  ☐ My Activity @low
+  ☐ My Activity
 
 Frontier Frontend Components:
   ☐ write Mediabox to support multiple instance.
@@ -59,6 +61,7 @@ Frontier Frontend Components:
   ☐ theme generator
   ☐ data-table filter
   ☐ save widgets positions / switch state
+<<<<<<< HEAD
   ☐ sweetAlertjs2 dialog
 
 
@@ -70,6 +73,20 @@ Frontier Frontend Components:
         superadmin:
           at a glance
             ✔ manage modules to sys conf @done (18-03-08 12:01)
+=======
+  ✔ sweetAlertjs2 dialog @done (18-03-09 15:36)
+
+
+  Dashboard:
+    create a widget:
+      make a widget folder on views
+      create config (widgets.php)
+
+    widgets::
+        superadmin:
+          at a glance
+            ☐ manage modules to sys conf
+>>>>>>> master
             ☐ # of users (per role) - chartjs
 
           dashboard 1.xx
@@ -113,7 +130,11 @@ Frontier Frontend Components:
            ☐ latest assignment submission
            ☐ top students
 
+<<<<<<< HEAD
        students:
+=======
+      students:
+>>>>>>> master
         at a glance
           ☐ # of courses enrolled
           ☐ # of bookmarked courses
@@ -130,7 +151,15 @@ Frontier Frontend Components:
           ☐ sys conf
           ☐ theme
 
+<<<<<<< HEAD
        right sidebar:
            ✔ widget management @done (18-03-06 09:11)
 
 
+=======
+
+
+To Upgrade:
+  ☐ permissions use `pages.index` as the code to check
+  ☐ config/menus.php use `pages.index` as name to reflect permissions
+>>>>>>> master
