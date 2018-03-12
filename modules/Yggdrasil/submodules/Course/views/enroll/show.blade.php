@@ -90,7 +90,7 @@
                                             <img src="{{ $resource->author->avatar }}" alt="{{ $resource->author->fullname }}">
                                         </v-avatar>
                                         <v-chip label small class="ma-0 body-1 transparent grey--text elevation-0">
-                                            <a class="white--text td-n" href="{{ route('profile.single', $resource->author->handlename) }}">{{ $resource->author->fullname }}</a>
+                                            <a class="white--text td-n" href="">{{ $resource->author->fullname }}</a>
                                         </v-chip>
                                     </div>
                                 </v-card>

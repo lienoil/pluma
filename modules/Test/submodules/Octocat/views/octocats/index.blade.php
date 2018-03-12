@@ -27,6 +27,9 @@
                     </v-bottom-sheet>
                 </v-card>
 
+                <v-btn outline round large primary class="px-4">Confirm</v-btn>
+                <v-btn outline round large info class="px-4">{{ __('New password') }}</v-btn>
+
                 <v-card flat>
                     <v-card-text>
                         <h1

@@ -136,6 +136,6 @@ trait SubmissionMutatorTrait
      */
     public function getScoredAttribute()
     {
-        return $this->score . "/" . count((array) $this->fields());
+        return $this->compute() . "/" . count((array) $this->fields());
     }
 }

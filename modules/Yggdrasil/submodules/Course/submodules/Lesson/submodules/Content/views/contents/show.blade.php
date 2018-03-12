@@ -32,8 +32,9 @@
                 </v-alert>
 
                 @if (! $resource->course->enrolled)
-                    <div class="text-xs-center">
-                        <img src="{{ assets('Frontier/images/placeholder/maintenance.png') }}"
+                    <div class="text-xs-center py-5">
+                        <img src="{{ assets('Frontier/images/placeholder/iso/image-table.png') }}"
+                            width="350px"
                             alt="{{ __('Not enrolled') }}"
                             style="-webkit-filter: grayscale(95%); filter: grayscale(95%);">
                     </div>
