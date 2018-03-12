@@ -85,9 +85,6 @@
                         <v-divider></v-divider>
 
                         @include("Theme::cards.category")
-                        <v-divider></v-divider>
-
-                        @include("Course::cards.survey")
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -129,7 +126,6 @@
                                 thumbnail: '{!! $resource->feature !!}',
                             },
                             category: {!! json_encode($resource->category) !!},
-                            survey_id: '{{ $resource->forms()->type('courses')->first()->id ?? null }}'
                         },
                         feature: {
                             model: false,
@@ -141,7 +137,6 @@
                         slug: {
                             readonly: true,
                         },
-                        surveys: {!! json_encode($surveys) !!},
                         errors: JSON.parse('{!! json_encode($errors->getMessages()) !!}'),
                     },
                 };
