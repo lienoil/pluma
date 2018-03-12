@@ -131,7 +131,7 @@
                             <td v-show="bulk.drop.model">
                                 <v-checkbox
                                     hide-details
-                                    class="primary--text"
+                                    class="primary--text lighten-2"
                                     v-model="prop.selected">
                                 </v-checkbox>
                             </td>
