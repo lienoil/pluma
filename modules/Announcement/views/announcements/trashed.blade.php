@@ -176,7 +176,6 @@
     </v-container>
 @endsection
 
-
 @push('css')
     <style>
         .search-bar label{

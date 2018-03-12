@@ -20,7 +20,7 @@
                             </v-card-actions>
                             <v-card-actions class="mb-2">
                                 <v-spacer></v-spacer>
-                                <v-btn dark outline small round class="py-3" href="{{ route('users.index') }}">{{ __('Manage Modules') }}</v-btn>
+                                <v-btn dark outline small round class="py-3" href="{{ route('settings.system') }}">{{ __('Manage Modules') }}</v-btn>
                             </v-card-actions>
                         </v-card-text>
                     </v-card>

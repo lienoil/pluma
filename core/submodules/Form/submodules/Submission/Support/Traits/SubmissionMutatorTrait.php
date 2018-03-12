@@ -25,6 +25,16 @@ trait SubmissionMutatorTrait
     }
 
     /**
+     * Gets the employee count submitted.
+     *
+     * @return string
+     */
+    public function getCountAttribute()
+    {
+        return $this->count();
+    }
+
+    /**
      * Get the unserialized results column.
      *
      * @return array

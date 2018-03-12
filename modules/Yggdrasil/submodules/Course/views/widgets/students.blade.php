@@ -9,7 +9,8 @@
                     <div class="body-1 white--text mb-3">{{ __('taking this course') }}</div>
 
                     <v-btn round outline class="white--text"
-                        v-tooltip:left="{ html: 'View list of students enrolled' }">
+                    href="{{ route('courses.students', $resource->slug) }}"
+                        v-tooltip:bottom="{ html: 'View list of students enrolled' }">
                         {{ __('View All') }}
                     </v-btn>
                 </v-card-text>

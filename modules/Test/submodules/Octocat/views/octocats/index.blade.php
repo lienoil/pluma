@@ -6,7 +6,7 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
-                <v-card flat class="elevation-1">
+                <v-card flat class="elevation-1 mb-3">
                     <v-bottom-sheet v-model="sheet">
                         <v-btn slot="activator" color="purple" dark>Click me</v-btn>
                         <v-list>
@@ -26,6 +26,19 @@
                         </v-list>
                     </v-bottom-sheet>
                 </v-card>
+
+                <v-btn outline round large primary class="px-4">Confirm</v-btn>
+                <v-btn outline round large info class="px-4">{{ __('New password') }}</v-btn>
+
+                <v-card flat>
+                    <v-card-text>
+                        <h1
+                            v-text="new Date()"
+                            class="page-title subheading">
+                        </h1>
+                        <h1 class="page-title subheading"></h1>
+                    </v-card-text>
+                </v-card>
             </v-flex>
 
             <v-flex xs12>
@@ -35,6 +48,15 @@
                     <button id="warning">Warning</button>
                     <button id="info">Info</button>
                     <button id="question">Question</button>
+                </v-card>
+            </v-flex>
+
+            <v-flex xs12>
+                <v-card flat class="elevation-1">
+                    <v-btn id="success" success large>{{ __('Success') }}</v-btn>
+                    <v-btn id="error" error large>{{ __('Error') }}</v-btn>
+                    <v-btn id="warning" warning large>{{ __('Warning') }}</v-btn>
+                    <v-btn id="info" info large>{{ __('Info') }}</v-btn>
                 </v-card>
             </v-flex>
 
@@ -55,10 +77,15 @@
                         <v-checkbox label="Jane" v-model="selected" value="Jane"></v-checkbox>
                         <v-checkbox label="Joe" v-model="selected" value="Joe"></v-checkbox>
                     </v-card-text>
+
+                    <v-card-texxt>
+                        <v-checkbox label="Anna" v-model="selected" value="Anna">
+                    </v-card-texxt>
                 </v-card>
             </v-flex>
-        </v-layout>
+        </v-checkbox>
     </v-container>
+
 
 
 @endsection
@@ -78,6 +105,9 @@
         mixins.push({
             data() {
                 return {
+                    tasks: {
+
+                    },
                     switch1: true,
                     selected: ['Jane'],
                     sheet: false,

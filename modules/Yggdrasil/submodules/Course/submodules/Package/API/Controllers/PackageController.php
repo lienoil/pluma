@@ -23,8 +23,7 @@ class PackageController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = Library::ofCatalogue('package')->orderBy($sort, $order);
-
+        $resources = Library::ofCatalogue('package')->search($search)->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
@@ -83,6 +82,7 @@ class PackageController extends APIController
         $fullFilePath = "$filePath/$fileName";
 
         if ($file->move($filePath, $fileName)) {
+
             $library = new Library();
             $library->name = $name;
             $library->originalname = $originalName;

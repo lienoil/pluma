@@ -30,7 +30,9 @@
                                     <v-icon class="red--text">bookmark_outline</v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-title>
-                                    <form ref="bookmark_form" action="{{ route('courses.bookmark', $resource->id) }}" method="POST">
+                                    <form
+                                        ref="bookmark_form" action="{{ route('courses.bookmark', $resource->id) }}"
+                                        method="POST">
                                         {{ csrf_field() }}
                                         {{ __('Bookmark this Course') }}
                                     </form>
@@ -90,7 +92,7 @@
                                             <img src="{{ $resource->author->avatar }}" alt="{{ $resource->author->fullname }}">
                                         </v-avatar>
                                         <v-chip label small class="ma-0 body-1 transparent grey--text elevation-0">
-                                            <a class="white--text td-n" href="{{ route('profile.single', $resource->author->handlename) }}">{{ $resource->author->fullname }}</a>
+                                            <a class="white--text td-n" href="">{{ $resource->author->fullname }}</a>
                                         </v-chip>
                                     </div>
                                 </v-card>
