@@ -6,7 +6,7 @@
   :clipped="sidebar.clipped"
   app
   v-model="sidebar.model"
-  @click.native.stop="localstorage('sidebar.mini', sidebar.mini)"
+  @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)"
 >
   <v-toolbar flat class="transparent">
     <v-list>
@@ -19,7 +19,7 @@
           <v-list-tile-sub-title class="caption">{{ $application->site->tagline }}</v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-btn ripple icon :dark.sync="theme.dark" :light.sync="! theme.dark" @click="localstorage('sidebar.mini', sidebar.mini = ! sidebar.mini)">
+          <v-btn ripple icon :dark.sync="theme.dark" :light.sync="! theme.dark" @click="localstorage('single.sidebar.mini', sidebar.mini = ! sidebar.mini)">
             <v-icon :dark.sync="theme.dark" :light.sync="! theme.dark" class="grey--text lighten-2">chevron_left</v-icon>
           </v-btn>
         </v-list-tile-action>
@@ -56,12 +56,13 @@
             @isset($submenu->is_divider)
               <v-divider></v-divider>
             @else
-              <v-list-tile ripple href="{{ $submenu->url }}">
-                {{-- @isset ($submenu->icon)
+              {{-- {{ isset($submenu->name) ? ":to={name: '$submenu->name'}" : "href=$submenu->url" }} --}}
+              <v-list-tile ripple exact {{ isset($submenu->routename) ? ':to={name: "'.$submenu->routename.'"}' : "href=$submenu->url" }}>
+                @isset ($submenu->icon)
                   <v-list-tile-avatar>
                     <v-icon>{{ $submenu->icon }}</v-icon>
                   </v-list-tile-avatar>
-                @endisset --}}
+                @endisset
                 @isset ($submenu->labels->title)
                   <v-list-tile-content>
                     <v-list-tile-title>{{ $submenu->labels->title }}</v-list-tile-title>
@@ -91,7 +92,13 @@
             @isset($submenu->is_divider)
               <v-divider></v-divider>
             @else
-              <v-list-tile ripple exact :to="{name: '{{ $submenu->routename ?? 'index' }}'}">
+              {{-- {{ isset($submenu->name) ? ":to={name: '$submenu->name'}" : "href=$submenu->url" }} --}}
+              <v-list-tile ripple exact :to="{name: '{{ $submenu->routename ?? $submenu->name }}'}" data-to="{{ $submenu->routename ?? 'none' }}">
+                {{-- @isset($submenu->icon)
+                  <v-list-tile-action>
+                    <v-icon>{{ $submenu->icon }}</v-icon>
+                  </v-list-tile-action>
+                @endisset --}}
                 @isset ($submenu->labels->title)
                   <v-list-tile-content>
                     <v-list-tile-title>{{ $submenu->labels->title }}</v-list-tile-title>

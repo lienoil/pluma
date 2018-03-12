@@ -8,11 +8,7 @@
 @push("before-inner-content")
   @include("Theme::partials.breadcrumbs")
 
-  @if (config('debugging.debug'))
-    {{-- <v-card dark>
-      <alert-icon small></alert-icon>
-      <alert-icon mode="warning"></alert-icon>
-    </v-card> --}}
+  {{-- @if (config('debugging.debug'))
     <v-btn color="success" @click="snackbar.color='secondary';snackbar.type='success';snackbar.theme='dark';snackbar.text='The Succession successfully succeeded!'; snackbar.model = !snackbar.model">Snackbar Success Test</v-btn>
     <v-btn color="warning" @click="snackbar.type='warning';snackbar.theme='dark';snackbar.text='Oops! Looks like something went wrong'; snackbar.model = !snackbar.model">Snackbar Warning Test</v-btn>
     <v-btn color="error" @click="snackbar.type='error';snackbar.theme='dark';snackbar.text='An error occurred!'; snackbar.model = !snackbar.model;snackbar.color='secondary'">Snackbar Error Test</v-btn>
@@ -37,14 +33,14 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                {{-- <v-btn color=primary @click="$refs['success-dialog'].close()">Okay</v-btn> --}}
+                <v-btn color=primary @click="$refs['success-dialog'].close()">Okay</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-card-actions>
       </v-card>
     </v-dialog>
-  @endif
+  @endif --}}
 @endpush
 
 @push("after-inner-content")

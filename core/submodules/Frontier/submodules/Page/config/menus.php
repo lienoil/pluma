@@ -5,7 +5,7 @@ return [
         'name' => 'page',
         'is_parent' => true,
         'order' => 30,
-        'slug' => route('pages.index'),
+        // 'slug' => route('pages.index'),
         'always_viewable' => false,
         'icon' => 'find_in_page',
         'labels' => [

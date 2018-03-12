@@ -1,5 +1,5 @@
 <?php return array (
-  'providers' =>
+  'providers' => 
   array (
     0 => 'Illuminate\\Auth\\AuthServiceProvider',
     1 => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
@@ -23,10 +23,11 @@
     19 => 'Pluma\\Providers\\TranslationServiceProvider',
     20 => 'Pluma\\Providers\\ModuleServiceProvider',
     21 => 'Pluma\\Providers\\FormRequestServiceProvider',
-    22 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
-    23 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
+    22 => 'Pluma\\Providers\\CorsServiceProvider',
+    23 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    24 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
   ),
-  'eager' =>
+  'eager' => 
   array (
     0 => 'Illuminate\\Auth\\AuthServiceProvider',
     1 => 'Illuminate\\Cookie\\CookieServiceProvider',
@@ -40,9 +41,10 @@
     9 => 'Pluma\\Providers\\EventServiceProvider',
     10 => 'Pluma\\Providers\\ModuleServiceProvider',
     11 => 'Pluma\\Providers\\FormRequestServiceProvider',
-    12 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
+    12 => 'Pluma\\Providers\\CorsServiceProvider',
+    13 => 'Pluma\\Support\\Installation\\Providers\\InstallationServiceProvider',
   ),
-  'deferred' =>
+  'deferred' => 
   array (
     'auth.password' => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
     'auth.password.broker' => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
@@ -68,39 +70,39 @@
     'translator' => 'Pluma\\Providers\\TranslationServiceProvider',
     'translation.loader' => 'Pluma\\Providers\\TranslationServiceProvider',
   ),
-  'when' =>
+  'when' => 
   array (
-    'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider' =>
+    'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider' => 
     array (
     ),
-    'Illuminate\\Bus\\BusServiceProvider' =>
+    'Illuminate\\Bus\\BusServiceProvider' => 
     array (
     ),
-    'Illuminate\\Cache\\CacheServiceProvider' =>
+    'Illuminate\\Cache\\CacheServiceProvider' => 
     array (
     ),
-    'Illuminate\\Hashing\\HashServiceProvider' =>
+    'Illuminate\\Hashing\\HashServiceProvider' => 
     array (
     ),
-    'Illuminate\\Mail\\MailServiceProvider' =>
+    'Illuminate\\Mail\\MailServiceProvider' => 
     array (
     ),
-    'Illuminate\\Pipeline\\PipelineServiceProvider' =>
+    'Illuminate\\Pipeline\\PipelineServiceProvider' => 
     array (
     ),
-    'Illuminate\\Queue\\QueueServiceProvider' =>
+    'Illuminate\\Queue\\QueueServiceProvider' => 
     array (
     ),
-    'Illuminate\\Validation\\ValidationServiceProvider' =>
+    'Illuminate\\Validation\\ValidationServiceProvider' => 
     array (
     ),
-    'Pluma\\Providers\\ApplicationServiceProvider' =>
+    'Pluma\\Providers\\ApplicationServiceProvider' => 
     array (
     ),
-    'Pluma\\Providers\\TranslationServiceProvider' =>
+    'Pluma\\Providers\\TranslationServiceProvider' => 
     array (
     ),
-    'Blacksmith\\Providers\\ConsoleSupportServiceProvider' =>
+    'Blacksmith\\Providers\\ConsoleSupportServiceProvider' => 
     array (
     ),
   ),

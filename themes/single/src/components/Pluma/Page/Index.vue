@@ -76,7 +76,7 @@
                   <td><router-link exact :to="{name: 'pages.edit', params: {page: props.item.id}}"><strong v-html="props.item.title"></strong></router-link></td>
                   <td>
                     <v-avatar size="25px"><img :src="props.item.authoravatar"></v-avatar>
-                    <a v-html="props.item.author"></a>
+                    <a @click="filter({user_id: props.item.user_id})" v-html="props.item.author"></a>
                   </td>
                   <td v-html="props.item.template"></td>
                   <td v-html="props.item.created"></td>
@@ -133,6 +133,7 @@ export default {
           model: false
         },
         loading: true,
+        filtered: false,
         headers: [
           { text: 'Featured Image', align: 'left', value: 'feature' },
           { text: 'Title', align: 'left', value: 'title' },
@@ -230,6 +231,25 @@ export default {
         })
         .catch(error => {
           this.$root.alert({color: 'secondary', type: 'error', text: `Oops! Something went wrong. ${error.response.data}`})
+        })
+    },
+    filter (query) {
+      const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination
+      query = Object.assign({
+        descending: descending,
+        page: page,
+        sort: sortBy,
+        take: rowsPerPage,
+        search: this.dataset.search.query
+      }, query)
+
+      this.dataset.loading = true
+      this.$http.get('/api/v1/pages/all', {params: query})
+        .then(response => {
+          this.dataset.items = response.data.data
+          this.dataset.pagination.totalItems = response.data.total
+          this.dataset.loading = false
+          this.dataset.filtered = true
         })
     }
   },

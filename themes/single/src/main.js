@@ -25,12 +25,12 @@ Vue.use(Vuetify, {
   }
 })
 
-axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
-Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
+Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-Token']
 
 router.addRoutes([{
   name: 'pages.index',
@@ -50,7 +50,7 @@ new Vue({
   },
   http: {
     headers: {
-      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
   },
   watch: {
@@ -60,7 +60,10 @@ new Vue({
   },
   data () {
     return {
-      routes: []
+      routes: [],
+      navigations: {
+        sidebar: []
+      }
     }
   },
   methods: {
@@ -76,18 +79,41 @@ new Vue({
     routed () {
       let self = this
       // Populate the routes variable
-      this.$http.get('/$/routes')
+      this.$http.get('/api/v1/misc/routes')
         .then(response => {
           for (var i = 0; i < response.data.length; i++) {
             let current = response.data[i]
             self.routes.push({
+              title: current.title,
               name: current.name,
               path: current.uri,
-              component: () => import('@/' + current.component)
+              component: () => import('./' + current.component)
             })
           }
           self.$router.addRoutes(self.routes)
-          console.log('[ROUTER]', self.$router)
+        })
+        .catch(error => {
+          // console.log('[ERROR]', error)
+          this.$root.alert({type: 'error', text: `Aw, Snap! Error fetching routes! It's severe! ${error.response}`})
+        })
+    },
+    navigation () {
+      let self = this
+      // Populate the routes variable
+      this.$http.get('/api/v1/misc/navigations/sidebar')
+        .then(response => {
+          let sidebar = []
+
+          for (let menu in response.data) {
+            sidebar.push(response.data[menu])
+          }
+
+          sidebar = sidebar.sort(function (a, b) {
+            return a.order - b.order
+          })
+
+          self.navigations.sidebar = sidebar
+          console.log('POPP', self.navigations.sidebar)
         })
         .catch(error => {
           // console.log('[ERROR]', error)
@@ -96,6 +122,7 @@ new Vue({
     }
   },
   mounted () {
+    this.navigation()
     this.routed()
   }
 })
