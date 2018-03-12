@@ -7,7 +7,7 @@
         </v-toolbar>
         <v-divider></v-divider>
         {{-- <v-card-media contain height="320px" class="pink lighten-3" src="{{ widgets('enrolled-to-this-course')->backdrop ?? '' }}"></v-card-media> --}}
-        <v-card-text>
+        {{-- <v-card-text>
             <div class="text-xs-center">
                 <v-icon class="grey--text  text--lighten-1 display-4">school</v-icon>
                 <div>
@@ -18,12 +18,15 @@
                     @endif
                 </div>
             </div>
-        </v-card-text>
+        </v-card-text> --}}
 
-        @if (user())
-            <v-card-text class="text-xs-center">
-                <v-btn large primary ripple class="px-4" depressed href="{{ route('courses.enroll.index', [$resource->slug, user()->id]) }}">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
-            </v-card-text>
-       @endif
+        <v-card-text>
+            @if (user())
+                {{-- <v-card-text class="text-xs-center">
+                    <v-btn large primary ripple class="px-4" depressed href="{{ route('courses.show', [$resource->slug, user()->id]) }}">{{ __("Get Course") }} <sup><v-icon class="caption">add</v-icon></sup></v-btn>
+                </v-card-text> --}}
+                @include("Course::widgets.getcourse")
+           @endif
+        </v-card-text>
     </v-card>
 @endif
