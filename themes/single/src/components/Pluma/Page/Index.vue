@@ -53,6 +53,7 @@
                 v-model="dataset.search.query"
                 flat
               ></v-text-field>
+              <v-btn v-if="dataset.filtered" flat @click="all"><v-icon left>close</v-icon>Remove Filter</v-btn>
             </v-toolbar>
 
             <v-data-table
@@ -78,7 +79,7 @@
                     <v-avatar size="25px"><img :src="props.item.authoravatar"></v-avatar>
                     <a @click="filter({user_id: props.item.user_id})" v-html="props.item.author"></a>
                   </td>
-                  <td v-html="props.item.template"></td>
+                  <td><a @click="filter({template: props.item.template})" v-html="props.item.template"></a></td>
                   <td v-html="props.item.created"></td>
                   <td v-html="props.item.modified"></td>
                   <td class="text-xs-center">
@@ -183,6 +184,7 @@ export default {
               self.dataset.items = response.data.data
               self.dataset.pagination.totalItems = response.data.total
               self.dataset.loading = false
+              self.dataset.filtered = false
             })
         }, 900)
       }
@@ -205,6 +207,7 @@ export default {
           this.dataset.items = response.data.data
           this.dataset.pagination.totalItems = response.data.total
           this.dataset.loading = false
+          this.dataset.filtered = false
         })
     },
     destroy (id, params) {
@@ -233,21 +236,20 @@ export default {
           this.$root.alert({color: 'secondary', type: 'error', text: `Oops! Something went wrong. ${error.response.data}`})
         })
     },
-    filter (query) {
+    filter (filter) {
       const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination
-      query = Object.assign({
+      let query = Object.assign({
         descending: descending,
         page: page,
         sort: sortBy,
-        take: rowsPerPage,
-        search: this.dataset.search.query
-      }, query)
+        take: rowsPerPage
+      }, filter)
 
       this.dataset.loading = true
       this.$http.get('/api/v1/pages/all', {params: query})
         .then(response => {
           this.dataset.items = response.data.data
-          this.dataset.pagination.totalItems = response.data.total
+          // this.dataset.pagination.totalItems = response.data.total
           this.dataset.loading = false
           this.dataset.filtered = true
         })

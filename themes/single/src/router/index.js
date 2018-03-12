@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import PageIndex from '@/components/Pluma/Page/Index.vue'
 
 Vue.use(VueRouter)
 
 // Declare storage for routes
 // coming from the server
-let routes = [
-  { path: '/admin/pages', component: PageIndex, name: 'pages.index' }
-]
+let routes = []
 
 // Instance of VueRouter
 const router = new VueRouter({

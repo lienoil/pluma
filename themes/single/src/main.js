@@ -91,6 +91,7 @@ new Vue({
             })
           }
           self.$router.addRoutes(self.routes)
+          console.log('[lll]', self.$router.options.routes)
         })
         .catch(error => {
           // console.log('[ERROR]', error)
@@ -113,7 +114,6 @@ new Vue({
           })
 
           self.navigations.sidebar = sidebar
-          console.log('POPP', self.navigations.sidebar)
         })
         .catch(error => {
           // console.log('[ERROR]', error)
