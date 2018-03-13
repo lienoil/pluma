@@ -18,6 +18,7 @@ trait EnrolledToACourse
         $users = [];
         $courses = DB::table('course_user')
                      ->where('course_id', $course_id)
+                     ->where('enrolled_at', null)
                      ->get();
 
         foreach ($courses as $course) {
