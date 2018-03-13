@@ -29,7 +29,6 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Pluma\\' => array($baseDir . '/core'),
-    'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'Phinx\\' => array($vendorDir . '/robmorgan/phinx/src/Phinx'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Illuminate\\View\\' => array($vendorDir . '/illuminate/view'),
@@ -67,5 +66,4 @@ return array(
     'Cron\\' => array($vendorDir . '/mtdowling/cron-expression/src/Cron'),
     'Chumper\\Zipper\\' => array($vendorDir . '/chumper/zipper/src/Chumper/Zipper'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
-    'Asm89\\Stack\\' => array($vendorDir . '/asm89/stack-cors/src/Asm89/Stack'),
 );
