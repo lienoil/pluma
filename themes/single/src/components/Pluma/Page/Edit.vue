@@ -33,7 +33,8 @@
                 <v-icon left color="green">class</v-icon>
                 <v-toolbar-title class="subheading green--text">Lessons</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon small @click="toggle(resource.lessons, 'model')"><v-icon small>keyboard_arrow_down</v-icon></v-btn>
+                <v-btn icon small @click="$refs['add-lesson-button'].$el.click()"><v-icon small>note_add</v-icon></v-btn>
+                <v-btn icon small @click="toggle(resource.lessons, 'model')"><v-icon small>eject</v-icon></v-btn>
                 <v-menu left>
                   <v-btn slot="activator" icon small><v-icon small>settings</v-icon></v-btn>
                   <v-list>
@@ -57,8 +58,9 @@
                   </v-card-text>
                 </v-card>
 
+                <!-- Lesson loop -->
                 <draggable v-model="resource.lessons" :options="{animation: 150, handle: '.draggable-handle', group: 'lesson-group', draggable: '.draggable-item', forceFallback: true}">
-                  <v-card tile v-for="(lesson, i) in resource.lessons" :key="i" class="mb-1 draggable-item">
+                  <v-card tile v-for="(lesson, i) in resource.lessons" :key="i" class="mb-2 draggable-item">
                     <v-progress-linear height="2" color="green" class="ma-0"></v-progress-linear>
                     <v-toolbar card dense class="transparent draggable-handle">
                       <v-icon small>drag_handle</v-icon>
@@ -83,7 +85,7 @@
                       <v-card flat v-show="lesson.model">
                         <v-divider></v-divider>
                         <v-card-text>
-                          <input type="text" :name="`lessons[${i}][sort]`" v-model="lesson.sort">
+                          <input type="hidden" :name="`lessons[${i}][sort]`" v-model="lesson.sort">
                           <v-text-field :name="`lessons[${i}][title]`" v-model="lesson.title" label="Title" class="mb-3"></v-text-field>
                           <editor :name="`lessons[${i}][body]`" label="Description"></editor>
                         </v-card-text>
@@ -131,7 +133,7 @@
                                 </v-card>
 
                                 <!-- Content loop -->
-                                <v-card tile v-for="(content, j) in lesson.contents" :key="j" class="mb-1">
+                                <v-card tile v-for="(content, j) in lesson.contents" :key="j" class="mb-2">
                                   <v-progress-linear height="2" color="light-blue" class="ma-0"></v-progress-linear>
                                   <v-toolbar card dense class="transparent">
                                     <v-icon small class="draggable-handle">drag_handle</v-icon>
@@ -214,6 +216,7 @@
                     </v-slide-y-transition>
                   </v-card>
                 </draggable>
+                <!-- Lesson loop -->
 
               </v-card-text>
               <v-card-actions>

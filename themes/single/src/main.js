@@ -32,12 +32,6 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-Token']
 
-router.addRoutes([{
-  name: 'pages.index',
-  path: '/admin/pages',
-  component: require('./components/Pluma/Page/Index.vue')
-}])
-
 // Mixins
 Vue.mixin(settings)
 
@@ -86,12 +80,11 @@ new Vue({
             self.routes.push({
               title: current.title,
               name: current.name,
-              path: current.uri,
+              path: current.uri.replace(/{/g, ':').replace(/}/g, ''),
               component: () => import('./' + current.component)
             })
           }
           self.$router.addRoutes(self.routes)
-          console.log('[lll]', self.$router.options.routes)
         })
         .catch(error => {
           // console.log('[ERROR]', error)

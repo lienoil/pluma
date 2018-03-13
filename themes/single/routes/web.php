@@ -23,23 +23,22 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
 
     # Routes
     Route::get('misc/routes', function () {
-        $routes = navigations('sidebar', false)->flat;
-        $data = [];
-
+        $routes = Route::getRoutes();
         foreach ($routes as $route) {
-            // if (isset($route->slug) && $route->slug === url('admin/pages')) {
-            //     var_dump($route); exit();
+            // if ($route->getAction('as') == 'pages.trashed') {
+            //     dd($route->getAction());
             // }
             $data[] = [
-                // "methods" => $route->methods(),
-                "title" => $route->labels->title ?? '',
-                "uri" => str_replace(url('/'), '', ($route->slug ?? url('/'))),
-                "name" => $route->routename ?? $route->name,
-                "component" =>  $route->component ?? "components/Pluma/Page/Edit.vue",
+                "title" => '',
+                "uri" => "/{$route->uri()}",
+                "name" => $route->getAction('as'),
+                "component" =>  $route->getAction('component') ?? null,
+                // "uri" => str_replace(url('/'), '', ($route->slug ?? url('/'))),
+                // "name" => $route->routename ?? $route->name,
             ];
         }
 
-        return response()->json($data);
+        return response()->json($data ?? []);
     });
 
     # Routes

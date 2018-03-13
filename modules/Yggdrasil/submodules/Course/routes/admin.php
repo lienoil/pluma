@@ -12,7 +12,7 @@
 require_once __DIR__ . '/admin-mycourses.php';
 require_once __DIR__ . '/admin-bookmarked.php';
 
-//Comment
+// Comment
 Route::post('courses/{course}/comment', '\Course\Controllers\CourseController@comment')->name('courses.comment');
 
 // Enroll
@@ -40,7 +40,5 @@ Route::get('courses/{course}/students', 'StudentController@index')->name('course
 Route::post('courses/{course}/students', 'StudentController@store')->name('students.store');
 Route::delete('courses/drop/{course}', 'StudentController@drop')->name('students.drop');
 
-
 // Course
 Route::resource('courses', 'CourseController');
-

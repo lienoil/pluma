@@ -6,8 +6,7 @@
   :clipped="sidebar.clipped"
   app
   v-model="sidebar.model"
-  @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)"
->
+  @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)">
   <v-toolbar flat class="transparent">
     <v-list>
       <v-list-tile avatar>

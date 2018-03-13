@@ -2,7 +2,7 @@
 
 namespace Pluma\Routing;
 
-use Illuminate\Routing\ResourceRegistrar;
+use Pluma\Routing\ResourceRegistrar;
 
 class SoftDeletesResourceRegistrar extends ResourceRegistrar
 {
