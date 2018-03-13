@@ -1,4 +1,4 @@
-@extends("Theme::layouts.public")
+@extends("Theme::layouts.admin")
 
 @section("head-title", $resource->title)
 
