@@ -26,8 +26,9 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
 
-        // Application
+        // View First
         Pluma\Providers\ViewServiceProvider::class,
+        // Application
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
@@ -35,6 +36,7 @@ return [
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\FormRequestServiceProvider::class,
+        Pluma\Providers\CorsServiceProvider::class,
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
 
         // Console

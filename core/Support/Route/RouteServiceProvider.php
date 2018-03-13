@@ -4,7 +4,7 @@ namespace Pluma\Support\Route;
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
+use Pluma\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {

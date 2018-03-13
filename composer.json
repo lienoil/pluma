@@ -18,6 +18,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=5.6.4",
+    "asm89/stack-cors": "^1.2",
     "chumper/zipper": "dev-master",
     "doctrine/inflector": "~1.0",
     "dompdf/dompdf": "^0.8.2",

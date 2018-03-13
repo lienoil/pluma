@@ -61,14 +61,6 @@
           <v-flex xs12 sm4 md3>
 
             <v-card>
-              <attributes
-                :tag-items="resource.tags.items"
-                :template-items="resource.template.items"
-                class="elevation-0"
-                title="Page Attributes"
-                v-model="resource.item.attributes"
-              ></attributes>
-              <v-divider></v-divider>
               <template v-for="(mediabox, i) in mediaboxes.items">
                 <mediabox
                   :icon="mediabox.icon"
@@ -97,6 +89,13 @@
                 </mediabox>
                 <v-divider></v-divider>
               </template>
+              <attributes
+                :tag-items="resource.tags.items"
+                :template-items="resource.template.items"
+                class="elevation-0"
+                title="Page Attributes"
+                v-model="resource.item.attributes"
+              ></attributes>
             </v-card>
 
           </v-flex>
