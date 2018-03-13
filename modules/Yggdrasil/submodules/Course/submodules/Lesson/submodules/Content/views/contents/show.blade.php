@@ -32,44 +32,7 @@
                 </v-alert>
 
                 @if (! $resource->course->enrolled)
-                    <div class="text-xs-center py-5">
-                        <img src="{{ assets('Frontier/images/placeholder/iso/image-table.png') }}"
-                            width="350px"
-                            alt="{{ __('Not enrolled') }}"
-                            style="-webkit-filter: grayscale(95%); filter: grayscale(95%);">
-                    </div>
-                    <v-container fill-height class="pa-0 pb-4">
-                        <v-layout fill-height wrap column>
-                            <v-spacer></v-spacer>
-                            <div class="subheading text-xs-center grey--text">
-                                <div class="mb-3 subheading page-title">{{ __("You are not enrolled to this course.") }}</div>
-                                {{-- Dialog pop-up form --}}
-                                <v-dialog v-model="enroll.form.dialog" persistent width="500px">
-                                    <v-btn class="primary primary--text px-4" large outline ripple slot="activator">{{ __("Request Course") }}</v-btn>
-                                    <v-card class="text-xs-center elevation-4">
-                                        <v-card-text class="pa-5">
-                                            <p class="headline ma-2 mb-4"><v-icon round class="success--text display-4">check_circle</v-icon></p>
-                                            <h2 class="display-1 grey--text text--darken-2 page-title"><strong>{{ __('Thank you!') }}</strong></h2>
-                                            <div class="grey--text text--darken-2">
-                                                <span class="mb-3 page-title">{{ __("Your request has been submitted successfully. You will receive an e-mail confirmation from us once our trainer for this course approves the request. We are excited to learn with you!") }} <strong></span>
-                                            </div>
-                                        </v-card-text>
-                                        <v-card-actions class="py-4">
-                                            <v-spacer></v-spacer>
-                                            <v-btn depressed success large class="px-4 white--text elevation-0" @click.native="enroll.form.dialog = false">Okay</v-btn>
-                                            <v-spacer></v-spacer>
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-dialog>
-                                {{-- Dialog pop-up form --}}
-
-                                <form v-if="!resource.lesson.course.bookmarked" action="{{ route("courses.bookmark.bookmark", $resource->lesson->course->id) }}" method="POST">
-                                    {{ csrf_field() }}
-                                    <v-btn type="submit" class="red red--text" outline ripple><v-icon left>bookmark_outline</v-icon>{{ __("Bookmark") }}</v-btn>
-                                </form>
-                            </div>
-                        </v-layout>
-                    </v-container>
+                    @include("Course::cards.request-course", ['resource' => $resource->course])
                 @else
 
                     {{-- if locked --}}
@@ -300,11 +263,6 @@
         mixins.push({
             data () {
                 return {
-                    enroll: {
-                        form: {
-                            dialog: false,
-                        }
-                    },
                     fullscreen: {
                         model: true
                     },

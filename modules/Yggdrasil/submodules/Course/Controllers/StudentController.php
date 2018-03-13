@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends AdminController
 {
-
     use StudentResourceSoftDeleteTrait;
 
     /**
@@ -42,7 +41,7 @@ class StudentController extends AdminController
     public function store(Request $request, $course_id)
     {
         $course = Course::findOrFail($course_id);
-        $course->users()->attach(! empty($request->input('users')) ? $request->input('users') : []);
+        $course->users()->sync(! empty($request->input('users')) ? $request->input('users') : []);
 
         foreach ($request->input('users') as $user_id) {
             foreach ($course->contents()->orderBy('sort')->get() as $sort => $content) {
@@ -53,7 +52,7 @@ class StudentController extends AdminController
             }
         }
 
-        return redirect()->route('courses.students', $course->slug);
+        return back(); // redirect()->route('courses.students', $course->slug);
     }
 
     /**

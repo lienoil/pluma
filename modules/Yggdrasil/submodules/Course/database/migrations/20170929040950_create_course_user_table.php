@@ -30,6 +30,7 @@ class CreateCourseUserTable extends Migration
             $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->string('status')->nullable();
             $table->timestamp('enrolled_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('dropped_at')->nullable();
             $table->foreign('course_id')->references('id')->on('courses');
