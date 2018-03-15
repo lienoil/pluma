@@ -11,8 +11,7 @@
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                     <v-list-tile-title class="td-n grey--text text--darken-4 body-2">
-                        {{-- <a href="{{ route('profile.single', $comment->user->handlename) }}" class="td-n">{{ $comment->user->fullname }}</a> --}}
-                        <a class="td-n">{{ $comment->user->fullname }}</a>
+                        <a href="{{ route('profile.single', $comment->user->handlename) }}" class="td-n">{{ $comment->user->fullname }}</a>
                     </v-list-tile-title>
                     <v-list-tile-sub-title class="body-1 grey--text">
                         <v-icon left class="body-1">access_time</v-icon> {{ $comment->created }}

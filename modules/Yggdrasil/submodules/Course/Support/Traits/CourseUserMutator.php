@@ -28,8 +28,7 @@ trait CourseUserMutator
      */
     public function getEnrolledAttribute()
     {
-        // return 1;
-
-        return @Carbon::createFromTimeStamp(strtotime($this->pivot->enrolled_at))->diffForHumans();
+        return 1;
+        // return Carbon::createFromTimeStamp(strtotime($this->pivot->enrolled_at))->diffForHumans();
     }
 }

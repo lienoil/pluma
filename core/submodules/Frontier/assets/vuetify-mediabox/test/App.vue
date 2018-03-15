@@ -29,7 +29,7 @@
         </v-layout>
         <v-layout row wrap>
           <v-flex sm3 v-for="(dataset, i) in dataset" :key="i">
-            <v-card class="mb-3 accent" role="button" @click.stop="model = true">
+            <v-card class="mb-3 fff accent" role="button" @click.stop="model = true">
               <v-card-media height="250px" :src="dataset.thumbnail">
                 <v-container fill-height fluid class="pa-0 white--text">
                   <v-layout column>
@@ -39,7 +39,7 @@
                       <v-icon class="white--text" v-html="dataset.icon"></v-icon>
                       <v-spacer></v-spacer>
                       <span v-html="dataset.mimetype"></span>
-                      <span v-html="dataset.size"></span>
+                      <!-- <span v-html="dataset.size"></span> -->
                     </v-card-actions>
                   </v-layout>
                 </v-container>

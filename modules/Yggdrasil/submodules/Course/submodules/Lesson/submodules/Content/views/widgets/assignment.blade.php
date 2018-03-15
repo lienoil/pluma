@@ -1,4 +1,4 @@
-<v-card flat class="grey lighten-4">
+<v-card class="grey lighten-4 elevation-1">
     <v-toolbar flat class="transparent">
         <v-toolbar-title class="page-title subheading">
             {{ __('Assignments') }}

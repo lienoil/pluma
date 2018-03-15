@@ -132,8 +132,7 @@
                             <td v-html="prop.item.id"></td>
                             <td v-html="prop.item.displayname"></td>
                             <td v-html="prop.item.enrolled"></td>
-                            <td class="text-xs-center">
-
+                             <td class="text-xs-center">
                                 <v-dialog v-model="resource.dialog.model" transition="scale-transition" persistent width="400px" min-width="150px" max-width="400px">
                                     <v-btn slot="activator" v-tooltip:left="{ html: 'Drop a student' }" icon>
                                         <v-icon>delete</v-icon>
