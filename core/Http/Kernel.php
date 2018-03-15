@@ -40,12 +40,12 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:80,1',
             'bindings',
+            'cors',
+            'preflight',
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Pluma\Middleware\EncryptCookies::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
-            \Pluma\Support\CORS\Middleware\CORS::class,
-            \Pluma\Support\CORS\Middleware\Preflight::class,
         ],
     ];
 
@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'guest' => \Pluma\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \Pluma\Support\CORS\Middleware\CORS::class,
+        'preflight' => \Pluma\Support\CORS\Middleware\Preflight::class,
     ];
 }

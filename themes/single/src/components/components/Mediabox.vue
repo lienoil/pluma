@@ -4,15 +4,15 @@
       <v-icon v-html="icon"></v-icon>
       <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
     </v-toolbar>
-    <v-card flat tile class="card-mediabox-container grey lighten-3" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
+    <v-card flat tile class="card-mediabox-container image-transparent" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
       <template v-if="(selected instanceof Array) && selected.length !== 0">
         <slot name="thumbnail" :props="{item: selected}">
-          <img class="stacked" width="100%" height="auto" v-for="(s, i) in selected" :key="i" :src="s">
+          <img class="stacked" v-for="(s, i) in selected" :key="i" :src="s">
         </slot>
       </template>
       <template v-else-if="typeof selected === 'string' && selected">
-        <slot name="thumbnail" :props="{item: selected}">
-          <img width="100%" height="auto" :src="selected">
+        <slot name="thumbnail" :props="{item: media.selected, src: selected}">
+          <img :src="selected">
         </slot>
       </template>
       <template v-else>
@@ -21,6 +21,7 @@
         </slot>
       </template>
     </v-card>
+    <slot name="thumbnail-details" :props="{item: media.selected, src: selected}"></slot>
     <v-card-actions v-if="!hideActions">
       <v-btn v-if="selected.length !== 0" ref="mediabox-clear-button" flat @click="remove(selected)">Remove</v-btn>
       <v-spacer></v-spacer>
@@ -120,17 +121,22 @@
                     :search="media.search.query"
                     :total-items="media.pagination.totalItems"
                     content-tag="v-layout"
-                    row wrap
                     no-data-text="No Media Found"
-                    select-all
+                    row wrap
+                    select-all="accent"
+                    v-model="selected"
                   >
                     <v-flex
                       slot="item"
                       slot-scope="props"
                       xs12 sm6 md4 lg3
                     >
-                      <v-card tile ripple hover @click.native="select(props.item)" v-model="props.selected">
-                        <v-card-media class="accent" height="180px" :src="props.item[itemValue]"></v-card-media>
+                      <v-card tile ripple hover @click.native="select(props.item)" :class="{'primary white--text': props.item.selected}" :dark="$root.theme.dark" :light="!$root.theme.dark">
+                        <v-card-media contain class="image-transparent" height="180px" :src="props.item[itemValue]"></v-card-media>
+                        <v-card-actions>
+                          <v-btn icon color="white"><v-icon color="red">image</v-icon></v-btn>
+                          <span class="body-2" v-html="props.item[itemText]"></span>
+                        </v-card-actions>
                       </v-card>
                     </v-flex>
                   </v-data-iterator>
@@ -181,6 +187,7 @@ export default {
       media: {
         box: { model: false },
         items: [],
+        selected: [],
         loading: true,
         search: { query: '' },
         sidebar: {
@@ -261,14 +268,38 @@ export default {
     select (item) {
       if (this.multiple) {
         this.selected.push(item[this.itemValue])
+
+        // Also assign to media.selected
+        this.media.selected.push(item)
       } else {
         this.selected = null
         this.selected = item[this.itemValue]
+
+        // Also assign to media.selected
+        this.media.selected = null
+        this.media.selected = item
 
         if (this.closeOnClick) {
           this.media.box.model = !this.media.box.model
         }
       }
+
+      if (item.selected) {
+        if (!this.multiple) {
+          this.media.items.map(item => {
+            item.selected = false
+          })
+        }
+        item.selected = !item.selected
+      } else {
+        if (!this.multiple) {
+          this.media.items.map(item => {
+            item.selected = false
+          })
+        }
+        item.selected = true
+      }
+
       this.$emit('input', this.selected)
     },
     remove (item) {
@@ -332,12 +363,23 @@ export default {
 }
 .card-mediabox-container {
   position: relative;
+  padding: 5px;
   overflow: hidden;
-  min-height: 90px;
+  min-height: 180px;
   box-shadow: inset 0 1px 5px rgba(0,0,0,0.2);
 }
 .card-mediabox-container img {
+  position: absolute;
   display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
 }
 .card-mediabox-container .stacked {
   position: absolute;

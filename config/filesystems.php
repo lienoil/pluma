@@ -14,4 +14,9 @@ return [
         // 'ssl'      => true,
         // 'timeout'  => 30,
     ],
+
+    'storage' => [
+        'driver' => 'local',
+        'root'   => storage_path(),
+    ],
 ];

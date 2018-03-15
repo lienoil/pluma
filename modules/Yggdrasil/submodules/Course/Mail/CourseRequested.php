@@ -2,6 +2,8 @@
 
 namespace Course\Mail;
 
+use Course\Models\Course;
+use Course\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -42,8 +44,7 @@ class CourseRequested extends Mailable
      */
     public function build()
     {
-        return $this->view("Course::emails.requests.requested")
-                    ->with([
+        return $this->view("Course::emails.requests.requested", [
                         'student' => $this->student
                     ]);
     }

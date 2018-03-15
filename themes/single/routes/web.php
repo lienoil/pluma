@@ -25,9 +25,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
     Route::get('misc/routes', function () {
         $routes = Route::getRoutes();
         foreach ($routes as $route) {
-            // if ($route->getAction('as') == 'pages.trashed') {
-            //     dd($route->getAction());
-            // }
             $data[] = [
                 "title" => '',
                 "uri" => "/{$route->uri()}",

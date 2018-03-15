@@ -176,7 +176,6 @@
                                               icon="play_circle_filled"
                                               no-image-text="Add Media"
                                               height="200px"
-                                              hide-actions
                                               hide-toolbar
                                               item-text="name"
                                               item-value="thumbnail"
@@ -194,6 +193,14 @@
                                                   </v-list-tile-content>
                                                   <v-list-tile-action>{{ menu.count }}</v-list-tile-action>
                                                 </v-list-tile>
+                                              </template>
+
+                                              <template slot="thumbnail-details" slot-scope="{props}">
+                                                <v-card flat class="grey--text" v-if="props.item">
+                                                  <v-card-title v-html="props.item.name"></v-card-title>
+                                                  <p><span v-html="props.item.description"></span></p>
+                                                  <p><v-icon v-html="props.item.icon"></v-icon>&nbsp;<span v-html="props.item.mimetype"></span></p>
+                                                </v-card>
                                               </template>
                                             </mediabox>
                                           </v-card>

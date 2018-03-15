@@ -60,15 +60,15 @@ trait MyCourseResourceTrait
     public function request(Request $request, $id)
     {
         $course = Course::findOrFail($id);
-        $course->users()->attach($request->input('user_id'),
+        $student = User::find($request->input('user_id'));
+        $course->users()->sync($request->input('user_id'),
             ['status' => 'pending', 'enrolled_at' => null]
         );
 
         // Send Email
         # to student
-        // $student = User::find($request->input('user_id'));
-        // Mail::to($student->email)
-        //     ->send(new CourseRequested($course, $student));
+        Mail::to($student->email)
+            ->send(new CourseRequested($course, $student));
 
         return back();
     }

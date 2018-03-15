@@ -73,7 +73,7 @@
               <template slot="items" slot-scope="props">
                 <tr :active="props.selected" @click="(dataset.bulk.model ? props.selected = ! props.selected : null)">
                   <td v-if="dataset.bulk.model"><v-checkbox hide-details :input-value="props.selected"></v-checkbox></td>
-                  <td class="text-xs-center"><v-avatar color="grey lighten-1" size="35px"><img v-if="props.item.feature" :src="props.item.feature"></v-avatar></td>
+                  <td class="text-xs-center"><v-avatar color="transparent" size="35px"><img v-if="props.item.feature" :src="props.item.feature"></v-avatar></td>
                   <td><router-link exact :to="{name: 'pages.edit', params: {page: props.item.id}}"><strong v-html="props.item.title"></strong></router-link></td>
                   <td>
                     <v-avatar size="25px"><img :src="props.item.authoravatar"></v-avatar>

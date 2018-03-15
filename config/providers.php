@@ -55,7 +55,6 @@ return [
     'aliases' => [
         // Pluma
         'Console' => Pluma\Support\Facades\Console::class,
-        'Route' => Pluma\Support\Facades\Route::class,
 
         // Illuminate
         'App' => Illuminate\Support\Facades\App::class,
@@ -84,6 +83,7 @@ return [
         'Redis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
+        'Route' => Pluma\Support\Facades\Route::class,
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
