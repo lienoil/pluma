@@ -57,7 +57,7 @@ return [
      *
      */
 
-    'files' => storage_path('compiled/sessions'),
+    'files' => storage_path('framework/sessions'),
 
     /**
      *--------------------------------------------------------------------------
