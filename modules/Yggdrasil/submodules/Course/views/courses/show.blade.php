@@ -87,6 +87,7 @@
                                     @endif
 
                                     <v-divider class="my-2"></v-divider>
+
                                     <div class="my-2">
                                         <v-avatar size="30px">
                                             <img src="{{ $resource->author->avatar }}" alt="{{ $resource->author->fullname }}">

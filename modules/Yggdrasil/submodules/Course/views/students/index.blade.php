@@ -29,11 +29,12 @@
                                     multiple
                                     persistent-hint
                                     prepend-icon="supervisor_account"
+                                    color="primary"
                                     v-model="suppliments.users.selected"
                                 ></v-select>
                                 <input type="hidden" name="users[]" :value="id" v-for="(id, i) in suppliments.users.selected" :key="i">
 
-                                <v-card-actions class="pa-3">
+                                <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn primary class="elevation-1" type="submit">{{ __('Enroll') }}</v-btn>
                                 </v-card-actions>
@@ -52,7 +53,6 @@
 
             <v-flex md9 xs12>
                 <v-card class="mb-3 elevation-1">
-
                     <v-toolbar flat class="transparent">
                         <v-icon left>supervisor_account</v-icon>
                         <v-toolbar-title primary-title class="subheading">{{ __('Students Enrolled') }}</v-toolbar-title>
@@ -72,7 +72,7 @@
                         {{-- Bulk Delete --}}
                         <v-slide-y-transition>
                             <template v-if="dataset.selected.length > 1">
-                                <v-dialog transition="scale-transition" persistent v-model="dataset.dialog.model" lazy width="auto">
+                                <v-dialog transition="scale-transition" v-model="dataset.dialog.model" lazy width="auto">
                                     <v-btn flat icon slot="activator" v-tooltip:left="{'html': `Permanently delete ${dataset.selected.length} selected items`}">
                                         <v-icon class="error--text">delete_forever</v-icon>
                                     </v-btn>
@@ -81,7 +81,7 @@
                                             <p class="headline ma-2"><v-icon round class="warning--text display-4">info_outline</v-icon></p>
                                             <h2 class="display-1 grey--text text--darken-2"><strong>{{ __('Are you sure?') }}</strong></h2>
                                             <div class="grey--text text--darken-1">
-                                                <div class="mb-1">{{ __("You are about to permanently delete those resources.") }}</div>
+                                                <div class="mb-1">{{ __("You are about to permanently delete those students.") }}</div>
                                                 <div>{{ __("This action is irreversible. Do you want to proceed?") }}</div>
                                             </div>
                                         </v-card-text>
@@ -128,12 +128,19 @@
                             </span>
                         </template>
                         <template slot="items" scope="prop">
-                            <td v-show="bulk.drop.model"><v-checkbox hide-details class="primary--text" v-model="prop.selected"></v-checkbox></td>
+                            <td v-show="bulk.drop.model">
+                                <v-checkbox
+                                    hide-details
+                                    class="primary--text lighten-2"
+                                    v-model="prop.selected">
+                                </v-checkbox>
+                            </td>
                             <td v-html="prop.item.id"></td>
                             <td v-html="prop.item.displayname"></td>
                             <td v-html="prop.item.enrolled"></td>
-                             <td class="text-xs-center">
-                                <v-dialog v-model="resource.dialog.model" transition="scale-transition" persistent width="400px" min-width="150px" max-width="400px">
+                            <td class="text-xs-center">
+
+                                <v-dialog v-model="prop.item.dialogmodel" transition="scale-transition" persistent width="400px" min-width="150px" max-width="400px">
                                     <v-btn slot="activator" v-tooltip:left="{ html: 'Drop a student' }" icon>
                                         <v-icon>delete</v-icon>
                                     </v-btn>
@@ -149,7 +156,7 @@
                                         <v-divider></v-divider>
                                         <v-card-actions class="pa-3">
                                             <v-btn class="grey--text grey lighten-2 elevation-0"
-                                                @click.native.stop="resource.dialog.model=false">
+                                                @click.native.stop="() => { prop.item.dialogmodel=false }">
                                                 {{ __('Cancel') }}
                                             </v-btn>
                                             <v-spacer></v-spacer>
@@ -281,11 +288,9 @@
                     },
                     deep: true
                 },
-
                 'dataset.searchform.query': function (filter) {
                     setTimeout(() => {
                         const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
-
                         let query = {
                             descending: descending,
                             page: page,
@@ -293,7 +298,6 @@
                             sort: sortBy,
                             take: rowsPerPage,
                         };
-
                         this.api().search('{{ route('api.students.all') }}', query)
                             .then((data) => {
                                 this.dataset.items = data.items.data ? data.items.data : data.items;
@@ -303,7 +307,6 @@
                     }, 1000);
                 },
             },
-
             methods: {
                 mountSuppliments () {
                     let items = {!! json_encode($users->toArray()) !!};
@@ -315,7 +318,6 @@
                         });
                     }
                     this.suppliments.users.items = g;
-
                     let selected = {!! json_encode(old('users')) !!};
                     let s = [];
                     if (selected) {
@@ -334,7 +336,6 @@
                     this.suppliments.users.selected = s ? s : [];
                     // console.log(this.suppliments.users.items);
                 },
-
                 get () {
                     const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
                     let query = {
@@ -352,7 +353,6 @@
                             this.dataset.loading = false;
                         });
                 },
-
                 setDialog (model, data) {
                     this.resource.dialog.model = model;
                     this.resource.dialog.data = data;

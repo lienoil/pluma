@@ -56,6 +56,7 @@ class StudentController extends AdminController
         return redirect()->route('courses.students', $course->slug);
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -84,6 +85,7 @@ class StudentController extends AdminController
 
         return redirect()->route('courses.students', $course->slug);
     }
+
     /**
      * Remove the specified resource from storage.
      *
