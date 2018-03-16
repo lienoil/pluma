@@ -25,6 +25,18 @@
                             </v-list-tile>
                         </v-list>
                     </v-bottom-sheet>
+
+                    <v-bottom-sheet class="elevation-1">
+                        <v-list class="elevation-1">
+                            <v-list-tile>
+                                <v-list-tile-content>
+                                    {{ $resource->title }}
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                    </v-bottom-sheet>
+
+                    <v-bottom-sheet class="">
                 </v-card>
 
                 <v-btn outline round large primary class="px-4">Confirm</v-btn>
