@@ -39,6 +39,15 @@
                         <h1 class="page-title subheading"></h1>
                     </v-card-text>
                 </v-card>
+
+                <v-card flat>
+                    <v-card-text>
+                        <h1 v-text="new Date()"
+                        class="page-title subheading">
+                            {{ $page->title }}
+                        </h1>
+                    </v-card-text>
+                </v-card>
             </v-flex>
 
             <v-flex xs12>
@@ -48,6 +57,9 @@
                     <button id="warning">Warning</button>
                     <button id="info">Info</button>
                     <button id="question">Question</button>
+                    <button id="question">
+                        {{ $resource->id }}
+                    </button>
                 </v-card>
             </v-flex>
 
