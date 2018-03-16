@@ -29,9 +29,9 @@ Route::get('tes/test', function () {
     $student = \Course\Models\User::find(1);
 
     // test, render at browser
-    return new \Course\Mail\ContactUsMailer($student);
+    return new \Course\Mail\CourseRequested($course, $student);
 
     // Send
     return \Illuminate\Support\Facades\Mail::to($student->email)
-            ->send(new \Course\Mail\ContactUsMailer($student));
+                ->send(new \Course\Mail\CourseRequested($course, $student));
 });

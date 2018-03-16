@@ -61,9 +61,9 @@ class CORS
             return $this->cors->handlePreflightRequest($request);
         }
 
-        if (! $this->cors->isActualRequestAllowed($request)) {
-            return new AppResponse('Not allowed in CORS policy.', 403);
-        }
+        // if (! $this->cors->isActualRequestAllowed($request)) {
+        //     return new AppResponse('Not allowed in CORS policy.', 403);
+        // }
 
         // Add the headers on the Request Handled event as fallback in case of exceptions
         if (class_exists(RequestHandled::class)) {

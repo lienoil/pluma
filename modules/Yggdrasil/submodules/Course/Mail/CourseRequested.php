@@ -34,6 +34,7 @@ class CourseRequested extends Mailable
     public function __construct(Course $course, User $student)
     {
         $this->course = $course;
+
         $this->student = $student;
     }
 
@@ -45,7 +46,7 @@ class CourseRequested extends Mailable
     public function build()
     {
         return $this->view("Course::emails.requests.requested", [
-                        'student' => $this->student
-                    ]);
+                'student' => $this->student,
+            ]);
     }
 }

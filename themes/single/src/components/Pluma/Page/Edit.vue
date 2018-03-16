@@ -198,8 +198,10 @@
                                               <template slot="thumbnail-details" slot-scope="{props}">
                                                 <v-card flat class="grey--text" v-if="props.item">
                                                   <v-card-title v-html="props.item.name"></v-card-title>
-                                                  <p><span v-html="props.item.description"></span></p>
-                                                  <p><v-icon v-html="props.item.icon"></v-icon>&nbsp;<span v-html="props.item.mimetype"></span></p>
+                                                  <v-card-text>
+                                                    <p><span v-html="props.item.description"></span></p>
+                                                    <p><v-icon v-html="props.item.icon"></v-icon>&nbsp;<span v-html="props.item.mimetype"></span></p>
+                                                  </v-card-text>
                                                 </v-card>
                                               </template>
                                             </mediabox>
@@ -280,7 +282,6 @@ export default {
       this.$http.get('/api/v1/pages/find', {params: query})
         .then(response => {
           this.resource.item = response.data
-          // console.log(response)
         })
     },
     toggle (array, key) {

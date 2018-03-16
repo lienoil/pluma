@@ -6,7 +6,7 @@
     </v-toolbar>
     <v-card flat tile class="card-mediabox-container image-transparent" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
       <template v-if="(selected instanceof Array) && selected.length !== 0">
-        <slot name="thumbnail" :props="{item: selected}">
+        <slot name="thumbnail" :props="{item: media.selected}">
           <img class="stacked" v-for="(s, i) in selected" :key="i" :src="s">
         </slot>
       </template>
@@ -33,13 +33,29 @@
       <v-dialog class="white" v-model="media.box.model" max-width="100%" lazy scrollable persistent>
         <v-card height="90vh" :dark="$root.theme.dark" :light="!$root.theme.dark">
 
-          <v-toolbar card :dark="$root.theme.dark" :light="!$root.theme.dark" class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
-            <v-btn icon class="hidden-sm-and-down" ripple @click.stop="$root.localstorage('single.media.sidebar.mini', (media.sidebar.mini = !media.sidebar.mini))"><v-icon>{{ media.sidebar.mini ? 'chevron_right' : 'chevron_left' }}</v-icon></v-btn>
+          <v-toolbar extended card :dark="$root.theme.dark" :light="!$root.theme.dark" class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
+            <v-btn icon class="hidden-sm-and-down" ripple @click="$root.localstorage('single.media.sidebar.mini', (media.sidebar.mini = !media.sidebar.mini))"><v-icon>{{ media.sidebar.mini ? 'chevron_right' : 'chevron_left' }}</v-icon></v-btn>
             <v-icon class="hidden-sm-and-down grey--text" left>{{ menus.current.icon }}</v-icon>
             <v-toolbar-title class="hidden-sm-and-down subheading grey--text" v-html="menus.current.name"></v-toolbar-title>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
             <v-text-field class="mx-3" prepend-icon="search" v-model="media.search.query" v-bind="{'solo': !$root.theme.dark, 'solo-inverted': $root.theme.dark}" label="Search"></v-text-field>
             <v-btn class="hidden-sm-and-down" icon @click="media.box.model = false"><v-icon>close</v-icon></v-btn>
+            <template slot="extension">
+              <v-spacer></v-spacer>
+              <template v-if="media.toggleview === 'table'">
+                <v-tooltip left>
+                  <v-btn slot="activator" icon @click="media.toggleview = 'grid'"><v-icon>list</v-icon></v-btn>
+                  <span>List view</span>
+                </v-tooltip>
+              </template>
+              <template v-else>
+                <v-tooltip left>
+                  <v-btn slot="activator" icon @click="media.toggleview = 'table'"><v-icon>view_module</v-icon></v-btn>
+                  <span>Grid view</span>
+                </v-tooltip>
+              </template>
+              <v-btn icon @click="media.loading = !media.loading"><v-icon>info</v-icon></v-btn>
+            </template>
           </v-toolbar>
 
           <v-divider></v-divider>
@@ -68,7 +84,7 @@
             <v-divider class="hidden-sm-and-up"></v-divider>
             <v-navigation-drawer class="hidden-sm-and-down" :dark="$root.theme.dark" :light="!$root.theme.dark" permanent height="100%" :mini-variant="media.sidebar.mini" absolute width="280">
               <v-list :dark="$root.theme.dark" :light="!$root.theme.dark">
-                <v-list-tile @click="$root.localstorage('single.media.sidebar.mini', (media.sidebar.mini = !media.sidebar.mini))">
+                <v-list-tile>
                   <v-list-tile-action>
                     <v-icon>{{ icon }}</v-icon>
                   </v-list-tile-action>
@@ -77,8 +93,9 @@
                   </v-list-tile-content>
                 </v-list-tile>
               </v-list>
-              <v-divider></v-divider>
+              <!-- <v-divider></v-divider> -->
               <v-list class="pt-0">
+                <v-subheader>New</v-subheader>
                 <v-list-tile v-model="menus.upload.model" @click="menuToggle(menus.upload)">
                   <v-list-tile-action>
                     <v-icon>{{ menus.upload.icon }}</v-icon>
@@ -108,10 +125,40 @@
               </v-card>
             </v-slide-y-transition>
 
-            <v-slide-y-transition mode="in-out">
+            <v-slide-y-transition mode="out-in">
               <v-card v-if="!menus.upload.model" flat height="calc(100vh - 191px)" class="sidebar-main-content transparent">
-                <v-container fluid grid-list-lg>
+                <v-data-table
+                  v-if="media.toggleview === 'table'"
+                  :headers="media.headers"
+                  :items="media.items"
+                  :loading="media.loading"
+                  :pagination.sync="media.pagination"
+                  :rows-per-page-items="media.pagination.rowsPerPageItems"
+                  :rows-per-page-text="media.pagination.rowsPerPageText"
+                  :search="media.search.query"
+                  :total-items="media.pagination.totalItems"
+                  no-data-text="No Media Found"
+                  v-model="selected"
+                >
+                  <template slot="items" slot-scope="props">
+                    <tr :class="{'primary white--text': props.item.selected}" @click="select(props.item)" role="button">
+                      <td>
+                        <v-avatar size="30px"><img :src="props.item[itemValue]"></v-avatar>
+                        <span v-html="props.item[itemText]"></span>
+                      </td>
+                      <td>
+                        <v-btn slot="activator" icon color="white">
+                          <v-icon color="red" v-html="props.item[itemIcon]"></v-icon>
+                        </v-btn>
+                        <span v-html="props.item[itemMimetype]"></span>
+                      </td>
+                      <td v-html="props.item[itemSize]"></td>
+                      <td v-html="props.item[itemDate]"></td>
+                    </tr>
+                  </template>
+                </v-data-table>
 
+                <v-container v-if="media.toggleview === 'grid'" fluid grid-list-lg>
                   <v-data-iterator
                     :items="media.items"
                     :loading="media.loading"
@@ -131,10 +178,13 @@
                       slot-scope="props"
                       xs12 sm6 md4 lg3
                     >
-                      <v-card tile ripple hover @click.native="select(props.item)" :class="{'primary white--text': props.item.selected}" :dark="$root.theme.dark" :light="!$root.theme.dark">
+                      <v-card tile ripple hover height="100%" @click.native="select(props.item)" :class="{'primary white--text': props.item.selected}" light>
                         <v-card-media contain class="image-transparent" height="180px" :src="props.item[itemValue]"></v-card-media>
                         <v-card-actions>
-                          <v-btn icon color="white"><v-icon color="red">image</v-icon></v-btn>
+                          <v-tooltip bottom>
+                            <v-btn slot="activator" icon color="white"><v-icon color="red" v-html="props.item[itemIcon]"></v-icon></v-btn>
+                            <span v-html="props.item[itemMimetype]"></span>
+                          </v-tooltip>
                           <span class="body-2" v-html="props.item[itemText]"></span>
                         </v-card-actions>
                       </v-card>
@@ -164,10 +214,15 @@ import Upload from './Upload.vue'
 export default {
   props: {
     closeOnClick: { type: Boolean, default: true },
+    headers: { type: Array, default: () => { return [] } },
     height: { type: String, default: 'auto' },
     hideActions: { type: Boolean, default: false },
     hideToolbar: { type: Boolean, default: false },
     icon: { type: String, default: 'landscape' },
+    itemDate: { type: String, default: 'created' },
+    itemIcon: { type: String, default: 'icon' },
+    itemMimetype: { type: String, default: 'mimetype' },
+    itemSize: { type: String, default: 'filesize' },
     itemText: { type: String, default: 'text' },
     itemValue: { type: String, default: 'value' },
     menuItems: { type: Array, default: () => { return [] } },
@@ -186,6 +241,12 @@ export default {
       selected: [],
       media: {
         box: { model: false },
+        headers: this.headers.length ? this.headers : [
+          { text: 'Name', align: 'left', value: 'name' },
+          { text: 'File Type', align: 'left', value: 'mimetype' },
+          { text: 'File Size', align: 'left', value: 'size' },
+          { text: 'Upload Date', align: 'left', value: 'created_at' }
+        ],
         items: [],
         selected: [],
         loading: true,
@@ -199,7 +260,8 @@ export default {
           rowsPerPageItems: [5, 10, 25, {'text': 'All', 'value': -1}],
           rowsPerPageText: 'Items per page:',
           totalItems: 10
-        }
+        },
+        toggleview: 'grid'
       },
       menus: {
         current: { tabmodel: 'Upload' },
@@ -266,24 +328,9 @@ export default {
         })
     },
     select (item) {
-      if (this.multiple) {
-        this.selected.push(item[this.itemValue])
+      let self = this
 
-        // Also assign to media.selected
-        this.media.selected.push(item)
-      } else {
-        this.selected = null
-        this.selected = item[this.itemValue]
-
-        // Also assign to media.selected
-        this.media.selected = null
-        this.media.selected = item
-
-        if (this.closeOnClick) {
-          this.media.box.model = !this.media.box.model
-        }
-      }
-
+      // Toggle Select
       if (item.selected) {
         if (!this.multiple) {
           this.media.items.map(item => {
@@ -300,13 +347,37 @@ export default {
         item.selected = true
       }
 
+      // Store to variables
+      if (this.multiple) {
+        if (item.selected) {
+          this.selected.push(item[self.itemValue])
+          this.media.selected.push(item[self.itemValue])
+        } else {
+          this.selected.splice(item, 1)
+          this.media.selected.splice(item, 1)
+        }
+      } else {
+        this.selected = null
+        this.selected = item[this.itemValue]
+
+        // Also assign to media.selected
+        this.media.selected = null
+        this.media.selected = item
+
+        if (this.closeOnClick) {
+          this.media.box.model = !this.media.box.model
+        }
+      }
+
       this.$emit('input', this.selected)
     },
     remove (item) {
       if (this.multiple) {
         this.selected = []
+        this.media.selected = []
       } else {
         this.selected = ''
+        this.media.selected = null
       }
     },
     menuToggle (menu, url, items) {
