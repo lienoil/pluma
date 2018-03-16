@@ -98,7 +98,7 @@
 @push('css')
     <style>
         .application--light {
-            background: linear-gradient(45deg, #4B2E75 0%, #C63B5A 100%) !important;
+            background: linear-gradient(45deg, #4b2e75 0%, #c63b5a 100%) !important;
         }
     </style>
 @endpush
