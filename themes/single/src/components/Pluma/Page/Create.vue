@@ -69,7 +69,6 @@
                   :title="mediabox.title"
                   :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}"
                   class="elevation-0"
-                  multiple
                   item-text="name"
                   item-value="thumbnail"
                   v-model="resource.item[mediabox.name]"

@@ -26,7 +26,7 @@
     <v-subheader>{{ __('Font Size') }}</v-subheader>
     <v-card-text>
       <v-slider
-        :max="5"
+        :max="10"
         :min="-1"
         @input="localstorage('single.settings.fontsize', settings.fontsize)"
         :prepend-icon="settings.fontsize === 1 ? 'font_download' : 'refresh'"

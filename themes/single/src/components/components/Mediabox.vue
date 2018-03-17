@@ -33,14 +33,31 @@
       <v-dialog class="white" v-model="media.box.model" max-width="100%" lazy scrollable persistent>
         <v-card height="90vh" :dark="$root.theme.dark" :light="!$root.theme.dark">
 
-          <v-toolbar extended card :dark="$root.theme.dark" :light="!$root.theme.dark" class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
+          <v-toolbar card :dark="$root.theme.dark" :light="!$root.theme.dark" class="sidebar-main-toolbar" :class="{'sidebar-main-toolbar--mini-variant': media.sidebar.mini}">
             <v-btn icon class="hidden-sm-and-down" ripple @click="$root.localstorage('single.media.sidebar.mini', (media.sidebar.mini = !media.sidebar.mini))"><v-icon>{{ media.sidebar.mini ? 'chevron_right' : 'chevron_left' }}</v-icon></v-btn>
-            <v-icon class="hidden-sm-and-down grey--text" left>{{ menus.current.icon }}</v-icon>
+            <!-- <v-icon class="hidden-sm-and-down grey--text" left>{{ menus.current.icon }}</v-icon>
             <v-toolbar-title class="hidden-sm-and-down subheading grey--text" v-html="menus.current.name"></v-toolbar-title>
-            <v-spacer class="hidden-sm-and-down"></v-spacer>
+            <v-spacer class="hidden-sm-and-down"></v-spacer> -->
             <v-text-field class="mx-3" prepend-icon="search" v-model="media.search.query" v-bind="{'solo': !$root.theme.dark, 'solo-inverted': $root.theme.dark}" label="Search"></v-text-field>
+
+            <v-spacer class="hidden-sm-and-down"></v-spacer>
+
+            <template v-if="media.toggleview === 'table'">
+              <v-tooltip left>
+                <v-btn slot="activator" icon @click="media.toggleview = 'grid'"><v-icon>list</v-icon></v-btn>
+                <span>List view</span>
+              </v-tooltip>
+            </template>
+            <template v-else>
+              <v-tooltip left>
+                <v-btn slot="activator" icon @click="media.toggleview = 'table'"><v-icon>view_module</v-icon></v-btn>
+                <span>Grid view</span>
+              </v-tooltip>
+            </template>
+            <v-btn icon @click="media.loading = !media.loading"><v-icon>info</v-icon></v-btn>
+
             <v-btn class="hidden-sm-and-down" icon @click="media.box.model = false"><v-icon>close</v-icon></v-btn>
-            <template slot="extension">
+            <!-- <template slot="extension">
               <v-spacer></v-spacer>
               <template v-if="media.toggleview === 'table'">
                 <v-tooltip left>
@@ -55,7 +72,7 @@
                 </v-tooltip>
               </template>
               <v-btn icon @click="media.loading = !media.loading"><v-icon>info</v-icon></v-btn>
-            </template>
+            </template> -->
           </v-toolbar>
 
           <v-divider></v-divider>
@@ -132,18 +149,18 @@
                   :headers="media.headers"
                   :items="media.items"
                   :loading="media.loading"
+                  :no-data-text="noMediaText"
                   :pagination.sync="media.pagination"
                   :rows-per-page-items="media.pagination.rowsPerPageItems"
                   :rows-per-page-text="media.pagination.rowsPerPageText"
                   :search="media.search.query"
                   :total-items="media.pagination.totalItems"
-                  no-data-text="No Media Found"
                   v-model="selected"
                 >
                   <template slot="items" slot-scope="props">
                     <tr :class="{'primary white--text': props.item.selected}" @click="select(props.item)" role="button">
                       <td>
-                        <v-avatar size="30px"><img :src="props.item[itemValue]"></v-avatar>
+                        <v-avatar size="30px" class="mr-3"><img :src="props.item[itemValue]"></v-avatar>
                         <span v-html="props.item[itemText]"></span>
                       </td>
                       <td>
@@ -162,13 +179,13 @@
                   <v-data-iterator
                     :items="media.items"
                     :loading="media.loading"
+                    :no-data-text="noMediaText"
                     :pagination.sync="media.pagination"
                     :rows-per-page-items="media.pagination.rowsPerPageItems"
                     :rows-per-page-text="media.pagination.rowsPerPageText"
                     :search="media.search.query"
                     :total-items="media.pagination.totalItems"
                     content-tag="v-layout"
-                    no-data-text="No Media Found"
                     row wrap
                     select-all="accent"
                     v-model="selected"
@@ -176,7 +193,7 @@
                     <v-flex
                       slot="item"
                       slot-scope="props"
-                      xs12 sm6 md4 lg3
+                      xs12 sm6 md4 lg2
                     >
                       <v-card tile ripple hover height="100%" @click.native="select(props.item)" :class="{'primary white--text': props.item.selected}" light>
                         <v-card-media contain class="image-transparent" height="180px" :src="props.item[itemValue]"></v-card-media>
@@ -220,6 +237,7 @@ export default {
     hideToolbar: { type: Boolean, default: false },
     icon: { type: String, default: 'landscape' },
     itemDate: { type: String, default: 'created' },
+    menuItemId: { type: String, default: 'catalogue_id' },
     itemIcon: { type: String, default: 'icon' },
     itemMimetype: { type: String, default: 'mimetype' },
     itemSize: { type: String, default: 'filesize' },
@@ -228,6 +246,7 @@ export default {
     menuItems: { type: Array, default: () => { return [] } },
     multiple: { type: Boolean, default: false },
     noImageText: { type: String, default: 'No image selected' },
+    noMediaText: { type: String, default: 'No media found' },
     title: { type: String, default: 'Mediabox' },
     uploadText: { type: String, default: 'Upload' },
     url: { type: Object, default: () => { return { all: '/', search: '/' } } }
@@ -257,9 +276,9 @@ export default {
         },
         url: this.url.all,
         pagination: {
-          rowsPerPageItems: [5, 10, 25, {'text': 'All', 'value': -1}],
+          rowsPerPageItems: [12, 24, 30, {'text': 'All', 'value': -1}],
           rowsPerPageText: 'Items per page:',
-          totalItems: 10
+          totalItems: 0
         },
         toggleview: 'grid'
       },
@@ -304,7 +323,7 @@ export default {
       this.media.loading = true
       this.$http.get(this.media.url, {params: query})
         .then(response => {
-          this.media.items = response.data.data ? response.data.data : response.data
+          this.media.items = this.merge((response.data.data ? response.data.data : response.data), this.media.selected, 'id')
           this.media.pagination.totalItems = response.data.total
           this.media.loading = false
         })
@@ -322,7 +341,7 @@ export default {
       this.media.loading = true
       this.$http.get(this.url.search, {params: query})
         .then(response => {
-          this.media.items = response.data
+          this.media.items = this.merge(response.data, this.media.selected, 'id')
           this.media.pagination.totalItems = response.data.total
           this.media.loading = false
         })
@@ -351,9 +370,9 @@ export default {
       if (this.multiple) {
         if (item.selected) {
           this.selected.push(item[self.itemValue])
-          this.media.selected.push(item[self.itemValue])
+          this.media.selected.push(item)
         } else {
-          this.selected.splice(item, 1)
+          this.selected.splice(item[self.itemValue], 1)
           this.media.selected.splice(item, 1)
         }
       } else {
@@ -396,6 +415,23 @@ export default {
       if (url) {
         this.media.url = url
       }
+    },
+    merge (item1, item2, unique) {
+      // let updated = JSON.parse(JSON.stringify(this.multiple ? item2 : [item2]))
+
+      // for (var i = 0; i < updated.length; i++) {
+      //   let current = updated[i]
+
+      //   if (this.menus.current.id !== current[this.menuItemId]) {
+      //     updated.splice(i, 1)
+      //   }
+      // }
+
+      if (this._.isEmpty(updated)) {
+        return item1
+      }
+
+      return this._.unionBy(updated, item1, unique)
     }
   },
   mounted () {

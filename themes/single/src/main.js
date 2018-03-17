@@ -10,6 +10,7 @@ import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { settings } from './mixins/settings'
+import _ from 'lodash'
 
 Vue.use(filters)
 Vue.use(VeeValidate)
@@ -31,6 +32,8 @@ axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-Token']
+// Lodash
+Object.defineProperty(Vue.prototype, '_', { value: _ })
 
 // Mixins
 Vue.mixin(settings)
