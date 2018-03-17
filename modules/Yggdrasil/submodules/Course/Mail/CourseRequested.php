@@ -29,13 +29,17 @@ class CourseRequested extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param \Course\Models\Course $course
+     * @param \Course\Models\User   $student
+     * @param string $subject
      */
-    public function __construct(Course $course, User $student)
+    public function __construct(Course $course, User $student, $subject = "")
     {
         $this->course = $course;
 
         $this->student = $student;
+
+        $this->subject = $subject;
     }
 
     /**
@@ -45,8 +49,8 @@ class CourseRequested extends Mailable
      */
     public function build()
     {
-        return $this->view("Course::emails.requests.requested", [
-                'student' => $this->student,
-            ]);
+        return $this->subject($this->subject)
+                    ->from(settings('site_email'))
+                    ->view("Course::emails.requests.requested");
     }
 }

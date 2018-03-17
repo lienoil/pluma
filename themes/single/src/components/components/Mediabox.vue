@@ -417,7 +417,7 @@ export default {
       }
     },
     merge (item1, item2, unique) {
-      // let updated = JSON.parse(JSON.stringify(this.multiple ? item2 : [item2]))
+      let updated = JSON.parse(JSON.stringify(this.multiple ? item2 : [item2]))
 
       // for (var i = 0; i < updated.length; i++) {
       //   let current = updated[i]
