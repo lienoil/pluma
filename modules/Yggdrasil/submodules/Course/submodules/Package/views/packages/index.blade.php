@@ -20,18 +20,7 @@
             :items="{{ json_encode($resources->toArray()) }}"
             catalogue="package"
             title="{{ __('Packages') }}"
-        >
-            <template slot="empty-state">
-                <v-layout row wrap align-end justify-center>
-                    <v-flex xs12>
-                        <div class="text-xs-center grey--text">
-                            <img src="{{ assets('frontier/images/placeholder/zip.png') }}" width="120">
-                            <div class="headline">Your library is empty</div>
-                            <div class="subheading mb-3">Everything you've uploaded will be here.</div>
-                        </div>
-                    </v-flex>
-                </v-layout>
-            </template>
+            >
         </pluma-packages>
     </v-container>
 @endsection
