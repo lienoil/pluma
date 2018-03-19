@@ -14,21 +14,33 @@ trait OfCatalogue
      * @param  string $column
      * @return $query
      */
-    public function scopeOfCatalogue($query, $code = null, $column = "code")
+    public function scopeOfCatalogue($query, $code = null, $column = "code", $useOr = true)
     {
         if (empty($code)) {
             return $query;
         }
 
-        $query->orWhere('catalogue_id', Catalogue::where($column, $code)->firstOrCreate([
-            $column => $code,
-        ], [
-            'name' => 'Package',
-            'code' => 'package',
-            'alias' => 'Archives',
-            'icon' => 'archive',
-            'description' => 'A Catalogue of eLearning Packages'
-        ])->id);
+        if ($useOr) {
+            $query->orWhere('catalogue_id', Catalogue::where($column, $code)->firstOrCreate([
+                $column => $code,
+            ], [
+                'name' => 'Package',
+                'code' => 'package',
+                'alias' => 'Archives',
+                'icon' => 'archive',
+                'description' => 'A Catalogue of eLearning Packages'
+            ])->id);
+        } else {
+            $query->where('catalogue_id', Catalogue::where($column, $code)->firstOrCreate([
+                $column => $code,
+            ], [
+                'name' => 'Package',
+                'code' => 'package',
+                'alias' => 'Archives',
+                'icon' => 'archive',
+                'description' => 'A Catalogue of eLearning Packages'
+            ])->id);
+        }
 
         return $query;
     }

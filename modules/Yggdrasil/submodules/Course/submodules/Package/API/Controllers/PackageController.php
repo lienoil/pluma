@@ -11,6 +11,29 @@ use Pluma\API\Controllers\APIController;
 class PackageController extends APIController
 {
     /**
+     * Search the resource.
+     *
+     * @param  Request $request
+     * @return Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
+        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
+        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
+
+        $resources = Library::search($search)->orderBy($sort, $order);
+        if ($onlyTrashed) {
+            $resources->onlyTrashed();
+        }
+        $resources = $resources->ofCatalogue('package', 'code', false)->get();
+
+        return response()->json($resources);
+    }
+
+    /**
      * Return a paginated resource.
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -23,7 +46,7 @@ class PackageController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = Library::ofCatalogue('package')->search($search)->orderBy($sort, $order);
+        $resources = Library::ofCatalogue('package')->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
