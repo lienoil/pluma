@@ -2,12 +2,9 @@
 
 namespace Course\Support\Traits;
 
-use Course\Mail\CourseRequested;
 use Course\Models\Course;
 use Course\Models\Student;
-use Course\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 trait MyCourseResourceTrait
 {

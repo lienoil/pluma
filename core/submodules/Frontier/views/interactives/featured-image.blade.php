@@ -70,6 +70,9 @@
         <v-spacer></v-spacer>
         <v-btn flat @click.stop="featuredImage.model = !featuredImage.model"><span v-html="featuredImage.new ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
     </v-card-actions>
+
+    {{ dd($catalogues) }}
+
 {{-- </v-card> --}}
 
 

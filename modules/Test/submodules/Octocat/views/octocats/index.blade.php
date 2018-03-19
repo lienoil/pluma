@@ -25,6 +25,18 @@
                             </v-list-tile>
                         </v-list>
                     </v-bottom-sheet>
+
+                    <v-bottom-sheet class="elevation-1">
+                        <v-list class="elevation-1">
+                            <v-list-tile>
+                                <v-list-tile-content>
+                                    {{ $resource->title }} 09554820744
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                    </v-bottom-sheet>
+
+                    <v-bottom-sheet class="">
                 </v-card>
 
                 <v-btn outline round large primary class="px-4">Confirm</v-btn>
@@ -71,11 +83,25 @@
                             :label="`Switch 1: ${switch1.toString()}`"
                             v-model="switch1"
                         ></v-switch>
+                        <v-switch
+                            :label="`Switch 1: ${switch1.toString()}`"
+                            v-model="switch1"
+                        ></v-switch>
                     </v-toolbar>
+
+                    <v-toolbar flat class="transparent">
+                        {{ __('Full Courses') }}
+                    </v-toolbar>
+                    <v-spacer></v-spacer>
                     <v-divider></v-divider>
                     <v-card-text>
                         <v-checkbox label="Jane" v-model="selected" value="Jane"></v-checkbox>
                         <v-checkbox label="Joe" v-model="selected" value="Joe"></v-checkbox>
+                    </v-card-text>
+
+                    <v-card-text label="Jane" v-model="selected" value="Jane">
+                        <v-checkbox label="Jane" v-model="selected"></v-checkbox>
+                        <v-checkbox label="Jane" v-model="selected"></v-checkbox>
                     </v-card-text>
 
                     <v-card-texxt>

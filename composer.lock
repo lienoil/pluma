@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "33bf1579f0896eee574f40fe655a189f",
-    "content-hash": "14b15ddb6a88c8a14aa7b3babf916999",
+    "hash": "68e733ae7bc06f4a2b7f7a469157c3e2",
+    "content-hash": "70764d8184537fe13d4a19126357d8cd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -61,16 +61,16 @@
         },
         {
             "name": "chumper/zipper",
-            "version": "dev-master",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Chumper/Zipper.git",
-                "reference": "2c942497e3980772d6c68b60e743d1ce1046a0e9"
+                "reference": "6a1733c34d67c3952b8439afb36ad4ea5c3ceacb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Chumper/Zipper/zipball/2c942497e3980772d6c68b60e743d1ce1046a0e9",
-                "reference": "2c942497e3980772d6c68b60e743d1ce1046a0e9",
+                "url": "https://api.github.com/repos/Chumper/Zipper/zipball/6a1733c34d67c3952b8439afb36ad4ea5c3ceacb",
+                "reference": "6a1733c34d67c3952b8439afb36ad4ea5c3ceacb",
                 "shasum": ""
             },
             "require": {
@@ -117,7 +117,7 @@
                 "laravel",
                 "zip"
             ],
-            "time": "2017-10-27 21:51:07"
+            "time": "2017-07-17 08:05:10"
         },
         {
             "name": "doctrine/inflector",
@@ -3694,7 +3694,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "chumper/zipper": 20,
         "phpoffice/phpspreadsheet": 20
     },
     "prefer-stable": false,

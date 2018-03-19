@@ -30,6 +30,5 @@
 @endpush
 
 @push('pre-scripts')
-    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
     <script src="{{ assets('package/packages/dist/packages.min.js') }}"></script>
 @endpush

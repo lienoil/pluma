@@ -24,7 +24,6 @@
                 <v-card flat class="mb-3">
                     <form action="{{ route('settings.branding.store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
-
                         <v-card-text>
                             <v-layout row wrap>
                                 <v-flex sm8>

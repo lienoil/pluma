@@ -87,6 +87,7 @@
                                     @endif
 
                                     <v-divider class="my-2"></v-divider>
+
                                     <div class="my-2">
                                         <v-avatar size="30px">
                                             <img src="{{ $resource->author->avatar }}" alt="{{ $resource->author->fullname }}">
@@ -105,9 +106,8 @@
     </v-parallax>
 
     <v-container fluid grid-list-lg>
-
         <v-layout row wrap>
-            <v-flex flex md3 xs12 order-lg1>
+            <v-flex md3 xs12 order-lg1>
                 <v-card class="mb-3 elevation-1">
                     <v-toolbar card class="transparent">
                         <v-toolbar-title class="page-title accent--text">{{ __('Overview') }}</v-toolbar-title>
@@ -117,10 +117,12 @@
                 </v-card>
 
                 @includeIf("Badge::widgets.badge")
-
             </v-flex>
 
-            <v-flex flex md6 xs12 order-lg2>
+            <v-flex md6 xs12 order-lg2>
+                {{-- Get Course --}}
+                @include("Course::widgets.enrolled")
+                {{-- Get Course --}}
 
                 <v-card class="elevation-1 mb-3">
                     <v-toolbar light flat class="transparent">
@@ -191,18 +193,13 @@
                 </v-card>
             </v-flex>
 
-            <v-flex flex md3 xs12 order-lg3>
-                {{-- Get Course --}}
-                @include("Course::widgets.enrolled")
-                {{-- Get Course --}}
-
+            <v-flex md3 xs12 order-lg3>
                 {{-- Enrolled Students --}}
                 @include("Course::widgets.students")
                 {{-- Enrolled Students --}}
             </v-flex>
         </v-layout>
     </v-container>
-
 @endsection
 
 @push('css')

@@ -1,5 +1,5 @@
 {{-- <v-card flat class="white lighten-4"> --}}
-    <v-toolbar card class="white">
+    <v-toolbar card class="white sticky">
         <v-icon left>details</v-icon>
         <v-toolbar-title class="subheading body-2 accent--text">{{ __('Survey Form') }}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -14,8 +14,7 @@
             item-value="id"
             label="{{ __('Survey Form') }}"
             persistent-hint
-            v-model="resource.item.survey_id"
+            v-model="resource.item.category_id"
         ></v-select>
-        <input type="hidden" name="survey_id" :value="resource.item.survey_id">
     </v-card-text>
 {{-- </v-card> --}}
