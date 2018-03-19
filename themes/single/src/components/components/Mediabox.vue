@@ -13,6 +13,17 @@
       <template v-else-if="typeof selected === 'string' && selected">
         <slot name="thumbnail" :props="{item: media.selected, src: selected}">
           <img :src="selected">
+          <v-spacer></v-spacer>
+          <v-card flat tile>
+            <v-card-actions>
+              <v-tooltip bottom>
+                <v-btn slot="activator" color="white" icon><v-icon color="red" v-html="media.selected[itemIcon]"></v-icon></v-btn>
+                <span v-html="media.selected[itemMimetype]"></span>
+              </v-tooltip>
+              <span class="body-1" v-html="media.selected[itemText]"></span>
+            </v-card-actions>
+            <v-divider></v-divider>
+          </v-card>
         </slot>
       </template>
       <template v-else>
@@ -186,7 +197,7 @@
                     :search="media.search.query"
                     :total-items="media.pagination.totalItems"
                     content-tag="v-layout"
-                    row wrap
+                    row wrap fill-height
                     select-all="accent"
                     v-model="selected"
                   >
@@ -195,15 +206,18 @@
                       slot-scope="props"
                       xs12 sm6 md4 lg2
                     >
-                      <v-card tile ripple hover height="100%" @click.native="select(props.item)" :class="{'primary white--text': props.item.selected}" light>
-                        <v-card-media contain class="image-transparent" height="180px" :src="props.item[itemValue]"></v-card-media>
-                        <v-card-actions>
-                          <v-tooltip bottom>
-                            <v-btn slot="activator" icon color="white"><v-icon color="red" v-html="props.item[itemIcon]"></v-icon></v-btn>
-                            <span v-html="props.item[itemMimetype]"></span>
-                          </v-tooltip>
-                          <span class="body-2" v-html="props.item[itemText]"></span>
-                        </v-card-actions>
+                      <v-card light ripple hover height="100%" @click.native="select(props.item)" class="card-mediabox-container image-transparent">
+                        <img :height="height" :src="props.item[itemValue]">
+                        <v-spacer></v-spacer>
+                        <v-card flat tile light height="100%" :class="{'primary white--text': props.item.selected}">
+                          <v-card-actions>
+                            <v-tooltip bottom>
+                              <v-btn slot="activator" color="white" icon><v-icon color="red" v-html="props.item[itemIcon]"></v-icon></v-btn>
+                              <span v-html="props.item[itemMimetype]"></span>
+                            </v-tooltip>
+                            <span class="body-1" v-html="props.item[itemText]"></span>
+                          </v-card-actions>
+                        </v-card>
                       </v-card>
                     </v-flex>
                   </v-data-iterator>
@@ -419,16 +433,15 @@ export default {
     merge (item1, item2, unique) {
       let updated = JSON.parse(JSON.stringify(this.multiple ? item2 : [item2]))
 
-      // for (var i = 0; i < updated.length; i++) {
-      //   let current = updated[i]
-
-      //   if (this.menus.current.id !== current[this.menuItemId]) {
-      //     updated.splice(i, 1)
-      //   }
-      // }
-
-      if (this._.isEmpty(updated)) {
+      if (this._.isEmpty(item2) || !updated.length) {
         return item1
+      }
+
+      for (var i = 0; i < updated.length; i++) {
+        let current = updated[i]
+        if (this.menus.current.id !== current[this.menuItemId]) {
+          updated.splice(i, 1)
+        }
       }
 
       return this._.unionBy(updated, item1, unique)
@@ -470,22 +483,33 @@ export default {
 }
 .card-mediabox-container {
   position: relative;
-  padding: 5px;
   overflow: hidden;
-  min-height: 180px;
+  min-height: 140px;
   box-shadow: inset 0 1px 5px rgba(0,0,0,0.2);
+
+  .card-mediabox-details {
+    // position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+  }
+
+  .card-mediabox-thumbnail {
+    height: calc(100% - 52px);
+  }
 }
 .card-mediabox-container img {
-  position: absolute;
+  position: relative;
   display: block;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
+  object-fit: scale-down;
   max-height: 100%;
   max-width: 100%;
-  width: auto;
+  width: 100%;
   height: auto;
 }
 .card-mediabox-container .stacked {

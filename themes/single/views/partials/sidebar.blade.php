@@ -1,17 +1,19 @@
 <v-navigation-drawer
+  :clipped="sidebar.clipped"
   :dark.sync="theme.dark"
   :floating="sidebar.floating"
   :light.sync="!theme.dark"
   :mini-variant.sync="sidebar.mini"
-  :clipped="sidebar.clipped"
+  :style="`background-image: url(${sidebar.style.background})`"
   app
+  class="sidebar"
   v-model="sidebar.model"
   @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)">
   <v-toolbar flat class="transparent">
     <v-list>
       <v-list-tile avatar>
         <v-list-tile-avatar>
-          <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+          <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}" width="40px">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title><strong>{{ $application->site->title }}</strong></v-list-tile-title>
