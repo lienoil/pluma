@@ -16,7 +16,6 @@
         toolbar-icon="landscape"
         toolbar-label="{{ __('Cover Photo') }}"
         v-model="resource.cover.model"
-        v-model="respurc.cover.model"
         @selected="value => { resource.item.cover = value[0] }"
         @category-change="val => resource.feature.current = val"
         @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename}"
