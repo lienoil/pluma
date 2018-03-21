@@ -27,6 +27,10 @@
 
             <v-text-field solo v-model="resource.item.title" label="Title" class="mb-3"></v-text-field>
 
+            <!-- Chatbox -->
+            <p>Chatbox sample</p>
+            <chatbox></chatbox>
+
             <!-- Course -->
             <v-card>
               <v-toolbar card class="transparent">
@@ -246,10 +250,11 @@ import AlertIcon from '@/components/partials/AlertIcon.vue'
 import Draggable from 'vuedraggable'
 import Editor from '@/components/components/Editor.vue'
 import Mediabox from '@/components/components/Mediabox.vue'
+import Chatbox from '@/components/Chat/Chatbox.vue'
 
 export default {
   name: 'Edit',
-  components: { AlertIcon, Draggable, Editor, Mediabox },
+  components: { AlertIcon, Draggable, Editor, Mediabox, Chatbox },
   data () {
     return {
       resource: {

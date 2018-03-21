@@ -30,6 +30,7 @@ export const settings = {
         floating: this.localstorage('single.sidebar.floating') === 'true',
         mini: this.localstorage('single.sidebar.mini') === 'true',
         model: true,
+        withBackground: false,
         style: { background: 'none' }
       },
 

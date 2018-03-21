@@ -3,22 +3,21 @@
 return [
     /**
      *--------------------------------------------------------------------------
-     * Allowed Files
+     * Allowed File Extensions
      *--------------------------------------------------------------------------
      *
      * Array of downloadable files.
-     * Pluma, by default, is only using the key 'restricted' for checking if
-     * file is allowed as checking in the `allowed` key takes longer.
-     * Leaving this empty is relatively safe.
+     * The application, by default, is using the 'restricted' key for checking
+     * if a file is allowed.
      *
      */
     'allowed' => [
-        //
+        // 'html', 'swf'
     ],
 
     /**
      *--------------------------------------------------------------------------
-     * Restricted Files
+     * Restricted File Extensions
      *--------------------------------------------------------------------------
      *
      * Non-downloadable files.

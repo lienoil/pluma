@@ -4,7 +4,7 @@
       <v-icon v-html="icon"></v-icon>
       <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
     </v-toolbar>
-    <v-card flat tile class="card-mediabox-container image-transparent" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
+    <v-card flat tile class="card-mediabox-container card-shadow-inset image-transparent" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
       <template v-if="(selected instanceof Array) && selected.length !== 0">
         <slot name="thumbnail" :props="{item: media.selected}">
           <img class="stacked" v-for="(s, i) in selected" :key="i" :src="s">
@@ -440,7 +440,7 @@ export default {
       for (var i = 0; i < updated.length; i++) {
         let current = updated[i]
         if (this.menus.current.id !== current[this.menuItemId]) {
-          updated.splice(i, 1)
+          updated = updated.filter(u => u !== current)
         }
       }
 
@@ -485,7 +485,10 @@ export default {
   position: relative;
   overflow: hidden;
   min-height: 140px;
-  box-shadow: inset 0 1px 5px rgba(0,0,0,0.2);
+
+  &.card-shadow-inset {
+    box-shadow: inset 0 1px 5px rgba(0,0,0,0.2);
+  }
 
   .card-mediabox-details {
     // position: absolute;

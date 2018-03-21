@@ -4,11 +4,13 @@
   :floating="sidebar.floating"
   :light.sync="!theme.dark"
   :mini-variant.sync="sidebar.mini"
-  :style="`background-image: url(${sidebar.style.background})`"
   app
   class="sidebar"
   v-model="sidebar.model"
   @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)">
+
+  <image-overlay v-model="sidebar.withBackground" :src="sidebar.style.background"></image-overlay>
+
   <v-toolbar flat class="transparent">
     <v-list>
       <v-list-tile avatar>
@@ -45,7 +47,7 @@
             <img :src="menu.labels.avatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title v-html="menu.labels.name"></v-list-tile-title>
+            <v-list-tile-title v-html="menu.labels.name" class="user--displayname"></v-list-tile-title>
             <v-list-tile-sub-title class="caption">
               <v-icon :dark.sync="theme.dark" :light.sync="!theme.dark">supervisor_account</v-icon>
               <span v-html="menu.labels.role"></span>
