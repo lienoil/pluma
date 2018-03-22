@@ -15,7 +15,7 @@
                 <v-flex xs12>
                     <div class="chart-container mb-3">
                         {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
-                        <template v-for="(charts, i) in chartVariables.items">
+                        {{-- <template v-for="(charts, i) in chartVariables.items">
                            <v-card-text class="px-0">
                                 <ul>
                                     <li>
@@ -23,8 +23,8 @@
                                         <canvas :id="`chart-${i}`"></canvas>
                                     </li>
                                 </ul>
-                           </v-card-text>
-                       </template>
+                            </v-card-text>
+                        </template> --}}
                     </div>
                 </v-flex>
             </v-layout>
@@ -79,11 +79,10 @@
                     Chart.defaults.global.defaultFontColor = '#333';
                     var chart = new Chart(ctx, {
                         type: 'bar',
-                        scaleBeginAtZero : true,
                         data: {
-                            labels: _labels,
+                            // labels: _labels,
                             datasets: [{
-                                // label: _labels,
+                                label: _labels,
                                 wrapText: true,
                                 backgroundColor: gradient,
                                 borderColor: "rgba(28, 160, 244, 1)", //blue
@@ -92,13 +91,21 @@
                                 hoverBackgroundColor: "rgba(3, 169, 244, .8)",
                                 hoverBorderColor: "rgba(3, 169, 244, .8)",
                                 data: _data,
-                            }]
+                            }],
                         },
 
                         options: {
                             tooltips: {
                                 mode: 'index',
-                                intersect: false
+                                intersect: false,
+                                display: true,
+                                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                                titleFontSize: 14,
+                                titleFontColor: '#fff',
+                                bodyFontColor: '#fff',
+                                bodyFontSize: 12,
+                                displayColors: true,
+                                wrapText: true,
                             },
                             responsive: true,
                             maintainAspectRatio: false,

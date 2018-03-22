@@ -21,7 +21,7 @@ class Content extends Model
         BelongsToManyUsers,
         MorphManyComments;
 
-    protected $with = ['library', 'lesson'];
+    protected $with = ['library'];
 
     protected $appends = [
         'active',

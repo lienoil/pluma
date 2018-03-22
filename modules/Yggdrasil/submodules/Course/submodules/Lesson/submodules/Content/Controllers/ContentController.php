@@ -10,8 +10,9 @@ use Course\Models\User;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Lesson\Models\Lesson;
+use Pluma\Controllers\Controller;
 
-class ContentController extends AdminController
+class ContentController extends Controller
 {
     /**
      * Display a listing of the resource.
