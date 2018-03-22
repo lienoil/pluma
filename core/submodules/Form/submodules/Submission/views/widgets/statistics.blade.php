@@ -15,7 +15,7 @@
                 <v-flex xs12>
                     <div class="chart-container mb-3">
                         {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
-                        {{-- <template v-for="(charts, i) in chartVariables.items">
+                        <template v-for="(charts, i) in chartVariables.items">
                            <v-card-text class="px-0">
                                 <ul>
                                     <li>
@@ -23,8 +23,8 @@
                                         <canvas :id="`chart-${i}`"></canvas>
                                     </li>
                                 </ul>
-                            </v-card-text>
-                        </template> --}}
+                           </v-card-text>
+                       </template>
                     </div>
                 </v-flex>
             </v-layout>
