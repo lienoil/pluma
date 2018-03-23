@@ -49,7 +49,7 @@
                                         <v-icon>schedule</v-icon>
                                         <span>{{ $resource->created }}</span>
                                     </v-card-actions>
-                                    <p class="my-3 body-2"><v-icon left>fa-edit</v-icon> {{ __('Scored: ') }} {{ $resource->scored }}</p>
+                                    <p class="my-3 body-2"><v-icon left class="title">fa-edit</v-icon> {{ __('Scored: ') }} {{ $resource->scored }}</p>
                                 </v-card-text>
 
                                 {{-- questions --}}

@@ -29,7 +29,7 @@
                 </v-list>
             </v-navigation-drawer> -->
 
-           <!--  <v-toolbar class="accent--text">
+            <v-toolbar class="accent--text">
                 <v-toolbar-side-icon dark class="grey--text" @click="drawernav.model = !drawernav.model"></v-toolbar-side-icon>
                 <v-menu transition="slide-y-transition" v-if="!drawernav.model">
                     <v-btn flat slot="activator" class="white--text">
@@ -87,7 +87,7 @@
                 <v-btn ripple dark icon @click.stop="dialogbox().close()"><v-icon>close</v-icon></v-btn>
 
                 <v-progress-circular v-if="loading.model" indeterminate class="primary--text"></v-progress-circular>
-            </v-toolbar> -->
+            </v-toolbar>
 
             <!-- <v-divider></v-divider> -->
 
