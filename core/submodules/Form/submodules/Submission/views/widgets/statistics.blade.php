@@ -15,7 +15,7 @@
                 <v-flex xs12>
                     <div class="chart-container mb-3">
                         {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
-                        <template v-for="(charts, i) in chartVariables.items">
+                        {{-- <template v-for="(charts, i) in chartVariables.items">
                            <v-card-text class="px-0">
                                 <ul>
                                     <li>
@@ -24,11 +24,32 @@
                                     </li>
                                 </ul>
                            </v-card-text>
-                       </template>
+                       </template> --}}
 
-                       <v-progress>
+                        <ol>
+                            <li>
+                                <h2 class="subheading">{{ __('What is your favorite color?') }}</h2>
+                                <p class="pl-3">
+                                    <span>&#8226;</span>
+                                    {{ __('Probably, black') }}
+                                    <v-card-actions>
+                                        <v-progress-linear height="10" value="32" color="red" class="info" color="info"
+                                            background-color="success">
+                                        </v-progress-linear>
+                                        <span class="caption grey--text text--darken-1 pl-3">32</span>
+                                    </v-card-actions>
+                                </p>
 
-                       </v-progress>
+                                <p class="pl-3">
+                                    <span>&#8226;</span>
+                                    {{ __('Definitely, black') }}
+                                    <v-card-actions>
+                                        <v-progress-linear height="10" value="60" class="blue blue--text"></v-progress-linear>
+                                        <span class="caption grey--text text--darken-1 pl-3">60</span>
+                                    </v-card-actions>
+                                </p>
+                            </li>
+                        </ol>
                     </div>
                 </v-flex>
             </v-layout>
