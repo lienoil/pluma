@@ -36,7 +36,7 @@
                                         <li class="page-title body-1">{!! $choice !!}</li>
                                         <v-card-actions>
                                             <v-progress-linear height="13" value="32" color="primary"></v-progress-linear>
-                                            <span class="caption grey--text text--darken-1 pl-3">32</span>
+                                            <span class="caption grey--text text--darken-1 pl-3 page-title">32</span>
                                         </v-card-actions>
                                         @endforeach
                                     </ul>
@@ -181,7 +181,7 @@
                         }
 
                         console.log(_data, _labels, dataset[chart].label);
-                        this.chartData(_data, _labels, dataser[chart].label, "chart-"+chart);
+                        this.chartData(_data, _labels, dataset[chart].label, "chart-"+chart);
                     }
                 }
             },

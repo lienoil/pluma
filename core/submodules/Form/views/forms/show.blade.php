@@ -5,7 +5,7 @@
 
     <v-toolbar dark extended class="indigo elevation-0">
         <v-btn
-            href=""
+            href="{{ route('forms.index') }}"
             ripple
             flat
             >
@@ -25,7 +25,6 @@
                                     <v-toolbar-title class="title">{{ __($resource->name) }}</v-toolbar-title>
                                     <v-spacer></v-spacer>
                                 </v-toolbar>
-
 
                                 {{-- @include("Form::templates.test") --}}
 
