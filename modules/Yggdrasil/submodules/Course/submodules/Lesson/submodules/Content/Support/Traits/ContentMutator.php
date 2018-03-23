@@ -4,6 +4,7 @@ namespace Content\Support\Traits;
 
 use Course\Models\Scormvar;
 use Course\Models\Status;
+use Form\Models\Form;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use SimpleXMLElement;
@@ -172,10 +173,24 @@ trait ContentMutator
      */
     public function getHtmlAttribute()
     {
-        $interactive = urldecode($this->interactive);
-        // $interactive = $this->interactive;
+        $interactive = urldecode($this->interactive); // $interactive = $this->interactive;
         $html = "No Data";
-        if ($this->library) {
+
+        if (! is_null($this->contentable_id)) {
+            switch ($this->contentable_type) {
+                case 'Form\Models\Form':
+                default:
+                    $type = $this->type;
+                    $interactive = $this->interactive;
+                    $html = view("Content::partials.form")->with([
+                        'type' => $type,
+                        'interactive' => $interactive,
+                        'resource' => Form::find($this->contentable->id)
+                    ])->render();
+                    break;
+            }
+        } elseif ($this->library) {
+
             switch ($this->library->mimetype) {
                 case 'application/zip':
                 case 'application/rar':
@@ -304,5 +319,35 @@ trait ContentMutator
     public function getTypeAttribute()
     {
         return $this->library->mimetype;
+    }
+
+    /**
+     * Check if interactive media is form.
+     *
+     * @return boolean
+     */
+    public function isForm()
+    {
+        return $this->contentable_type === "Form\Models\Form";
+    }
+
+    /**
+     * Check if form has been answered.
+     *
+     * @return boolean
+     */
+    public function isFormFinished()
+    {
+        if (! user()) {
+            return false;
+        }
+
+        $form = Form::find($this->contentable_id);
+
+        if (! $form->exists()) {
+            return false;
+        }
+
+        return $form->submissions()->where('user_id', user()->id)->exists();
     }
 }

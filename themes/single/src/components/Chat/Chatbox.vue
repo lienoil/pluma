@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
+
 export default {
   name: 'Chatbox',
   data () {
@@ -34,7 +36,8 @@ export default {
       chat: {
         displayname: '',
         message: ''
-      }
+      },
+      socket: null
     }
   },
   methods: {
@@ -47,11 +50,8 @@ export default {
       // Set
       this.chat.displayname = document.querySelector('.user--displayname').innerHTML
 
-      // Store
-      this.messages.push(JSON.parse(JSON.stringify(this.chat)))
-
       // Persist
-      this.$http.get('/admin/testsx/broadcast', this.chat)
+      this.$http.get('/admin/testsx/broadcast', {params: JSON.parse(JSON.stringify(this.chat))})
 
       // Clear
       this.clear(this.chat)
@@ -63,15 +63,28 @@ export default {
     }
   },
   mounted () {
-    this.$echo.join('message-posted')
-      .here(data => {
-        console.log('here-now', data)
-      })
-      // .joining()
-      // .leaving()
-      .listen('.Test.Events.MessagePosted', (data) => {
-        console.log('listen-data', data)
-      })
+    let self = this
+
+    // Socket.IO
+    this.socket = io.connect('http://localhost:3000')
+    this.socket.on('presence-message', function (data) {
+      data = JSON.parse(data)
+      console.log(data)
+      // append to DOM
+      self.$root.alert({color: 'secondary', type: 'info', text: `New comment from ${data.data.message.displayname}`})
+      self.messages.push(JSON.parse(JSON.stringify(data.data.message)))
+    })
+    // Socket.IO
+
+    // this.$echo.join('message')
+    //   // .here(data => {
+    //   //   console.log('here-now', data)
+    //   // })
+    //   // .joining()
+    //   // .leaving()
+    //   .listen('Test.Events.MessagePosted', (data) => {
+    //     console.log('listen-data', data)
+    //   })
   }
 }
 </script>

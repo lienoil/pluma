@@ -193,4 +193,24 @@ trait FormResourceApiTrait
 
         return response()->json($success);
     }
+
+    /**
+     * Retrieve all forms in media array.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getMedia(Request $request)
+    {
+        $forms = Form::type($request->get('type'))->paginate();
+        $fo = [];
+        foreach ($forms->items() as $i => $form) {
+            $fo[$i]['name'] = $form->name;
+            $fo[$i]['id'] = $form->id;
+            $fo[$i]['contentable_id'] = $form->id;
+            $fo[$i]['contentable_type'] = get_class($form);
+        }
+
+        return response()->json($fo);
+    }
 }

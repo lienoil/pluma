@@ -33,6 +33,7 @@ class CreateLibraryTable extends Migration
             $table->text('pathname')->nullable();
             $table->integer('size')->nullable();
             $table->string('mimetype')->nullable();
+            $table->string('type')->nullable();
             $table->text('description')->nullable();
             $table->text('thumbnail')->nullable();
             $table->text('url')->nullable();

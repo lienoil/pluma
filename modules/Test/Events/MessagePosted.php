@@ -36,6 +36,7 @@ class MessagePosted implements ShouldBroadcast
     public function __construct($message, $user)
     {
         $this->message = $message;
+
         $this->user = $user;
     }
 
@@ -46,6 +47,6 @@ class MessagePosted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('message-posted');
+        return new PresenceChannel('message');
     }
 }

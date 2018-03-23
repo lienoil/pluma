@@ -15,7 +15,7 @@
                 <v-flex xs12>
                     <div class="chart-container mb-3">
                         {{-- <span v-for="(charts, i) in chartVariables.items" v-html="i"></span> --}}
-                        <template v-for="(charts, i) in chartVariables.items">
+                        {{-- <template v-for="(charts, i) in chartVariables.items">
                            <v-card-text class="px-0">
                                 <ul>
                                     <li>
@@ -24,7 +24,26 @@
                                     </li>
                                 </ul>
                            </v-card-text>
-                       </template>
+                       </template> --}}
+
+                        @foreach ($resource->fields() as $field)
+                        <ul class="statistics">
+                            <li>
+                                <h2 class="subheading">{{ $field->question->label }}</h2>
+                                <p class="pl-3">
+                                    <ul>
+                                        @foreach ($field->choices as $choice)
+                                        <li class="page-title body-1">{!! $choice !!}</li>
+                                        <v-card-actions>
+                                            <v-progress-linear height="13" value="32" color="primary"></v-progress-linear>
+                                            <span class="caption grey--text text--darken-1 pl-3 page-title">32</span>
+                                        </v-card-actions>
+                                        @endforeach
+                                    </ul>
+                                </p>
+                            </li>
+                        </ul>
+                        @endforeach
                     </div>
                 </v-flex>
             </v-layout>
@@ -42,6 +61,12 @@
         .chartjs-render-monitor {
             width: 100%;
             max-height: 250px !important;
+        }
+        .statistics .progress-linear .progress-linear__bar {
+            background: #efefef !important;
+        }
+        .statistics .progress-linear .progress-linear__bar__determinate, .progress-linear .progress-linear__bar__indeterminate .long, .progress-linear .progress-linear__bar__indeterminate .short {
+            background: #03a9f4 !important;
         }
     </style>
 @endpush
@@ -79,11 +104,10 @@
                     Chart.defaults.global.defaultFontColor = '#333';
                     var chart = new Chart(ctx, {
                         type: 'bar',
-                        scaleBeginAtZero : true,
                         data: {
-                            labels: _labels,
+                            // labels: _labels,
                             datasets: [{
-                                // label: _labels,
+                                label: _labels,
                                 wrapText: true,
                                 backgroundColor: gradient,
                                 borderColor: "rgba(28, 160, 244, 1)", //blue
@@ -92,13 +116,21 @@
                                 hoverBackgroundColor: "rgba(3, 169, 244, .8)",
                                 hoverBorderColor: "rgba(3, 169, 244, .8)",
                                 data: _data,
-                            }]
+                            }],
                         },
 
                         options: {
                             tooltips: {
                                 mode: 'index',
-                                intersect: false
+                                intersect: false,
+                                display: true,
+                                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                                titleFontSize: 14,
+                                titleFontColor: '#fff',
+                                bodyFontColor: '#fff',
+                                bodyFontSize: 12,
+                                displayColors: true,
+                                wrapText: true,
                             },
                             responsive: true,
                             maintainAspectRatio: false,

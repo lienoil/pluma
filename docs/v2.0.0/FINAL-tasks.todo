@@ -1,5 +1,14 @@
 v2.0.1:
 
+Issues:
+  ✔ @high Packages @done (18-03-19 11:35)
+  ✔ @high Form Builder (Locking from courses) @done (18-03-22 16:58)
+  ☐ @low Form builder (chartjs)
+  ☐ @high Mediabox
+  ☐ @low Email (sending, notification)
+
+Oreo:
+  ✔ Create account for SG employees (based on email attached) @done (18-03-22 15:26) @done (18-03-22 16:58)
 
 Forum:
   ✔ @low solved / unsolved @done (18-03-08 10:16)
@@ -22,8 +31,7 @@ Form Builder:
     unique display for submission index and show
 
 Registration:
-  ☐ Email Notification
-  ☐ Email template
+  ✔ Email template @done (18-03-22 16:58)
   ✔ Email Settings Management @done (18-03-01 14:57)
 
 

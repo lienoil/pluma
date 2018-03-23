@@ -213,6 +213,7 @@
                         model: false,
                         output: null,
                         catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
+                        media: JSON.parse(JSON.stringify({!! json_encode($media) !!})),
                     }
                 };
             },

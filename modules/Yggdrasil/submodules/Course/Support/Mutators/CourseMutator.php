@@ -39,4 +39,14 @@ trait CourseMutator
                 ? $this->bookmarks()->where('user_id', user()->id)->exists()
                 : false;
     }
+
+    /**
+     * Get the url of the course.
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return route('courses.single', $this->slug);
+    }
 }

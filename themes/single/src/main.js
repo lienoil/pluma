@@ -6,7 +6,6 @@ import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
 import ImageOverlay from '@/components/components/ImageOverlay.vue'
 import Chatbox from '@/components/Chat/Chatbox.vue'
-import VueEcho from 'vue-echo'
 import filters from './filters'
 import router from './router'
 import VeeValidate from 'vee-validate'
@@ -27,10 +26,6 @@ Vue.use(Vuetify, {
     error: '#FF5252',
     success: '#4CAF50'
   }
-})
-Vue.use(VueEcho, {
-  broadcaster: 'socket.io',
-  host: 'http://localhost:3000'
 })
 
 axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')

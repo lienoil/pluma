@@ -17,14 +17,14 @@ class CourseRequested extends Mailable
      *
      * @var \Course\Models\Course
      */
-    protected $course;
+    public $course;
 
     /**
      * The student instance.
      *
      * @var \Course\Models\User
      */
-    protected $student;
+    public $student;
 
     /**
      * Create a new message instance.

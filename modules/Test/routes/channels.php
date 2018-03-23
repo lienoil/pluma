@@ -1,5 +1,5 @@
 <?php
 
-Broadcast::channel('message-posted', function ($message, $user) {
+Broadcast::channel('message', function ($message, $user) {
     return true; # muna, ha?
 });

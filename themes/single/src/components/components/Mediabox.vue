@@ -68,22 +68,6 @@
             <v-btn icon @click="media.loading = !media.loading"><v-icon>info</v-icon></v-btn>
 
             <v-btn class="hidden-sm-and-down" icon @click="media.box.model = false"><v-icon>close</v-icon></v-btn>
-            <!-- <template slot="extension">
-              <v-spacer></v-spacer>
-              <template v-if="media.toggleview === 'table'">
-                <v-tooltip left>
-                  <v-btn slot="activator" icon @click="media.toggleview = 'grid'"><v-icon>list</v-icon></v-btn>
-                  <span>List view</span>
-                </v-tooltip>
-              </template>
-              <template v-else>
-                <v-tooltip left>
-                  <v-btn slot="activator" icon @click="media.toggleview = 'table'"><v-icon>view_module</v-icon></v-btn>
-                  <span>Grid view</span>
-                </v-tooltip>
-              </template>
-              <v-btn icon @click="media.loading = !media.loading"><v-icon>info</v-icon></v-btn>
-            </template> -->
           </v-toolbar>
 
           <v-divider></v-divider>
@@ -207,15 +191,19 @@
                       xs12 sm6 md4 lg2
                     >
                       <v-card light ripple hover height="100%" @click.native="select(props.item)" class="card-mediabox-container image-transparent">
+                        <v-toolbar dense card>
+                          <v-toolbar-title class="subheading" v-html="props.item[itemText]"></v-toolbar-title>
+                        </v-toolbar>
                         <img :height="height" :src="props.item[itemValue]">
                         <v-spacer></v-spacer>
                         <v-card flat tile light height="100%" :class="{'primary white--text': props.item.selected}">
                           <v-card-actions>
                             <v-tooltip bottom>
-                              <v-btn slot="activator" color="white" icon><v-icon color="red" v-html="props.item[itemIcon]"></v-icon></v-btn>
+                              <v-icon slot="activator" :color="props.item.selected ? 'white' : 'red'" v-html="props.item[itemIcon]"></v-icon>
                               <span v-html="props.item[itemMimetype]"></span>
                             </v-tooltip>
-                            <span class="body-1" v-html="props.item[itemText]"></span>
+                            <v-spacer></v-spacer>
+                            <span class="body-1" v-html="props.item[itemSize]"></span>
                           </v-card-actions>
                         </v-card>
                       </v-card>
@@ -258,6 +246,7 @@ export default {
     itemText: { type: String, default: 'text' },
     itemValue: { type: String, default: 'value' },
     menuItems: { type: Array, default: () => { return [] } },
+    params: { type: Object, default: () => { return {} } },
     multiple: { type: Boolean, default: false },
     noImageText: { type: String, default: 'No image selected' },
     noMediaText: { type: String, default: 'No media found' },
@@ -299,9 +288,7 @@ export default {
       menus: {
         current: { tabmodel: 'Upload' },
         upload: { name: 'Upload', icon: 'cloud_upload', model: false },
-        items: [
-          { id: null, name: 'All Media', icon: 'image', model: true, url: this.url.all }
-        ]
+        items: []
       }
     }
   },
@@ -325,14 +312,14 @@ export default {
   methods: {
     get () {
       const { sortBy, descending, page, rowsPerPage } = this.media.pagination
-      let query = {
+      let query = Object.assign({
         catalogue_id: this.menus.current.catalogue_id,
         descending: descending,
         page: page,
         sort: sortBy,
         take: rowsPerPage,
         search: this.media.search.query
-      }
+      }, this.params)
 
       this.media.loading = true
       this.$http.get(this.media.url, {params: query})

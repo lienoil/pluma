@@ -2,9 +2,12 @@
 
 namespace Course\Support\Traits;
 
+use Course\Mail\CourseRequested;
 use Course\Models\Course;
 use Course\Models\Student;
+use Course\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 trait MyCourseResourceTrait
 {
@@ -66,6 +69,11 @@ trait MyCourseResourceTrait
         # to student
         Mail::to($student->email)
             ->send(new CourseRequested($course, $student));
+
+        # to trainer
+        Mail::to($course->user->email)
+            ->cc(settings('site_email'))
+            ->send(new NewCourseRequest($course, $student));
 
         return back();
     }

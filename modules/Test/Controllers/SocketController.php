@@ -27,10 +27,10 @@ class SocketController extends GeneralController
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function message(Request $request)
     {
         $redis = Redis::connection();
-        $redis->publish('message', $request->input('message'));
+        $redis->publish('message', json_encode($request->all()));
 
         return response()->json(true);
     }

@@ -58,6 +58,7 @@ trait SubmissionMutatorTrait
             $fields[$name]['choices'] = $this->choices($field->value ?? '');
             $fields[$name]['answer'] = $this->getCorrectAnswer($field->value ?? '');
             $fields[$name]['points'] = $field->points;
+            $fields[$name]['respondents'] = $this->getChoicesWithRespondents($field->value ?? '');
             $fields[$name]['isCorrect'] = $this->isCorrect($field->value ?? '', $resulted[$name]);
         }
 
@@ -137,5 +138,25 @@ trait SubmissionMutatorTrait
     public function getScoredAttribute()
     {
         return $this->compute() . "/" . count((array) $this->fields());
+    }
+
+    /**
+     * Gets the total number of respondents.
+     *
+     * @return int
+     */
+    public function getChoicesWithRespondents($string)
+    {
+        $choices = $this->choices($string);
+
+        // dd($this->form->submissions);
+
+        $c = [];
+        foreach ($choices as $i => $choice) {
+            $c[$i]['choice'] = $choice;
+            $c[$i]['respondents'] = 1;
+        }
+
+        return $c;
     }
 }

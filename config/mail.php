@@ -17,7 +17,7 @@ return [
      *
      */
 
-    'driver' => settings('MAIL_DRIVER') ?? env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /**
      *--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ return [
      *
      */
 
-    'host' => settings('MAIL_HOST') ?? env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /**
      *--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
      *
      */
 
-    'port' => settings('MAIL_PORT') ?? env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 587),
 
     /**
      *--------------------------------------------------------------------------
@@ -57,8 +57,8 @@ return [
      */
 
     'from' => [
-        'address' => settings('MAIL_FROM_ADDRESS') ?? env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => settings('MAIL_FROM_NAME') ?? env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /**
@@ -72,7 +72,7 @@ return [
      *
      */
 
-    'encryption' => settings('MAIL_ENCRYPTION') ?? env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
     /**
      *--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
      *
      */
 
-    'username' => settings('MAIL_USERNAME') ?? env('MAIL_USERNAME'),
+    'username' => env('MAIL_USERNAME'),
 
     /**
      *--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ return [
      *
      */
 
-    'password' => settings('MAIL_PASSWORD') ?? env('MAIL_PASSWORD'),
+    'password' => env('MAIL_PASSWORD'),
 
     /**
      *--------------------------------------------------------------------------
@@ -113,4 +113,22 @@ return [
 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
+    /**
+     *--------------------------------------------------------------------------
+     * Markdown Mail Settings
+     *--------------------------------------------------------------------------
+     *
+     * If you are using Markdown based email rendering, you may configure your
+     * theme and component paths here, allowing you to customize the design
+     * of the emails. Or, you may simply stick with the App defaults!
+     *
+     */
+
+    'markdown' => [
+        'theme' => 'default',
+
+        'paths' => [
+            resource_path('views/vendor/mail'),
+        ],
+    ],
 ];

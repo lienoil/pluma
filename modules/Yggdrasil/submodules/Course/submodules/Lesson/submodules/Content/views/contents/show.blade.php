@@ -10,6 +10,9 @@
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
+
+                @include("Theme::partials.banner")
+
                 <v-card class="mb-2 elevation-0">
                     {{-- <v-toolbar card dense class="transparent">
                         <v-toolbar-title class="title">{{ $resource->title }}</v-toolbar-title>
@@ -79,7 +82,13 @@
                                 <v-fade-transition>
                                     <template>
                                         <div>
-                                            {!! $resource->html !!}
+                                            @if ($resource->isForm() && $resource->isFormFinished())
+                                                <v-card flat class="text-xs-center grey lighten-4 pa-4">
+                                                    <v-card-text class="pa-4 grey--text text--darken-1">{{ __('You have finished this form.') }}</v-card-text>
+                                                </v-card>
+                                            @else
+                                                {!! $resource->html !!}
+                                            @endif
                                             <v-dialog v-model="messagebox.model" width="60vw" persistent>
                                                 <v-card flat tile class="text-xs-center">
                                                     <v-icon class="display-4 success--text">check</v-icon>

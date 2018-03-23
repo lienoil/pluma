@@ -69,6 +69,8 @@
                                 <p class="subheading grey--text" @click.stop="content.mediabox = !content.mediabox">{{ __('Interactive Content') }}</p>
                                 <input type="hidden" :name="`lessons[${key}][contents][${c}][interactive]`" :value="JSON.stringify(content.resource.interactive)">
                                 <input type="hidden" :name="`lessons[${key}][contents][${c}][library_id]`" :value="content.resource.interactive && content.resource.interactive.length ? content.resource.interactive[0].id : null">
+                                <input type="hidden" :name="`lessons[${key}][contents][${c}][contentable_id]`" :value="content.resource.interactive && content.resource.interactive.length ? content.resource.interactive[0].id : null">
+                                <input type="hidden" :name="`lessons[${key}][contents][${c}][contentable_type]`" :value="content.resource.interactive && content.resource.interactive.length ? content.resource.interactive[0].contentable_type : null">
                                 <template v-if="!content.resource.interactive.length">
                                     <v-card-text
                                         class="grey lighten-3 text-xs-center grey--text py-5"
@@ -112,18 +114,18 @@
                             <v-card-actions class="grey lighten-4">
                                 <v-spacer></v-spacer>
                                 <v-mediabox
-                                    :categories="mediabox.catalogues"
-                                    :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
-                                    :dropzone-params="{_token: '{{ csrf_token() }}'}"
+                                    :categories="mediabox.media"
+                                    {{-- :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}" --}}
+                                    {{-- :dropzone-params="{_token: '{{ csrf_token() }}'}" --}}
                                     :multiple="false"
                                     :old="content.resource.interactive.length?content.resource.interactive:[]"
                                     auto-remove-files
                                     close-on-click
-                                    dropzone
+                                    {{-- dropzone --}}
                                     v-model="content.mediabox"
                                     @selected="value => { content.resource.interactive = value }"
                                     @category-change="val => resource.feature.current = val"
-                                    @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename; params.extract = true}"
+                                    {{-- @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename; params.extract = true}" --}}
                                 >
                                     <template slot="dropzone">
                                         <span class="caption">{{ __('Uploads will be catalogued as ') }}<em>@{{ resource.feature.current ? resource.feature.current.name : 'Uncategorized' }}</em></span>
@@ -144,7 +146,7 @@
                                                     </v-layout>
                                                 </v-container>
                                             </v-card-media>
-                                            <v-card-title primary-title class="subheading white accent--text" v-html="prop.item.originalname"></v-card-title>
+                                            <v-card-title primary-title class="subheading white accent--text" v-html="prop.item.originalname ? prop.item.originalname : prop.item.name"></v-card-title>
                                             <v-card-actions class="px-2 white accent--text">
                                               <v-icon class="accent--text" v-html="prop.item.icon"></v-icon>
                                               <span v-html="prop.item.mimetype"></span>

@@ -27,10 +27,6 @@
 
             <v-text-field solo v-model="resource.item.title" label="Title" class="mb-3"></v-text-field>
 
-            <!-- Chatbox -->
-            <p>Chatbox sample</p>
-            <chatbox></chatbox>
-
             <!-- Course -->
             <v-card>
               <v-toolbar card class="transparent">
@@ -129,7 +125,7 @@
                             <v-card flat v-show="lesson.contentmodel">
                               <v-card-text class="grey lighten-3 pl-5">
 
-                                <v-card v-if="!lesson.contents.length" flat :ripple="{color: 'light-blue'}" class="transparent" @click.native="$refs[`add-content-button-${i}`].$el.click()">
+                                <v-card v-if="!lesson.contents.length" flat :ripple="{color: 'light-blue'}" role="button" class="transparent" @click.native="$refs[`add-content-button-${i}`].$el.click()">
                                   <v-card-text class="text-xs-center">
                                     <div><v-icon class="display-3" color="light-blue lighten-3">extension</v-icon></div>
                                     <div class="subheading light-blue--text text--lighten-3">Add Content</div>
@@ -187,8 +183,7 @@
                                               v-model="content.media"
                                             >
                                               <template slot="menus" slot-scope="{props}">
-                                                <v-subheader>Catalogue</v-subheader>
-                                                <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
+                                                <v-list-tile v-model="menu.model" :key="key" v-for="(menu, key) in props.menus" @click="props.toggle(menu, menu.url)">
                                                   <v-list-tile-action>
                                                     <v-icon>{{ menu.icon }}</v-icon>
                                                   </v-list-tile-action>
@@ -198,8 +193,7 @@
                                                   <v-list-tile-action>{{ menu.count }}</v-list-tile-action>
                                                 </v-list-tile>
                                               </template>
-
-                                              <template slot="thumbnail-details" slot-scope="{props}">
+                                              <!-- <template slot="thumbnail-details" slot-scope="{props}">
                                                 <v-card flat class="grey--text" v-if="props.item">
                                                   <v-card-title v-html="props.item.name"></v-card-title>
                                                   <v-card-text>
@@ -207,7 +201,7 @@
                                                     <p><v-icon v-html="props.item.icon"></v-icon>&nbsp;<span v-html="props.item.mimetype"></span></p>
                                                   </v-card-text>
                                                 </v-card>
-                                              </template>
+                                              </template> -->
                                             </mediabox>
                                           </v-card>
                                         </v-card-text>

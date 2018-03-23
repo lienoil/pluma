@@ -21,6 +21,10 @@ trait LibraryResourceApiTrait
                         ? $request->get('search')
                         : $request->all();
 
+        if ($request->get('type')) {
+            $resources->type($request->get('type'));
+        }
+
         $library = Library::search($parameters)->first();
 
         return response()->json($library);
@@ -58,6 +62,10 @@ trait LibraryResourceApiTrait
 
         if ($onlyTrashed) {
             $resources->onlyTrashed();
+        }
+
+        if ($request->get('type')) {
+            $resources->type($request->get('type'));
         }
 
         $libraries = $resources->paginate($take);

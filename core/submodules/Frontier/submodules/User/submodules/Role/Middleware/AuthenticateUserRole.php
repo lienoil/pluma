@@ -56,6 +56,7 @@ class AuthenticateUserRole
         $request->route()->setAction($actions + ['auth.roles' => $this->roles()]);
 
         // if menu is always viewable, proceed.
+        // dd($request->route()->getAction());
         if ($this->isAlwaysViewable($request->url())) {
             return $next($request);
         }

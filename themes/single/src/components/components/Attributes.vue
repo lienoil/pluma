@@ -14,7 +14,7 @@
               :selected="data.selected"
               @input="data.parent.selectItem(data.item)"
               class="chip--select-multi"
-              color="accent"
+              color="primary"
               label
             >
               <v-icon left v-if="data.item.icon" v-html="data.item.icon"></v-icon>
@@ -43,7 +43,7 @@
               :selected="data.selected"
               class="chip--select-multi"
               :key="JSON.stringify(data.item)"
-              color="accent"
+              color="primary"
               label
             >
               {{ data.item }}
