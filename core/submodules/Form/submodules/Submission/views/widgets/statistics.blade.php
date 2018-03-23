@@ -25,31 +25,25 @@
                                 </ul>
                            </v-card-text>
                        </template> --}}
-
+                        @foreach ($resource->fields() as $field)
                         <ol>
                             <li>
-                                <h2 class="subheading">{{ __('What is your favorite color?') }}</h2>
+                                <h2 class="subheading">{{ $field->question->label }}</h2>
                                 <p class="pl-3">
-                                    <span>&#8226;</span>
-                                    {{ __('Probably, black') }}
-                                    <v-card-actions>
-                                        <v-progress-linear height="10" value="32" color="red" class="info" color="info"
-                                            background-color="success">
-                                        </v-progress-linear>
-                                        <span class="caption grey--text text--darken-1 pl-3">32</span>
-                                    </v-card-actions>
-                                </p>
-
-                                <p class="pl-3">
-                                    <span>&#8226;</span>
-                                    {{ __('Definitely, black') }}
-                                    <v-card-actions>
-                                        <v-progress-linear height="10" value="60" class="blue blue--text"></v-progress-linear>
-                                        <span class="caption grey--text text--darken-1 pl-3">60</span>
-                                    </v-card-actions>
+                                    <ul>
+                                        @foreach ($field->choices as $choice)
+                                        <li class="page-title body-1">{!! $choice !!}</li>
+                                        <v-card-actions>
+                                            <v-progress-linear height="10" value="32" background-color="success">
+                                            </v-progress-linear>
+                                            <span class="caption grey--text text--darken-1 pl-3">32</span>
+                                        </v-card-actions>
+                                        @endforeach
+                                    </ul>
                                 </p>
                             </li>
                         </ol>
+                        @endforeach
                     </div>
                 </v-flex>
             </v-layout>

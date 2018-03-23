@@ -83,8 +83,4 @@
         <v-spacer></v-spacer>
         <v-btn flat ripple @click.stop="resource.cover.model = !resource.cover.model"><span v-html="resource.item.cover ? '{{ __('Change') }}' : '{{ __('Browse') }}'"></span></v-btn>
     </v-card-actions>
-
-    <v-card-actions>
-        <v-btn v-if="resource.item.cover" flat ripple @click.stop="resource.item.cover">
-    </v-card-actions>
 </v-card>
