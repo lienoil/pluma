@@ -26,7 +26,7 @@
                            </v-card-text>
                        </template> --}}
                         @foreach ($resource->fields() as $field)
-                        <ol>
+                        <ul class="statistics">
                             <li>
                                 <h2 class="subheading">{{ $field->question->label }}</h2>
                                 <p class="pl-3">
@@ -34,15 +34,14 @@
                                         @foreach ($field->choices as $choice)
                                         <li class="page-title body-1">{!! $choice !!}</li>
                                         <v-card-actions>
-                                            <v-progress-linear height="10" value="32" background-color="success">
-                                            </v-progress-linear>
+                                            <v-progress-linear height="15" value="32" color="primary"></v-progress-linear>
                                             <span class="caption grey--text text--darken-1 pl-3">32</span>
                                         </v-card-actions>
                                         @endforeach
                                     </ul>
                                 </p>
                             </li>
-                        </ol>
+                        </ul>
                         @endforeach
                     </div>
                 </v-flex>
@@ -61,6 +60,12 @@
         .chartjs-render-monitor {
             width: 100%;
             max-height: 250px !important;
+        }
+        .statistics .progress-linear .progress-linear__bar {
+            background: #efefef !important;
+        }
+        .statistics .progress-linear .progress-linear__bar__determinate, .progress-linear .progress-linear__bar__indeterminate .long, .progress-linear .progress-linear__bar__indeterminate .short {
+            background: #03a9f4 !important;
         }
     </style>
 @endpush
