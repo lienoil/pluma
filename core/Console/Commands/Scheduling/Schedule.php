@@ -3,6 +3,7 @@
 namespace Pluma\Console\Commands\Scheduling;
 
 use Illuminate\Console\Application;
+use Illuminate\Console\Scheduling\CacheEventMutex;
 use Illuminate\Console\Scheduling\CacheMutex;
 use Illuminate\Console\Scheduling\CallbackEvent;
 use Illuminate\Console\Scheduling\Event;
@@ -37,7 +38,7 @@ class Schedule
 
         $this->mutex = $container->bound(Mutex::class)
                                 ? $container->make(Mutex::class)
-                                : $container->make(CacheMutex::class);
+                                : $container->make(CacheEventMutex::class);
     }
 
     /**

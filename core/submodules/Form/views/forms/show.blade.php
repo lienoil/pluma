@@ -99,7 +99,7 @@
                     resource: {
                        item: {!! json_encode(old() ?? []) !!},
                        errors: {!! json_encode($errors->getMessages()) !!},
-                   },
+                    },
                 };
             },
         });

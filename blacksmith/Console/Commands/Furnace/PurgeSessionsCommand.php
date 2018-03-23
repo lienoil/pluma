@@ -34,9 +34,9 @@ class PurgeSessionsCommand extends Command
         session()->flush();
         session()->regenerate();
 
-        $this->line("Clearing cached views from /storage/compiled/sessions...");
+        $this->line("Clearing cached views from /storage/framework/sessions...");
 
-        $path = storage_path('compiled/sessions');
+        $path = storage_path('framework/sessions');
 
         $restrictedFiles = ['.gitignore', '.gitkeep'];
 

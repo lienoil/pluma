@@ -276,6 +276,7 @@
                     dataset () {
                         return {
                             set (items) {
+                                items = typeof items.data === 'undefined' ? items : items.data
                                 items.map(item => {
                                     item = (typeof item.active == 'undefined') ? Object.assign(item, {active: false}) : item
 
@@ -375,6 +376,7 @@
 
                 return {
                     select (item, selected) {
+                        alert('ad')
                         selected.active = true
                         item = selected
 

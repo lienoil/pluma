@@ -40,7 +40,7 @@ return [
      *
      * This option allows you to easily specify that all of your session data
      * should be encrypted before it is stored. All encryption will be run
-     * automatically by Laravel and you can use the Session like normal.
+     * automatically by Pluma and you can use the Session like normal.
      *
      */
 
@@ -57,7 +57,7 @@ return [
      *
      */
 
-    'files' => storage_path('compiled/sessions'),
+    'files' => storage_path('framework/sessions'),
 
     /**
      *--------------------------------------------------------------------------

@@ -125,7 +125,7 @@
                             <v-card flat v-show="lesson.contentmodel">
                               <v-card-text class="grey lighten-3 pl-5">
 
-                                <v-card v-if="!lesson.contents.length" flat :ripple="{color: 'light-blue'}" class="transparent" @click.native="$refs[`add-content-button-${i}`].$el.click()">
+                                <v-card v-if="!lesson.contents.length" flat :ripple="{color: 'light-blue'}" role="button" class="transparent" @click.native="$refs[`add-content-button-${i}`].$el.click()">
                                   <v-card-text class="text-xs-center">
                                     <div><v-icon class="display-3" color="light-blue lighten-3">extension</v-icon></div>
                                     <div class="subheading light-blue--text text--lighten-3">Add Content</div>
@@ -176,7 +176,6 @@
                                               icon="play_circle_filled"
                                               no-image-text="Add Media"
                                               height="200px"
-                                              hide-actions
                                               hide-toolbar
                                               item-text="name"
                                               item-value="thumbnail"
@@ -184,8 +183,7 @@
                                               v-model="content.media"
                                             >
                                               <template slot="menus" slot-scope="{props}">
-                                                <v-subheader>Catalogue</v-subheader>
-                                                <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
+                                                <v-list-tile v-model="menu.model" :key="key" v-for="(menu, key) in props.menus" @click="props.toggle(menu, menu.url)">
                                                   <v-list-tile-action>
                                                     <v-icon>{{ menu.icon }}</v-icon>
                                                   </v-list-tile-action>
@@ -195,6 +193,15 @@
                                                   <v-list-tile-action>{{ menu.count }}</v-list-tile-action>
                                                 </v-list-tile>
                                               </template>
+                                              <!-- <template slot="thumbnail-details" slot-scope="{props}">
+                                                <v-card flat class="grey--text" v-if="props.item">
+                                                  <v-card-title v-html="props.item.name"></v-card-title>
+                                                  <v-card-text>
+                                                    <p><span v-html="props.item.description"></span></p>
+                                                    <p><v-icon v-html="props.item.icon"></v-icon>&nbsp;<span v-html="props.item.mimetype"></span></p>
+                                                  </v-card-text>
+                                                </v-card>
+                                              </template> -->
                                             </mediabox>
                                           </v-card>
                                         </v-card-text>
@@ -237,10 +244,11 @@ import AlertIcon from '@/components/partials/AlertIcon.vue'
 import Draggable from 'vuedraggable'
 import Editor from '@/components/components/Editor.vue'
 import Mediabox from '@/components/components/Mediabox.vue'
+import Chatbox from '@/components/Chat/Chatbox.vue'
 
 export default {
   name: 'Edit',
-  components: { AlertIcon, Draggable, Editor, Mediabox },
+  components: { AlertIcon, Draggable, Editor, Mediabox, Chatbox },
   data () {
     return {
       resource: {
@@ -273,7 +281,6 @@ export default {
       this.$http.get('/api/v1/pages/find', {params: query})
         .then(response => {
           this.resource.item = response.data
-          // console.log(response)
         })
     },
     toggle (array, key) {

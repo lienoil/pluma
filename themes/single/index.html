@@ -12,7 +12,7 @@
     <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>static/manifest.json">
     <meta name="theme-color" content="#4DBA87">
 
-    <meta name="csrf-token" content="VmU4DeJY13U0OQLouteSfLLiZFX1W0lWbf7befxP">
+    <meta name="csrf-token" content="tU9D0oadtQGzQ8Ds3vqnTpxsEugKe5S6fklOAtLX">
 
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,6 +56,9 @@
         <v-content>
           <breadcrumbs></breadcrumbs>
           <!-- <v-btn @click="navigate('components/Pluma/Page/Create')">Component</v-btn> -->
+          <v-card>
+            <chatbox></chatbox>
+          </v-card>
           <v-slide-x-transition mode="out-in">
             <!-- <component :is="pageview.current"></component> -->
             <router-view></router-view>

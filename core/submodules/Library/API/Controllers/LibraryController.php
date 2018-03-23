@@ -218,7 +218,6 @@ class LibraryController extends APIController
         }
     }
 
-
     /**
      * Get all catalogues.
      *
@@ -247,11 +246,11 @@ class LibraryController extends APIController
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
-        $resources = $resources->search($search)->orderBy($sort, $order);
+        $resources = $resources->orderBy($sort, $order);
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $take ? $resources->paginate($take) : $resources->get();
+        $resources = $take > 0 ? $resources->paginate($take) : $resources->paginate();
 
         return response()->json($resources);
     }

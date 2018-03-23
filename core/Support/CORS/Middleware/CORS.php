@@ -47,6 +47,12 @@ class CORS
      */
     public function handle($request, Closure $next)
     {
+        // return $next($request);
+            // For security, you should probably specify a URL:
+            // e.g. ->header('Access-Control-Allow-Origin', 'http://localhost:8080')
+            // ->header('Access-Control-Allow-Origin', '*')
+            // ->header('Access-Control-Allow-Headers', 'X-PINGOTHER, Content-Type, Authorization, Content-Length, X-Requested-With')
+            // ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
         if (! $this->cors->isCorsRequest($request)) {
             return $next($request);
         }
@@ -55,9 +61,9 @@ class CORS
             return $this->cors->handlePreflightRequest($request);
         }
 
-        if (! $this->cors->isActualRequestAllowed($request)) {
-            return new AppResponse('Not allowed in CORS policy.', 403);
-        }
+        // if (! $this->cors->isActualRequestAllowed($request)) {
+        //     return new AppResponse('Not allowed in CORS policy.', 403);
+        // }
 
         // Add the headers on the Request Handled event as fallback in case of exceptions
         if (class_exists(RequestHandled::class)) {

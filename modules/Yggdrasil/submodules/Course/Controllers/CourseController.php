@@ -77,10 +77,16 @@ class CourseController extends GeneralController
     public function create()
     {
         $catalogues = Catalogue::mediabox();
+        $media = Catalogue::mediabox([[
+            'count' => Form::type('courses')->count(),
+            'name' => 'Forms',
+            'icon' => 'perm_media',
+            'url' => route('api.forms.media', ['type' => 'courses'])
+        ]]);
         $categories = Category::all();
         $surveys = Form::type('courses')->get();
 
-        return view("Theme::courses.create")->with(compact('catalogues', 'categories', 'surveys'));
+        return view("Theme::courses.create")->with(compact('catalogues', 'categories', 'media', 'surveys'));
     }
 
     /**
@@ -104,7 +110,9 @@ class CourseController extends GeneralController
         $course->user()->associate(user());
         $course->save();
 
-        $course->forms()->save(Form::find($request->input('survey_id')));
+        if ($request->input('survey_id')) {
+            $course->forms()->save(Form::find($request->input('survey_id')));
+        }
 
         // Lessons
         collect(json_decode(json_encode($request['lessons'])))->each(function ($input, $key) use ($course) {
@@ -133,6 +141,8 @@ class CourseController extends GeneralController
                     // $content->lockable = isset($input->lockable) ? $input->lockable : false;
                     $content->lesson()->associate($lesson);
                     $content->library()->associate(Library::find($input->library_id));
+                    $content->contentable_id = $input->contentable_id;
+                    $content->contentable_type = $input->contentable_type;
                     $content->save();
                 }
             }
@@ -160,8 +170,14 @@ class CourseController extends GeneralController
         $catalogues = Catalogue::mediabox();
         $categories = Category::all();
         $surveys = Form::type('courses')->get();
+        $media = Catalogue::mediabox([[
+            'count' => Form::type('courses')->count(),
+            'name' => 'Forms',
+            'icon' => 'perm_media',
+            'url' => route('api.forms.media', ['type' => 'courses'])
+        ]]);
 
-        return view("Theme::courses.edit")->with(compact('resource', 'catalogues', 'categories', 'surveys'));
+        return view("Theme::courses.edit")->with(compact('resource', 'catalogues', 'categories', 'surveys', 'media'));
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 /**
  *------------------------------------------------------------------------------
  * Public Route
@@ -24,3 +23,15 @@ Route::get('courses/enrolled', '\Course\Controllers\EnrollController@index')->na
 // Public Courses
 Route::get('courses/{course}', 'CourseController@single')->name('courses.single');
 Route::get('courses', 'CourseController@all')->name('courses.all');
+
+Route::get('tes/test', function () {
+    $course = \Course\Models\Course::findOrFail(1);
+    $student = \Course\Models\User::find(1);
+
+    // test, render at browser
+    return new \Course\Mail\CourseRequested($course, $student);
+
+    // Send
+    return \Illuminate\Support\Facades\Mail::to($student->email)
+                ->send(new \Course\Mail\CourseRequested($course, $student));
+});

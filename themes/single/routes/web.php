@@ -25,9 +25,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
     Route::get('misc/routes', function () {
         $routes = Route::getRoutes();
         foreach ($routes as $route) {
-            // if ($route->getAction('as') == 'pages.trashed') {
-            //     dd($route->getAction());
-            // }
             $data[] = [
                 "title" => '',
                 "uri" => "/{$route->uri()}",
@@ -51,3 +48,9 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
 Route::post('admin/sessions', function () {
     return session()->all();
 })->middleware('auth.admin')->name('sessions.all');
+
+Route::middleware(['auth.admin', 'api', 'cors'])->group(function () {
+    Route::get('chatroom/public/messages', function () {
+        return response()->json(['message' => 'Hello', 'user_id' => 1]);
+    });
+});

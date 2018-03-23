@@ -4,12 +4,15 @@ import '@/assets/stylus/main.styl'
 import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
+import ImageOverlay from '@/components/components/ImageOverlay.vue'
+import Chatbox from '@/components/Chat/Chatbox.vue'
 import filters from './filters'
 import router from './router'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { settings } from './mixins/settings'
+import _ from 'lodash'
 
 Vue.use(filters)
 Vue.use(VeeValidate)
@@ -31,6 +34,8 @@ axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-Token']
+// Lodash
+Object.defineProperty(Vue.prototype, '_', { value: _ })
 
 // Mixins
 Vue.mixin(settings)
@@ -40,7 +45,7 @@ new Vue({
   el: '#app',
   router,
   components: {
-    Breadcrumbs, AlertIcon
+    Breadcrumbs, AlertIcon, ImageOverlay, Chatbox
   },
   http: {
     headers: {

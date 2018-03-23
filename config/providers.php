@@ -13,31 +13,40 @@ return [
         // Vendor
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Encryption\EncryptionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
+        // Illuminate\Log\LogServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
 
         // View First
         Pluma\Providers\ViewServiceProvider::class,
+
         // Application
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
+        Pluma\Providers\FilesystemServiceProvider::class,
         Pluma\Providers\EncryptionServiceProvider::class,
         Pluma\Providers\EventServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\FormRequestServiceProvider::class,
         Pluma\Providers\CorsServiceProvider::class,
+
+        // Support
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
+        Pluma\Support\Broadcast\BroadcastServiceProvider::class,
 
         // Console
         Blacksmith\Providers\ConsoleSupportServiceProvider::class,
@@ -56,6 +65,7 @@ return [
         // Pluma
         'Console' => Pluma\Support\Facades\Console::class,
         'Route' => Pluma\Support\Facades\Route::class,
+        // 'Route' => Illuminate\Support\Facades\Route::class,
 
         // Illuminate
         'App' => Illuminate\Support\Facades\App::class,
@@ -63,6 +73,7 @@ return [
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blacksmith' => Blacksmith\Support\Facades\Blacksmith::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
+        'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,

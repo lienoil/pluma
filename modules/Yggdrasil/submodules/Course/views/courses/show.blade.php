@@ -170,14 +170,14 @@
                                     @if ($lesson->contents->count())
                                         @if ($resource->enrolled)
                                         <v-btn
-                                            href={{ route('contents.single', [$lesson->course->slug, $lesson->id, $lesson->contents()->orderBy('sort')->first()->id]) }}
+                                            href={{ route('contents.show', [$lesson->course->slug, $lesson->id, $lesson->contents()->orderBy('sort')->first()->id]) }}
                                             outline
                                             class="success success--text">
                                             {{ __('Start') }}
                                         </v-btn>
                                         @else
                                         <v-btn
-                                            href={{ route('contents.single', [$lesson->course->slug, $lesson->id, $lesson->contents()->orderBy('sort')->first()->id]) }}
+                                            href={{ route('contents.show', [$lesson->course->slug, $lesson->id, $lesson->contents()->orderBy('sort')->first()->id]) }}
                                             outline
                                             class="success success--text">
                                             {{ __('View') }}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Pluma - A Web CMS
  *

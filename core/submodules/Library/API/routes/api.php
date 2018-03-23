@@ -12,7 +12,8 @@ Route::post('library/{library}/clone', '\Library\API\Controllers\LibraryControll
 Route::post('library/upload', '\Library\API\Controllers\LibraryController@upload')->name('library.upload');
 Route::post('library/{library}/restore', '\Library\API\Controllers\LibraryController@restore')->name('library.restore');
 
+Route::get('library/all', '\Library\API\Controllers\LibraryController@all')->name('library.all');
+Route::get('library/search', '\Library\API\Controllers\LibraryController@search')->name('library.search');
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('library/all', '\Library\API\Controllers\LibraryController@all')->name('library.all');
-    Route::get('library/search', '\Library\API\Controllers\LibraryController@search')->name('library.search');
+    //
 });

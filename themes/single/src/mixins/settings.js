@@ -29,7 +29,9 @@ export const settings = {
         clipped: this.localstorage('single.sidebar.clipped') === 'true',
         floating: this.localstorage('single.sidebar.floating') === 'true',
         mini: this.localstorage('single.sidebar.mini') === 'true',
-        model: true
+        model: true,
+        withBackground: false,
+        style: { background: 'none' }
       },
 
       /**

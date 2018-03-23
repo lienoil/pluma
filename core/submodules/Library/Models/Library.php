@@ -34,6 +34,7 @@ class Library extends Model
         'originalname',
         'size',
         'thumbnail',
+        'type',
         'updated_at',
         'url',
     ];

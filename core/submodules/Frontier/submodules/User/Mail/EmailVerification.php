@@ -3,9 +3,10 @@
 namespace User\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use User\Models\User;
 
 class EmailVerification extends Mailable
 {
@@ -25,7 +26,7 @@ class EmailVerification extends Mailable
      * @param  string $token
      * @return void
      */
-    public function __construct($user, $token)
+    public function __construct(User $user, $token)
     {
         $this->user = $user;
 

@@ -1,17 +1,21 @@
 <v-navigation-drawer
+  :clipped="sidebar.clipped"
   :dark.sync="theme.dark"
   :floating="sidebar.floating"
   :light.sync="!theme.dark"
   :mini-variant.sync="sidebar.mini"
-  :clipped="sidebar.clipped"
   app
+  class="sidebar"
   v-model="sidebar.model"
   @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)">
+
+  <image-overlay v-model="sidebar.withBackground" :src="sidebar.style.background"></image-overlay>
+
   <v-toolbar flat class="transparent">
     <v-list>
       <v-list-tile avatar>
         <v-list-tile-avatar>
-          <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}">
+          <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}" width="40px">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title><strong>{{ $application->site->title }}</strong></v-list-tile-title>
@@ -43,7 +47,7 @@
             <img :src="menu.labels.avatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title v-html="menu.labels.name"></v-list-tile-title>
+            <v-list-tile-title v-html="menu.labels.name" class="user--displayname"></v-list-tile-title>
             <v-list-tile-sub-title class="caption">
               <v-icon :dark.sync="theme.dark" :light.sync="!theme.dark">supervisor_account</v-icon>
               <span v-html="menu.labels.role"></span>

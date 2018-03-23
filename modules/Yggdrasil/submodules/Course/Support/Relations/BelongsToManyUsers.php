@@ -15,6 +15,6 @@ trait BelongsToManyUsers
     public function users()
     {
         return $this->belongsToMany(User::class)
-                    ->withPivot('dropped_at', 'enrolled_at');
+                    ->withPivot('dropped_at', 'status', 'enrolled_at');
     }
 }

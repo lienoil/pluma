@@ -1110,7 +1110,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
     public function registerCoreContainerAliases()
     {
         $aliases = [
-            'app'                  => ['Pluma\Application\Application', 'Illuminate\Contracts\Container\Container', 'Illuminate\Contracts\Foundation\Application'],
+            'app'                  => [\Pluma\Application\Application::class, \Illuminate\Contracts\Container\Container::class, \Illuminate\Contracts\Foundation\Application::class],
             'auth'                 => ['Illuminate\Auth\AuthManager', 'Illuminate\Contracts\Auth\Factory'],
             'auth.driver'          => ['Illuminate\Contracts\Auth\Guard'],
             'blade.compiler'       => ['Illuminate\View\Compilers\BladeCompiler'],
@@ -1127,7 +1127,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
             'filesystem.disk'      => ['Illuminate\Contracts\Filesystem\Filesystem'],
             'filesystem.cloud'     => ['Illuminate\Contracts\Filesystem\Cloud'],
             'hash'                 => ['Illuminate\Contracts\Hashing\Hasher'],
-            'translator'           => ['Illuminate\Translation\Translator', 'Symfony\Component\Translation\TranslatorInterface'],
+            'translator'           => ['Illuminate\Translation\Translator', 'Illuminate\Contracts\Translation\Translator'],
             'log'                  => ['Illuminate\Log\Writer', 'Illuminate\Contracts\Logging\Log', 'Psr\Log\LoggerInterface'],
             'mailer'               => ['Illuminate\Mail\Mailer', 'Illuminate\Contracts\Mail\Mailer', 'Illuminate\Contracts\Mail\MailQueue'],
             'auth.password'        => ['Illuminate\Auth\Passwords\PasswordBrokerManager', 'Illuminate\Contracts\Auth\PasswordBrokerFactory'],

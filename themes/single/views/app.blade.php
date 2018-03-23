@@ -10,9 +10,11 @@
 
         @stack("before-inner-content")
 
-        <v-slide-x-reverse-transition mode="out-in">
-          <router-view :class="`font-size-${settings.fontsize}`"></router-view>
-        </v-slide-x-reverse-transition>
+        @section("main")
+          <v-slide-x-reverse-transition mode="out-in">
+            <router-view :class="`font-size-${settings.fontsize}`"></router-view>
+          </v-slide-x-reverse-transition>
+        @show
 
         @stack("after-inner-content")
 

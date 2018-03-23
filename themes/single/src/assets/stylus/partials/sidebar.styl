@@ -1,0 +1,39 @@
+@import '../theme'
+@import '~vuetify/src/stylus/settings/_theme'
+
+.sidebar {
+  &-background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center left;
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background: none;
+      box-sizing: border-box;
+    }
+
+    &.theme--light {
+      &::before {
+        background-color: linear-gradient(alpha($material-light.cards, 0.85), alpha($material-light.cards, 0.85));
+      }
+    }
+
+    &.theme--dark {
+      &::before {
+        background-color: linear-gradient(alpha($material-light.cards, 0.65), alpha($material-light.cards, 0.85));
+      }
+    }
+
+    .list {
+      background: none;
+    }
+  }
+}

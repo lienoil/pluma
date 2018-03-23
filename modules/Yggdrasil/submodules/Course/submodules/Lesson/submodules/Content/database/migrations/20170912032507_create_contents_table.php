@@ -34,6 +34,8 @@ class CreateContentsTable extends Migration
             $table->text('delta')->nullable();
             $table->string('icon')->nullable();
             $table->integer('library_id')->unsigned()->nullable();
+            $table->integer('contentable_id')->unsigned()->nullable();
+            $table->string('contentable_type')->nullable();
             $table->timestamps();
 
             $table->foreign('lesson_id')->references('id')->on('lessons')->onUpdate('cascade')->onDelete('cascade');

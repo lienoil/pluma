@@ -73,7 +73,7 @@
               <template slot="items" slot-scope="props">
                 <tr :active="props.selected" @click="(dataset.bulk.model ? props.selected = ! props.selected : null)">
                   <td v-if="dataset.bulk.model"><v-checkbox hide-details :input-value="props.selected"></v-checkbox></td>
-                  <td class="text-xs-center"><v-avatar color="grey lighten-1" size="35px"><img v-if="props.item.feature" :src="props.item.feature"></v-avatar></td>
+                  <td class="text-xs-center"><v-avatar color="transparent" size="35px"><img v-if="props.item.feature" :src="props.item.feature"></v-avatar></td>
                   <td><router-link exact :to="{name: 'pages.edit', params: {page: props.item.id}}"><strong v-html="props.item.title"></strong></router-link></td>
                   <td>
                     <v-avatar size="25px"><img :src="props.item.authoravatar"></v-avatar>
@@ -260,37 +260,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  /*TODO: add to global css*/
-  .font-size-5 {
-    zoom: 1.5;
-    -moz-transform: scale(1.5);
-    -moz-transform-origin: 0 0;
-  }
-  .font-size-4 {
-    zoom: 1.4;
-    -moz-transform: scale(1.4);
-    -moz-transform-origin: 0 0;
-  }
-  .font-size-3 {
-    zoom: 1.3;
-    -moz-transform: scale(1.3);
-    -moz-transform-origin: 0 0;
-  }
-  .font-size-2 {
-    zoom: 1.2;
-    -moz-transform: scale(1.2);
-    -moz-transform-origin: 0 0;
-  }
-  .font-size-1 {
-    zoom: 1;
-    -moz-transform: scale(1.1);
-    -moz-transform-origin: 0 0;
-  }
-  .font-size--1 {
-    zoom: 0.9;
-    -moz-transform: scale(0.9);
-    -moz-transform-origin: 0 0;
-  }
-</style>

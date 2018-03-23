@@ -12,6 +12,7 @@ use Course\Support\Scopes\EnrolledToACourse;
 use Course\Support\Scopes\OnlyBookmarkedByScope;
 use Course\Support\Traits\CourseCommitTrait;
 use Course\Support\Traits\EnrolledUserMutator;
+use Form\Support\Relations\BelongsToManyForms;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Lesson\Support\Traits\HasManyContentsThroughLesson;
 use Lesson\Support\Traits\HasManyLessons;
@@ -28,6 +29,7 @@ class Course extends Model
         CourseMutator,
         EnrolledToACourse,
         EnrolledUserMutator,
+        BelongsToManyForms,
         HasManyContentsThroughLesson,
         HasManyLessons,
         MorphManyComments,

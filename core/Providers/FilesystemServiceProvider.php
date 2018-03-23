@@ -4,7 +4,7 @@ namespace Pluma\Providers;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemManager;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Filesystem\FilesystemServiceProvider as ServiceProvider;
 
 class FilesystemServiceProvider extends ServiceProvider
 {
