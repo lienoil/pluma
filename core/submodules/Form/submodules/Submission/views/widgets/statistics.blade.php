@@ -25,6 +25,10 @@
                                 </ul>
                            </v-card-text>
                        </template>
+
+                       <v-progress>
+
+                       </v-progress>
                     </div>
                 </v-flex>
             </v-layout>
