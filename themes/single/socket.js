@@ -6,24 +6,23 @@ var redis = require('redis');
 server.listen(3000);
 
 io.on('connection', function (socket) {
-  console.log("client connected");
+  console.log("New client connected");
   var redisClient = redis.createClient();
-  redisClient.subscribe('message');
 
+  redisClient.subscribe('message');
   redisClient.on("message", function(channel, data) {
-    console.log("mew message add in queue "+ data['message'] + " channel");
+    let message = data
+    console.log("New message added in queue in "+ channel + " channel", message);
     socket.emit(channel, data);
   });
 
   redisClient.subscribe('presence-message');
-
   redisClient.on("presence-message", function(channel, data) {
-    console.log("presence-message, mew message add in queue "+ data['message'] + " channel");
+    console.log("Channel `presence-message` has new message in queue in: "+ channel + " channel", data.message);
     socket.emit(channel, data);
   });
 
   socket.on('disconnect', function() {
     redisClient.quit();
   });
-
 });

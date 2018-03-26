@@ -136,4 +136,15 @@ class PageController extends GeneralController
 
         return back();
     }
+
+    public function migrate()
+    {
+        $statement = "LOAD DATA INFILE '".base_path('data.csv')."' INTO TABLE `users`
+            FIELDS TERMINATED BY ',' ENCLOSED BY '\"'
+            LINES TERMINATED BY '\r\n'
+            IGNORE 1 LINES;";
+
+        $pdo = \Illuminate\Support\Facades\DB::connection()->getPdo();
+        $pdo->exec($statement);
+    }
 }
