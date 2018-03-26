@@ -32,11 +32,11 @@
                                 <h2 class="subheading">{{ $field->question->label }}</h2>
                                 <p class="pl-3">
                                     <ul>
-                                        @foreach ($field->choices as $choice)
+                                        @foreach ($field->respondents as $choice => $response)
                                         <li class="page-title body-1">{!! $choice !!}</li>
                                         <v-card-actions>
-                                            <v-progress-linear height="13" value="32" color="primary"></v-progress-linear>
-                                            <span class="caption grey--text text--darken-1 pl-3 page-title">32</span>
+                                            <v-progress-linear height="13" value="{{ $response->percentage }}" color="primary"></v-progress-linear>
+                                            <span class="caption grey--text text--darken-1 pl-3 page-title">{{ $response->percentage }}%</span>
                                         </v-card-actions>
                                         @endforeach
                                     </ul>
