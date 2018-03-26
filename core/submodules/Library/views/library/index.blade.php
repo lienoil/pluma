@@ -195,7 +195,7 @@
                         </tr>
                     </template>
                     <template slot="card" scope="{prop}">
-                        <v-card-media height="250px" :src="prop.item.thumbnail" class="grey lighten-4">
+                        <v-card-media height="200px" :src="prop.item.thumbnail" class="grey lighten-4">
                             <v-container fill-height class="pa-0 white--text">
                                 <v-layout fill-height wrap column>
                                     <div class="text-xs-right pa-2">

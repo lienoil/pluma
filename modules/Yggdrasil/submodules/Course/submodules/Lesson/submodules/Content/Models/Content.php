@@ -23,7 +23,7 @@ class Content extends Model
         MorphToContentable,
         MorphManyComments;
 
-    protected $with = ['library', 'lesson'];
+    protected $with = ['library'];
 
     protected $appends = [
         'active',

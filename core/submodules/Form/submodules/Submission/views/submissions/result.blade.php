@@ -49,7 +49,7 @@
                                         <v-icon>schedule</v-icon>
                                         <span>{{ $resource->created }}</span>
                                     </v-card-actions>
-                                    <p class="my-3 body-2"><v-icon left>fa-edit</v-icon> {{ __('Scored: ') }} {{ $resource->scored }}</p>
+                                    <p class="my-3 body-2"><v-icon left class="title">fa-edit</v-icon> {{ __('Scored: ') }} {{ $resource->scored }}</p>
                                 </v-card-text>
 
                                 {{-- questions --}}
@@ -57,7 +57,7 @@
                                     @foreach ($resource->fields() as $field)
                                         <div class="fw-500"><v-icon class="mr-2 pb-1" style="font-size: 10px;">lens</v-icon> {{ $field->question->label }}</div>
                                         <div class="pt-3 pl-4 submission">
-                                            <span class="ans warning--text">{{ __('Answered: ') }}</span>
+                                            <span class="ans grey--text">{{ __('Answered: ') }}</span>
                                             <span class="text grey--text text--darken-2">{{ $field->guess }}</div></span>
                                         @isset ($field->answer)
                                             <div class="py-3 pl-4 submission">

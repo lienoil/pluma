@@ -29,7 +29,7 @@
         </template>
         <template slot="media" scope="props">
             <v-card transition="scale-transition" class="accent" :class="props.item.active?'elevation-10':'elevation-1'">
-                <v-card-media height="380px" :src="props.item.thumbnail">
+                <v-card-media height="150px" :src="props.item.thumbnail">
                     <v-container fill-height class="pa-0 white--text">
                         <v-layout fill-height wrap column>
                             <v-spacer></v-spacer>

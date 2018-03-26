@@ -45,6 +45,8 @@ class FieldController extends GeneralController
     {
         $resource = Field::findOrFail($id);
 
+        $resource = Field($id);
+
         return view("Field::fields.show")->with(compact('resource'));
     }
 

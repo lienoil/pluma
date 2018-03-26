@@ -7,7 +7,7 @@
         hide-overlay
     >
         <v-card flat tile class="grey lighten-4">
-            <v-navigation-drawer v-if="drawer" v-model="drawernav.model" absolute persistent overflow class="grey lighten-3">
+            <!-- <v-navigation-drawer v-if="drawer" v-model="drawernav.model" absolute persistent overflow class="grey lighten-3">
                 <v-toolbar class="accent lighten-3 white--text">
                     <v-icon dark v-if="toolbarIcon" left v-html="toolbarIcon"></v-icon>
                     <v-toolbar-title class="subheading" v-if="toolbarLabel" v-html="toolbarLabel"></v-toolbar-title>
@@ -27,8 +27,9 @@
                         </v-list-tile-action>
                     </v-list-tile>
                 </v-list>
-            </v-navigation-drawer>
-            <v-toolbar class="accent white--text">
+            </v-navigation-drawer> -->
+
+            <v-toolbar class="accent--text">
                 <v-toolbar-side-icon dark class="grey--text" @click="drawernav.model = !drawernav.model"></v-toolbar-side-icon>
                 <v-menu transition="slide-y-transition" v-if="!drawernav.model">
                     <v-btn flat slot="activator" class="white--text">

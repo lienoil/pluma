@@ -49,19 +49,15 @@
                                     :error-messages="resource.errors[`lessons.${key}.contents.${c}.title`]"
                                     v-model="content.resource.title"
                                 ></v-text-field>
-
-                                <v-text-field label="{{ __('Content Description') }}" v-model="content.resource.quill.html" textarea></v-text-field>
-                                <input type="hidden" :name="`lessons[${key}][contents][${c}][body]`" :value="content.resource.quill.html">
-                                <input type="hidden" :name="`lessons[${key}][contents][${c}][delta]`" value="">
                             </v-card-text>
 
                             {{-- Quill --}}
-                            {{-- <v-quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" class="mb-3 white" :options="{placeholder: '{{ __('Describe this content...') }}'}">
+                            <v-quill :id="`lessons-${key}-contents-${c}-editor`" v-model="content.resource.quill" class="mb-3 white" :options="{placeholder: '{{ __('Describe this content...') }}'}">
                                 <template>
                                     <input type="hidden" :name="`lessons[${key}][contents][${c}][body]`" :value="content.resource.quill.html">
                                     <input type="hidden" :name="`lessons[${key}][contents][${c}][delta]`" :value="JSON.stringify(content.resource.quill.delta)">
                                 </template>
-                            </v-quill> --}}
+                            </v-quill>
                             {{-- /Quill --}}
 
                             {{-- Interactive Content --}}
@@ -118,11 +114,13 @@
                                     {{-- :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}" --}}
                                     {{-- :dropzone-params="{_token: '{{ csrf_token() }}'}" --}}
                                     :multiple="false"
+                                    close-on-click
+                                    v-model="content.mediabox"
+                                    dropzone
                                     :old="content.resource.interactive.length?content.resource.interactive:[]"
                                     auto-remove-files
-                                    close-on-click
-                                    {{-- dropzone --}}
-                                    v-model="content.mediabox"
+                                    :dropzone-options="{url:'{{ route('api.library.upload') }}', autoProcessQueue: true}"
+                                    :dropzone-params="{_token: '{{ csrf_token() }}'}"
                                     @selected="value => { content.resource.interactive = value }"
                                     @category-change="val => resource.feature.current = val"
                                     {{-- @sending="({file, params}) => { params.catalogue_id = resource.feature.current.id; params.originalname = file.upload.filename; params.extract = true}" --}}
