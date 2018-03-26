@@ -32,7 +32,8 @@ import Echo from 'laravel-echo'
 window.io = require('socket.io-client')
 window.Echo = new Echo({
   broadcaster: 'socket.io',
-  host: 'http://localhost:3000'
+  host: 'http://localhost:3000',
+  namespace: ''
   // host: window.location.hostname + ':3000'
 })
 
@@ -71,12 +72,10 @@ export default {
     }
   },
   mounted () {
-    window.Echo.join('message')
+    window.Echo.channel('message')
       .listen('.Test.Events.MessagePosted', (e) => {
         console.log(e)
       })
-
-    console.log('mounted')
   },
   mountedXX () {
     // let self = this

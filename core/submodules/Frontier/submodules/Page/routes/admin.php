@@ -17,7 +17,7 @@ Route::resource('pages/categories', 'CategoryController', [
 
 // SoftDelete routes
 Route::softDeletes('pages', 'PageController');
-Route::get('migrate', 'PageController@migrate');
+
 // Admin routes
 // Route::get('pages', ['component' => 'components/Pluma/Page/Index.vue', 'uses' => 'PageController@index'])->name('pages.index');
 // Route::get('pages/create', ['component' => 'components/Pluma/Page/Create.vue', 'uses' => 'PageController@create'])->name('pages.create');
