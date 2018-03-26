@@ -55,10 +55,10 @@ trait SubmissionMutatorTrait
         foreach (collect($this->resulted)->except(['type']) as $name => $resulted) {
             $fields[$name]['question'] = $field = Field::find($resulted['field_id']);
             $fields[$name]['guess'] = $resulted[$name] ?? null;
-            $fields[$name]['choices'] = $this->choices($field->value ?? '');
+            $fields[$name]['choices'] = $choices = $this->choices($field->value ?? '');
             $fields[$name]['answer'] = $this->getCorrectAnswer($field->value ?? '');
             $fields[$name]['points'] = $field->points;
-            $fields[$name]['respondents'] = $this->getChoicesWithRespondents($field->value ?? '');
+            $fields[$name]['respondents'] = $this->getChoicesWithRespondents($choices, $field);
             $fields[$name]['isCorrect'] = $this->isCorrect($field->value ?? '', $resulted[$name]);
         }
 
@@ -143,20 +143,37 @@ trait SubmissionMutatorTrait
     /**
      * Gets the total number of respondents.
      *
+     * @param  string $choices
      * @return int
      */
-    public function getChoicesWithRespondents($string)
+    public function getChoicesWithRespondents($choices, $field)
     {
-        $choices = $this->choices($string);
-
-        // dd($this->form->submissions);
-
+        $choices = $this->choices($field->value);
         $c = [];
-        foreach ($choices as $i => $choice) {
-            $c[$i]['choice'] = $choice;
-            $c[$i]['respondents'] = 1;
+        foreach ($choices as $answer) {
+            $result = array_count_values($this->getRespondentsWhoAnswered($answer, $field->name));
+            $c[$answer]['count'] = array_shift($result);
+            $c[$answer]['percentage'] = $this->getPercentageCount($c[$answer]['count'], $this->form->submissions->count());
         }
 
-        return $c;
+        return collect($c)->sortBy('percentage', 0, true);
+    }
+
+    public function getRespondentsWhoAnswered($answer, $name)
+    {
+        $submissions = $this->form->submissions;
+        $sub = [];
+        foreach ($submissions as $i => $submission) {
+            if($answer == $submission->resulted[$name][$name]) {
+                $sub[] = $submission->resulted[$name][$name];
+            }
+        }
+
+        return $sub;
+    }
+
+    public function getPercentageCount($x, $total)
+    {
+        return ($x / $total) * 100;
     }
 }

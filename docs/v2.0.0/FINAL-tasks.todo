@@ -1,11 +1,12 @@
 v2.0.1:
 
 Issues:
-  ✔ @high Packages @done (18-03-19 11:35)
-  ✔ @high Form Builder (Locking from courses) @done (18-03-22 16:58)
-  ☐ @low Form builder (chartjs)
-  ☐ @high Mediabox
-  ☐ @low Email (sending, notification)
+  ✔ @high Packages @done
+  ✔ @high Form Builder (Locking from courses) @done
+  ✔ @high Mediabox @done
+  ✔ @low Email (sending, notification) @done
+  ☐ Form builder (chartjs)
+    - display statistics of submission results
 
 Oreo:
   ✔ Create account for SG employees (based on email attached) @done (18-03-22 15:26) @done (18-03-22 16:58)
