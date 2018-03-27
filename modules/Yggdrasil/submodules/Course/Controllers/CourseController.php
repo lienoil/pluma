@@ -233,6 +233,8 @@ class CourseController extends GeneralController
                     // $content->lockable = isset($input->lockable) ? $input->lockable : false;
                     $content->lesson()->associate($lesson);
                     $content->library()->associate(Library::find($input->library_id));
+                    $content->contentable_id = $input->contentable_id;
+                    $content->contentable_type = $input->contentable_type;
                     $content->save();
                 }
             }
