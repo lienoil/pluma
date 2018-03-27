@@ -19,31 +19,6 @@
     </v-card-media>
     {{-- <v-divider></v-divider> --}}
 
-    {{-- s --}}
-    <v-card-text class="pa-0">
-        <v-list subheader style="height: 500px; min-height: scroll;">
-            <v-subheader class="mt-2 ml-2">
-                {{ __('List of learners and their progress') }}
-            </v-subheader>
-            @foreach ($resource->students as $student)
-                <v-list-tile avatar ripple>
-                    <v-list-tile-avatar>
-                        <img src="{{ $student->avatar }}" alt="">
-                    </v-list-tile-avatar>
-                    <v-list-tile-content>
-                        <v-list-tile-title>
-                            {{ $student->displayname }}
-                        </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action class="grey--text">
-                        {{ $student->courses(0->find($resource->id)->progress) }}
-                    </v-list-tile-action>
-                </v-list-tile>
-            @endforeach
-        </v-list>
-    </v-card-text>
-    {{-- s --}}
-
     <v-card-text class="pa-0">
         <v-list subheader style="height: 500px; overflow-y: scroll;">
             <v-subheader class="mt-2 ml-2">{{ __('List of learners and their progress') }}:</v-subheader>

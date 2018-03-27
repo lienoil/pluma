@@ -290,10 +290,10 @@
 
             methods: {
                 get () {
-                    const { sortBy, descending, user, rowsPerPage } = this.dataset.pagination;
+                    const { sortBy, descending, page, rowsPerPage } = this.dataset.pagination;
                     let query = {
                         descending: descending,
-                        user: user,
+                        page: page,
                         sort: sortBy,
                         take: rowsPerPage,
                     };
