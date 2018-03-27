@@ -47,6 +47,6 @@ class MessagePosted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('message');
+        return new PresenceChannel('chatbox');
     }
 }

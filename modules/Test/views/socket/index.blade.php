@@ -16,7 +16,7 @@
 @endsection
 
 @push("pre-foot")
-    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+    {{-- <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script> --}}
     {{-- <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
         Pusher.logToConsole = true;

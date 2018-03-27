@@ -26,7 +26,16 @@
 </template>
 
 <script>
+// import Echo from 'laravel-echo'
 import io from 'socket.io-client'
+
+const socket = io.connect('http://localhost:3000')
+// window.io = require('socket.io-client')
+// window.Echo = new Echo({
+//   broadcaster: 'socket.io',
+//   host: 'http://localhost:3000'
+//   // host: window.location.hostname + ':3000'
+// })
 
 export default {
   name: 'Chatbox',
@@ -63,17 +72,28 @@ export default {
     }
   },
   mounted () {
-    let self = this
+    socket.on('presence-chatbox:Test\\Events\\MessagePosted', function (data) {
+      console.log(data)
+    })
+
+    // window.Echo.join('chatbox')
+    //   .listen('.Test.Events.MessagePosted', (e) => {
+    //     console.log(e)
+    //   })
+    console.log('mounted')
+  },
+  mountedXX () {
+    // let self = this
 
     // Socket.IO
-    this.socket = io.connect('http://localhost:3000')
-    this.socket.on('presence-message', function (data) {
-      data = JSON.parse(data)
-      console.log(data)
-      // append to DOM
-      self.$root.alert({color: 'secondary', type: 'info', text: `New comment from ${data.data.message.displayname}`})
-      self.messages.push(JSON.parse(JSON.stringify(data.data.message)))
-    })
+    // this.socket = io.connect('http://localhost:3000')
+    // this.socket.on('presence-message', function (data) {
+    //   data = JSON.parse(data)
+    //   console.log(data)
+    //   // append to DOM
+    //   self.$root.alert({color: 'secondary', type: 'info', text: `New comment from ${data.data.message.displayname}`})
+    //   self.messages.push(JSON.parse(JSON.stringify(data.data.message)))
+    // })
     // Socket.IO
 
     // this.$echo.join('message')
