@@ -85,5 +85,10 @@ return [
         'description' => 'Ability to submit the submission',
         'group' => 'submission',
     ],
-    'restore-submission'
+    'restore-submission' => [
+        'name' => 'submissions.restore',
+        'code' => 'restore-submission',
+        'description' => 'Ability to restore the submission',
+        'group' => 'submission',
+    ],
 ];

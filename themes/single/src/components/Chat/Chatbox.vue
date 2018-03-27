@@ -26,16 +26,16 @@
 </template>
 
 <script>
-import Echo from 'laravel-echo'
-// import io from 'socket.io-client'
+// import Echo from 'laravel-echo'
+import io from 'socket.io-client'
 
-window.io = require('socket.io-client')
-window.Echo = new Echo({
-  broadcaster: 'socket.io',
-  host: 'http://localhost:3000',
-  namespace: ''
-  // host: window.location.hostname + ':3000'
-})
+const socket = io.connect('http://localhost:3000')
+// window.io = require('socket.io-client')
+// window.Echo = new Echo({
+//   broadcaster: 'socket.io',
+//   host: 'http://localhost:3000'
+//   // host: window.location.hostname + ':3000'
+// })
 
 export default {
   name: 'Chatbox',
@@ -72,10 +72,15 @@ export default {
     }
   },
   mounted () {
-    window.Echo.channel('message')
-      .listen('.Test.Events.MessagePosted', (e) => {
-        console.log(e)
-      })
+    socket.on('presence-chatbox:Test\\Events\\MessagePosted', function (data) {
+      console.log(data)
+    })
+
+    // window.Echo.join('chatbox')
+    //   .listen('.Test.Events.MessagePosted', (e) => {
+    //     console.log(e)
+    //   })
+    console.log('mounted')
   },
   mountedXX () {
     // let self = this
