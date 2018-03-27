@@ -1,5 +1,9 @@
 <?php
 
-Broadcast::channel('message', function ($message, $user) {
-    return true; # muna, ha?
+Broadcast::channel('presence-chatbox', function ($user) {
+    return ['id' => $user->id, 'displayname' => $user->displayname]; # muna, ha?
+});
+
+Broadcast::channel('chatbox', function ($user) {
+    return ['id' => $user->id, 'displayname' => $user->displayname];
 });

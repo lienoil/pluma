@@ -28,12 +28,13 @@ Vue.use(Vuetify, {
   }
 })
 
-axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
-Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-Token']
+Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
 // Lodash
 Object.defineProperty(Vue.prototype, '_', { value: _ })
 
@@ -49,7 +50,7 @@ new Vue({
   },
   http: {
     headers: {
-      'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
   },
   watch: {

@@ -3,6 +3,7 @@
 namespace Course\Support\Traits;
 
 use Course\Mail\CourseRequested;
+use Course\Mail\NewCourseRequest;
 use Course\Models\Course;
 use Course\Models\Student;
 use Course\Models\User;

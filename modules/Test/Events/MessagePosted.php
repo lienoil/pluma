@@ -49,4 +49,13 @@ class MessagePosted implements ShouldBroadcast
     {
         return new PresenceChannel('chatbox');
     }
+
+    /**
+     * Set the event name
+     *
+     * @return string
+     */
+    public function broadcastAs() {
+        return 'chatbox';
+    }
 }

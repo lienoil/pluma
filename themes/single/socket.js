@@ -4,9 +4,9 @@ var Redis = require('ioredis');
 
 var redis = new Redis();
 
-redis.subscribe('chatbox')
+redis.subscribe('presence-chatbox')
 
-redis.on('message', function (channel, message) {
+redis.on('presence-chatbox', function (channel, message) {
   console.log('Channel', channel, 'message', message)
   message = JSON.parse(message)
   io.emit(channel, message.data)

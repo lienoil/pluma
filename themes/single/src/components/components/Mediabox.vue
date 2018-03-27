@@ -438,7 +438,7 @@ export default {
     this.get()
 
     this.menus.items = this.menus.items.concat(this.menuItems)
-    this.menuToggle(this.menus.items[0], this.menus.items[0].url)
+    // this.menuToggle(this.menus.items[0], this.menus.items[0].url)
   }
 }
 </script>
