@@ -94,6 +94,8 @@ Modules:
 
 
 Models:
+  ☐ Move rules to Model level
+    -- move validation rules from Request (e.g. BlogRequest) to Model's own rules method.
   Category:
     ☐ rename `categorable_type` to `type`
 
