@@ -99,7 +99,8 @@
                             <v-icon color="light-blue">extension</v-icon>
                             <v-toolbar-title class="subheading light-blue--text">Contents</v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <v-btn small icon @click="lesson.contentmodel = !lesson.contentmodel"><v-icon small>{{ lesson.contentmodel ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon></v-btn>
+                            <v-btn small icon ripple :ref="`add-content-button-${i}`" @click="lesson.contents.push({name: 'Content', model: true, contents: []})"><v-icon small>note_add</v-icon></v-btn>
+                            <v-btn small icon ripple @click="lesson.contentmodel = !lesson.contentmodel"><v-icon small>{{ lesson.contentmodel ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon></v-btn>
                             <v-menu left transition="slide-y-transition">
                               <v-btn slot="activator" small icon @click=""><v-icon small>delete_forever</v-icon></v-btn>
                               <v-card>
@@ -125,7 +126,7 @@
                             <v-card flat v-show="lesson.contentmodel">
                               <v-card-text class="grey lighten-3 pl-5">
 
-                                <v-card v-if="!lesson.contents.length" flat :ripple="{color: 'light-blue'}" role="button" class="transparent" @click.native="$refs[`add-content-button-${i}`].$el.click()">
+                                <v-card v-if="!lesson.contents.length" flat :ripple="{color: 'light-blue'}" role="button" class="transparent" @click.native="$refs['add-content-button-' + i].$el.click()">
                                   <v-card-text class="text-xs-center">
                                     <div><v-icon class="display-3" color="light-blue lighten-3">extension</v-icon></div>
                                     <div class="subheading light-blue--text text--lighten-3">Add Content</div>
@@ -144,7 +145,7 @@
                                     <v-menu left>
                                       <v-btn slot="activator" small icon><v-icon small>close</v-icon></v-btn>
                                       <v-list dense>
-                                        <v-subheader>Are you sure you want to remove this?</v-subheader>
+                                        <v-subheader>Are you sure you want to remove this card?</v-subheader>
                                         <v-list-tile @click="lesson.contents.splice(j, 1)">
                                           <v-list-tile-title>Yes</v-list-tile-title>
                                         </v-list-tile>
@@ -214,7 +215,7 @@
                               </v-card-text>
                               <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn :ref="`add-content-button-${i}`" ripple dark color="light-blue" @click="lesson.contents.push({name: 'Content', model: true, contents: []})"><v-icon left>add</v-icon> Add Content</v-btn>
+                                <v-btn icon ripple @click="$refs[`add-content-button-${i}`].$el.click()"><v-icon left>add</v-icon> Add Content</v-btn>
                               </v-card-actions>
                             </v-card>
                           </v-slide-y-transition>

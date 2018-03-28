@@ -14,16 +14,17 @@
       <v-divider></v-divider>
       <v-text-field
         :append-icon-cb="send"
+        :hint="typing.model ? `${typing.name} is typing` : ``"
+        @input="isTyping"
+        @keyup="isNotTyping"
         @keyup.enter="send"
         append-icon="send"
         full-width
         label="Send a message"
+        persistent-hint
         prepend-icon="camera"
         single-line
-        :hint="typing.model ? `${typing.name} is typing` : ``"
-        persistent-hint
         v-model="chat.message"
-        @input="isTyping"
       ></v-text-field>
     </v-card>
 
@@ -34,11 +35,6 @@
 
 <script>
 import Echo from 'laravel-echo'
-
-window.Echo = new Echo({
-  broadcaster: 'socket.io',
-  host: window.location.hostname + ':3000'
-})
 
 export default {
   name: 'Chatbox',
@@ -59,8 +55,37 @@ export default {
     }
   },
   methods: {
-    get () {
-      // this.$http.get('')
+    mountEcho () {
+      window.Echo = new Echo({
+        broadcaster: 'socket.io',
+        host: window.location.hostname + ':3000'
+      })
+
+      this.channel = window.Echo.join('chatbox')
+        .here((users) => {
+          for (var i = 0; i < users.length; i++) {
+            let user = users[i]
+            this.messages.push({type: 'info', message: `${user.displayname} joined the chat`})
+          }
+        })
+        .joining((user) => {
+          this.$root.alert({type: 'info', text: `${user.displayname} is active now`})
+          this.messages.push({type: 'info', message: `${user.displayname} is active`})
+        })
+        .leaving((user) => {
+          // this.$root.alert({type: 'info', text: `${user.displayname} left`})
+          this.messages.push({type: 'info', message: `${user.displayname} left`})
+        })
+        .listenForWhisper('typing', (e) => {
+          this.typing = e.typing
+
+          // setTimeout(() => {
+          //   this.typing.model = false
+          // }, 3000)
+        })
+        .listen('.chatbox', (e) => {
+          this.messages.push(e.message)
+        })
     },
     send () {
       if (this.chat.message.length === 0) {
@@ -86,47 +111,30 @@ export default {
     isTyping () {
       let user = document.querySelector('.user--displayname').innerHTML
 
-      if (!this.typing.model) {
-        setTimeout(() => {
-          this.channel.whisper('typing', {
-            typing: {
-              model: true,
-              name: user
-            }
-          })
-        }, 900)
-      }
+      setTimeout(() => {
+        this.channel.whisper('typing', {
+          typing: {
+            model: true,
+            name: user
+          }
+        })
+      }, 1000)
+    },
+    isNotTyping () {
+      let user = document.querySelector('.user--displayname').innerHTML
+
+      setTimeout(() => {
+        this.channel.whisper('typing', {
+          typing: {
+            model: false,
+            name: user
+          }
+        })
+      }, 5000)
     }
   },
   mounted () {
-    this.channel = window.Echo.join('chatbox')
-      .here((users) => {
-        for (var i = 0; i < users.length; i++) {
-          let user = users[i]
-          this.messages.push({type: 'info', message: `${user.displayname} joined the chat`})
-        }
-        console.log('here', users)
-      })
-      .joining((user) => {
-        this.$root.alert({type: 'info', text: `${user.displayname} is active now`})
-        this.messages.push({type: 'info', message: `${user.displayname} is active`})
-        console.log('joining', user)
-      })
-      .leaving((user) => {
-        // this.$root.alert({type: 'info', text: `${user.displayname} left`})
-        this.messages.push({type: 'info', message: `${user.displayname} left`})
-        console.log('leaving', user)
-      })
-      .listenForWhisper('typing', (e) => {
-        this.typing = e.typing
-
-        setTimeout(() => {
-          this.typing.model = false
-        }, 900)
-      })
-      .listen('.chatbox', (e) => {
-        this.messages.push(e.message)
-      })
+    this.mountEcho()
   }
 }
 </script>

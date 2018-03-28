@@ -176,7 +176,7 @@ trait ContentMutator
         $interactive = urldecode($this->interactive); // $interactive = $this->interactive;
         $html = "No Data";
 
-        if (! is_null($this->contentable_id)) {
+        if (! is_null($this->contentable_id) && ! is_null($this->contentable_type)) {
             switch ($this->contentable_type) {
                 case 'Form\Models\Form':
                 default:

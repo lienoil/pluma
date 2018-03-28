@@ -1,0 +1,32 @@
+{
+	"authHost": "http://pluma",
+	"authEndpoint": "/broadcasting/auth",
+	"clients": [
+		{
+			"appId": "ba24b3401a7c25cf",
+			"key": "8032c7204b19401ba019541db8db0a41"
+		}
+	],
+	"database": "redis",
+	"databaseConfig": {
+		"redis": {},
+		"sqlite": {
+			"databasePath": "/database/laravel-echo-server.sqlite"
+		}
+	},
+	"devMode": true,
+	"host": null,
+	"port": "3000",
+	"protocol": "http",
+	"socketio": {},
+	"sslCertPath": "",
+	"sslKeyPath": "",
+	"sslCertChainPath": "",
+	"sslPassphrase": "",
+	"apiOriginAllow": {
+		"allowCors": true,
+		"allowOrigin": "http://pluma:80",
+		"allowMethods": "GET, POST, PUT, DELETE, UPDATE, OPTIONS",
+		"allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
+	}
+}

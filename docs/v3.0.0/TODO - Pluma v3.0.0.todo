@@ -25,6 +25,8 @@ Core:
     ☐ Add Tag Module
   Comment:
     ☐ move comment module to core
+  User:
+    ☐ move User module to top-level core
   Blog:
     ☐ @low Add Blog Module
     ☐ Integrate Comment module
