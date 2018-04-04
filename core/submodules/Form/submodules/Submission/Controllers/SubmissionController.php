@@ -46,9 +46,14 @@ class SubmissionController extends GeneralController
      */
     public function show(Request $request, $id = null)
     {
-        $resources = Form::findOrFail($id)->submissions;
+        $form = Form::findOrFail($id);
+        $resources = $form->submissions;
 
-        return view("Theme::submissions.show")->with(compact('resources', 'id'));
+        if (! $form->submissions->count()) {
+            abort(404);
+        }
+
+        return view("Theme::submissions.show")->with(compact('resources', 'form', 'id'));
     }
 
     /**
