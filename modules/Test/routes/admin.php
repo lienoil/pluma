@@ -22,5 +22,5 @@ Route::resource('tests', 'TestController');
 
 Route::get('message/send', function () {
     return Mail::to('john.dionisio1@gmail.com')
-        ->send(new NewCourseRequest(Course::first(), \Course\Models\User::find(3), "Hey there, Test"));
+        ->send(new NewCourseRequest(Course::first(), \Course\Models\User::find(1), "Hey there, Test"));
 });

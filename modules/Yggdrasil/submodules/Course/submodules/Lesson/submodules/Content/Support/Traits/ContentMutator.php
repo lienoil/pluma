@@ -318,7 +318,7 @@ trait ContentMutator
      */
     public function getTypeAttribute()
     {
-        return $this->library->mimetype;
+        return $this->library->mimetype ?? '';
     }
 
     /**

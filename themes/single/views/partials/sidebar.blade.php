@@ -5,12 +5,12 @@
   :light.sync="!theme.dark"
   :mini-variant.sync="sidebar.mini"
   app
-  class="sidebar"
+  class="sidebar sidebar-background"
   v-model="sidebar.model"
+  :style="`background: linear-gradient(${sidebar.style.color}, rgba(0,0,0,0.5)), ${sidebar.style.background}`"
   @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)">
 
-  <image-overlay v-model="sidebar.withBackground" :src="sidebar.style.background"></image-overlay>
-
+  {{-- <image-overlay v-model="sidebar.withBackground" :src="sidebar.style.background"></image-overlay> --}}
   <v-toolbar flat class="transparent">
     <v-list>
       <v-list-tile avatar>

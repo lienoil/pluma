@@ -83,8 +83,14 @@ trait SubmissionResourceApiTrait
         }
 
         $submissions = $resources->paginate($take);
+        $sub = [];
+        foreach ($submissions->items() as $submission) {
+            if ($submission->submissions->count()) {
+                $sub[] = $submission;
+            }
+        }
 
-        return response()->json($submissions);
+        return response()->json($sub);
     }
 
     /**
