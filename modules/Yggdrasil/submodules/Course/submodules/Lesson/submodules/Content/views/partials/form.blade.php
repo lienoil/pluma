@@ -1,4 +1,4 @@
-<form action="{{ $resource->action ?? route('submissions.submit') }}" method="{{ $resource->method }}" {!! $resource->attributes !!} onunload="window.API.LMSFinish('')" onbeforeunload="window.API.LMSFinish('')">
+<form data-type="image/png" class="interactive-content" action="{{ $resource->action ?? route('submissions.submit') }}" method="{{ $resource->method }}" {!! $resource->attributes !!} onunload="window.API.LMSFinish('')" onbeforeunload="window.API.LMSFinish('')">
     {{ csrf_field() }}
     <input type="hidden" name="form_id" value="{{ $resource->id }}">
     <input type="hidden" name="type" value="courses">

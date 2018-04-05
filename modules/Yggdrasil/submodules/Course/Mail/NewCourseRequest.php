@@ -49,12 +49,7 @@ class NewCourseRequest extends Mailable
      */
     public function build()
     {
-        $dateRequested = $this->course
-                              ->users()
-                              ->where('users.id', $this->student->id)
-                              ->first()
-                              ->pivot
-                              ->enrolled_at;
+        $dateRequested = date('Y-m-d');
         $dateRequested = date(settings('pretty_date_format', 'F d, Y'), strtotime($dateRequested));
 
         return $this->subject($this->subject)

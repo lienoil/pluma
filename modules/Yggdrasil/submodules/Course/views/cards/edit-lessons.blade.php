@@ -217,8 +217,8 @@
                     mediabox: {
                         model: false,
                         output: null,
-                        catalogues: JSON.parse(JSON.stringify({!! json_encode($catalogues) !!})),
-                        media: JSON.parse(JSON.stringify({!! json_encode($media) !!})),
+                        catalogues: JSON.parse(JSON.stringify({!! json_encode((array) $catalogues) !!})),
+                        media: JSON.parse(JSON.stringify({!! json_encode((array) $media) !!})),
                     }
                 };
             },

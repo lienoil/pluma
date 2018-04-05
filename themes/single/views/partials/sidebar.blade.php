@@ -5,12 +5,12 @@
   :light.sync="!theme.dark"
   :mini-variant.sync="sidebar.mini"
   app
-  class="sidebar"
+  class="sidebar sidebar-background"
   v-model="sidebar.model"
+  :style="sidebar.withBackground ? `background: linear-gradient(${sidebar.style.color}, rgba(0,0,0,0.6)), ${sidebar.style.background}` : ``"
   @click.native.stop="localstorage('single.sidebar.mini', sidebar.mini)">
 
-  <image-overlay v-model="sidebar.withBackground" :src="sidebar.style.background"></image-overlay>
-
+  {{-- <image-overlay v-model="sidebar.withBackground" :src="sidebar.style.background"></image-overlay> --}}
   <v-toolbar flat class="transparent">
     <v-list>
       <v-list-tile avatar>
@@ -22,8 +22,8 @@
           <v-list-tile-sub-title class="caption">{{ $application->site->tagline }}</v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-btn ripple icon :dark.sync="theme.dark" :light.sync="!theme.dark" @click="localstorage('single.sidebar.mini', sidebar.mini = ! sidebar.mini)">
-            <v-icon :dark.sync="theme.dark" :light.sync="!theme.dark" class="grey--text lighten-2">chevron_left</v-icon>
+          <v-btn ripple icon :dark.sync="theme.dark" :light.sync="!theme.dark" @click="localstorage('single.sidebar.mini', (sidebar.mini = !sidebar.mini))">
+            <v-icon :dark.sync="theme.dark" :light.sync="!theme.dark">chevron_left</v-icon>
           </v-btn>
         </v-list-tile-action>
       </v-list-tile>

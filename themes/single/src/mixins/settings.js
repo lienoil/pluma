@@ -1,3 +1,5 @@
+import colors from 'vuetify/es5/util/colors'
+
 export const settings = {
   data () {
     return {
@@ -21,6 +23,14 @@ export const settings = {
 
       /**
        *------------------------------------------
+       * Colors
+       *------------------------------------------
+       *
+       */
+      colors: colors,
+
+      /**
+       *------------------------------------------
        * Sidebar Settings
        *------------------------------------------
        *
@@ -30,8 +40,17 @@ export const settings = {
         floating: this.localstorage('single.sidebar.floating') === 'true',
         mini: this.localstorage('single.sidebar.mini') === 'true',
         model: true,
-        withBackground: false,
-        style: { background: 'none' }
+        withBackground: this.localstorage('single.sidebar.withBackground') === 'true',
+        style: {
+          background: this.localstorage('single.sidebar.style.background') || 'none',
+          color: this.localstorage('single.sidebar.style.color') || this.$root.$vuetify.theme.secondary,
+          rgba: {
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 50
+          }
+        }
       },
 
       /**

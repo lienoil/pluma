@@ -367,21 +367,22 @@
 
                         get () {
                             window.API.on('BeforeInitialize', function (cache) {
-                                // window.onload = function () {
-                                    // var interactiveType = document.querySelector('.interactive-content').getAttribute('data-type');
-                                    // if (interactiveType.match('image.*')) {
-                                    //     window.API.LMSSetValue("cmi.core.lesson_status", 'completed');
-                                    //     window.API.Cache().set("cmi.core.lesson_status", 'completed');
-                                    //     let cache = JSON.parse(JSON.stringify(window.API.Cache().get()));
-                                    //     self.$http.post(window.API.options.COMMIT, cache).then(response => {
-                                    //         if (response.status === 200) {
-                                    //             window.API.LMSFinish('');
-                                    //             return "true";
-                                    //         }
-                                    //         return response.bodyText;
-                                    //     });
-                                    // }
-                                // }
+                                window.onload = function () {
+                                    var interactiveType = document.querySelector('.interactive-content')
+                                    interactiveType = interactiveType ? interactiveType.getAttribute('data-type') : null;
+                                    if (interactiveType && interactiveType.match('image.*')) {
+                                        window.API.LMSSetValue("cmi.core.lesson_status", 'completed');
+                                        window.API.Cache().set("cmi.core.lesson_status", 'completed');
+                                        let cache = JSON.parse(JSON.stringify(window.API.Cache().get()));
+                                        self.$http.post(window.API.options.COMMIT, cache).then(response => {
+                                            if (response.status === 200) {
+                                                window.API.LMSFinish('');
+                                                return "true";
+                                            }
+                                            return response.bodyText;
+                                        });
+                                    }
+                                }
 
                                 // Start getting the initial values from the LMS.
                                 // This is done in the custom (non-SCORM) function BeforeInitialize, because the request

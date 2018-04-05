@@ -166,7 +166,7 @@ class CourseController extends GeneralController
      */
     public function edit(Request $request, $id)
     {
-        $resource = Course::lockForUpdate()->findOrFail($id);
+        $resource = Course::findOrFail($id);
         $catalogues = Catalogue::mediabox();
         $categories = Category::all();
         $surveys = Form::type('courses')->get();
@@ -202,7 +202,7 @@ class CourseController extends GeneralController
         // $course->user()->associate(user()); // Don't Change the original author
         $course->save();
 
-        $course->forms()->sync($request->input('survey_id'));
+        // $course->forms()->sync($request->input('survey_id'));
 
         // Lessons
         $course->lessons()->whereNotIn('id', array_column($request['lessons'], 'id'))->delete();

@@ -3,9 +3,9 @@
 
 .sidebar {
   &-background {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center left;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center left !important;
 
     &::before {
       content: '';
@@ -31,9 +31,9 @@
         background-color: linear-gradient(alpha($material-light.cards, 0.65), alpha($material-light.cards, 0.85));
       }
     }
+  }
 
-    .list {
-      background: none;
-    }
+  .list {
+    background: transparent;
   }
 }
