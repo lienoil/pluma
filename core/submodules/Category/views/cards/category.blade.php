@@ -63,7 +63,7 @@
 						item: {
 							category_id: '{{ @(old('category_id') ?? $resource->category->id) }}',
 						},
-						categories: {!! json_encode($categories->toArray()) !!},
+						categories: {!! json_encode((array) $categories) !!},
 					}
 				};
 			},

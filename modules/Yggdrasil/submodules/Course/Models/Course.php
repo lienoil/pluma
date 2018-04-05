@@ -36,7 +36,7 @@ class Course extends Model
         OnlyBookmarkedByScope,
         SoftDeletes;
 
-    protected $with = ['lessons', 'user', 'category'];
+    protected $with = ['lessons', 'category'];
 
     protected $appends = [
         'author',

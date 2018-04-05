@@ -18,12 +18,18 @@ let scormAPI = {
   init (version, options) {
     this.setOptions(options);
     this.setVersion(version);
+
+    this.misc.debug(true, "init(options)", 'setOptions() was called');
+
     this.Cache().init();
     this.Error().init();
-    this.BeforeInitialize('');
-    this.initVideo();
+    this.misc.debug(true, "init(options)", 'Cache().init() was called');
 
-    this.misc.debug(true, "The Adapter was initialized with SCORM version", this.version);
+    this.BeforeInitialize('');
+    this.misc.debug(true, "init(options)", 'BeforeInitialize() was called');
+
+    this.initVideo();
+    this.misc.debug(true, "init(options)", 'initVideo() was called');
 
     return this;
   },
@@ -60,21 +66,31 @@ let scormAPI = {
   },
 
   BeforeInitialize (dummyString) {
+    this.misc.debug(true, "BeforeInitialize('')", 'is running.');
+
     let event = new CustomEvent('BeforeInitialize', { detail: {varname: dummyString, cache: JSON.parse(JSON.stringify(this.Cache().get()))} });
 
-    // this.misc.debug(true, "BeforeInitialize('')", 'was run.');
+    this.misc.debug(true, "BeforeInitialize Event", 'was created.');
+
+    this.misc.debug(true, "BeforeInitialize Event", 'will be dispatched.');
+
+    this.misc.style();
 
     window.dispatchEvent(event);
   },
 
   LMSInitialize (dummyString) {
+    this.misc.debug(true, "LMSInitialize", 'initializing...');
+
     let self = this;
+
     let event = new CustomEvent('LMSInitialize', { detail: {cache: this.Cache().get()} });
-
     window.dispatchEvent(event);
-    self.flags().set('initialized', true);
 
-    // this.misc.debug(true, "LMSInitialize", 'initializing...');
+    self.misc.style();
+
+    self.flags().set('initialized', true);
+    // console.warn('------------------------------', self.flags);
 
     return "true";
   },
@@ -88,13 +104,13 @@ let scormAPI = {
     let event = new CustomEvent('LMSGetValue', { detail: {varname, value: this.Cache().get(varname), cache: this.Cache().get()} });
     let e = window.dispatchEvent(event);
 
-    // this.misc.debug(true, "LMSGetValue", 'getting...', varname, "Result:", JSON.parse(JSON.stringify(this.Cache().get(varname))));
+    this.misc.debug(true, "LMSGetValue", 'getting...', varname, "Result:", JSON.parse(JSON.stringify(this.Cache().get(varname))));
 
     return this.Cache().get(varname);
   },
 
   LMSSetValue (varname, value) {
-    // this.misc.debug(true, "LMSSetValue", 'setting...', varname, 'with', value);
+    this.misc.debug(true, "LMSSetValue", 'setting...', varname, 'with', value);
 
     let event = new CustomEvent('LMSSetValue', { detail: {varname, value, cache: this.cache} });
     window.dispatchEvent(event);
@@ -104,14 +120,14 @@ let scormAPI = {
     // so we try and commit every time we receive
     // `completed` as lesson_status
     // and we call it only once a page load.
-    // this.misc.debug(true, JSON.parse(JSON.stringify(this.Cache().get())));
+    this.misc.debug(true, JSON.parse(JSON.stringify(this.Cache().get())));
     if (this.Cache().get('cmi.core.lesson_status') === 'completed' && this.status !== 'completed') {
       scormAPI.LMSCommit('');
       scormAPI.LMSFinish('');
       this.status = 'completed';
-      // this.misc.debug(true, "LMSSetValue", '------------------------------------');
-      // this.misc.debug(true, "LMSSetValue", 'LMSCommit() called from LMSSetValue', 'status:', this.status);
-      // this.misc.debug(true, "LMSSetValue", '------------------------------------');
+      this.misc.debug(true, "LMSSetValue", '------------------------------------');
+      this.misc.debug(true, "LMSSetValue", 'LMSCommit() called from LMSSetValue', 'status:', this.status);
+      this.misc.debug(true, "LMSSetValue", '------------------------------------');
     }
 
     return this.Cache().set(varname, value);
@@ -126,9 +142,9 @@ let scormAPI = {
     let event = new CustomEvent('LMSCommit', { detail: {dummyString: dummyString, value: this.Cache().get(), cache: query} });
     window.dispatchEvent(event);
 
-    // this.misc.debug(true, "[LMSCommit]", "-----------");
-    // this.misc.debug(true, "[LMSCommit]", "was called.");
-    // this.misc.debug(true, "[LMSCommit]", "-----------");
+    this.misc.debug(true, "[LMSCommit]", "-----------");
+    this.misc.debug(true, "[LMSCommit]", "was called.");
+    this.misc.debug(true, "[LMSCommit]", "-----------");
 
     return "true";
   },
@@ -136,10 +152,10 @@ let scormAPI = {
   LMSFinish (dummyString) {
     if (this.flags().get('finished')) {
       // already finished - prevent repeat call
-      // this.misc.debug(true, "[LMSFinish]", "-----------");
+      this.misc.debug(true, "[LMSFinish]", "-----------");
       this.misc.debug(true, "[LMSFinish]", "LMSFinish.done was flagged: ", this.flags().get('finished'));
       this.misc.debug(true, "[LMSFinish]", "Will prematurely exit.");
-      // this.misc.debug(true, "[LMSFinish]", "-----------");
+      this.misc.debug(true, "[LMSFinish]", "-----------");
 
       return "true";
     }
@@ -155,10 +171,10 @@ let scormAPI = {
 
     // It's done.
     this.flags().set('finished', true);
-    // this.misc.debug(true, "[LMSFinish]", "-----------");
+    this.misc.debug(true, "[LMSFinish]", "-----------");
     this.misc.debug(true, "[LMSFinish]", "LMSFinish.done was flagged: ", this.flags().get('finished'));
     this.misc.debug(true, "[LMSFinish]", "True exit.");
-    // this.misc.debug(true, "[LMSFinish]", "-----------");
+    this.misc.debug(true, "[LMSFinish]", "-----------");
 
     return "true";
   },
@@ -246,8 +262,8 @@ let scormAPI = {
         self.cache['cmi.suspend_data'] = '';
         self.cache['cmi.comments'] = '';
 
-        // self.misc.debug(true, "Cache.init()", JSON.parse(JSON.stringify(self.cache)));
-        // self.misc.debug(false, "");
+        self.misc.debug(true, "Cache.init()", JSON.parse(JSON.stringify(self.cache)));
+        self.misc.debug(false, "");
 
         return this;
       },
@@ -255,8 +271,8 @@ let scormAPI = {
       get (varname) {
         if (typeof varname === "undefined" || varname === "") return self.cache;
 
-        // self.misc.debug(true, "Cache.get([varname])", varname, self.cache[varname]);
-        // self.misc.debug(false, "");
+        self.misc.debug(true, "Cache.get([varname])", varname, self.cache[varname]);
+        self.misc.debug(false, "");
         // debugger;
 
         return typeof self.cache[varname] === "undefined" ? "" : self.cache[varname];
@@ -265,8 +281,8 @@ let scormAPI = {
       set (varname, value) {
         self.cache[varname] = value;
 
-        // self.misc.debug(true, "Cache.set(varname, value)", varname, 'with', value, "Result: ", self.cache[varname]);
-        // self.misc.debug(false, "");
+        self.misc.debug(true, "Cache.set(varname, value)", varname, 'with', value, "Result: ", self.cache[varname]);
+        self.misc.debug(false, "");
 
         return "true";
       },
@@ -279,8 +295,8 @@ let scormAPI = {
 
         self.status = self.cache['cmi.core.lesson_status'];
 
-        // self.misc.debug(true, "Cache.setMultiple(array)", JSON.parse(JSON.stringify(self.cache)), 'lesson_status', self.status);
-        // self.misc.debug(false, "");
+        self.misc.debug(true, "Cache.setMultiple(array)", JSON.parse(JSON.stringify(self.cache)), 'lesson_status', self.status);
+        self.misc.debug(false, "");
       },
     }
   },
@@ -387,7 +403,7 @@ let scormAPI = {
   setVersion (version) {
     this.version = version;
     this.options.version = version;
-    // this.misc.debug(true, "[VERSION]", "------------------------------------- setting version...");
+    this.misc.debug(true, "[VERSION]", "------------------------------------- setting version...");
 
     switch (this.version) {
       case "1484_11":
@@ -403,16 +419,16 @@ let scormAPI = {
         window.API_1484_11.GetErrorString = scormAPI.LMSGetErrorString;
         window.API_1484_11.GetDiagnostic = scormAPI.LMSGetDiagnostic;
         window.API = window.API_1484_11;
-        // this.misc.debug(true, "The [SCORM] version is:", this.version, window.API_1484_11);
+        this.misc.debug(true, "The [SCORM] version is:", this.version, window.API_1484_11);
         break;
 
       case "1.2":
       default:
         window.API = this;
-        // this.misc.debug(true, "The [SCORM] version is:", this.version, window.API);
+        this.misc.debug(true, "The [SCORM] version is:", this.version, window.API);
         break;
     }
-    // this.misc.debug(true, "[VERSION]", "------------------------------------- version set.");
+    this.misc.debug(true, "[VERSION]", "------------------------------------- version set.");
     // Alias
   },
 }
