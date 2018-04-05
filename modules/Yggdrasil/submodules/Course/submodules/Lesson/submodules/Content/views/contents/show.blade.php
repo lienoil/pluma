@@ -180,7 +180,6 @@
             <v-flex lg10 md11 xs12>
                 <v-layout row wrap>
                     <v-flex md8 xs12>
-
                         {{-- Comments Section --}}
                         <v-card class="elevation-1">
                             @include("Content::widgets.comments")
