@@ -2,10 +2,13 @@
   <v-container fluid>
     <v-layout row wrap fill-height>
       <v-card flat tile height="100%" class="card--bordered">
-        <v-card-title class="headline">Choose Template</v-card-title>
+        <v-toolbar flat light card color="white">
+          <v-toolbar-title>Choose Template</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
         <v-card-text>
-          <p class="subheading" v-for="(template, i) in templates.items">
-            <a role=button @click="templates.model = ! templates.model" v-html="template.name"></a>
+          <p class="subheading mb-1" v-for="(template, i) in templates.items">
+            <a role="button" @click="select(template)" v-html="template.name"></a>
           </p>
         </v-card-text>
       </v-card>
@@ -17,26 +20,26 @@
 export default {
   name: 'ChooseTemplate',
   model: {
-    prop: 'toggle'
+    prop: 'template'
   },
   props: {
-    toggle: { type: Boolean, default: false }
+    template: { type: Object, default: () => { return {} } }
   },
   data () {
     return {
       templates: {
         model: true,
         items: [
-          { name:'Home Page', code: 'home', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
-          { name:'Blog Page', code: 'blog', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
-          { name:'Generic Page', code: 'generic', supports: ['editor', 'title', 'featured', 'cover', 'sections'] }
+          { name: 'Home Page', code: 'home', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
+          { name: 'Blog Page', code: 'blog', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
+          { name: 'Generic Page', code: 'generic', supports: ['editor', 'title', 'featured', 'cover', 'sections'] }
         ]
       }
     }
   },
-  watch: {
-    'templates.model': function (value) {
-      this.$emit('input', value)
+  methods: {
+    select (template) {
+      this.$emit('input', template)
     }
   }
 }

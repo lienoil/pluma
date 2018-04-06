@@ -174,7 +174,7 @@ trait ContentMutator
     public function getHtmlAttribute()
     {
         $interactive = urldecode($this->interactive); // $interactive = $this->interactive;
-        // $html = "No Data";
+        $html = "";
 
         if (! is_null($this->contentable_id) && ! is_null($this->contentable_type)) {
             switch ($this->contentable_type) {

@@ -18,8 +18,8 @@
       </v-menu>
       <v-btn :loading="resource.saving" ripple color="primary" @click="save(resource.item)">Save</v-btn>
     </v-toolbar>
-    <template v-if="chooseTemplate.model">
-      <choose-template v-model="chooseTemplate.model"></choose-template>
+    <template v-if="!chooseTemplate.selected">
+      <choose-template v-model="chooseTemplate.selected"></choose-template>
     </template>
     <template v-else>
       <v-container fluid grid-list-lg>
@@ -152,7 +152,7 @@ export default {
         ]
       },
       chooseTemplate: {
-        model: true
+        selected: null
       }
     }
   },

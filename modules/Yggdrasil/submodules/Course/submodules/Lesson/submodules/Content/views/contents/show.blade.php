@@ -110,6 +110,7 @@
                         @endif
                     @endif
 
+                    @if (! $resource->locked)
                     {{-- Description --}}
                     <v-flex md6 xs12>
                         <v-card class="mb-3 elevation-0">
@@ -124,6 +125,7 @@
                         </v-card>
                     </v-flex>
                     {{-- Description --}}
+                    @endif
 
                     <v-flex md6 xs12>
                         <v-card flat>
