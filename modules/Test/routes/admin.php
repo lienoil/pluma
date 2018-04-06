@@ -2,6 +2,7 @@
 
 use Course\Mail\CourseRequested;
 use Course\Mail\NewCourseRequest;
+use Course\Mail\WelcomeNewUser;
 use Course\Models\Course;
 use Illuminate\Http\Request;
 use Page\Models\Page;
@@ -21,6 +22,8 @@ Route::resource('socket', 'SocketController');
 Route::resource('tests', 'TestController');
 
 Route::get('message/send', function () {
-    return Mail::to('john.dionisio1@gmail.com')
-        ->send(new NewCourseRequest(Course::first(), \Course\Models\User::find(1), "Hey there, Test"));
+    return new WelcomeNewUser(Course::find(7), \Course\Models\User::find(3), "Hey there, Test");
+
+    return Mail::to('princessellen0016@yahoo.com')
+        ->send(new WelcomeNewUser(Course::find(7), \Course\Models\User::find(3), "Registration Success Email"));
 });

@@ -132,11 +132,7 @@ Frontier Frontend Components:
            ☐ latest assignment submission
            ☐ top students
 
-<<<<<<< HEAD
-       students:
-=======
       students:
->>>>>>> master
         at a glance
           ☐ # of courses enrolled
           ☐ # of bookmarked courses
@@ -153,15 +149,9 @@ Frontier Frontend Components:
           ☐ sys conf
           ☐ theme
 
-<<<<<<< HEAD
        right sidebar:
            ✔ widget management @done (18-03-06 09:11)
-
-
-=======
-
 
 To Upgrade:
   ☐ permissions use `pages.index` as the code to check
   ☐ config/menus.php use `pages.index` as name to reflect permissions
->>>>>>> master
