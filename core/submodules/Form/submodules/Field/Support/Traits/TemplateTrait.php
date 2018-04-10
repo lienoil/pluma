@@ -131,12 +131,14 @@ trait TemplateTrait
 
                 foreach ($values as &$value) {
                     $value = str_replace('*', '', $value);
-                    $value = html_entity_decode(str_replace("’", "'", $value));
-                    $value = html_entity_decode(str_replace("'", "'", $value));
+                    $value = str_replace("’", "&quot;", $value);
+                    $value = str_replace("'", "&quot;", $value);
+                    $value = addslashes($value);
                 }
-                // dd($values);
+                // $values = addslashes(json_encode($values));
 
-                $template = preg_replace('/%items%/', json_encode($values, ENT_QUOTES), $template);
+                $template = preg_replace('/%items%/', json_encode($values), $template);
+                // dd($template);
 
                 return $template;
                 break;

@@ -38,7 +38,7 @@
 
                                         @foreach ($resource->fields()->orderBy('sort')->get() as $label => $field)
                                             <v-card-text>
-                                               <div class="mb-2">{!! html_entity_decode($field->template()->render()) !!}</div>
+                                                <div class="mb-2">{!! json_decode($field->template()->render()) !!}</div>
                                             </v-card-text>
                                         @endforeach
 
