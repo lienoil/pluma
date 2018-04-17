@@ -25,7 +25,7 @@
       <div class="alert-icon-fix"></div>
     </div>
 
-    <div v-else-if="mode === 'prompt'" class="contextual-alert-icon alert-icon-prompt scalePrompt">
+    <div v-else-if="mode === 'prompt' || mode === 'info'" class="contextual-alert-icon alert-icon-prompt scalePrompt">
       <span class="alert-icon-question-mark">?</span>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default {
     small: { type: Boolean, default: false },
     large: { type: Boolean, default: false },
     medium: { type: Boolean, default: false },
-    mode: { default: 'success' }
+    mode: { type: String, default: 'success' }
   }
 }
 </script>

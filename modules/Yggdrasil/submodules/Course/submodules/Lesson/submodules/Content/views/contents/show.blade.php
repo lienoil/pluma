@@ -3,10 +3,11 @@
 @section("head-title", "{$resource->course->title} &#x276f; {$resource->lesson->title} &#x276f; {$resource->title}")
 
 @push('post-meta')
-    <link rel="manifest" href="{{ url('manifest.json') }}">
+    <link rel="manifest" href="{{ url('favicons/manifest.json') }}">
 @endpush
 
 @section("content")
+
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
             <v-flex xs12>
@@ -121,6 +122,8 @@
                                 {{-- <h2 class="page-title title">{{ $resource->lesson->title }}</h2> --}}
                                 <h2 class="page-title headline grey--text">{{ $resource->title }}</h2>
                                 <p class="subheading">{!! $resource->body !!}</p>
+
+                                <v-btn primary href="{{ $resource->next }}" class="elevation-1">Next</v-btn>
                             </v-card-text>
                         </v-card>
                     </v-flex>

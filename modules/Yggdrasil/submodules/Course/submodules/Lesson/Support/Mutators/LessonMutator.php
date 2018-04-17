@@ -34,7 +34,9 @@ trait LessonMutator
      */
     public function getProgressAttribute()
     {
-        return (float) number_format((float)(($this->completed * 100) / $this->contents->count()), 2);
+        $user = \Course\Models\User::find(user()->id);
+
+        return (float) number_format((float)(($this->completed * 100) / $user->contents->count()), 2);
     }
 
     /**
@@ -48,11 +50,14 @@ trait LessonMutator
             return 0;
         }
 
-        $count = Status::where('user_id', user()->id)
-            ->where('course_id', $this->course->id)
-            ->whereIn('content_id', $this->contents()->pluck('id')->toArray())
-            ->where('status', 'completed')
-            ->count();
+        $user = \Course\Models\User::find(user()->id);
+        $count = $user->contents()->where('status', 'done')->where('course_id', $this->course->id)->count();
+        // dd($count);
+        // $count = Status::where('user_id', user()->id)
+        //     ->where('course_id', $this->course->id)
+        //     ->whereIn('content_id', $this->contents()->pluck('id')->toArray())
+        //     ->where('status', 'completed')
+        //     ->count();
 
         return $count;
     }

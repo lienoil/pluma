@@ -5,6 +5,7 @@ import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
 import ImageOverlay from '@/components/components/ImageOverlay.vue'
+import FormBuilder from '@/components/Form/Form.vue' // TODO: remove this from global
 import Chatbox from '@/components/Chat/Chatbox.vue'
 import filters from './filters'
 import router from './router'
@@ -18,11 +19,11 @@ Vue.use(filters)
 Vue.use(VeeValidate)
 Vue.use(Vuetify, {
   theme: {
-    primary: '#bb2481',
-    accent: '#FFC107',
-    secondary: '#350423',
+    primary: '#002365',
+    accent: '#75DCD4',
+    secondary: '#27B9AE',
     info: '#2196F3',
-    warning: '#F8BB86',
+    warning: '#ff8017',
     error: '#FF5252',
     success: '#4CAF50'
   }
@@ -46,7 +47,11 @@ new Vue({
   el: '#app',
   router,
   components: {
-    Breadcrumbs, AlertIcon, ImageOverlay, Chatbox
+    Breadcrumbs,
+    AlertIcon,
+    ImageOverlay,
+    Chatbox,
+    FormBuilder
   },
   http: {
     headers: {

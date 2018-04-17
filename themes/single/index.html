@@ -56,9 +56,13 @@
         <v-content>
           <breadcrumbs></breadcrumbs>
           <!-- <v-btn @click="navigate('components/Pluma/Page/Create')">Component</v-btn> -->
-          <v-card>
-            <chatbox></chatbox>
-          </v-card>
+          <v-container fluid grid-list-lg>
+            <v-layout row wrap>
+              <v-flex sm12>
+                <form-builder></form-builder>
+              </v-flex>
+            </v-layout>
+          </v-container>
           <v-slide-x-transition mode="out-in">
             <!-- <component :is="pageview.current"></component> -->
             <router-view></router-view>
