@@ -13,9 +13,12 @@
     <v-btn icon ripple @click="rightsidebar.model = false"><v-icon color="grey">keyboard_arrow_right</v-icon></v-btn>
   </v-toolbar>
 
-  <v-card flat tile class="transparent">
-    <v-subheader>{{ __('Appearance') }}&nbsp;<v-divider></v-divider></v-subheader>
-    <v-subheader class="caption">{{ __('Theming') }}</v-subheader>
+  <v-card flat tile :dark="theme.dark">
+    <v-toolbar dense card :dark="theme.dark">
+      <v-toolbar-title class="subheading">{{ __('Appearance') }}</v-toolbar-title>
+    </v-toolbar>
+    {{-- <v-subheader>{{ __('Appearance') }}&nbsp;<v-divider></v-divider></v-subheader> --}}
+    <v-subheader>{{ __('Theming') }}&nbsp;<v-divider></v-divider></v-subheader>
     <v-card-text>
       <v-switch
         :label="theme.dark ? `{{ __('Dark Theme') }}` : `{{ __('Light Theme') }}`"
@@ -26,7 +29,7 @@
       ></v-switch>
     </v-card-text>
 
-    <v-subheader class="caption">{{ __('Font Size') }}</v-subheader>
+    <v-subheader>{{ __('Font Size') }}&nbsp;<v-divider></v-divider></v-subheader>
     <v-card-text>
       <v-slider
         :max="40"
@@ -41,10 +44,14 @@
         v-model="settings.fontsize"
       ></v-slider>
     </v-card-text>
+  </v-card>
 
-    <v-subheader class="">{{ __('Sidebar') }}&nbsp;<v-divider></v-divider></v-subheader>
+  <v-card flat tile :dark="theme.dark">
+    <v-toolbar dense card :dark="theme.dark">
+      <v-toolbar-title class="subheading">{{ __('Sidebar') }}</v-toolbar-title>
+    </v-toolbar>
 
-    <v-subheader class="caption">{{ __('Background') }}</v-subheader>
+    <v-subheader>{{ __('Background') }}&nbsp;<v-divider></v-divider></v-subheader>
     <v-container grid-list-lg>
       <v-layout row wrap>
         <v-flex xs3>

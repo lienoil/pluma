@@ -181,7 +181,7 @@ export default {
           switch (response.status) {
             case 200:
             default:
-              this.$root.alert({color: 'secondary', type: 'success', text: `${resource.title} page successfully saved.`})
+              this.$root.alert({type: 'success', text: `${resource.title} page successfully saved.`})
               this.resource.saving = false
               setTimeout(function () {
                 self.$router.push({name: 'pages.index'})
@@ -195,11 +195,11 @@ export default {
               for (var key in error.response.data) {
                 this.errors.add(key, error.response.data[key].join('\n'), 'server')
               }
-              this.$root.alert({color: 'secondary', type: 'error', text: `Please check fields for errors.`})
+              this.$root.alert({type: 'error', text: `Please check fields for errors.`})
               break
 
             default:
-              this.$root.alert({color: 'secondary', type: 'error', text: `Oops! something went wrong.`})
+              this.$root.alert({type: 'error', text: `Oops! something went wrong.`})
               break
           }
 

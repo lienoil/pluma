@@ -56,12 +56,18 @@ export default {
 // Size
 .contextual-alert-icon-small .contextual-alert-icon {
   zoom: 0.5;
+  transform: scale(0.5);
+  transform-origin: center center;
 }
 .contextual-alert-icon-large .contextual-alert-icon {
   zoom: 1.5;
+  transform: scale(1.5);
+  transform-origin: center center;
 }
 .contextual-alert-icon-medium .contextual-alert-icon {
   zoom: 1;
+  transform: scale(1);
+  transform-origin: center center;
 }
 
 // Generic
@@ -78,6 +84,8 @@ export default {
   position: relative;
   width: 80px;
   zoom: 0.8;
+  transform: scale(0.8);
+  transform-origin: center center;
 
   // Generic
   &.alert-icon-success, &.alert-icon-error {

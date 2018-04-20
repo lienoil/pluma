@@ -2,9 +2,9 @@
   <v-container fluid fill-height grid-list-xs>
     <v-layout row wrap>
 
-      <v-flex sm6>
+      <v-flex sm6 offset-sm3>
         <v-card>
-          <v-card-text>
+          <v-card-text class="grey lighten-4">
             <draggable
               :options="{
                 animation: 150,
@@ -14,16 +14,46 @@
                 forceFallback: true,
                 clone: true
               }"
-              class="canvas grey lighten-4"
+              class="canvas"
               v-model="resource.forms"
             >
-              <div v-for="element in myArray" :key="element.id">{{element.name}}</div>
+              <v-card v-for="form in resource.forms" :key="form.id" class="mb-3 draggable-item">
+                <v-toolbar card>
+                  <span class="draggable-handle"><v-icon>drag_handle</v-icon></span>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+                <v-card-text>
+                  <v-container fluid grid-list-sm>
+                    <v-layout row align-center>
+                      <v-flex sm7>
+                        <v-text-field class="headline" label="Question"></v-text-field>
+                      </v-flex>
+                      <v-flex sm5>
+                        <v-select solo :items="['Po', 'sPo', 'WPo']"></v-select>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn icon><v-icon>content_copy</v-icon></v-btn>
+                  <v-btn icon><v-icon>delete</v-icon></v-btn>
+                  <hr class="vertical-divider">
+                  <v-switch
+                    hide-details
+                    label="Required"
+                    v-model="form.model"
+                  ></v-switch>
+                </v-card-actions>
+              </v-card>
             </draggable>
-            <short-answer></short-answer>
+            <!-- <short-answer></short-answer> -->
+            <v-btn icon @click="addfield()"><v-icon>add</v-icon></v-btn>
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex sm6>
+      <!-- <v-flex sm6>
         <v-card>
           <v-card-text>
             <draggable
@@ -36,7 +66,6 @@
                 sort: false,
                 clone: true
               }"
-              clone
               class="canvas grey lighten-4"
             >
               <v-card :dark="theme.dark" :light="!theme.dark" v-for="(selection, i) in resource.selections" :key="i" class="draggable-item">
@@ -50,7 +79,7 @@
             </draggable>
           </v-card-text>
         </v-card>
-      </v-flex>
+      </v-flex> -->
 
     </v-layout>
   </v-container>
@@ -75,6 +104,15 @@ export default {
           { name: 'short-answer', icon: 'short_text', text: 'Short Answer', component: import('./components/ShortAnswer') }
         ]
       }
+    }
+  },
+  methods: {
+    addfield () {
+      this.resource.forms.push({
+        id: null,
+        name: 'header',
+        text: 'Header'
+      })
     }
   }
 }

@@ -1,8 +1,7 @@
 <template>
   <div>
-    <v-toolbar dark color="secondary" class="sticky elevation-1">
-      <v-icon left>find_in_page</v-icon>
-      <v-toolbar-title>All Page</v-toolbar-title>
+    <v-toolbar dark color="primary" class="sticky elevation-1">
+      <v-toolbar-title>All Pages</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-slide-y-reverse-transition>
@@ -30,6 +29,7 @@
             <v-btn slot="activator" icon ripple @click="destroy('false', dataset.selected)"><v-icon>delete_sweep</v-icon></v-btn>
             <span>Move selected to trash</span>
           </v-tooltip>
+	  <hr class="vertical-divider">
         </template>
       </v-slide-y-transition>
       <v-tooltip bottom>
@@ -43,19 +43,6 @@
       <v-layout row wrap>
         <v-flex xs12 sm12>
           <v-card>
-            <v-toolbar color="primary" card dark>
-              <v-text-field
-                prepend-icon="search"
-                label="Search"
-                solo-inverted
-                class="mx-2"
-                clearable
-                v-model="dataset.search.query"
-                flat
-              ></v-text-field>
-              <v-btn v-if="dataset.filtered" flat @click="all"><v-icon left>close</v-icon>Remove Filter</v-btn>
-            </v-toolbar>
-
             <v-data-table
               :headers="dataset.headers"
               :items="dataset.items"

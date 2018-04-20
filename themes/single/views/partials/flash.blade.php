@@ -2,8 +2,8 @@
   :bottom="snackbar.y === 'bottom'"
   :color="snackbar.color"
   :left="snackbar.x === 'left'"
-  :dark="snackbar.theme === 'dark'"
-  :light="snackbar.theme === 'light'"
+  :dark="theme.dark"
+  :light="!theme.dark"
   :multi-line="snackbar.mode === 'multi-line'"
   :right="snackbar.x === 'right'"
   :timeout="snackbar.timeout"
@@ -13,6 +13,7 @@
   multi-line
 >
   <alert-icon :class="snackbar.color" small :mode="snackbar.type"></alert-icon>
-  &nbsp; <span :class="{'white--text': snackbar.theme === 'dark', 'black--text': snackbar.theme === 'light'}" v-html="snackbar.text"></span>
-  <v-btn :dark="snackbar.theme === 'dark'" :light="snackbar.theme === 'light'" flat @click="snackbar.model = false">Close</v-btn>
+  &nbsp;
+  <span v-html="snackbar.text"></span>
+  <v-btn :dark="theme.dark" :light="!theme.dark" flat @click="snackbar.model = false">Close</v-btn>
 </v-snackbar>

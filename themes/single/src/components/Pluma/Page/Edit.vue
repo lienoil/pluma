@@ -25,6 +25,8 @@
         <v-layout row wrap>
           <v-flex xs12 sm8 md9>
 
+            <chatbox></chatbox>
+
             <v-text-field solo v-model="resource.item.title" label="Title" class="mb-3"></v-text-field>
 
             <!-- Course -->

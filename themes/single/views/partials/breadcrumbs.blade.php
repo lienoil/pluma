@@ -1,4 +1,4 @@
-<breadcrumbs url="{{ route('api.misc.breadcrumbs') }}"></breadcrumbs>
+<breadcrumbs class="py-1" url="{{ route('api.misc.breadcrumbs') }}"></breadcrumbs>
 {{-- <v-breadcrumbs divider="chevron_right">
   @section("breadcrumbs")
     <v-breadcrumbs-item
