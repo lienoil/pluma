@@ -54,6 +54,7 @@ class AuthenticateUserRole
 
         $actions = $request->route()->getAction();
         $request->route()->setAction($actions + ['auth.roles' => $this->roles()]);
+        // dd($this->roles());
 
         // if menu is always viewable, proceed.
         // dd($request->route()->getAction());

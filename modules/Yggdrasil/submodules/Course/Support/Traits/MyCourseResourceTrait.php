@@ -67,7 +67,7 @@ trait MyCourseResourceTrait
         );
 
         // Enroll
-        $course->users()->attach($student);
+        // $course->users()->attach($student);
         foreach ($course->contents()->orderBy('sort')->get() as $sort => $content) {
             $content->users()->attach($student, [
                 'course_id' => $course->id,

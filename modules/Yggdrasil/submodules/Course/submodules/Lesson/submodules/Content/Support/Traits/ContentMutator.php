@@ -350,4 +350,29 @@ trait ContentMutator
 
         return $form->submissions()->where('user_id', user()->id)->exists();
     }
+
+    /**
+     * Gets the result submitted by the user.
+     *
+     * @param  int $id
+     * @return Collection
+     */
+    public function getSubmissionScore($id)
+    {
+        if (! user()) {
+            return false;
+        }
+
+        $form = Form::find($this->contentable_id);
+
+        if (! $form->exists()) {
+            return false;
+        }
+
+        if (! $form->submissions()->where('user_id', $id)->exists()) {
+            return false;
+        }
+
+        return $form->submissions()->where('user_id', $id)->first()->scored;
+    }
 }

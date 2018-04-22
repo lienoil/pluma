@@ -20,7 +20,7 @@ return [
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
-        // Illuminate\Log\LogServiceProvider::class,
+        Illuminate\Log\LogServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
@@ -42,7 +42,7 @@ return [
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\FormRequestServiceProvider::class,
-        Pluma\Providers\CorsServiceProvider::class,
+        // Pluma\Cors\CorsServiceProvider::class,
 
         // Support
         Pluma\Support\Installation\Providers\InstallationServiceProvider::class,

@@ -28,10 +28,10 @@ class CreateFieldsTable extends Migration
         $this->schema->create($this->tablename, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('label')->nullable();
+            $table->text('label')->nullable();
             $table->integer('sort')->nullable();
-            $table->integer('points')->default(1);
             $table->text('value')->nullable();
+            $table->integer('points')->default(1);
             $table->text('attribute')->nullable();
             $table->integer('fieldtype_id')->unsigned();
             $table->integer('form_id')->unsigned();

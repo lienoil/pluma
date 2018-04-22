@@ -52,7 +52,7 @@ trait EnrolledUserMutator
 
         $count = \Course\Models\Status::where('user_id', (user()->id ?? null))
             ->where('course_id', $this->id)
-            ->where('status', 'completed')
+            // ->where('status', 'completed')
             ->count();
 
         return (float) number_format((float)(($count * 100) / $this->contents->count()), 2);

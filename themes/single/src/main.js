@@ -19,13 +19,13 @@ Vue.use(filters)
 Vue.use(VeeValidate)
 Vue.use(Vuetify, {
   theme: {
-    primary: '#00ad9d',
-    accent: '#1e90ff',
-    secondary: '#e91e63',
-    info: '#2196f3',
+    primary: '#30ad9d',
+    secondary: '#ea4763',
+    accent: '#fbde3c',
+    success: '#81c106',
     warning: '#ff8017',
     error: '#ad2c1a',
-    success: '#81c106'
+    info: '#2196f3'
   }
 })
 
