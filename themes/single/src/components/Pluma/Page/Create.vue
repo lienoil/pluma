@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-toolbar light color="white" class="elevation-1 sticky">
-      <v-toolbar-title class="grey--text text--darken-1">Create Page</v-toolbar-title>
+    <v-toolbar dark color="primary" class="elevation-2 sticky">
+      <v-toolbar-title>Create Page</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu>
         <v-btn slot="activator" icon small><v-icon small>settings</v-icon></v-btn>
@@ -16,7 +16,7 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-btn :loading="resource.saving" ripple color="primary" @click="save(resource.item)">Save</v-btn>
+      <v-btn :loading="resource.saving" ripple color="secondary" @click="save(resource.item)">Save</v-btn>
     </v-toolbar>
     <template v-if="!chooseTemplate.selected">
       <choose-template v-model="chooseTemplate.selected"></choose-template>

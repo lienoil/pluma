@@ -84,6 +84,10 @@ class Schedule
      */
     public function job($job, $queue = null)
     {
+	if (is_null($job)) {
+	    return;
+	}
+
         return $this->call(function () use ($job, $queue) {
             dispatch((is_string($job) ? resolve($job) : $job)->onQueue($queue));
         })->name(is_string($job) ? $job : get_class($job));
