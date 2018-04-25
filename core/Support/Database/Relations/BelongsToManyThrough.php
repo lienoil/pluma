@@ -1,6 +1,6 @@
 <?php
 
-namespace Support\Database\Relations;
+namespace Pluma\Support\Database\Relations;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

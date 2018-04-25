@@ -1,6 +1,6 @@
 <?php
 
-const PLUMA_VERSION = '2.0.1';
+const PLUMA_VERSION = '2.1.0';
 
 define('PLUMA_START', microtime(true));
 

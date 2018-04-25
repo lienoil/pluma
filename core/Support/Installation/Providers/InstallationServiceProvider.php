@@ -7,11 +7,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Providers\DatabaseServiceProvider;
-use Pluma\Support\Installation\Traits\AppIsInstalled;
 
 class InstallationServiceProvider extends ServiceProvider
 {
-    use AppIsInstalled;
+    /**
+     * Initial value if app is installed.
+     *
+     * @var boolean
+     */
+    protected $installed = true;
 
     /**
      * Boot the service.
@@ -42,5 +46,25 @@ class InstallationServiceProvider extends ServiceProvider
             // Views
             $this->loadViewsFrom(core_path('Support/Installation/views'), "Install");
         }
+    }
+
+    /**
+     * Performs tests to check if app is installed.
+     *
+     * @return bool
+     */
+    public function appIsInstalled()
+    {
+        try {
+            DB::connection()->getPdo();
+        } catch (\PDOException $e) {
+            $this->installed = false;
+        } catch (\Illuminate\Database\QueryException $e) {
+            $this->installed = false;
+        } catch (\Exception $e) {
+            $this->installed = false;
+        }
+
+        return $this->installed;
     }
 }

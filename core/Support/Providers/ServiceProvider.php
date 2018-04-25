@@ -5,12 +5,9 @@ namespace Pluma\Support\Providers;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Pluma\Support\Installation\Traits\AppIsInstalled;
 
 class ServiceProvider extends BaseServiceProvider
 {
-    use AppIsInstalled;
-
     /**
      * Array of view composers to register.
      *
@@ -90,13 +87,11 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function bootObservables()
     {
-        if ($this->appIsInstalled()) {
-            foreach ($this->observables() as $observable) {
-                if (Schema::hasTable(with($this->app->make($observable[0]))->getTable())) {
-                    $model = $this->app->make($observable[0]);
-                    $observer = $this->app->make($observable[1]);
-                    $model::observe(new $observer);
-                }
+        foreach ($this->observables() as $observable) {
+            if (Schema::hasTable(with($this->app->make($observable[0]))->getTable())) {
+                $model = $this->app->make($observable[0]);
+                $observer = $this->app->make($observable[1]);
+                $model::observe(new $observer);
             }
         }
     }

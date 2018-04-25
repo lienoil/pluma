@@ -75,5 +75,6 @@ return array(
     'Cron\\' => array($vendorDir . '/mtdowling/cron-expression/src/Cron'),
     'Chumper\\Zipper\\' => array($vendorDir . '/chumper/zipper/src/Chumper/Zipper'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
+    'Blacksmith\\' => array($baseDir . '/console/blacksmith'),
     'Asm89\\Stack\\' => array($vendorDir . '/asm89/stack-cors/src/Asm89/Stack'),
 );

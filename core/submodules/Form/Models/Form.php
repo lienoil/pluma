@@ -8,7 +8,7 @@ use Form\Support\Traits\FormMutatorTrait;
 use Frontier\Support\Traits\TypeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
-use Pluma\Support\Database\Scopes\SlugOrFail;
+use Pluma\Support\Database\Scopes\SlugOrFailScope;
 use Submission\Support\Relations\HasManySubmissions;
 use User\Support\Traits\BelongsToUser;
 
@@ -20,7 +20,7 @@ class Form extends Model
         TypeTrait,
         HasManyFields,
         HasManySubmissions,
-        SlugOrFail,
+        SlugOrFailScope,
         SoftDeletes;
 
     protected $with = ['fields'];

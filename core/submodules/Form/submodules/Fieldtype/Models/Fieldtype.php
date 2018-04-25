@@ -2,17 +2,17 @@
 
 namespace Fieldtype\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Fieldtype\Support\Relations\HasManyFieldtypes;
 use Field\Support\Relations\HasManyFields;
-use Pluma\Support\Database\Scopes\SlugOrFail;
-use User\Support\Traits\BelongsToUser;
+use Fieldtype\Support\Relations\HasManyFieldtypes;
 use Form\Support\Relations\BelongsToForm;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
+use Pluma\Support\Database\Scopes\SlugOrFailScope;
+use User\Support\Traits\BelongsToUser;
 
 class Fieldtype extends Model
 {
-    use SoftDeletes, SlugOrFail, BelongsToForm, BelongsToUser, HasManyFieldtypes, HasManyFields;
+    use SoftDeletes, SlugOrFailScope, BelongsToForm, BelongsToUser, HasManyFieldtypes, HasManyFields;
 
     protected $fillable = ['id', 'name', 'code'];
 

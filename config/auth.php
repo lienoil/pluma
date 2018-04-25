@@ -69,11 +69,6 @@ return [
             'driver' => 'eloquent',
             'model' => User\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /**
@@ -99,19 +94,16 @@ return [
         ],
     ],
 
-    'registration' => [
-        'default' => 2,
-        'modes' => [
-            '0' => 'No one can register',
-            '1' => 'Register via email request',
-            '2' => 'Register as Subscriber',
-            '3' => 'Register as Guest',
-        ],
-    ],
-
-    'rootroles' => [
+    /**
+     *--------------------------------------------------------------------------
+     * Default Roles
+     *--------------------------------------------------------------------------
+     *
+     * These roles will be seeded in the database upon installation.
+     *
+     */
+    'roles' => [
         'superadmin',
         'root',
-        'dev',
     ],
 ];

@@ -7,26 +7,21 @@ use Pluma\Scopes\ExceptScope;
 use Pluma\Support\Database\Scopes\ExceptableTrait;
 use Pluma\Support\Database\Scopes\SearchableTrait;
 use Pluma\Support\Mutators\BaseMutator;
-use Support\Database\Traits\BaseRelation;
-use Support\Database\Traits\Relationships;
+use Pluma\Support\Database\Traits\BaseRelations;
 
 class Model extends BaseModel
 {
-    use BaseMutator, BaseRelation, SearchableTrait, ExceptableTrait;
-
-    /**
-     * Accessors to append on every request.
-     *
-     * @var array
-     */
-    protected $appends = ['created', 'modified', 'removed', 'excerpt'];
+    use BaseMutator,
+        BaseRelations,
+        SearchableTrait,
+        ExceptableTrait;
 
     /**
      * The number of models to return for pagination.
      *
      * @var int
      */
-    protected $perPage = 10;
+    protected $perPage = 15;
 
     /**
      * Create a new Eloquent model instance.

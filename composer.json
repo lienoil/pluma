@@ -67,9 +67,10 @@
     "classmap": [
       "core",
       "modules",
-      "blacksmith"
+      "console"
     ],
     "psr-4": {
+      "Blacksmith\\": "console/blacksmith/",
       "Pluma\\": "core/"
     }
   },

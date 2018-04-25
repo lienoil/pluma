@@ -13,6 +13,7 @@ use Pluma\Support\Auth\Traits\Authorizable;
 use Pluma\Support\Auth\Traits\UserMutator;
 use Pluma\Support\Database\Scopes\ExceptableTrait;
 use Pluma\Support\Database\Scopes\SearchableTrait;
+use Pluma\Support\Database\Traits\BaseRelations;
 use Pluma\Support\Mutators\BaseMutator;
 
 class User extends Model implements
@@ -25,6 +26,7 @@ class User extends Model implements
         CanResetPassword,
         UserMutator,
         BaseMutator,
+        BaseRelations,
         Notifiable,
         SearchableTrait,
         ExceptableTrait;

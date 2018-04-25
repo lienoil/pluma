@@ -5,11 +5,11 @@ namespace Menu\Models;
 use Menu\Support\Traits\BelongsToMenu;
 use Menu\Support\Traits\MenuBuilderTrait;
 use Pluma\Models\Model;
-use Pluma\Support\Database\Scopes\SlugOrFail;
+use Pluma\Support\Database\Scopes\SlugOrFailScope;
 
 class Menu extends Model
 {
-    use SlugOrFail, MenuBuilderTrait, BelongsToMenu;
+    use SlugOrFailScope, MenuBuilderTrait, BelongsToMenu;
 
     protected $with = [];
 

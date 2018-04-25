@@ -40,7 +40,6 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:80,1',
             'bindings',
-            // 'cors',
             'preflight',
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,

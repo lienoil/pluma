@@ -14,69 +14,63 @@
  */
 return [
     /**
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Test Permissions
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      *
      */
-    'view-test' => [
-        'name' => 'tests.index',
-        'code' => 'view-test',
+    'view-tests' => [
+        'name' =>  'view-tests',
+        'code' => 'tests.index',
         'description' => 'Ability to view list of tests',
-        'group' => 'test',
+        'group' => 'tests',
     ],
     'show-test' => [
-        'name' => 'tests.show',
-        'code' => 'show-test',
+        'name' => 'show-test',
+        'code' => 'tests.show',
         'description' => 'Ability to show a single test',
-        'group' => 'test',
+        'group' => 'tests',
     ],
     'create-test' => [
-        'name' => 'tests.create',
-        'code' => 'create-test',
-        'description' => 'Ability to show the form to create test',
-        'group' => 'test',
+        'name' => 'create-test',
+        'code' => 'tests.create',
+        'description' => 'Ability to create new test',
+        'group' => 'tests',
     ],
     'store-test' => [
-        'name' => 'tests.store',
-        'code' => 'store-test',
+        'name' => 'store-test',
+        'code' => 'tests.store',
         'description' => 'Ability to save the test',
-        'group' => 'test',
-    ],
-    'edit-test' => [
-        'name' => 'tests.edit',
-        'code' => 'edit-test',
-        'description' => 'Ability to show the form to edit test',
-        'group' => 'test',
+        'group' => 'tests',
     ],
     'update-test' => [
-        'name' => 'tests.update',
-        'code' => 'update-test',
+        'name' => 'update-test',
+        'code' => 'tests.update',
         'description' => 'Ability to update the test',
-        'group' => 'test',
+        'group' => 'tests',
     ],
     'destroy-test' => [
-        'name' =>  'tests.destroy',
-        'code' => 'destroy-test',
+        'name' => 'destroy-test',
+        'code' =>  'tests.destroy',
         'description' => 'Ability to move the test to trash',
-        'group' => 'test',
+        'group' => 'tests',
     ],
     'delete-test' => [
-        'name' =>  'tests.delete',
-        'code' => 'delete-test',
+        'name' => 'delete-test',
+        'code' =>  'tests.delete',
         'description' => 'Ability to permanently delete the test',
-        'group' => 'test',
+        'group' => 'tests',
     ],
-    'trashed-test' => [
-        'name' => 'tests.trashed',
-        'code' => 'trashed-test',
-        'description' => 'Ability to view the list of all trashed test',
-        'group' => 'test',
+    'trashed-tests' => [
+        'name' => 'trashed-tests',
+        'code' =>  'tests.trashed',
+        'description' => 'Ability to view the list of all trashed tests',
+        'group' => 'tests',
     ],
     'restore-test' => [
-        'name' => 'tests.restore',
-        'code' => 'restore-test',
-        'description' => 'Ability to restore the test',
-        'group' => 'test',
+        'name' => 'restore-test',
+        'code' => 'tests.restore',
+        'description' => 'Ability to restore the test from trash',
+        'group' => 'tests',
     ],
 ];

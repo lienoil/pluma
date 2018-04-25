@@ -3,13 +3,10 @@
 namespace Pluma\Providers;
 
 use Illuminate\Support\Facades\Route;
-use Pluma\Support\Installation\Traits\AppIsInstalled;
 use Pluma\Support\Providers\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    use AppIsInstalled;
-
     /**
      * Array of modules.
      *
@@ -55,8 +52,7 @@ class ModuleServiceProvider extends ServiceProvider
         foreach ($this->modules as $module) {
             $basename = basename($module);
             if (file_exists("$module/Providers/{$basename}ServiceProvider.php")) {
-                $serviceProvider = "\\$basename\\Providers\\{$basename}ServiceProvider::class";
-                $this->providers[] = $serviceProvider;
+                $this->providers[] = "\\$basename\\Providers\\{$basename}ServiceProvider::class";
             }
         }
     }
@@ -83,7 +79,10 @@ class ModuleServiceProvider extends ServiceProvider
         if (is_dir(config("view.static", 'resources/views/static'))) {
             $this->staticBasename = config("view.static_basename", $this->staticBasename);
 
-            $this->loadViewsFrom(config("view.static", 'resources/views/static'), $this->staticBasename);
+            $this->loadViewsFrom(
+                config("view.static", 'resources/views/static'),
+                $this->staticBasename
+            );
         }
     }
 
@@ -121,9 +120,7 @@ class ModuleServiceProvider extends ServiceProvider
             $this->loadViews($module);
 
             // Load Routes
-            if ($this->appIsInstalled()) {
-                $this->loadRoutes($module);
-            }
+            $this->loadRoutes($module);
         }
     }
 

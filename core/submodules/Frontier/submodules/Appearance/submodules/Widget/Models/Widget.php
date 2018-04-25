@@ -3,7 +3,7 @@
 namespace Widget\Models;
 
 use Pluma\Models\Model;
-use Role\Support\Traits\BelongsToManyRoles;
+use Role\Support\Relations\BelongsToManyRoles;
 use Widget\Support\Scopes\WidgetTrait;
 
 class Widget extends Model

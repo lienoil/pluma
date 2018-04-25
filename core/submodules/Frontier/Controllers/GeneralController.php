@@ -14,11 +14,16 @@ class GeneralController extends Controller implements GenericResourceInterface
      * @var array
      */
     protected $methodsAdmin = [
-        'index', 'show',
-        'create', 'store',
-        'edit', 'update',
-        'destroy', 'delete',
-        'trashed', 'restore',
+        'index',
+        'show',
+        'create',
+        'store',
+        'edit',
+        'update',
+        'destroy',
+        'delete',
+        'trashed',
+        'restore',
     ];
 
     /**
@@ -27,7 +32,8 @@ class GeneralController extends Controller implements GenericResourceInterface
      * @var array
      */
     protected $methodsPublic = [
-        'all', 'single'
+        'all',
+        'single'
     ];
 
     /**
@@ -36,11 +42,16 @@ class GeneralController extends Controller implements GenericResourceInterface
      * @var array
      */
     protected $methodsApi = [
-        'getAll', 'getShow',
-        'getCreate', 'postStore',
-        'getEdit', 'putUpdate',
-        'deleteDestroy', 'deleteDelete',
-        'getTrashed', 'postRestore',
+        'getAll',
+        'getShow',
+        'getCreate',
+        'postStore',
+        'getEdit',
+        'putUpdate',
+        'deleteDestroy',
+        'deleteDelete',
+        'getTrashed',
+        'postRestore',
     ];
 
     /**
