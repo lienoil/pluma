@@ -5,18 +5,6 @@ namespace User\Support\Traits;
 trait WhereDetailTrait
 {
     /**
-     * Alias for whereDetail
-     *
-     * @param  string  $key
-     * @param  string  $default
-     * @return string
-     */
-    public function detail($key, $default = null)
-    {
-        return $this->whereDetail($key, $default);
-    }
-
-    /**
      * Shortcut for getting the resource's detail.
      *
      * @param string $key
@@ -28,5 +16,17 @@ trait WhereDetailTrait
         $query = $this->details()->where('key', $key)->first();
 
         return $query->value ?? $value;
+    }
+
+    /**
+     * Alias for whereDetail
+     *
+     * @param  string  $key
+     * @param  string  $default
+     * @return string
+     */
+    public function detail($key, $default = null)
+    {
+        return $this->whereDetail($key, $default);
     }
 }

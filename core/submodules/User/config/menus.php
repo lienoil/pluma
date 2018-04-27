@@ -23,6 +23,7 @@ return [
                 'name' => 'view-user',
                 'order' => 1,
                 'slug' => route('users.index'),
+                'code' => 'users.index',
                 // 'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.index',
@@ -42,6 +43,7 @@ return [
                 'name' => 'create-user',
                 'order' => 2,
                 'slug' => url(config('path.admin').'/users/create'),
+                'code' => 'users.create',
                 'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.create',
@@ -54,6 +56,7 @@ return [
                 'name' => 'trash-user',
                 'order' => 3,
                 'slug' => url(config('path.admin').'/users/trashed'),
+                'code' => 'users.trashed',
                 'icon' => 'delete',
                 'always_viewable' => false,
                 'routes' => [

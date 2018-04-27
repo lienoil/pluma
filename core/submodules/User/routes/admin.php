@@ -6,6 +6,7 @@
  *------------------------------------------------------------------------------
  *
  */
+
 Route::get('users/{id}/password/change', 'PasswordController@getChangeForm')->name('password.change.form');
 Route::post('users/password/change/{id}', 'PasswordController@change')->name('password.change');
 Route::delete('users/delete/many', 'UserManyController@delete')->name('users.many.delete');
@@ -15,5 +16,7 @@ Route::get('users/refresh', 'UserRefreshController@index')->name('users.refresh.
 Route::get('users/trashed', 'UserController@trashed')->name('users.trashed');
 Route::post('users/refresh', 'UserRefreshController@refresh')->name('users.refresh.refresh');
 Route::post('users/restore/many', 'UserManyController@restore')->name('users.many.restore');
-Route::post('users/{user}/restore', 'UserController@restore')->name('users.restore');
+
+Route::softDeletes('users', 'UserController');
+
 Route::resource('users', 'UserController');

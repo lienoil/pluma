@@ -13,13 +13,17 @@ const router = new VueRouter({
   routes
 })
 
-// // Check before loading the requested route
-// router.beforeEach((to, from, next) => {
-//   if (!to.matched.length) {
-//     next('/404')
-//   }
+// Check before loading the requested route
+router.beforeEach((to, from, next) => {
+  if (!to.matched.length) {
+    next('/404')
+  }
 
-//   next()
-// })
+  Vue.$http.get('/api/v1/user/can/', { params: { url: to } })
+    .then((response) => {
+      console.log(response)
+      next()
+    })
+})
 
 export default router

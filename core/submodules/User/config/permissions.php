@@ -14,97 +14,71 @@
  */
 return [
     /**
+     *--------------------------------------------------------------------------
      * User Permissions
+     *--------------------------------------------------------------------------
      *
      */
-    'view-user' => [
-        'name' =>  'users.index',
-        'code' => 'view-user',
+    'view-users' => [
+        'name' =>  'view-users',
+        'code' => 'users.index',
         'description' => 'Ability to view list of users',
-        'group' => 'user',
+        'group' => 'users',
     ],
     'show-user' => [
-        'name' => 'users.show',
-        'code' => 'show-user',
+        'name' => 'show-user',
+        'code' => 'users.show',
         'description' => 'Ability to show a single user',
-        'group' => 'user',
+        'group' => 'users',
     ],
     'create-user' => [
-        'name' => 'users.create',
-        'code' => 'create-user',
-        'description' => 'Ability to show the form to create user',
-        'group' => 'user',
+        'name' => 'create-user',
+        'code' => 'users.create',
+        'description' => 'Ability to create new user',
+        'group' => 'users',
     ],
     'store-user' => [
-        'name' => 'users.store',
-        'code' => 'store-user',
+        'name' => 'store-user',
+        'code' => 'users.store',
         'description' => 'Ability to save the user',
-        'group' => 'user',
-    ],
-    'edit-user' => [
-        'name' => 'users.edit',
-        'code' => 'edit-user',
-        'description' => 'Ability to show the form to edit user',
-        'group' => 'user',
+        'group' => 'users',
     ],
     'update-user' => [
-        'name' => 'users.update',
-        'code' => 'update-user',
+        'name' => 'update-user',
+        'code' => 'users.update',
         'description' => 'Ability to update the user',
-        'group' => 'user',
+        'group' => 'users',
     ],
     'destroy-user' => [
-        'name' =>  'users.destroy',
-        'code' => 'destroy-user',
+        'name' => 'destroy-user',
+        'code' =>  'users.destroy',
         'description' => 'Ability to move the user to trash',
-        'group' => 'user',
+        'group' => 'users',
     ],
     'delete-user' => [
-        'name' =>  'users.delete',
-        'code' => 'delete-user',
+        'name' => 'delete-user',
+        'code' =>  'users.delete',
         'description' => 'Ability to permanently delete the user',
-        'group' => 'user',
+        'group' => 'users',
     ],
-    'trash-user' => [
-        'name' =>  'users.trash',
-        'code' => 'trash-user',
-        'description' => 'Ability to view the list of all trashed user',
-        'group' => 'user',
+    'trashed-users' => [
+        'name' => 'trashed-users',
+        'code' =>  'users.trashed',
+        'description' => 'Ability to view the list of all trashed users',
+        'group' => 'users',
     ],
     'restore-user' => [
-        'name' => 'users.restore',
-        'code' => 'restore-user',
-        'description' => 'Ability to restore the user',
-        'group' => 'user',
+        'name' => 'restore-user',
+        'code' => 'users.restore',
+        'description' => 'Ability to restore the user from trash',
+        'group' => 'users',
     ],
 
     // Password
     'change-password' => [
-        'name' =>  'users.password.change',
-        'code' => 'change-password',
+        'name' =>  'change-password',
+        'code' => 'password.change',
         'description' => 'Ability to change the user password without using the old password',
-        'group' => 'user',
+        'group' => 'users',
     ],
-
-    // Many
-    'destroy-many-user' => [
-        'name' =>  'users.many.destroy',
-        'code' => 'destroy-many-user',
-        'description' => 'Ability to destroy many users',
-        'group' => 'user',
-    ],
-    'delete-many-user' => [
-        'name' =>  'users.many.delete',
-        'code' => 'delete-many-user',
-        'description' => 'Ability to permanently delete many users',
-        'group' => 'user',
-    ],
-    'restore-many-user' => [
-        'name' => 'users.many.restore',
-        'code' => 'restore-many-user',
-        'description' => 'Ability to restore many users',
-        'group' => 'user',
-    ],
-
-    //
 ];

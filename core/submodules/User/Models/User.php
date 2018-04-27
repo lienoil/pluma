@@ -5,7 +5,6 @@ namespace User\Models;
 use Pluma\Support\Auth\User as Authenticatable;
 use Role\Support\Relations\BelongsToManyRoles;
 use Role\Support\Relations\HasManyPermissionsThroughRoles;
-use Role\Support\Traits\RoleBasedAccessControlTrait;
 use Setting\Support\Relations\HasManySettings;
 use Setting\Support\Traits\SettingTrait;
 use User\Scopes\Avatar;
@@ -22,7 +21,6 @@ class User extends Authenticatable
         HasManyDetails,
         HasManyPermissionsThroughRoles,
         HasManySettings,
-        RoleBasedAccessControlTrait,
         SettingTrait,
         WhereDetailTrait;
 

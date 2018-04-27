@@ -1,6 +1,16 @@
 <?php
 
+use User\Models\User;
+
 Route::group(['prefix' => 'users'], function () {
+    Route::get('s/s', function () {
+        //
+    });
+
+    Route::get('s/{user}', function (User $user) {
+        dd($user->as('trainer'), $user->permissions);
+    });
+
     /**
      * Roles
      *

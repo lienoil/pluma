@@ -1,9 +1,8 @@
 <?php
-
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Permissions Array
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * Here we define our permissions that you can attach to roles.
  *
@@ -13,66 +12,65 @@
  * for the role authentication middleware to work.
  *
  */
-
 return [
-    'view-page' => [
-        'name' =>  'pages.index',
-        'code' => 'view-page',
+    /**
+     *--------------------------------------------------------------------------
+     * Page Permissions
+     *--------------------------------------------------------------------------
+     *
+     */
+    'view-pages' => [
+        'name' =>  'view-pages',
+        'code' => 'pages.index',
         'description' => 'Ability to view list of pages',
-        'group' => 'page',
+        'group' => 'pages',
     ],
     'show-page' => [
-        'name' => 'pages.show',
-        'code' => 'show-page',
+        'name' => 'show-page',
+        'code' => 'pages.show',
         'description' => 'Ability to show a single page',
-        'group' => 'page',
+        'group' => 'pages',
     ],
     'create-page' => [
-        'name' => 'pages.create',
-        'code' => 'create-page',
-        'description' => 'Ability to show the form to create page',
-        'group' => 'page',
+        'name' => 'create-page',
+        'code' => 'pages.create',
+        'description' => 'Ability to create new page',
+        'group' => 'pages',
     ],
     'store-page' => [
-        'name' => 'pages.store',
-        'code' => 'store-page',
+        'name' => 'store-page',
+        'code' => 'pages.store',
         'description' => 'Ability to save the page',
-        'group' => 'page',
-    ],
-    'edit-page' => [
-        'name' => 'pages.edit',
-        'code' => 'edit-page',
-        'description' => 'Ability to show the form to edit page',
-        'group' => 'page',
+        'group' => 'pages',
     ],
     'update-page' => [
-        'name' => 'pages.update',
-        'code' => 'update-page',
+        'name' => 'update-page',
+        'code' => 'pages.update',
         'description' => 'Ability to update the page',
-        'group' => 'page',
+        'group' => 'pages',
     ],
     'destroy-page' => [
-        'name' =>  'pages.destroy',
-        'code' => 'destroy-page',
+        'name' => 'destroy-page',
+        'code' =>  'pages.destroy',
         'description' => 'Ability to move the page to trash',
-        'group' => 'page',
-    ],
-    'trashed-page' => [
-        'name' =>  'pages.trashed',
-        'code' => 'trashed-page',
-        'description' => 'Ability to view the list of all trashed page',
-        'group' => 'page',
+        'group' => 'pages',
     ],
     'delete-page' => [
-        'name' =>  'pages.delete',
-        'code' => 'delete-page',
+        'name' => 'delete-page',
+        'code' =>  'pages.delete',
         'description' => 'Ability to permanently delete the page',
-        'group' => 'page',
+        'group' => 'pages',
+    ],
+    'trashed-pages' => [
+        'name' => 'trashed-pages',
+        'code' =>  'pages.trashed',
+        'description' => 'Ability to view the list of all trashed pages',
+        'group' => 'pages',
     ],
     'restore-page' => [
-        'name' => 'pages.restore',
-        'code' => 'restore-page',
-        'description' => 'Ability to restore the page',
-        'group' => 'page',
+        'name' => 'restore-page',
+        'code' => 'pages.restore',
+        'description' => 'Ability to restore the page from trash',
+        'group' => 'pages',
     ],
 ];

@@ -12,6 +12,7 @@ return [
     'view-role' => [
         'name' => 'view-role',
         'slug' => url(config('path.admin').'/users/roles'),
+        'code' => 'roles.index',
         'routes' => [
             'name' => 'roles.index',
             'children' => [

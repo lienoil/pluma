@@ -110,7 +110,7 @@ class NavigationViewComposer extends BaseViewComposer
             if (user() && user()->isRoot() ||
                 (isset($menu['always_viewable']) && $menu['always_viewable']) ||
                 (isset($menu['is_header']) && $menu['is_header']) ||
-                (user() && user()->isPermittedTo($menu['name'])) ||
+                (user() && user()->isPermittedTo(isset($menu['code'])?$menu['code']:$menu['name'])) ||
                 (isset($menu['permission']) && user()->isPermittedTo($menu['permission']))) {
                 $menu['can_be_accessed'] = true;
             }
