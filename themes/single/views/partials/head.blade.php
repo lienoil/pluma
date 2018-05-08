@@ -39,7 +39,7 @@
   @show
 
   <link rel="preload" href="{{ theme('dist/static/css/app.min.css') }}" as="style">
-  <link rel="stylesheet" href="{{ theme('dist/static/css/app.min.css') }}">
+  <link rel="stylesheet" href="{{ theme('dist/static/css/app.min.css?v=909090009') }}">
 
   @stack("css")
     <link rel="preload" href="{{ theme('dist/static/js/vendor.min.js') }}" as="script">
