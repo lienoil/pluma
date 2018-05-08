@@ -6,8 +6,8 @@ use Pluma\Support\Auth\User as Authenticatable;
 use Role\Support\Relations\BelongsToManyRoles;
 use Role\Support\Relations\HasManyPermissionsThroughRoles;
 use Setting\Support\Relations\HasManySettings;
-use Setting\Support\Traits\SettingTrait;
-use User\Scopes\Avatar;
+use Setting\Support\Traits\WhereSettingTrait;
+use User\Scopes\LoadAvatarPhotosScope;
 use User\Support\Relations\HasManyDetails;
 use User\Support\Traits\CanResetPasswordTrait;
 use User\Support\Traits\WhereDetailTrait;
@@ -15,18 +15,21 @@ use User\Support\Traits\WhereDetailTrait;
 
 class User extends Authenticatable
 {
-    use Avatar,
-        BelongsToManyRoles,
+    use BelongsToManyRoles,
         CanResetPasswordTrait,
         HasManyDetails,
         HasManyPermissionsThroughRoles,
         HasManySettings,
-        SettingTrait,
-        WhereDetailTrait;
+        LoadAvatarPhotosScope,
+        WhereDetailTrait,
+        WhereSettingTrait;
 
     protected $with = [];
 
-    protected $appends = [];
+    protected $appends = [
+        'created',
+        'modified',
+    ];
 
     protected $searchables = [
         'firstname',
@@ -42,7 +45,11 @@ class User extends Authenticatable
         'lastname' => 'sometimes|required|max:255',
         'password' => 'sometimes|required|min:6|confirmed',
         'username' => 'sometimes|required|regex:/^[\pL\s\-\.\*\#\(0-9)]+$/u|unique:users',
-        'email' => 'required|email|unique:users',
+        'email' => 'sometimes|required|email|unique:users',
         'roles' => 'required',
+    ];
+
+    public static $messages = [
+        'roles.required' => 'Atleast one role is required.',
     ];
 }

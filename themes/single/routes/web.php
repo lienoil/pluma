@@ -2,9 +2,40 @@
 
 use Frontier\Composers\NavigationViewComposer;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Pluma\Support\Facades\Route;
 
+# Language
+Route::get('js/languages.js', function () {
+    Cache::forget('languages.js');
+    $strings = Cache::rememberForever('languages.js', function () {
+        $lang = settings('site_language', config('language.locale'));
+        $files = glob(resource_path("lang/$lang/*.php"));
+
+        foreach ($files as $file) {
+            $name = basename($file, '.php');
+            $strings[$name] = require $file;
+        }
+
+        return $strings ?? [];
+    });
+
+    return response()
+      ->make('window.i18n = ' . json_encode($strings) . ';', 200)
+      ->header('Content-Type', 'text/javascript');
+})->name('assets.lang');
+
 Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function () {
+    # User
+    Route::get('auth/user', function () {
+        return response()->json([
+            'user' => user(),
+            'isRoot' => user()->isRoot(),
+            'permissions' => user()->permissions->pluck('code'),
+        ]);
+    })->middleware('auth.admin');
+
     # Breadcrumbs
     Route::post('misc/breadcrumbs', function (Request $request) {
         $composer = new NavigationViewComposer();
@@ -43,6 +74,11 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
         $data = navigations('sidebar');
         return response()->json($data);
     });
+
+    # Permissions
+    Route::get('user/can', function (Request $request) {
+        return response()->json(user()->can($request->get('permission')));
+    })->middleware('auth.roles');
 });
 
 Route::post('admin/sessions', function () {

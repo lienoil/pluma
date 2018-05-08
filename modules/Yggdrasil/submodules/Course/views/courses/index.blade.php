@@ -114,7 +114,7 @@
                                 <v-menu bottom left>
                                     <v-btn icon flat slot="activator"><v-icon>more_vert</v-icon></v-btn>
                                     <v-list>
-                                        <v-list-tile :href="route(urls.show, prop.item.slug)">
+                                        <v-list-tile :href="prop.item.first_content">
                                             <v-list-tile-action>
                                                 <v-icon info>search</v-icon>
                                             </v-list-tile-action>

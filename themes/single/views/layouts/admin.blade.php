@@ -19,6 +19,5 @@
 @endpush
 
 @push("foot")
-  {{-- DELETE THIS --}}
-  <script src="{{ assets('course/scorm/scorm.adapter.api-1.2-2004.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/languages.js') }}"></script>
 @endpush

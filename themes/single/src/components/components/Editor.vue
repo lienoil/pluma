@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 export default {
   name: 'Editor',
@@ -31,19 +31,19 @@ export default {
   },
   methods: {
     boot () {
-      let self = this
-      ClassicEditor
-        .create(this.$refs['wysiwyg-editor'])
-        .then(editor => {
-          self.editor.instance = editor
-          editor.document.on('change', function (event, type, data) {
-            self.$emit('input', editor.getData())
-          })
-          // editor.document.querySelector('.ck-editor__editable').style.minHeight = self.height
-        })
-        .catch(error => {
-          this.$root.alert({type: 'error', text: `Oops! something went wrong to the Editor! ${error}`})
-        })
+      // let self = this
+      // ClassicEditor
+      //   .create(this.$refs['wysiwyg-editor'])
+      //   .then(editor => {
+      //     self.editor.instance = editor
+      //     editor.document.on('change', function (event, type, data) {
+      //       self.$emit('input', editor.getData())
+      //     })
+      //     // editor.document.querySelector('.ck-editor__editable').style.minHeight = self.height
+      //   })
+      //   .catch(error => {
+      //     this.$root.alert({type: 'error', text: `Oops! something went wrong to the Editor! ${error}`})
+      //   })
     },
     reboot () {
       this.editor.instance.destroy()

@@ -34,25 +34,23 @@ trait PageResourceApiTrait
      */
     public function getAll(Request $request)
     {
-        $onlyTrashed = $request->get('only_trashed') !== 'null' && $request->get('only_trashed')
-                        ? $request->get('only_trashed')
-                        : false;
+        $onlyTrashed = (bool) $request->get('only_trashed');
 
-        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null'
-                        ? 'DESC'
-                        : 'ASC';
+        $order = $request->get('descending') === 'true'
+                 ? 'DESC'
+                 : 'ASC';
 
-        $searches = $request->get('search') !== 'null' && $request->get('search')
-                        ? $request->get('search')
-                        : $request->all();
+        $searches = (bool) $request->get('search')
+                    ? $request->get('search')
+                    : $request->all();
 
-        $sort = $request->get('sort') && $request->get('sort') !== 'null'
-                        ? $request->get('sort')
-                        : 'id';
+        $sort = (bool) $request->get('sort')
+                ? $request->get('sort')
+                : 'id';
 
-        $take = $request->get('take') && $request->get('take') > 0
-                        ? $request->get('take')
-                        : 0;
+        $take = (int) $request->get('take') > 0
+                ? $request->get('take')
+                : 0;
 
         $resources = Page::search($searches)->orderBy($sort, $order);
 
@@ -60,7 +58,12 @@ trait PageResourceApiTrait
             $resources->onlyTrashed();
         }
 
-        $pages = $resources->paginate($take);
+        // $pages = $take ? $resources->paginate($take) : $resources->get();
+        $pages = $take ? $resources->paginate($take) : $resources->paginate(Page::count());
+
+        $pages->each(function ($item) {
+            return $item->append(['author']);
+        });
 
         return response()->json($pages);
     }

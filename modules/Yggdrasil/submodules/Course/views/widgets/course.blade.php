@@ -1,4 +1,7 @@
 @viewable('course')
+    @php
+        $courses = \Course\Models\User::find(user()->id)->courses;
+    @endphp
     <draggable
         class="sortable-container"
         :options="{animation: 150, handle: '.sortable-handle', group: 'widgets', draggable: '.draggable-widget', forceFallback: true}"
@@ -43,36 +46,25 @@
                 {{-- list of courses --}}
                 <v-list two-line subheader v-show="!hidecourse">
                     <v-subheader>{{ __('Courses') }}</v-subheader>
-                    <v-list-tile avatar @click="" ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }">
-                        <v-list-tile-avatar>
-                            <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ __('Performance Statement 1: Introduction') }}</v-list-tile-title>
-                            <v-list-tile-sub-title>{{ __('Solve Problems and Make Decisions at Supervisory Level') }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-btn icon ripple v-tooltip:left="{ html: 'Details' }">
-                                <v-icon class="grey--text text--lighten-1">info</v-icon>
-                            </v-btn>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                    <v-divider inset></v-divider>
-
-                    <v-list-tile avatar @click="" ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }">
-                        <v-list-tile-avatar>
-                            <img src="{{ assets('frontier/images/placeholder/girl.png') }}" alt="">
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ __('Performance Statement 3: Animation') }}</v-list-tile-title>
-                            <v-list-tile-sub-title>{{ __('Develop Personal Effectiveness at Supervisory Level') }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-btn icon ripple v-tooltip:left="{ html: 'Details' }">
-                                <v-icon class="grey--text text--lighten-1">info</v-icon>
-                            </v-btn>
-                        </v-list-tile-action>
-                    </v-list-tile>
+                    @foreach ($courses as $i => $course)
+                        <v-list-tile avatar href="{{ $course->latest->url }}" ripple v-bind:ripple="{ class: 'indigo--text text--darken-2' }">
+                            <v-list-tile-avatar>
+                                <img src="{{ $course->feature }}" alt="">
+                            </v-list-tile-avatar>
+                            <v-list-tile-content>
+                                <v-list-tile-title>{{ $course->title }}</v-list-tile-title>
+                                <v-list-tile-sub-title><strong>Current: </strong>{{ __($course->latest->title) }}</v-list-tile-sub-title>
+                            </v-list-tile-content>
+                            <v-list-tile-action>
+                                <v-btn icon ripple v-tooltip:left="{ html: '{{ $course->excerpt }}' }">
+                                    <v-icon class="grey--text text--lighten-1">info</v-icon>
+                                </v-btn>
+                            </v-list-tile-action>
+                        </v-list-tile>
+                        @if ($i !== (count($courses) - 1))
+                            <v-divider inset></v-divider>
+                        @endif
+                    @endforeach
                 </v-list>
                 {{-- /list of courses --}}
             </v-card>

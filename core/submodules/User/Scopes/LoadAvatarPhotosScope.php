@@ -2,7 +2,7 @@
 
 namespace User\Scopes;
 
-trait Avatar
+trait LoadAvatarPhotosScope
 {
     /**
      * Array of avatars.
@@ -29,19 +29,5 @@ trait Avatar
         }
 
         return $this->avatars;
-    }
-
-    /**
-     * Overrides the avatar column to use a default image
-     * if column is null.
-     *
-     * @return string
-     */
-    public function getDisplayavatarAttribute()
-    {
-        $gender = ! is_null($this->detail('gender'))
-                  ? $this->detail('gender')
-                  : 'neutral';
-        return $this->avatar ?? assets("user/images/avatars/{$gender}.png");
     }
 }

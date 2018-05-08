@@ -9,9 +9,9 @@ return [
         'order' => 9,
     ],
 
-    'view-role' => [
-        'name' => 'view-role',
-        'slug' => url(config('path.admin').'/users/roles'),
+    'view-roles' => [
+        'name' => 'view-roles',
+        'slug' => route('roles.index'),
         'code' => 'roles.index',
         'routes' => [
             'name' => 'roles.index',
@@ -19,7 +19,7 @@ return [
                 'roles.create',
                 'roles.edit',
                 'roles.show',
-                'roles.trash',
+                'roles.trashed',
             ]
         ],
         'parent' => 'user',
@@ -32,31 +32,10 @@ return [
         ],
     ],
 
-    'view-grant' => [
-        'name' => 'view-grant',
-        'slug' => url(config('path.admin').'/users/grants'),
-        'parent' => 'user',
-        'order' => 20,
-        'routes' => [
-            'name' => 'grants.index',
-            'children' => [
-                'grants.create',
-                'grants.edit',
-                'grants.show',
-                'grants.trash',
-            ]
-        ],
-        'always_viewable' => false,
-        'icon' => 'lock_open',
-        'labels' => [
-            'title' => __('Grants'),
-            'description' => __('View the list of all grants'),
-        ],
-    ],
-
-    'view-permission' => [
-        'name' => 'view-permission',
-        'slug' => url(config('path.admin').'/users/permissions'),
+    'view-permissions' => [
+        'name' => 'view-permissions',
+        'slug' => route('permissions.index'),
+        'code' => 'permissions.index',
         'parent' => 'user',
         'order' => 30,
         'routes' => [
@@ -65,9 +44,7 @@ return [
                 'permissions.create',
                 'permissions.edit',
                 'permissions.show',
-                'permissions.trash',
-                'permissions.refresh',
-                'permissions.reset',
+                'permissions.trashed',
             ]
         ],
         'always_viewable' => false,

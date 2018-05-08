@@ -1,14 +1,14 @@
 <template>
-  <section>
+  <div>
     <v-toolbar dark color="primary" class="sticky elevation-1">
-      <v-toolbar-title>{{ trans("All Pages") }}</v-toolbar-title>
+      <v-toolbar-title>{{ trans('All Users') }}</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-slide-y-reverse-transition>
         <template v-if="!dataset.bulk.model">
           <v-tooltip bottom>
-            <v-btn v-can="{code: 'pages.create'}" slot="activator" icon :to="{name: 'pages.create'}"><v-icon>note_add</v-icon></v-btn>
-            <span>{{ trans("Create new page") }}</span>
+            <v-btn slot="activator" icon :to="{name: 'users.create'}"><v-icon>note_add</v-icon></v-btn>
+            <span>{{ trans('Create new page') }}</span>
           </v-tooltip>
         </template>
       </v-slide-y-reverse-transition>
@@ -16,8 +16,8 @@
       <v-slide-y-reverse-transition>
         <template v-if="!dataset.bulk.model">
           <v-tooltip bottom>
-            <v-btn v-can="{code: 'pages.trashed'}" slot="activator" icon :to="{name: 'pages.trashed'}"><v-icon>archive</v-icon></v-btn>
-            <span>{{ trans("View trashed pages") }}</span>
+            <v-btn slot="activator" icon :to="{name: 'users.trashed'}"><v-icon>archive</v-icon></v-btn>
+            <span>{{ trans('View trashed pages') }}</span>
           </v-tooltip>
         </template>
       </v-slide-y-reverse-transition>
@@ -26,15 +26,15 @@
       <v-slide-y-transition mode="out-in">
         <template v-if="dataset.bulk.model">
           <v-tooltip bottom>
-            <v-btn v-can="{code: 'pages.trashed'}" slot="activator" icon ripple @click="destroy('false', dataset.selected)"><v-icon>delete_sweep</v-icon></v-btn>
-            <span>{{ trans("Move selected to trash") }}</span>
+            <v-btn slot="activator" icon ripple @click="destroy('false', dataset.selected)"><v-icon>delete_sweep</v-icon></v-btn>
+            <span>{{ trans('Move selected to trash') }}</span>
           </v-tooltip>
-	        <hr class="vertical-divider">
+	  <hr class="vertical-divider">
         </template>
       </v-slide-y-transition>
       <v-tooltip bottom>
-        <v-btn v-can="{code: 'pages.update'}" slot="activator" icon ripple @click="dataset.bulk.model = !dataset.bulk.model"><v-icon :color="dataset.bulk.model ? 'accent': ''">check_circle</v-icon></v-btn>
-        <span>{{ trans("Toggle bulk commands") }}</span>
+        <v-btn slot="activator" icon ripple @click="dataset.bulk.model = !dataset.bulk.model"><v-icon :color="dataset.bulk.model ? 'accent': ''">check_circle</v-icon></v-btn>
+        <span>{{ trans('Toggle bulk commands') }}</span>
       </v-tooltip>
       <!-- Bulk Commands -->
     </v-toolbar>
@@ -51,7 +51,7 @@
               :total-items="dataset.pagination.totalItems"
               :loading="dataset.loading"
               item-key="id"
-              no-data-text="No pages found"
+              :no-data-text="trans('No users found')"
               v-bind="dataset.bulk.model ? {'select-all':'accent'} : []"
               v-model="dataset.selected"
             >
@@ -60,23 +60,30 @@
               <template slot="items" slot-scope="props">
                 <tr :active="props.selected" @click="(dataset.bulk.model ? props.selected = ! props.selected : null)">
                   <td v-if="dataset.bulk.model"><v-checkbox hide-details :input-value="props.selected"></v-checkbox></td>
-                  <td class="text-xs-center"><v-avatar color="transparent" size="35px"><img v-if="props.item.feature" :src="props.item.feature"></v-avatar></td>
-                  <td><router-link exact :to="{name: 'pages.edit', params: {page: props.item.id}}"><strong v-html="props.item.title"></strong></router-link></td>
-                  <td v-html="props.item.author"></td>
-                  <td v-html="props.item.template"></td>
-                  <td v-html="props.item.created"></td>
-                  <td v-html="props.item.modified"></td>
+                  <td>
+                    <v-avatar color="transparent" size="35px" class="my-2 mr-2"><img v-if="props.item.photo" :src="props.item.photo"></v-avatar>
+                    <router-link exact :to="{name: 'users.edit', params: {user: props.item.id}}">
+                      <v-tooltip bottom>
+                        <strong slot="activator" v-html="props.item.fullname"></strong>
+                        <span>{{ trans('Edit user') }}</span>
+                      </v-tooltip>
+                    </router-link>
+                  </td>
+                  <td v-html="props.item.username"></td>
+                  <td v-html="props.item.email"></td>
+                  <td class="text-xs-right" v-html="props.item.created"></td>
+                  <td class="text-xs-right" v-html="props.item.modified"></td>
                   <td class="text-xs-center">
                     <v-tooltip bottom>
-                      <v-btn v-can="{code: 'pages.show'}" small icon slot="activator" exact :to="{name: 'pages.show', params: {page: props.item.id}}"><v-icon small>search</v-icon></v-btn>
+                      <v-btn small icon slot="activator" exact :to="{name: 'users.show', params: {user: props.item.id}}"><v-icon small>search</v-icon></v-btn>
                       <span>{{ trans('Preview page') }}</span>
                     </v-tooltip>
                     <v-tooltip bottom>
-                      <v-btn v-can="{code: 'pages.edit'}" small icon slot="activator" exact :to="{name: 'pages.edit', params: {page: props.item.id}}"><v-icon small>edit</v-icon></v-btn>
+                      <v-btn small icon slot="activator" exact :to="{name: 'users.edit', params: {user: props.item.id}}"><v-icon small>edit</v-icon></v-btn>
                       <span>{{ trans('Edit page') }}</span>
                     </v-tooltip>
                     <v-tooltip bottom>
-                      <v-btn v-can="{code: 'pages.destroy'}" small icon slot="activator" exact :to="{name: 'pages.destroy', params: {page: props.item.id}}"><v-icon small>delete</v-icon></v-btn>
+                      <v-btn small icon slot="activator" exact :to="{name: 'users.destroy', params: {user: props.item.id}}"><v-icon small>delete</v-icon></v-btn>
                       <span>{{ trans('Move to trash') }}</span>
                     </v-tooltip>
                   </td>
@@ -87,7 +94,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -101,12 +108,11 @@ export default {
         loading: true,
         filtered: false,
         headers: [
-          { text: 'Featured Image', align: 'left', value: 'feature' },
-          { text: 'Title', align: 'left', value: 'title' },
-          { text: 'Author', align: 'left', value: 'user_id' },
-          { text: 'Template', align: 'left', value: 'template' },
-          { text: 'Created', align: 'left', value: 'created_at' },
-          { text: 'Modified', align: 'left', value: 'updated_at' },
+          { text: 'Name', align: 'left', value: 'firstname' },
+          { text: 'Username', align: 'left', value: 'username' },
+          { text: 'Email', align: 'left', value: 'email' },
+          { text: 'Created', align: 'right', value: 'created_at' },
+          { text: 'Modified', align: 'right', value: 'updated_at' },
           { text: 'Actions', align: 'center', sortable: false }
         ],
         items: [],
@@ -144,7 +150,7 @@ export default {
             take: rowsPerPage
           }
 
-          self.$http.get('/api/v1/pages/all', {params: query})
+          self.$http.get('/api/v1/users/all', {params: query})
             .then(response => {
               self.dataset.items = response.data.data
               self.dataset.pagination.totalItems = response.data.total
@@ -167,7 +173,7 @@ export default {
       }
 
       this.dataset.loading = true
-      this.$http.get('/api/v1/pages/all', {params: query})
+      this.$http.get('/api/v1/users/all', {params: query})
         .then(response => {
           this.dataset.items = response.data.data
           this.dataset.pagination.totalItems = response.data.total
@@ -185,7 +191,7 @@ export default {
         params = { id: params.map(item => { return item.id }) }
       }
 
-      this.$http.delete('/api/v1/pages/' + id + '/destroy', { params: params })
+      this.$http.delete('/api/v1/users/' + id + '/destroy', { params: params })
         .then(response => {
           if (response.status === 200) {
             this.all()
@@ -193,7 +199,7 @@ export default {
             if (typeof params !== 'undefined') {
               this.$root.alert({color: 'secondary', type: 'success', text: `${params.length} ${params.length === 1 ? 'page' : 'pages'} moved to trash.`})
             } else {
-              this.$root.alert({color: 'secondary', type: 'success', text: `Page moved to trash.`})
+              this.$root.alert({color: 'secondary', type: 'success', text: `User moved to trash.`})
             }
           }
         })
@@ -211,7 +217,7 @@ export default {
       }, filter)
 
       this.dataset.loading = true
-      this.$http.get('/api/v1/pages/all', {params: query})
+      this.$http.get('/api/v1/users/all', {params: query})
         .then(response => {
           this.dataset.items = response.data.data
           // this.dataset.pagination.totalItems = response.data.total

@@ -24,7 +24,8 @@ return [
                 'order' => 1,
                 'slug' => route('users.index'),
                 'code' => 'users.index',
-                // 'always_viewable' => false,
+                'routename' => 'users.index',
+                'component' => 'components/Pluma/User/Index.vue',
                 'routes' => [
                     'name' => 'users.index',
                     'children' => [
@@ -42,21 +43,26 @@ return [
             'create-user' => [
                 'name' => 'create-user',
                 'order' => 2,
-                'slug' => url(config('path.admin').'/users/create'),
+                'slug' => route('users.create'),
                 'code' => 'users.create',
                 'always_viewable' => false,
+                'routename' => 'users.create',
+                'component' => 'components/Pluma/User/Create.vue',
                 'routes' => [
                     'name' => 'users.create',
                 ],
                 'labels' => [
                     'title' => __('Create User'),
+                    'description' => __('Create new user'),
                 ],
             ],
-            'trash-user' => [
-                'name' => 'trash-user',
+            'trashed-user' => [
+                'name' => 'trashed-user',
                 'order' => 3,
-                'slug' => url(config('path.admin').'/users/trashed'),
+                'slug' => route('users.trashed'),
                 'code' => 'users.trashed',
+                'routename' => 'users.trashed',
+                'component' => 'components/Pluma/User/Trashed.vue',
                 'icon' => 'delete',
                 'always_viewable' => false,
                 'routes' => [
@@ -64,6 +70,7 @@ return [
                 ],
                 'labels' => [
                     'title' => __('Trashed Users'),
+                    'description' => __('View list of trashed users'),
                 ],
             ],
         ],

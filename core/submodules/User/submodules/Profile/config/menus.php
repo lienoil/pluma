@@ -13,11 +13,12 @@ return [
         'is_parent' => true,
         'order' => 0,
         'name' => 'avatar',
-        'always_viewable' => true,
+        'always_viewable' => false,
         'labels' => [
-            'avatar' => user()->avatar ?? '',
+            'avatar' => user()->photo ?? '',
             'name' => user()->fullname ?? '',
             'role' => user()->displayrole ?? '',
+            'email' => user()->displayemail ?? '',
         ],
         'children' => [
             /**

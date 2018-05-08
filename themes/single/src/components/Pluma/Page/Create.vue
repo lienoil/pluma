@@ -37,6 +37,7 @@
                   solo
                   v-model="resource.item.title"
                   v-validate="'required'"
+                  v-focus
                 ></v-text-field>
                 <small class="caption error--text mt-1" v-if="errors.has('title')" v-html="errors.first('title')"></small>
               </div>

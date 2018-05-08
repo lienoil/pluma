@@ -44,6 +44,7 @@ class Course extends Model
         'created',
         'excerpt',
         'modified',
+        'first_content'
     ];
 
     protected $searchables = [

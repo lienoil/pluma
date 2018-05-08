@@ -12,10 +12,24 @@ trait UserMutator
      *
      * @var array
      */
-    protected $rolesnames;
+    protected $rolenames;
 
     /**
-     * Get the mutated handlename.
+     * Retrieve the mutated avatar value.
+     *
+     * @return string
+     */
+    public function getPhotoAttribute()
+    {
+        $gender = ! is_null($this->detail('gender'))
+                  ? $this->detail('gender')
+                  : 'neutral';
+
+        return $this->avatar ?? assets("user/images/avatars/{$gender}.png");
+    }
+
+    /**
+     * Retrieve the mutated handlename.
      *
      * @return string
      */
@@ -25,25 +39,25 @@ trait UserMutator
     }
 
     /**
-     * Get the mutated array of roles.
+     * Retrieve the mutated array of roles.
      *
      * @return string
      */
     public function getDisplayroleAttribute()
     {
-        if (isset($this->roles)) {
+        if ($this->roles()->exists()) {
             foreach ($this->roles as $role) {
-                $this->rolesnames[$role->alias] = $role->alias;
+                $this->rolenames[$role->name] = $role->name;
             }
         } else {
-            $this->rolesnames[] = __('Guest');
+            $this->rolenames[] = __('Guest');
         }
 
-        return implode(" / ", (array) $this->rolesnames);
+        return implode(" / ", $this->rolenames);
     }
 
     /**
-     * Get the mutated firstname, middlename, lastname role.
+     * Retrieve the mutated firstname, middlename, lastname role.
      *
      * @return string
      */
@@ -59,7 +73,7 @@ trait UserMutator
     }
 
     /**
-     * Get the mutated lastname, firstname.
+     * Retrieve the mutated lastname, firstname.
      *
      * @return string
      */
@@ -69,17 +83,17 @@ trait UserMutator
         $name[] = $this->firstname;
         $name = trim(implode(" ", $name));
 
-        return ! empty($name) ? $name : $this->username;
+        return $name ?? $this->username;
     }
 
     /**
-     * Get the mutated display name.
+     * Retrieve the mutated display name.
      *
      * @return string
      */
     public function getDisplaynameAttribute()
     {
-        $displayname = settings('display_name', "%firstname% %middleinitial% %lastname%");
+        $displayname = $this->detail('display_name', settings('display_name', "%firstname% %middleinitial% %lastname%"));
         $displayname = preg_replace('/%firstname%/', $this->firstname, $displayname);
         $displayname = preg_replace('/%lastname%/', $this->lastname, $displayname);
         $displayname = preg_replace('/%middlename%/', $this->middlename, $displayname);
@@ -90,17 +104,19 @@ trait UserMutator
         $displayname = preg_replace('/%fullname%/', $this->fullname, $displayname);
         $displayname = preg_replace('/%propername%/', $this->propername, $displayname);
 
-        return ! empty(trim($displayname)) ? $displayname : $this->username;
+        return ! empty(trim($displayname))
+               ? $displayname
+               : $this->username;
     }
 
     /**
-     * Get the mutated nickname.
+     * Retrieve the mutated nickname.
      *
      * @return string
      */
     public function getNicknameAttribute()
     {
-        return isset($this->details->nickname) ? $this->details->nickname : $this->firstname;
+        return $this->detail('nickname') ?? $this->firstname;
     }
 
     /**
@@ -111,7 +127,7 @@ trait UserMutator
     public function getBioAttribute()
     {
         $placeholder = $this->id == user()->id ? __("A short description about yourself will look nice here.") : __("The user haven't shared their bio yet.");
-        return isset($this->details) && ! empty($this->details->bio) ? $this->details->bio : $placeholder;
+        return $this->detail('bio', $placeholder);
     }
 
     /**
@@ -121,8 +137,8 @@ trait UserMutator
      */
     public function getDisplayemailAttribute()
     {
-        return ! (bool) $this->setting('keep_email_private', false)
-                ? $this->email
-                : '';
+        return ! (bool) $this->detail('keep_my_email_private', true)
+               ? $this->email
+               : 'Private email';
     }
 }

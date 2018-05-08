@@ -5,7 +5,7 @@ namespace User\Support\Traits;
 trait WhereDetailTrait
 {
     /**
-     * Shortcut for getting the resource's detail.
+     * Retrieve the value of a resource's detail via given key.
      *
      * @param string $key
      * @param string $value

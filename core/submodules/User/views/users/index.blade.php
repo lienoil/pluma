@@ -14,7 +14,6 @@
             href="{{ route('users.create') }}"
             v-tooltip:left="{'html': '{{ __('Create') }}'}"
         ><v-icon>add</v-icon></v-btn>
-
         {{-- Batch Commands --}}
         <v-btn
             v-show="dataset.selected.length < 2"

@@ -5,9 +5,9 @@ import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
 import ImageOverlay from '@/components/components/ImageOverlay.vue'
-import FormBuilder from '@/components/Form/Form.vue' // TODO: remove this from global
-import Chatbox from '@/components/Chat/Chatbox.vue'
 import filters from './filters'
+import helpers from './helpers'
+import directives from './directives'
 import router from './router'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
@@ -16,6 +16,8 @@ import { settings } from './mixins/settings'
 import _ from 'lodash'
 
 Vue.use(filters)
+Vue.use(helpers)
+Vue.use(directives)
 Vue.use(VeeValidate)
 Vue.use(Vuetify, {
   theme: {
@@ -49,9 +51,7 @@ new Vue({
   components: {
     Breadcrumbs,
     AlertIcon,
-    ImageOverlay,
-    Chatbox,
-    FormBuilder
+    ImageOverlay
   },
   http: {
     headers: {
@@ -65,6 +65,7 @@ new Vue({
   },
   data () {
     return {
+      user: null,
       routes: [],
       navigations: {
         sidebar: []
@@ -72,14 +73,8 @@ new Vue({
     }
   },
   methods: {
-    localstorage (key, value) {
-      if (typeof value === 'undefined') {
-        // get localstorage
-        return window.localStorage.getItem(key)
-      } else {
-        window.localStorage.setItem(key, value)
-        return true
-      }
+    mountUser () {
+      this.user = window.Pluma.user
     },
     routed () {
       let self = this
@@ -92,7 +87,15 @@ new Vue({
               title: current.title,
               name: current.name,
               path: current.uri.replace(/{/g, ':').replace(/}/g, ''),
-              component: () => import('./' + current.component)
+              component: () => import('./' + current.component),
+              beforeEnter: (to, from, next) => {
+                if (to.path !== '/403' && self.user.permissions.indexOf(to.name) >= 0) {
+                  next()
+                } else {
+                  // self.alert({type: 'error', text: `Permission denied`})
+                  next('/403')
+                }
+              }
             })
           }
           self.$router.addRoutes(self.routes)
@@ -126,6 +129,7 @@ new Vue({
     }
   },
   mounted () {
+    this.mountUser()
     this.navigation()
     this.routed()
   }

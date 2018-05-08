@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Support\Traits;
+namespace User\Controllers\Resources;
 
 use Illuminate\Http\Request;
 use User\Models\User;
@@ -55,25 +55,23 @@ trait UserResourceApiTrait
      */
     public function getAll(Request $request)
     {
-        $onlyTrashed = $request->get('only_trashed') !== 'null' && $request->get('only_trashed')
-                        ? $request->get('only_trashed')
-                        : false;
+        $onlyTrashed = (bool) $request->get('only_trashed');
 
-        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null'
-                        ? 'DESC'
-                        : 'ASC';
+        $order = $request->get('descending') === 'true'
+                 ? 'DESC'
+                 : 'ASC';
 
-        $searches = $request->get('search') !== 'null' && $request->get('search')
-                        ? $request->get('search')
-                        : $request->all();
+        $searches = (bool) $request->get('search')
+                    ? $request->get('search')
+                    : $request->all();
 
-        $sort = $request->get('sort') && $request->get('sort') !== 'null'
-                        ? $request->get('sort')
-                        : 'id';
+        $sort = (bool) $request->get('sort')
+                ? $request->get('sort')
+                : 'id';
 
-        $take = $request->get('take') && $request->get('take') > 0
-                        ? $request->get('take')
-                        : 0;
+        $take = (int) $request->get('take') > 0
+                ? $request->get('take')
+                : 0;
 
         $resources = User::search($searches)->orderBy($sort, $order);
 
@@ -81,13 +79,18 @@ trait UserResourceApiTrait
             $resources->onlyTrashed();
         }
 
-        $users = $resources->paginate($take);
+        // $users = $take ? $resources->paginate($take) : $resources->get();
+        $users = $take ? $resources->paginate($take) : $resources->paginate(User::count());
+
+        $users->each(function ($item) {
+            return $item->append(['fullname', 'photo']);
+        });
 
         return response()->json($users);
     }
 
     /**
-     * Store a newly created resource in storage
+     * Store a newly created resource in storage.
      *
      * @param  \User\Requests\UserRequest $request
      * @return \Illuminate\Http\Response
@@ -116,7 +119,7 @@ trait UserResourceApiTrait
      */
     public function getShow(Request $request, $slug = null)
     {
-        $user = User::codeOrFail($slug);
+        $user = User::slugOrFail($slug, 'code');
 
         return response()->json($user);
     }

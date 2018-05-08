@@ -10,20 +10,8 @@ let routes = []
 // Instance of VueRouter
 const router = new VueRouter({
   mode: 'history',
+  saveScrollPosition: true,
   routes
-})
-
-// Check before loading the requested route
-router.beforeEach((to, from, next) => {
-  if (!to.matched.length) {
-    next('/404')
-  }
-
-  Vue.$http.get('/api/v1/user/can/', { params: { url: to } })
-    .then((response) => {
-      console.log(response)
-      next()
-    })
 })
 
 export default router

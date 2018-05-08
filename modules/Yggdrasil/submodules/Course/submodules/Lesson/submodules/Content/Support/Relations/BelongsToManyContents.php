@@ -14,6 +14,6 @@ trait BelongsToManyContents
      */
     public function contents()
     {
-        return $this->belongsToMany(Content::class)->withPivot('status');
+        return $this->belongsToMany(Content::class)->withPivot('status', 'course_id');
     }
 }

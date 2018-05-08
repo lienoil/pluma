@@ -62,7 +62,7 @@
               <v-icon v-html="submenu.icon"></v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title v-html="submenu.labels.title"></v-list-tile-title>
+              <v-list-tile-title v-html="trans(submenu.labels.title)"></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>
@@ -80,7 +80,7 @@
       <v-list-group v-else-if="menu.has_children" ripple no-action v-model="menu.active" :prepend-icon="menu.icon ? menu.icon : 'widgets'">
         <v-list-tile ripple slot="activator" v-model="menu.active">
           <v-list-tile-content>
-            <v-list-tile-title v-html="menu.labels.title"></v-list-tile-title>
+            <v-list-tile-title v-html="trans(menu.labels.title)"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         {{-- Child --}}
@@ -88,7 +88,7 @@
           <v-divider v-if="submenu.is_divider"></v-divider>
           <v-list-tile v-else ripple exact v-model="submenu.active" :to="{name: submenu.routename ? submenu.routename : submenu.name}">
             <v-list-tile-content>
-              <v-list-tile-title v-html="submenu.labels.title"></v-list-tile-title>
+              <v-list-tile-title v-html="trans(submenu.labels.title)"></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>
@@ -102,7 +102,7 @@
           <v-icon v-html="menu.icon"></v-icon>
         </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title v-html="menu.labels.title"></v-list-tile-title>
+          <v-list-tile-title v-html="trans(menu.labels.title)"></v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       {{-- Single --}}

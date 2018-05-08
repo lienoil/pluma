@@ -49,4 +49,19 @@ trait CourseMutator
     {
         return route('courses.single', $this->slug);
     }
+
+    public function getFirstContentAttribute()
+    {
+        return $this->contents()->first()->url;
+    }
+
+    public function getLatestAttribute()
+    {
+        $user = User::find(user()->id);
+        if ($user->contents()->wherePivot('course_id', $this->id)->where('status', 'current')->exists()) {
+            return $user->contents()->wherePivot('course_id', $this->id)->where('status', 'current')->first();
+        }
+
+        return $user->contents->first();
+    }
 }

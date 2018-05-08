@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Support\Traits;
+namespace User\Controllers\Resources;
 
 use Illuminate\Http\Request;
 use User\Models\User;

@@ -6,7 +6,7 @@ use Category\Support\Relations\BelongsToCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Page\Support\Relations\BelongsToPage;
 use Page\Support\Relations\PageHasManyPages;
-use Page\Support\Traits\PageMutatorTrait;
+use Page\Support\Mutators\PageMutator;
 use Page\Support\Traits\PageValidationTrait;
 use Pluma\Models\Model;
 use Pluma\Support\Database\Scopes\SlugOrFailScope;
@@ -18,7 +18,7 @@ class Page extends Model
         BelongsToPage,
         BelongsToUser,
         PageHasManyPages,
-        PageMutatorTrait,
+        PageMutator,
         PageValidationTrait,
         SlugOrFailScope,
         SoftDeletes;
@@ -31,8 +31,6 @@ class Page extends Model
     ];
 
     protected $appends = [
-        'author',
-        'authoravatar',
         'created',
         'modified',
         'removed',

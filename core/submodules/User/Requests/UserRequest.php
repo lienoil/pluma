@@ -14,27 +14,21 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->user()->id === $this->id) {
+        if ($this->user()->isRoot() || $this->user()->id === $this->id) {
             return true;
         }
 
         switch ($this->method()) {
             case 'POST':
-                if ($this->user()->can('store-user')) {
-                    return true;
-                }
+                return $this->user()->can('store-user');
                 break;
 
             case 'PUT':
-                if ($this->user()->can('update-user')) {
-                    return true;
-                }
+                return $this->user()->can('update-user');
                 break;
 
             case 'DELETE':
-                if ($this->user()->can('destroy-user')) {
-                    return true;
-                }
+                return $this->user()->can('destroy-user');
                 break;
 
             default:
@@ -54,7 +48,7 @@ class UserRequest extends FormRequest
     {
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
-        return User::rules($isUpdating);
+        return User::$rules;
     }
 
     /**
@@ -64,9 +58,6 @@ class UserRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
-            'description.regex' => 'Only letters, spaces, and hypens are allowed.',
-        ];
+        return User::$messages;
     }
 }

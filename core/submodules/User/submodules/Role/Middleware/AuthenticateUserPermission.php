@@ -70,6 +70,10 @@ class AuthenticateUserPermission
             return $next($request);
         }
 
+        if ($request->ajax()) {
+            return response()->json(false, 403);
+        }
+
         // Load the 403
         return settings('403_must_redirect', true)
             ? redirect('403')
