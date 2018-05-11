@@ -1,6 +1,14 @@
 <?php
 
 return [
+    // Generic Text Fields
+    'Title' => 'Pamagat',
+    'Code' => 'Kodigo',
+    'Body' => 'Katawan',
+    'Signature' => 'Lagda',
+    'Items per page:' => 'Datos kada pahina:',
+
+    // Phrases
     'Dashboard' => 'Tapalodo',
 
     'Pages' => 'Pahina',

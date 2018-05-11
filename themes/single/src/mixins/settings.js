@@ -128,13 +128,13 @@ export const settings = {
         return true
       }
     },
-    navigate (component) {
-      // this.view.current = () => import(`@/components/${component}`)
-      this.pageview.current = () => import(
-        /* webpackChunkName: "group-page" */
-        `@/${component}`
-      )
-    },
+    // navigate (component) {
+    //   // this.view.current = () => import(`@/components/${component}`)
+    //   this.pageview.current = () => import(
+    //     /* webpackChunkName: "group-page" */
+    //     `@/${component}`
+    //   )
+    // },
     alert (snackbar, fetchFromServer) {
       // Get sessions every page transition
       if (fetchFromServer) {

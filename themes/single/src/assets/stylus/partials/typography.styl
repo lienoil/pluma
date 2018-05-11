@@ -1,3 +1,11 @@
+@import '~vuetify/src/stylus/settings/_variables'
+@import '../settings/_theme'
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $primary-font-family;
+}
+
+// Font
 .font-size {
   for i in (2..40) {
     &-{i} {
@@ -19,5 +27,14 @@
     zoom: 0.8;
     -moz-transform: scale(0.8);
     -moz-transform-origin: 0 0;
+  }
+}
+
+// Title
+.primary-title {
+  font-size: $input-font-size * 1.5em !important;
+  font-family: $primary-font-family;
+  &input {
+    height: $input-height * 2em !important;
   }
 }

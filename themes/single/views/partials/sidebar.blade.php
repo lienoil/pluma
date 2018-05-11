@@ -41,7 +41,7 @@
         no-action
         v-if="menu.is_avatar"
         v-model="menu.active"
-      >
+        >
         <v-list-tile ripple avatar slot="activator" v-model="menu.active">
           <v-list-tile-avatar>
             <img :src="menu.labels.avatar">
@@ -77,7 +77,7 @@
       {{-- Header --}}
 
       {{-- Has Children --}}
-      <v-list-group v-else-if="menu.has_children" ripple no-action v-model="menu.active" :prepend-icon="menu.icon ? menu.icon : 'widgets'">
+      <v-list-group v-else-if="menu.has_children" lazy ripple no-action v-model="menu.active" :prepend-icon="menu.icon ? menu.icon : 'widgets'">
         <v-list-tile ripple slot="activator" v-model="menu.active">
           <v-list-tile-content>
             <v-list-tile-title v-html="trans(menu.labels.title)"></v-list-tile-title>
@@ -98,9 +98,9 @@
 
       {{-- Single --}}
       <v-list-tile v-else ripple exact v-model="menu.active" :to="menu.routename ? menu.routename : null" :href="menu.url ? menu.url : null">
-        <v-list-tile-avatar v-if="menu.icon">
+        <v-list-tile-action v-if="menu.icon">
           <v-icon v-html="menu.icon"></v-icon>
-        </v-list-tile-avatar>
+        </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title v-html="trans(menu.labels.title)"></v-list-tile-title>
         </v-list-tile-content>

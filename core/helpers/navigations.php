@@ -14,6 +14,10 @@ if (! function_exists('navigations')) {
      */
     function navigations($key = null, $collected = true)
     {
+        // if (cache()->has("navigations.$key")) {
+        //     return cache()->get("navigations.$key", []);
+        // }
+
         $composer = new NavigationViewComposer();
         $composer->setCurrentUrl(Request::path());
         $composer->setCurrentRouteName(Route::currentRouteName());
@@ -22,14 +26,15 @@ if (! function_exists('navigations')) {
             $composer->requireFileFromModules(
                 'config/menus.php',
                 modules(true, null, false)
-            )
-        );
+                )
+            );
 
         $composer = $collected
             ? ($composer->handle()->{$key}->collect ?? $composer->handle()->{$key})
             : $composer->handle()->{$key};
 
-
+        // cache()->remember("navigations.$key", $composer, now()->addMinutes(60));
+        // dd($composer);
         return $composer;
     }
 }

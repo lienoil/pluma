@@ -9,20 +9,22 @@ import filters from './filters'
 import helpers from './helpers'
 import directives from './directives'
 import router from './router'
+import mixins from './mixins'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { settings } from './mixins/settings'
-import _ from 'lodash'
 
-Vue.use(filters)
-Vue.use(helpers)
-Vue.use(directives)
-Vue.use(VeeValidate)
+/**
+ *------------------------------------------------------------------------------
+ * Use Block
+ *------------------------------------------------------------------------------
+ * Vue.use statements
+ *
+ */
 Vue.use(Vuetify, {
   theme: {
-    primary: '#30ad9d',
-    secondary: '#ea4763',
+    primary: '#107bd0',
+    secondary: '#d982a6', // '#ea4763',
     accent: '#fbde3c',
     success: '#81c106',
     warning: '#ff8017',
@@ -30,7 +32,18 @@ Vue.use(Vuetify, {
     info: '#2196f3'
   }
 })
+Vue.use(filters)
+Vue.use(helpers)
+Vue.use(directives)
+Vue.use(VeeValidate)
+Vue.use(mixins)
 
+/**
+ *------------------------------------------------------------------------------
+ * Config Block
+ *------------------------------------------------------------------------------
+ *
+ */
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
@@ -39,19 +52,14 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
 // Lodash
-Object.defineProperty(Vue.prototype, '_', { value: _ })
-
-// Mixins
-Vue.mixin(settings)
+// Object.defineProperty(Vue.prototype, '_', { value: _ })
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: {
-    Breadcrumbs,
-    AlertIcon,
-    ImageOverlay
+    Breadcrumbs, AlertIcon, ImageOverlay
   },
   http: {
     headers: {
@@ -89,7 +97,7 @@ new Vue({
               path: current.uri.replace(/{/g, ':').replace(/}/g, ''),
               component: () => import('./' + current.component),
               beforeEnter: (to, from, next) => {
-                if (to.path !== '/403' && self.user.permissions.indexOf(to.name) >= 0) {
+                if (to.path !== '/403' && (self.user.isRoot || self.user.permissions.indexOf(to.name) >= 0)) {
                   next()
                 } else {
                   // self.alert({type: 'error', text: `Permission denied`})
@@ -111,6 +119,7 @@ new Vue({
       this.$http.get('/api/v1/misc/navigations/sidebar')
         .then(response => {
           let sidebar = []
+          console.log(response.data, this.$route)
 
           for (let menu in response.data) {
             sidebar.push(response.data[menu])
@@ -130,7 +139,7 @@ new Vue({
   },
   mounted () {
     this.mountUser()
-    this.navigation()
     this.routed()
+    this.navigation()
   }
 })

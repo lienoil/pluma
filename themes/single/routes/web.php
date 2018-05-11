@@ -71,14 +71,13 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
 
     # Routes
     Route::get('misc/navigations/sidebar', function () {
-        $data = navigations('sidebar');
-        return response()->json($data);
+        return response()->json(navigations('sidebar'));
     });
 
     # Permissions
     Route::get('user/can', function (Request $request) {
         return response()->json(user()->can($request->get('permission')));
-    })->middleware('auth.roles');
+    })->middleware('auth.admin');
 });
 
 Route::post('admin/sessions', function () {

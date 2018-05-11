@@ -49,7 +49,7 @@
             <!-- <v-icon class="hidden-sm-and-down grey--text" left>{{ menus.current.icon }}</v-icon>
             <v-toolbar-title class="hidden-sm-and-down subheading grey--text" v-html="menus.current.name"></v-toolbar-title>
             <v-spacer class="hidden-sm-and-down"></v-spacer> -->
-            <v-text-field class="mx-3" prepend-icon="search" v-model="media.search.query" v-bind="{'solo': !$root.theme.dark, 'solo-inverted': $root.theme.dark}" label="Search"></v-text-field>
+            <v-text-field class="mx-3" prepend-icon="search" v-model="media.search.query" flat solo :light="!$root.theme.dark" :dark="$root.theme.dark" label="Search"></v-text-field>
 
             <v-spacer class="hidden-sm-and-down"></v-spacer>
 
@@ -229,6 +229,8 @@
 
 <script>
 import Upload from './Upload.vue'
+import _unionBy from 'lodash/unionBy'
+import _isEmpty from 'lodash/isEmpty'
 
 export default {
   props: {
@@ -420,7 +422,7 @@ export default {
     merge (item1, item2, unique) {
       let updated = JSON.parse(JSON.stringify(this.multiple ? item2 : [item2]))
 
-      if (this._.isEmpty(item2) || !updated.length) {
+      if (_isEmpty(item2) || !updated.length) {
         return item1
       }
 
@@ -431,7 +433,7 @@ export default {
         }
       }
 
-      return this._.unionBy(updated, item1, unique)
+      return _unionBy(updated, item1, unique)
     }
   },
   mounted () {

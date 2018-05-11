@@ -1,9 +1,9 @@
-import _ from 'lodash'
+import _get from 'lodash/get'
 
 export const trans = {
   methods: {
     trans: (string, defaultString) => {
-      return _.get(window.i18n.phrases, string, defaultString || string)
+      return _get(window.i18n.phrases, string, defaultString || string)
     }
   }
 }
