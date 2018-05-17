@@ -51,8 +51,6 @@ axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
-// Lodash
-// Object.defineProperty(Vue.prototype, '_', { value: _ })
 
 /* eslint-disable no-new */
 new Vue({
@@ -119,7 +117,6 @@ new Vue({
       this.$http.get('/api/v1/misc/navigations/sidebar')
         .then(response => {
           let sidebar = []
-          console.log(response.data, this.$route)
 
           for (let menu in response.data) {
             sidebar.push(response.data[menu])
@@ -139,7 +136,7 @@ new Vue({
   },
   mounted () {
     this.mountUser()
-    this.routed()
     this.navigation()
+    this.routed()
   }
 })

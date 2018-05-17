@@ -5,7 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{{ $application->site->fulltitle }}</title>
+  <title>
+    @section("head-title")
+      {{ $application->site->fulltitle }}
+    @show
+  </title>
   <meta name="description" content="{{ __(@$application->head->description) }}">
 
   <!-- Add to homescreen for Chrome on Android -->
@@ -23,14 +27,14 @@
   <link rel="mask-icon" color="#f1b53c" href="{{ url('favicons/safari-pinned-tab.svg') }}">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-  <!--
-  <link rel="canonical" href="http://www.example.com/">
-  -->
+  @stack("seo")
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="{{ home() }}">
+    -->
+  @show
 
   @stack("post-meta")
-
-  @stack("pre-css")
 
   @stack('fonts')
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons&style=twotone" rel="stylesheet">
@@ -38,13 +42,15 @@
     {!! font_link_tags() !!}
   @show
 
-  <link rel="preload" href="{{ theme('dist/static/css/app.min.css') }}" as="style">
-  <link rel="stylesheet" href="{{ theme('dist/static/css/app.min.css?v=909090009') }}">
-
-  @stack("css")
-    <link rel="preload" href="{{ theme('dist/static/js/vendor.min.js') }}" as="script">
+  @stack("pre-css")
+    <link rel="preload" href="{{ theme('dist/static/css/app.min.css') }}" as="style">
     <link rel="preload" href="{{ theme('dist/static/js/app.min.js') }}" as="script">
     <link rel="preload" href="{{ theme('dist/static/js/manifest.min.js') }}" as="script">
+    <link rel="preload" href="{{ theme('dist/static/js/vendor.min.js') }}" as="script">
+  @show
+
+  @stack("css")
+    <link rel="stylesheet" href="{{ theme('dist/static/css/app.min.css') }}">
   @show
 </head>
 <body>

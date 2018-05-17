@@ -3,13 +3,15 @@
 use Illuminate\Support\Facades\File;
 
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Assets Routes
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * This file is where you may define all of your Assets based urls.
  *
  */
+
+include __DIR__ . '/javascript.php';
 
 Route::get('assets/{module?}/{file?}', function ($module = null, $file = null) {
     $path = get_module($module) . "/assets/$file";

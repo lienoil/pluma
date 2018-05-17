@@ -48,8 +48,9 @@ class Handler extends BaseHandler
             // return redirect()->route('installation.welcome');
         }
 
+        # 404 Exception
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-            return response()->view("Frontier::errors.404", [
+            return response()->view("Theme::errors.404", [
                 'error' => [
                     'code' => 'NOT_FOUND',
                     'message' => $exception->getMessage(),
@@ -58,18 +59,9 @@ class Handler extends BaseHandler
             ], 404);
         }
 
-        if (($exception instanceof \ReflectionException) && (auth()->user() && ! auth()->user()->isRoot())) {
-            // return response()->view('Frontier::errors.exceptions', [
-            //     'error' => [
-            //         'code' => $exception->getCode(),
-            //         'message' => $exception->getMessage(),
-            //         'description' => "An application error occured, log in as /dev/ to view the error.",
-            //     ]
-            // ]);
-        }
-
+        # 404 Exception
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-            return response()->view(config('settings.pages_404', 'Frontier::errors.404'), [
+            return response()->view("Theme::errors.404", [
                 'error' => [
                     'code' => 'NOT_FOUND',
                     'message' => $exception->getMessage(),

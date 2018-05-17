@@ -6,25 +6,10 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Pluma\Support\Facades\Route;
 
-# Language
-Route::get('js/languages.js', function () {
-    Cache::forget('languages.js');
-    $strings = Cache::rememberForever('languages.js', function () {
-        $lang = settings('site_language', config('language.locale'));
-        $files = glob(resource_path("lang/$lang/*.php"));
-
-        foreach ($files as $file) {
-            $name = basename($file, '.php');
-            $strings[$name] = require $file;
-        }
-
-        return $strings ?? [];
-    });
-
-    return response()
-      ->make('window.i18n = ' . json_encode($strings) . ';', 200)
-      ->header('Content-Type', 'text/javascript');
-})->name('assets.lang');
+# Simple Pages
+Route::get('403', function () {
+    return response()->view("Theme::errors.403", [], 403);
+});
 
 Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function () {
     # User

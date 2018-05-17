@@ -1,18 +1,16 @@
 @extends("Theme::layouts.public")
 
-@section("head-title", '404 Error - Page Not Found')
-@section("head-subtitle", 'Forbidden')
+@section("head-title", __('Error 404 - Page Not Found'))
 
 @section("content")
     <v-container fluid grid-list-lg>
-        <v-layout row wrap>
-            <v-flex sm6 offset-sm3 class="text-xs-center">
-                <h1 class="grey--text page-title text--darken-3 display-5 mt-5 mb-0"><strong>{{ __('404') }}</strong></h1>
-                <h2 class="grey--text page-title text--darken-2 display-2 mt-0 lh-1">{{ __('Page Not Found') }}</h2>
-                <p class="subheading page-title grey--text">{{ __('Either something went wrong or the page does not exist anymore.') }}</p>
-                {{-- <v-card-text>
-                    <v-btn primary round large class="px-4 elevation-1" href="\admin/dashboard">Dashboard</v-btn>
-                </v-card-text> --}}
+        <v-layout column wrap align-center justify-center>
+            <v-flex tag="h1" align-center justify-center class="display-4">{{ __('404') }}</v-flex>
+            <v-flex tag="h2" align-center justify-center class="display-2">{{ __('Page Not Found') }}</v-flex>
+            <v-flex align-center justify-center class="text-xs-center">
+                <p>{{ __("Either something went wrong or the page does not exist anymore") }}</p>
+
+                <v-btn large color="primary" href="{{ home() }}">{{ __('Back to Home') }}</v-btn>
             </v-flex>
         </v-layout>
     </v-container>

@@ -37,6 +37,9 @@
                                             value="{{ old('password') }}"
                                         ></v-text-field>
 
+                                        {{-- Log in --}}
+                                        <v-btn secondary block large role="button" class="elevation-1 mx-0" type="submit">{{ __("Login") }}</v-btn>
+                                        {{-- / Log in --}}
                                         <v-checkbox
                                             :checked="resource.remember"
                                             label="Remember Me"
@@ -48,11 +51,6 @@
                                             @click="() => {resource.remember = !resource.remember}"
                                         ></v-checkbox>
                                         <input v-if="resource.remember" type="hidden" name="remember" value="true">
-                                        {{-- Log in --}}
-                                        <p>
-                                            <v-btn secondary block large role="button" class="elevation-1 mx-0" type="submit">{{ __("Login") }}</v-btn>
-                                        </p>
-                                        {{-- / Log in --}}
 
                                         <v-card-actions class="px-0">
                                             <a class="td-n grey--text" href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>

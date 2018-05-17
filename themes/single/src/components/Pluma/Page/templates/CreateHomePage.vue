@@ -4,7 +4,7 @@
       <v-btn icon exact :to="{name: 'pages.index'}"><v-icon>arrow_back</v-icon></v-btn>
       <v-toolbar-title>{{ trans('Create Page') }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu left>
+      <!-- <v-menu left>
         <v-btn slot="activator" icon small><v-icon small>settings</v-icon></v-btn>
         <v-list>
           <v-list-tile @click="">
@@ -17,7 +17,7 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-divider class="vertical"></v-divider>
+      <v-divider class="vertical"></v-divider> -->
       <v-btn :loading="resource.saving" ripple color="secondary" @click="save(resource.item)">Save</v-btn>
     </v-toolbar>
     <v-container fluid grid-list-lg>
@@ -63,31 +63,31 @@
             <template v-for="(mediabox, i) in mediaboxes.items">
               <v-card class="mb-3">
                 <mediabox
-                  :icon="mediabox.icon"
-                  :menu-items="resource.library.categories.items"
-                  :name="mediabox.name"
-                  :title="mediabox.title"
-                  :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}"
-                  class="elevation-0"
-                  item-text="name"
-                  item-value="thumbnail"
-                  v-model="resource.item[mediabox.name]"
-                  >
-                  <template slot="menus" slot-scope="{props}">
-                    <v-subheader v-html="trans('Catalogue')"></v-subheader>
-                    <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
-                      <v-list-tile-action>
-                        <v-icon>{{ menu.icon }}</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>{{ menu.name }}</v-list-tile-title>
-                      </v-list-tile-content>
-                      <v-list-tile-action>{{ menu.count }}</v-list-tile-action>
-                    </v-list-tile>
-                    <div class="text-xs-center"><small class="grey--text" v-html="trans('Powered by Mediabox v3.0.0')"></small></div>
-                  </template>
-                </mediabox>
-              </v-card>
+                :icon="mediabox.icon"
+                :menu-items="resource.library.categories.items"
+                :name="mediabox.name"
+                :title="mediabox.title"
+                :url="{'all': '/api/v1/library/all', 'search': '/api/v1/library/search'}"
+                class="elevation-0"
+                item-text="name"
+                item-value="thumbnail"
+                v-model="resource.item[mediabox.name]"
+                >
+                <template slot="menus" slot-scope="{props}">
+                  <v-subheader v-html="trans('Catalogue')"></v-subheader>
+                  <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
+                    <v-list-tile-action>
+                      <v-icon>{{ menu.icon }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ menu.name }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>{{ menu.count }}</v-list-tile-action>
+                  </v-list-tile>
+                  <div class="text-xs-center"><small class="grey--text" v-html="trans('Powered by Mediabox v3.0.0')"></small></div>
+                </template>
+              </mediabox>
+            </v-card>
             </template>
             <attributes
               :tag-items="resource.tags.items"
@@ -98,9 +98,9 @@
               >
             </attributes>
 
-        </v-flex>
-      </v-layout>
-    </v-form>
+          </v-flex>
+        </v-layout>
+      </v-form>
     </v-container>
   </div>
 </template>
