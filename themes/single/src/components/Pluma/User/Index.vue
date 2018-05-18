@@ -29,7 +29,7 @@
             <v-btn slot="activator" icon ripple @click="destroy('false', dataset.selected)"><v-icon>delete_sweep</v-icon></v-btn>
             <span>{{ trans('Move selected to trash') }}</span>
           </v-tooltip>
-	  <hr class="vertical-divider">
+	        <hr class="vertical-divider">
         </template>
       </v-slide-y-transition>
       <v-tooltip bottom>

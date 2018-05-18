@@ -86,7 +86,7 @@
         {{-- Child --}}
         <template v-for="(submenu, s) in menu.children">
           <v-divider v-if="submenu.is_divider"></v-divider>
-          <v-list-tile v-else ripple exact v-model="submenu.active" :to="{name: submenu.routename ? submenu.routename : submenu.name}">
+          <v-list-tile v-else ripple exact v-model="submenu.active" :to="submenu.routename ? {name: submenu.routename } : null" :href="submenu.url ? submenu.url : null">
             <v-list-tile-content>
               <v-list-tile-title v-html="trans(submenu.labels.title)"></v-list-tile-title>
             </v-list-tile-content>

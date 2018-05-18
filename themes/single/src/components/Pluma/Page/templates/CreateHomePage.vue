@@ -29,15 +29,14 @@
             <v-card>
               <v-card-text>
                 <v-text-field
-                :error-messages="errors.collect('title')"
-                :error-messages="errors.collect('title')"
-                :label="trans('Title')"
-                @input="slugify"
-                name="title"
-                v-focus
-                v-model="resource.item.title"
-                v-title
-                v-validate="'required'"
+                  :error-messages="errors.collect('title')"
+                  :label="trans('Title')"
+                  @input="slugify"
+                  name="title"
+                  v-focus
+                  v-model="resource.item.title"
+                  v-title
+                  v-validate="'required'"
                 ></v-text-field>
                 <v-text-field
                 :append-icon-cb="() => {resource.lock.code = !resource.lock.code}"

@@ -101,13 +101,13 @@ export default {
         loading: true,
         filtered: false,
         headers: [
-          { text: 'Featured Image', align: 'left', value: 'feature' },
-          { text: 'Title', align: 'left', value: 'title' },
-          { text: 'Author', align: 'left', value: 'user_id' },
-          { text: 'Template', align: 'left', value: 'template' },
-          { text: 'Created', align: 'left', value: 'created_at' },
-          { text: 'Modified', align: 'left', value: 'updated_at' },
-          { text: 'Actions', align: 'center', sortable: false }
+          { text: this.$root.trans('Featured Image'), align: 'left', value: 'feature' },
+          { text: this.$root.trans('Title'), align: 'left', value: 'title' },
+          { text: this.$root.trans('Author'), align: 'left', value: 'user_id' },
+          { text: this.$root.trans('Template'), align: 'left', value: 'template' },
+          { text: this.$root.trans('Created'), align: 'left', value: 'created_at' },
+          { text: this.$root.trans('Modified'), align: 'left', value: 'updated_at' },
+          { text: this.$root.trans('Actions'), align: 'center', sortable: false }
         ],
         items: [],
         pagination: {
