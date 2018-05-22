@@ -11,7 +11,7 @@
         @stack("before-inner-content")
 
         @section("main")
-          @section("m-content")
+          @section("main-content")
             <v-slide-x-reverse-transition mode="out-in">
               <router-view :class="`content-size-${settings.fontsize}`"></router-view>
             </v-slide-x-reverse-transition>

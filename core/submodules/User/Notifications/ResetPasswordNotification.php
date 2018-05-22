@@ -3,12 +3,13 @@
 namespace User\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\SerializesModels;
 use User\Mail\ResetPasswordLink;
 
-class ResetPasswordNotification extends Notification
+class ResetPasswordNotification extends Notification implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -50,10 +51,10 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                ->view("Theme::emails.reset.index", [
-                    'token' => $this->token,
-                    'email' => $notifiable->email,
-                    'url' => route('password.token', [$this->token, 'email' => $notifiable->email])
-                ]);
+            ->view("Theme::emails.reset", [
+                'token' => $this->token,
+                'email' => $notifiable->email,
+                'url' => route('password.token', $this->token)
+            ]);
     }
 }

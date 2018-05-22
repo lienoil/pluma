@@ -13,40 +13,59 @@
     <v-btn icon ripple @click="rightsidebar.model = false"><v-icon color="grey">keyboard_arrow_right</v-icon></v-btn>
   </v-toolbar>
 
-  <v-card flat tile :dark="theme.dark">
-    <v-toolbar dense card :dark="theme.dark">
-      <v-toolbar-title class="subheading">{{ __('Appearance') }}</v-toolbar-title>
-    </v-toolbar>
-    {{-- <v-subheader>{{ __('Appearance') }}&nbsp;<v-divider></v-divider></v-subheader> --}}
-    <v-subheader>{{ __('Theming') }}&nbsp;<v-divider></v-divider></v-subheader>
-    <v-card-text>
-      <v-switch
-        :label="theme.dark ? `{{ __('Dark Theme') }}` : `{{ __('Light Theme') }}`"
-        @change="localstorage('single.theme.dark', theme.dark)"
-        class="caption"
-        hide-details
-        v-model="theme.dark"
-      ></v-switch>
-    </v-card-text>
+  <v-divider></v-divider>
 
-    <v-subheader>{{ __('Font Size') }}&nbsp;<v-divider></v-divider></v-subheader>
-    <v-card-text>
-      <v-slider
-        :max="40"
-        :min="-1"
-        :prepend-icon-cb="() => { localstorage('single.settings.fontsize', (settings.fontsize=1)) }"
-        :prepend-icon="settings.fontsize === 1 ? 'font_download' : 'refresh'"
-        @input="localstorage('single.settings.fontsize', settings.fontsize)"
-        hide-details
-        role="button"
-        step="1"
-        thumb-label
-        v-model="settings.fontsize"
-      ></v-slider>
-    </v-card-text>
+  <v-card flat tile :dark="theme.dark">
+    <v-tabs
+      :dark="theme.dark"
+      v-model="rightsidebar.tabs.model"
+      slider-color="secondary"
+      >
+      <v-tab ripple href="#appearance-tab">
+        <v-icon>fa-paint-brush</v-icon>
+      </v-tab>
+      <v-tab ripple href="#datatable-tab">
+        <v-icon>edit</v-icon>
+      </v-tab>
+    </v-tabs>
+
+    <v-tabs-items v-model="rightsidebar.tabs.model">
+
+      <v-tab-item id="appearance-tab">
+        <v-card-text>
+          <p class="body-2" v-html="trans('Theme')"></p>
+          <v-switch
+          :label="theme.dark ? `{{ __('Dark Theme') }}` : `{{ __('Light Theme') }}`"
+          @change="localstorage({'single.theme.dark': theme.dark})"
+          class="caption"
+          v-model="theme.dark"
+          ></v-switch>
+          <p class="body-2" v-html="trans('Font size')"></p>
+          <v-slider
+            :max="40"
+            :min="-1"
+            :prepend-icon-cb="() => { localstorage({'single.settings.fontsize': (settings.fontsize=1)}) }"
+            :prepend-icon="settings.fontsize === 1 ? 'font_download' : 'refresh'"
+            @input="localstorage({'single.settings.fontsize': settings.fontsize})"
+            role="button"
+            step="1"
+            thumb-label
+            v-model="settings.fontsize"
+            ></v-slider>
+        </v-card-text>
+      </v-tab-item>
+
+      <v-tab-item id="datatable-tab">
+        <v-card-text>
+          <v-select :label="trans('Items per page')" :items="[5, 10, 25, {'-1': 'All'}]"></v-select>
+        </v-card-text>
+      </v-tab-item>
+    </v-tabs-items>
+
+
   </v-card>
 
-  <v-card flat tile :dark="theme.dark">
+  {{-- <v-card flat tile :dark="theme.dark">
     <v-toolbar dense card :dark="theme.dark">
       <v-toolbar-title class="subheading">{{ __('Sidebar') }}</v-toolbar-title>
     </v-toolbar>
@@ -85,5 +104,5 @@
         <v-slider hide-details @input="localstorage('sidebar.style.color', (sidebar.style.color = `rgba(${sidebar.style.rgba.r}, ${sidebar.style.rgba.g}, ${sidebar.style.rgba.b}, ${sidebar.style.rgba.a}%)`))" label="A" :max="100" v-model="sidebar.style.rgba.a"></v-slider>
       </v-card-text>
     </v-card>
-  </v-card>
+  </v-card> --}}
 </v-navigation-drawer>

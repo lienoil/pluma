@@ -2,10 +2,10 @@
 
 namespace Dashboard\Controllers;
 
-use Frontier\Controllers\AdminController as Controller;
+use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class DashboardController extends AdminController
 {
     /**
      * Show list of resources.
@@ -15,6 +15,6 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        return view("Dashboard::dashboard.index");
+        return view("Dashboard::pages.dashboard");
     }
 }

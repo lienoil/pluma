@@ -4,7 +4,7 @@ export const settings = {
   data () {
     return {
       settings: {
-        fontsize: this.localstorage('single.settings.fontsize') ? this.localstorage('single.settings.fontsize') : 1
+        fontsize: this.localstorage('single.settings.fontsize', 1)
       },
       pageview: {
         current: null
@@ -99,7 +99,20 @@ export const settings = {
         clipped: this.localstorage('single.rightsidebar.clipped') === 'true',
         floating: this.localstorage('single.rightsidebar.floating') === 'true',
         mini: this.localstorage('single.rightsidebar.mini') === 'true',
-        model: false
+        model: false,
+        tabs: {
+          model: 0
+        }
+      },
+
+      /**
+       *-------------------------------------------
+       * Utilitybar
+       *-------------------------------------------
+       *
+       */
+      utilitybar: {
+        model: true
       },
 
       /**
@@ -119,22 +132,6 @@ export const settings = {
     }
   },
   methods: {
-    localstorage (key, value) {
-      if (typeof value === 'undefined') {
-        // get localstorage
-        return window.localStorage.getItem(key)
-      } else {
-        window.localStorage.setItem(key, value)
-        return true
-      }
-    },
-    // navigate (component) {
-    //   // this.view.current = () => import(`@/components/${component}`)
-    //   this.pageview.current = () => import(
-    //     /* webpackChunkName: "group-page" */
-    //     `@/${component}`
-    //   )
-    // },
     alert (snackbar, fetchFromServer) {
       // Get sessions every page transition
       if (fetchFromServer) {

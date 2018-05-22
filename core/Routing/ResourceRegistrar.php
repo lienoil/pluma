@@ -22,13 +22,13 @@ class ResourceRegistrar extends BaseResourceRegistrar
 
         $component = $this->getResourceComponent($name);
 
-        $module = 'Pluma';
+        $module = isset($options['module']) ? $options['module'] . '/' : '';
 
         $action = [
             'as' => $name,
             'uses' => $controller.'@'.$method,
             'module' => $module,
-            'component' => 'components/'.$module.'/'.$component.'.vue',
+            'component' => "components/{$module}/{$component}.vue",
         ];
 
         if (isset($options['middleware'])) {

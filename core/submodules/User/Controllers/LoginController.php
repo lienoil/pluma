@@ -133,4 +133,20 @@ class LoginController extends Controller
 
         return false;
     }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if ($request->ajax()) {
+            return response()->json(json_decode('true'));
+        }
+
+        // If not an AJAX request, continue loading the page.
+    }
 }

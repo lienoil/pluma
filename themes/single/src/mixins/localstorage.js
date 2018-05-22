@@ -1,12 +1,15 @@
 export const localstorage = {
   methods: {
     localstorage (key, value) {
-      if (typeof value === 'undefined') {
-        // get localstorage
-        return window.localStorage.getItem(key)
+      // Check if setting
+      if (typeof key === 'object') {
+        return Object.keys(key).forEach(k => {
+          return window.localStorage.setItem(k, key[k])
+        })
       } else {
-        window.localStorage.setItem(key, value)
-        return true
+        return typeof window.localStorage.getItem(key) !== 'undefined'
+          ? window.localStorage.getItem(key)
+          : value
       }
     }
   }

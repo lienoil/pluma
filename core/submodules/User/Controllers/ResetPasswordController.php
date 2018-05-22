@@ -60,31 +60,31 @@ class ResetPasswordController extends Controller
      * @param  string|null  $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showResetForm(Request $request, $token = null)
+    public function showResetForm(Request $request, $token)
     {
-        $this->tokenValidation($request);
+        // $this->tokenValidation($request);
 
         return view('Theme::passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
     }
 
-    public function tokenValidation($request)
-    {
-        $reset = DB::table(config('auth.passwords.users.table', 'password_resets'))
-            ->where('email', $request->email)
-            ->first();
-
-        if (! $reset || ! Hash::check($request->token, $reset->token)) {
-            return abort(404);
-        }
-
-        if (Carbon::parse($reset->created_at)
-                ->addSeconds(config('auth.passwords.users.expire', 60) * 60)
-                ->isPast()) {
-            return abort(404);
-        }
-
-        return true;
-    }
+    // public function tokenValidation($request)
+    // {
+    //     $reset = DB::table(config('auth.passwords.users.table', 'password_resets'))
+    //         ->where('email', $request->email)
+    //         ->first();
+    //
+    //     if (! $reset || ! Hash::check($request->token, $reset->token)) {
+    //         return abort(404);
+    //     }
+    //
+    //     if (Carbon::parse($reset->created_at)
+    //             ->addSeconds(config('auth.passwords.users.expire', 60) * 60)
+    //             ->isPast()) {
+    //         return abort(404);
+    //     }
+    //
+    //     return true;
+    // }
 }

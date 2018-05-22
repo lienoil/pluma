@@ -5,6 +5,7 @@ import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
 import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
 import ImageOverlay from '@/components/components/ImageOverlay.vue'
+import LoginCard from '@/components/Auth/LoginCard.vue'
 import filters from './filters'
 import helpers from './helpers'
 import directives from './directives'
@@ -57,7 +58,10 @@ new Vue({
   el: '#app',
   router,
   components: {
-    Breadcrumbs, AlertIcon, ImageOverlay
+    Breadcrumbs,
+    AlertIcon,
+    ImageOverlay,
+    LoginCard
   },
   http: {
     headers: {

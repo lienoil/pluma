@@ -4,9 +4,9 @@ Route::get('js/main.js', function () {
     // User
     $user = [
         'user' => [
-            'user' => user()->only(['firstname', 'middlename', 'lastname', 'fullname', 'propername', 'email', 'username']),
-            'isRoot' => user()->isRoot(),
-            'permissions' => user()->permissions->pluck('code'),
+            'user' => ! user() ?: user()->only(['firstname', 'middlename', 'lastname', 'fullname', 'propername', 'email', 'username']),
+            'isRoot' => ! user() ?: user()->isRoot(),
+            'permissions' => ! user() ?: user()->permissions->pluck('code'),
         ]
     ];
 

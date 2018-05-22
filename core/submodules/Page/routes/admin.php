@@ -24,7 +24,4 @@ Route::softDeletes('pages', 'PageController');
 // Route::get('pages/{page}/edit', ['component' => 'components/Pluma/Page/Edit.vue', 'uses' => 'PageController@edit'])->name('pages.edit');
 // Route::get('pages/{page}', ['component' => 'components/Pluma/Page/Show.vue', 'uses' => 'PageController@show'])->name('pages.show');
 // Route::delete('pages/{page}', ['uses' => 'PageController@destroy'])->name('pages.destroy');
-Route::resource('pages', 'PageController', ['parameters' => [
-    'pages.index' => 'components/Pluma/Page/Index.vue',
-    'create' => 'components/Pluma/Page/Create.vue',
-]]);
+Route::resource('pages', 'PageController');

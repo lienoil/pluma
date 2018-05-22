@@ -70,7 +70,7 @@ Route::post('admin/sessions', function () {
 })->middleware('auth.admin')->name('sessions.all');
 
 Route::middleware(['auth.admin', 'api', 'cors'])->group(function () {
-    Route::get('chatroom/public/messages', function () {
-        return response()->json(['message' => 'Hello', 'user_id' => 1]);
-    });
+    // Route::get('chatroom/public/messages', function () {
+    //     return response()->json(['message' => 'Hello', 'user_id' => 1]);
+    // });
 });

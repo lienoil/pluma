@@ -118,7 +118,8 @@ export default {
         items: [],
         pagination: {
           sortBy: 'id',
-          totalItems: 0
+          totalItems: 0,
+          rowsPerPage: this.$root.localstorage('single._.dataset.pagination.rowsPerPage', 25)
         },
         search: {
           query: ''
@@ -133,6 +134,10 @@ export default {
         this.all()
       },
       deep: true
+    },
+
+    'dataset.pagination.rowsPerPage': function (value) {
+      this.$root.localstorage({'single._.dataset.pagination.rowsPerPage': value})
     },
 
     'dataset.search.query': function (filter) {

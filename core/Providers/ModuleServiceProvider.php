@@ -171,7 +171,7 @@ class ModuleServiceProvider extends ServiceProvider
         // TODO: Scheduled for deprecation
         if (file_exists("$module/API/routes/api.php")) {
             Route::group([
-                'middleware' => ['api', 'cors', 'auth.admin'],
+                'middleware' => ['api', 'cors'],
                 'as' => 'api.',
                 'prefix' => config('routes.api.slug', 'api'),
                 'namespace' => "$basename\Controllers",
