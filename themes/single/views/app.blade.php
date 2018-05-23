@@ -1,7 +1,7 @@
 @include("Theme::partials.head")
 
 @section("app")
-  <div id="app" data-root-application>
+  <div id="app" data-root-application v-cloak>
     <v-app>
 
       @stack("before-content")
@@ -11,11 +11,13 @@
         @stack("before-inner-content")
 
         @section("main")
-          @section("main-content")
-            <v-slide-x-reverse-transition mode="out-in">
-              <router-view :class="`content-size-${settings.fontsize}`"></router-view>
-            </v-slide-x-reverse-transition>
-          @show
+          <div :class="`content-size-${settings.fontsize}`">
+            @section("main-content")
+              <v-slide-x-reverse-transition mode="out-in">
+                <router-view></router-view>
+              </v-slide-x-reverse-transition>
+            @show
+          </div>
         @show
 
         @stack("after-inner-content")

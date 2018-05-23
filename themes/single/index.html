@@ -34,14 +34,10 @@
       This is your fallback content in case JavaScript fails to load.
     </noscript>
 
-    <div id="app">
+    <div id="app" v-cloak>
       <v-app>
-        <v-navigation-drawer v-model="sidebar.model" :dark="theme.dark" :light="!theme.dark" app>
-          <v-toolbar card :dark="theme.dark" color="transparent">
-            <v-toolbar-title class="subheading">Dev Mode</v-toolbar-title>
-          </v-toolbar>
+        <sidebar :items="navigations.sidebar"></sidebar>
 
-        </v-navigation-drawer>
         <v-toolbar app scroll-off-screen>
           <v-toolbar-side-icon @click="sidebar.model = !sidebar.model"></v-toolbar-side-icon>
           <v-spacer></v-spacer>
@@ -49,22 +45,23 @@
         </v-toolbar>
         <v-content>
           <breadcrumbs></breadcrumbs>
-          <!-- <v-btn @click="navigate('components/Pluma/Page/Create')">Component</v-btn> -->
-          <v-container fluid grid-list-lg>
+          <v-content>
+            <div :class="`content-size`">
+              <v-slide-x-reverse-transition mode="out-in">
+                <router-view></router-view>
+              </v-slide-x-reverse-transition>
+            </div>
+          </v-content>
+        </v-content>
+        <v-footer app inset absolute height="auto">
+          <v-container fluid>
             <v-layout row wrap>
-              <v-flex sm12>
-                <v-card>
-                  <v-card-title>Card Title</v-card-title>
-                </v-card>
-              </v-flex>
+              <v-flex tag="small" class="grey--text">Pluma CMS &copy; Copyright 20**. All Rights Reserved.</v-flex>
+              <v-spacer></v-spacer>
+              <v-flex tag="small" class="grey--text text-xs-right" justify-end>v3.0.0</v-flex>
             </v-layout>
           </v-container>
-          <v-slide-x-transition mode="out-in">
-            <!-- <component :is="pageview.current"></component> -->
-            <router-view></router-view>
-          </v-slide-x-transition>
-        </v-content>
-        <v-footer app inset absolute></v-footer>
+        </v-footer>
       </v-app>
     </div>
 

@@ -28,7 +28,7 @@ class ResourceRegistrar extends BaseResourceRegistrar
             'as' => $name,
             'uses' => $controller.'@'.$method,
             'module' => $module,
-            'component' => "components/{$module}/{$component}.vue",
+            'component' => "components/{$module}{$component}.vue",
         ];
 
         if (isset($options['middleware'])) {
@@ -49,7 +49,7 @@ class ResourceRegistrar extends BaseResourceRegistrar
         $component = explode('.', $name);
 
         foreach ($component as $i => &$string) {
-            $string = $i === 0 ? ucfirst(str_singular($string)) : ucfirst($string);
+            $string = ucfirst($i === 0 ? str_singular($string) : $string);
         }
 
         return implode('/', $component);

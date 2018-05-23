@@ -28,8 +28,8 @@
           v-validate="'required'"
           >
         </v-text-field>
-        <v-checkbox color="primary" v-model="resource.item.rememberMe" :label="trans('Remember me')"></v-checkbox>
-        <v-btn :loading="resource.form.loading" color="primary" class="mx-0 mb-4" @click="login(resource.item)" v-html="trans('Login')"></v-btn>
+        <v-checkbox :color="color" v-model="resource.item.rememberMe" :label="trans('Remember me')"></v-checkbox>
+        <v-btn :loading="resource.form.loading" :color="color" class="mx-0 mb-4" @click="login(resource.item)">{{ trans('Login') }}</v-btn>
       </v-form>
 
       <v-card-actions class="px-0">
@@ -42,12 +42,16 @@
 </template>
 
 <script>
+import { api } from '@/utils/api'
+import { errors } from '@/utils/forms'
+
 export default {
   name: 'LoginCard',
   props: {
+    color: { type: String, default: 'primary' },
     logo: { type: String, default: '' },
-    title: { type: String, default: '' },
-    subtitle: { type: String, default: '' }
+    subtitle: { type: String, default: '' },
+    title: { type: String, default: '' }
   },
   data () {
     return {
@@ -58,8 +62,8 @@ export default {
         },
         item: {
           _token: this.$root.$token,
-          username: '',
-          password: '',
+          username: null,
+          password: null,
           passwordVisible: false,
           rememberMe: true
         }
@@ -69,14 +73,21 @@ export default {
   methods: {
     login (credentials) {
       this.resource.form.loading = true
-      this.$http.post('/login', credentials)
+      this.$http.post(api.auth.login, credentials)
         .then(response => {
-          this.resource.form.loading = false
           if (response.status === 200) {
-            this.$root.$router.go({name: 'pages.create'})
+            this.$router.go({name: 'pages.create'})
           }
+          this.resource.form.loading = false
+        })
+        .catch(error => {
+          errors(error.response, this.errors)
+          this.resource.form.loading = false
         })
     }
+  },
+  mounted () {
+    //
   }
 }
 </script>

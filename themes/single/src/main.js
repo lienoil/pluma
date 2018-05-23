@@ -7,10 +7,10 @@ import filters from './filters'
 import helpers from './helpers'
 import mixins from './mixins'
 import router from './router'
+import store from './store'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import Vuex from 'vuex'
 
 /**
  *------------------------------------------------------------------------------
@@ -35,7 +35,6 @@ Vue.use(filters)
 Vue.use(helpers)
 Vue.use(mixins)
 Vue.use(VeeValidate)
-Vue.use(Vuex)
 
 /**
  *------------------------------------------------------------------------------
@@ -45,10 +44,11 @@ Vue.use(Vuex)
  * We require theme dynamically to avoid loading unused components.
  *
  */
-Vue.component('breadcrumbs', require('@/components/partials/Breadcrumbs.vue'))
-Vue.component('alert-icon', require('@/components/partials/AlertIcon.vue'))
-Vue.component('image-overlay', require('@/components/components/ImageOverlay.vue'))
-Vue.component('login-card', require('@/components/Auth/LoginCard.vue'))
+Vue.component('alert-icon', () => import('./components/partials/AlertIcon.vue'))
+Vue.component('breadcrumbs', () => import('./components/partials/Breadcrumbs.vue'))
+Vue.component('sidebar', () => import('./components/partials/Sidebar.vue'))
+Vue.component('image-overlay', () => import('./components/components/ImageOverlay.vue'))
+Vue.component('login-card', () => import('./components/Auth/LoginCard.vue'))
 
 /**
  *------------------------------------------------------------------------------
@@ -70,14 +70,10 @@ Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
 new Vue({
   el: '#app',
   router,
+  store,
   http: {
     headers: {
       'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
-  },
-  watch: {
-    '$route': function (router) {
-      //
     }
   },
   data () {
@@ -91,11 +87,13 @@ new Vue({
   },
   methods: {
     mountUser () {
-      this.user = window.Pluma.user
+      this.user = (window.Pluma && window.Pluma.user) || {
+        isRoot: false,
+        permissions: []
+      }
     },
     routed () {
       let self = this
-      // Populate the routes variable
       this.$http.get('/api/v1/misc/routes')
         .then(response => {
           for (var i = 0; i < response.data.length; i++) {
@@ -110,6 +108,7 @@ new Vue({
                   next()
                 } else {
                   // self.alert({type: 'error', text: `Permission denied`})
+                  // window.location.href = '/403'
                   next('/403')
                 }
               }
@@ -118,7 +117,6 @@ new Vue({
           self.$router.addRoutes(self.routes)
         })
         .catch(error => {
-          // console.log('[ERROR]', error)
           this.$root.alert({type: 'error', text: `Aw, Snap! Error fetching routes! It's severe! ${error.response}`})
         })
     },

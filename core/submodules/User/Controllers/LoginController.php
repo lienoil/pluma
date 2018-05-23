@@ -2,9 +2,10 @@
 
 namespace User\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Pluma\Controllers\Controller;
 use Pluma\Support\Auth\Traits\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -146,7 +147,26 @@ class LoginController extends Controller
         if ($request->ajax()) {
             return response()->json(json_decode('true'));
         }
+    }
 
-        // If not an AJAX request, continue loading the page.
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        if ($request->ajax()) {
+            return response()->json([
+                $this->username() => [Lang::get('auth.failed')],
+            ], 422);
+        }
+
+        return redirect()->back()
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors([
+                $this->username() => Lang::get('auth.failed'),
+            ]);
     }
 }

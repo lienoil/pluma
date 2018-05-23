@@ -11,7 +11,7 @@ Route::get('403', function () {
     return response()->view("Theme::errors.403", [], 403);
 });
 
-Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors', 'preflight']], function () {
     # User
     Route::get('auth/user', function () {
         return response()->json([
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors']], function (
     Route::get('misc/routes', function () {
         $routes = Route::getRoutes();
         foreach ($routes as $route) {
-            $data[] = [
+            $data[$route->getAction('as')] = [
                 "title" => '',
                 "uri" => "/{$route->uri()}",
                 "name" => $route->getAction('as'),

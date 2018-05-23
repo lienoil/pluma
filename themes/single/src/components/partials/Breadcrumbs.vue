@@ -17,7 +17,7 @@
 export default {
   name: 'Breadcrumbs',
   props: {
-    url: ''
+    url: { type: String, default: '/api/v1/misc/breadcrumbs' }
   },
   data () {
     return {

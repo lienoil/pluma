@@ -16,7 +16,7 @@ Route::resource('pages/categories', 'CategoryController', [
     ]);
 
 // SoftDelete routes
-Route::softDeletes('pages', 'PageController');
+Route::softDeletes('pages', 'PageController', ['module' => 'Pluma']);
 
 // Admin routes
 // Route::get('pages', ['component' => 'components/Pluma/Page/Index.vue', 'uses' => 'PageController@index'])->name('pages.index');
@@ -24,4 +24,4 @@ Route::softDeletes('pages', 'PageController');
 // Route::get('pages/{page}/edit', ['component' => 'components/Pluma/Page/Edit.vue', 'uses' => 'PageController@edit'])->name('pages.edit');
 // Route::get('pages/{page}', ['component' => 'components/Pluma/Page/Show.vue', 'uses' => 'PageController@show'])->name('pages.show');
 // Route::delete('pages/{page}', ['uses' => 'PageController@destroy'])->name('pages.destroy');
-Route::resource('pages', 'PageController');
+Route::resource('pages', 'PageController', ['module' => 'Pluma']);

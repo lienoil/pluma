@@ -17,7 +17,7 @@ export const settings = {
        *
        */
       theme: {
-        dark: this.localstorage('single.theme.dark', true),
+        dark: this.localstorage('single.theme.dark', true) === 'true',
         light: this.localstorage('single.theme.light') === 'true'
       },
 
@@ -112,7 +112,7 @@ export const settings = {
        *
        */
       utilitybar: {
-        model: true
+        model: false
       },
 
       /**

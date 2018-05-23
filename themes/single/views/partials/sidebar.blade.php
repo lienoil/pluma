@@ -5,6 +5,8 @@
   :light.sync="!theme.dark"
   :mini-variant.sync="sidebar.mini"
   app
+  transition="slide-x-transition"
+  enable-resize-watcher
   class="sidebar sidebar-background"
   v-model="sidebar.model"
   @click.native.stop="localstorage({'single.sidebar.mini': sidebar.mini})">
