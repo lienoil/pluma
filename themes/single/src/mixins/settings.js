@@ -17,7 +17,7 @@ export const settings = {
        *
        */
       theme: {
-        dark: this.localstorage('single.theme.dark') === 'true',
+        dark: this.localstorage('single.theme.dark', true),
         light: this.localstorage('single.theme.light') === 'true'
       },
 

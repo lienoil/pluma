@@ -1,19 +1,16 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import '@/assets/stylus/main.styl'
-import AlertIcon from '@/components/partials/AlertIcon.vue'
 import axios from 'axios'
-import Breadcrumbs from '@/components/partials/Breadcrumbs.vue'
-import ImageOverlay from '@/components/components/ImageOverlay.vue'
-import LoginCard from '@/components/Auth/LoginCard.vue'
+import directives from './directives'
 import filters from './filters'
 import helpers from './helpers'
-import directives from './directives'
-import router from './router'
 import mixins from './mixins'
+import router from './router'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import Vuex from 'vuex'
 
 /**
  *------------------------------------------------------------------------------
@@ -33,22 +30,38 @@ Vue.use(Vuetify, {
     info: '#2196f3'
   }
 })
+Vue.use(directives)
 Vue.use(filters)
 Vue.use(helpers)
-Vue.use(directives)
-Vue.use(VeeValidate)
 Vue.use(mixins)
+Vue.use(VeeValidate)
+Vue.use(Vuex)
 
 /**
  *------------------------------------------------------------------------------
- * Config Block
+ * Components Block
+ *------------------------------------------------------------------------------
+ * Here we define additional global components to be used throughout the app.
+ * We require theme dynamically to avoid loading unused components.
+ *
+ */
+Vue.component('breadcrumbs', require('@/components/partials/Breadcrumbs.vue'))
+Vue.component('alert-icon', require('@/components/partials/AlertIcon.vue'))
+Vue.component('image-overlay', require('@/components/components/ImageOverlay.vue'))
+Vue.component('login-card', require('@/components/Auth/LoginCard.vue'))
+
+/**
+ *------------------------------------------------------------------------------
+ * Miscellaneous Configurations Block
  *------------------------------------------------------------------------------
  *
  */
+// Axios
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
 
+// Vue Prototypes
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
@@ -57,12 +70,6 @@ Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
 new Vue({
   el: '#app',
   router,
-  components: {
-    Breadcrumbs,
-    AlertIcon,
-    ImageOverlay,
-    LoginCard
-  },
   http: {
     headers: {
       'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')

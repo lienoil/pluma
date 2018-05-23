@@ -33,40 +33,29 @@
     <noscript>
       This is your fallback content in case JavaScript fails to load.
     </noscript>
+
     <div id="app">
       <v-app>
-        <v-navigation-drawer :dark="theme.dark" :light="!theme.dark" app>
-          <v-btn @click="theme.dark = !theme.dark">Toogle theme</v-btn>
-          <v-btn color="info" @click="dialog.type='prompt';dialog.theme='dark';dialog.text='A prompt occurred!'; dialog.model = !dialog.model;dialog.color='secondary'">Dialog Question Test</v-btn>
+        <v-navigation-drawer v-model="sidebar.model" :dark="theme.dark" :light="!theme.dark" app>
+          <v-toolbar card :dark="theme.dark" color="transparent">
+            <v-toolbar-title class="subheading">Dev Mode</v-toolbar-title>
+          </v-toolbar>
 
-          <alert-icon small></alert-icon>
-          <alert-icon></alert-icon>
-          <alert-icon medium></alert-icon>
-          <alert-icon large></alert-icon>
-          <v-btn color="success" @click="$root.alert({type:'info',text:'Loremispumdolor',timeout:10000})">Dialogo</v-btn>
-
-          <v-dialog v-model="dialog.model" width="50%">
-            <v-card flat :dark="theme.dark" :light="!theme.dark">
-              <alert-icon medium mode="prompt"></alert-icon>
-              <v-card-text class="grey--text text-xs-center">
-                <p class="headline">Looks like Lorem ipsum dolor sit amet, consectetur.</p>
-                <p class="subheading">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque magni rem delectus. Impedit tempora quo temporibus magni, itaque dolorum nostrum voluptates dolores asperiores, ipsum pariatur, voluptatibus reprehenderit tempore voluptate consequatur.</p>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color=primary @click="dialog.model = false">Okay</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
         </v-navigation-drawer>
-        <v-toolbar app scroll-off-screen></v-toolbar>
+        <v-toolbar app scroll-off-screen>
+          <v-toolbar-side-icon @click="sidebar.model = !sidebar.model"></v-toolbar-side-icon>
+          <v-spacer></v-spacer>
+          <v-btn icon @click="theme.dark = !theme.dark"><v-icon>edit</v-icon></v-btn>
+        </v-toolbar>
         <v-content>
           <breadcrumbs></breadcrumbs>
           <!-- <v-btn @click="navigate('components/Pluma/Page/Create')">Component</v-btn> -->
           <v-container fluid grid-list-lg>
             <v-layout row wrap>
               <v-flex sm12>
-                <form-builder></form-builder>
+                <v-card>
+                  <v-card-title>Card Title</v-card-title>
+                </v-card>
               </v-flex>
             </v-layout>
           </v-container>
@@ -78,6 +67,7 @@
         <v-footer app inset absolute></v-footer>
       </v-app>
     </div>
+
     <!-- Todo: only include in production -->
     <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
     <!-- built files will be auto injected -->

@@ -6,11 +6,14 @@
       <v-layout row wrap justify-center align-center>
         <v-flex lg3 md4 sm8 xs12 justify-center align-center>
 
-          <login-card
-            logo="{{ $application->site->logo }}"
-            title="{{ $application->site->title }}"
-            subtitle="{{ $application->site->tagline }}"
-          ></login-card>
+          <v-slide-y-transition mode="in-out">
+            <login-card
+              v-show="sidebar.model"
+              logo="{{ $application->site->logo }}"
+              title="{{ $application->site->title }}"
+              subtitle="{{ $application->site->tagline }}"
+            ></login-card>
+          </v-slide-y-transition>
 
         </v-flex>
       </v-layout>
