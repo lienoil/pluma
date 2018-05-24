@@ -1,6 +1,6 @@
 <template>
   <div>
-    not foundload a
+    not found
   </div>
 </template>
 

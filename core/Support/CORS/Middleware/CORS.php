@@ -47,12 +47,10 @@ class CORS
      */
     public function handle($request, Closure $next)
     {
-        // if ($request->ajax()) {
-            return $next($request)
-                    ->header('Access-Control-Allow-Origin', '*')
-                    ->header('Access-Control-Allow-Headers', 'X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type')
-                    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        // }
+        return $next($request)
+                ->header('Access-Control-Allow-Origin', '*')
+                ->header('Access-Control-Allow-Headers', 'X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type')
+                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 
         if (! $this->cors->isCorsRequest($request)) {
             return $next($request);
@@ -93,6 +91,9 @@ class CORS
         if (! $response->headers->has('Access-Control-Allow-Origin')) {
             $response = $this->cors->addActualRequestHeaders($response, $request);
         }
+
+        $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 
         return $response;
     }

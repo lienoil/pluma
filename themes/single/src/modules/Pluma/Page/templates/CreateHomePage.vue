@@ -105,14 +105,8 @@
 </template>
 
 <script>
-import Mediabox from '@/components/components/Mediabox.vue'
-import Editor from '@/components/components/Editor.vue'
-import Attributes from '@/components/components/Attributes.vue'
-import AlertIcon from '@/components/partials/AlertIcon.vue'
-
 export default {
   name: 'Create',
-  components: { Mediabox, Editor, Attributes, AlertIcon },
   data () {
     return {
       resource: {

@@ -3,9 +3,8 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-// Declare storage for routes
-// coming from the server
-let routes = []
+// Routes collection
+const routes = []
 
 // Instance of VueRouter
 const router = new VueRouter({
@@ -13,5 +12,24 @@ const router = new VueRouter({
   saveScrollPosition: true,
   routes
 })
+
+const requireRoute = require.context(
+  // The relative path of the routes folder
+  '@/modules',
+  // Whether or not to look in subfolders
+  true,
+  // The regular expression used to match base route filenames
+  /router\/index\.js$/
+)
+
+requireRoute.keys().forEach(route => {
+  const routeConfig = requireRoute(route)
+  console.log(router.options.routes, route, routeConfig.default)
+  router.addRoutes(routeConfig.default || routeConfig)
+})
+
+// router.beforeEach((to, from, next) => {
+//   next()
+// })
 
 export default router

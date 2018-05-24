@@ -23,8 +23,8 @@ Route::group(['prefix' => 'users'], function () {
     // Route::post('roles/refresh', 'RoleRefreshController@refresh')->name('roles.refresh.refresh');
     // Route::post('roles/restore/many', 'RoleManyController@restore')->name('roles.many.restore');
     // Route::post('roles/{role}/restore', 'RoleController@restore')->name('roles.restore');
-    Route::softDeletes('roles', 'RoleController', ['module' => 'Role']);
-    Route::resource('roles', 'RoleController', ['module' => 'Role']);
+    Route::softDeletes('roles', 'RoleController');
+    Route::resource('roles', 'RoleController');
 
     /**
      * Grants

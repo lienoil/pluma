@@ -6,6 +6,7 @@ import directives from './directives'
 import filters from './filters'
 import helpers from './helpers'
 import mixins from './mixins'
+import components from './components'
 import router from './router'
 import store from './store'
 import VeeValidate from 'vee-validate'
@@ -32,6 +33,7 @@ Vue.use(Vuetify, {
 })
 Vue.use(directives)
 Vue.use(filters)
+Vue.use(components)
 Vue.use(helpers)
 Vue.use(mixins)
 Vue.use(VeeValidate)
@@ -44,11 +46,11 @@ Vue.use(VeeValidate)
  * We require theme dynamically to avoid loading unused components.
  *
  */
-Vue.component('alert-icon', () => import('./components/partials/AlertIcon.vue'))
-Vue.component('breadcrumbs', () => import('./components/partials/Breadcrumbs.vue'))
-Vue.component('sidebar', () => import('./components/partials/Sidebar.vue'))
-Vue.component('image-overlay', () => import('./components/components/ImageOverlay.vue'))
-Vue.component('login-card', () => import('./components/Auth/LoginCard.vue'))
+// Vue.component('alert-icon', () => import('./components/partials/AlertIcon.vue'))
+// Vue.component('breadcrumbs', () => import('./components/partials/Breadcrumbs.vue'))
+// Vue.component('sidebar', () => import('./components/partials/Sidebar.vue'))
+// Vue.component('image-overlay', () => import('./components/components/ImageOverlay.vue'))
+// Vue.component('login-card', () => import('./components/Auth/LoginCard.vue'))
 
 /**
  *------------------------------------------------------------------------------
@@ -79,7 +81,6 @@ new Vue({
   data () {
     return {
       user: null,
-      routes: [],
       navigations: {
         sidebar: []
       }
@@ -92,34 +93,45 @@ new Vue({
         permissions: []
       }
     },
-    routed () {
-      let self = this
-      this.$http.get('/api/v1/misc/routes')
-        .then(response => {
-          for (var i = 0; i < response.data.length; i++) {
-            let current = response.data[i]
-            self.routes.push({
-              title: current.title,
-              name: current.name,
-              path: current.uri.replace(/{/g, ':').replace(/}/g, ''),
-              component: () => import('./' + current.component),
-              beforeEnter: (to, from, next) => {
-                if (to.path !== '/403' && (self.user.isRoot || self.user.permissions.indexOf(to.name) >= 0)) {
-                  next()
-                } else {
-                  // self.alert({type: 'error', text: `Permission denied`})
-                  // window.location.href = '/403'
-                  next('/403')
-                }
-              }
-            })
-          }
-          self.$router.addRoutes(self.routes)
-        })
-        .catch(error => {
-          this.$root.alert({type: 'error', text: `Aw, Snap! Error fetching routes! It's severe! ${error.response}`})
-        })
-    },
+    // routed () {
+    //   let self = this
+    //   this.$http.get('/api/v1/misc/routes')
+    //     .then(response => {
+    //       for (var i = 0; i < response.data.length; i++) {
+    //         let current = response.data[i]
+    //         self.routes.push({
+    //           title: this.$root.trans(current.title),
+    //           name: current.name,
+    //           path: current.uri.replace(/{/g, ':').replace(/}/g, ''),
+    //           meta: {
+    //             title: current.title,
+    //             description: current.description
+    //           },
+    //           component: () => import('./modules/' + current.component.replace(/\.vue/g, '') + '.vue'),
+    //           beforeEnter: (to, from, next) => {
+    //             if (to.path !== '/403' && (self.user.isRoot || self.user.permissions.indexOf(to.name) >= 0)) {
+    //               next()
+    //             } else {
+    //               // self.alert({type: 'error', text: `Permission denied`})
+    //               // window.location.href = '/403'
+    //               next('/403')
+    //             }
+    //           }
+    //         })
+    //       }
+    //       self.$router
+    //         .addRoutes(self.routes)
+
+    //       self.$router
+    //         .beforeEach((to, from, next) => {
+    //           document.title = to.meta.title
+    //           next()
+    //         })
+    //     })
+    //     .catch(error => {
+    //       this.$root.alert({type: 'error', text: `Aw, Snap! Error fetching routes! It's severe! ${error.response}`})
+    //     })
+    // },
     navigation () {
       let self = this
       // Populate the routes variable
@@ -146,6 +158,7 @@ new Vue({
   mounted () {
     this.mountUser()
     this.navigation()
-    this.routed()
+    // this.routed()
+    console.log(this.$router.options)
   }
 })

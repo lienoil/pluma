@@ -87,7 +87,7 @@
                                             background: #fdbe3c;
                                             padding: 10px 20px;
                                             border-radius: 3px;"
-                                            href="{{ route('user.verify', $user->id) }}">
+                                            href="{{ route('user.verify', [$user->id, $token]) }}">
                                             {{ __('Verify Email Address') }}
                                         </a>
                                     </td>

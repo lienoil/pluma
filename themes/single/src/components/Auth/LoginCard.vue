@@ -7,42 +7,62 @@
     </v-card-text>
     <v-card-text>
       <v-form method="POST" v-model="resource.form.model">
+
         <input type="hidden" v-model="resource.item._token" name="_token">
+
         <v-text-field
           :error-messages="errors.collect('username')"
-          :label="trans('Username or Email')"
+          :label="'Username or Email'"
           name="username"
           v-focus
           v-model="resource.item.username"
           v-validate="'required'"
           >
         </v-text-field>
+
         <v-text-field
           :append-icon-cb="() => (resource.item.passwordVisible = !resource.item.passwordVisible)"
           :append-icon="resource.item.passwordVisible ? 'visibility' : 'visibility_off'"
           :error-messages="errors.collect('password')"
-          :label="trans('Password')"
+          :label="'Password'"
           :type="resource.item.passwordVisible ? 'text': 'password'"
           name="password"
           v-model="resource.item.password"
           v-validate="'required'"
           >
         </v-text-field>
-        <v-checkbox :color="color" v-model="resource.item.rememberMe" :label="trans('Remember me')"></v-checkbox>
-        <v-btn :loading="resource.form.loading" :color="color" class="mx-0 mb-4" @click="login(resource.item)">{{ trans('Login') }}</v-btn>
+
+        <v-checkbox
+          :color="color"
+          :label="'Remember me'"
+          hide-details
+          v-model="resource.item.rememberMe"
+          >
+        </v-checkbox>
+
+        <v-btn
+          :color="color"
+          :loading="resource.form.loading"
+          type="submit"
+          @click.prevent="login(resource.item)"
+          block
+          class="mx-0 mb-4"
+          >
+          {{ 'Login' }}
+        </v-btn>
       </v-form>
 
       <v-card-actions class="px-0">
-        <a class="caption grey--text" exact href="/password/request" v-html="trans('Forgot password?')"></a>
+        <a class="caption grey--text" exact :href="api.forgotPassword" v-html="'Forgot password?'"></a>
         <v-spacer></v-spacer>
-        <a class="caption grey--text" href="/register" v-html="trans('Create Account')"></a>
+        <a class="caption grey--text" :href="api.register" v-html="'Create Account'"></a>
       </v-card-actions>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { api } from '@/utils/api'
+import { _$api } from './api'
 import { errors } from '@/utils/forms'
 
 export default {
@@ -55,6 +75,7 @@ export default {
   },
   data () {
     return {
+      api: _$api,
       resource: {
         form: {
           model: true,
@@ -73,7 +94,7 @@ export default {
   methods: {
     login (credentials) {
       this.resource.form.loading = true
-      this.$http.post(api.auth.login, credentials)
+      this.$http.post(this.api.login, credentials)
         .then(response => {
           if (response.status === 200) {
             this.$router.go({name: 'pages.create'})

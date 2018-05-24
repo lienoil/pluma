@@ -19,7 +19,7 @@ class Kernel extends HttpKernel
         \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Pluma\Support\Http\Middleware\VerifyPostSize::class,
-        \Pluma\Support\CORS\Middleware\CORS::class // enable on dev mode
+        // \Pluma\Support\CORS\Middleware\CORS::class // enable on dev mode
     ];
 
     /**

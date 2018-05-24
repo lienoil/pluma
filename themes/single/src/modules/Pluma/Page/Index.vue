@@ -113,7 +113,7 @@ export default {
         pagination: {
           sortBy: 'id',
           totalItems: 0,
-          rowsPerPage: this.$root.localstorage('single._.dataset.pagination.rowsPerPage', 25)
+          rowsPerPage: 10 // this.$root.localstorage('single._.dataset.pagination.rowsPerPage', 25)
         },
         search: {
           query: ''
@@ -227,6 +227,7 @@ export default {
   },
   mounted () {
     // this.all()
+    console.log(this.$root.localstorage('single._.dataset.pagination.rowsPerPage', 25))
   }
 }
 </script>

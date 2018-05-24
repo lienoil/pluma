@@ -243,15 +243,11 @@
 </template>
 
 <script>
-import AlertIcon from '@/components/partials/AlertIcon.vue'
 import Draggable from 'vuedraggable'
-import Editor from '@/components/components/Editor.vue'
-import Mediabox from '@/components/components/Mediabox.vue'
-import Chatbox from '@/components/Chat/Chatbox.vue'
 
 export default {
   name: 'Edit',
-  components: { AlertIcon, Draggable, Editor, Mediabox, Chatbox },
+  components: { Draggable },
   data () {
     return {
       resource: {

@@ -41,11 +41,11 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors', 'preflight']
     Route::get('misc/routes', function () {
         $routes = Route::getRoutes();
         foreach ($routes as $route) {
-            $data[$route->getAction('as')] = [
-                "title" => '',
+            $data[] = [
+                "title" => $route->getAction('as'),
                 "uri" => "/{$route->uri()}",
                 "name" => $route->getAction('as'),
-                "component" =>  $route->getAction('component') ?? null,
+                "component" =>  $route->getAction('component') ?? '',
                 // "uri" => str_replace(url('/'), '', ($route->slug ?? url('/'))),
                 // "name" => $route->routename ?? $route->name,
             ];

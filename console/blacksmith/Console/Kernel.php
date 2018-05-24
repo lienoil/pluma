@@ -53,6 +53,9 @@ class Kernel extends BaseKernel
         Commands\Furnace\PurgeStorageCommand::class,
         Commands\Furnace\PurgeViewsCommand::class,
 
+        // Queues
+        Commands\Queue\TableCommand::class,
+
         // Phinx
         Commands\Phinx\PhinxMigrateCreateCommand::class,
         Commands\Phinx\PhinxMigrateRunCommand::class,

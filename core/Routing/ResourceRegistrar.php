@@ -27,8 +27,8 @@ class ResourceRegistrar extends BaseResourceRegistrar
         $action = [
             'as' => $name,
             'uses' => $controller.'@'.$method,
-            'module' => $module,
-            'component' => "components/{$module}{$component}.vue",
+            'module' => $options['module'] ?? '',
+            'component' => $module.$component,
         ];
 
         if (isset($options['middleware'])) {
