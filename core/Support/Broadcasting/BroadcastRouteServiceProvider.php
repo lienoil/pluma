@@ -1,11 +1,11 @@
 <?php
 
-namespace Pluma\Support\Broadcast;
+namespace Pluma\Support\Broadcasting;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
 
-class BroadcastServiceProvider extends ServiceProvider
+class BroadcastRouteServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.

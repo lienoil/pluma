@@ -2,8 +2,8 @@
 
 namespace Blacksmith\Console\Commands\Queue;
 
-use Illuminate\Queue\Listener;
-use Illuminate\Console\Command;
+use Blacksmith\Support\Console\Command;
+use Pluma\Support\Queue\Listener;
 use Illuminate\Queue\ListenerOptions;
 
 class ListenCommand extends Command
@@ -33,14 +33,14 @@ class ListenCommand extends Command
     /**
      * The queue listener instance.
      *
-     * @var \Illuminate\Queue\Listener
+     * @var \Pluma\Support\Queue\Listener
      */
     protected $listener;
 
     /**
      * Create a new queue listen command.
      *
-     * @param  \Illuminate\Queue\Listener  $listener
+     * @param  \Pluma\Support\Queue\Listener  $listener
      * @return void
      */
     public function __construct(Listener $listener)
@@ -77,9 +77,9 @@ class ListenCommand extends Command
      */
     protected function getQueue($connection)
     {
-        $connection = $connection ?: $this->laravel['config']['queue.default'];
+        $connection = $connection ?: $this->webApp['config']['queue.default'];
 
-        return $this->input->getOption('queue') ?: $this->laravel['config']->get(
+        return $this->input->getOption('queue') ?: $this->webApp['config']->get(
             "queue.connections.{$connection}.queue", 'default'
         );
     }
@@ -102,7 +102,7 @@ class ListenCommand extends Command
     /**
      * Set the options on the queue listener.
      *
-     * @param  \Illuminate\Queue\Listener  $listener
+     \* @param  Listener  $listener
      * @return void
      */
     protected function setOutputHandler(Listener $listener)

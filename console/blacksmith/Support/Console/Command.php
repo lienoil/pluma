@@ -20,20 +20,8 @@ class Command extends BaseCommand
      */
     public function run(InputInterface $input, OutputInterface $output)
     {
-        try {
-            return parent::run(
-                $this->input = $input, $this->output = new OutputStyle($input, $output)
-            );
-        } catch (CommandNotFoundException $e) {
-            $this->error("  {$e->getMessage()}  ");
-        } catch (Exception $e) {
-            $this->error(str_repeat(' ', 4 + strlen($e->getMessage())));
-            $this->error("  {$e->getMessage()}  ");
-            $this->error(str_repeat(' ', 4 + strlen($e->getMessage())));
-            $this->line("Stack Trace:");
-            $this->line($e->getTraceAsString());
-        }
-
-        return 0;
+        return parent::run(
+            $this->input = $input, $this->output = new OutputStyle($input, $output)
+        );
     }
 }

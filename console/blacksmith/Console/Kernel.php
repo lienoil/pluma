@@ -55,6 +55,13 @@ class Kernel extends BaseKernel
 
         // Queues
         Commands\Queue\TableCommand::class,
+        Commands\Queue\ListenCommand::class,
+        Commands\Queue\WorkCommand::class,
+        Commands\Queue\RestartCommand::class,
+        Commands\Queue\FailedTableCommand::class,
+        Commands\Queue\FlushFailedCommand::class,
+        Commands\Queue\ForgetFailedCommand::class,
+        Commands\Queue\ListFailedCommand::class,
 
         // Phinx
         Commands\Phinx\PhinxMigrateCreateCommand::class,

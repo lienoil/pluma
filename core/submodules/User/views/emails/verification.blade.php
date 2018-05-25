@@ -1,4 +1,4 @@
-@component('mail::message')
+@component('mail::main')
 # Verify Email
 
 Your order has been shipped
@@ -11,10 +11,9 @@ View Order
 @endcomponent
 
 @component('mail::table')
-| Laravel       | Table         | Example  |
-| ------------- |:-------------:| --------:|
-| Col 2 is      | Centered      | $10      |
-| Col 3 is      | Right-Aligned | $20      |
+| Email              | Full Name             | Balance |
+| ------------------ |:---------------------:| -------:|
+| {{ $user->email }} | {{ $user->fullname }} | PHP1000 |
 @endcomponent
 
 @endcomponent

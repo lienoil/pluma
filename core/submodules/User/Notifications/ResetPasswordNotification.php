@@ -7,7 +7,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\SerializesModels;
-use User\Mail\ResetPasswordLink;
 
 class ResetPasswordNotification extends Notification implements ShouldQueue
 {
@@ -50,10 +49,10 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->view("Theme::emails.reset", [
+        return (new MailMessage)->markdown("Theme::emails.reset", [
                 'token' => $this->token,
                 'email' => $notifiable->email,
+                'user' => $notifiable,
                 'url' => route('password.token', $this->token)
             ]);
     }

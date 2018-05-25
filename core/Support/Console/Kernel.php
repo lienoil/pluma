@@ -80,7 +80,7 @@ class Kernel implements KernelContract
         }
 
         if (! defined('ARTISAN_BINARY')) {
-            define('ARTISAN_BINARY', 'pluma');
+            define('ARTISAN_BINARY', 'artisan');
         }
 
         $this->app = $app;

@@ -17,15 +17,12 @@ return [
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
-        Illuminate\Encryption\EncryptionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
-        Illuminate\Log\LogServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
-        Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
@@ -36,17 +33,23 @@ return [
         // Application
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
-        Pluma\Providers\FilesystemServiceProvider::class,
-        Pluma\Providers\EncryptionServiceProvider::class,
+        // # can be deleted Pluma\Providers\FilesystemServiceProvider::class,
         Pluma\Providers\EventServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\FormRequestServiceProvider::class,
         // Pluma\Cors\CorsServiceProvider::class,
 
-        // Support
+        /**
+         * Support
+         *
+         * Overrides vendor Service Providers
+         *
+         */
+        Pluma\Support\Queue\QueueServiceProvider::class,
+        Pluma\Support\Broadcasting\BroadcastRouteServiceProvider::class,
+        Pluma\Support\Encryption\EncryptionServiceProvider::class,
         // Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
-        Pluma\Support\Broadcast\BroadcastServiceProvider::class,
 
         // Console
         Blacksmith\Providers\ConsoleSupportServiceProvider::class,

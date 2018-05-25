@@ -2,7 +2,7 @@
 
 @section("main")
   @parent
-  <v-jumbotron :gradient="`to top right, #022242 10%, #420224 100%`" src="//source.unsplash.com/1080x600?nature" height="100vh">
+  <v-jumbotron :gradient="`to top right, #022242 10%, #420224 100%`" height="100vh">
     <v-container fluid fill-height>
       <v-layout row wrap justify-center align-center>
         <v-flex lg3 md4 sm8 xs12 justify-center align-center>

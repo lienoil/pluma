@@ -7,21 +7,21 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
 
-class TableCommand extends Command
+class FailedTableCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'queue:table';
+    protected $name = 'queue:failed-table';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a migration for the queue jobs database table';
+    protected $description = 'Create a migration for the failed queue jobs database table';
 
     /**
      * The filesystem instance.
@@ -36,7 +36,7 @@ class TableCommand extends Command
     protected $composer;
 
     /**
-     * Create a new queue job table command instance.
+     * Create a new failed queue jobs table command instance.
      *
      * @param  \Illuminate\Filesystem\Filesystem  $files
      * @param  \Illuminate\Support\Composer    $composer
@@ -57,7 +57,7 @@ class TableCommand extends Command
      */
     public function handle()
     {
-        $table = $this->webApp['config']['queue.connections.database.table'];
+        $table = $this->webApp['config']['queue.failed.table'];
 
         $this->replaceMigration(
             $this->createBaseMigration($table), $table, Str::studly($table)
@@ -74,7 +74,7 @@ class TableCommand extends Command
      * @param  string  $table
      * @return string
      */
-    protected function createBaseMigration($table = 'jobs')
+    protected function createBaseMigration($table = 'failed_jobs')
     {
         return $this->webApp['migration.creator']->create(
             'create_'.$table.'_table', $this->webApp->databasePath().'/migrations'
@@ -82,7 +82,7 @@ class TableCommand extends Command
     }
 
     /**
-     * Replace the generated migration with the job table stub.
+     * Replace the generated migration with the failed job table stub.
      *
      * @param  string  $path
      * @param  string  $table
@@ -94,7 +94,7 @@ class TableCommand extends Command
         $stub = str_replace(
             ['{{table}}', '{{tableClassName}}'],
             [$table, $tableClassName],
-            $this->files->get(__DIR__.'/stubs/jobs.stub')
+            $this->files->get(__DIR__.'/stubs/failed_jobs.stub')
         );
 
         $this->files->put($path, $stub);

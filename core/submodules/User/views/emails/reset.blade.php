@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Email Verification</title>
+    <title>{{ __('Reset Password') }}</title>
     <style type="text/css">
         body { margin: 0; padding: 0; min-width: 100%!important; }
         img { height: auto; }

@@ -4,13 +4,25 @@
   @parent
   {{-- @include("Dashboard::partials.overview") --}}
 
-  {{-- <v-container fluid grid-list-lg>
+  <v-container fluid grid-list-lg>
     <v-layout row wrap>
       <v-flex sm6 md4>
-        @foreach (widgets("dashboard.2.1", "location") as $widget)
-          <v-card height="90px" class="mb-3"></v-card>
-        @endforeach
+          <v-card class="mb-3 elevation-2">
+            <v-card-title>
+              <span class="title">Welcome to the New Dashboard!</span>
+              <v-spacer></v-spacer>
+              <v-btn icon small><v-icon small>close</v-icon></v-btn>
+            </v-card-title>
+            <v-card-text class="grey--text text--darken-2">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis dolores obcaecati harum libero, molestiae, ipsum pariatur ad mollitia sit iusto velit ea magnam deleniti fugiat ut, praesentium at aliquid ducimus!</p>
+            </v-card-text>
+            <v-card-actions class="grey lighten-4">
+              <v-spacer></v-spacer>
+              <v-btn flat>{{ __('No, Thanks') }}</v-btn>
+              <v-btn color="primary">{{ __('Get Started') }}</v-btn>
+            </v-card-actions>
+          </v-card>
       </v-flex>
     </v-layout>
-  </v-container> --}}
+  </v-container>
 @endsection

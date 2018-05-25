@@ -4,11 +4,11 @@ namespace Pluma\Providers;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Database\DatabaseServiceProvider as ServiceProvider;
+use Illuminate\Database\DatabaseServiceProvider as BaseDatabaseServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
 
-class DatabaseServiceProvider extends ServiceProvider
+class DatabaseServiceProvider extends BaseDatabaseServiceProvider
 {
     /**
      * The schema instance
