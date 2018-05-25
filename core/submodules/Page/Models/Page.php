@@ -4,12 +4,12 @@ namespace Page\Models;
 
 use Category\Support\Relations\BelongsToCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Page\Support\Mutators\PageMutator;
 use Page\Support\Relations\BelongsToPage;
 use Page\Support\Relations\PageHasManyPages;
-use Page\Support\Mutators\PageMutator;
 use Page\Support\Traits\PageValidationTrait;
 use Pluma\Models\Model;
-use Pluma\Support\Database\Scopes\SlugOrFailScope;
+use Pluma\Support\Database\Scopes\CodeOrFailScope;
 use User\Support\Traits\BelongsToUser;
 
 class Page extends Model
@@ -20,7 +20,7 @@ class Page extends Model
         PageHasManyPages,
         PageMutator,
         PageValidationTrait,
-        SlugOrFailScope,
+        CodeOrFailScope,
         SoftDeletes;
 
     protected $fillable = [

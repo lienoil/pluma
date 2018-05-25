@@ -1,12 +1,12 @@
 @extends("Theme::layouts.admin")
 
 @section("main-content")
-  @parent
+  {{-- @parent --}}
   {{-- @include("Dashboard::partials.overview") --}}
 
   <v-container fluid grid-list-lg>
     <v-layout row wrap>
-      <v-flex sm6 md4>
+      <v-flex sm6 md5>
           <v-card class="mb-3 elevation-2">
             <v-card-title>
               <span class="title">Welcome to the New Dashboard!</span>

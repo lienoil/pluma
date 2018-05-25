@@ -32,14 +32,6 @@
           >
         </v-text-field>
 
-        <v-checkbox
-          :color="color"
-          :label="'Remember me'"
-          hide-details
-          v-model="resource.item.rememberMe"
-          >
-        </v-checkbox>
-
         <v-btn
           :color="color"
           :loading="resource.form.loading"
@@ -50,6 +42,14 @@
           >
           {{ 'Login' }}
         </v-btn>
+
+        <v-checkbox
+          :color="color"
+          :label="'Remember me'"
+          hide-details
+          v-model="resource.item.rememberMe"
+          >
+        </v-checkbox>
       </v-form>
 
       <v-card-actions class="px-0">

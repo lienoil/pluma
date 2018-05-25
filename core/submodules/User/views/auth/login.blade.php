@@ -1,7 +1,7 @@
 @extends("Theme::layouts.auth")
 
 @section("main")
-  @parent
+  {{-- @parent --}}
   <v-jumbotron :gradient="`to top right, #022242 10%, #420224 100%`" height="100vh">
     <v-container fluid fill-height>
       <v-layout row wrap justify-center align-center>
