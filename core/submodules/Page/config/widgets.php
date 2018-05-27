@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'enabled' => [
+    'enabled' => [
 
 		// 'quickdraft' => [
 		// 	'name' => __('Quick Draft'),

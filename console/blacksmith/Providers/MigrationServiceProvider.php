@@ -2,12 +2,12 @@
 
 namespace Blacksmith\Providers;
 
-use Blacksmith\Support\Providers\ServiceProvider;
 use Illuminate\Database\Migrations\DatabaseMigrationRepository;
 use Illuminate\Database\Migrations\MigrationCreator;
 use Illuminate\Database\Migrations\Migrator;
+use Illuminate\Database\MigrationServiceProvider as BaseMigrationServiceProvider;
 
-class MigrationServiceProvider extends ServiceProvider
+class MigrationServiceProvider extends BaseMigrationServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -15,34 +15,6 @@ class MigrationServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = true;
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->registerRepository();
-
-        $this->registerMigrator();
-
-        $this->registerCreator();
-    }
-
-    /**
-     * Register the migration repository service.
-     *
-     * @return void
-     */
-    protected function registerRepository()
-    {
-        $this->app->singleton('migration.repository', function ($app) {
-            $table = $app['config']['database.migrations'];
-
-            return new DatabaseMigrationRepository($app['db'], $table);
-        });
-    }
 
     /**
      * Register the migrator service.

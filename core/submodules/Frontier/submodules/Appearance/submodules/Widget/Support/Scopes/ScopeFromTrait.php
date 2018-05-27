@@ -12,6 +12,6 @@ trait ScopeFromTrait
 	 */
 	public function scopeFrom($location)
 	{
-		return $this->
+		return false;
 	}
 }

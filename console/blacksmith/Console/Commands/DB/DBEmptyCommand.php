@@ -2,7 +2,9 @@
 
 namespace Blacksmith\Console\Commands\DB;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Console\Command;
 use Pluma\Support\Filesystem\Filesystem;
 
@@ -14,7 +16,7 @@ class DBEmptyCommand extends Command
      * @var string
      */
     protected $signature = 'db:truncate
-                           {table : The tables to truncate, separated by comma, enclosed in quotations}
+                           {tables : The tables to truncate, separated by comma, enclosed in quotations}
                            ';
 
     /**
@@ -27,24 +29,27 @@ class DBEmptyCommand extends Command
     /**
      * Execute the console command.
      *
+     * @return DB
      * @return mixed
+     * @return Schema
      */
     public function handle(Filesystem $filesystem)
     {
         $this->info('Emptying tables...');
 
-        $tables = explode(',', $this->argument('table'));
+        $tables = explode(',', $this->argument('tables'));
 
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
         foreach ($tables as $table) {
             $table = trim($table);
-
-            if (\Illuminate\Support\Facades\Schema::hasTable($table)) {
-                \Illuminate\Support\Facades\DB::table($table)->truncate();
+            if (Schema::hasTable($table)) {
+                DB::table($table)->truncate();
                 $this->warn('Another one bites the dust...');
+            } else {
+              $this->warn("No table `$table` found");
             }
         }
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
 
         $this->info('Done.');
     }

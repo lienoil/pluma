@@ -64,8 +64,8 @@ class Kernel extends BaseKernel
         Commands\Queue\ListFailedCommand::class,
 
         // Phinx
-        Commands\Phinx\PhinxMigrateCreateCommand::class,
-        Commands\Phinx\PhinxMigrateRunCommand::class,
+        // Commands\Phinx\PhinxMigrateCreateCommand::class,
+        // Commands\Phinx\PhinxMigrateRunCommand::class,
         Commands\Phinx\PhinxSeedCreateCommand::class,
         Commands\Phinx\PhinxSeedRunCommand::class,
 
