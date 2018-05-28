@@ -10,7 +10,6 @@
           <v-slide-y-transition mode="in-out">
             <login-card
               color="primary"
-              class="pa-3"
               logo="{{ $application->site->logo }}"
               subtitle="{{ $application->site->tagline }}"
               title="{{ $application->site->title }}"
