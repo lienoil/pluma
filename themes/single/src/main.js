@@ -83,7 +83,8 @@ new Vue({
       user: null,
       navigations: {
         sidebar: []
-      }
+      },
+      router: []
     }
   },
   methods: {
@@ -155,10 +156,30 @@ new Vue({
         })
     }
   },
+  watch: {
+    '$router': function ($router) {
+      this.router = $router.options.routes
+      console.log(this.router)
+    }
+  },
   mounted () {
     this.mountUser()
     this.navigation()
     // this.routed()
-    console.log(this.$router.options)
+    const requireRoute = require.context(
+      // The relative path of the routes folder
+      '@/modules',
+      // Whether or not to look in subfolders
+      true,
+      // The regular expression used to match base route filenames
+      /router\/index\.js$/
+    )
+
+    requireRoute.keys().forEach(route => {
+      console.log('main.js::mounted()|line-179', route)
+      const routeConfig = requireRoute(route)
+      this.$router.addRoutes(routeConfig.default || routeConfig)
+    })
+    console.log('main.js::mounted()|line-168', this.router)
   }
 })

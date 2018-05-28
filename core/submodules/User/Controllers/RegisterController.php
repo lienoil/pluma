@@ -148,6 +148,10 @@ class RegisterController extends Controller
     {
         $request->session()->put($this->sessionKey, $user);
 
+        if ($request->ajax()) {
+            return response()->json($user);
+        }
+
         return redirect()->route("register.registered", $user->activation->token);
     }
 

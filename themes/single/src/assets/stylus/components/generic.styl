@@ -60,3 +60,26 @@ div:not(.application--wrap) {
     background: rgba(0,0,0,0.2);
   }
 }
+
+// Misc
+.ov {
+  &-auto {
+    overflow: auto;
+    position relative;
+    &:after {
+      content: '';
+      height: 200px;
+      bottom: 0;
+      left: 0;
+      background-color red;
+      position absolute;
+    }
+  }
+}
+
+.input-group.checkbox label {
+  height: auto;
+  position: static;
+  white-space: normal;
+  line-height: 1.2;
+}

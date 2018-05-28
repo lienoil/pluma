@@ -11,8 +11,9 @@
         <input type="hidden" v-model="resource.item._token" name="_token">
 
         <v-text-field
+          :data-vv-as="trans('Username or Email')"
           :error-messages="errors.collect('username')"
-          :label="'Username or Email'"
+          :label="trans('Username or Email')"
           name="username"
           v-focus
           v-model="resource.item.username"
@@ -23,8 +24,9 @@
         <v-text-field
           :append-icon-cb="() => (resource.item.passwordVisible = !resource.item.passwordVisible)"
           :append-icon="resource.item.passwordVisible ? 'visibility' : 'visibility_off'"
+          :data-vv-as="trans('Password')"
           :error-messages="errors.collect('password')"
-          :label="'Password'"
+          :label="trans('Password')"
           :type="resource.item.passwordVisible ? 'text': 'password'"
           name="password"
           v-model="resource.item.password"
@@ -45,7 +47,7 @@
 
         <v-checkbox
           :color="color"
-          :label="'Remember me'"
+          :label="trans('Remember me')"
           hide-details
           v-model="resource.item.rememberMe"
           >
@@ -53,9 +55,9 @@
       </v-form>
 
       <v-card-actions class="px-0">
-        <a class="caption grey--text" exact :href="api.forgotPassword" v-html="'Forgot password?'"></a>
+        <a class="caption grey--text" exact :href="api.forgotPassword" v-html="trans('Forgot password?')"></a>
         <v-spacer></v-spacer>
-        <a class="caption grey--text" :href="api.register" v-html="'Create Account'"></a>
+        <a class="caption grey--text" :href="api.register" v-html="trans('Create Account')"></a>
       </v-card-actions>
     </v-card-text>
   </v-card>

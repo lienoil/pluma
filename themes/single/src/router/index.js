@@ -24,7 +24,6 @@ const requireRoute = require.context(
 
 requireRoute.keys().forEach(route => {
   const routeConfig = requireRoute(route)
-  console.log(router.options.routes, route, routeConfig.default)
   router.addRoutes(routeConfig.default || routeConfig)
 })
 
