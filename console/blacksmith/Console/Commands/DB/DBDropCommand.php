@@ -2,7 +2,9 @@
 
 namespace Blacksmith\Console\Commands\DB;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Pluma\Support\Console\Command;
 use Pluma\Support\Filesystem\Filesystem;
 
@@ -14,7 +16,8 @@ class DBDropCommand extends Command
      * @var string
      */
     protected $signature = 'db:drop
-                           {table : The table to truncate. If multiple, separate by comma, enclose in quotations}
+                           {--t|tables= : The table to truncate. If multiple, separate by comma, enclose in quotations}
+                           {--a|all : Drop all tables including the migrations table}
                            ';
 
     /**
@@ -31,26 +34,61 @@ class DBDropCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        $tables = explode(',', $this->argument('table'));
+        $tables = explode(',', $this->option('tables'));
 
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        if ($this->option('all')) {
+            if (! $this->confirm("You are about to drop all tables. Are you sure?", false)) {
+                $this->info("Command aborted");
+                exit();
+            }
+
+            $this->dropAllTables();
+        } else {
+            $this->dropTable($tables);
+        }
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+    }
+
+    /**
+     * Drop all tables from database.
+     *
+     * @return void
+     */
+    public function dropAllTables()
+    {
+        foreach (DB::select('SHOW TABLES') as $table) {
+            $table = get_object_vars($table);
+            $name = $table[key($table)];
+            $this->info("Dropping table ``$name`");
+            Schema::drop($name);
+        }
+
+        $this->info("All tables were dropped.");
+    }
+
+    /**
+     * Drop specific tables.
+     *
+     * @return void
+     */
+    public function dropTable($tables)
+    {
         foreach ($tables as $table) {
             $table = trim($table);
             $this->info("Dropping table $table");
 
-            if (\Illuminate\Support\Facades\Schema::hasTable($table)) {
-                // Drop table
-                \Illuminate\Support\Facades\Schema::dropIfExists($table);
-
+            if (Schema::hasTable($table)) {
+                Schema::dropIfExists($table);
                 $this->warn('Another one bites the dust...');
+            } else {
+                $this->warn("No table named `$table` found.");
+                break;
             }
 
             // Remove from migrations table
             $className = "Create".studly_case($table)."Table";
-            \Illuminate\Support\Facades\DB::table(config('database.migrations'))->where('migration_name', '=', $className)->delete();
+            DB::table(config('database.migrations'))->where('migration_name', '=', $className)->delete();
         }
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
-
-        $this->info('Done.');
     }
 }

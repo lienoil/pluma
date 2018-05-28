@@ -31,7 +31,7 @@ trait PageResourcePublicTrait
     public function single(Request $request, $code = null)
     {
         $menu = Menu::whereSlug(
-            is_null($code) ? settings('site_home', 'home') : $code
+            is_null($code) ? settings('site_url_for_home', 'home') : $code
         );
 
         if ($menu->exists()) {
