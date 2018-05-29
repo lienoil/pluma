@@ -2,9 +2,12 @@
 
 namespace Pluma\Providers;
 
+use Faker\Factory as FakerFactory;
+use Faker\Generator as FakerGenerator;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\DatabaseServiceProvider as BaseDatabaseServiceProvider;
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
 
@@ -32,6 +35,34 @@ class DatabaseServiceProvider extends BaseDatabaseServiceProvider
     }
 
     /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+    }
+
+    /**
+     * Register the Eloquent factory instance in the container.
+     *
+     * @return void
+     */
+    protected function registerEloquentFactory()
+    {
+        $this->app->singleton(FakerGenerator::class, function ($app) {
+            return FakerFactory::create($app['config']->get('database.faker_locale', 'en_US'));
+        });
+
+        $this->app->singleton(EloquentFactory::class, function ($app) {
+            return EloquentFactory::construct(
+                $app->make(FakerGenerator::class), $this->app->databasePath('factories')
+            );
+        });
+    }
+
+    /**
      * Boot Eloquent.
      *
      * @return void
@@ -53,8 +84,8 @@ class DatabaseServiceProvider extends BaseDatabaseServiceProvider
             'database' => $database,
             'username' => $username,
             'password' => $password,
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8_unicode_ci',
+            'charset' => config("database.connections.$connection.charset", 'utf8'),
+            'collation' => config("database.connections.$connection.charset", 'utf8_unicode_ci'),
             'prefix' => '',
             'strict' => false,
         ]);

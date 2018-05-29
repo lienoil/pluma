@@ -23,7 +23,6 @@ class ConsoleSupportServiceProvider extends AggregateServiceProvider
     protected $providers = [
         // ArtisanServiceProvider::class,
         MigrationServiceProvider::class,
-        // ConsoleCommandServiceProvider::class,
-        // ComposerServiceProvider::class,
+        ComposerServiceProvider::class,
     ];
 }

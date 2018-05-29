@@ -2,37 +2,105 @@
 
 namespace Blacksmith\Console\Commands\DB;
 
-use Illuminate\Support\Facades\File;
-use Pluma\Support\Console\Command;
-use Pluma\Support\Filesystem\Filesystem;
+use Blacksmith\Support\Console\Command;
+use Illuminate\Database\ConnectionResolverInterface as Resolver;
+use Illuminate\Database\Eloquent\Model;
+use Pluma\Support\Console\Traits\ConfirmableTrait;
+use Symfony\Component\Console\Input\InputOption;
 
 class DBSeedCommand extends Command
 {
+    use ConfirmableTrait;
+
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'db:seed';
+    protected $name = 'db:seed';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Seeding the database';
+    protected $description = 'Seed the database with records';
+
+    /**
+     * The connection resolver instance.
+     *
+     * @var \Illuminate\Database\ConnectionResolverInterface
+     */
+    protected $resolver;
+
+    /**
+     * Create a new database seed command instance.
+     *
+     * @param  \Illuminate\Database\ConnectionResolverInterface  $resolver
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->resolver = app('db');
+    }
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle(Filesystem $filesystem)
+    public function handle()
     {
-        $this->info("Migrating");
+        if (! $this->confirmToProceed()) {
+            return;
+        }
 
-        $this->call('phinx:seed:run');
+        $this->resolver->setDefaultConnection($this->getDatabase());
 
-        $this->info('Done.');
+        Model::unguarded(function () {
+            $this->getSeeder()->__invoke();
+        });
+    }
+
+    /**
+     * Get a seeder instance from the container.
+     *
+     * @return \Illuminate\Database\Seeder
+     */
+    protected function getSeeder()
+    {
+        $class = $this->webApp->make($this->input->getOption('class'));
+
+        return $class->setContainer($this->webApp)->setCommand($this);
+    }
+
+    /**
+     * Get the name of the database connection to use.
+     *
+     * @return string
+     */
+    protected function getDatabase()
+    {
+        $database = $this->input->getOption('database');
+
+        return $database ?: $this->webApp['config']['database.default'];
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['class', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder', 'DatabaseSeeder'],
+
+            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed'],
+
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
+        ];
     }
 }

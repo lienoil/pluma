@@ -32,10 +32,8 @@ class Kernel extends BaseKernel
         // DB
         Commands\DB\DBDropCommand::class,
         Commands\DB\DBEmptyCommand::class,
-        Commands\DB\DBInstallCommand::class,
-        Commands\DB\DBMakeCommand::class,
-        Commands\DB\DBMigrateCommand::class,
         Commands\DB\DBSeedCommand::class,
+        Commands\DB\DBSeederCommand::class,
 
         // Furnace
         Commands\Furnace\ForgeAccountCommand::class,
@@ -57,6 +55,11 @@ class Kernel extends BaseKernel
         // Log
         Commands\Log\LogTailCommand::class,
 
+        // Migrations
+        Commands\Migrations\MigrationInstallCommand::class,
+        Commands\Migrations\MigrationNewCommand::class,
+        Commands\Migrations\MigrationRollbackCommand::class,
+
         // Queues
         Commands\Queue\TableCommand::class,
         Commands\Queue\ListenCommand::class,
@@ -70,26 +73,22 @@ class Kernel extends BaseKernel
         // Phinx
         // Commands\Phinx\PhinxMigrateCreateCommand::class,
         // Commands\Phinx\PhinxMigrateRunCommand::class,
-        Commands\Phinx\PhinxSeedCreateCommand::class,
-        Commands\Phinx\PhinxSeedRunCommand::class,
-
-        // Migrations
-        Commands\Migrations\MigrationNewCommand::class,
-        Commands\Migrations\MigrationRollbackCommand::class,
+        // Commands\Phinx\PhinxSeedCreateCommand::class,
+        // Commands\Phinx\PhinxSeedRunCommand::class,
 
         // Misc
         Commands\Misc\FurnaceCommand::class,
 
         // vendor
-        \Phinx\Console\Command\Init::class,
-        \Phinx\Console\Command\Create::class,
-        \Phinx\Console\Command\Migrate::class,
-        \Phinx\Console\Command\Rollback::class,
-        \Phinx\Console\Command\Status::class,
-        \Phinx\Console\Command\Breakpoint::class,
-        \Phinx\Console\Command\Test::class,
-        \Phinx\Console\Command\SeedCreate::class,
-        \Phinx\Console\Command\SeedRun::class,
+        // \Phinx\Console\Command\Init::class,
+        // \Phinx\Console\Command\Create::class,
+        // \Phinx\Console\Command\Migrate::class,
+        // \Phinx\Console\Command\Rollback::class,
+        // \Phinx\Console\Command\Status::class,
+        // \Phinx\Console\Command\Breakpoint::class,
+        // \Phinx\Console\Command\Test::class,
+        // \Phinx\Console\Command\SeedCreate::class,
+        // \Phinx\Console\Command\SeedRun::class,
     ];
 
     /**
