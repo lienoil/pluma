@@ -68,7 +68,8 @@
     "classmap": [
       "core",
       "modules",
-      "console"
+      "console",
+      "database/migrations"
     ],
     "psr-4": {
       "Blacksmith\\": "console/blacksmith/",

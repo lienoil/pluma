@@ -1,6 +1,6 @@
 <?php
 
-namespace Pluma\Providers;
+namespace Pluma\Support\CORS;
 
 use Pluma\Http\Kernel;
 use Pluma\Support\CORS\Middleware\CORS;

@@ -25,7 +25,9 @@ class BaseCommand extends Command
         }
 
         return array_merge(
-            [$this->getMigrationPath()], $this->migrator->paths()
+            [$this->getMigrationPath()],
+            // $this->getModulesMigrationPaths(),
+            $this->migrator->paths()
         );
     }
 
@@ -47,5 +49,15 @@ class BaseCommand extends Command
     protected function getMigrationPath()
     {
         return $this->webApp->databasePath().DIRECTORY_SEPARATOR.'migrations';
+    }
+
+    protected function getModulesMigrationPaths()
+    {
+        $modules = cache()->get('modules', get_modules_path());
+        $migrationPath = config('path.migrations', 'database/migrations');
+
+        return collect($modules)->map(function ($path) use ($migrationPath) {
+            return "$path/$migrationPath";
+        })->all();
     }
 }

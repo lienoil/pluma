@@ -17,6 +17,20 @@ class MigrationServiceProvider extends BaseMigrationServiceProvider
     protected $defer = true;
 
     /**
+     * Register the migration repository service.
+     *
+     * @return void
+     */
+    protected function registerRepository()
+    {
+        $this->app->singleton('migration.repository', function ($app) {
+            $table = $app['config']['database.migrations'];
+
+            return new DatabaseMigrationRepository($app['db'], $table);
+        });
+    }
+
+    /**
      * Register the migrator service.
      *
      * @return void

@@ -58,9 +58,9 @@ class ApplicationViewComposer extends BaseViewComposer
     {
         return json_decode(json_encode([
             'pluma' => $this->pluma(),
+            'head' => $this->head(),
             'body' => $this->body(),
             'footer' => $this->footer(),
-            'head' => $this->head(),
             'page' => $this->page(),
             'model' => $this->model(),
             'site' => $this->site(),
@@ -76,7 +76,6 @@ class ApplicationViewComposer extends BaseViewComposer
             'title' => 'Pluma CMS',
             'tagline' => 'Elegant and modular, out-of-the-box',
             'author' => 'John Lioneil Dionisio <john.dionisio1@gmail.com> | Princess Ellen Alto <princessalto@gmail.com>',
-            // ...
         ]));
     }
 

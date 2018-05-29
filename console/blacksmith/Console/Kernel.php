@@ -32,12 +32,10 @@ class Kernel extends BaseKernel
         // DB
         Commands\DB\DBDropCommand::class,
         Commands\DB\DBEmptyCommand::class,
+        Commands\DB\DBInstallCommand::class,
         Commands\DB\DBMakeCommand::class,
         Commands\DB\DBMigrateCommand::class,
         Commands\DB\DBSeedCommand::class,
-
-        // Key
-        Commands\Key\KeyGenerateCommand::class,
 
         // Furnace
         Commands\Furnace\ForgeAccountCommand::class,
@@ -52,6 +50,12 @@ class Kernel extends BaseKernel
         Commands\Furnace\PurgeSessionsCommand::class,
         Commands\Furnace\PurgeStorageCommand::class,
         Commands\Furnace\PurgeViewsCommand::class,
+
+        // Key
+        Commands\Key\KeyGenerateCommand::class,
+
+        // Log
+        Commands\Log\LogTailCommand::class,
 
         // Queues
         Commands\Queue\TableCommand::class,
@@ -68,6 +72,10 @@ class Kernel extends BaseKernel
         // Commands\Phinx\PhinxMigrateRunCommand::class,
         Commands\Phinx\PhinxSeedCreateCommand::class,
         Commands\Phinx\PhinxSeedRunCommand::class,
+
+        // Migrations
+        Commands\Migrations\MigrationNewCommand::class,
+        Commands\Migrations\MigrationRollbackCommand::class,
 
         // Misc
         Commands\Misc\FurnaceCommand::class,

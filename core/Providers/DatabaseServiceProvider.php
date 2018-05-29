@@ -39,7 +39,6 @@ class DatabaseServiceProvider extends BaseDatabaseServiceProvider
     private function bootCapsule()
     {
         $connection = config('database.default');
-
         $driver = config("database.connections.$connection.driver", env('DB_CONNECTION', 'mysql'));
         $host = config("database.connections.$connection.host", env('DB_HOST', '127.0.0.1'));
         $port = config("database.connections.$connection.port", env('DB_PORT', '3306'));
@@ -54,7 +53,7 @@ class DatabaseServiceProvider extends BaseDatabaseServiceProvider
             'database' => $database,
             'username' => $username,
             'password' => $password,
-            'charset' => 'utf8',
+            'charset' => 'utf8mb4',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => false,

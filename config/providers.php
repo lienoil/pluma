@@ -38,7 +38,6 @@ return [
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
         Pluma\Providers\FormRequestServiceProvider::class,
-        // Pluma\Cors\CorsServiceProvider::class,
 
         /**
          * Support
@@ -49,10 +48,12 @@ return [
         Pluma\Support\Queue\QueueServiceProvider::class,
         Pluma\Support\Broadcasting\BroadcastRouteServiceProvider::class,
         Pluma\Support\Encryption\EncryptionServiceProvider::class,
+        // TODO: Pluma\Support\CORS\CorsServiceProvider::class,
         // Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
 
         // Console
-        Blacksmith\Providers\ConsoleSupportServiceProvider::class,
+        // Blacksmith\Providers\ConsoleSupportServiceProvider::class,
+        Blacksmith\Providers\MigrationServiceProvider::class,
     ],
 
     /**

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() ?? 'en' }}">
+<html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,7 @@
     @section("head-title")
       {{ $application->site->fulltitle }}
     @show
+    @stack("head-subtitle")
   </title>
   <meta name="description" content="{{ __(@$application->head->description) }}">
 

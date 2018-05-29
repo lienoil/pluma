@@ -1,6 +1,6 @@
 <?php
 
-namespace Console\Commands\Migrations;
+namespace Blacksmith\Console\Commands\Migrations;
 
 use Blacksmith\Support\Console\Command;
 
@@ -25,7 +25,9 @@ class BaseCommand extends Command
         }
 
         return array_merge(
-            [$this->getMigrationPath()], $this->migrator->paths()
+            [$this->getMigrationPath()],
+            $this->getModulesMigrationPaths(),
+            $this->migrator->paths()
         );
     }
 
@@ -47,5 +49,40 @@ class BaseCommand extends Command
     protected function getMigrationPath()
     {
         return $this->webApp->databasePath().DIRECTORY_SEPARATOR.'migrations';
+    }
+
+    /**
+     * Retrieves the modules migration paths.
+     *
+     * @return array
+     */
+    protected function getModulesMigrationPaths()
+    {
+        $modules = cache()->get('modules', get_modules_path());
+        $migrationPath = config('path.migrations', 'database/migrations');
+
+        return collect($modules)->map(function ($path) use ($migrationPath) {
+            return "$path/$migrationPath";
+        })->all();
+    }
+
+    /**
+     * Retrieves the specified module's migration path.
+     *
+     * @param  array $module
+     * @return string
+     */
+    protected function getModuleMigrationPath($module)
+    {
+        $realMigrationPath = config('path.migrations', 'database/migrations');
+        foreach ($this->getModulesMigrationPaths() as $migrationPath) {
+            $modulePath = preg_replace('/'.preg_quote($realMigrationPath, '/').'$/', '', $migrationPath);
+            if (basename($modulePath) === $module) {
+                $moduleMigrationPath = preg_replace('/'.preg_quote(base_path(), '/').'$/', '', $migrationPath);
+                return $moduleMigrationPath;
+            }
+        }
+
+        return $this->getMigrationPath();
     }
 }

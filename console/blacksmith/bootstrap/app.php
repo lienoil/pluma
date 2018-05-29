@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Database\Console\Migrations\InstallCommand;
-
 /**
  *------------------------------------------------------------------------------
  * Start your Engines

@@ -33,5 +33,7 @@ return [
         'Bookmark',
         'Yggdrasil',
         'Forum',
+        'Shop',
+        'Test'
     ],
 ];

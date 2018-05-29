@@ -26,7 +26,7 @@
     22 => 'Pluma\\Support\\Queue\\QueueServiceProvider',
     23 => 'Pluma\\Support\\Broadcasting\\BroadcastRouteServiceProvider',
     24 => 'Pluma\\Support\\Encryption\\EncryptionServiceProvider',
-    25 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
+    25 => 'Blacksmith\\Providers\\MigrationServiceProvider',
   ),
   'eager' => 
   array (
@@ -76,9 +76,9 @@
     'queue.listener' => 'Pluma\\Support\\Queue\\QueueServiceProvider',
     'queue.failer' => 'Pluma\\Support\\Queue\\QueueServiceProvider',
     'queue.connection' => 'Pluma\\Support\\Queue\\QueueServiceProvider',
-    'migrator' => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
-    'migration.repository' => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
-    'migration.creator' => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
+    'migrator' => 'Blacksmith\\Providers\\MigrationServiceProvider',
+    'migration.repository' => 'Blacksmith\\Providers\\MigrationServiceProvider',
+    'migration.creator' => 'Blacksmith\\Providers\\MigrationServiceProvider',
   ),
   'when' => 
   array (
@@ -115,7 +115,7 @@
     'Pluma\\Support\\Queue\\QueueServiceProvider' => 
     array (
     ),
-    'Blacksmith\\Providers\\ConsoleSupportServiceProvider' => 
+    'Blacksmith\\Providers\\MigrationServiceProvider' => 
     array (
     ),
   ),

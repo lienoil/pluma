@@ -2,8 +2,8 @@
 
 namespace Blacksmith\Providers;
 
+use Blacksmith\Providers\MigrationServiceProvider;
 use Blacksmith\Providers\ConsoleCommandServiceProvider;
-use Illuminate\Database\MigrationServiceProvider;
 use Illuminate\Support\AggregateServiceProvider;
 
 class ConsoleSupportServiceProvider extends AggregateServiceProvider

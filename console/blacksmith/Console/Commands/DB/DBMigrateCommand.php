@@ -2,7 +2,7 @@
 
 namespace Blacksmith\Console\Commands\DB;
 
-use Illuminate\Console\ConfirmableTrait;
+use Pluma\Support\Console\Traits\ConfirmableTrait;
 use Blacksmith\Console\Commands\DB\BaseCommand;
 use Illuminate\Database\Migrations\Migrator;
 
@@ -15,13 +15,14 @@ class DBMigrateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'db:migrate {--database= : The database connection to use.}
-                {--force : Force the operation to run when in production.}
-                {--path= : The path to the migrations files to be executed.}
-                {--realpath : Indicate any provided migration file paths are pre-resolved absolute paths.}
-                {--pretend : Dump the SQL queries that would be run.}
-                {--seed : Indicates if the seed task should be re-run.}
-                {--step : Force the migrations to be run so they can be rolled back individually.}';
+    protected $signature = 'db:migrate
+                           {--database= : The database connection to use.}
+                           {--force : Force the operation to run when in production.}
+                           {--path= : The path to the migrations files to be executed.}
+                           {--realpath : Indicate any provided migration file paths are pre-resolved absolute    paths.}
+                           {--pretend : Dump the SQL queries that would be run.}
+                           {--seed : Indicates if the seed task should be re-run.}
+                           {--step : Force the migrations to be run so they can be rolled back individually.}';
 
     /**
      * The console command description.
@@ -45,9 +46,8 @@ class DBMigrateCommand extends BaseCommand
      */
     public function __construct()
     {
-        // Migrator $migrator
         parent::__construct();
-        // dd(app('migrator'));
+
         $this->migrator = app('migrator');
     }
 
