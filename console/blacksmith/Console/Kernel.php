@@ -32,6 +32,7 @@ class Kernel extends BaseKernel
         // DB
         Commands\DB\DBDropCommand::class,
         Commands\DB\DBEmptyCommand::class,
+        Commands\DB\DBMigrateCommand::class,
         Commands\DB\DBSeedCommand::class,
         Commands\DB\DBSeederCommand::class,
 
@@ -72,7 +73,7 @@ class Kernel extends BaseKernel
 
         // Phinx
         // Commands\Phinx\PhinxMigrateCreateCommand::class,
-        // Commands\Phinx\PhinxMigrateRunCommand::class,
+        Commands\Phinx\PhinxMigrateRunCommand::class,
         // Commands\Phinx\PhinxSeedCreateCommand::class,
         // Commands\Phinx\PhinxSeedRunCommand::class,
 
@@ -82,7 +83,7 @@ class Kernel extends BaseKernel
         // vendor
         // \Phinx\Console\Command\Init::class,
         // \Phinx\Console\Command\Create::class,
-        // \Phinx\Console\Command\Migrate::class,
+        \Phinx\Console\Command\Migrate::class,
         // \Phinx\Console\Command\Rollback::class,
         // \Phinx\Console\Command\Status::class,
         // \Phinx\Console\Command\Breakpoint::class,

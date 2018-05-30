@@ -5,7 +5,7 @@ export default {
   methods: {
     route: (name, defaultString) => {
       console.log(this.$routes)
-      return
+      return name
     }
   }
 }
