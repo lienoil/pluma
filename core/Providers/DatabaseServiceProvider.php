@@ -85,13 +85,14 @@ class DatabaseServiceProvider extends BaseDatabaseServiceProvider
             'username' => $username,
             'password' => $password,
             'charset' => config("database.connections.$connection.charset", 'utf8'),
-            'collation' => config("database.connections.$connection.charset", 'utf8_unicode_ci'),
-            'prefix' => '',
-            'strict' => false,
+            'collation' => config("database.connections.$connection.collation", 'utf8_unicode_ci'),
+            'prefix' => config("database.connections.$connection.prefix", ''),
+            'strict' => config("database.connections.$connection.strict", true),
         ]);
 
         // Set global, instance available globally via static methods
         $this->capsule->setAsGlobal();
+
         // Start
         $this->capsule->bootEloquent();
 
