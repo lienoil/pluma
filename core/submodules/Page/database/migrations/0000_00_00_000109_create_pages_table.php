@@ -2,17 +2,16 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
-use Phinx\Migration\AbstractMigration;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateForumsTable extends Migration
+class CreatePagesTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $tablename = 'forums';
+    protected $table = 'pages';
 
     /**
      * Run the migrations.
@@ -21,19 +20,20 @@ class CreateForumsTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->tablename)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('code');
+            $table->string('title');
+            $table->string('code')->unique();
+            $table->text('feature')->nullable();
             $table->text('body')->nullable();
             $table->text('delta')->nullable();
+            $table->string('template')->default('generic')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();
-
             $table->timestamps();
             $table->softDeletes();
 
@@ -51,6 +51,6 @@ class CreateForumsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        Schema::dropIfExists($this->table);
     }
 }

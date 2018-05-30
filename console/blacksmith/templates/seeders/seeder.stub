@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use Pluma\Support\Database\Seeder;
 
 class DummyClass extends Seeder
 {

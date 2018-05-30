@@ -16,8 +16,6 @@
             ></login-card>
           </v-slide-y-transition>
 
-          <span class="white--text">@{{ route('pages.create') }}</span>
-
         </v-flex>
       </v-layout>
     </v-container>

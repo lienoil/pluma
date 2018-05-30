@@ -4,14 +4,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateForumsTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'forums';
 
     /**
      * Run the migrations.
@@ -26,18 +26,20 @@ class CreateUsersTable extends Migration
 
         Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('prefixname')->nullable();
-            $table->string('firstname');
-            $table->string('middlename')->nullable();
-            $table->string('lastname');
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->text('password');
-            $table->text('avatar')->nullable();
-            $table->string('api_token', 60)->unique()->nullable();
-            $table->rememberToken();
+            $table->string('name');
+            $table->string('code');
+            $table->text('body')->nullable();
+            $table->text('delta')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
+
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('category_id')->references('id')->on('categories')
+                  ->onUpdate('CASCADE')
+                  ->onDelete('CASCADE');;
         });
     }
 

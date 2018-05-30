@@ -2,6 +2,8 @@
 
 namespace Pluma\Support\Modules\Traits;
 
+use Illuminate\Support\Facades\File;
+
 trait ModulerTrait
 {
     /**
@@ -84,5 +86,41 @@ trait ModulerTrait
         }
 
         return $default;
+    }
+
+    /**
+     * Retrieves the specified file from all modules.
+     * @param  string $file
+     * @return array
+     */
+    public function getFileFromModules($file)
+    {
+        return collect($this->modulePaths())->filter(function ($path) use ($file) {
+                if (file_exists("$path/$file")) {
+                    return "$path/$file";
+                }
+            })
+            ->map(function ($path) use ($file) {
+                return "$path/$file";
+            })
+            ->values()
+            ->all();
+    }
+
+    /**
+     * Retrieves the files from regex, looking in all module paths.
+     *
+     * @param  string $path
+     * @return array
+     */
+    public function getFilesFromModules($path)
+    {
+        foreach ($this->modulePaths() as $modulePath) {
+            if (file_exists($modulePath.'/'.$path) || is_dir($modulePath.'/'.$path)) {
+                $files[] = File::allFiles($modulePath.'/'.$path);
+            }
+        }
+
+        return $files ?? [];
     }
 }

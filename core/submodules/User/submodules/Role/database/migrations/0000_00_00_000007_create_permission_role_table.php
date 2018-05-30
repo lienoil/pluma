@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use \Pluma\Support\Migration\Migration;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateRoleUserTable extends Migration
+class CreatePermissionRoleTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $table = 'role_user';
+    protected $table = 'permission_role';
 
     /**
      * Run the migrations.
@@ -19,18 +20,18 @@ class CreateRoleUserTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->table)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->table, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('permission_id')->unsigned();
             $table->integer('role_id')->unsigned();
 
-            $table->foreign('user_id')
+            $table->foreign('permission_id')
                   ->references('id')
-                  ->on('users')
+                  ->on('permissions')
                   ->onDelete('CASCADE')
                   ->onUpdate('CASCADE');
 
@@ -49,6 +50,6 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->table);
+        Schema::dropIfExists($this->table);
     }
 }

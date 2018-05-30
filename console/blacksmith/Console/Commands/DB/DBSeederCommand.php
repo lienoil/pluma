@@ -17,8 +17,8 @@ class DBSeederCommand extends GeneratorCommand
      * @var string
      */
     protected $signature = 'db:seeder
-        {name : The name of the class}
-        {--m|module= : The module the seeder belongs to.}';
+                           {name : The name of the class}
+                           {--m|module= : The module the seeder belongs to.}';
 
     /**
      * The console command description.

@@ -84,34 +84,34 @@ return [
         'name' =>  'settings.general',
         'code' => 'general-settings',
         'description' => 'Ability to view list of general settings',
-        'group' => ['setting', 'appearance'],
+        'group' => 'setting, appearance',
     ],
 
     'display-settings' => [
         'name' =>  'settings.display',
         'code' => 'display-settings',
         'description' => 'Ability to view list of display settings',
-        'group' => ['setting', 'appearance'],
+        'group' => 'setting, appearance',
     ],
 
     'branding-settings' => [
         'name' =>  'settings.branding',
         'code' => 'branding-settings',
         'description' => 'Ability to view list of branding settings',
-        'group' => ['setting', 'appearance'],
+        'group' => 'setting, appearance',
     ],
 
     'social-media-settings' => [
         'name' =>  'settings.social',
         'code' => 'social-media-settings',
         'description' => 'Ability to view list of social media settings',
-        'group' => ['setting', 'appearance'],
+        'group' => 'setting, appearance',
     ],
 
     'themes-settings' => [
         'name' =>  'settings.themes',
         'code' => 'themes-settings',
         'description' => 'Ability to view list of themes settings',
-        'group' => ['setting', 'appearance'],
+        'group' => 'setting, appearance',
     ],
 ];

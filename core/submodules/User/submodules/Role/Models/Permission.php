@@ -4,10 +4,12 @@ namespace Role\Models;
 
 use Pluma\Models\Model;
 use Role\Support\Relations\BelongsToManyRoles;
+use Role\Support\Traits\PermissionsFromModulesTrait;
 
 class Permission extends Model
 {
-    use BelongsToManyRoles;
+    use BelongsToManyRoles,
+        PermissionsFromModulesTrait;
 
     protected $fillable = [
         'name',

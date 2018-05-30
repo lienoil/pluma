@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
-use Phinx\Migration\AbstractMigration;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateFormsTable extends Migration
 {
@@ -12,7 +11,7 @@ class CreateFormsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'forms';
+    protected $table = 'forms';
 
     /**
      * Run the migrations.
@@ -21,11 +20,11 @@ class CreateFormsTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->tablename)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('code')->unique();
@@ -53,6 +52,6 @@ class CreateFormsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        Schema::dropIfExists($this->table);
     }
 }

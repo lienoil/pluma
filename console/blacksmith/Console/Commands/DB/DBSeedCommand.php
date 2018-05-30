@@ -3,7 +3,6 @@
 namespace Blacksmith\Console\Commands\DB;
 
 use Blacksmith\Support\Console\Command;
-use Illuminate\Database\ConnectionResolverInterface as Resolver;
 use Illuminate\Database\Eloquent\Model;
 use Pluma\Support\Console\Traits\ConfirmableTrait;
 use Symfony\Component\Console\Input\InputOption;
@@ -36,7 +35,6 @@ class DBSeedCommand extends Command
     /**
      * Create a new database seed command instance.
      *
-     * @param  \Illuminate\Database\ConnectionResolverInterface  $resolver
      * @return void
      */
     public function __construct()

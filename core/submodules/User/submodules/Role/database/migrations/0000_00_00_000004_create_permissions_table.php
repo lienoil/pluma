@@ -2,17 +2,16 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
-use Phinx\Migration\AbstractMigration;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateFieldtypesTable extends Migration
+class CreatePermissionsTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $tablename = 'fieldtypes';
+    protected $table = 'permissions';
 
     /**
      * Run the migrations.
@@ -21,16 +20,16 @@ class CreateFieldtypesTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->tablename)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
-            $table->text('template');
-
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
+            $table->string('group')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -43,6 +42,6 @@ class CreateFieldtypesTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        Schema::dropIfExists($this->table);
     }
 }

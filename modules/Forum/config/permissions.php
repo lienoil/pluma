@@ -23,19 +23,19 @@ return [
         'name' =>  'forums.index',
         'code' => 'view-forum',
         'description' => 'Ability to view list of forums',
-        'group' => ['forum', 'public-forum'],
+        'group' => 'forum, public-forum',
     ],
     'show-forum' => [
         'name' => 'forums.show',
         'code' => 'show-forum',
         'description' => 'Ability to show a single forum',
-        'group' => ['forum', 'public-forum'],
+        'group' => 'forum, public-forum',
     ],
     'create-forum' => [
         'name' => 'forums.create',
         'code' => 'create-forum',
         'description' => 'Ability to show the form to create forum',
-        'group' => ['forum', 'public-forum'],
+        'group' => 'forum, public-forum',
     ],
     'store-forum' => [
         'name' => 'forums.store',
@@ -83,6 +83,6 @@ return [
         'name' => 'forums.comment',
         'code' => 'comment-forum',
         'description' => 'Ability to comment to the forum',
-        'group' => ['forum', 'comment-forum', 'comment'],
+        'group' => 'forum, comment-forum, comment',
     ],
 ];

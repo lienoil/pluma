@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Pluma\Support\Migration\Migration;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateFailedJobsTable extends Migration
 {
@@ -10,7 +11,7 @@ class CreateFailedJobsTable extends Migration
      *
      * @var string
      */
-    protected $tablename = 'failed_jobs';
+    protected $table = 'failed_jobs';
 
     /**
      * Run the migrations.
@@ -19,11 +20,11 @@ class CreateFailedJobsTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->tablename)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->tablename, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->text('connection');
             $table->text('queue');
@@ -40,6 +41,6 @@ class CreateFailedJobsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->tablename);
+        Schema::dropIfExists($this->table);
     }
 }

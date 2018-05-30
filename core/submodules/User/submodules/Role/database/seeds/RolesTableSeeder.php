@@ -1,9 +1,9 @@
 <?php
 
-use Phinx\Seed\AbstractSeed;
 use Role\Models\Role;
+use Pluma\Support\Database\Seeder;
 
-class RolesTableSeeder extends AbstractSeed
+class RolesTableSeeder extends Seeder
 {
     /**
      * Run Method.
@@ -33,12 +33,7 @@ class RolesTableSeeder extends AbstractSeed
         $dataset = array_merge($dataset, config('defaults.roles', []));
 
         foreach ($dataset as $set) {
-            $role = new Role();
-            $role->name = $set['name'];
-            $role->alias = $set['alias'];
-            $role->code = $set['code'];
-            $role->description = $set['description'];
-            $role->save();
+            Role::updateOrCreate(['code' => $set['code']], $set);
         }
     }
 }

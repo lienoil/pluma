@@ -6,21 +6,21 @@ use Illuminate\Support\Facades\File;
 use Pluma\Support\Console\Command;
 use Pluma\Support\Filesystem\Filesystem;
 
-class DBSeedCommand extends Command
+class DBMigrateCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'db:seed';
+    protected $signature = 'db:migrate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Seeding the database';
+    protected $description = 'Migrate the database';
 
     /**
      * Execute the console command.
@@ -31,7 +31,7 @@ class DBSeedCommand extends Command
     {
         $this->info("Migrating");
 
-        $this->call('phinx:seed:run');
+        $this->call('phinx:migrate:run');
 
         $this->info('Done.');
     }

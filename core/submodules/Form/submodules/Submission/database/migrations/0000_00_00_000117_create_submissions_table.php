@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
-use Phinx\Migration\AbstractMigration;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateSubmissionsTable extends Migration
 {
@@ -21,11 +20,11 @@ class CreateSubmissionsTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->table)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->table, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->text('results')->nullable();
             $table->text('score')->nullable();
@@ -47,6 +46,6 @@ class CreateSubmissionsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->table);
+        Schema::dropIfExists($this->table);
     }
 }

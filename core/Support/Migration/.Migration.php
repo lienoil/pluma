@@ -3,9 +3,9 @@
 namespace Pluma\Support\Migration;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Database\Migrations\Migration as BaseMigration;
+use Phinx\Migration\AbstractMigration;
 
-class Migration extends BaseMigration
+class Migration extends AbstractMigration
 {
     /**
      * @var \Illuminate\Database\Schema\Builder
@@ -22,7 +22,6 @@ class Migration extends BaseMigration
     public function init()
     {
         $this->capsule();
-
         $this->schema();
     }
 

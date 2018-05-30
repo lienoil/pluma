@@ -2,17 +2,16 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Migration\Migration;
-use Phinx\Migration\AbstractMigration;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateSettingsTable extends Migration
+class CreateDetailsTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $table = 'settings';
+    protected $table = 'details';
 
     /**
      * Run the migrations.
@@ -21,15 +20,16 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->table)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->table, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->increments('id');
             $table->string('key');
             $table->text('value')->nullable();
             $table->string('status')->default(1);
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
@@ -44,6 +44,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->table);
+        Schema::dropIfExists($this->table);
     }
 }

@@ -58,7 +58,9 @@ class Kernel extends BaseKernel
 
         // Migrations
         Commands\Migrations\MigrationInstallCommand::class,
+        Commands\Migrations\MigrationListCommand::class,
         Commands\Migrations\MigrationNewCommand::class,
+        Commands\Migrations\MigrationMigrateCommand::class,
         Commands\Migrations\MigrationRollbackCommand::class,
 
         // Queues
@@ -83,7 +85,7 @@ class Kernel extends BaseKernel
         // vendor
         // \Phinx\Console\Command\Init::class,
         // \Phinx\Console\Command\Create::class,
-        \Phinx\Console\Command\Migrate::class,
+        // \Phinx\Console\Command\Migrate::class,
         // \Phinx\Console\Command\Rollback::class,
         // \Phinx\Console\Command\Status::class,
         // \Phinx\Console\Command\Breakpoint::class,

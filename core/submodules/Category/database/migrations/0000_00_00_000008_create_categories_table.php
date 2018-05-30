@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Pluma\Support\Migration\Migration;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * The table name.
      *
      * @var string
      */
-    protected $table = 'roles';
+    protected $table = 'categories';
 
     /**
      * Run the migrations.
@@ -19,16 +20,19 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        if ($this->schema->hasTable($this->table)) {
+        if (Schema::hasTable($this->table)) {
             return;
         }
 
-        $this->schema->create($this->table, function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('code')->unique();
             $table->string('alias')->nullable();
             $table->text('description')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('type')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -41,6 +45,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->table);
+        Schema::dropIfExists($this->table);
     }
 }

@@ -1,24 +1,21 @@
 <?php
 
-use Phinx\Seed\AbstractSeed;
 use Setting\Models\Setting;
+use Pluma\Support\Database\Seeder;
 
-class SettingsTableSeeder extends AbstractSeed
+class SettingsTableSeeder extends Seeder
 {
     /**
-     * Run Method.
+     * Run the database seeds.
      *
-     * Write your database seeder using this method.
-     *
-     * More information on writing seeders is available here:
-     * http://docs.phinx.org/en/latest/seeding.html
+     * @return void
      */
     public function run()
     {
         $data = [
-            'site_title' => env('APP_NAME'),
-            'site_tagline' => env('APP_TAGLINE'),
-            'site_email' => env('MAIL_USERNAME'),
+            'site_title' => config('APP_NAME', env('APP_NAME')),
+            'site_tagline' => config('APP_NAME', env('APP_TAGLINE')),
+            'site_email' => config('APP_NAME', env('MAIL_USERNAME')),
             'date_format' => 'F d, Y',
             'time_format' => 'h:i a',
         ];

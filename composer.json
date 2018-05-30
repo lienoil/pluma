@@ -69,7 +69,7 @@
       "core",
       "modules",
       "console",
-      "database/migrations"
+      "database"
     ],
     "psr-4": {
       "Blacksmith\\": "console/blacksmith/",
