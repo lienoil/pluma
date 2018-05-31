@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-8">
+  <v-card :dark="dark">
     <slot name="header" props="{logo, title, subtitle}">
       <v-card-title v-if="title">
         <img v-if="logo" class="mb-3" width="100px" :src="logo" :alt="title">
@@ -15,8 +15,9 @@
         <input type="hidden" v-model="resource.item._token" name="_token">
 
         <v-layout row wrap align-top>
-          <v-flex sm6 align-top>
+          <v-flex xs6 align-top>
             <v-text-field
+              :box="box"
               :data-vv-as="trans('First Name')"
               :error-messages="errors.collect('firstname')"
               :label="trans('First Name')"
@@ -26,8 +27,9 @@
               >
             </v-text-field>
           </v-flex>
-          <v-flex sm6 align-top>
+          <v-flex xs6 align-top>
             <v-text-field
+              :box="box"
               :data-vv-as="trans('Last Name')"
               :error-messages="errors.collect('lastname')"
               :label="trans('Last Name')"
@@ -40,6 +42,7 @@
         </v-layout>
 
         <v-text-field
+          :box="box"
           :data-vv-as="trans('Email')"
           :error-messages="errors.collect('email')"
           :label="trans('Email')"
@@ -52,6 +55,7 @@
         </v-text-field>
 
         <v-text-field
+          :box="box"
           :append-icon-cb="() => (resource.item.passwordVisible = !resource.item.passwordVisible)"
           :append-icon="resource.item.passwordVisible ? 'visibility' : 'visibility_off'"
           :data-vv-as="trans('Password')"
@@ -65,6 +69,7 @@
           >
         </v-text-field>
         <v-text-field
+          :box="box"
           :append-icon-cb="() => (resource.item.passwordVisible = !resource.item.passwordVisible)"
           :append-icon="resource.item.passwordVisible ? 'visibility' : 'visibility_off'"
           :data-vv-as="trans('Password Confirmation')"
@@ -100,13 +105,13 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
-      :color="color"
-      :loading="resource.form.loading"
-      @click.prevent="register(resource.item)"
-      type="submit"
-      >
-      {{ trans('Sign Up') }}
-    </v-btn>
+        :color="color"
+        :loading="resource.form.loading"
+        @click.prevent="register(resource.item)"
+        type="submit"
+        >
+        {{ trans('Sign Up') }}
+      </v-btn>
   </v-card-actions>
     <!-- <v-card-actions>
       <v-spacer></v-spacer>
@@ -122,7 +127,9 @@ import { errors } from '@/utils/forms'
 export default {
   name: 'RegisterCard',
   props: {
+    box: { type: String, default: false },
     color: { type: String, default: 'primary' },
+    dark: { type: Boolean, default: false },
     logo: { type: String, default: '' },
     subtitle: { type: String, default: '' },
     title: { type: String, default: '' },

@@ -38,6 +38,7 @@ class Kernel extends BaseKernel
 
         // Furnace
         Commands\Furnace\ForgeAccountCommand::class,
+        Commands\Furnace\ForgeCommandCommand::class,
         Commands\Furnace\ForgeControllerCommand::class,
         Commands\Furnace\ForgeModelCommand::class,
         Commands\Furnace\ForgeModuleCommand::class,

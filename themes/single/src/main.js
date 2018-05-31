@@ -6,6 +6,7 @@ import directives from './directives'
 import filters from './filters'
 import helpers from './helpers'
 import mixins from './mixins'
+import theme from './themes'
 import components from './components'
 import router from './router'
 import store from './store'
@@ -20,17 +21,7 @@ import Vuetify from 'vuetify'
  * Vue.use statements
  *
  */
-Vue.use(Vuetify, {
-  theme: {
-    primary: '#107bd0',
-    secondary: '#d982a6', // '#ea4763',
-    accent: '#fbde3c',
-    success: '#81c106',
-    warning: '#ff8017',
-    error: '#ad2c1a',
-    info: '#2196f3'
-  }
-})
+Vue.use(Vuetify, theme)
 Vue.use(directives)
 Vue.use(filters)
 Vue.use(components)

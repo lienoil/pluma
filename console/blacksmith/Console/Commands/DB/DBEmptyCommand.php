@@ -2,10 +2,10 @@
 
 namespace Blacksmith\Console\Commands\DB;
 
+use Blacksmith\Support\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
-use Pluma\Support\Console\Command;
 use Pluma\Support\Filesystem\Filesystem;
 
 class DBEmptyCommand extends Command
@@ -35,22 +35,30 @@ class DBEmptyCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        $this->info('Emptying tables...');
+        $n = microtime(true);
 
         $tables = explode(',', $this->argument('tables'));
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        $this->warn("Disabled foreign key checks.");
+        $this->line("");
+
         foreach ($tables as $table) {
             $table = trim($table);
-            if (Schema::hasTable($table)) {
-                DB::table($table)->truncate();
-                $this->warn('Another one bites the dust...');
-            } else {
-              $this->warn("No table `$table` found");
+            if (! Schema::hasTable($table)) {
+                $this->warn("No table `$table` found");
+                continue;
             }
-        }
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
 
-        $this->info('Done.');
+            $this->warn("Truncating: Table `{$table}`...");
+            DB::table($table)->truncate();
+            $this->info("Truncated: Table `{$table}`");
+        }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+        $this->line("");
+        $this->warn("Re-enabled foreign key checks.");
+
+        $this->info('Took '.$this->time($n).' to finish the command.');
     }
 }

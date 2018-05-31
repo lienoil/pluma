@@ -12,6 +12,7 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
+        dd(config('mail.driver'));
         $data = [
             'site_title' => config('APP_NAME', env('APP_NAME')),
             'site_tagline' => config('APP_NAME', env('APP_TAGLINE')),

@@ -1,9 +1,9 @@
 <template>
   <v-navigation-drawer
     :clipped="$root.sidebar.clipped"
-    :dark.sync="theme.dark"
+    :dark.sync="$root.theme.dark"
     :floating="$root.sidebar.floating"
-    :light.sync="!theme.dark"
+    :light.sync="!$root.theme.dark"
     :mini-variant.sync="$root.sidebar.mini"
     app
     transition="slide-x-transition"
@@ -23,8 +23,8 @@
             <v-list-tile-sub-title class="caption" v-html="tagline"></v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-btn ripple icon :dark.sync="theme.dark" :light.sync="!theme.dark" @click="localstorage({'single.sidebar.mini': ($root.sidebar.mini = !$root.sidebar.mini)})">
-              <v-icon :dark.sync="theme.dark" :light.sync="!theme.dark">chevron_left</v-icon>
+            <v-btn ripple icon :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark" @click="localstorage({'single.sidebar.mini': ($root.sidebar.mini = !$root.sidebar.mini)})">
+              <v-icon :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">chevron_left</v-icon>
             </v-btn>
           </v-list-tile-action>
         </v-list-tile>
@@ -36,7 +36,7 @@
     <v-list>
       <template v-for="(menu, i) in $root.navigations.sidebar">
         <v-list-group
-          :dark.sync="theme.dark" :light.sync="!theme.dark"
+          :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark"
           class="mb-4"
           no-action
           v-if="menu.is_avatar"
@@ -49,7 +49,7 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="menu.labels.name" class="user--displayname"></v-list-tile-title>
               <v-list-tile-sub-title class="caption">
-                <v-icon :dark.sync="theme.dark" :light.sync="!theme.dark">supervisor_account</v-icon>
+                <v-icon :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">supervisor_account</v-icon>
                 <span v-html="menu.labels.role"></span>
               </v-list-tile-sub-title>
             </v-list-tile-content>
@@ -68,9 +68,9 @@
           </template>
         </v-list-group>
 
-        <v-subheader v-else-if="menu.is_header" :dark.sync="theme.dark" :light.sync="!theme.dark">
+        <v-subheader v-else-if="menu.is_header" :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">
           <small v-html="menu.text.toUpperCase()"></small>
-          &nbsp;<v-divider :dark.sync="theme.dark" :light.sync="!theme.dark"></v-divider>
+          &nbsp;<v-divider :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark"></v-divider>
         </v-subheader>
 
         <v-list-group v-else-if="menu.has_children" lazy ripple no-action v-model="menu.active" :prepend-icon="menu.icon ? menu.icon : 'widgets'">

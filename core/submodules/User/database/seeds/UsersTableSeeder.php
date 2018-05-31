@@ -3,6 +3,7 @@
 use Pluma\Support\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use User\Models\User;
+use Role\Models\Role;
 
 class UsersTableSeeder extends Seeder
 {
@@ -20,11 +21,17 @@ class UsersTableSeeder extends Seeder
                 'username' => 'superadmin',
                 'password' => Hash::make('superadmin'),
                 'email' => 'dummy@pluma.io',
+                'roles' => ['superadmin', 'admin'],
             ],
         ];
 
         foreach ($users as $fake) {
-            User::updateOrCreate(['username' => $fake['username']], $fake);
+            $user = User::updateOrCreate([
+                'username' => $fake['username'],
+                'email' => $fake['email'],
+            ], collect($fake)->except('roles')->all());
+
+            $user->roles()->sync(Role::whereIn('code', $fake['roles'])->get());
         }
     }
 }

@@ -27,7 +27,8 @@
         for (var file of chunk.files) {
           if (file.match(/\.(js|css)$/)) { %>
     <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Palanquin:400,600,700|Raleway:400,700,900|Roboto:300,400,500,700|Material+Icons&style=twotone">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   </head>
   <body>
     <noscript>
@@ -35,24 +36,58 @@
     </noscript>
 
     <div id="app" v-cloak>
-      <v-app>
+      <v-app :dark="theme.dark">
         <sidebar :items="navigations.sidebar"></sidebar>
 
-        <v-toolbar app scroll-off-screen>
+        <v-toolbar app flat scroll-off-screen :dark="theme.dark">
           <v-toolbar-side-icon @click="sidebar.model = !sidebar.model"></v-toolbar-side-icon>
           <v-spacer></v-spacer>
           <v-btn icon @click="theme.dark = !theme.dark"><v-icon>edit</v-icon></v-btn>
         </v-toolbar>
+
         <v-content>
-          <breadcrumbs></breadcrumbs>
-          <v-content>
-            <div :class="`content-size`">
-              <v-slide-x-reverse-transition mode="out-in">
-                <router-view></router-view>
-              </v-slide-x-reverse-transition>
-            </div>
-          </v-content>
+          <v-divider></v-divider>
+          <div class="pa-3"></div>
+
+          <v-container fluid grid-list-lg>
+            <v-layout row wrap justify-left>
+              <v-flex sm4>
+                <v-card :dark="theme.dark" class="mb-3" hover>
+                  <v-toolbar flat>
+                    <v-icon left>flash_on</v-icon>
+                    <v-toolbar-title>Lord of Thunder</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-media height="300px" src="http://straightfromamovie.com/wp-content/uploads/2017/11/thor-ragnarok-movie-wallpaper.jpg"></v-card-media>
+
+                  <v-card-text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, dolores temporibus cumque excepturi. Blanditiis accusamus earum voluptas ut aperiam! Possimus obcaecati officiis minima sequi commodi nobis provident incidunt ratione vel.</v-card-text>
+
+                  <v-card-actions class="grey0-lighten-4">
+                    <v-spacer></v-spacer>
+                    <v-btn large color="primary" flat><v-icon left>bookmark</v-icon>Bookmark</v-btn>
+                    <v-btn large color="primary"><v-icon left>gamepad</v-icon>Play</v-btn>
+                  </v-card-actions>
+                </v-card>
+
+              </v-flex>
+
+              <v-flex sm4>
+                <loop>
+                  <template>
+                    <v-card-title>Lord of Thunder</v-card-title>
+                    <v-card-text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, dolores temporibus cumque excepturi. Blanditiis accusamus earum voluptas ut aperiam! Possimus obcaecati officiis minima sequi commodi nobis provident incidunt ratione vel.</v-card-text>
+                    <v-card-actions class="grey-lighten-4">
+                      <v-spacer></v-spacer>
+                      <v-btn color="primary" flat>Cancel</v-btn>
+                      <v-btn color="primary">Save</v-btn>
+                    </v-card-actions>
+                  </template>
+                </loop>
+              </v-flex>
+
+            </v-layout>
+          </v-container>
         </v-content>
+
         <v-footer app inset absolute height="auto">
           <v-container fluid>
             <v-layout row wrap>

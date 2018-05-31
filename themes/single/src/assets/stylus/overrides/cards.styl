@@ -1,0 +1,33 @@
+.card {
+  &--bordered {
+    border: 1px solid $grey.lighten-2;
+    border-radius: 5px;
+  }
+
+  &--shadow {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1) !important;
+  }
+
+  &__title {
+    font-family: $primary-font-family;
+    font-weight: bold;
+    font-size: $font-size.base;
+  }
+
+  &__title,
+  &__text {
+    padding: $padding.large;
+  }
+
+  &__actions {
+    padding: ($padding.large - $padding.mini);
+  }
+}
+
+
+// TODO: move to own file
+.theme--dark .navigation-drawer .divider, .application .theme--dark.navigation-drawer .divider,
+.theme--dark .divider, .application .theme--dark.divider,
+.theme--dark .navigation-drawer:not(.navigation-drawer--floating) .navigation-drawer__border, .application .theme--dark.navigation-drawer:not(.navigation-drawer--floating) .navigation-drawer__border {
+  background-color: rgba(0,0,0,0.15) !important;
+}

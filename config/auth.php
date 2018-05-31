@@ -103,7 +103,11 @@ return [
      *
      */
     'roles' => [
-        'superadmin',
-        'root',
+        [
+            'name' => 'Super Administrator',
+            'alias' => 'Superadmin',
+            'code' => 'superadmin',
+            'description' => 'The highest role available for users.',
+        ],
     ],
 ];

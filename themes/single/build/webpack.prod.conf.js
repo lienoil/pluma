@@ -18,7 +18,10 @@ const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
 
+const watch = typeof process.argv[2] !== 'undefined'
+
 const webpackConfig = merge(baseWebpackConfig, {
+  watch: watch,
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,

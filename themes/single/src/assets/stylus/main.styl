@@ -1,14 +1,13 @@
-// Override variables
+// Theme Override
 @import './theme'
-@import './settings/_theme'
 
-// Main
+// Components Overrides
+@import './app'
+@import './components/*'
+
+// Vendor Main
 @import '~vuetify/src/stylus/main'
 
-// Components
-@import './components/buttons'
-@import './components/cards'
-@import './components/fields'
-@import './components/generic'
-@import './components/sidebar'
-@import './components/typography'
+// Overrides to the main vendor
+// should go below the main vendor
+@import './overrides/*'

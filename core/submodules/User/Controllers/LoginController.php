@@ -115,19 +115,19 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         if ($this->guard()->attempt(
-            ['email' => $request->username, 'password' => $request->password], $request->has('remember')
+            ['email' => $request->username, 'password' => $request->password], $request->remember
         )) {
             return true;
         }
 
         if ($this->guard()->attempt(
-            ['username' => $request->username, 'password' => $request->password], $request->has('remember')
+            ['username' => $request->username, 'password' => $request->password], $request->remember
         )) {
             return true;
         }
 
         if ($this->guard()->attempt(
-            [$this->username() => $request->username, 'password' => $request->password], $request->has('remember')
+            [$this->username() => $request->username, 'password' => $request->password], $request->remember
         )) {
             return true;
         }

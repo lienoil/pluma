@@ -1,19 +1,22 @@
 <template>
-  <v-card class="elevation-8">
+  <v-card :dark="dark">
     <v-card-text class="text-xs-center">
       <img class="mb-3" width="100px" :src="logo" :alt="title">
       <h4 class="headline" v-html="title"></h4>
       <p class="subheading" v-html="subtitle"></p>
     </v-card-text>
     <v-card-text>
-      <v-form method="POST" v-model="resource.form.model">
+      <v-form method="POST" v-model="resource.form.model" autocomplete="off" @submit.prevent="login">
 
         <input type="hidden" v-model="resource.item._token" name="_token">
 
         <v-text-field
+          :box="box"
           :data-vv-as="trans('Username or Email')"
+          :dark="dark"
           :error-messages="errors.collect('username')"
           :label="trans('Username or Email')"
+          autocomplete="off"
           name="username"
           v-focus
           v-model="resource.item.username"
@@ -22,12 +25,15 @@
         </v-text-field>
 
         <v-text-field
+          :box="box"
           :append-icon-cb="() => (resource.item.passwordVisible = !resource.item.passwordVisible)"
           :append-icon="resource.item.passwordVisible ? 'visibility' : 'visibility_off'"
           :data-vv-as="trans('Password')"
+          :dark="dark"
           :error-messages="errors.collect('password')"
           :label="trans('Password')"
           :type="resource.item.passwordVisible ? 'text': 'password'"
+          autocomplete="off"
           name="password"
           v-model="resource.item.password"
           v-validate="'required'"
@@ -37,10 +43,11 @@
         <v-btn
           :color="color"
           :loading="resource.form.loading"
-          type="submit"
           @click.prevent="login(resource.item)"
           block
           class="mx-0 mb-4"
+          large
+          type="submit"
           >
           {{ 'Login' }}
         </v-btn>
@@ -49,17 +56,18 @@
           :color="color"
           :label="trans('Remember me')"
           hide-details
-          v-model="resource.item.rememberMe"
+          name="remember"
+          v-model="resource.item.remember"
           >
         </v-checkbox>
       </v-form>
 
-      <v-card-actions class="px-0">
-        <a class="caption grey--text" exact :href="api.forgotPassword" v-html="trans('Forgot password?')"></a>
-        <v-spacer></v-spacer>
-        <a class="caption grey--text" :href="api.register" v-html="trans('Create Account')"></a>
-      </v-card-actions>
     </v-card-text>
+    <v-card-actions>
+      <a class="caption grey--text" exact :href="api.forgotPassword" v-html="trans('Forgot password?')"></a>
+      <v-spacer></v-spacer>
+      <a class="caption grey--text" :href="api.register" v-html="trans('Create Account')"></a>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -70,7 +78,9 @@ import { errors } from '@/utils/forms'
 export default {
   name: 'LoginCard',
   props: {
+    box: { type: String, default: false },
     color: { type: String, default: 'primary' },
+    dark: { type: Boolean, default: false },
     logo: { type: String, default: '' },
     subtitle: { type: String, default: '' },
     title: { type: String, default: '' }
@@ -88,7 +98,7 @@ export default {
           username: null,
           password: null,
           passwordVisible: false,
-          rememberMe: true
+          remember: true
         }
       }
     }
