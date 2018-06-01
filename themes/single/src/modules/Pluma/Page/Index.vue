@@ -51,10 +51,18 @@
               :total-items="dataset.pagination.totalItems"
               :loading="dataset.loading"
               item-key="id"
-              no-data-text="No pages found"
+              :no-data-text="trans('No pages found')"
               v-bind="dataset.bulk.model ? {'select-all':'accent'} : []"
               v-model="dataset.selected"
             >
+              <template slot="no-data">
+                <v-card flat color="transparent" class="text-xs-center">
+                  <v-card-text>
+                    <div><v-icon color="grey" class="display-4">description</v-icon></div>
+                    <div class="grey--text">{{ trans('No pages found') }}</div>
+                  </v-card-text>
+                </v-card>
+              </template>
               <v-progress-linear slot="progress" color="accent" indeterminate></v-progress-linear>
 
               <template slot="items" slot-scope="props">

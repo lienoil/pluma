@@ -19,7 +19,7 @@ class Kernel extends HttpKernel
         \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Pluma\Support\Http\Middleware\VerifyPostSize::class,
-        // \Pluma\Support\CORS\Middleware\CORS::class // enable on dev mode
+        \Pluma\Support\CORS\Middleware\CORS::class // enable on dev mode
     ];
 
     /**
@@ -35,7 +35,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Pluma\Middleware\EncryptCookies::class,
-            // \Pluma\Middleware\VerifyCsrfToken::class,
+            \Pluma\Middleware\VerifyCsrfToken::class,
         ],
 
         'api' => [
@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Pluma\Middleware\EncryptCookies::class,
-            // \Pluma\Middleware\VerifyCsrfToken::class,
+            \Pluma\Middleware\VerifyCsrfToken::class,
         ],
     ];
 

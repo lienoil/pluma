@@ -10,7 +10,7 @@
     <v-card-text>
       <div v-if="description" v-html="description"></div>
 
-      <v-form method="POST" v-model="resource.form.model" autocomplete="off" @submit.prevent="register">
+      <v-form lazy-validation v-model="resource.form.model" method="POST" autocomplete="off" @submit.prevent="register">
 
         <input type="hidden" v-model="resource.item._token" name="_token">
 
@@ -126,6 +126,9 @@ import { errors } from '@/utils/forms'
 
 export default {
   name: 'RegisterCard',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
     box: { type: String, default: false },
     color: { type: String, default: 'primary' },

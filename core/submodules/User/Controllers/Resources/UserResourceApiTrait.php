@@ -5,6 +5,7 @@ namespace User\Controllers\Resources;
 use Illuminate\Http\Request;
 use User\Models\User;
 use User\Requests\UserRequest;
+use User\Resources\User as UserResource;
 
 trait UserResourceApiTrait
 {
@@ -79,14 +80,9 @@ trait UserResourceApiTrait
             $resources->onlyTrashed();
         }
 
-        // $users = $take ? $resources->paginate($take) : $resources->get();
         $users = $take ? $resources->paginate($take) : $resources->paginate(User::count());
 
-        $users->each(function ($item) {
-            return $item->append(['fullname', 'photo']);
-        });
-
-        return response()->json($users);
+        return UserResource::collection($users);
     }
 
     /**
@@ -114,12 +110,12 @@ trait UserResourceApiTrait
      * Retrieve the resource specified by the slug.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  string  $slug
+     * @param  id  $id
      * @return \Illuminate\Http\Response
      */
-    public function getShow(Request $request, $slug = null)
+    public function getShow(Request $request, $id)
     {
-        $user = User::slugOrFail($slug, 'code');
+        $user = User::findOrFail($id);
 
         return response()->json($user);
     }

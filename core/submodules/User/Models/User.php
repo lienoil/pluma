@@ -12,7 +12,6 @@ use User\Support\Relations\HasManyDetails;
 use User\Support\Traits\CanResetPasswordTrait;
 use User\Support\Traits\WhereDetailTrait;
 
-
 class User extends Authenticatable
 {
     use BelongsToManyRoles,

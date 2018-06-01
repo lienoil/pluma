@@ -48,17 +48,37 @@ class CORS
      */
     public function handle(Request $request, Closure $next)
     {
+        return $next($request)
+                ->headers->set('Access-Control-Allow-Origin', config('cors.allowedOrigins', ['*']))
+                ->headers->set('Access-Control-Allow-Headers', 'X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type')
+                ->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+
         if (! $this->cors->isCorsRequest($request)) {
             return $next($request);
         }
 
+        if ($this->cors->isPreflightRequest($request)) {
+            return $this->cors->handlePreflightRequest($request);
+        }
+
+        if (! $this->cors->isActualRequestAllowed($request)) {
+            return new AppResponse('Not allowed in CORS policy.', 403);
+        }
+
+        // Add the headers on the Request Handled event as fallback in case of exceptions
+        if (class_exists(RequestHandled::class)) {
+            $this->events->listen(RequestHandled::class, function (RequestHandled $event) {
+                $this->addHeaders($event->request, $event->response);
+            });
+        } else {
+            $this->events->listen('kernel.handled', function (Request $request, Response $response) {
+                $this->addHeaders($request, $response);
+            });
+        }
+
         $response = $next($request);
 
-        $response->headers->set('Access-Control-Allow-Origin', config('cors.allowedOrigins', '*'));
-        $response->headers->set('Access-Control-Allow-Headers', config('cors.allowedHeaders'));
-        $response->headers->set('Access-Control-Allow-Methods', config('cors.allowedMethods'));
-
-        return $response;
+        return $this->addHeaders($request, $response);
     }
 
     /**

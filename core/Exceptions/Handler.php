@@ -44,9 +44,53 @@ class Handler extends BaseHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \PDOException || $exception instanceof \Illuminate\Database\QueryException) {
-            // return redirect()->route('installation.welcome');
+        if ($request->ajax()) {
+            return $this->renderAjaxExceptions($request, $exception);
+        } else {
+            return $this->renderExceptions($request, $exception);
         }
+
+        return parent::render($request, $exception);
+    }
+
+    /**
+     * Render an exception into a JSON response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function renderAjaxExceptions($request, $exception)
+    {
+        // 403 | Authorization exception
+        if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException
+            || $exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException
+        ) {
+            return response()->json(["[ERR 403] Unauthorized request"], 403);
+        }
+
+        // 404 | Model not found exception
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            return response()->json(["[ERR 403] Page requested not found"], 404);
+        }
+
+        return parent::render($request, $exception);
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function renderExceptions($request, $exception)
+    {
+        // API
+        // All api's will render 404 if accessed through web browser
+        // and not through ajax.
+        //
+        // TODO: if (regex('api/v1', $request->path()) return view::404
 
         # 404 Exception
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
@@ -73,10 +117,6 @@ class Handler extends BaseHandler
         if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException
             || $exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException
         ) {
-            if ($request->ajax()) {
-                return response()->json(["[ERR 403] Unauthorized request"], 403);
-            }
-
             return response()->view('Theme::errors.403', [
                 'error' => [
                     'code' => 'NOT_AUTHORIZED',

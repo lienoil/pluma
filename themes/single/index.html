@@ -53,35 +53,28 @@
             <v-layout row wrap justify-left>
               <v-flex sm4>
                 <v-card :dark="theme.dark" class="mb-3" hover>
-                  <v-toolbar flat>
-                    <v-icon left>flash_on</v-icon>
-                    <v-toolbar-title>Lord of Thunder</v-toolbar-title>
-                  </v-toolbar>
-                  <v-card-media height="300px" src="http://straightfromamovie.com/wp-content/uploads/2017/11/thor-ragnarok-movie-wallpaper.jpg"></v-card-media>
-
+                  <v-card-media height="300px" src="//source.unsplash.com/1000x300?vikings"></v-card-media>
+                  <v-card-title>
+                    <v-layout column wrap>
+                      <v-flex>
+                        <div>The Lord of Thunder</div>
+                        <div class="subheading text-emphasis--medium">Watch out, he makes sparkles</div>
+                      </v-flex>
+                    </v-layout>
+                  </v-card-title>
                   <v-card-text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, dolores temporibus cumque excepturi. Blanditiis accusamus earum voluptas ut aperiam! Possimus obcaecati officiis minima sequi commodi nobis provident incidunt ratione vel.</v-card-text>
 
                   <v-card-actions class="grey0-lighten-4">
+                    <v-btn large color="primary"><v-icon left>play_arrow</v-icon>Start</v-btn>
+                    <v-btn large flat><v-icon left>bookmark</v-icon>Bookmark</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn large color="primary" flat><v-icon left>bookmark</v-icon>Bookmark</v-btn>
-                    <v-btn large color="primary"><v-icon left>gamepad</v-icon>Play</v-btn>
                   </v-card-actions>
                 </v-card>
 
               </v-flex>
 
               <v-flex sm4>
-                <loop>
-                  <template>
-                    <v-card-title>Lord of Thunder</v-card-title>
-                    <v-card-text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, dolores temporibus cumque excepturi. Blanditiis accusamus earum voluptas ut aperiam! Possimus obcaecati officiis minima sequi commodi nobis provident incidunt ratione vel.</v-card-text>
-                    <v-card-actions class="grey-lighten-4">
-                      <v-spacer></v-spacer>
-                      <v-btn color="primary" flat>Cancel</v-btn>
-                      <v-btn color="primary">Save</v-btn>
-                    </v-card-actions>
-                  </template>
-                </loop>
+
               </v-flex>
 
             </v-layout>

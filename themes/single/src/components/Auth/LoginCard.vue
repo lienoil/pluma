@@ -6,7 +6,7 @@
       <p class="subheading" v-html="subtitle"></p>
     </v-card-text>
     <v-card-text>
-      <v-form method="POST" v-model="resource.form.model" autocomplete="off" @submit.prevent="login">
+      <v-form lazy-validation v-model="resource.form.model" method="POST" autocomplete="off" @submit.prevent="login">
 
         <input type="hidden" v-model="resource.item._token" name="_token">
 

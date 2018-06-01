@@ -7,7 +7,7 @@
       <v-layout row wrap justify-center align-center>
         <v-flex lg3 md4 sm8 xs12 justify-center align-center>
 
-          <v-card class="mb-3">
+          {{-- <v-card class="mb-3">
             <v-card-title>
               <v-layout column wrap>
                 <h1 class="subheading"><strong>Warlords of the Apocalypse</strong></h1>
@@ -21,9 +21,9 @@
               <v-btn color="primary">Read Now</v-btn>
               <v-btn color="primary" flat>Read Later</v-btn>
             </v-card-actions>
-          </v-card>
+          </v-card> --}}
 
-          {{-- <v-slide-y-transition mode="in-out">
+          <v-slide-y-transition mode="in-out">
             <login-card
               box
               color="primary"
@@ -31,7 +31,7 @@
               subtitle="{{ $application->site->tagline }}"
               title="{{ $application->site->title }}"
             ></login-card>
-          </v-slide-y-transition> --}}
+          </v-slide-y-transition>
 
         </v-flex>
       </v-layout>

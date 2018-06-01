@@ -31,7 +31,7 @@
       </v-list>
     </v-toolbar>
 
-    <v-divider></v-divider>
+    <!-- <v-divider></v-divider> -->
 
     <v-list>
       <template v-for="(menu, i) in $root.navigations.sidebar">
@@ -68,9 +68,8 @@
           </template>
         </v-list-group>
 
-        <v-subheader v-else-if="menu.is_header" :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">
+        <v-subheader class="mt-4" v-else-if="menu.is_header" :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">
           <small v-html="menu.text.toUpperCase()"></small>
-          &nbsp;<v-divider :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark"></v-divider>
         </v-subheader>
 
         <v-list-group v-else-if="menu.has_children" lazy ripple no-action v-model="menu.active" :prepend-icon="menu.icon ? menu.icon : 'widgets'">

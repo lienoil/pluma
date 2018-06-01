@@ -1,0 +1,20 @@
+$text-emphasis-medium = {
+  light: rgba(#000, 60%),
+  dark: rgba(#fff, 60%),
+}
+
+.theme--dark {
+  .text-emphasis {
+    &--medium {
+      color: $text-emphasis-medium.dark;
+    }
+  }
+}
+
+.theme--light {
+  .text-emphasis {
+    &--medium {
+      color: $text-emphasis-medium.light;
+    }
+  }
+}
