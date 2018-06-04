@@ -1,0 +1,10 @@
+{
+  headers: [
+    { text: this.trans('Name'), align: 'left', value: 'firstname' },
+    { text: this.trans('Username'), align: 'left', value: 'username' },
+    { text: this.trans('Email'), align: 'left', value: 'email' },
+    { text: this.trans('Created'), align: 'right', value: 'created_at' },
+    { text: this.trans('Modified'), align: 'right', value: 'updated_at' },
+    { text: this.trans('Actions'), align: 'center', sortable: false }
+  ]
+}

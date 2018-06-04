@@ -6,7 +6,7 @@
       <p class="subheading" v-html="subtitle"></p>
     </v-card-text>
     <v-card-text>
-      <v-form lazy-validation v-model="resource.form.model" method="POST" autocomplete="off" @submit.prevent="login">
+      <v-form lazy-validation v-model="resource.form.model" method="POST" autocomplete="off" @keyup.enter="login" @submit.prevent="login">
 
         <input type="hidden" v-model="resource.item._token" name="_token">
 
@@ -76,6 +76,9 @@ import { _$api } from './api'
 import { errors } from '@/utils/forms'
 
 export default {
+  $_veeValidate: {
+    validator: 'new'
+  },
   name: 'LoginCard',
   props: {
     box: { type: String, default: false },
@@ -106,16 +109,22 @@ export default {
   methods: {
     login (credentials) {
       this.resource.form.loading = true
-      this.$http.post(this.api.login, credentials)
-        .then(response => {
-          if (response.status === 200) {
-            this.$router.go({name: 'pages.create'})
+      this.$validator.reset()
+      this.$validator.validateAll()
+        .then(result => {
+          if (result) {
+            this.$http.post(this.api.login, credentials)
+              .then(response => {
+                if (response.status === 200) {
+                  this.$router.go({name: 'pages.create'})
+                }
+                this.resource.form.loading = false
+              })
+              .catch(error => {
+                errors(error.response, this.errors)
+                this.resource.form.loading = false
+              })
           }
-          this.resource.form.loading = false
-        })
-        .catch(error => {
-          errors(error.response, this.errors)
-          this.resource.form.loading = false
         })
     }
   },

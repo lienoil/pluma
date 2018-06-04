@@ -108,12 +108,12 @@ export default {
         loading: true,
         filtered: false,
         headers: [
-          { text: 'Name', align: 'left', value: 'firstname' },
-          { text: 'Username', align: 'left', value: 'username' },
-          { text: 'Email', align: 'left', value: 'email' },
-          { text: 'Created', align: 'right', value: 'created_at' },
-          { text: 'Modified', align: 'right', value: 'updated_at' },
-          { text: 'Actions', align: 'center', sortable: false }
+          { text: this.trans('Name'), align: 'left', value: 'firstname' },
+          { text: this.trans('Username'), align: 'left', value: 'username' },
+          { text: this.trans('Email'), align: 'left', value: 'email' },
+          { text: this.trans('Created'), align: 'right', value: 'created_at' },
+          { text: this.trans('Modified'), align: 'right', value: 'updated_at' },
+          { text: this.trans('Actions'), align: 'center', sortable: false }
         ],
         items: [],
         pagination: {
@@ -156,9 +156,9 @@ export default {
           }
 
           self.$http.get('/api/v1/users/all', {params: query})
-            .then(response => {
-              self.dataset.items = response.data.data
-              self.dataset.pagination.totalItems = response.data.total
+            .then(({data, status}) => {
+              self.dataset.items = data.data
+              self.dataset.pagination.totalItems = data.meta.total
               self.dataset.loading = false
               self.dataset.filtered = false
             })
@@ -179,9 +179,9 @@ export default {
 
       this.dataset.loading = true
       this.$http.get('/api/v1/users/all', {params: query})
-        .then(response => {
-          this.dataset.items = response.data.data
-          this.dataset.pagination.totalItems = response.data.total
+        .then(({data, status}) => {
+          this.dataset.items = data.data
+          this.dataset.pagination.totalItems = data.meta.total
           this.dataset.loading = false
           this.dataset.filtered = false
         })

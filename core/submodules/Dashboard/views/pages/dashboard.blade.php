@@ -4,7 +4,7 @@
   {{-- @parent --}}
   {{-- @include("Dashboard::partials.overview") --}}
 
-  <v-container fluid grid-list-lg>
+  <v-container v-if="!$root.$router.current" fluid grid-list-lg>
     <v-layout row wrap>
       <v-flex sm6 md5>
           <v-card class="mb-3 elevation-2">
@@ -25,4 +25,8 @@
       </v-flex>
     </v-layout>
   </v-container>
+  <template v-else>
+    <router-view></router-view>
+  </template>
+
 @endsection

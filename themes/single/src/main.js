@@ -24,7 +24,6 @@ import Vuetify from 'vuetify'
 Vue.use(Vuetify, theme)
 Vue.use(directives)
 Vue.use(filters)
-Vue.use(components)
 Vue.use(helpers)
 Vue.use(mixins)
 Vue.use(VeeValidate)
@@ -37,11 +36,7 @@ Vue.use(VeeValidate)
  * We require theme dynamically to avoid loading unused components.
  *
  */
-// Vue.component('alert-icon', () => import('./components/partials/AlertIcon.vue'))
-// Vue.component('breadcrumbs', () => import('./components/partials/Breadcrumbs.vue'))
-// Vue.component('sidebar', () => import('./components/partials/Sidebar.vue'))
-// Vue.component('image-overlay', () => import('./components/components/ImageOverlay.vue'))
-// Vue.component('login-card', () => import('./components/Auth/LoginCard.vue'))
+Vue.use(components)
 
 /**
  *------------------------------------------------------------------------------
@@ -54,8 +49,10 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[nam
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
 
-// Vue Prototypes
+// Vue Configurations
 Vue.config.productionTip = false
+
+// Vue Prototypes
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
 
@@ -84,6 +81,9 @@ new Vue({
         isRoot: false,
         permissions: []
       }
+    },
+    sidebarX () {
+      console.log(this.$router.options)
     },
     // routed () {
     //   let self = this
@@ -148,29 +148,15 @@ new Vue({
     }
   },
   watch: {
-    '$router': function ($router) {
-      this.router = $router.options.routes
-      console.log(this.router)
+    '$router.options': function (router) {
+      // this.navigations.sidebar = router.options.routes
+      this.router = router.options.routes
+      console.log('Lop', this.router)
     }
   },
   mounted () {
     this.mountUser()
     this.navigation()
-    // this.routed()
-    const requireRoute = require.context(
-      // The relative path of the routes folder
-      '@/modules',
-      // Whether or not to look in subfolders
-      true,
-      // The regular expression used to match base route filenames
-      /router\/index\.js$/
-    )
-
-    requireRoute.keys().forEach(route => {
-      console.log('main.js::mounted()|line-179', route)
-      const routeConfig = requireRoute(route)
-      this.$router.addRoutes(routeConfig.default || routeConfig)
-    })
-    console.log('main.js::mounted()|line-168', this.router)
+    // this.sidebarX()
   }
 })

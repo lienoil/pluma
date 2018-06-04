@@ -7,7 +7,7 @@
 
   <title>
     @section("head-title")
-      {{ $application->site->fulltitle }}
+      {{ $application->site->title }} | {{ $application->site->tagline }}
     @show
     @stack("head-subtitle")
   </title>

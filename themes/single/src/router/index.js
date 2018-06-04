@@ -27,8 +27,10 @@ requireRoute.keys().forEach(route => {
   router.addRoutes(routeConfig.default || routeConfig)
 })
 
-// router.beforeEach((to, from, next) => {
-//   next()
-// })
+router.beforeEach((to, from, next) => {
+  document.title = (to.meta && to.meta.title) || (to.labels && to.labels.title) || document.title
+
+  next()
+})
 
 export default router

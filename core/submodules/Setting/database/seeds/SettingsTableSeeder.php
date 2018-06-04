@@ -12,13 +12,21 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        dd(config('mail.driver'));
         $data = [
+            // Site
             'site_title' => config('APP_NAME', env('APP_NAME')),
             'site_tagline' => config('APP_NAME', env('APP_TAGLINE')),
             'site_email' => config('APP_NAME', env('MAIL_USERNAME')),
             'date_format' => 'F d, Y',
             'time_format' => 'h:i a',
+
+            // Mail
+            'mail_driver' => config('mail.driver'),
+            'mail_host' => config('mail.host'),
+            'mail_port' => config('mail.port'),
+            'mail_encryption' => config('mail.encryption'),
+            'mail_username' => config('mail.username'),
+            'mail_password' => config('mail.password'),
         ];
 
         foreach ($data as $key => $value) {
