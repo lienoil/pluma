@@ -24,7 +24,7 @@ export default {
       pathArray.shift()
       let breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
         breadcrumbArray.push({
-          path: path,
+          path: '/' + path,
           to: breadcrumbArray[idx]
             ? '/' + breadcrumbArray[idx].path + '/' + path
             : '/' + path,
