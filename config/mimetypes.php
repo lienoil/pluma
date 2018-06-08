@@ -18,7 +18,7 @@ return [
     'html' => 'text/html',
     'php' => 'text/html',
     'css' => 'text/css',
-    'js' => 'application/javascript',
+    'js' => 'application/x-javascript',
     'json' => 'application/json',
     'xml' => 'application/xml',
     'swf' => 'application/x-shockwave-flash',

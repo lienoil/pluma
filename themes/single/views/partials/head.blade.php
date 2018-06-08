@@ -19,7 +19,8 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="_token" content="{{ csrf_token() }}">
-  <meta name="base-url" content="{{ url('/') }}">
+  <meta name="api-token" content="{{ user()->token ?? ''  }}">
+  <meta name="base-url" content="{{ home() }}">
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url('favicons/apple-touch-icon.png') }}">

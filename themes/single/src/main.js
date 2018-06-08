@@ -47,6 +47,7 @@ Vue.use(components)
 // Axios
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.head.querySelector('meta[name="api-token"]').getAttribute('content')
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
 
 // Vue Configurations
@@ -55,6 +56,7 @@ Vue.config.productionTip = false
 // Vue Prototypes
 Vue.prototype.$http = axios
 Vue.prototype.$token = axios.defaults.headers.common['X-CSRF-TOKEN']
+Vue.prototype.$user = window.$user || null
 
 /* eslint-disable no-new */
 new Vue({
@@ -63,28 +65,11 @@ new Vue({
   store,
   http: {
     headers: {
-      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
-  },
-  data () {
-    return {
-      user: null,
-      navigations: {
-        sidebar: []
-      },
-      router: []
+      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      'Authorization': 'Bearer ' + document.head.querySelector('meta[name="api-token"]').getAttribute('content')
     }
   },
   methods: {
-    mountUser () {
-      this.user = (window.Pluma && window.Pluma.user) || {
-        isRoot: false,
-        permissions: []
-      }
-    },
-    sidebarX () {
-      console.log(this.$router.options)
-    },
     // routed () {
     //   let self = this
     //   this.$http.get('/api/v1/misc/routes')
@@ -124,39 +109,5 @@ new Vue({
     //       this.$root.alert({type: 'error', text: `Aw, Snap! Error fetching routes! It's severe! ${error.response}`})
     //     })
     // },
-    navigation () {
-      let self = this
-      // Populate the routes variable
-      this.$http.get('/api/v1/misc/navigations/sidebar')
-        .then(response => {
-          let sidebar = []
-
-          for (let menu in response.data) {
-            sidebar.push(response.data[menu])
-          }
-
-          sidebar = sidebar.sort(function (a, b) {
-            return a.order - b.order
-          })
-
-          self.navigations.sidebar = sidebar
-        })
-        .catch(error => {
-          // console.log('[ERROR]', error)
-          this.$root.alert({type: 'error', text: `Aw, Snap! Error fetching routes! It's severe! ${error.response}`})
-        })
-    }
-  },
-  watch: {
-    '$router.options': function (router) {
-      // this.navigations.sidebar = router.options.routes
-      this.router = router.options.routes
-      console.log('Lop', this.router)
-    }
-  },
-  mounted () {
-    this.mountUser()
-    this.navigation()
-    // this.sidebarX()
   }
 })

@@ -81,6 +81,10 @@ class Kernel extends BaseKernel
         // Commands\Phinx\PhinxSeedCreateCommand::class,
         // Commands\Phinx\PhinxSeedRunCommand::class,
 
+        // Route
+        Commands\Route\RouteCacheCommand::class,
+        Commands\Route\RouteClearCommand::class,
+
         // Misc
         Commands\Misc\FurnaceCommand::class,
 

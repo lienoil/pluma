@@ -36,9 +36,10 @@ export const settings = {
        *
        */
       sidebar: {
-        clipped: this.localstorage('single.sidebar.clipped') === 'true',
-        floating: this.localstorage('single.sidebar.floating') === 'true',
-        mini: this.localstorage('single.sidebar.mini') === 'true',
+        dark: this.localstorage('single.sidebar.dark', true) === 'true' || true,
+        clipped: this.localstorage('single.sidebar.clipped', false) === 'true',
+        floating: this.localstorage('single.sidebar.floating', false) === 'true',
+        mini: this.localstorage('single.sidebar.mini', false) === 'true',
         model: true,
         withBackground: this.localstorage('single.sidebar.withBackground') === 'true',
         style: {
@@ -112,6 +113,7 @@ export const settings = {
        *
        */
       utilitybar: {
+        dark: this.localstorage('single.utilitybar.dark', true) === 'true' || true,
         model: false
       },
 

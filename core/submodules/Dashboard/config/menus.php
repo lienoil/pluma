@@ -7,7 +7,7 @@ return [
         'order' => 5,
         'slug' => route('dashboard'),
         'always_viewable' => true,
-        'icon' => 'dashboard',
+        'icon' => 'donut_small',
         'labels' => [
             'title' => __('Dashboard'),
             'description' => __('View summary and overview of the app.'),
@@ -22,4 +22,13 @@ return [
         'markup' => 'span',
         'text' => __('Content'),
     ],
+
+    // 'tools' => [
+    //     'name' => 'tools',
+    //     'is_header' => true,
+    //     'order' => 100,
+    //     'class' => 'separator',
+    //     'markup' => 'span',
+    //     'text' => __('Tools'),
+    // ],
 ];

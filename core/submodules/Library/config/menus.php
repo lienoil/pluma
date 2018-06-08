@@ -14,7 +14,7 @@ return [
         'slug' => url(config('path.admin').'/library'),
         'is_parent' => true,
         'always_viewable' => false,
-        'icon' => 'fa-institution',
+        'icon' => 'photo_library',
         'labels' => [
             'title' => __('Library'),
             'description' => __('Manage collections in library'),

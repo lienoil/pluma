@@ -2,7 +2,7 @@
 
 @section("app")
   <div id="app" data-root-application v-cloak>
-    <v-app>
+    <v-app :dark="theme.dark">
 
       @stack("before-content")
 
@@ -11,7 +11,7 @@
         @stack("before-inner-content")
 
         @section("main")
-          <div :class="`content-size-${settings.fontsize}`">
+          <div :class="`content-size-${settings.fontsize}`" class="mb-5">
             @section("main-content")
               <v-slide-x-reverse-transition mode="out-in">
                 <router-view></router-view>

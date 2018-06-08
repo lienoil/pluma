@@ -4,17 +4,35 @@ $text-emphasis-medium = {
 }
 
 .theme--dark {
+  .emphasis {
+    &--medium {
+      background-color: $text-emphasis-medium.dark !important;
+    }
+  }
+
   .text-emphasis {
     &--medium {
-      color: $text-emphasis-medium.dark;
+      color: $text-emphasis-medium.dark !important;
     }
   }
 }
 
 .theme--light {
+  .emphasis {
+    &--medium {
+      background-color: $text-emphasis-medium.light !important;
+    }
+  }
+
   .text-emphasis {
     &--medium {
-      color: $text-emphasis-medium.light;
+      color: $text-emphasis-medium.light !important;
     }
+  }
+}
+
+.theme--dark {
+  .primary--text[class*=active] {
+    color: lighten($theme.primary, 30%) !important;
   }
 }

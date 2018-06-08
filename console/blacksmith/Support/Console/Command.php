@@ -26,6 +26,26 @@ class Command extends BaseCommand
     }
 
     /**
+     * Display checkmark.
+     *
+     * @return ✔
+     */
+    public function checkmark()
+    {
+        return "  \xE2\x9C\x94";
+    }
+
+    /**
+     * Display crossmark.
+     *
+     * @return ❌
+     */
+    public function crossmark()
+    {
+        return "  \xE2\x9D\x8C";
+    }
+
+    /**
      * Calculate the elapsed time since `$s`.
      *
      * @param  microtime $s

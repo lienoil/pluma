@@ -2,20 +2,23 @@
 
 @section("head-title", __('Error 403 - Forbidden Request'))
 
-@section("content")
-    <v-container fluid grid-list-lg>
-        <v-layout column wrap align-center justify-center>
-            <v-flex tag="h1" align-center justify-center class="display-4">{{ __('403') }}</v-flex>
-            <v-flex tag="h2" align-center justify-center class="display-2">{{ __('Forbidden Page') }}</v-flex>
-            <v-flex align-center justify-center class="text-xs-center">
-                <p>{{ __("Sorry, this is above your clearance code. We're certainly NOT hiding aliens behind this page!") }}</p>
+@section("main-content")
+    <v-container grid-list-lg>
+        <v-layout column wrap>
+            <v-flex tag="h1" class="display-4">{{ __('403') }}</v-flex>
+            <v-flex tag="h2" class="display-2">{{ __('Forbidden Page') }}</v-flex>
+            <v-flex>
+                <p class="headline">{{ __("Sorry, this page do exists but viewing it requires higher clearance. We're certainly NOT hiding aliens behind this page. No sir.") }}</p>
+                <p class="subheading">{{ __("Try searching again, or using the links below to find what you're looking for:") }}</p>
 
-                <v-btn large color="primary" href="{{ home() }}">{{ __('Back to Home') }}</v-btn>
+                <div class="subheading mb-1">Links</div>
+                <div class="body-2 mb-1"><a href="{{ home() }}">{{ __('Home') }}</a></div>
                 @if (user())
-                    <v-btn large color="secondary" href="{{ url('admin/dashboard') }}">{{ __('Dashboard') }}</v-btn>
+                  <div class="body-2 mb-1"><a href="{{ url('admin/dashboard') }}">{{ __('Dashboard') }}</a></div>
+                @else
+                  <div class="body-2 mb-1"><a href="{{ route('login.show') }}">{{ __('Login') }}</a></div>
                 @endif
             </v-flex>
         </v-layout>
     </v-container>
 @endsection
-

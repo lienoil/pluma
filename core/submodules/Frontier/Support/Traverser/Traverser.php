@@ -129,8 +129,10 @@ trait Traverser
             if (isset($traversable['right'])) {
                 if (($descendants = ($traversable['right'] - $traversable['left'] - 1) / 2) > 0) {
                     $traversable['has_children'] = $descendants;
+                    $traversable['is_parent'] = true;
                 } else {
                     $traversable['has_children'] = false;
+                    $traversable['is_parent'] = false;
                 }
             }
         }

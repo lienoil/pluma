@@ -32,7 +32,7 @@ return [
      * Supported locale
      *--------------------------------------------------------------------------
      *
-     * Listed here are the locales supported out-of-the-box
+     * Listed here are the locales supported out-of-the-box.
      *
      */
     'supported' => ['en', 'fil'],

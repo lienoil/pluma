@@ -34,6 +34,7 @@ class CORS
     public function __construct(CorsService $cors, Dispatcher $events)
     {
         $this->cors = $cors;
+
         $this->events = $events;
     }
 
@@ -53,7 +54,6 @@ class CORS
         }
 
         $response = $next($request);
-
         $response->headers->set('Access-Control-Allow-Origin', config('cors.allowedOrigins', '*'));
         $response->headers->set('Access-Control-Allow-Headers', config('cors.allowedHeaders'));
         $response->headers->set('Access-Control-Allow-Methods', config('cors.allowedMethods'));
@@ -73,7 +73,7 @@ class CORS
             $response = $this->cors->addActualRequestHeaders($response, $request);
         }
 
-        $response->headers->set('Access-Control-Allow-Headers', 'X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type');
+        $response->headers->set('Access-Control-Allow-Headers', 'Authorization, X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type');
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 
         return $response;

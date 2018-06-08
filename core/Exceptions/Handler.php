@@ -138,7 +138,7 @@ class Handler extends BaseHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) {
+        if ($request->ajax() || $request->wantsJson() || $request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 

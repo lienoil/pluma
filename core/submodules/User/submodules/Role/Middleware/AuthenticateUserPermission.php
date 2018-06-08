@@ -75,7 +75,7 @@ class AuthenticateUserPermission
         }
 
         // Load the 403
-        return settings('403_must_redirect', true)
+        return settings('403_must_redirect', false)
             ? redirect('403')
             : response()->view("Theme::errors.403", [], 403);
     }
@@ -88,9 +88,9 @@ class AuthenticateUserPermission
      */
     protected function isUrlAlwaysViewable($url)
     {
-        foreach (navigations('sidebar') as $menu) {
-            if (isset($menu->always_viewable) && $menu->always_viewable) {
-                if (isset($menu->url) && $menu->url === $url) {
+        foreach (sidebar() as $menu) {
+            if (isset($menu['always_viewable']) && $menu['always_viewable']) {
+                if (isset($menu['url']) && $menu['url'] === $url) {
                     return true;
                 }
             }

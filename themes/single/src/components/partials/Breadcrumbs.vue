@@ -2,13 +2,12 @@
   <v-breadcrumbs>
     <v-icon slot="divider">keyboard_arrow_right</v-icon>
     <v-breadcrumbs-item
-      :disable="breadcrumb.disabled"
-      :to="breadcrumb.slug"
+      :to="breadcrumb.path"
       :key="i"
       exact
       v-for="(breadcrumb, i) in breadcrumbs"
     >
-      <small v-html="breadcrumb.label"></small>
+      <small v-html="breadcrumb.text"></small>
     </v-breadcrumbs-item>
   </v-breadcrumbs>
 </template>
@@ -17,28 +16,24 @@
 export default {
   name: 'Breadcrumbs',
   props: {
-    url: { type: String, default: '/api/v1/misc/breadcrumbs' }
+    items: { type: [Object, Array], default: () => { return [] } }
   },
-  data () {
-    return {
-      breadcrumbs: []
-    }
-  },
-  methods: {
-    get () {
-      this.$http.post(this.url, {path: this.$route.fullPath, routename: this.$route.name})
-        .then(response => {
-          this.breadcrumbs = response.data
+  computed: {
+    breadcrumbs: function () {
+      let pathArray = this.$route.path.split('/')
+      pathArray.shift()
+      let breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
+        breadcrumbArray.push({
+          path: path,
+          to: breadcrumbArray[idx]
+            ? '/' + breadcrumbArray[idx].path + '/' + path
+            : '/' + path,
+          text: this.$route.matched[idx - 1] ? this.$route.matched[idx - 1].meta.title : path.charAt(0).toUpperCase() + path.slice(1)
         })
+        return breadcrumbArray
+      }, [])
+      return breadcrumbs
     }
-  },
-  watch: {
-    '$route': function (route) {
-      this.get()
-    }
-  },
-  mounted () {
-    this.get()
   }
 }
 </script>

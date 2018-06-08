@@ -1,4 +1,4 @@
-@extends("Theme::app")
+@extends("Theme::single")
 
 @push('before-content')
   @include("Theme::partials.navigationbar")

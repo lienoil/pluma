@@ -1,0 +1,17 @@
+.table {
+  &__striped {
+    border-bottom: none !important;
+
+    table.table {
+      tbody {
+        tr:not(:last-child) {
+          border-bottom: none !important;
+        }
+
+        tr:nth-of-type(odd):not([active=true]) {
+          background-color: $material-theme.alternate-color;
+        }
+      }
+    }
+  }
+}

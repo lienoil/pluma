@@ -17,6 +17,6 @@ Route::get('users/trashed', 'UserController@trashed')->name('users.trashed');
 Route::post('users/refresh', 'UserRefreshController@refresh')->name('users.refresh.refresh');
 Route::post('users/restore/many', 'UserManyController@restore')->name('users.many.restore');
 
-Route::softDeletes('users', 'UserController', ['module' => 'Pluma']);
+Route::softDeletes('users', 'UserController', ['module' => 'Pluma', 'trashed' => 'deactivated']);
 
 Route::resource('users', 'UserController', ['module' => 'Pluma']);

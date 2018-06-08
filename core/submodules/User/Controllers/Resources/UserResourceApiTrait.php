@@ -117,7 +117,7 @@ trait UserResourceApiTrait
     {
         $user = User::findOrFail($id);
 
-        return response()->json($user);
+        return new UserResource($user);
     }
 
     /**

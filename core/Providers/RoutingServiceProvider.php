@@ -23,8 +23,6 @@ class RoutingServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -44,25 +42,9 @@ class RoutingServiceProvider extends ServiceProvider
 
         $this->mapFuzzyRoutes();
 
-        $this->mapPublicRoutes();
-
         $this->mapWebRoutes();
-    }
 
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapWebRoutes()
-    {
-        if (file_exists(core_path('routes/web.php'))) {
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(core_path('routes/web.php'));
-        }
+        $this->mapPublicRoutes();
     }
 
     /**
@@ -76,7 +58,7 @@ class RoutingServiceProvider extends ServiceProvider
     {
         if (file_exists(core_path('routes/api.php'))) {
             Route::prefix('api')
-                ->middleware(['api'])
+                ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(core_path('routes/api.php'));
         }
@@ -94,6 +76,22 @@ class RoutingServiceProvider extends ServiceProvider
         if (file_exists(core_path('routes/assets.php'))) {
             Route::middleware('web')
                 ->group(core_path('routes/assets.php'));
+        }
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes()
+    {
+        if (file_exists(core_path('routes/web.php'))) {
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(core_path('routes/web.php'));
         }
     }
 

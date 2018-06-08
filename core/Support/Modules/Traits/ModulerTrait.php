@@ -90,21 +90,25 @@ trait ModulerTrait
 
     /**
      * Retrieves the specified file from all modules.
+     *
      * @param  string $file
      * @return array
      */
     public function getFileFromModules($file)
     {
-        return collect($this->modulePaths())->filter(function ($path) use ($file) {
-                if (file_exists("$path/$file")) {
+        return cache()->remember("cached::$file", 120, function () use ($file) {
+            return collect($this->modulePaths())
+                ->filter(function ($path) use ($file) {
+                    if (file_exists("$path/$file")) {
+                        return "$path/$file";
+                    }
+                })
+                ->map(function ($path) use ($file) {
                     return "$path/$file";
-                }
-            })
-            ->map(function ($path) use ($file) {
-                return "$path/$file";
-            })
-            ->values()
-            ->all();
+                })
+                ->values()
+                ->all();
+        });
     }
 
     /**

@@ -4,24 +4,6 @@
       <v-toolbar-title>{{ trans("All Pages") }}</v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-slide-y-reverse-transition>
-        <template v-if="!dataset.bulk.model">
-          <v-tooltip bottom>
-            <v-btn v-can="{code: 'pages.create'}" slot="activator" icon :to="{name: 'pages.create'}"><v-icon>note_add</v-icon></v-btn>
-            <span>{{ trans("Create new page") }}</span>
-          </v-tooltip>
-        </template>
-      </v-slide-y-reverse-transition>
-
-      <v-slide-y-reverse-transition>
-        <template v-if="!dataset.bulk.model">
-          <v-tooltip bottom>
-            <v-btn v-can="{code: 'pages.trashed'}" slot="activator" icon :to="{name: 'pages.trashed'}"><v-icon>archive</v-icon></v-btn>
-            <span>{{ trans("View trashed pages") }}</span>
-          </v-tooltip>
-        </template>
-      </v-slide-y-reverse-transition>
-
       <!-- Bulk Commands -->
       <v-slide-y-transition mode="out-in">
         <template v-if="dataset.bulk.model">
@@ -37,12 +19,27 @@
         <span>{{ trans("Toggle bulk commands") }}</span>
       </v-tooltip>
       <!-- Bulk Commands -->
+
+      <!-- <v-tooltip bottom>
+        <v-btn v-can="{code: 'pages.create'}" slot="activator" icon :to="{name: 'pages.create'}"><v-icon>note_add</v-icon></v-btn>
+        <span>{{ trans("Create new page") }}</span>
+      </v-tooltip> -->
+      <v-tooltip bottom>
+        <v-btn v-can="{code: 'pages.trashed'}" slot="activator" icon :to="{name: 'pages.trashed'}"><v-icon>archive</v-icon></v-btn>
+        <span>{{ trans("View trashed pages") }}</span>
+      </v-tooltip>
+
+      <v-divider class="vertical"></v-divider>
+      <v-btn color="secondary" v-can="{code: 'pages.create'}" exact :to="{name: 'pages.create'}">{{ trans('Create Page') }}</v-btn>
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <v-flex xs12 sm12>
-          <v-card>
+
+          <page-empty-state v-if="dataset.empty"></page-empty-state>
+
+          <v-card v-else>
             <v-data-table
               :headers="dataset.headers"
               :items="dataset.items"
@@ -55,14 +52,6 @@
               v-bind="dataset.bulk.model ? {'select-all':'accent'} : []"
               v-model="dataset.selected"
             >
-              <template slot="no-data">
-                <v-card flat color="transparent" class="text-xs-center">
-                  <v-card-text>
-                    <div><v-icon color="grey" class="display-4">description</v-icon></div>
-                    <div class="grey--text">{{ trans('No pages found') }}</div>
-                  </v-card-text>
-                </v-card>
-              </template>
               <v-progress-linear slot="progress" color="accent" indeterminate></v-progress-linear>
 
               <template slot="items" slot-scope="props">
@@ -99,13 +88,19 @@
 </template>
 
 <script>
+import PageEmptyState from './partials/PageEmptyState.vue'
+
 export default {
+  components: {
+    PageEmptyState
+  },
   data () {
     return {
       dataset: {
         bulk: {
           model: false
         },
+        empty: true,
         loading: true,
         filtered: false,
         headers: [
@@ -131,6 +126,9 @@ export default {
     }
   },
   watch: {
+    'dataset.items': function (items) {
+      this.dataset.empty = items.length === 0
+    },
     'dataset.pagination': {
       handler () {
         this.all()
@@ -234,8 +232,7 @@ export default {
     }
   },
   mounted () {
-    // this.all()
-    console.log(this.$root.localstorage('single._.dataset.pagination.rowsPerPage', 25))
+    this.all()
   }
 }
 </script>

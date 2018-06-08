@@ -1,6 +1,5 @@
 export default [
   {
-    name: 'users',
     path: '/admin/users',
     component: () => import('@/components/App.vue'),
     children: [
@@ -10,6 +9,7 @@ export default [
         name: 'users.index',
         component: () => import('@/modules/Pluma/User/Index.vue'),
         meta: {
+          authenticatable: true,
           title: 'All Users',
           description: 'Manage app users'
         }
@@ -20,6 +20,7 @@ export default [
         name: 'users.create',
         component: () => import('@/modules/Pluma/User/Create.vue'),
         meta: {
+          authenticatable: true,
           title: 'Create User',
           description: 'Create new user'
         }
@@ -30,6 +31,7 @@ export default [
         name: 'users.trashed',
         component: () => import('@/modules/Pluma/User/Trashed.vue'),
         meta: {
+          authenticatable: true,
           title: 'Deactivated Users',
           description: 'View list of all deactivated users'
         }

@@ -5,6 +5,7 @@ namespace Pluma\Support\Composers;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use User\Models\User;
 
 class BaseViewComposer
 {
@@ -30,6 +31,28 @@ class BaseViewComposer
     protected $name;
 
     /**
+     * The currently logged in user.
+     *
+     * @var \User\Models\User
+     */
+    protected $user;
+
+    /**
+     * Initialize the base composer class.
+     *
+     */
+    public function __construct()
+    {
+        $this->setCurrentUrl(Request::path());
+
+        $this->setCurrentRouteName(Route::currentRouteName());
+
+        $this->setName($this->name);
+
+        $this->user = user();
+    }
+
+    /**
      * Main function to tie everything together.
      *
      * @param  Illuminate\View\View   $view
@@ -37,10 +60,6 @@ class BaseViewComposer
      */
     public function compose(View $view)
     {
-        $this->setCurrentUrl(Request::path());
-        $this->setCurrentRouteName(Route::currentRouteName());
-        $this->setName($this->name);
-
         $view->with($this->name(), $this->handle());
     }
 
@@ -61,7 +80,7 @@ class BaseViewComposer
      */
     public function getCurrentUrl()
     {
-        return $this->currentUrl;
+        return $this->currentUrl ?? Route::current()->uri();
     }
 
     /**

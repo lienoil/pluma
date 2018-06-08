@@ -36,13 +36,35 @@ class Localization
 
         app()->setLocale(config()->get('language.locale', 'en'));
 
-        $url = explode('.', parse_url($request->url(), PHP_URL_HOST));
-        $this->subdomain = $url[0];
-
-        if ($this->subdomain) {
-            app()->setLocale($this->subdomain);
+        if ($this->isSubdomain()) {
+            $this->setSubdomainLocale();
         }
 
         return $next($request);
+    }
+
+    /**
+     * Check if the application is a subdomain.
+     *
+     * @return boolean
+     */
+    protected function isSubdomain()
+    {
+        return config('environment.subdomain', false);
+    }
+
+    /**
+     * Set the locale of the subdomain.
+     *
+     * @return  void
+     */
+    protected function setSubdomainLocale()
+    {
+        $url = explode('.', parse_url($request->url(), PHP_URL_HOST));
+
+        if (count($url) >= 2) {
+            $this->subdomain = $url[0];
+            app()->setLocale($this->subdomain);
+        }
     }
 }

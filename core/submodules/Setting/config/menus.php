@@ -39,6 +39,7 @@ return [
             'general-settings-group' => [
                 'name' => 'general-settings-group',
                 'slug' => route('settings.display'),
+                'code' => 'settings.display',
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'order' => 1,
@@ -58,6 +59,7 @@ return [
                     'display-settings' => [
                         'name' => 'display-settings',
                         'slug' => route('settings.display'),
+                        'code' => 'settings.display',
                         'route' => 'settings.display',
                         'icon' => 'fa-table',
                         'order' => 2,
@@ -70,6 +72,7 @@ return [
                     'date-time-settings' => [
                         'name' => 'date-time-settings',
                         'slug' => route('settings.datetime'),
+                        'code' => 'settings.datetime',
                         'route' => 'settings.datetime',
                         'icon' => 'access_time',
                         'order' => 3,
@@ -90,6 +93,7 @@ return [
             'branding-settings-group' => [
                 'name' => 'branding-settings-group',
                 'slug' => route('settings.branding'),
+                'code' => 'settings.branding',
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'order' => 2,
@@ -109,6 +113,7 @@ return [
                     'branding-settings' => [
                         'name' => 'branding-settings',
                         'slug' => route('settings.branding'),
+                        'code' => 'settings.branding',
                         'route' => 'settings.branding',
                         'icon' => 'fa-leaf',
                         'labels' => [
@@ -120,6 +125,7 @@ return [
                     'email-settings' => [
                         'name' => 'email-settings',
                         'slug' => route('settings.email'),
+                        'code' => 'settings.email',
                         'route' => 'settings.email',
                         'icon' => 'fa-envelope',
                         'labels' => [
@@ -131,6 +137,7 @@ return [
                     'social-media-settings' => [
                         'name' => 'social-media-settings',
                         'slug' => route('settings.social'),
+                        'code' => 'settings.social',
                         'route' => 'settings.social',
                         'icon' => 'fa-twitter',
                         'labels' => [
@@ -169,6 +176,7 @@ return [
                     'system-settings' => [
                         'name' => 'system-settings',
                         'slug' => route('settings.system'),
+                        'code' => 'settings.system',
                         'route' => 'settings.system',
                         'icon' => 'settings_applications',
                         'always_viewable' => false,
@@ -182,6 +190,7 @@ return [
                     'system-configuration-settings' => [
                         'name' => 'system-configuration-settings',
                         'slug' => route('settings.system.configuration'),
+                        'code' => 'settings.system.configuration',
                         'route' => 'settings.system.configuration',
                         'icon' => 'build',
                         'always_viewable' => false,

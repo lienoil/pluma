@@ -3,6 +3,7 @@
 namespace User\Models;
 
 use Pluma\Support\Auth\User as Authenticatable;
+use Pluma\Support\Token\Traits\TokenizableTrait;
 use Role\Support\Relations\BelongsToManyRoles;
 use Role\Support\Relations\HasManyPermissionsThroughRoles;
 use Setting\Support\Relations\HasManySettings;
@@ -20,6 +21,7 @@ class User extends Authenticatable
         HasManyPermissionsThroughRoles,
         HasManySettings,
         LoadAvatarPhotosScope,
+        TokenizableTrait,
         WhereDetailTrait,
         WhereSettingTrait;
 

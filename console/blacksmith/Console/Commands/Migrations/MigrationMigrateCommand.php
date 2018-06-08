@@ -87,7 +87,7 @@ class MigrationMigrateCommand extends BaseCommand
             $this->call('db:seed', ['--force' => true]);
         }
 
-        $this->info("Took ".$this->time($n)." to finish the command");
+        $this->info("{$this->checkmark()} Took ".$this->time($n)." to finish the command");
     }
 
     /**

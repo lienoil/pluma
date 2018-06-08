@@ -20,10 +20,10 @@
         slot="item"
         slot-scope="props"
         >
-        <v-card light ripple hover height="100%" @click.native="select(props.item)">
+        <v-card ripple hover height="100%" @click.native="select(props.item)">
           <v-card-media height="200px" :src="props.item.banner"></v-card-media>
           <v-card-title>
-            <h3 class="subheading page-title d-block" v-html="props.item.name"></h3>
+            <h3 class="subheading d-block" v-html="props.item.name"></h3>
           </v-card-title>
           <v-card-text v-html="props.item.description"></v-card-text>
         </v-card>

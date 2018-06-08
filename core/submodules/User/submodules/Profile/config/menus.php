@@ -8,6 +8,13 @@ return [
      *
      */
     'avatar' => [
+
+        // Hide from sidebar, we can still access this menu
+        // via function: navigation('profile')
+        'hidden' => true,
+        'can_be_accessed' => false,
+        'exclude_from_root' => true,
+
         'is_avatar' => true,
         'is_header' => false,
         'is_parent' => true,
@@ -29,47 +36,6 @@ return [
              * Specify here the menus to appear on the sidebar.
              *
              */
-            // 'profile-group' => [
-            //     'name' => 'profile-group',
-            //     'slug' => route('profile.show', user()->handlename ?? ''),
-            //     'is_group_link' => true,
-            //     'always_viewable' => false,
-            //     'icon' => 'account_circle',
-            //     'labels' => [
-            //         'title' => __('My Profile'),
-            //         'description' => __('Manage your account.'),
-            //     ],
-            //     'routes' => [
-            //         'name' => 'profile.show',
-            //         'children' => [
-            //             'profile.show',
-            //             'profile.edit',
-            //         ]
-            //     ],
-            //     'children' => [
-            //         'show-profile' => [
-            //             'name' => 'show-profile',
-            //             'order' => 1,
-            //             'slug' => route('profile.show', user()->handlename ?? ''),
-            //             'route' => 'profile.show',
-            //             'always_viewable' => true,
-            //             'icon' => 'account_circle',
-            //             'routes' => [
-            //                 'name' => 'profile.show',
-            //                 'children' => [
-            //                     'profile.edit',
-            //                     'profile.show',
-            //                     'notes.show',
-            //                 ]
-            //             ],
-            //             'labels' => [
-            //                 'title' => __('My Profile'),
-            //                 'description' => __('Manage profile'),
-            //             ],
-            //         ],
-            //     ],
-            // ],
-
             'profile-settings-group' => [
                 'name' => 'profile-settings-group',
                 'order' => 2,
@@ -102,18 +68,6 @@ return [
                             'description' => __('Manage profile'),
                         ],
                     ],
-                    'edit-credentials' => [
-                        'name' => 'edit-credentials',
-                        'order' => 1,
-                        'slug' => route('credentials.edit', user()->handlename ?? ''),
-                        'route' => 'credentials.edit',
-                        'always_viewable' => true,
-                        'icon' => 'vpn_key',
-                        'labels' => [
-                            'title' => __('Credentials'),
-                            'description' => __('Manage your account'),
-                        ],
-                    ],
                     'edit-email' => [
                         'name' => 'edit-email',
                         'order' => 1,
@@ -126,6 +80,19 @@ return [
                             'description' => __('Manage your email preferences'),
                         ],
                     ],
+                ],
+            ],
+
+            'edit-credentials' => [
+                'name' => 'edit-credentials',
+                'order' => 500,
+                'slug' => route('credentials.edit', user()->handlename ?? ''),
+                'route' => 'credentials.edit',
+                'always_viewable' => true,
+                'icon' => 'vpn_key',
+                'labels' => [
+                    'title' => __('Credentials'),
+                    'description' => __('Manage your account'),
                 ],
             ],
 
@@ -161,5 +128,4 @@ return [
             ],
         ],
     ],
-
 ];

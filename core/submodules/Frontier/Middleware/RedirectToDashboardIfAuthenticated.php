@@ -24,7 +24,7 @@ class RedirectToDashboardIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::viaRemember() || Auth::guard($guard)->check()) {
+        if (Auth::guard($guard)->check()) {
             $this->redirectPath = route(config('path.dashboard', $this->redirectPath));
 
             return redirect()->intended($this->redirectPath);

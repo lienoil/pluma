@@ -1,18 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import _includes from 'lodash/_arrayIncludes'
 
 Vue.use(VueRouter)
 
 // Routes collection
 const routes = []
-
-// Instance of VueRouter
-const router = new VueRouter({
-  mode: 'history',
-  saveScrollPosition: true,
-  routes
-})
-
 const requireRoute = require.context(
   // The relative path of the routes folder
   '@/modules',
@@ -24,11 +17,28 @@ const requireRoute = require.context(
 
 requireRoute.keys().forEach(route => {
   const routeConfig = requireRoute(route)
-  router.addRoutes(routeConfig.default || routeConfig)
+
+  routeConfig.default.forEach(route => {
+    routes.push(route)
+  })
 })
 
+// Instance of VueRouter
+const router = new VueRouter({
+  base: '/',
+  mode: 'history',
+  saveScrollPosition: true,
+  routes
+})
+
+// Guard
 router.beforeEach((to, from, next) => {
   document.title = (to.meta && to.meta.title) || (to.labels && to.labels.title) || document.title
+
+  if (to.meta.authenticatable && !_includes(window.$user.permissions, to.name)) {
+    // window.location.href = to.path
+    // next()
+  }
 
   next()
 })

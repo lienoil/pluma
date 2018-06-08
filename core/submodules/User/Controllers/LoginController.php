@@ -3,9 +3,11 @@
 namespace User\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Pluma\Controllers\Controller;
 use Pluma\Support\Auth\Traits\AuthenticatesUsers;
+use User\Resources\User as UserResource;
 
 class LoginController extends Controller
 {
@@ -145,7 +147,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($request->ajax()) {
-            return response()->json(json_decode('true'));
+            return response()->json(json_encode('true'));
         }
     }
 

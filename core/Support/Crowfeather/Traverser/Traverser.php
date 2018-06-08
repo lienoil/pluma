@@ -124,7 +124,7 @@ class Traverser implements TraverserContract
                 $tree[$name] = $traversable;
                 if (! isset($tree[$name]['children'])) {
                     $tree[$name]['children'] = [];
-                    $tree[$name]['is_parent'] = $tree[$name]['has_children'];
+                    $tree[$name]['is_parent'] = $tree[$name]['has_children'] > 0 ? true : false;
                 }
 
                 $tree[$name]['children'] += $this->rechild($traversable[$options['name']], $traversables, $options);
@@ -176,8 +176,10 @@ class Traverser implements TraverserContract
             if (isset($traversable['right'])) {
                 if (($descendants = ($traversable['right'] - $traversable['left'] - 1) / 2) > 0) {
                     $traversable['has_children'] = $descendants;
+                    $traversable['is_parent'] = true;
                 } else {
                     $traversable['has_children'] = false;
+                    $traversable['is_parent'] = false;
                 }
             }
         }
@@ -223,9 +225,9 @@ class Traverser implements TraverserContract
     public function update(&$traversables, $callback, &$oldTraversable = null)
     {
         foreach ($traversables as $key => &$traversable) {
-            $callback($key, $traversable, $oldTraversable);
+            $callback($key, $traversable, $oldTraversable, $traversables);
 
-            if (isset($traversable['has_children']) && $traversable['has_children']) {
+            if (isset($traversable['has_children']) && $traversable['has_children'] && isset($traversable['children'])) {
                 $this->update($traversable['children'], $callback, $traversable);
             }
         }

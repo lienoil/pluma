@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use Menu\Models\Menu;
 use Pluma\Support\Composers\BaseViewComposer;
 use Pluma\Support\Modules\Traits\Module;
+use Pluma\Support\Modules\Traits\ModulerTrait;
 
 class NavigationViewComposer extends BaseViewComposer
 {
@@ -79,6 +80,30 @@ class NavigationViewComposer extends BaseViewComposer
 
         $this->setName($this->name);
         $view->with($this->name(), $this->handle());
+    }
+
+    /**
+     * Handles the view to compose.
+     *
+     * @return Object|StdClass
+     */
+    public function handle()
+    {
+        $navigation = json_decode(json_encode([
+            'menu' => $this->menu(),
+            'sidebar' => $this->sidebar(),
+            'breadcrumbs' => $this->breadcrumbs(),
+            'current' => $this->current(),
+            'parent' => $this->parent(),
+            'profile' => $this->profile(),
+            // 'utilitybar' => $this->utilitybar(),
+        ]));
+
+        // Save to config
+        config(['app.navigations' => $navigation]);
+
+        // Finally, return
+        return $navigation;
     }
 
     /**
@@ -160,29 +185,6 @@ class NavigationViewComposer extends BaseViewComposer
         }
 
         $this->breadcrumbs = $url;
-    }
-
-    /**
-     * Handles the view to compose.
-     *
-     * @return Object|StdClass
-     */
-    public function handle()
-    {
-        $navigation = json_decode(json_encode([
-            'menu' => $this->menu(),
-            'sidebar' => $this->sidebar(),
-            'breadcrumbs' => $this->breadcrumbs(),
-            'current' => $this->current(),
-            'parent' => $this->parent(),
-            // 'utilitybar' => $this->utilitybar(),
-        ]));
-
-        // Save to config
-        config(['app.navigations' => $navigation]);
-
-        // Finally, return
-        return $navigation;
     }
 
     /**
@@ -358,5 +360,20 @@ class NavigationViewComposer extends BaseViewComposer
         $string = str_replace('_', " ", $string);
 
         return ucwords($string);
+    }
+
+    /**
+     * Gets the profile menus.
+     *
+     * @return array
+     */
+    protected function profile()
+    {
+        $profile = get_module('profile') . '/config/menus.php';
+        if (file_exists($profile)) {
+            $profile = require $profile;
+        }
+
+        return $profile['avatar'] ?? [];
     }
 }

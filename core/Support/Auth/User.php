@@ -8,9 +8,11 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Pluma\Support\Auth\Traits\Authorizable;
 use Pluma\Support\Auth\Traits\UserMutator;
+use Pluma\Support\Cache\Scopes\CachedScope;
 use Pluma\Support\Database\Scopes\ExceptableTrait;
 use Pluma\Support\Database\Scopes\SearchableTrait;
 use Pluma\Support\Database\Traits\BaseRelations;
@@ -23,13 +25,15 @@ class User extends Model implements
 {
     use Authenticatable,
         Authorizable,
-        CanResetPassword,
-        UserMutator,
         BaseMutator,
         BaseRelations,
+        CachedScope,
+        CanResetPassword,
+        ExceptableTrait,
         Notifiable,
         SearchableTrait,
-        ExceptableTrait;
+        SoftDeletes,
+        UserMutator;
 
     /**
      * Boot the model.

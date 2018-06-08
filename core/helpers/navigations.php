@@ -1,6 +1,7 @@
 <?php
 
 use Frontier\Composers\NavigationViewComposer;
+use Frontier\Composers\SidebarComposer;
 use Illuminate\Support\Facades\Request;
 use Pluma\Support\Facades\Route;
 
@@ -49,5 +50,33 @@ if (! function_exists('navigation')) {
     function navigation($key = "sidebar.current")
     {
         return config("app.navigations.{$key}");
+    }
+}
+
+if (! function_exists('sidebar')) {
+    /**
+     * Retrieves the sidebar menus
+     *
+     * @param string $command
+     * @return array
+     */
+    function sidebar($command = null)
+    {
+        $name = "cached::sidebar" . (! user() ?: user()->id);
+
+        switch ($command) {
+            case 'refresh':
+                cache()->forget($name);
+                break;
+
+            default:
+                //
+                break;
+        }
+
+        return cache()->remember($name, 120, function () {
+            $composer = new SidebarComposer();
+            return $composer->handle();
+        });
     }
 }

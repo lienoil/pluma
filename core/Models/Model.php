@@ -4,17 +4,19 @@ namespace Pluma\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Pluma\Scopes\ExceptScope;
+use Pluma\Support\Cache\Scopes\CachedScope;
 use Pluma\Support\Database\Scopes\ExceptableTrait;
 use Pluma\Support\Database\Scopes\SearchableTrait;
-use Pluma\Support\Mutators\BaseMutator;
 use Pluma\Support\Database\Traits\BaseRelations;
+use Pluma\Support\Mutators\BaseMutator;
 
 class Model extends BaseModel
 {
     use BaseMutator,
         BaseRelations,
-        SearchableTrait,
-        ExceptableTrait;
+        CachedScope,
+        ExceptableTrait,
+        SearchableTrait;
 
     /**
      * The number of models to return for pagination.

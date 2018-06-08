@@ -24,6 +24,6 @@ class AdminController extends BaseController
 
         $this->middleware('web');
         $this->middleware('auth.admin');
-        $this->middleware('auth.roles');
+        $this->middleware('auth.permissions');
     }
 }

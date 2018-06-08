@@ -10,12 +10,12 @@ return [
      */
     'form' => [
         'name' => 'form',
-        'order' => 51,
+        'order' => 110,
         'slug' => route('forms.index'),
         'always_viewable' => false,
         'icon' => 'format_line_spacing',
         'labels' => [
-            'title' => __('Form Builder'),
+            'title' => __('Forms'),
             'description' => __('Manage forms'),
         ],
         'children' => [

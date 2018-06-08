@@ -57,10 +57,12 @@ trait UserResourceAdminTrait
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->avatar = $request->input('avatar');
+        $user->api_token = md5(uniqid($request->input('username'), true));
         $user->save();
 
         // Role
         $user->roles()->attach(! empty($request->input('roles')) ? $request->input('roles') : []);
+
         // Details
         foreach (($request->input('details') ?? []) as $key => $value) {
             $user->details()->create(['key' => $key, 'value' => $value]);

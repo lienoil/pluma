@@ -15,8 +15,8 @@ return [
         'always_viewable' => false,
         'icon' => 'account_box',
         'labels' => [
-            'title' => __('Users'),
-            'description' => __("Manage users"),
+            'title' => __('Accounts'),
+            'description' => __("Manage users, roles, and permissions"),
         ],
         'children' => [
             'view-user' => [
@@ -24,7 +24,6 @@ return [
                 'order' => 1,
                 'slug' => route('users.index'),
                 'code' => 'users.index',
-                'routename' => 'users.index',
                 'component' => 'components/Pluma/User/Index.vue',
                 'routes' => [
                     'name' => 'users.index',
@@ -35,7 +34,7 @@ return [
                     ]
                 ],
                 'labels' => [
-                    'title' => __('All Users'),
+                    'title' => __('All Accounts'),
                     'description' => 'View list of all users'
                 ],
             ],
@@ -46,14 +45,13 @@ return [
                 'slug' => route('users.create'),
                 'code' => 'users.create',
                 'always_viewable' => false,
-                'routename' => 'users.create',
                 'component' => 'components/Pluma/User/Create.vue',
                 'routes' => [
                     'name' => 'users.create',
                 ],
                 'labels' => [
-                    'title' => __('Create User'),
-                    'description' => __('Create new user'),
+                    'title' => __('Create Account'),
+                    'description' => __('Create new user account'),
                 ],
             ],
             'trashed-user' => [
@@ -61,7 +59,6 @@ return [
                 'order' => 3,
                 'slug' => route('users.trashed'),
                 'code' => 'users.trashed',
-                'routename' => 'users.trashed',
                 'component' => 'components/Pluma/User/Trashed.vue',
                 'icon' => 'delete',
                 'always_viewable' => false,
@@ -69,8 +66,8 @@ return [
                     'name' => 'users.trashed',
                 ],
                 'labels' => [
-                    'title' => __('Trashed Users'),
-                    'description' => __('View list of trashed users'),
+                    'title' => __('Deactivated Accounts'),
+                    'description' => __('View list of deactivated users'),
                 ],
             ],
         ],

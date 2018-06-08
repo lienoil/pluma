@@ -19,7 +19,7 @@ class Kernel extends HttpKernel
         \Pluma\Support\Http\Middleware\CheckForMaintenanceMode::class,
         \Pluma\Support\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Pluma\Support\Http\Middleware\VerifyPostSize::class,
-        \Pluma\Support\CORS\Middleware\CORS::class // enable on dev mode
+        \Pluma\Support\CORS\Middleware\CORS::class,
     ];
 
     /**
@@ -31,9 +31,9 @@ class Kernel extends HttpKernel
         'web' => [
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Pluma\Middleware\AuthenticateSession::class,
             \Pluma\Middleware\EncryptCookies::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
         ],
@@ -43,10 +43,6 @@ class Kernel extends HttpKernel
             'bindings',
             'preflight',
             'cors',
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Pluma\Middleware\EncryptCookies::class,
-            \Pluma\Middleware\VerifyCsrfToken::class,
         ],
     ];
 
@@ -61,10 +57,11 @@ class Kernel extends HttpKernel
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \Pluma\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \Pluma\Support\CORS\Middleware\CORS::class,
+        'guest' => \Pluma\Middleware\RedirectIfAuthenticated::class,
         'preflight' => \Pluma\Support\CORS\Middleware\Preflight::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

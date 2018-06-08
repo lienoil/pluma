@@ -63,10 +63,10 @@
       </v-form>
 
     </v-card-text>
-    <v-card-actions>
-      <a class="caption grey--text" exact :href="api.forgotPassword" v-html="trans('Forgot password?')"></a>
+    <v-card-actions v-text-actions>
+      <a class="caption text-emphasis--medium" exact :href="api.forgotPassword" v-html="trans('Forgot password?')"></a>
       <v-spacer></v-spacer>
-      <a class="caption grey--text" :href="api.register" v-html="trans('Create Account')"></a>
+      <a class="caption text-emphasis--medium" :href="api.register" v-html="trans('Create Account')"></a>
     </v-card-actions>
   </v-card>
 </template>
@@ -74,14 +74,17 @@
 <script>
 import { _$api } from './api'
 import { errors } from '@/utils/forms'
+import store from './store'
+import { AUTH_REQUEST } from './store/actions/auth'
 
 export default {
+  store,
   $_veeValidate: {
     validator: 'new'
   },
   name: 'LoginCard',
   props: {
-    box: { type: String, default: false },
+    box: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
     dark: { type: Boolean, default: false },
     logo: { type: String, default: '' },
@@ -113,10 +116,28 @@ export default {
       this.$validator.validateAll()
         .then(result => {
           if (result) {
+            this.$store.dispatch(AUTH_REQUEST, credentials)
+              .then((response) => {
+                this.$router.go('/admin')
+                this.resource.form.loading = false
+              })
+              .catch(error => {
+                errors(error.response, this.errors)
+                this.resource.form.loading = false
+              })
+          }
+        })
+    },
+    loginx (credentials) {
+      this.resource.form.loading = true
+      this.$validator.reset()
+      this.$validator.validateAll()
+        .then(result => {
+          if (result) {
             this.$http.post(this.api.login, credentials)
-              .then(response => {
-                if (response.status === 200) {
-                  this.$router.go({name: 'pages.create'})
+              .then(({data, status}) => {
+                if (status === 200) {
+                  this.$router.go('/admin/dashboard')
                 }
                 this.resource.form.loading = false
               })
@@ -129,7 +150,10 @@ export default {
     }
   },
   mounted () {
-    //
+    this.$http.get('http://pluma/api/v1/users/all?descending=false&page=1&sort=id&take=25&search=&api_token=9305ae43fb3258336d60d9eefdebcef29305ae43fb3258336d60d9eefdeb')
+      .then(result => {
+        console.log(result)
+      })
   }
 }
 </script>

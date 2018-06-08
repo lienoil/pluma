@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Cache;
 use Pluma\Support\Facades\Route;
 
 # Simple Pages
-Route::get('403', function () {
-    return response()->view("Theme::errors.403", [], 403);
-});
+// Route::get('403', function () {
+//     return response()->view("Theme::errors.403", [], 403);
+// });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors', 'preflight']], function () {
     # User
@@ -56,7 +56,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors', 'preflight']
 
     # Routes
     Route::get('misc/navigations/sidebar', function () {
-        return response()->json(navigations('sidebar'));
+        return response()->json(sidebar());
     });
 
     # Permissions
@@ -68,9 +68,3 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api', 'cors', 'preflight']
 Route::post('admin/sessions', function () {
     return session()->all();
 })->middleware('auth.admin')->name('sessions.all');
-
-Route::middleware(['auth.admin', 'api', 'cors'])->group(function () {
-    // Route::get('chatroom/public/messages', function () {
-    //     return response()->json(['message' => 'Hello', 'user_id' => 1]);
-    // });
-});

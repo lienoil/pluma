@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import Echo from 'laravel-echo'
 
 export default {
   name: 'Chatbox',
@@ -56,36 +55,36 @@ export default {
   },
   methods: {
     mountEcho () {
-      window.Echo = new Echo({
-        broadcaster: 'socket.io',
-        host: window.location.hostname + ':3000'
-      })
+      // window.Echo = new Echo({
+      //   broadcaster: 'socket.io',
+      //   host: window.location.hostname + ':3000'
+      // })
 
-      this.channel = window.Echo.join('chatbox')
-        .here((users) => {
-          for (var i = 0; i < users.length; i++) {
-            let user = users[i]
-            this.messages.push({type: 'info', message: `${user.displayname} joined the chat`})
-          }
-        })
-        .joining((user) => {
-          this.$root.alert({type: 'info', text: `${user.displayname} is active now`})
-          this.messages.push({type: 'info', message: `${user.displayname} is active`})
-        })
-        .leaving((user) => {
-          // this.$root.alert({type: 'info', text: `${user.displayname} left`})
-          this.messages.push({type: 'info', message: `${user.displayname} left`})
-        })
-        .listenForWhisper('typing', (e) => {
-          this.typing = e.typing
+      // this.channel = window.Echo.join('chatbox')
+      //   .here((users) => {
+      //     for (var i = 0; i < users.length; i++) {
+      //       let user = users[i]
+      //       this.messages.push({type: 'info', message: `${user.displayname} joined the chat`})
+      //     }
+      //   })
+      //   .joining((user) => {
+      //     this.$root.alert({type: 'info', text: `${user.displayname} is active now`})
+      //     this.messages.push({type: 'info', message: `${user.displayname} is active`})
+      //   })
+      //   .leaving((user) => {
+      //     // this.$root.alert({type: 'info', text: `${user.displayname} left`})
+      //     this.messages.push({type: 'info', message: `${user.displayname} left`})
+      //   })
+      //   .listenForWhisper('typing', (e) => {
+      //     this.typing = e.typing
 
-          // setTimeout(() => {
-          //   this.typing.model = false
-          // }, 3000)
-        })
-        .listen('.chatbox', (e) => {
-          this.messages.push(e.message)
-        })
+      //     // setTimeout(() => {
+      //     //   this.typing.model = false
+      //     // }, 3000)
+      //   })
+      //   .listen('.chatbox', (e) => {
+      //     this.messages.push(e.message)
+      //   })
     },
     send () {
       if (this.chat.message.length === 0) {
@@ -134,7 +133,7 @@ export default {
     }
   },
   mounted () {
-    this.mountEcho()
+    // this.mountEcho()
   }
 }
 </script>

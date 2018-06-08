@@ -7,21 +7,28 @@ return [
         'order' => 30,
         'slug' => '#',
         'always_viewable' => false,
-        'icon' => 'find_in_page',
+        'icon' => 'attach_file',
         'labels' => [
             'title' => __('Pages'),
             'description' => __('Manage site pages'),
         ],
         'children' => [
+            'public-pages' => [
+                'name' => 'public-pages',
+                'code' => 'pages.public',
+                'slug' => route('pages.index'),
+                'exclude_from_root' => true,
+                'order' => 1,
+                'labels' => [
+                    'title' => __('Public Pages'),
+                    'description' => __('Manage site pages'),
+                ],
+            ],
             'view-pages' => [
                 'name' => 'view-pages',
                 'code' => 'pages.index',
                 'slug' => route('pages.index'),
-                'routename' => 'pages.index',
-                'component' => 'components/Pluma/Page/Index.vue',
-                'parent' => 'page',
                 'order' => 1,
-                'always_viewable' => false,
                 'routes' => [
                     'name' => 'pages.index',
                     'children' => [
@@ -37,9 +44,6 @@ return [
             'create-page' => [
                 'name' => 'create-page',
                 'code' => 'pages.create',
-                'routename' => 'pages.create',
-                'component' => 'components/Pluma/Page/Create.vue',
-                'parent' => 'page',
                 'order' => 2,
                 'slug' => route('pages.create'),
                 'always_viewable' => false,
@@ -51,8 +55,6 @@ return [
             'trashed-pages' => [
                 'name' => 'trashed-pages',
                 'code' => 'pages.trashed',
-                'routename' => 'pages.trashed',
-                'component' => 'components/Pluma/Page/Trashed.vue',
                 'order' => 3,
                 'slug' => route('pages.trashed'),
                 'always_viewable' => false,

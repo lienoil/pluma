@@ -13,6 +13,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const loadMinified = require('./load-minified')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -112,6 +113,21 @@ const webpackConfig = merge(baseWebpackConfig, {
       staticFileGlobs: ['dist/**/*.{js,html,css}'],
       minify: true,
       stripPrefix: 'dist/'
+    }),
+    // Favicon generator
+    new FaviconsWebpackPlugin({
+      logo: path.resolve(__dirname, '../static/logo.png'),
+      prefix: 'favicons/',
+      statsFilename: 'iconstats.json',
+      background: '#fff',
+      icons: {
+        android: true,
+        appleIcon: true,
+        favicons: true,
+        firefox: true,
+        twitter: true,
+        windows: true
+      }
     })
   ]
 })

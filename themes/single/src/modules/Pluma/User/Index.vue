@@ -1,26 +1,8 @@
 <template>
   <div>
-    <v-toolbar dark color="primary" class="sticky elevation-1">
-      <v-toolbar-title>{{ trans('All Users') }}</v-toolbar-title>
+    <v-toolbar dark xcolor="primary" class="primary sticky elevation-1">
+      <v-toolbar-title>{{ trans('All Accounts') }}</v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <v-slide-y-reverse-transition>
-        <template v-if="!dataset.bulk.model">
-          <v-tooltip bottom>
-            <v-btn slot="activator" icon :to="{name: 'users.create'}"><v-icon>note_add</v-icon></v-btn>
-            <span>{{ trans('Create new page') }}</span>
-          </v-tooltip>
-        </template>
-      </v-slide-y-reverse-transition>
-
-      <v-slide-y-reverse-transition>
-        <template v-if="!dataset.bulk.model">
-          <v-tooltip bottom>
-            <v-btn slot="activator" icon :to="{name: 'users.trashed'}"><v-icon>archive</v-icon></v-btn>
-            <span>{{ trans('View trashed pages') }}</span>
-          </v-tooltip>
-        </template>
-      </v-slide-y-reverse-transition>
 
       <!-- Bulk Commands -->
       <v-slide-y-transition mode="out-in">
@@ -29,7 +11,7 @@
             <v-btn slot="activator" icon ripple @click="destroy('false', dataset.selected)"><v-icon>delete_sweep</v-icon></v-btn>
             <span>{{ trans('Move selected to trash') }}</span>
           </v-tooltip>
-	        <hr class="vertical-divider">
+          <hr class="vertical-divider">
         </template>
       </v-slide-y-transition>
       <v-tooltip bottom>
@@ -37,6 +19,18 @@
         <span>{{ trans('Toggle bulk commands') }}</span>
       </v-tooltip>
       <!-- Bulk Commands -->
+
+      <v-tooltip bottom>
+        <v-btn slot="activator" icon :to="{name: 'users.trashed'}"><v-icon>archive</v-icon></v-btn>
+        <span>{{ trans('View trashed users') }}</span>
+      </v-tooltip>
+
+      <v-divider class="vertical"></v-divider>
+
+      <v-tooltip bottom>
+        <v-btn slot="activator" color="secondary" :to="{name: 'users.create'}">{{ trans('Add Account') }}</v-btn>
+        <span>{{ trans('Create new account') }}</span>
+      </v-tooltip>
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
@@ -52,6 +46,7 @@
               :loading="dataset.loading"
               item-key="id"
               :no-data-text="trans('No users found')"
+              class="table__striped"
               v-bind="dataset.bulk.model ? {'select-all':'accent'} : []"
               v-model="dataset.selected"
             >
@@ -60,12 +55,12 @@
               <template slot="items" slot-scope="props">
                 <tr :active="props.selected" @click="(dataset.bulk.model ? props.selected = ! props.selected : null)">
                   <td v-if="dataset.bulk.model"><v-checkbox hide-details :input-value="props.selected"></v-checkbox></td>
+                  <td><v-avatar color="transparent" size="35px" class="my-2 mr-2"><img v-if="props.item.photo" :src="props.item.photo"></v-avatar></td>
                   <td>
-                    <v-avatar color="transparent" size="35px" class="my-2 mr-2"><img v-if="props.item.photo" :src="props.item.photo"></v-avatar>
-                    <router-link exact :to="{name: 'users.edit', params: {user: props.item.id}}">
+                    <router-link exact :to="{name: 'users.show', params: {user: props.item.id}}">
                       <v-tooltip bottom>
                         <strong slot="activator" v-html="props.item.fullname"></strong>
-                        <span>{{ trans('Edit user') }}</span>
+                        <span>{{ trans("Preview user details") }}</span>
                       </v-tooltip>
                     </router-link>
                   </td>
@@ -73,17 +68,13 @@
                   <td v-html="props.item.email"></td>
                   <td class="text-xs-right" v-html="props.item.created"></td>
                   <td class="text-xs-right" v-html="props.item.modified"></td>
-                  <td class="text-xs-center">
+                  <td class="layout mx-0 justify-center">
                     <v-tooltip bottom>
-                      <v-btn small icon slot="activator" exact :to="{name: 'users.show', params: {user: props.item.id}}"><v-icon small>search</v-icon></v-btn>
-                      <span>{{ trans('Preview page') }}</span>
+                      <v-btn icon slot="activator" exact :to="{name: 'users.edit', params: {user: props.item.id}}"><v-icon>edit</v-icon></v-btn>
+                      <span>{{ trans('Edit user') }}</span>
                     </v-tooltip>
                     <v-tooltip bottom>
-                      <v-btn small icon slot="activator" exact :to="{name: 'users.edit', params: {user: props.item.id}}"><v-icon small>edit</v-icon></v-btn>
-                      <span>{{ trans('Edit page') }}</span>
-                    </v-tooltip>
-                    <v-tooltip bottom>
-                      <v-btn small icon slot="activator" exact :to="{name: 'users.destroy', params: {user: props.item.id}}"><v-icon small>delete</v-icon></v-btn>
+                      <v-btn icon slot="activator" exact :to="{name: 'users.destroy', params: {user: props.item.id}}"><v-icon>delete</v-icon></v-btn>
                       <span>{{ trans('Move to trash') }}</span>
                     </v-tooltip>
                   </td>
@@ -108,6 +99,7 @@ export default {
         loading: true,
         filtered: false,
         headers: [
+          { text: this.trans('Avatar'), align: 'center', sortable: false },
           { text: this.trans('Name'), align: 'left', value: 'firstname' },
           { text: this.trans('Username'), align: 'left', value: 'username' },
           { text: this.trans('Email'), align: 'left', value: 'email' },
@@ -131,7 +123,7 @@ export default {
   watch: {
     'dataset.pagination': {
       handler () {
-        this.all()
+        // this.all()
       },
       deep: true
     },
@@ -232,7 +224,7 @@ export default {
     }
   },
   mounted () {
-    // this.all()
+    this.all()
   }
 }
 </script>

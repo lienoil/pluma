@@ -6,14 +6,15 @@
   temporary
   v-model="rightsidebar.model"
 >
-  <v-toolbar card class="transparent">
-    <v-icon left>flash_on</v-icon>
+  <v-toolbar card dense color="transparent">
+    {{-- <v-icon left>flash_on</v-icon> --}}
     <v-toolbar-title class="body-2 grey--text">{{ __('Quick Settings') }}</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon ripple @click="rightsidebar.model = false"><v-icon color="grey">keyboard_arrow_right</v-icon></v-btn>
+    <v-btn icon ripple @click="$refs['switch-theme'].click()">
+      <v-icon v-html="$root.theme.dark ? 'wb_sunny' : 'brightness_2'"></v-icon>
+    </v-btn>
+    {{-- <v-btn icon ripple @click="rightsidebar.model = false"><v-icon color="grey">keyboard_arrow_right</v-icon></v-btn> --}}
   </v-toolbar>
-
-  <v-divider></v-divider>
 
   <v-card flat tile :dark="theme.dark">
     <v-tabs
@@ -22,7 +23,10 @@
       slider-color="secondary"
       >
       <v-tab ripple href="#appearance-tab">
-        <v-icon>fa-paint-brush</v-icon>
+        <v-tooltip bottom>
+          <v-icon slot="activator">accessibility_new</v-icon>
+          <span>{{ __('Accessibility') }}</span>
+        </v-tooltip>
       </v-tab>
       <v-tab ripple href="#datatable-tab">
         <v-icon>edit</v-icon>
@@ -33,14 +37,17 @@
 
       <v-tab-item id="appearance-tab">
         <v-card-text>
-          <p class="body-2" v-html="trans('Theme')"></p>
+          <p>{{ __('Toggle the button to alternate between the light and dark theme.') }}</p>
           <v-switch
-          :label="theme.dark ? `{{ __('Dark Theme') }}` : `{{ __('Light Theme') }}`"
-          @change="localstorage({'single.theme.dark': theme.dark})"
-          class="caption"
-          v-model="theme.dark"
+            ref="switch-theme"
+            :label="theme.dark ? `Use Light theme` : `Use Dark theme`"
+            @change="localstorage({'single.theme.dark': theme.dark})"
+            {{-- :append-icon="theme.dark ? 'wb_sunny' : 'brightness_2'" --}}
+            v-model="theme.dark"
           ></v-switch>
-          <p class="body-2" v-html="trans('Font size')"></p>
+        </v-card-text>
+        <v-card-text>
+          <p>{{ __('Change the zoom level on the Main Content Area by dragging the slider.') }}</p>
           <v-slider
             :max="40"
             :min="-1"
@@ -52,7 +59,7 @@
             thumb-label
             v-model="settings.fontsize"
             ></v-slider>
-        </v-card-text>
+          </v-card-text>
       </v-tab-item>
 
       <v-tab-item id="datatable-tab">

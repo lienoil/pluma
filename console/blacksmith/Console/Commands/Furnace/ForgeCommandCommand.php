@@ -32,6 +32,7 @@ class ForgeCommandCommand extends Command
     public function handle(Filesystem $filesystem)
     {
         // TODO: forge:command
-        $this->info('command not finished yet');
+        $this->info("{$this->checkmark()} command not finished yet");
+        $this->error("{$this->crossmark()} command not finished yet");
     }
 }

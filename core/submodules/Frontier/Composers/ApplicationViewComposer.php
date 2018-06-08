@@ -76,6 +76,7 @@ class ApplicationViewComposer extends BaseViewComposer
             'title' => 'Pluma CMS',
             'tagline' => 'Elegant and modular, out-of-the-box',
             'author' => 'John Lioneil Dionisio <john.dionisio1@gmail.com> | Princess Ellen Alto <princessalto@gmail.com>',
+            'fullcopy' => 'Pluma CMS v' . app()->version(),
         ]));
     }
 
@@ -292,8 +293,11 @@ class ApplicationViewComposer extends BaseViewComposer
     {
         $version = app()->version();
 
+        if (file_exists(public_path('logo.svg'))) {
+            return url("logo.svg?v=$version");
+        }
+
         if (file_exists(public_path('logo.png'))) {
-            // dd('sd');
             return url("logo.png?v=$version");
         }
 

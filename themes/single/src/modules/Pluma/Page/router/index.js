@@ -1,6 +1,5 @@
 export default [
   {
-    name: 'pages',
     path: '/admin/pages',
     component: () => import('@/components/App.vue'),
     children: [
@@ -10,7 +9,8 @@ export default [
         name: 'pages.index',
         component: () => import('@/modules/Pluma/Page/Index.vue'),
         meta: {
-          title: 'All Pages'
+          title: 'All Pages',
+          authenticatable: true
         }
       },
       {
@@ -19,7 +19,8 @@ export default [
         name: 'pages.create',
         component: () => import('@/modules/Pluma/Page/Create.vue'),
         meta: {
-          title: 'Create Page'
+          title: 'Create Page',
+          authenticatable: true
         }
       },
       {
@@ -28,7 +29,8 @@ export default [
         name: 'pages.trashed',
         component: () => import('@/modules/Pluma/Page/Trashed.vue'),
         meta: {
-          title: 'Trashed Pages'
+          title: 'Trashed Pages',
+          authenticatable: true
         }
       }
     ]

@@ -1,4 +1,5 @@
 .card {
+
   &--bordered {
     border: 1px solid $grey.lighten-2;
     border-radius: 5px;
@@ -14,13 +15,21 @@
     font-size: $font-size.base;
   }
 
+  .subheader {
+    padding: 0 $padding.large;
+  }
+
   &__title,
   &__text {
     padding: $padding.large;
   }
 
-  &__actions {
+  &__text-actions {
     padding: ($padding.large - $padding.mini);
+  }
+
+  &__actions--footer {
+    background-color: rgba($material-theme.fg-color, $material-theme.divider-percent);
   }
 }
 
@@ -29,5 +38,5 @@
 .theme--dark .navigation-drawer .divider, .application .theme--dark.navigation-drawer .divider,
 .theme--dark .divider, .application .theme--dark.divider,
 .theme--dark .navigation-drawer:not(.navigation-drawer--floating) .navigation-drawer__border, .application .theme--dark.navigation-drawer:not(.navigation-drawer--floating) .navigation-drawer__border {
-  background-color: rgba(0,0,0,0.15) !important;
+  // background-color: rgba(0,0,0,0.15) !important;
 }

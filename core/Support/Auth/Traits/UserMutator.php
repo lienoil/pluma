@@ -3,6 +3,7 @@
 namespace Pluma\Support\Auth\Traits;
 
 use Closure;
+use Laravolt\Avatar\Avatar;
 use Parchment\Helpers\Word;
 
 trait UserMutator
@@ -21,11 +22,7 @@ trait UserMutator
      */
     public function getPhotoAttribute()
     {
-        $gender = ! is_null($this->detail('gender'))
-                  ? $this->detail('gender')
-                  : 'neutral';
-
-        return $this->avatar ?? assets("user/images/avatars/{$gender}.png");
+        return $this->avatar ?? (new Avatar(config('avatar')))->create($this->fullname)->toBase64()->getEncoded();
     }
 
     /**

@@ -9,9 +9,15 @@ return [
             'Theme::partials.settingsbar',
             'Setting::partials.settingsbar',
             'Setting::settings.*',
-            '*',
         ],
         'class' => \Frontier\Composers\NavigationViewComposer::class
+    ],
+    [
+        'appears' => [
+            'Theme::layouts.admin',
+            'Theme::partials.sidebar',
+        ],
+        'class' => \Frontier\Composers\SidebarComposer::class
     ],
     [
         'appears' => [

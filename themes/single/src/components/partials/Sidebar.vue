@@ -1,9 +1,8 @@
 <template>
   <v-navigation-drawer
     :clipped="$root.sidebar.clipped"
-    :dark.sync="$root.theme.dark"
+    :dark="$root.theme.dark"
     :floating="$root.sidebar.floating"
-    :light.sync="!$root.theme.dark"
     :mini-variant.sync="$root.sidebar.mini"
     app
     transition="slide-x-transition"
@@ -12,7 +11,10 @@
     v-model="$root.sidebar.model"
     @click.native.stop="localstorage({'single.sidebar.mini': $root.sidebar.mini})">
 
-    <v-toolbar flat class="transparent">
+    <v-toolbar
+      class="transparent"
+      flat
+      >
       <v-list>
         <v-list-tile avatar>
           <v-list-tile-avatar>
@@ -22,22 +24,16 @@
             <v-list-tile-title><strong v-html="title"></strong></v-list-tile-title>
             <v-list-tile-sub-title class="caption" v-html="tagline"></v-list-tile-sub-title>
           </v-list-tile-content>
-          <v-list-tile-action>
-            <v-btn ripple icon :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark" @click="localstorage({'single.sidebar.mini': ($root.sidebar.mini = !$root.sidebar.mini)})">
-              <v-icon :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">chevron_left</v-icon>
-            </v-btn>
-          </v-list-tile-action>
         </v-list-tile>
       </v-list>
     </v-toolbar>
 
-    <!-- <v-divider></v-divider> -->
-
-    <v-list>
-      <template v-for="(menu, i) in $root.navigations.sidebar">
+    <v-list class="mt-3">
+      <template v-for="(menu, i) in menus">
+        <!-- Avatar -->
         <v-list-group
-          :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark"
-          class="mb-4"
+          :dark="$root.theme.dark"
+          class="mb-5"
           no-action
           v-if="menu.is_avatar"
           v-model="menu.active"
@@ -49,14 +45,14 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="menu.labels.name" class="user--displayname"></v-list-tile-title>
               <v-list-tile-sub-title class="caption">
-                <v-icon :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">supervisor_account</v-icon>
+                <v-icon :dark="$root.theme.dark">supervisor_account</v-icon>
                 <span v-html="menu.labels.role"></span>
               </v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
 
           <template v-for="(submenu, s) in menu.children">
-            <v-divider v-if="submenu.is_divider"></v-divider>
+            <v-divider v-if="submenu.is_divider" :dark="$root.theme.dark"></v-divider>
             <v-list-tile v-else ripple exact :href="submenu.url" v-model="submenu.active">
               <v-list-tile-avatar v-if="submenu.icon">
                 <v-icon v-html="submenu.icon"></v-icon>
@@ -67,28 +63,60 @@
             </v-list-tile>
           </template>
         </v-list-group>
+        <!-- Avatar -->
 
-        <v-subheader class="mt-4" v-else-if="menu.is_header" :dark.sync="$root.theme.dark" :light.sync="!$root.theme.dark">
-          <small v-html="menu.text.toUpperCase()"></small>
+        <!-- Subheader -->
+        <v-subheader
+          v-else-if="menu.is_header"
+          class="mt-3"
+          :dark="$root.theme.dark"
+          >
+          <strong class="caption" v-html="menu.text.toUpperCase()"></strong>
         </v-subheader>
+        <!-- Subheader -->
 
-        <v-list-group v-else-if="menu.has_children" lazy ripple no-action v-model="menu.active" :prepend-icon="menu.icon ? menu.icon : 'widgets'">
+        <!-- Parent Menu -->
+        <v-list-group
+          v-else-if="menu.has_children"
+          :prepend-icon="menu.icon ? menu.icon : 'widgets'"
+          no-action
+          ripple
+          v-model="menu.active"
+          >
           <v-list-tile ripple slot="activator" v-model="menu.active">
             <v-list-tile-content>
               <v-list-tile-title v-html="trans(menu.labels.title)"></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <template v-for="(submenu, s) in menu.children">
-            <v-divider v-if="submenu.is_divider"></v-divider>
-            <v-list-tile v-else ripple exact v-model="submenu.active" :to="submenu.routename ? {name: submenu.routename } : null" :href="submenu.url ? submenu.url : null">
+            <v-divider
+              v-if="submenu.is_divider"
+              ></v-divider>
+            <v-list-tile
+              v-else
+              :href="submenu.url ? submenu.url : null"
+              :to="submenu.routename ? {name: submenu.routename } : null"
+              exact
+              ripple
+              v-model="submenu.active"
+              >
               <v-list-tile-content>
                 <v-list-tile-title v-html="trans(submenu.labels.title)"></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </template>
         </v-list-group>
+        <!-- Parent Menu -->
 
-        <v-list-tile v-else ripple exact v-model="menu.active" :to="menu.routename ? menu.routename : null" :href="menu.url ? menu.url : null">
+        <!-- Single Menu -->
+        <v-list-tile
+          v-else
+          :href="menu.url ? menu.url : null"
+          :to="menu.routename ? {name: menu.routename} : null"
+          exact
+          ripple
+          v-model="menu.active"
+          >
           <v-list-tile-action v-if="menu.icon">
             <v-icon v-html="menu.icon"></v-icon>
           </v-list-tile-action>
@@ -96,6 +124,7 @@
             <v-list-tile-title v-html="trans(menu.labels.title)"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <!-- Single Menu -->
 
       </template>
     </v-list>
@@ -111,13 +140,24 @@ export default {
     logo: { type: String, default: '' },
     tagline: { type: String, default: '' }
   },
+  computed: {
+    current: {
+      get () {
+        return this.$root.$router.history.current
+      }
+    },
+    menus: {
+      get () {
+        return Object.keys(this.items).forEach((i) => {
+          this.items[i].routeractive = this.current.name === this.items[i].code
+        })
+      }
+    }
+  },
   data () {
     return {
       menus: this.items
     }
-  },
-  mounted () {
-    // console.log(this.menus, this.items)
   }
 }
 </script>

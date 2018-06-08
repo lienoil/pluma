@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
  *
  */
 
-include __DIR__ . '/javascript.php';
+// include __DIR__ . '/javascript.php';
 
 Route::get('assets/{module?}/{file?}', function ($module = null, $file = null) {
     $path = get_module($module) . "/assets/$file";
