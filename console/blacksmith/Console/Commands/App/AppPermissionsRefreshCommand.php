@@ -12,7 +12,7 @@ class AppPermissionsRefreshCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:permissions:refresh';
+    protected $signature = 'permissions:refresh';
 
     /**
      * The console command description.
@@ -38,19 +38,15 @@ class AppPermissionsRefreshCommand extends Command
         $details['old_count'] = Permission::all()->count();
         $details['new'] = 0;
 
-        foreach (get_permissions() as $permissions) {
-            $permissions = require $permissions;
+        foreach (Permission::seeds() as $permission) {
+            $data = Permission::updateOrCreate(['code' => $permission['code']], $permission);
+            $this->removables[] = $data->id;
 
-            foreach ($permissions as $code => $permission) {
-                $data = Permission::updateOrCreate(['code' => $code], $permission);
-                $this->removables[] = $data->id;
-
-                if ($data->wasRecentlyCreated) {
-                    $this->info("Creating New Permission: {$code}");
-                    $details['new']++;
-                } else {
-                    $this->warn("Updating Permission: {$code}");
-                }
+            if ($data->wasRecentlyCreated) {
+                $this->info("Creating New Permission: {$permission['code']}");
+                $details['new']++;
+            } else {
+                $this->warn("Updating Permission: {$permission['code']}");
             }
         }
 
@@ -58,9 +54,9 @@ class AppPermissionsRefreshCommand extends Command
 
         $details['new_count'] = Permission::all()->count();
 
-        $this->info("{$details['new']} new permissions added");
-        $this->info("{$details['old_count']} permissions were installed before");
-        $this->info("{$details['new_count']} permissions are installed now");
+        $this->info("{$this->checkmark()} {$details['new']} new permissions added.");
+        $this->info("{$this->checkmark()} {$details['old_count']} permissions were installed before.");
+        $this->info("{$this->checkmark()} {$details['new_count']} permissions in total.");
         $this->info("Done.");
     }
 }

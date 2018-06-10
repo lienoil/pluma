@@ -28,10 +28,6 @@ const app = express()
 const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type"
-  },
   publicPath: webpackConfig.output.publicPath,
   quiet: true
 })

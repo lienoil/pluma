@@ -24,14 +24,21 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   },
   dev: {
+    index: path.resolve(__dirname, '../../views/single.blade.php'),
     env: require('./dev.env'),
     port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: 'http://localhost:8080/',
-    proxyTable: {},
+    proxyTable: {
+      '/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      }
+    },
     headers: {
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Authorization, X-Requested-With, Origin, X-Auth-Token, X-CSRF-Token, Content-type'
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

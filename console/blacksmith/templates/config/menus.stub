@@ -24,6 +24,7 @@ return [
                 'name' => 'view-$code',
                 'order' => 1,
                 'slug' => route('$slug.index'),
+                'code' => '$slug.index',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('All $names'),
@@ -34,16 +35,18 @@ return [
                 'name' => 'create-$code',
                 'order' => 2,
                 'slug' => route('$slug.create'),
+                'code' => '$slug.create',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Create $name'),
                     'description' => __('Create a $name'),
                 ],
             ],
-            'trash-$code' => [
-                'name' => 'trash-$code',
+            'trashed-$code' => [
+                'name' => 'trashed-$code',
                 'order' => 3,
-                'slug' => route('$slug.trash'),
+                'slug' => route('$slug.trashed'),
+                'code' => '$slug.trashed',
                 'always_viewable' => false,
                 'labels' => [
                     'title' => __('Trashed $names'),

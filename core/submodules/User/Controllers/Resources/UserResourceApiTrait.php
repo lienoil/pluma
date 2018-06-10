@@ -3,6 +3,7 @@
 namespace User\Controllers\Resources;
 
 use Illuminate\Http\Request;
+use Role\Models\Role;
 use User\Models\User;
 use User\Requests\UserRequest;
 use User\Resources\User as UserResource;
@@ -93,15 +94,25 @@ trait UserResourceApiTrait
      */
     public function postStore(UserRequest $request)
     {
+        return response()->json(['text' => 'User successfully created.']);
         $user = new User();
-        $user->title = $request->input('title');
-        $user->code = $request->input('code');
-        $user->feature = $request->input('feature');
-        $user->body = $request->input('body');
-        $user->delta = $request->input('delta');
-        $user->template = $request->input('template');
-        $user->user()->associate(User::find($request->input('user_id')));
+        $user->prefixname = $request->input('prefixname');
+        $user->firstname = $request->input('firstname');
+        $user->middlename = $request->input('middlename');
+        $user->lastname = $request->input('lastname');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->avatar = $request->input('avatar');
+        $user->tokenize($request->input('username'));
         $user->save();
+
+        // $user->role()->associate(Role::find($request->input('roles')));
+
+        // Details
+        foreach (($request->input('details') ?? []) as $key => $value) {
+            $user->details()->create(['key' => $key, 'value' => $value]);
+        }
 
         return response()->json($user->id);
     }

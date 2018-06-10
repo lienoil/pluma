@@ -16,6 +16,7 @@
 @push("after-content")
   @include("Theme::partials.flash")
   @include("Theme::partials.dialogbox")
+  @include("Theme::partials.bottomsheet")
   @include("Theme::partials.footer")
 @endpush
 

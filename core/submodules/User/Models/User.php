@@ -27,10 +27,7 @@ class User extends Authenticatable
 
     protected $with = [];
 
-    protected $appends = [
-        'created',
-        'modified',
-    ];
+    protected $appends = [];
 
     protected $searchables = [
         'firstname',
@@ -47,7 +44,7 @@ class User extends Authenticatable
         'password' => 'sometimes|required|min:6|confirmed',
         'username' => 'sometimes|required|regex:/^[\pL\s\-\.\*\#\(0-9)]+$/u|unique:users',
         'email' => 'sometimes|required|email|unique:users',
-        'roles' => 'required',
+        // 'roles' => 'required',
     ];
 
     public static $messages = [

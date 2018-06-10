@@ -1,4 +1,4 @@
-@include("Theme::partials.head")
+@extends("Theme::single")
 
 @section("app")
   <div id="app" data-root-application v-cloak>
@@ -30,6 +30,4 @@
 
     </v-app>
   </div>
-@show
-
-@include("Theme::partials.foot")
+@endsection

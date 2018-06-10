@@ -20,19 +20,27 @@ export default {
   },
   computed: {
     breadcrumbs: function () {
-      let pathArray = this.$route.path.split('/')
-      pathArray.shift()
-      let breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
-        breadcrumbArray.push({
-          path: '/' + path,
-          to: breadcrumbArray[idx]
-            ? '/' + breadcrumbArray[idx].path + '/' + path
-            : '/' + path,
-          text: this.$route.matched[idx - 1] ? this.$route.matched[idx - 1].meta.title : path.charAt(0).toUpperCase() + path.slice(1)
-        })
-        return breadcrumbArray
-      }, [])
-      return breadcrumbs
+      return [
+        {path: 'admin', text: 'Admin'},
+        {path: 'collections', text: 'Collections'},
+        {path: 'admin/pages', text: 'Pages'},
+        {path: 'admin/pages/songs', text: 'Songs'},
+        {path: 'admin/pages/songs/the-beatles', text: 'The Beatles'},
+        {path: 'admin/pages/songs/the-beatles/the-long-and-winding-road', text: 'The Long and Winding Road'}
+      ]
+      // let pathArray = this.$route.path.split('/')
+      // pathArray.shift()
+      // let breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
+      //   breadcrumbArray.push({
+      //     path: '/' + path,
+      //     to: breadcrumbArray[idx]
+      //       ? '/' + breadcrumbArray[idx].path + '/' + path
+      //       : '/' + path,
+      //     text: this.$route.matched[idx - 1] ? this.$route.matched[idx - 1].meta.title : path.charAt(0).toUpperCase() + path.slice(1)
+      //   })
+      //   return breadcrumbArray
+      // }, [])
+      // return breadcrumbs
     }
   }
 }

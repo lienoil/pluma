@@ -89,6 +89,8 @@
 </template>
 
 <script>
+import { headers } from './config/data.json'
+
 export default {
   data () {
     return {
@@ -98,7 +100,8 @@ export default {
         },
         loading: true,
         filtered: false,
-        headers: [
+        headers: headers,
+        Cheaders: [
           { text: this.trans('Avatar'), align: 'center', sortable: false },
           { text: this.trans('Name'), align: 'left', value: 'firstname' },
           { text: this.trans('Username'), align: 'left', value: 'username' },

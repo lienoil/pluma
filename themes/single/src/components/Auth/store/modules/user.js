@@ -32,7 +32,7 @@ const mutations = {
 
   [USER_SUCCESS]: (state, resp) => {
     state.status = 'success'
-    Vue.set(state, 'profile', resp)
+    Vue.set(state, 'profile', resp.data)
   },
 
   [USER_ERROR]: (state) => {

@@ -13,6 +13,7 @@ import store from './store'
 import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import Shortkey from 'vue-shortkey'
 
 /**
  *------------------------------------------------------------------------------
@@ -26,7 +27,8 @@ Vue.use(directives)
 Vue.use(filters)
 Vue.use(helpers)
 Vue.use(mixins)
-Vue.use(VeeValidate)
+Vue.use(VeeValidate, { events: 'change' })
+Vue.use(Shortkey)
 
 /**
  *------------------------------------------------------------------------------
@@ -45,9 +47,11 @@ Vue.use(components)
  *
  */
 // Axios
-axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+const csrfToken = document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').getAttribute('content') : ''
+const authorizationToken = document.head.querySelector('meta[name="api-token"]') ? document.head.querySelector('meta[name="api-token"]').getAttribute('content') : ''
+axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.head.querySelector('meta[name="api-token"]').getAttribute('content')
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + authorizationToken
 axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
 
 // Vue Configurations
@@ -65,8 +69,8 @@ new Vue({
   store,
   http: {
     headers: {
-      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      'Authorization': 'Bearer ' + document.head.querySelector('meta[name="api-token"]').getAttribute('content')
+      'X-CSRF-TOKEN': csrfToken,
+      'Authorization': 'Bearer ' + authorizationToken
     }
   },
   methods: {

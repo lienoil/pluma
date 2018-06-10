@@ -1,6 +1,12 @@
-<v-toolbar :dark="theme.dark" flat app scroll-off-screen transition="slide-y-transition">
+<v-toolbar
+  :dark="theme.dark"
+  app
+  flat
+  scroll-off-screen
+  transition="slide-y-transition"
+  >
   <v-toolbar-side-icon @click="localstorage({'single.sidebar.model': (sidebar.model = !sidebar.model)})"></v-toolbar-side-icon>
-  <v-text-field flat solo :dark="theme.dark" placeholder="Search"></v-text-field>
+  <v-text-field id="searchbar" v-shortkey="['/']" @shortkey.native="search().open($event)" flat solo  placeholder="Search" suffix="/"></v-text-field>
   <v-spacer></v-spacer>
 
   @if (request()->input('rightsidebar'))

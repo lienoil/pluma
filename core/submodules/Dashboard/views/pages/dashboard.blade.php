@@ -3,6 +3,12 @@
 @section("main-content")
   {{-- @parent --}}
   {{-- @include("Dashboard::partials.overview") --}}
+
+  <v-toolbar dark color="primary">
+    <v-toolbar-title>Dashboard</v-toolbar-title>
+  </v-toolbar>
+  @include("Theme::partials.banner")
+
   <v-container v-if="!$root.$router.current" fluid grid-list-lg>
     <v-layout row wrap>
       <v-flex sm6 md5>
@@ -23,9 +29,22 @@
               <v-btn color="primary">{{ __('Get Started') }}</v-btn>
             </v-card-actions>
           </v-card>
+          <v-btn @click.native="$root.alert({
+              text: 'User saved to draft',
+              timeout: 20000000,
+              x: 'right',
+              y: 'bottom'
+          })">Snackbar</v-btn>
+          <v-btn @click.native="$root.dialogbox({
+              text: 'You have unsaved changes. Navigating away will delete your data. Are you sure?',
+              timeout: 20000000
+          })">Dialog</v-btn>
+          {{-- @include("Theme::partials.dialogbox") --}}
       </v-flex>
     </v-layout>
   </v-container>
+
+  <v-card height="300px"></v-card>
   <template v-else>
     <router-view></router-view>
   </template>

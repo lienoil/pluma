@@ -57,7 +57,7 @@ trait UserResourceAdminTrait
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->avatar = $request->input('avatar');
-        $user->api_token = md5(uniqid($request->input('username'), true));
+        $user->tokenize($request->input('username'));
         $user->save();
 
         // Role

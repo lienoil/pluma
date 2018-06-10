@@ -40,7 +40,7 @@ export const settings = {
         clipped: this.localstorage('single.sidebar.clipped', false) === 'true',
         floating: this.localstorage('single.sidebar.floating', false) === 'true',
         mini: this.localstorage('single.sidebar.mini', false) === 'true',
-        model: true,
+        model: false,
         withBackground: this.localstorage('single.sidebar.withBackground') === 'true',
         style: {
           background: this.localstorage('single.sidebar.style.background') || 'none',
@@ -63,13 +63,14 @@ export const settings = {
       snackbar: {
         color: 'secondary',
         icon: 'info',
+        close: true,
         type: 'success',
         timeout: 10000,
         model: false,
         title: '',
         text: '',
         x: 'right',
-        y: 'top'
+        y: 'bottom'
       },
 
       /**
@@ -130,10 +131,38 @@ export const settings = {
        */
       flash: {
         model: false
+      },
+
+      /**
+       *------------------------------------------
+       * Dialog Settings
+       *------------------------------------------
+       *
+       */
+      bottomsheet: {
+        color: 'secondary',
+        icon: 'info',
+        type: 'success',
+        inset: true,
+        timeout: 10000,
+        model: false,
+        title: '',
+        text: '',
+        x: 'right',
+        y: 'top'
       }
     }
   },
   methods: {
+    search () {
+      return {
+        open (event) {
+          let input = event.target.querySelector('input')
+          document.getElementById('searchbar').scrollIntoView()
+          input.focus()
+        }
+      }
+    },
     alert (snackbar, fetchFromServer) {
       // Get sessions every page transition
       if (fetchFromServer) {

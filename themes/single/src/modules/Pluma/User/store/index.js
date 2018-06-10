@@ -1,31 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
-const LOGIN = 'LOGIN'
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-const LOGOUT = 'LOGOUT'
-
 export default new Vuex.Store({
-  user: {
-    isLoggedIn: !!localStorage.getItem('api_token')
+  modules: {
+    user
   },
-  mutations: {
-    [LOGIN] (state) {
-      state.pending = true
-    },
-    [LOGIN_SUCCESS] (state) {
-      state.isLoggedIn = true
-      state.pending = false
-    },
-    [LOGOUT] (state) {
-      state.isLoggedIn = false
-    }
-  },
-  actions: {
-    login({ commit }, credentials) {
-      commit(LOGIN)
-    }
-  }
+  strict: process.env.NODE_ENV !== 'production'
 })

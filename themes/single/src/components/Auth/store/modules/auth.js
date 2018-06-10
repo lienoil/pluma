@@ -27,14 +27,14 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
       axios({url: 'login', data: user, method: 'POST'})
-        .then(resp => {
-          localStorage.setItem('user::token', resp.token)
+        .then(response => {
+          localStorage.setItem('user::token', response.data.token)
           // Here set the header of your ajax library to the token value.
           // example with axios
-          // axios.defaults.headers.common['Authorization'] = resp.token
-          commit(AUTH_SUCCESS, resp)
+          // axios.defaults.headers.common['Authorization'] = response.data.token
+          commit(AUTH_SUCCESS, response)
           dispatch(USER_REQUEST)
-          resolve(resp)
+          resolve(response)
         })
         .catch(err => {
           commit(AUTH_ERROR, err)
@@ -64,9 +64,9 @@ const mutations = {
     state.status = 'loading'
   },
 
-  [AUTH_SUCCESS]: (state, resp) => {
+  [AUTH_SUCCESS]: (state, response) => {
     state.status = 'success'
-    state.token = resp.token
+    state.token = response.data.token
     state.hasLoadedOnce = true
   },
 

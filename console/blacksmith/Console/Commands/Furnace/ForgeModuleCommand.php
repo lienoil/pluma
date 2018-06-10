@@ -90,7 +90,6 @@ class ForgeModuleCommand extends Command
             "$module/Providers/{$name}ServiceProvider.php",
             "$module/Requests/{$name}Request.php",
             "$module/routes/admin.php",
-            "$module/routes/public.php",
             "$module/views/$slug/create.blade.php",
             "$module/views/$slug/edit.blade.php",
             "$module/views/$slug/index.blade.php",

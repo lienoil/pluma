@@ -147,7 +147,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($request->ajax()) {
-            return response()->json(json_encode('true'));
+            return response()->json(['token' => $user->token]);
         }
     }
 

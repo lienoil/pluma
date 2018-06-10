@@ -2,15 +2,16 @@
   <section>
     <v-toolbar dark color="primary" class="elevation-2 sticky">
       <v-btn icon exact :to="{name: 'users.index'}"><v-icon>arrow_back</v-icon></v-btn>
-      <v-toolbar-title v-html="trans('Create account')"></v-toolbar-title>
+      <v-toolbar-title v-html="trans('Create User')"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon><v-icon>more_vert</v-icon></v-btn>
-      <v-btn large color="secondary" v-html="trans('Save')"></v-btn>
+      <v-btn color="secondary" :loading="resource.form.loading" @click.native="submit()">{{ trans('Save') }}</v-btn>
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
-      <v-form ref="form" lazy-validation v-model="resource.form.model" autocomplete="off">
+      <v-form ref="form" v-model="resource.form.model" @keyup.enter="submit" autocomplete="off">
         <input type="hidden" name="_token" :value="resource.item._token">
+        <input type="hidden" name="api_token" :value="resource.item.api_token">
         <v-layout row wrap>
           <v-flex xs12 sm8 md9 lg9>
             <v-card>
@@ -21,7 +22,6 @@
                   :error-messages="errors.collect('firstname')"
                   :label="trans('First Name')"
                   box
-                  data-vv-validate-on="blur"
                   name="firstname"
                   v-focus
                   v-model.lazy="resource.item.firstname"
@@ -32,7 +32,6 @@
                   :error-messages="errors.collect('middlename')"
                   :label="trans('Middle Name')"
                   box
-                  data-vv-validate-on="blur"
                   name="middlename"
                   v-model.lazy="resource.item.middlename"
                 ></v-text-field>
@@ -41,7 +40,6 @@
                   :error-messages="errors.collect('lastname')"
                   :label="trans('Last Name')"
                   box
-                  data-vv-validate-on="blur"
                   name="lastname"
                   v-model.lazy="resource.item.lastname"
                   v-validate="'required'"
@@ -55,7 +53,6 @@
                   append-icon="alternate_email"
                   autocomplete="off"
                   box
-                  data-vv-validate-on="blur"
                   name="email"
                   type="email"
                   v-model.lazy="resource.item.email"
@@ -68,11 +65,11 @@
                   append-icon="account_circle"
                   autocomplete="off"
                   box
-                  data-vv-validate-on="blur"
                   name="username"
                   v-model.lazy="resource.item.username"
-                  v-validate="'required|unique:users,username'"
+                  v-validate="'required'"
                 ></v-text-field>
+                <!-- unique:users,username -->
                 <v-text-field
                   :append-icon-cb="() => (resource.passwordVisible = !resource.passwordVisible)"
                   :append-icon="resource.passwordVisible ? 'visibility' : 'visibility_off'"
@@ -82,25 +79,26 @@
                   :type="resource.passwordVisible ? 'text': 'password'"
                   autocomplete="off"
                   box
-                  data-vv-validate-on="blur"
                   name="password"
                   v-model.lazy="resource.item.password"
                   v-validate="'required'"
                 ></v-text-field>
+
                 <v-text-field
                   :append-icon-cb="() => (resource.passwordVisible = !resource.passwordVisible)"
                   :append-icon="resource.passwordVisible ? 'visibility' : 'visibility_off'"
                   :data-vv-as="trans('Confirm Password')"
                   :error-messages="errors.collect('password_confirmation')"
                   :label="trans('Confirm Password')"
+                  :type="resource.passwordVisible ? 'text': 'password'"
                   autocomplete="off"
                   box
-                  data-vv-validate-on="blur"
                   name="password_confirmation"
-                  :type="resource.passwordVisible ? 'text': 'password'"
                   v-model.lazy="resource.item.password_confirmation"
                   v-validate="'required'"
                 ></v-text-field>
+
+                <input type="text" v-for="(role, i) in resource.item.roles" name="roles[]" :value="role">
 
                 <div class="body-2 pa-0 mt-4" v-html="trans('Background Details')"></div>
                 <v-layout row wrap>
@@ -121,27 +119,40 @@
                   </v-flex>
                   <v-flex xs9>
                     <v-text-field
+                      :append-icon-cb="() => { resource.calendar.model = !resource.calendar.model }"
                       :data-vv-as="trans('Birthday')"
                       :error-messages="errors.collect('birthday')"
+                      :hint="`MM/DD/YYYY ${trans('format')}`"
                       :label="trans('Birthday')"
-                      append-icon="birthday"
+                      append-icon="calendar_today"
                       autocomplete="off"
                       box
-                      data-vv-validate-on="blur"
                       name="birthday"
                       v-model.lazy="resource.item.details.birthday"
-                      v-validate="'date'"
                     ></v-text-field>
+                    <v-dialog
+                      :close-on-content-click="false"
+                      absolute
+                      full-width
+                      lazy
+                      max-width="290px"
+                      min-width="290px"
+                      offset-y
+                      transition="scale-transition"
+                      v-model="resource.calendar.model"
+                    >
+                      <v-date-picker v-model="resource.item.details.birthday" reactive></v-date-picker>
+                    </v-dialog>
                   </v-flex>
                 </v-layout>
               </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs12 sm4 md3 lg3>
+          <!-- <v-flex xs12 sm4 md3 lg3>
             <p v-for="(item, i) in resource.item" :key="i">
               {{ i }}: {{ item }}
             </p>
-          </v-flex>
+          </v-flex> -->
         </v-layout>
       </v-form>
     </v-container>
@@ -149,7 +160,15 @@
 </template>
 
 <script>
+import { api } from './api'
+import store from './store'
+import { USER_STORE } from './store/modules/actions'
+
 export default {
+  store,
+  $_veeValidate: {
+    validator: 'new'
+  },
   name: 'UserCreate',
   data () {
     return {
@@ -161,13 +180,75 @@ export default {
           firstname: '',
           middlename: '',
           lastname: '',
+          roles: [],
           details: {}
         },
+        calendar: {
+          model: false
+        },
         form: {
+          loading: false,
           dirty: false,
           model: false
         }
       }
+    }
+  },
+  methods: {
+    reset () {
+      this.$refs['form'].reset()
+      this.$validator.reset()
+    },
+    CC__submit () {
+      this.resource.form.loading = true
+      // this.$validator.reset()
+      this.$validator.validate()
+        .then(result => {
+          if (result) {
+            this.$http.post(api.store, this.resource.item)
+              .then(({data, status}) => {
+                console.log(data)
+              })
+              .catch(error => {
+                // this.$validator.reset()
+                switch (error.response.status) {
+                  case 422:
+                    for (var key in error.response.data) {
+                      this.errors.add(key, error.response.data[key].join('\n'), 'server')
+                    }
+                    this.$root.alert({type: 'error', color: 'error', text: `Please check fields for errors.`})
+                    break
+
+                  default:
+                    this.$root.alert({type: 'error', color: 'error', text: `Oops! ${error.response.data.join('\n')}.`})
+                    break
+                }
+              })
+          }
+          this.resource.form.loading = false
+        })
+    },
+    submit () {
+      this.resource.form.loading = true
+      // this.$validator.reset()
+      this.$validator.validate()
+        .then(success => {
+          if (success) {
+            this.$store.dispatch(USER_STORE, this.resource.items)
+              .then(({data, status}) => {
+                if (status === 200) {
+                  this.reset()
+                  this.$root.alert({
+                    text: this.trans(data.text)
+                  })
+                }
+              })
+              .catch(err => {
+                console.log('UserCreateError', err)
+              })
+          }
+          this.resource.form.loading = false
+        })
     }
   },
   watch: {
@@ -179,22 +260,41 @@ export default {
     },
     'resource.item.email' (value) {
       this.resource.form.dirty = true
+    },
+    'resource.item.details.birthday' (date) {
+      if (!date) {
+        return null
+      }
+
+      const [year, month, day] = date.split('-')
+
+      return `${month}/${day}/${year}`
     }
   },
   beforeRouteLeave (to, from, next) {
+    let self = this
     if (this.resource.form.dirty) {
-      this.$root.dialogbox({
-        color: 'warning',
-        title: 'Are you sure you want to leave this page?',
-        text: 'You have made changes. They will be lost if you continue without saving.',
-        width: '',
-        actionText: 'Leave',
-        actionCallback () {
+      this.$root.bottomsheetbox({
+        saveAsDraftCallback () {
           this.model = false
-          next()
+          setTimeout(function () {
+            self.$root.alert({
+              color: 'dark',
+              text: 'User saved to draft',
+              timeout: 20000000,
+              x: 'right',
+              y: 'bottom'
+            })
+            next()
+          }, 900)
         },
         cancelCallback () {
+          this.model = false
           next(false)
+        },
+        discardCallback () {
+          this.model = false
+          next()
         }
       })
     } else {
@@ -205,4 +305,10 @@ export default {
 </script>
 
 <style lang="stylus">
+  .dark {
+    background-color: #000;
+  }
+  .light {
+    background-color: #fff;
+  }
 </style>

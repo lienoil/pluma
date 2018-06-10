@@ -42,11 +42,6 @@ class PurgeModuleCommand extends Command
         }
 
         $this->info("Done.");
-        try {
-
-        } catch (Exception $e) {
-            dd($e);
-        }
     }
 
     /**

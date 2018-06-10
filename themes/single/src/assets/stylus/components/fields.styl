@@ -5,6 +5,17 @@
   }
 }
 
+.input-group {
+  &--solo {
+    .input-group--text-field__suffix {
+      border: 1px solid;
+      border-radius: 2px;
+      padding: 0 6px;
+      color: rgba($material-theme.text-color, $material-theme.disabledORhints-text-percent);
+    }
+  }
+}
+
 .theme--light, .theme--dark {
   .input-group--text-field-box {
     .input-group__input {

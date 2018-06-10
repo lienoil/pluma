@@ -4,6 +4,6 @@
   "$accent": "#23CCAB",
   "$success": "#30A300",
   "$warning": "#EAC011",
-  "$error": "#CC1717",
+  "$error": "#F44336",
   "$info": "#00B8D6"
 }

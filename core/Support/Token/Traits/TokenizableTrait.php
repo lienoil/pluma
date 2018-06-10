@@ -51,6 +51,6 @@ trait TokenizableTrait
      */
     public function getTokenAttribute() : string
     {
-        return $this->{$this->apiTokenColumnName};
+        return $this->{$this->apiTokenColumnName} ?? '';
     }
 }

@@ -1,0 +1,3 @@
+Blacksmith
+ ☐ auto make dir migrations
+ ☐ fix db:drop command
