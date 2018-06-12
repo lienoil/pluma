@@ -1,4 +1,4 @@
-<v-card flat tile class="">
+<v-card flat tile class="sticky elevation-10">
   <v-list two-line>
     <v-list-tile>
       <v-list-avatar>

@@ -55,5 +55,7 @@
   @stack("css")
     <link rel="stylesheet" href="{{ theme('dist/static/css/app.min.css') }}">
   @show
+
+  @stack('debug.head')
 </head>
 <body>

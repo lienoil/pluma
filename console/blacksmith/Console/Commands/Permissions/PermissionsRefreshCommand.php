@@ -1,11 +1,11 @@
 <?php
 
-namespace Blacksmith\Console\Commands\App;
+namespace Blacksmith\Console\Commands\Permissions;
 
 use Blacksmith\Support\Console\Command;
 use Role\Models\Permission;
 
-class AppPermissionsRefreshCommand extends Command
+class PermissionsRefreshCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -33,9 +33,10 @@ class AppPermissionsRefreshCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(Permission $permissions)
     {
-        $details['old_count'] = Permission::all()->count();
+        $details['old_count'] = $permissions->count();
+        dd($details['old_count']);
         $details['new'] = 0;
 
         foreach (Permission::seeds() as $permission) {

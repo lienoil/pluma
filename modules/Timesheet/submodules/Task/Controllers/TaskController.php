@@ -13,8 +13,30 @@ use Illuminate\Http\Request;
 
 class TaskController extends GeneralController
 {
-    use TaskResourceAdminTrait,
-        TaskResourceApiTrait,
-        TaskResourceSoftDeletesTrait,
-        TaskResourcePublicTrait;
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $resources = Task::search($request->all())->paginate();
+
+        return view("Task::tasks.index")->with(compact('resources'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return Illuminate\Http\Response
+     */
+    public function show(Request $request, $id)
+    {
+        $resource = Task::findOrFail($id);
+
+        return view("Task::tasks.show")->with(compact('resource'));
+    }
 }

@@ -24,12 +24,11 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   },
   dev: {
-    index: path.resolve(__dirname, '../../views/single.blade.php'),
     env: require('./dev.env'),
     port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
-    assetsPublicPath: 'http://localhost:8080/',
+    assetsPublicPath: '/',
     proxyTable: {
       '/': {
         target: 'http://127.0.0.1:8000',

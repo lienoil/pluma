@@ -6,9 +6,10 @@
       <v-flex xs12>
         <v-card>
           <v-card-title>
-            {{ $resource->dayname }}
+            {{ $resource->dated }}
           </v-card-title>
           <v-card-text>
+            <p class="body-2"><strong>Tasks</strong></p>
             @foreach ($resource->tasks as $task)
               <p>{{ $task->name }}</p>
               <p>{{ $task->body }}</p>

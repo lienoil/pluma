@@ -2,6 +2,7 @@
 
 namespace Blacksmith\Console;
 
+use Illuminate\Support\Facades\File;
 use Pluma\Console\Commands\Scheduling\Schedule;
 use Pluma\Console\Kernel as BaseKernel;
 
@@ -16,7 +17,6 @@ class Kernel extends BaseKernel
         // App
         Commands\App\AppGrantsRefreshCommand::class,
         Commands\App\AppHomepageCommand::class,
-        Commands\App\AppPermissionsRefreshCommand::class,
         Commands\App\AppRolesGenerateCommand::class,
         Commands\App\AppThemeCommand::class,
         Commands\App\AppVersionCommand::class,
@@ -75,6 +75,9 @@ class Kernel extends BaseKernel
         Commands\Queue\ForgetFailedCommand::class,
         Commands\Queue\ListFailedCommand::class,
 
+        // Permissions
+        Commands\Permissions\PermissionsRefreshCommand::class,
+
         // Phinx
         // Commands\Phinx\PhinxMigrateCreateCommand::class,
         Commands\Phinx\PhinxMigrateRunCommand::class,
@@ -101,13 +104,15 @@ class Kernel extends BaseKernel
     ];
 
     /**
-     * Register the Closure based commands for the application.
+     * Register the console commands for the application.
      *
      * @return void
      */
     protected function commands()
     {
         $this->load(base_path('console/blacksmith/routes/console.php'));
+
+        $this->loadCommandsFromBlacksmithCommands();
 
         parent::commands();
     }
@@ -132,5 +137,18 @@ class Kernel extends BaseKernel
     public function load($command)
     {
         require $command;
+    }
+
+    /**
+     * Loads the commands from the commands folder.
+     *
+     * @return void
+     */
+    protected function loadCommandsFromBlacksmithCommands()
+    {
+        foreach (File::allFiles(blacksmith_path('Console/Commands')) as $file) {
+            // dd(realpath($file));
+            // $this->commands[] = "Blacksmith\Console\Commands\App\\$className";
+        }
     }
 }

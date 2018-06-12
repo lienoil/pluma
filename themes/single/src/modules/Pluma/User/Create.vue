@@ -160,8 +160,8 @@
 </template>
 
 <script>
-import { api } from './api'
 import store from './store'
+import { api } from './api'
 import { USER_STORE } from './store/modules/actions'
 
 export default {
@@ -198,6 +198,7 @@ export default {
     reset () {
       this.$refs['form'].reset()
       this.$validator.reset()
+      this.resource.form.loading = false
     },
     CC__submit () {
       this.resource.form.loading = true
@@ -236,7 +237,7 @@ export default {
           if (success) {
             this.$store.dispatch(USER_STORE, this.resource.items)
               .then(({data, status}) => {
-                if (status === 200) {
+                if (data && status === 200) {
                   this.reset()
                   this.$root.alert({
                     text: this.trans(data.text)
@@ -244,10 +245,14 @@ export default {
                 }
               })
               .catch(err => {
+                this.$root.alert({
+                  // color: 'error',
+                  text: this.trans('An unknown error occured.')
+                })
+                this.resource.form.loading = false
                 console.log('UserCreateError', err)
               })
           }
-          this.resource.form.loading = false
         })
     }
   },

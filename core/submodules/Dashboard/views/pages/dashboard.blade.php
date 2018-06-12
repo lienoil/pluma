@@ -4,7 +4,7 @@
   {{-- @parent --}}
   {{-- @include("Dashboard::partials.overview") --}}
 
-  <v-toolbar dark color="primary">
+  <v-toolbar dark color="primary" class="sticky">
     <v-toolbar-title>Dashboard</v-toolbar-title>
   </v-toolbar>
   @include("Theme::partials.banner")
@@ -36,7 +36,8 @@
               y: 'bottom'
           })">Snackbar</v-btn>
           <v-btn @click.native="$root.dialogbox({
-              text: 'You have unsaved changes. Navigating away will delete your data. Are you sure?',
+              text: 'You have unsaved changes. Navigating away will delete the data permanently.',
+              actionText: 'Save as Draft',
               timeout: 20000000
           })">Dialog</v-btn>
           {{-- @include("Theme::partials.dialogbox") --}}

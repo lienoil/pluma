@@ -40,7 +40,7 @@ export const settings = {
         clipped: this.localstorage('single.sidebar.clipped', false) === 'true',
         floating: this.localstorage('single.sidebar.floating', false) === 'true',
         mini: this.localstorage('single.sidebar.mini', false) === 'true',
-        model: false,
+        model: true,
         withBackground: this.localstorage('single.sidebar.withBackground') === 'true',
         style: {
           background: this.localstorage('single.sidebar.style.background') || 'none',

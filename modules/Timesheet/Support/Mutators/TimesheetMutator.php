@@ -23,4 +23,14 @@ trait TimesheetMutator
     {
         return date('D M d, Y', strtotime($this->date));
     }
+
+    /**
+     * Retrieves the mutated date value.
+     *
+     * @return string
+     */
+    public function getInAttribute()
+    {
+        return date('F d, Y', strtotime($this->timein));
+    }
 }

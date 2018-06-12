@@ -94,7 +94,7 @@ trait UserResourceApiTrait
      */
     public function postStore(UserRequest $request)
     {
-        return response()->json(['text' => 'User successfully created.']);
+        dd($request->all());
         $user = new User();
         $user->prefixname = $request->input('prefixname');
         $user->firstname = $request->input('firstname');

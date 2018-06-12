@@ -2,6 +2,7 @@
   :dark="theme.dark"
   app
   flat
+  absolute
   scroll-off-screen
   transition="slide-y-transition"
   >
