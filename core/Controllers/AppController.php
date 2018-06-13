@@ -15,6 +15,6 @@ class AppController extends GeneralController
      */
     public function render()
     {
-        //
+
     }
 }

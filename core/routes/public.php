@@ -10,3 +10,6 @@ foreach ($modules as $module) {
         include_file($module, "routes/public.php");
     });
 }
+
+// Route::get('{slug?}', 'Pluma\Controllers\AppController@render')
+//     ->where('slug', '.*');

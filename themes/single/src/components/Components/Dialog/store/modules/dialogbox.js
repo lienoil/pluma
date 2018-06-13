@@ -4,7 +4,7 @@ export const state = () => ({
     action: true,
     cancel: true,
     actionCallback: null,
-    cancelCallback: null,
+    cancelCallback: null
   }
 })
 
