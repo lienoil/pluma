@@ -17,7 +17,7 @@
       >
       <v-list>
         <v-list-tile avatar>
-          <v-list-tile-avatar>
+          <v-list-tile-avatar tile>
             <img :src="logo" :alt="title" width="40px">
           </v-list-tile-avatar>
           <v-list-tile-content>
@@ -92,6 +92,42 @@
             <v-divider
               v-if="submenu.is_divider"
               ></v-divider>
+
+            <!-- We only support up to 3 level deep menus because *reasons* -->
+            <template v-else-if="submenu.has_children">
+              <v-list-group
+                sub-group
+                no-group
+                v-model="submenu.active"
+                >
+                <v-list-tile ripple slot="activator" v-model="submenu.active">
+                  <v-list-tile-content>
+                    <v-list-tile-title v-html="trans(submenu.labels.title)"></v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <template v-for="(subgroup, s) in submenu.children">
+                  <v-divider
+                    v-if="subgroup.is_divider"
+                    ></v-divider>
+                  <v-list-tile
+                    v-else
+                    :href="subgroup.url ? subgroup.url : null"
+                    :to="subgroup.routename ? {name: subgroup.routename } : null"
+                    exact
+                    ripple
+                    v-model="subgroup.active"
+                    >
+                    <v-list-tile-content>
+                      <v-list-tile-title v-html="trans(subgroup.labels.title)"></v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action v-if="subgroup.icon">
+                      <v-icon>{{ subgroup.icon }}</v-icon>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                </template>
+              </v-list-group>
+            </template>
+
             <v-list-tile
               v-else
               :href="submenu.url ? submenu.url : null"

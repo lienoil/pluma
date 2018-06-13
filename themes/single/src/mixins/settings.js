@@ -60,18 +60,18 @@ export const settings = {
        *------------------------------------------
        *
        */
-      snackbar: {
-        color: 'secondary',
-        icon: 'info',
-        close: true,
-        type: 'success',
-        timeout: 10000,
-        model: false,
-        title: '',
-        text: '',
-        x: 'right',
-        y: 'bottom'
-      },
+      // snackbar: {
+      //   color: 'secondary',
+      //   icon: 'info',
+      //   close: true,
+      //   type: 'success',
+      //   timeout: 10000,
+      //   model: false,
+      //   title: '',
+      //   text: '',
+      //   x: 'right',
+      //   y: 'bottom'
+      // },
 
       /**
        *------------------------------------------

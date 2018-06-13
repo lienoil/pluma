@@ -293,10 +293,6 @@ class ApplicationViewComposer extends BaseViewComposer
     {
         $version = app()->version();
 
-        if (file_exists(public_path('logo.svg'))) {
-            return url("logo.svg?v=$version");
-        }
-
         if (file_exists(public_path('logo.png'))) {
             return url("logo.png?v=$version");
         }

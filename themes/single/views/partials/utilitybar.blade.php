@@ -7,6 +7,7 @@
   transition="slide-y-transition"
   >
   <v-toolbar-side-icon @click="localstorage({'single.sidebar.model': (sidebar.model = !sidebar.model)})"></v-toolbar-side-icon>
+
   <v-text-field id="searchbar" v-shortkey="['/']" @shortkey.native="search().open($event)" flat solo  placeholder="Search" suffix="/"></v-text-field>
   <v-spacer></v-spacer>
 

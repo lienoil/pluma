@@ -4,7 +4,5 @@
   @show
 
   @stack('post-foot')
-
-  @stack('debug.foot')
 </body>
 </html>

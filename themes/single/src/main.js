@@ -52,7 +52,7 @@ const authorizationToken = document.head.querySelector('meta[name="api-token"]')
 axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + authorizationToken
-axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://pluma' : ''
+axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://127.0.0.1:8080' : ''
 
 // Vue Configurations
 Vue.config.productionTip = false
@@ -64,7 +64,6 @@ Vue.prototype.$user = window.$user || null
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   store,
   http: {
@@ -114,4 +113,4 @@ new Vue({
     //     })
     // },
   }
-})
+}).$mount('#app')

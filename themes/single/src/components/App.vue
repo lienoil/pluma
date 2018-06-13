@@ -3,7 +3,12 @@
 </template>
 
 <script>
+import Admin from './Layouts/Admin.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Admin
+  }
 }
 </script>

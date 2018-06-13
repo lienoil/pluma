@@ -32,7 +32,10 @@ $text-emphasis-medium = {
 }
 
 .theme--dark {
-  .primary--text[class*=active] {
+  .primary--text[class*=active],
+  .primary--text[class*=active] .icon,
+  .input-group.primary--text,
+  .breadcrumbs li:not(:last-child) a {
     color: lighten($theme.primary, 30%) !important;
   }
 }

@@ -13,10 +13,13 @@
   @include("Theme::partials.rightsidebar")
 @endpush
 
-@push("after-content")
+@push("after-inner-content")
   @include("Theme::partials.flash")
-  @include("Theme::partials.dialogbox")
+@endpush
+
+@push("after-content")
   @include("Theme::partials.bottomsheet")
+  @include("Theme::partials.dialog")
   @include("Theme::partials.footer")
 @endpush
 
@@ -35,13 +38,4 @@
   <script type="text/javascript" src="{{ theme('dist/static/js/manifest.min.js') }}"></script>
   <script type="text/javascript" src="{{ theme('dist/static/js/vendor.min.js') }}"></script>
   <script type="text/javascript" src="{{ theme('dist/static/js/app.min.js') }}"></script>
-@endpush
-
-@push('debug.head')
-  <!-- ====================================/DEBUG/==================================== -->
-  <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:8080/static/img/icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:8080/static/img/icons/favicon-16x16.png">
-  <!--[if IE]><link rel="shortcut icon" href="http://localhost:8080//static/img/icons/favicon.ico"><![endif]-->
-  <!-- Add to home screen for Android and modern mobile browsers -->
-  <link rel="manifest" href="http://localhost:8080/static/manifest.json">
 @endpush

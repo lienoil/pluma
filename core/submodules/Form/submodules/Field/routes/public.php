@@ -9,5 +9,5 @@
  *
  */
 
-Route::get('{slug?}', 'FieldController@single')
-     ->where('slug', '.*');
+// Route::get('{slug?}', 'FieldController@single')
+//      ->where('slug', '.*');

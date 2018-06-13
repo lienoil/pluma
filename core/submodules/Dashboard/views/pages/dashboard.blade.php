@@ -4,14 +4,19 @@
   {{-- @parent --}}
   {{-- @include("Dashboard::partials.overview") --}}
 
-  <v-toolbar dark color="primary" class="sticky">
-    <v-toolbar-title>Dashboard</v-toolbar-title>
-  </v-toolbar>
-  @include("Theme::partials.banner")
-
   <v-container v-if="!$root.$router.current" fluid grid-list-lg>
     <v-layout row wrap>
       <v-flex sm6 md5>
+        <v-card class="mb-3" light color="yellow accent-1">
+          <v-system-bar color="yellow accent-4">
+            <v-icon color="yellow accent-1">notification_important</v-icon>
+            <v-spacer></v-spacer>
+            <v-icon role="button">close</v-icon>
+          </v-system-bar>
+          <v-card-title>Sample Notification</v-card-title>
+          <v-card-text>Material icons are delightful, beautifully crafted symbols for common actions and items. Download on desktop to use them in your digital products for Android, iOS, and web.</v-card-text>
+        </v-card>
+
           <v-card class="mb-3 elevation-2">
             <v-system-bar window color="primary">
               <v-spacer></v-spacer>
@@ -31,7 +36,7 @@
           </v-card>
           <v-btn @click.native="$root.alert({
               text: 'User saved to draft',
-              timeout: 20000000,
+              timeout: 2000,
               x: 'right',
               y: 'bottom'
           })">Snackbar</v-btn>
