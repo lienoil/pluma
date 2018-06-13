@@ -1,6 +1,10 @@
 export const state = () => ({
   dialogbox: {
-    model: false
+    model: false,
+    action: true,
+    cancel: true,
+    actionCallback: null,
+    cancelCallback: null,
   }
 })
 

@@ -289,9 +289,15 @@ export default {
 
   beforeRouteLeave (to, from, next) {
     // let self = this
-    this.toast({text: 'User saved to draft.', model: true})
-    console.log(this.snackbar)
     if (this.resource.form.dirty) {
+      this.prompt({
+        title: 'You have unsaved changes',
+        text: 'You will lose your data permanently when you navigate away without saving.',
+        model: true,
+        actionCallback () {
+
+        }
+      })
       // this.$root.dialogbox({
       //   saveAsDraftCallback () {
       //     this.model = false
