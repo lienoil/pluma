@@ -5,7 +5,7 @@
     autocomplete="off"
     ref="form"
     >
-    <v-toolbar dark color="primary" class="elevation-2 sticky">
+    <v-toolbar class="elevation-2 sticky">
       <v-btn icon exact :to="{name: 'users.index'}"><v-icon>arrow_back</v-icon></v-btn>
       <v-toolbar-title v-html="trans('Create User')"></v-toolbar-title>
       <v-spacer></v-spacer>
@@ -15,18 +15,16 @@
           <v-list-tile @click="draft" v-shortkey="['ctrl', 'shift', 'p']" @shortkey="draft">
             <v-list-tile-action><v-icon>save</v-icon></v-list-tile-action>
             <v-list-tile-content>{{ trans('Save as draft') }}</v-list-tile-content>
-            <v-list-tile-action><code>alt+shift+S</code></v-list-tile-action>
           </v-list-tile>
           <v-divider></v-divider>
           <v-list-tile @click="reset" v-shortkey="['alt', 'r']" @shortkey="reset">
             <v-list-tile-action><v-icon>refresh</v-icon></v-list-tile-action>
             <v-list-tile-content>{{ trans('Delete and reset fields values') }}</v-list-tile-content>
-            <v-list-tile-action><code>alt+r</code></v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-menu>
       <v-divider class="vertical"></v-divider>
-      <v-btn type="submit" color="secondary" :loading="resource.form.loading" @click.native="submit()">{{ trans('Save') }}</v-btn>
+      <v-btn type="submit" color="primary" :loading="resource.form.loading" @click.native="submit()">{{ trans('Save') }}</v-btn>
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
@@ -236,6 +234,7 @@ export default {
       this.$refs['form'].reset()
       this.$validator.reset()
       this.resource.form.loading = false
+      this.toast({text: 'Form was reset', buttonIcon: 'close'})
     },
 
     submit () {
@@ -288,14 +287,35 @@ export default {
   },
 
   beforeRouteLeave (to, from, next) {
-    // let self = this
+    let self = this
+
     if (this.resource.form.dirty) {
       this.prompt({
         title: 'You have unsaved changes',
         text: 'You will lose your data permanently when you navigate away without saving.',
-        model: true,
-        actionCallback () {
+        persistent: true,
 
+        actionText: 'Save to Drafts',
+        actionCallback () {
+          this.model = false
+          // store.dispatch.saveUserOrSomeShitLikeThat
+          // then...
+          self.toast({text: 'User saved to drafts'})
+        },
+
+        discard: true,
+        discardText: 'Discard changes',
+        discardCallback () {
+          this.model = false
+          self.toast({
+            text: 'Data was discarded',
+            timeout: 8000,
+            buttonText: 'Undo',
+            buttonCallback () {
+              // undo
+            }
+          })
+          next()
         }
       })
       // this.$root.dialogbox({
@@ -320,10 +340,10 @@ export default {
       //     next()
       //   }
       // })
+      // next(false)
     } else {
-      //
+      next()
     }
-    next(false)
   }
 }
 </script>

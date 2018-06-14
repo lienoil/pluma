@@ -1,64 +1,37 @@
 <template>
-  <v-card class="card-mediabox">
-    <v-toolbar card dense v-if="!hideToolbar">
-      <v-icon v-html="icon"></v-icon>
-      <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
-    </v-toolbar>
-    <v-card flat tile :class="{'card-mediabox-container image-transparent': thumbnailPreview}" ripple :height="height" role="button" @click.native="media.box.model = !media.box.model">
-      <template v-if="(selected instanceof Array) && selected.length !== 0">
-        <slot name="thumbnail" :props="{item: media.selected}">
-          <img class="stacked" v-for="(s, i) in selected" :key="i" :src="s">
-        </slot>
-      </template>
-      <template v-else-if="typeof selected === 'string' && selected">
-        <slot name="thumbnail" :props="{item: media.selected, src: selected}">
-          <img :src="selected">
-          <v-spacer></v-spacer>
-          <v-card flat tile>
-            <v-card-actions>
-              <v-tooltip bottom>
-                <v-btn slot="activator" color="white" icon><v-icon color="red" v-html="media.selected[itemIcon]"></v-icon></v-btn>
-                <span v-html="media.selected[itemMimetype]"></span>
-              </v-tooltip>
-              <span class="body-1" v-html="media.selected[itemText]"></span>
-            </v-card-actions>
-            <v-divider></v-divider>
-          </v-card>
-        </slot>
-      </template>
-      <template v-else>
-        <slot name="no-image-text" :props="{text: noImageText}">
-          <v-card-text class="layout column ma-0 justify-center align-center">
-            <v-icon class="text-emphasis--medium display-3">add_box</v-icon>
-            <strong class="text-emphasis--medium" v-html="noImageText"></strong>
-          </v-card-text>
-        </slot>
-      </template>
-    </v-card>
-
-
-    <slot name="thumbnail-details" :props="{item: media.selected, src: selected}"></slot>
-    <!-- <v-card-actions v-if="!hideActions">
-      <v-btn v-if="selected.length !== 0" ref="mediabox-clear-button" flat @click="remove(selected)">Remove</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn ref="mediabox-browser-button" flat @click="media.box.model = ! media.box.model">{{ selected.length === 0 ? 'Browse' : 'Change' }}</v-btn>
-    </v-card-actions> -->
-
-    <!-- Dialog -->
-    <template>
-      <v-dialog class="white" v-model="media.box.model" max-width="100%" lazy scrollable persistent>
-        <mediabox-window></mediabox-window>
-      </v-dialog>
-    </template>
-    <!-- Dialog -->
+  <v-card flat>
+    <thumbnail-card
+      :close-on-click="closeOnClick"
+      :headers="headers"
+      :height="height"
+      :hideActions="hideActions"
+      :thumbnailPreview="thumbnailPreview"
+      :hideToolbar="hideToolbar"
+      :icon="icon"
+      :itemDate="itemDate"
+      :menuItemId="menuItemId"
+      :itemIcon="itemIcon"
+      :itemMimetype="itemMimetype"
+      :itemSize="itemSize"
+      :itemText="itemText"
+      :itemValue="itemValue"
+      :menuItems="menuItems"
+      :params="params"
+      :multiple="multiple"
+      :noImageText="noImageText"
+      :noMediaText="noMediaText"
+      :title="title"
+      :uploadText="uploadText"
+      :url="url"
+      v-model="thumbnailcard.model"
+    ></thumbnail-card>
   </v-card>
 </template>
 
 <script>
-import Upload from '@/components/Components/Upload.vue'
 import _unionBy from 'lodash/unionBy'
 import _isEmpty from 'lodash/isEmpty'
-import MediaboxWindow from './MediaboxWindow'
+import ThumbnailCard from './ThumbnailCard'
 
 export default {
   props: {
@@ -79,7 +52,7 @@ export default {
     menuItems: { type: Array, default: () => { return [] } },
     params: { type: Object, default: () => { return {} } },
     multiple: { type: Boolean, default: false },
-    noImageText: { type: String, default: 'Select image' },
+    noImageText: { type: String, default: 'Add image' },
     noMediaText: { type: String, default: 'No media found' },
     title: { type: String, default: 'Mediabox' },
     uploadText: { type: String, default: 'Upload' },
@@ -89,11 +62,13 @@ export default {
     prop: 'selected'
   },
   components: {
-    Upload,
-    MediaboxWindow
+    ThumbnailCard
   },
   data () {
     return {
+      thumbnailcard: {
+        model: false
+      },
       selected: [],
       media: {
         box: { model: false },

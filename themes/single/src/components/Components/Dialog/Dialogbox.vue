@@ -1,6 +1,7 @@
 <template>
   <v-dialog
-    max-width="280px"
+    :persistent="dialogbox.persistent"
+    max-width="290px"
     lazy
     v-model="dialogbox.model"
     >
@@ -10,31 +11,34 @@
 
       <v-card-actions
         v-if="dialogbox.cancel || dialogbox.action"
-        :class="{'layout column wrap align-end': dialogbox.discard}"
+        :class="dialogbox.discard ? `layout column wrap align-end` : `flex row wrap`"
         >
         <v-btn
-          v-if="dialogbox.cancel"
-          @click.native="dialogbox.model = false"
-          class="layout column wrap justify-end mb-3"
+          v-if="dialogbox.discardText || dialogbox.discard"
+          :class="dialogbox.discard ? `layout column wrap align-end` : `flex row wrap`"
+          :color="dialogbox.discardColor"
+          @click.native="dialogbox.discardCallback()"
           flat
           >
-          Discard Changes
+          {{ trans(dialogbox.discardText) }}
         </v-btn>
         <v-btn
           v-if="dialogbox.action"
+          :class="dialogbox.discard ? `layout column wrap align-end` : `flex row wrap order-xs2`"
+          :color="dialogbox.actionColor"
           @click.native="dialogbox.actionCallback()"
-          class="layout column wrap justify-end mb-3"
           flat
           >
-          @{{ trans(dialogbox.actionText) }}
+          {{ trans(dialogbox.actionText) }}
         </v-btn>
         <v-btn
           v-if="dialogbox.cancel"
-          @click="hideDialogbox"
-          class="layout column wrap justify-end mb-3"
+          :class="dialogbox.discard ? `layout column wrap align-end` : `flex row wrap order-xs1`"
+          :color="dialogbox.cancelColor"
+          @click="dialogbox.cancelCallback() || hide()"
           flat
           >
-          @{{ trans(dialogbox.cancelText) }}
+          {{ trans(dialogbox.cancelText) }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -56,6 +60,10 @@ export default {
   methods: {
     show () {
       this.$store.dispatch('dialogbox/PROMPT_DIALOG', { model: true })
+    },
+
+    hide () {
+      this.$store.dispatch('dialogbox/PROMPT_DIALOG', { model: false })
     }
   }
 }

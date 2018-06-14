@@ -1,15 +1,26 @@
 export const state = () => ({
   snackbar: {
-    color: '',
-    icon: 'info',
-    close: true,
-    type: 'success',
-    timeout: 2000,
+    // Toggle
     model: false,
-    title: '',
+
+    // Typography
     text: 'text',
+    icon: 'info',
+
+    // Settings
+    color: '',
+    timeout: 4000,
+    mode: null, // e.g. multi-line, vertical
+
+    // Position
     x: 'right',
-    y: 'bottom'
+    y: 'bottom',
+
+    // Button
+    button: true,
+    buttonIcon: false,
+    buttonText: 'Okay',
+    buttonCallback: () => {}
   }
 })
 
@@ -40,6 +51,10 @@ export const mutations = {
   TOGGLE_TOAST: (state, payload) => {
     payload = Object.assign(state.snackbar, payload)
     state.snackbar = payload
+  },
+
+  emptyState () {
+    this.replaceState({ snackbar: null })
   }
 }
 

@@ -12,8 +12,18 @@
     :vertical="snackbar.mode === 'vertical'"
     v-model="snackbar.model"
     >
+
     <span v-html="snackbar.text"></span>
-    <v-btn v-if="snackbar.close" icon @click="close({timeout: 100}, true)" small><v-icon small>close</v-icon></v-btn>
+
+    <v-btn
+      v-if="snackbar.button"
+      @click="snackbarCallback()"
+      icon
+      small
+      >
+      <v-icon small v-if="snackbar.buttonIcon">{{ snackbar.buttonIcon }}</v-icon>
+      <template v-else>{{ snackbar.buttonText }}</template>
+    </v-btn>
   </v-snackbar>
 </template>
 
@@ -32,6 +42,10 @@ export default {
   methods: {
     close: function (snack, hide) {
       this.$store.dispatch('snackbar/TOGGLE_TOAST', Object.assign(this.snackbar, snack, { model: false }))
+    },
+
+    snackbarCallback: function () {
+      this.snackbar.buttonCallback()
     }
   }
 }

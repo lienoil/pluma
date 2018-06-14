@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { base } from './base'
 import { snackbar } from '@/components/Components/Snackbar/store/modules/snackbar'
 import { dialogbox } from '@/components/Components/Dialog/store/modules/dialogbox'
 
@@ -7,6 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    base,
     snackbar,
     dialogbox
   },

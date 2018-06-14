@@ -1,10 +1,32 @@
 export const state = () => ({
   dialogbox: {
+    // Toggle
     model: false,
+
+    // Settings
+    persistent: false,
+
+    // Buttons visibility
     action: true,
     cancel: true,
+    discard: false,
+
+    // Buttons color
+    actionColor: null,
+    cancelColor: null,
+    discardColor: null,
+
+    // Buttons captions
+    actionText: 'Okay',
+    cancelText: 'Cancel',
+    discardText: null,
+
+    // Buttons callback
     actionCallback: null,
-    cancelCallback: null
+    discardCallback: null,
+    cancelCallback () {
+      this.model = false
+    }
   }
 })
 
@@ -16,6 +38,10 @@ export const mutations = {
   PROMPT_DIALOG (state, payload) {
     payload = Object.assign(state.dialogbox, payload)
     state.dialogbox = payload
+  },
+
+  emptyState () {
+    this.replaceState({ dialogbox: null })
   }
 }
 

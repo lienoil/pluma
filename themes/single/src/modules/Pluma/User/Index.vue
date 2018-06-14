@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar dark xcolor="primary" class="primary sticky elevation-1">
+    <v-toolbar :dark="theme.dark" class="sticky elevation-1">
       <v-toolbar-title>{{ trans('All Accounts') }}</v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -28,7 +28,7 @@
       <v-divider class="vertical"></v-divider>
 
       <v-tooltip bottom>
-        <v-btn slot="activator" color="secondary" :to="{name: 'users.create'}">{{ trans('Add Account') }}</v-btn>
+        <v-btn slot="activator" color="primary" :to="{name: 'users.create'}">{{ trans('Add Account') }}</v-btn>
         <span>{{ trans('Create new account') }}</span>
       </v-tooltip>
     </v-toolbar>

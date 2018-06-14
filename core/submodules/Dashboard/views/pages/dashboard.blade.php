@@ -45,6 +45,7 @@
               actionText: 'Save as Draft',
               timeout: 20000000
           })">Dialog</v-btn>
+          <mediabox></mediabox>
           {{-- @include("Theme::partials.dialogbox") --}}
       </v-flex>
     </v-layout>
