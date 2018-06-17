@@ -14,6 +14,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RolesTableSeeder::class);
+
         $users = [
             [
                 'firstname' => 'Pluma',
@@ -21,7 +23,7 @@ class UsersTableSeeder extends Seeder
                 'username' => 'superadmin',
                 'password' => Hash::make('superadmin'),
                 'email' => 'dummy@pluma.io',
-                'roles' => ['superadmin', 'admin'],
+                'roles' => ['superadmin'],
             ],
         ];
 

@@ -36,7 +36,6 @@ class PermissionsRefreshCommand extends Command
     public function handle(Permission $permissions)
     {
         $details['old_count'] = $permissions->count();
-        dd($details['old_count']);
         $details['new'] = 0;
 
         foreach (Permission::seeds() as $permission) {
@@ -51,9 +50,9 @@ class PermissionsRefreshCommand extends Command
             }
         }
 
-        Permission::whereNotIn('id', $this->removables)->delete();
+        $permissions->whereNotIn('id', $this->removables)->delete();
 
-        $details['new_count'] = Permission::all()->count();
+        $details['new_count'] = $permissions::count();
 
         $this->info("{$this->checkmark()} {$details['new']} new permissions added.");
         $this->info("{$this->checkmark()} {$details['old_count']} permissions were installed before.");

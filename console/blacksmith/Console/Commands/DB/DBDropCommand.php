@@ -60,7 +60,7 @@ class DBDropCommand extends Command
         foreach (DB::select('SHOW TABLES') as $table) {
             $table = get_object_vars($table);
             $name = $table[key($table)];
-            $this->info("Dropping table ``$name`");
+            $this->info("Dropping table `$name`");
             Schema::drop($name);
         }
 

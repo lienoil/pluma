@@ -20,6 +20,9 @@ class SettingsTableSeeder extends Seeder
             'date_format' => 'F d, Y',
             'time_format' => 'h:i a',
 
+            // Admin
+            'active_theme' => 'default',
+
             // Mail
             'mail_driver' => config('mail.driver'),
             'mail_host' => config('mail.host'),
