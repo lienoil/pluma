@@ -3,6 +3,8 @@
 namespace DummyNamespace;
 
 use Tests\TestCase;
+use Tests\Support\Test\WithFaker;
+use Tests\Support\Test\RefreshDatabase;
 
 class DummyClass extends TestCase
 {

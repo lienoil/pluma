@@ -2,9 +2,9 @@
 
 namespace Blacksmith\Console\Commands\Migrations;
 
-use Blacksmith\Console\Commands\Migrations\BaseCommand;
-use Pluma\Support\Modules\Traits\ModulerTrait;
+use Blacksmith\Console\Commands\Migrations\Support\BaseCommand;
 use Illuminate\Support\Facades\File;
+use Pluma\Support\Modules\Traits\ModulerTrait;
 
 class MigrationListCommand extends BaseCommand
 {

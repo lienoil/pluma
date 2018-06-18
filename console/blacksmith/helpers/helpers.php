@@ -9,7 +9,7 @@ if (! function_exists('blacksmith_path')) {
      */
     function blacksmith_path($path = "")
     {
-        return __DIR__."/../$path";
+        return realpath(__DIR__."/../$path");
     }
 }
 

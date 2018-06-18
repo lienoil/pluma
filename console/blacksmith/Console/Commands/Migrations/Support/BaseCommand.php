@@ -1,6 +1,6 @@
 <?php
 
-namespace Blacksmith\Console\Commands\Migrations;
+namespace Blacksmith\Console\Commands\Migrations\Support;
 
 use Blacksmith\Support\Console\Command;
 
