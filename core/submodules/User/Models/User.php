@@ -25,9 +25,15 @@ class User extends Authenticatable
         WhereDetailTrait,
         WhereSettingTrait;
 
-    protected $with = [];
-
-    protected $appends = [];
+    protected $fillable = [
+        'firstname',
+        'middlename',
+        'lastname',
+        'username',
+        'prefixname',
+        'email',
+        'password',
+    ];
 
     protected $searchables = [
         'firstname',

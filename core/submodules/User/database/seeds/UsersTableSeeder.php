@@ -14,6 +14,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RolesTableSeeder::class);
+
         $users = [
             [
                 'firstname' => 'Pluma',

@@ -2,6 +2,8 @@
 
 namespace User\Providers;
 
+use Faker\Factory as FakerFactory;
+use Faker\Generator as FakerGenerator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Pluma\Support\Auth\AuthServiceProvider;
@@ -51,11 +53,23 @@ class UserServiceProvider extends AuthServiceProvider
     }
 
     /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+
+        $this->registerEloquentFactory();
+    }
+
+    /**
      * Registers additional Blade Directives in the context of this module.
      *
      * @return void
      */
-    public function bootBladeDirectives()
+    protected function bootBladeDirectives()
     {
         Blade::directive('user', function ($expression) {
             return "<?php if (user()->id === $expression) : ?>";
@@ -71,6 +85,26 @@ class UserServiceProvider extends AuthServiceProvider
 
         Blade::directive('endowned', function () {
             return "<?php endif; ?>";
+        });
+    }
+
+    /**
+     * Register the Eloquent factory instance in the container.
+     *
+     * @return void
+     */
+    protected function registerEloquentFactory()
+    {
+        $factoryPath = get_module('user').'/'.$this->app->databasePath('factories');
+
+        $this->app->singleton(FakerGenerator::class, function ($app) {
+            return FakerFactory::create($app['config']->get('database.faker_locale', 'en_US'));
+        });
+
+        $this->app->singleton(EloquentFactory::class, function ($app) {
+            return EloquentFactory::construct(
+                $app->make(FakerGenerator::class), $factoryPath
+            );
         });
     }
 }
