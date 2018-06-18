@@ -2,6 +2,7 @@
 
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
+use User\Models\User;
 
 /**
  *------------------------------------------------------------------------------
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
  *
  */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     return [
         'firstname' => $faker->name,
         'lastname' => $faker->name,
