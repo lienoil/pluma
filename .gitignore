@@ -10,7 +10,7 @@
 /storage/framework
 /storage/logs
 /storage/public
-/test/build/
+/tests/build/
 /vendor/
 rippl3s.todo
 tasks.todo
