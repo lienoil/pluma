@@ -45,6 +45,6 @@ class User extends Model implements
         parent::boot();
 
         // For observer events
-        User::setEventDispatcher(app('events'));
+        // User::setEventDispatcher(app('events'));
     }
 }

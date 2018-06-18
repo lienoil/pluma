@@ -31,8 +31,8 @@ Route::group(['prefix' => 'settings'], function () {
     Route::get('branding/social', 'SettingController@getSocialForm')->name('settings.social');
 
     // Theming
-    Route::get('theming', 'ThemingSettingController@index')->name('settings.theming');
-    Route::post('theming', 'ThemingSettingController@store')->name('settings.theming.store');
+    // Route::get('theming', 'ThemingSettingController@index')->name('settings.theming');
+    // Route::post('theming', 'ThemingSettingController@store')->name('settings.theming.store');
 
     // System
     Route::get('system', 'SystemSettingController@index')->name('settings.system');

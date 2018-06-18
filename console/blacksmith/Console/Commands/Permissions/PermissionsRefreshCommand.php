@@ -36,7 +36,6 @@ class PermissionsRefreshCommand extends Command
     public function handle(Permission $permissions)
     {
         $details['old_count'] = $permissions->count();
-        dd($details['old_count']);
         $details['new'] = 0;
 
         foreach (Permission::seeds() as $permission) {

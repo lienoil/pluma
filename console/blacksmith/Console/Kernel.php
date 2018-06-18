@@ -45,6 +45,7 @@ class Kernel extends BaseKernel
         Commands\Furnace\ForgeObserverCommand::class,
         Commands\Furnace\ForgePermissionsCommand::class,
         Commands\Furnace\ForgeResourceCommand::class,
+        Commands\Furnace\ForgeTestCommand::class,
         Commands\Furnace\ForgeWeaponCommand::class,
         Commands\Furnace\PurgeCacheCommand::class,
         Commands\Furnace\PurgeModuleCommand::class,
@@ -87,6 +88,7 @@ class Kernel extends BaseKernel
         // Route
         Commands\Route\RouteCacheCommand::class,
         Commands\Route\RouteClearCommand::class,
+        Commands\Route\RouteListCommand::class,
 
         // Misc
         Commands\Misc\FurnaceCommand::class,

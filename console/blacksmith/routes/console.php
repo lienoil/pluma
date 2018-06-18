@@ -16,21 +16,21 @@ use \Symfony\Component\Process\Process;
 |
 */
 
-Artisan::command('route:list', function () {
-    $routeCollection = app('router')->getRoutes();
-    $headers = ['Methods', 'URI', 'Name', 'Module'];
-    $data = [];
+// Artisan::command('route:list', function () {
+//     $routeCollection = app('router')->getRoutes();
+//     $headers = ['Methods', 'URI', 'Name', 'Module'];
+//     $data = [];
 
-    foreach ($routeCollection as $value) {
-        $data[] = [
-            'methods' => implode("/", $value->methods()),
-            'uri' => $value->uri(),
-            'name' => $value->getName(),
-            'module' => guess_module($value->getName())
-        ];
-    }
+//     foreach ($routeCollection as $value) {
+//         $data[] = [
+//             'methods' => implode("/", $value->methods()),
+//             'uri' => $value->uri(),
+//             'name' => $value->getName(),
+//             'module' => guess_module($value->getName())
+//         ];
+//     }
 
-    $data = collect($data)->toArray();
+//     $data = collect($data)->toArray();
 
-    $this->table($headers, (array) $data);
-});
+//     $this->table($headers, (array) $data);
+// });

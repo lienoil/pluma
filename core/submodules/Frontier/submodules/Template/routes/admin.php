@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('templates', 'Template\Controllers\TemplateController');
+// Route::resource('templates', 'Template\Controllers\TemplateController');

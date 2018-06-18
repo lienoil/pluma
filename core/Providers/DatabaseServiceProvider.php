@@ -27,11 +27,11 @@ class DatabaseServiceProvider extends BaseDatabaseServiceProvider
      */
     public function boot()
     {
-        parent::boot();
-
         $this->bootCapsule();
 
         $this->bootSchema();
+
+        parent::boot();
     }
 
     /**
@@ -89,6 +89,9 @@ class DatabaseServiceProvider extends BaseDatabaseServiceProvider
             'prefix' => config("database.connections.$connection.prefix", ''),
             'strict' => config("database.connections.$connection.strict", true),
         ]);
+
+        // Set the event dispatcher used by Eloquent models
+        $this->capsule->setEventDispatcher($this->app['events']);
 
         // Set global, instance available globally via static methods
         $this->capsule->setAsGlobal();

@@ -47,17 +47,17 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
-            'database' => env('DB_DATABASE', database_path('sqlite/database.sqlite')),
+            'database' => env('DB_DATABASE', 'database/sqlite/database.sqlite'),
             'prefix' => '',
         ],
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => config('DB_HOST', env('DB_HOST', '127.0.0.1')),
-            'port' => config('DB_PORT', env('DB_PORT', '3306')),
-            'database' => config('DB_DATABASE', env('DB_DATABASE', 'notauser')),
-            'username' => config('DB_USERNAME', env('DB_USERNAME', 'notauser')),
-            'password' => config('DB_PASSWORD', env('DB_PASSWORD', '')),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'notauser'),
+            'username' => env('DB_USERNAME', 'notauser'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

@@ -1,7 +1,5 @@
 <?php
 
-const PLUMA_VERSION = '3.0.0';
-
 define('PLUMA_START', microtime(true));
 
 /**
@@ -16,6 +14,7 @@ define('PLUMA_START', microtime(true));
  *
  */
 
+require realpath(__DIR__ . '/version.php');
 require realpath(__DIR__ . '/../vendor/autoload.php');
 require realpath(__DIR__ . '/../core/helpers/helpers.php');
 require realpath(__DIR__ . '/../core/helpers/functions.php');

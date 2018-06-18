@@ -33,7 +33,7 @@ return [
         // Application
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
-        // # can be deleted Pluma\Providers\FilesystemServiceProvider::class,
+        // # TODO: can be deleted Pluma\Providers\FilesystemServiceProvider::class,
         Pluma\Providers\EventServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
@@ -69,7 +69,6 @@ return [
         // Pluma
         'Console' => Pluma\Support\Facades\Console::class,
         'Route' => Pluma\Support\Facades\Route::class,
-        // 'Route' => Illuminate\Support\Facades\Route::class,
 
         // Illuminate
         'App' => Illuminate\Support\Facades\App::class,
