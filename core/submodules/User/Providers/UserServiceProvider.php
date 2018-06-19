@@ -61,7 +61,7 @@ class UserServiceProvider extends AuthServiceProvider
     {
         parent::register();
 
-        $this->registerEloquentFactory();
+        $this->registerEloquentFactories();
     }
 
     /**
@@ -93,18 +93,10 @@ class UserServiceProvider extends AuthServiceProvider
      *
      * @return void
      */
-    protected function registerEloquentFactory()
+    protected function registerEloquentFactories()
     {
-        $factoryPath = get_module('user').'/'.$this->app->databasePath('factories');
+        $factoryPath = get_module('user').'/'.basename($this->app->databasePath()).'/factories';
 
-        $this->app->singleton(FakerGenerator::class, function ($app) {
-            return FakerFactory::create($app['config']->get('database.faker_locale', 'en_US'));
-        });
-
-        $this->app->singleton(EloquentFactory::class, function ($app) {
-            return EloquentFactory::construct(
-                $app->make(FakerGenerator::class), $factoryPath
-            );
-        });
+        $this->registerEloquentFactoriesFrom($factoryPath);
     }
 }

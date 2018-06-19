@@ -3,10 +3,10 @@
 namespace User\Repositories;
 
 use Illuminate\Database\QueryException;
-use User\Exceptions\CreateUserErrorException;
+use Pluma\Support\Repository\Repository;
 use User\Models\User;
 
-class UserRepository
+class UserRepository extends Repository
 {
     /**
      * The model instance.
@@ -23,21 +23,5 @@ class UserRepository
     public function __construct(User $user)
     {
         $this->model = $user;
-    }
-
-    /**
-     * Create User resource.
-     *
-     * @param array $data
-     * @return User
-     * @throws CreateUserErrorException
-     */
-    public function create(array $data) : User
-    {
-        return $this->model->create($data);
-        // try {
-        // } catch (QueryException $e) {
-        //     throw new QueryException($e);
-        // }
     }
 }

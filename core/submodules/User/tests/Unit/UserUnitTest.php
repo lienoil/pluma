@@ -2,39 +2,67 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Support\Facades\Hash;
-use Tests\Support\Test\RefreshDatabase;
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
+use Illuminate\Database\Eloquent\Faker;
+use Tests\Support\Test\Concerns\InteractsWithAuthentication;
+use Tests\Support\Test\Concerns\InteractsWithDatabase;
+use Tests\Support\Test\Concerns\MocksApplicationServices;
 use Tests\Support\Test\WithFaker;
+use Tests\Support\Test\WithRepository;
 use Tests\TestCase;
 use User\Models\User;
 use User\Repositories\UserRepository;
 
 class UserUnitTest extends TestCase
 {
-    use WithFaker;
+    use WithFaker, WithRepository;
 
-    /** @test  */
-    public function it_can_create_a_user()
+    /**
+     * @test
+     * @group user
+     * @return void
+     */
+    public function testItCanCreateAUser()
     {
-        // $data = factory(User::class)->create()->toArray();
-        $data = [
-            'firstname' => $this->faker->firstName,
-            'lastname' => $this->faker->lastName,
-            'email' => $email = $this->faker->unique()->safeEmail,
-            'username' => str_slug($email),
-            'password' => Hash::make('secret'), // $2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm
-            'remember_token' => str_random(10),
-        ];
-
-        $repository = new UserRepository(new User);
-
-        $user = $repository->create($data);
+        $provider = $this->app->make(EloquentFactory::class)->of(User::class)->make();
+        $user = $this->repository(UserRepository::class, User::class)->create($provider->toArray());
 
         $this->assertInstanceOf(User::class, $user);
-        $this->assertEquals($data['firstname'], $user->firstname);
-        $this->assertEquals($data['lastname'], $user->lastname);
-        $this->assertEquals($data['email'], $user->email);
-        $this->assertEquals($data['username'], $user->username);
-        $this->assertEquals($data['password'], $user->password);
+        $this->assertEquals($provider->firstname, $user->firstname);
+        $this->assertEquals($provider->lastname, $user->lastname);
+        $this->assertEquals($provider->email, $user->email);
+        $this->assertEquals($provider->username, $user->username);
+        $this->assertEquals($provider->password, $user->password);
+    }
+
+    /**
+     * @test
+     * @group user
+     * @return void
+     */
+    public function testUserCanLogin()
+    {
+        $provider = factory(User::class)->make();
+        $user = $this->repository(UserRepository::class, User::class)->create($provider->toArray());
+
+        $this->get(route('login.show'))
+             ->assertStatus(200);
+
+        $this->actingAs($user);
+        $this->assertAuthenticated();
+
+        $response = $this->get(route('login.show'));
+        $this->followRedirects($response)->assertStatus(200);
+    }
+
+    /**
+     * @test
+     * @group user
+     * @return void
+     */
+    public function testUserCanLogout()
+    {
+        $this->get(route('login.logout'))
+             ->followRedirects($response)->assertStatus(200);
     }
 }

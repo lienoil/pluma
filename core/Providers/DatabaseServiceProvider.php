@@ -8,7 +8,6 @@ use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\DatabaseServiceProvider as BaseDatabaseServiceProvider;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
 
 class DatabaseServiceProvider extends BaseDatabaseServiceProvider

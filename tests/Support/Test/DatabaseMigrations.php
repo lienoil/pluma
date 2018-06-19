@@ -13,12 +13,12 @@ trait DatabaseMigrations
      */
     public function runDatabaseMigrations()
     {
-        $this->artisan('migration:fresh');
+        $this->console('migration:fresh');
 
         $this->app[Kernel::class]->setArtisan(null);
 
         $this->beforeApplicationDestroyed(function () {
-            $this->artisan('migration:rollback');
+            $this->console('migration:rollback');
 
             RefreshDatabaseState::$migrated = false;
         });

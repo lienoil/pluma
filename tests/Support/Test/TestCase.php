@@ -2,11 +2,11 @@
 
 namespace Tests\Support\Test;
 
-use Mockery;
+use Illuminate\Console\Application as Artisan;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Console\Application as Artisan;
+use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * The Illuminate application instance.
      *
-     * @var \Illuminate\Foundation\Application
+     * @var \Pluma\Application\Application
      */
     protected $app;
 
@@ -122,6 +122,10 @@ abstract class TestCase extends BaseTestCase
 
         if (isset($uses[WithFaker::class])) {
             $this->setUpFaker();
+        }
+
+        if (isset($uses[WithRepository::class])) {
+            $this->setUpRepository();
         }
 
         return $uses;

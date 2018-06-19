@@ -78,6 +78,11 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'test' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ],
     ],
 
     /**

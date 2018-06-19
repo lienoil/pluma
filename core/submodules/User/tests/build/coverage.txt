@@ -1,0 +1,34 @@
+
+
+Code Coverage Report:       
+  2018-06-19 19:05:30       
+                            
+ Summary:                   
+  Classes:  1.22% (1/82)    
+  Methods:  6.09% (14/230)  
+  Lines:    2.85% (215/7540)
+
+CreateDetailsTable
+  Methods:  50.00% ( 1/ 2)   Lines:  92.86% ( 13/ 14)
+CreatePasswordResetsTable
+  Methods:  50.00% ( 1/ 2)   Lines:  88.89% (  8/  9)
+CreatePermissionRoleTable
+  Methods:  50.00% ( 1/ 2)   Lines:  94.74% ( 18/ 19)
+CreatePermissionsTable
+  Methods:  50.00% ( 1/ 2)   Lines:  92.31% ( 12/ 13)
+CreateRoleUserTable
+  Methods:  50.00% ( 1/ 2)   Lines:  94.74% ( 18/ 19)
+CreateRolesTable
+  Methods:  50.00% ( 1/ 2)   Lines:  92.31% ( 12/ 13)
+CreateUsersTable
+  Methods:  50.00% ( 1/ 2)   Lines:  94.74% ( 18/ 19)
+\Profile\Providers::Profile\Providers\ProfileServiceProvider
+  Methods:  66.67% ( 2/ 3)   Lines:  72.73% (  8/ 11)
+\Role\Providers::Role\Providers\RoleServiceProvider
+  Methods:  50.00% ( 1/ 2)   Lines:  70.00% (  7/ 10)
+\Tests\Unit::Tests\Unit\UserUnitTest
+  Methods:   0.00% ( 0/ 3)   Lines:  38.10% (  8/ 21)
+\User\Providers::User\Providers\UserServiceProvider
+  Methods:  75.00% ( 3/ 4)   Lines:  77.78% ( 14/ 18)
+\User\Repositories::User\Repositories\UserRepository
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  2/  2)

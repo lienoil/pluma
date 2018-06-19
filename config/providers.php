@@ -52,8 +52,7 @@ return [
         // Pluma\Support\Installation\Providers\InstallationServiceProvider::class,
 
         // Console
-        // Blacksmith\Providers\ConsoleSupportServiceProvider::class,
-        Blacksmith\Providers\MigrationServiceProvider::class,
+        Blacksmith\Providers\ConsoleSupportServiceProvider::class,
     ],
 
     /**
@@ -69,12 +68,12 @@ return [
         // Pluma
         'Console' => Pluma\Support\Facades\Console::class,
         'Route' => Pluma\Support\Facades\Route::class,
+        'Blacksmith' => Blacksmith\Support\Facades\Blacksmith::class,
 
         // Illuminate
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
-        'Blacksmith' => Blacksmith\Support\Facades\Blacksmith::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,

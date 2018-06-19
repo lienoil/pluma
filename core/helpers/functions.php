@@ -672,7 +672,7 @@ if (! function_exists('v')) {
     }
 }
 
-if (! function_exists('get_menu_location')) {
+if (! function_exists('get_navmenus')) {
     /**
      * Get all menus from location.
      *

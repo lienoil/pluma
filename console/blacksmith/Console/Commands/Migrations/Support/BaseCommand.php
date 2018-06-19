@@ -58,7 +58,7 @@ class BaseCommand extends Command
      */
     protected function getModulesMigrationPaths()
     {
-        $modules = cache()->get('modules', get_modules_path());
+        $modules = get_modules_path();
         $migrationPath = config('path.migrations', 'database/migrations');
 
         return collect($modules)->map(function ($path) use ($migrationPath) {
