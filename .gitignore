@@ -11,4 +11,5 @@
 /storage/logs
 /storage/public
 /tests/build/
+**/tests/build/
 /vendor/
