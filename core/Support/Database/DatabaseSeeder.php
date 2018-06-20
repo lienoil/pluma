@@ -1,5 +1,7 @@
 <?php
 
+namespace Pluma\Support\Database;
+
 use Pluma\Support\Database\Seeder;
 use Pluma\Support\Modules\Traits\ModulerTrait;
 

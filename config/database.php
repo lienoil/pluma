@@ -47,7 +47,7 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
-            'database' => env('DB_DATABASE', 'database/sqlite/database.sqlite'),
+            'database' => 'database/sqlite/database.sqlite', // env('DB_DATABASE', 'database/sqlite/database.sqlite'),
             'prefix' => '',
         ],
 
@@ -78,11 +78,10 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'test' => [
+        'testing' => [
             'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix' => '',
-        ],
+        ]
     ],
 
     /**

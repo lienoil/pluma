@@ -7,7 +7,7 @@
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
-    processIsolation="false"
+    processIsolation="true"
     stopOnFailure="false"
     printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
     >
@@ -25,16 +25,16 @@
             <directory suffix=".php">./</directory>
         </whitelist>
     </filter>
-    <logging>
+    <!-- <logging>
         <log type="tap" target="tests/build/report.tap"/>
         <log type="junit" target="tests/build/report.junit.xml"/>
         <log type="coverage-html" target="tests/build/coverage"/>
         <log type="coverage-text" target="tests/build/coverage.txt"/>
         <log type="coverage-clover" target="tests/build/logs/clover.xml"/>
-    </logging>
+    </logging> -->
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="DB_CONNECTION" value="test"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
         <env name="DB_DRIVER" value="sqlite"/>
         <env name="DB_DATABASE" value=":memory:"/>
         <env name="BCRYPT_ROUNDS" value="4"/>

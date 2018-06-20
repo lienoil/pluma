@@ -25,6 +25,13 @@ class MigrationFreshCommand extends Command
     protected $description = 'Drop all tables and re-run all migrations';
 
     /**
+     * The default class to seed the database.
+     *
+     * @var string
+     */
+    protected $defaultSeederClass = 'Pluma\Support\Database\DatabaseSeeder';
+
+    /**
      * Execute the console command.
      *
      * @return void
@@ -85,7 +92,7 @@ class MigrationFreshCommand extends Command
     {
         $this->call('db:seed', [
             '--database' => $database,
-            '--class' => $this->option('seeder') ?: 'DatabaseSeeder',
+            '--class' => $this->option('seeder') ?: $this->defaultSeederClass,
             '--force' => $this->option('force'),
         ]);
     }

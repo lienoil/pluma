@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $fake['email'],
             ], collect($fake)->except('roles')->all());
 
-            $user->roles()->sync(Role::whereIn('code', $fake['roles'])->get());
+            $user->roles()->sync(Role::whereIn('code', $fake['roles'])->pluck('id'));
         }
     }
 }

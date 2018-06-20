@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1529406330">
-  <project timestamp="1529406330">
+<coverage generated="1529465627">
+  <project timestamp="1529465627">
     <package name="User\Controllers">
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/Controllers/ForgotPasswordController.php">
         <class name="User\Controllers\ForgotPasswordController" namespace="User\Controllers">
@@ -664,42 +664,42 @@
       </file>
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/Providers/UserServiceProvider.php">
         <class name="User\Providers\UserServiceProvider" namespace="User\Providers">
-          <metrics complexity="4" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="14" elements="22" coveredelements="17"/>
+          <metrics complexity="4" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="0" elements="22" coveredelements="0"/>
         </class>
-        <line num="48" type="method" name="boot" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="50" type="stmt" count="1"/>
-        <line num="52" type="stmt" count="1"/>
-        <line num="53" type="stmt" count="1"/>
-        <line num="60" type="method" name="register" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="62" type="stmt" count="1"/>
-        <line num="64" type="stmt" count="1"/>
-        <line num="65" type="stmt" count="1"/>
-        <line num="72" type="method" name="bootBladeDirectives" visibility="protected" complexity="1" crap="1.09" count="1"/>
+        <line num="48" type="method" name="boot" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="52" type="stmt" count="0"/>
+        <line num="53" type="stmt" count="0"/>
+        <line num="60" type="method" name="register" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="62" type="stmt" count="0"/>
+        <line num="64" type="stmt" count="0"/>
+        <line num="65" type="stmt" count="0"/>
+        <line num="72" type="method" name="bootBladeDirectives" visibility="protected" complexity="1" crap="2.00" count="0"/>
         <line num="75" type="stmt" count="0"/>
-        <line num="76" type="stmt" count="1"/>
+        <line num="76" type="stmt" count="0"/>
         <line num="79" type="stmt" count="0"/>
-        <line num="80" type="stmt" count="1"/>
+        <line num="80" type="stmt" count="0"/>
         <line num="83" type="stmt" count="0"/>
-        <line num="84" type="stmt" count="1"/>
+        <line num="84" type="stmt" count="0"/>
         <line num="87" type="stmt" count="0"/>
-        <line num="88" type="stmt" count="1"/>
-        <line num="89" type="stmt" count="1"/>
-        <line num="96" type="method" name="registerEloquentFactories" visibility="protected" complexity="1" crap="1" count="1"/>
-        <line num="98" type="stmt" count="1"/>
-        <line num="100" type="stmt" count="1"/>
-        <line num="101" type="stmt" count="1"/>
-        <metrics loc="102" ncloc="67" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="14" elements="22" coveredelements="17"/>
+        <line num="88" type="stmt" count="0"/>
+        <line num="89" type="stmt" count="0"/>
+        <line num="96" type="method" name="registerEloquentFactories" visibility="protected" complexity="1" crap="2.00" count="0"/>
+        <line num="98" type="stmt" count="0"/>
+        <line num="100" type="stmt" count="0"/>
+        <line num="101" type="stmt" count="0"/>
+        <metrics loc="102" ncloc="67" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="0" elements="22" coveredelements="0"/>
       </file>
     </package>
     <package name="User\Repositories">
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/Repositories/UserRepository.php">
         <class name="User\Repositories\UserRepository" namespace="User\Repositories">
-          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+          <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
         </class>
-        <line num="23" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="25" type="stmt" count="1"/>
-        <line num="26" type="stmt" count="1"/>
-        <metrics loc="27" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        <line num="23" type="method" name="__construct" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="25" type="stmt" count="0"/>
+        <line num="26" type="stmt" count="0"/>
+        <metrics loc="27" ncloc="17" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
       </file>
     </package>
     <package name="User\Requests">
@@ -1123,14 +1123,14 @@
       <metrics loc="25" ncloc="25" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="0" elements="20" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/database/factories/UserFactory.php">
-      <line num="20" type="stmt" count="1"/>
-      <line num="21" type="stmt" count="1"/>
-      <line num="22" type="stmt" count="1"/>
-      <line num="23" type="stmt" count="1"/>
-      <line num="24" type="stmt" count="1"/>
-      <line num="25" type="stmt" count="1"/>
-      <line num="27" type="stmt" count="1"/>
-      <metrics loc="27" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="7" coveredelements="7"/>
+      <line num="20" type="stmt" count="0"/>
+      <line num="21" type="stmt" count="0"/>
+      <line num="22" type="stmt" count="0"/>
+      <line num="23" type="stmt" count="0"/>
+      <line num="24" type="stmt" count="0"/>
+      <line num="25" type="stmt" count="0"/>
+      <line num="27" type="stmt" count="0"/>
+      <metrics loc="27" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="0" elements="7" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/database/migrations/.00000000000001_create_users_table.php">
       <class name="CreateCUsersTable" namespace="global">
@@ -1164,69 +1164,69 @@
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/database/migrations/0000_00_00_000001_create_users_table.php">
       <class name="CreateUsersTable" namespace="global">
-        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="0" elements="21" coveredelements="0"/>
       </class>
-      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="2.00" count="1"/>
-      <line num="23" type="stmt" count="1"/>
+      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="6.00" count="0"/>
+      <line num="23" type="stmt" count="0"/>
       <line num="24" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="30" type="stmt" count="1"/>
-      <line num="31" type="stmt" count="1"/>
-      <line num="32" type="stmt" count="1"/>
-      <line num="33" type="stmt" count="1"/>
-      <line num="34" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <line num="37" type="stmt" count="1"/>
-      <line num="38" type="stmt" count="1"/>
-      <line num="39" type="stmt" count="1"/>
-      <line num="40" type="stmt" count="1"/>
-      <line num="41" type="stmt" count="1"/>
-      <line num="42" type="stmt" count="1"/>
-      <line num="49" type="method" name="down" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="51" type="stmt" count="1"/>
-      <line num="52" type="stmt" count="1"/>
-      <metrics loc="53" ncloc="38" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="49" type="method" name="down" visibility="public" complexity="1" crap="2.00" count="0"/>
+      <line num="51" type="stmt" count="0"/>
+      <line num="52" type="stmt" count="0"/>
+      <metrics loc="53" ncloc="38" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="0" elements="21" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/database/migrations/0000_00_00_000002_create_password_resets_table.php">
       <class name="CreatePasswordResetsTable" namespace="global">
-        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="8" elements="11" coveredelements="9"/>
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="0" elements="11" coveredelements="0"/>
       </class>
-      <line num="20" type="method" name="up" visibility="public" complexity="2" crap="2.01" count="1"/>
-      <line num="22" type="stmt" count="1"/>
+      <line num="20" type="method" name="up" visibility="public" complexity="2" crap="6.00" count="0"/>
+      <line num="22" type="stmt" count="0"/>
       <line num="23" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="1"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="30" type="stmt" count="1"/>
-      <line num="31" type="stmt" count="1"/>
-      <line num="38" type="method" name="down" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="40" type="stmt" count="1"/>
-      <line num="41" type="stmt" count="1"/>
-      <metrics loc="42" ncloc="27" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="8" elements="11" coveredelements="9"/>
+      <line num="27" type="stmt" count="0"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="38" type="method" name="down" visibility="public" complexity="1" crap="2.00" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <metrics loc="42" ncloc="27" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="0" elements="11" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/database/migrations/0000_00_00_000003_create_details_table.php">
       <class name="CreateDetailsTable" namespace="global">
-        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="13" elements="16" coveredelements="14"/>
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="0" elements="16" coveredelements="0"/>
       </class>
-      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="2.00" count="1"/>
-      <line num="23" type="stmt" count="1"/>
+      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="6.00" count="0"/>
+      <line num="23" type="stmt" count="0"/>
       <line num="24" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="30" type="stmt" count="1"/>
-      <line num="31" type="stmt" count="1"/>
-      <line num="32" type="stmt" count="1"/>
-      <line num="33" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <line num="37" type="stmt" count="1"/>
-      <line num="38" type="stmt" count="1"/>
-      <line num="45" type="method" name="down" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="47" type="stmt" count="1"/>
-      <line num="48" type="stmt" count="1"/>
-      <metrics loc="49" ncloc="34" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="13" elements="16" coveredelements="14"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="45" type="method" name="down" visibility="public" complexity="1" crap="2.00" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <metrics loc="49" ncloc="34" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="0" elements="16" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/database/seeds/UsersTableSeeder.php">
       <class name="UsersTableSeeder" namespace="global">
@@ -1256,36 +1256,36 @@
       <metrics loc="39" ncloc="34" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="0" elements="21" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/routes/admin.php">
-      <line num="20" type="stmt" count="1"/>
-      <line num="22" type="stmt" count="1"/>
-      <metrics loc="22" ncloc="-2" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="2" coveredelements="2"/>
+      <line num="20" type="stmt" count="0"/>
+      <line num="22" type="stmt" count="0"/>
+      <metrics loc="22" ncloc="-2" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="2" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/routes/api.php">
-      <line num="13" type="stmt" count="1"/>
-      <line num="14" type="stmt" count="1"/>
-      <line num="15" type="stmt" count="1"/>
-      <line num="16" type="stmt" count="1"/>
-      <line num="17" type="stmt" count="1"/>
-      <line num="18" type="stmt" count="1"/>
-      <line num="19" type="stmt" count="1"/>
-      <line num="20" type="stmt" count="1"/>
-      <metrics loc="20" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="8" coveredelements="8"/>
+      <line num="13" type="stmt" count="0"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="15" type="stmt" count="0"/>
+      <line num="16" type="stmt" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="19" type="stmt" count="0"/>
+      <line num="20" type="stmt" count="0"/>
+      <metrics loc="20" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="0" elements="8" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/routes/web.php">
-      <line num="10" type="stmt" count="1"/>
-      <line num="11" type="stmt" count="1"/>
-      <line num="13" type="stmt" count="1"/>
-      <line num="14" type="stmt" count="1"/>
-      <line num="16" type="stmt" count="1"/>
-      <line num="17" type="stmt" count="1"/>
-      <line num="18" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="31" type="stmt" count="1"/>
-      <line num="32" type="stmt" count="1"/>
-      <line num="34" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <metrics loc="36" ncloc="18" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="13" coveredelements="13"/>
+      <line num="10" type="stmt" count="0"/>
+      <line num="11" type="stmt" count="0"/>
+      <line num="13" type="stmt" count="0"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="16" type="stmt" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="18" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <metrics loc="36" ncloc="18" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="13" coveredelements="0"/>
     </file>
     <package name="Profile\Controllers">
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Profile/Controllers/CredentialController.php">
@@ -1395,23 +1395,23 @@
     <package name="Profile\Providers">
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Profile/Providers/ProfileServiceProvider.php">
         <class name="Profile\Providers\ProfileServiceProvider" namespace="Profile\Providers">
-          <metrics complexity="3" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="8" elements="14" coveredelements="10"/>
+          <metrics complexity="3" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="14" coveredelements="0"/>
         </class>
-        <line num="39" type="method" name="boot" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="41" type="stmt" count="1"/>
-        <line num="43" type="stmt" count="1"/>
-        <line num="44" type="stmt" count="1"/>
-        <line num="51" type="method" name="register" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="53" type="stmt" count="1"/>
-        <line num="54" type="stmt" count="1"/>
-        <line num="61" type="method" name="bootValidators" visibility="public" complexity="1" crap="1.12" count="1"/>
+        <line num="39" type="method" name="boot" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="41" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="51" type="method" name="register" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="53" type="stmt" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="61" type="method" name="bootValidators" visibility="public" complexity="1" crap="2.00" count="0"/>
         <line num="64" type="stmt" count="0"/>
         <line num="66" type="stmt" count="0"/>
-        <line num="67" type="stmt" count="1"/>
+        <line num="67" type="stmt" count="0"/>
         <line num="70" type="stmt" count="0"/>
-        <line num="71" type="stmt" count="1"/>
-        <line num="72" type="stmt" count="1"/>
-        <metrics loc="73" ncloc="45" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="8" elements="14" coveredelements="10"/>
+        <line num="71" type="stmt" count="0"/>
+        <line num="72" type="stmt" count="0"/>
+        <metrics loc="73" ncloc="45" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="14" coveredelements="0"/>
       </file>
     </package>
     <package name="Profile\Requests">
@@ -1678,27 +1678,27 @@
       <metrics loc="16" ncloc="16" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="12" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Profile/routes/admin.php">
-      <line num="14" type="stmt" count="1"/>
-      <line num="15" type="stmt" count="1"/>
-      <line num="17" type="stmt" count="1"/>
-      <line num="18" type="stmt" count="1"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="15" type="stmt" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="18" type="stmt" count="0"/>
       <line num="22" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="1"/>
-      <line num="26" type="stmt" count="1"/>
-      <line num="27" type="stmt" count="1"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <metrics loc="30" ncloc="14" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="9" elements="10" coveredelements="9"/>
+      <line num="23" type="stmt" count="0"/>
+      <line num="26" type="stmt" count="0"/>
+      <line num="27" type="stmt" count="0"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <metrics loc="30" ncloc="14" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="0" elements="10" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Profile/routes/api.php">
-      <line num="11" type="stmt" count="1"/>
-      <line num="12" type="stmt" count="1"/>
-      <line num="13" type="stmt" count="1"/>
-      <metrics loc="13" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="3" coveredelements="3"/>
+      <line num="11" type="stmt" count="0"/>
+      <line num="12" type="stmt" count="0"/>
+      <line num="13" type="stmt" count="0"/>
+      <metrics loc="13" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="3" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Profile/routes/web.php">
-      <line num="12" type="stmt" count="1"/>
-      <metrics loc="12" ncloc="4" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="1" coveredelements="1"/>
+      <line num="12" type="stmt" count="0"/>
+      <metrics loc="12" ncloc="4" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="1" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Profile/views/interactives/mediabox.blade.php">
       <line num="1" type="stmt" count="0"/>
@@ -2690,23 +2690,23 @@
       </file>
     </package>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/API/routes/api.php">
-      <line num="3" type="stmt" count="1"/>
-      <line num="4" type="stmt" count="1"/>
-      <line num="5" type="stmt" count="1"/>
-      <line num="6" type="stmt" count="1"/>
-      <line num="7" type="stmt" count="1"/>
-      <line num="8" type="stmt" count="1"/>
-      <line num="9" type="stmt" count="1"/>
-      <line num="10" type="stmt" count="1"/>
-      <line num="12" type="stmt" count="1"/>
-      <line num="13" type="stmt" count="1"/>
-      <line num="14" type="stmt" count="1"/>
-      <line num="15" type="stmt" count="1"/>
-      <line num="16" type="stmt" count="1"/>
-      <line num="17" type="stmt" count="1"/>
-      <line num="19" type="stmt" count="1"/>
-      <line num="20" type="stmt" count="1"/>
-      <metrics loc="20" ncloc="20" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="16" coveredelements="16"/>
+      <line num="3" type="stmt" count="0"/>
+      <line num="4" type="stmt" count="0"/>
+      <line num="5" type="stmt" count="0"/>
+      <line num="6" type="stmt" count="0"/>
+      <line num="7" type="stmt" count="0"/>
+      <line num="8" type="stmt" count="0"/>
+      <line num="9" type="stmt" count="0"/>
+      <line num="10" type="stmt" count="0"/>
+      <line num="12" type="stmt" count="0"/>
+      <line num="13" type="stmt" count="0"/>
+      <line num="14" type="stmt" count="0"/>
+      <line num="15" type="stmt" count="0"/>
+      <line num="16" type="stmt" count="0"/>
+      <line num="17" type="stmt" count="0"/>
+      <line num="19" type="stmt" count="0"/>
+      <line num="20" type="stmt" count="0"/>
+      <metrics loc="20" ncloc="20" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="0" elements="16" coveredelements="0"/>
     </file>
     <package name="Role\Controllers">
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/Controllers/GrantController.php">
@@ -3231,21 +3231,21 @@
     <package name="Role\Providers">
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/Providers/RoleServiceProvider.php">
         <class name="Role\Providers\RoleServiceProvider" namespace="Role\Providers">
-          <metrics complexity="4" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="7" elements="12" coveredelements="8"/>
+          <metrics complexity="4" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="0" elements="12" coveredelements="0"/>
         </class>
-        <line num="39" type="method" name="boot" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="41" type="stmt" count="1"/>
-        <line num="43" type="stmt" count="1"/>
-        <line num="45" type="stmt" count="1"/>
-        <line num="47" type="stmt" count="1"/>
-        <line num="48" type="stmt" count="1"/>
-        <line num="55" type="method" name="bootGate" visibility="public" complexity="3" crap="4.94" count="1"/>
-        <line num="57" type="stmt" count="1"/>
+        <line num="39" type="method" name="boot" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="41" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="55" type="method" name="bootGate" visibility="public" complexity="3" crap="12.00" count="0"/>
+        <line num="57" type="stmt" count="0"/>
         <line num="58" type="stmt" count="0"/>
         <line num="60" type="stmt" count="0"/>
         <line num="61" type="stmt" count="0"/>
-        <line num="64" type="stmt" count="1"/>
-        <metrics loc="65" ncloc="44" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="7" elements="12" coveredelements="8"/>
+        <line num="64" type="stmt" count="0"/>
+        <metrics loc="65" ncloc="44" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="0" elements="12" coveredelements="0"/>
       </file>
     </package>
     <package name="Role\Requests">
@@ -3570,99 +3570,99 @@
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/database/migrations/0000_00_00_000004_create_permissions_table.php">
       <class name="CreatePermissionsTable" namespace="global">
-        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="12" elements="15" coveredelements="13"/>
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
       </class>
-      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="2.00" count="1"/>
-      <line num="23" type="stmt" count="1"/>
+      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="6.00" count="0"/>
+      <line num="23" type="stmt" count="0"/>
       <line num="24" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="30" type="stmt" count="1"/>
-      <line num="31" type="stmt" count="1"/>
-      <line num="32" type="stmt" count="1"/>
-      <line num="33" type="stmt" count="1"/>
-      <line num="34" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <line num="43" type="method" name="down" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="45" type="stmt" count="1"/>
-      <line num="46" type="stmt" count="1"/>
-      <metrics loc="47" ncloc="32" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="12" elements="15" coveredelements="13"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="43" type="method" name="down" visibility="public" complexity="1" crap="2.00" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <metrics loc="47" ncloc="32" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/database/migrations/0000_00_00_000005_create_roles_table.php">
       <class name="CreateRolesTable" namespace="global">
-        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="12" elements="15" coveredelements="13"/>
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
       </class>
-      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="2.00" count="1"/>
-      <line num="23" type="stmt" count="1"/>
+      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="6.00" count="0"/>
+      <line num="23" type="stmt" count="0"/>
       <line num="24" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="30" type="stmt" count="1"/>
-      <line num="31" type="stmt" count="1"/>
-      <line num="32" type="stmt" count="1"/>
-      <line num="33" type="stmt" count="1"/>
-      <line num="34" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <line num="43" type="method" name="down" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="45" type="stmt" count="1"/>
-      <line num="46" type="stmt" count="1"/>
-      <metrics loc="47" ncloc="32" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="12" elements="15" coveredelements="13"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="43" type="method" name="down" visibility="public" complexity="1" crap="2.00" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <metrics loc="47" ncloc="32" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/database/migrations/0000_00_00_000006_create_role_user_table.php">
       <class name="CreateRoleUserTable" namespace="global">
-        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="0" elements="21" coveredelements="0"/>
       </class>
-      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="2.00" count="1"/>
-      <line num="23" type="stmt" count="1"/>
+      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="6.00" count="0"/>
+      <line num="23" type="stmt" count="0"/>
       <line num="24" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="30" type="stmt" count="1"/>
-      <line num="32" type="stmt" count="1"/>
-      <line num="33" type="stmt" count="1"/>
-      <line num="34" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <line num="38" type="stmt" count="1"/>
-      <line num="39" type="stmt" count="1"/>
-      <line num="40" type="stmt" count="1"/>
-      <line num="41" type="stmt" count="1"/>
-      <line num="42" type="stmt" count="1"/>
-      <line num="43" type="stmt" count="1"/>
-      <line num="44" type="stmt" count="1"/>
-      <line num="51" type="method" name="down" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="53" type="stmt" count="1"/>
-      <line num="54" type="stmt" count="1"/>
-      <metrics loc="55" ncloc="40" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="51" type="method" name="down" visibility="public" complexity="1" crap="2.00" count="0"/>
+      <line num="53" type="stmt" count="0"/>
+      <line num="54" type="stmt" count="0"/>
+      <metrics loc="55" ncloc="40" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="0" elements="21" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/database/migrations/0000_00_00_000007_create_permission_role_table.php">
       <class name="CreatePermissionRoleTable" namespace="global">
-        <metrics complexity="3" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+        <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="0" elements="21" coveredelements="0"/>
       </class>
-      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="2.00" count="1"/>
-      <line num="23" type="stmt" count="1"/>
+      <line num="21" type="method" name="up" visibility="public" complexity="2" crap="6.00" count="0"/>
+      <line num="23" type="stmt" count="0"/>
       <line num="24" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="1"/>
-      <line num="29" type="stmt" count="1"/>
-      <line num="30" type="stmt" count="1"/>
-      <line num="32" type="stmt" count="1"/>
-      <line num="33" type="stmt" count="1"/>
-      <line num="34" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <line num="38" type="stmt" count="1"/>
-      <line num="39" type="stmt" count="1"/>
-      <line num="40" type="stmt" count="1"/>
-      <line num="41" type="stmt" count="1"/>
-      <line num="42" type="stmt" count="1"/>
-      <line num="43" type="stmt" count="1"/>
-      <line num="44" type="stmt" count="1"/>
-      <line num="51" type="method" name="down" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="53" type="stmt" count="1"/>
-      <line num="54" type="stmt" count="1"/>
-      <metrics loc="55" ncloc="40" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+      <line num="28" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="51" type="method" name="down" visibility="public" complexity="1" crap="2.00" count="0"/>
+      <line num="53" type="stmt" count="0"/>
+      <line num="54" type="stmt" count="0"/>
+      <metrics loc="55" ncloc="40" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="0" elements="21" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/database/seeds/.GrantsTableSeeder.php">
       <class name="GrantsTableSeeder" namespace="global">
@@ -3799,26 +3799,26 @@
       <metrics loc="39" ncloc="31" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="0" elements="21" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/routes/admin.php">
-      <line num="8" type="stmt" count="1"/>
+      <line num="8" type="stmt" count="0"/>
       <line num="11" type="stmt" count="0"/>
-      <line num="12" type="stmt" count="1"/>
-      <line num="26" type="stmt" count="1"/>
-      <line num="27" type="stmt" count="1"/>
-      <line num="33" type="stmt" count="1"/>
-      <line num="34" type="stmt" count="1"/>
-      <line num="35" type="stmt" count="1"/>
-      <line num="36" type="stmt" count="1"/>
-      <line num="37" type="stmt" count="1"/>
-      <line num="38" type="stmt" count="1"/>
-      <line num="39" type="stmt" count="1"/>
-      <line num="40" type="stmt" count="1"/>
-      <line num="41" type="stmt" count="1"/>
-      <line num="47" type="stmt" count="1"/>
-      <line num="48" type="stmt" count="1"/>
-      <line num="49" type="stmt" count="1"/>
-      <line num="51" type="stmt" count="1"/>
-      <line num="52" type="stmt" count="1"/>
-      <metrics loc="52" ncloc="20" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="19" coveredelements="18"/>
+      <line num="12" type="stmt" count="0"/>
+      <line num="26" type="stmt" count="0"/>
+      <line num="27" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <line num="49" type="stmt" count="0"/>
+      <line num="51" type="stmt" count="0"/>
+      <line num="52" type="stmt" count="0"/>
+      <metrics loc="52" ncloc="20" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="0" elements="19" coveredelements="0"/>
     </file>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/submodules/Role/views/grants/edit.blade.php">
       <line num="1" type="stmt" count="0"/>
@@ -6122,33 +6122,18 @@
     <package name="Tests\Unit">
       <file name="/home/lioneil/Projects/pluma/core/submodules/User/tests/Unit/UserUnitTest.php">
         <class name="Tests\Unit\UserUnitTest" namespace="Tests\Unit">
-          <metrics complexity="3" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="8" elements="24" coveredelements="8"/>
+          <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="0" elements="9" coveredelements="0"/>
         </class>
-        <line num="25" type="method" name="testItCanCreateAUser" visibility="public" complexity="1" crap="1.00" count="1"/>
-        <line num="27" type="stmt" count="1"/>
-        <line num="28" type="stmt" count="1"/>
-        <line num="30" type="stmt" count="1"/>
-        <line num="31" type="stmt" count="1"/>
-        <line num="32" type="stmt" count="1"/>
-        <line num="33" type="stmt" count="1"/>
-        <line num="34" type="stmt" count="1"/>
-        <line num="35" type="stmt" count="1"/>
-        <line num="36" type="stmt" count="0"/>
-        <line num="43" type="method" name="testUserCanLogin" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="37" type="method" name="testItCanCreateAUser" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="39" type="stmt" count="0"/>
+        <line num="40" type="stmt" count="0"/>
+        <line num="42" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
         <line num="45" type="stmt" count="0"/>
         <line num="46" type="stmt" count="0"/>
         <line num="48" type="stmt" count="0"/>
-        <line num="49" type="stmt" count="0"/>
-        <line num="51" type="stmt" count="0"/>
-        <line num="52" type="stmt" count="0"/>
-        <line num="54" type="stmt" count="0"/>
-        <line num="55" type="stmt" count="0"/>
-        <line num="56" type="stmt" count="0"/>
-        <line num="63" type="method" name="testUserCanLogout" visibility="public" complexity="1" crap="2.00" count="0"/>
-        <line num="65" type="stmt" count="0"/>
-        <line num="66" type="stmt" count="0"/>
-        <line num="67" type="stmt" count="0"/>
-        <metrics loc="68" ncloc="53" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="8" elements="24" coveredelements="8"/>
+        <metrics loc="49" ncloc="27" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="0" elements="9" coveredelements="0"/>
       </file>
     </package>
     <file name="/home/lioneil/Projects/pluma/core/submodules/User/views/auth/.login.blade.php">
@@ -8542,6 +8527,6 @@
       <line num="150" type="stmt" count="0"/>
       <metrics loc="150" ncloc="150" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="139" coveredstatements="0" elements="139" coveredelements="0"/>
     </file>
-    <metrics files="146" loc="11861" ncloc="9818" classes="82" methods="230" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="7540" coveredstatements="215" elements="7770" coveredelements="229"/>
+    <metrics files="146" loc="11842" ncloc="9792" classes="82" methods="228" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7527" coveredstatements="0" elements="7755" coveredelements="0"/>
   </project>
 </coverage>

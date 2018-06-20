@@ -18,9 +18,9 @@ trait CreatesApplication
 
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        $app->singleton(Kernel::class, Blacksmith::class);
-
         $app->make(Kernel::class)->bootstrap();
+
+        $app->singleton(Kernel::class, Blacksmith::class);
 
         return $app;
     }

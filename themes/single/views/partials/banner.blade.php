@@ -1,4 +1,4 @@
-<v-card flat tile class="sticky elevation-10">
+{{-- <v-card flat tile class="sticky elevation-10">
   <v-list two-line>
     <v-list-tile>
       <v-list-avatar>
@@ -15,4 +15,4 @@
     <v-btn flat color="primary">Reload Page</v-btn>
   </v-card-actions>
   <v-divider></v-divider>
-</v-card>
+</v-card> --}}

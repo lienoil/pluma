@@ -82,10 +82,10 @@ trait InteractsWithDatabase
      * @param  string  $class
      * @return $this
      */
-    public function seed($class = 'DatabaseSeeder')
+    public function seed($class = 'Pluma\Support\Database\DatabaseSeeder')
     {
         if (class_exists($class)) {
-            $this->artisan('db:seed', ['--class' => $class]);
+            $this->console('db:seed', ['--class' => $class]);
         }
 
         return $this;

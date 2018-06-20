@@ -4,6 +4,7 @@
     max-width="290px"
     lazy
     v-model="dialogbox.model"
+    v-shortkey="['esc']" @shortkey.native="dialogbox.cancelCallback() || hide()"
     >
     <v-card>
       <v-card-title v-if="dialogbox.title" v-html="trans(dialogbox.title)"></v-card-title>

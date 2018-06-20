@@ -2,8 +2,6 @@
 
 namespace Pluma\Support\Repository;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Repository implements RepositoryInterface
 {
     /**
@@ -14,13 +12,39 @@ class Repository implements RepositoryInterface
     protected $model;
 
     /**
+     * The static id of the resource.
+     *
+     * @var int
+     */
+    protected static $id;
+
+    /**
      * Constructor to bind model to a repository.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      */
-    public function __construct(Model $model)
+    public function __construct($model = null)
     {
-        $this->model = $model;
+        $this->model = $model ?? new $this->model;
+    }
+
+    /**
+     * Bind the resource model statically.
+     *
+     * @param mixed $model
+     * @return self
+     */
+    public static function bind($id)
+    {
+        $instance = new static;
+        $model = new $instance->model;
+        $resource = $model->find($id);
+
+        self::$id = $id;
+
+        $instance->model = $resource ?? $model;
+
+        return $instance;
     }
 
     /**

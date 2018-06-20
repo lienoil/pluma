@@ -37,7 +37,7 @@ trait RefreshDatabase
      */
     protected function refreshInMemoryDatabase()
     {
-        $this->artisan('migration:migrate');
+        $this->console('migration:migrate');
 
         $this->app[Kernel::class]->setArtisan(null);
     }
@@ -50,7 +50,7 @@ trait RefreshDatabase
     protected function refreshTestDatabase()
     {
         if (! RefreshDatabaseState::$migrated) {
-            $this->artisan('migration:fresh');
+            $this->console('migration:fresh');
 
             $this->app[Kernel::class]->setArtisan(null);
 

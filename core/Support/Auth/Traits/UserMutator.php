@@ -3,7 +3,6 @@
 namespace Pluma\Support\Auth\Traits;
 
 use Closure;
-use Laravolt\Avatar\Avatar;
 use Parchment\Helpers\Word;
 
 trait UserMutator
@@ -14,27 +13,6 @@ trait UserMutator
      * @var array
      */
     protected $rolenames;
-
-    /**
-     * Set the user's password.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
-    /**
-     * Retrieve the mutated avatar value.
-     *
-     * @return string
-     */
-    public function getPhotoAttribute()
-    {
-        return $this->avatar ?? (new Avatar(config('avatar')))->create($this->fullname)->toBase64()->getEncoded();
-    }
 
     /**
      * Retrieve the mutated handlename.

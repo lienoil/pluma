@@ -13,24 +13,16 @@
   </v-text-field>
   <v-spacer></v-spacer>
 
-  @if (request()->input('rightsidebar'))
-    <v-avatar role="button" @click="rightsidebar.model = !rightsidebar.model" size="38px">
-      <img src="{{ navigations('profile')->labels->avatar }}" alt="{{ navigations('profile')->labels->name }}">
-    </v-avatar>
-  @else
-
-  <v-menu left>
+  <v-menu left offset-y nudge-width="200px">
     <v-avatar slot="activator" size="38px">
       <img src="{{ navigations('profile')->labels->avatar }}" alt="{{ navigations('profile')->labels->name }}">
     </v-avatar>
     <v-card>
       <v-list two-line>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-avatar size="42px">
-              <img src="{{ navigations('profile')->labels->avatar }}" alt="{{ navigations('profile')->labels->name }}">
-            </v-avatar>
-          </v-list-tile-action>
+        <v-list-tile avatar>
+          <v-list-tile-avatar tile size="50px">
+            <img src="{{ navigations('profile')->labels->avatar }}" alt="{{ navigations('profile')->labels->name }}">
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ navigations('profile')->labels->name }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ navigations('profile')->labels->role }}</v-list-tile-sub-title>
@@ -55,8 +47,7 @@
       </v-list>
     </v-card>
   </v-menu>
-  <v-btn icon ripple @click="rightsidebar.model = !rightsidebar.model"><v-icon color="grey">keyboard_arrow_left</v-icon></v-btn>
-  @endif
 
+  <v-btn icon small ripple @click="rightsidebar.model = !rightsidebar.model"><v-icon small color="grey">keyboard_arrow_left</v-icon></v-btn>
 
 </v-toolbar>

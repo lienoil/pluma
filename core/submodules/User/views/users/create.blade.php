@@ -254,8 +254,8 @@
                             }
                         },
                         avatars: {
-                            selected: {!! json_encode($avatars[0]) !!},
-                            items: {!! json_encode($avatars) !!}
+                            {{-- selected: {!! json_encode($avatars[0]) !!}, --}}
+                            {{-- items: {!! json_encode($avatars) !!} --}}
                         },
                         required_fields: {
                             model: false,

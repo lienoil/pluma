@@ -7,7 +7,7 @@
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
-    processIsolation="false"
+    processIsolation="true"
     stopOnFailure="false"
     printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
     >
@@ -21,9 +21,9 @@
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./core</directory>
-        </whitelist>
+        <blacklist>
+            <directory>./vendor</directory>
+        </blacklist>
     </filter>
     <!-- <logging>
         <log type="tap" target="tests/build/report.tap"/>
@@ -34,7 +34,7 @@
     </logging> -->
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="DB_CONNECTION" value="test"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
         <env name="DB_DRIVER" value="sqlite"/>
         <env name="DB_DATABASE" value=":memory:"/>
         <env name="BCRYPT_ROUNDS" value="4"/>

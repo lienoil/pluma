@@ -13,11 +13,11 @@ class FormRequest extends BaseRequest
      */
     public function forbiddenResponse()
     {
-        return response()->view('Pluma::errors.403', [
+        return response()->view('Theme::errors.403', [
             'error' => [
                 'code' => 'NOT_AUTHORIZED',
-                'message' => 'You will be deactivated.',
-                'description' => "",
+                'message' => 'Unauthorized.',
+                'description' => '',
             ]
         ]);
     }

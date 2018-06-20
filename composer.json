@@ -67,10 +67,10 @@
   "autoload": {
     "classmap": [
       "core",
-      "modules",
       "console",
-      "database/factories",
-      "database/seeds"
+      "modules",
+      "database/seeds",
+      "database/factories"
     ],
     "psr-4": {
       "Blacksmith\\": "console/blacksmith/",
@@ -78,6 +78,9 @@
     }
   },
   "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ],
     "psr-4": {
       "Tests\\": "tests/"
     }

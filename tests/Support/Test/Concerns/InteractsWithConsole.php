@@ -2,7 +2,6 @@
 
 namespace Tests\Support\Test\Concerns;
 
-use Blacksmith\Console\Kernel as Blacksmith;
 use Illuminate\Contracts\Console\Kernel;
 
 trait InteractsWithConsole

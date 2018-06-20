@@ -1,5 +1,7 @@
 <?php
 
+use Laravolt\Avatar\Generator\DefaultGenerator;
+
 return [
 
     /**
@@ -17,13 +19,13 @@ return [
     'driver' => 'gd',
 
     // Initial generator class
-    'generator' => \Laravolt\Avatar\Generator\DefaultGenerator::class,
+    'generator' => DefaultGenerator::class,
 
     // Whether all characters supplied must be replaced with their closest ASCII counterparts
     'ascii' => false,
 
     // Image shape: circle or square
-    'shape' => 'circle',
+    'shape' => 'square',
 
     // Image width, in pixel
     'width' => 60,
@@ -53,8 +55,8 @@ return [
     'backgrounds' => [
         '#85A0A1',
         '#BEAAD0',
+        '#185686',
         '#D3C5B6',
-
     ],
 
     'border' => [

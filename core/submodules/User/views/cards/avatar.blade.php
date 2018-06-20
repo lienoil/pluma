@@ -62,7 +62,7 @@
                     resource: {
                         avatars: {
                             model: '{{ old('avatar') ? old('avatar') : (isset($resource) ? $resource->avatar : '') }}',
-                            items: {!! json_encode($avatars) !!},
+                            {{-- items: {!! json_encode($avatars) !!}, --}}
                         },
                     }
                 };

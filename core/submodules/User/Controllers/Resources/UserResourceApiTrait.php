@@ -94,7 +94,6 @@ trait UserResourceApiTrait
      */
     public function postStore(UserRequest $request)
     {
-        dd($request->all());
         $user = new User();
         $user->prefixname = $request->input('prefixname');
         $user->firstname = $request->input('firstname');

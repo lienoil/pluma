@@ -4,6 +4,7 @@ namespace User\Requests;
 
 use Pluma\Requests\FormRequest;
 use User\Models\User;
+use User\Repositories\UserRepository;
 
 class UserRequest extends FormRequest
 {
@@ -14,29 +15,30 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->user()->isRoot() || $this->user()->id === $this->id) {
-            return true;
-        }
+        return true;
+        // if ($this->user()->isRoot() || $this->user()->id === $this->user) {
+        //     return true;
+        // }
 
-        switch ($this->method()) {
-            case 'POST':
-                return $this->user()->can('store-user');
-                break;
+        // switch ($this->method()) {
+        //     case 'POST':
+        //         return $this->user()->can('store-user');
+        //         break;
 
-            case 'PUT':
-                return $this->user()->can('update-user');
-                break;
+        //     case 'PUT':
+        //         return $this->user()->can('update-user');
+        //         break;
 
-            case 'DELETE':
-                return $this->user()->can('destroy-user');
-                break;
+        //     case 'DELETE':
+        //         return $this->user()->can('destroy-user');
+        //         break;
 
-            default:
-                return false;
-                break;
-        }
+        //     default:
+        //         return false;
+        //         break;
+        // }
 
-        return false;
+        // return false;
     }
 
     /**
@@ -46,9 +48,7 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
-
-        return User::$rules;
+        return UserRepository::bind($this->user)->rules();
     }
 
     /**
@@ -58,6 +58,6 @@ class UserRequest extends FormRequest
      */
     public function messages()
     {
-        return User::$messages;
+        return UserRepository::messages();
     }
 }
