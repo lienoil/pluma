@@ -94,7 +94,7 @@ class DBSeedCommand extends Command
     protected function getOptions()
     {
         return [
-            ['class', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder', 'DatabaseSeeder'],
+            ['class', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder', 'Pluma\Support\Database\DatabaseSeeder'],
 
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed'],
 

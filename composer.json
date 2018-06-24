@@ -49,7 +49,6 @@
     "mtdowling/cron-expression": "^1.2",
     "nesbot/carbon": "^1.22",
     "predis/predis": "^1.1",
-    "spatie/server-side-rendering": "^0.2.4",
     "swiftmailer/swiftmailer": "^6.0",
     "symfony/console": "^4.0",
     "symfony/polyfill-mbstring": "^1.7",
@@ -58,19 +57,20 @@
     "wikimedia/composer-merge-plugin": "^1.4"
   },
   "require-dev": {
+    "codedungeon/phpunit-result-printer": "^0.19.10",
     "filp/whoops": "^2.0",
     "fzaninotto/faker": "^1.4",
     "mockery/mockery": "^1.0",
     "nunomaduro/collision": "^2.0",
-    "phpunit/phpunit": "^7.0"
+    "phpunit/phpunit": "^7.2"
   },
   "autoload": {
     "classmap": [
       "core",
-      "modules",
       "console",
-      "database/factories",
-      "database/seeds"
+      "modules",
+      "database/seeds",
+      "database/factories"
     ],
     "psr-4": {
       "Blacksmith\\": "console/blacksmith/",
@@ -78,6 +78,9 @@
     }
   },
   "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ],
     "psr-4": {
       "Tests\\": "tests/"
     }
@@ -86,6 +89,8 @@
     "merge-plugin": {
       "include": [
         "composer.local.json",
+        "console/*/composer.json",
+        "core/composer.json",
         "core/submodules/*/composer.json",
         "modules/*/composer.json"
       ],

@@ -2,6 +2,7 @@
 
 namespace Blacksmith\Console\Commands\Migrations;
 
+use Blacksmith\Console\Commands\Migrations\Support\BaseCommand;
 use Illuminate\Database\Migrations\Migrator;
 use Pluma\Support\Console\Traits\ConfirmableTrait;
 use Symfony\Component\Console\Input\InputOption;

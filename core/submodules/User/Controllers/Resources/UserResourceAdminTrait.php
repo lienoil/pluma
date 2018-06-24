@@ -35,7 +35,7 @@ trait UserResourceAdminTrait
         }
         $roles = $roles->get();
 
-        $avatars = User::avatars();
+        $avatars = []; // User::avatars();
 
         return view("Theme::users.create")->with(compact('roles', 'avatars'));
     }
@@ -101,7 +101,7 @@ trait UserResourceAdminTrait
         }
         $roles = $roles->get();
 
-        $avatars = User::avatars();
+        $avatars = []; // User::avatars();
 
         return view("Theme::users.edit")->with(compact('resource', 'roles', 'avatars'));
     }
@@ -130,7 +130,7 @@ trait UserResourceAdminTrait
         $user->roles()->sync($request->input('roles'));
 
         // Detail
-        foreach ($request->input('details') as $key => $value) {
+        foreach (($request->input('details') ?? []) as $key => $value) {
             $user->details()->updateOrCreate(['key' => $key], ['value' => $value]);
         }
 

@@ -1,0 +1,21 @@
+<?php
+
+namespace DummyNamespace;
+
+use Tests\TestCase;
+use Tests\Support\Test\WithFaker;
+use Tests\Support\Test\RefreshDatabase;
+
+class DummyClass extends TestCase
+{
+    /**
+     * _________________________.
+     *
+     * @test
+     * @return void
+     */
+    public function testExample()
+    {
+        $this->assertTrue(true);
+    }
+}

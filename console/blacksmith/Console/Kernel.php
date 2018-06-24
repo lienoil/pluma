@@ -5,6 +5,7 @@ namespace Blacksmith\Console;
 use Illuminate\Support\Facades\File;
 use Pluma\Console\Commands\Scheduling\Schedule;
 use Pluma\Console\Kernel as BaseKernel;
+use Symfony\Component\Finder\Finder;
 
 class Kernel extends BaseKernel
 {
@@ -13,95 +14,7 @@ class Kernel extends BaseKernel
      *
      * @var array
      */
-    public $commands = [
-        // App
-        Commands\App\AppGrantsRefreshCommand::class,
-        Commands\App\AppHomepageCommand::class,
-        Commands\App\AppRolesGenerateCommand::class,
-        Commands\App\AppThemeCommand::class,
-        Commands\App\AppVersionCommand::class,
-
-        // Standalone
-        Commands\Standalone\AppInstallCommand::class,
-        Commands\Standalone\AppServeCommand::class,
-
-        // Config
-        Commands\Config\ConfigCacheCommand::class,
-        Commands\Config\ConfigClearCommand::class,
-
-        // DB
-        Commands\DB\DBDropCommand::class,
-        Commands\DB\DBEmptyCommand::class,
-        Commands\DB\DBMigrateCommand::class,
-        Commands\DB\DBSeedCommand::class,
-        Commands\DB\DBSeederCommand::class,
-
-        // Furnace
-        Commands\Furnace\ForgeAccountCommand::class,
-        Commands\Furnace\ForgeCommandCommand::class,
-        Commands\Furnace\ForgeControllerCommand::class,
-        Commands\Furnace\ForgeModelCommand::class,
-        Commands\Furnace\ForgeModuleCommand::class,
-        Commands\Furnace\ForgeObserverCommand::class,
-        Commands\Furnace\ForgePermissionsCommand::class,
-        Commands\Furnace\ForgeResourceCommand::class,
-        Commands\Furnace\ForgeWeaponCommand::class,
-        Commands\Furnace\PurgeCacheCommand::class,
-        Commands\Furnace\PurgeModuleCommand::class,
-        Commands\Furnace\PurgeSessionsCommand::class,
-        Commands\Furnace\PurgeStorageCommand::class,
-        Commands\Furnace\PurgeViewsCommand::class,
-
-        // Key
-        Commands\Key\KeyGenerateCommand::class,
-
-        // Log
-        Commands\Log\LogTailCommand::class,
-
-        // Migrations
-        Commands\Migrations\MigrationInstallCommand::class,
-        Commands\Migrations\MigrationListCommand::class,
-        Commands\Migrations\MigrationNewCommand::class,
-        Commands\Migrations\MigrationMigrateCommand::class,
-        Commands\Migrations\MigrationRollbackCommand::class,
-
-        // Queues
-        Commands\Queue\TableCommand::class,
-        Commands\Queue\ListenCommand::class,
-        Commands\Queue\WorkCommand::class,
-        Commands\Queue\RestartCommand::class,
-        Commands\Queue\FailedTableCommand::class,
-        Commands\Queue\FlushFailedCommand::class,
-        Commands\Queue\ForgetFailedCommand::class,
-        Commands\Queue\ListFailedCommand::class,
-
-        // Permissions
-        Commands\Permissions\PermissionsRefreshCommand::class,
-
-        // Phinx
-        // Commands\Phinx\PhinxMigrateCreateCommand::class,
-        Commands\Phinx\PhinxMigrateRunCommand::class,
-        // Commands\Phinx\PhinxSeedCreateCommand::class,
-        // Commands\Phinx\PhinxSeedRunCommand::class,
-
-        // Route
-        Commands\Route\RouteCacheCommand::class,
-        Commands\Route\RouteClearCommand::class,
-
-        // Misc
-        Commands\Misc\FurnaceCommand::class,
-
-        // vendor
-        // \Phinx\Console\Command\Init::class,
-        // \Phinx\Console\Command\Create::class,
-        // \Phinx\Console\Command\Migrate::class,
-        // \Phinx\Console\Command\Rollback::class,
-        // \Phinx\Console\Command\Status::class,
-        // \Phinx\Console\Command\Breakpoint::class,
-        // \Phinx\Console\Command\Test::class,
-        // \Phinx\Console\Command\SeedCreate::class,
-        // \Phinx\Console\Command\SeedRun::class,
-    ];
+    public $commands = [];
 
     /**
      * Register the console commands for the application.
@@ -146,9 +59,20 @@ class Kernel extends BaseKernel
      */
     protected function loadCommandsFromBlacksmithCommands()
     {
-        foreach (File::allFiles(blacksmith_path('Console/Commands')) as $file) {
-            // dd(realpath($file));
-            // $this->commands[] = "Blacksmith\Console\Commands\App\\$className";
+        $path = blacksmith_path('Console/Commands');
+
+        $files = Finder::create()
+                       ->files()
+                       ->notName('BaseCommand.php')
+                       ->name('*Command.php')
+                       ->in($path);
+
+        foreach ($files as $file) {
+            $command = str_replace("{$path}/", '', $file->getRealPath());
+            $command = str_replace(".php", '', $command);
+            $command = str_replace("/", '\\', $command);
+
+            $this->commands[] = "Blacksmith\\Console\\Commands\\{$command}";
         }
     }
 }

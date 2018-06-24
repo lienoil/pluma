@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Pluma\Models\User;
 // use Pluma\Models\Course;
 use Comment\Requests\CommentRequest;
-use Pluma\Controllers\APIController as Controller;
+use Pluma\Controllers\ApiController as Controller;
 
 class CommentController extends Controller
 {

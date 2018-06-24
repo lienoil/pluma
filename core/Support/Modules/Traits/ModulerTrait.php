@@ -40,7 +40,7 @@ trait ModulerTrait
      *
      * @return array
      */
-    public function getModules()
+    protected function getModules()
     {
         return $this->modules;
     }
@@ -126,5 +126,16 @@ trait ModulerTrait
         }
 
         return $files ?? [];
+    }
+
+    /**
+     * Determine if the module name exists.
+     *
+     * @param string $module
+     * @return boolean
+     */
+    public function isModule($module)
+    {
+        return in_array($module, $this->modules());
     }
 }

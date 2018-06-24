@@ -14,7 +14,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Pluma\Application\EnvironmentDetector;
 use Pluma\Application\ProviderRepository;
-use Pluma\Providers\DatabaseServiceProvider;
 use Pluma\Providers\PlumaServiceProvider;
 use Pluma\Providers\RoutingServiceProvider;
 use Pluma\Support\Facades\AliasLoader;
@@ -201,8 +200,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         $this->register(new RoutingServiceProvider($this));
 
         $this->register(new LogServiceProvider($this));
-
-        $this->register(new PlumaServiceProvider($this));
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace Blacksmith\Console\Commands\DB;
 
-use Pluma\Support\Console\Traits\ConfirmableTrait;
-use Blacksmith\Console\Commands\Migrations\BaseCommand;
+use Blacksmith\Console\Commands\Migrations\Support\BaseCommand;
 use Illuminate\Database\Migrations\Migrator;
+use Pluma\Support\Console\Traits\ConfirmableTrait;
 
 class DBMigrateCommand extends BaseCommand
 {
@@ -29,7 +29,7 @@ class DBMigrateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Run the database migrations. Also named as migration:migrate';
+    protected $description = 'Run the database migrations. Also named as db:migrate';
 
     /**
      * The migrator instance.
@@ -58,6 +58,7 @@ class DBMigrateCommand extends BaseCommand
      */
     public function handle()
     {
+        $n = microtime(true);
         if (! $this->confirmToProceed()) {
             return;
         }
@@ -85,6 +86,8 @@ class DBMigrateCommand extends BaseCommand
         if ($this->option('seed')) {
             $this->call('db:seed', ['--force' => true]);
         }
+
+        $this->info("{$this->checkmark()} Took ".$this->time($n)." to finish the command");
     }
 
     /**

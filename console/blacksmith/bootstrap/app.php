@@ -6,8 +6,6 @@
  *
  */
 
-include_once __DIR__ . '/../helpers/helpers.php';
-
 // Create the app instance
 $app = new Pluma\Application\Application(
     realpath(__DIR__ . '/../../../')

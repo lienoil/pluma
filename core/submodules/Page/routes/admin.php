@@ -10,10 +10,10 @@
  */
 
 // Category routes
-Route::resource('pages/categories', 'CategoryController', [
-        'except' => ['show', 'create'],
-        'as' => 'pages',
-    ]);
+// Route::resource('pages/categories', 'CategoryController', [
+//         'except' => ['show', 'create'],
+//         'as' => 'pages',
+//     ]);
 
 // SoftDelete routes
 Route::softDeletes('pages', 'PageController', ['module' => 'Pluma']);

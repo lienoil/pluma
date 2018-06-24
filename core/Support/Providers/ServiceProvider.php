@@ -2,6 +2,7 @@
 
 namespace Pluma\Support\Providers;
 
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -166,5 +167,16 @@ class ServiceProvider extends BaseServiceProvider
         foreach ($this->providers as $provider) {
             $this->app->register($provider);
         }
+    }
+
+    /**
+     * Register Eloquent Factories.
+     *
+     * @param string $path
+     * @return void
+     */
+    protected function registerEloquentFactoriesFrom($path)
+    {
+        $this->app->make(EloquentFactory::class)->load($path);
     }
 }

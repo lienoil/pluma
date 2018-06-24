@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="2.001184">
+    <testsuite name="Unit" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="2.001184">
+      <testsuite name="Tests\Unit\UserUnitTest" file="/home/lioneil/Projects/pluma/core/submodules/User/tests/Unit/UserUnitTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="2.001184">
+        <testcase name="testItCanCreateAUser" class="Tests\Unit\UserUnitTest" classname="Tests.Unit.UserUnitTest" file="/home/lioneil/Projects/pluma/core/submodules/User/tests/Unit/UserUnitTest.php" line="37" assertions="0" time="2.001184">
+          <error type="Illuminate\Database\QueryException">Tests\Unit\UserUnitTest::testItCanCreateAUser
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1 no such table: users (SQL: insert into "users" ("firstname", "lastname", "email", "username", "password", "updated_at", "created_at") values (Bette, Jenkins, qhermiston@example.com, qhermiston-at-examplecom, $2y$10$GFcEwpemxItBSCS3NwPfdOh1n0WzJEyN23qnXE9OgRLXyz3O39PCi, 2018-06-20 11:33:49, 2018-06-20 11:33:49))
+
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Connection.php:664
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Connection.php:624
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Connection.php:459
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Connection.php:411
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Query/Processors/Processor.php:32
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Query/Builder.php:2494
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Eloquent/Builder.php:1283
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Eloquent/Model.php:732
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Eloquent/Model.php:697
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Eloquent/Model.php:560
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Eloquent/Builder.php:755
+/home/lioneil/Projects/pluma/vendor/illuminate/support/helpers.php:1041
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Eloquent/Builder.php:756
+/home/lioneil/Projects/pluma/vendor/illuminate/database/Eloquent/Model.php:1515
+/home/lioneil/Projects/pluma/core/Support/Repository/Repository.php:43
+/home/lioneil/Projects/pluma/core/submodules/User/tests/Unit/UserUnitTest.php:40
+</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

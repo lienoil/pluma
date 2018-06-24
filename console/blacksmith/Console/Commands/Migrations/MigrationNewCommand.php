@@ -2,11 +2,11 @@
 
 namespace Blacksmith\Console\Commands\Migrations;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Composer;
-use Pluma\Support\Modules\Traits\ModulerTrait;
+use Blacksmith\Console\Commands\Migrations\Support\BaseCommand;
 use Blacksmith\Console\Commands\Migrations\Support\MigrationCreator;
-use Blacksmith\Console\Commands\Migrations\BaseCommand;
+use Illuminate\Support\Composer;
+use Illuminate\Support\Str;
+use Pluma\Support\Modules\Traits\ModulerTrait;
 
 class MigrationNewCommand extends BaseCommand
 {

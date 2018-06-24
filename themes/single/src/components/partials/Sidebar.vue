@@ -83,6 +83,13 @@
           ripple
           v-model="menu.active"
           >
+
+          <v-icon slot="appendIcon" small :class="{
+            'primary--text': menu.active,
+            'grey--text text--darken-2': $root.theme.dark,
+            'grey--text text--lighten-2': !$root.theme.dark
+          }">keyboard_arrow_down</v-icon>
+
           <v-list-tile ripple slot="activator" v-model="menu.active">
             <v-list-tile-content>
               <v-list-tile-title v-html="trans(menu.labels.title)"></v-list-tile-title>

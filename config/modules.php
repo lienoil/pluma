@@ -33,6 +33,5 @@ return [
         'Bookmark',
         'Forum',
         'Shop',
-        // 'Test',
     ],
 ];

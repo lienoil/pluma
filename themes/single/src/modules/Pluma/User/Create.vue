@@ -9,6 +9,8 @@
       <v-btn icon exact :to="{name: 'users.index'}"><v-icon>arrow_back</v-icon></v-btn>
       <v-toolbar-title v-html="trans('Create User')"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn type="submit" color="primary" :loading="resource.form.loading" @click.native="submit()">{{ trans('Save') }}</v-btn>
+      <!-- <v-divider class="vertical"></v-divider> -->
       <v-menu left>
         <v-btn slot="activator" icon><v-icon>more_vert</v-icon></v-btn>
         <v-list dense>
@@ -23,8 +25,6 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-divider class="vertical"></v-divider>
-      <v-btn type="submit" color="primary" :loading="resource.form.loading" @click.native="submit()">{{ trans('Save') }}</v-btn>
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
@@ -293,7 +293,7 @@ export default {
       this.prompt({
         title: 'You have unsaved changes',
         text: 'You will lose your data permanently when you navigate away without saving.',
-        persistent: true,
+        persistent: false,
 
         actionText: 'Save to Drafts',
         actionCallback () {
@@ -301,6 +301,7 @@ export default {
           // store.dispatch.saveUserOrSomeShitLikeThat
           // then...
           self.toast({text: 'User saved to drafts'})
+          next()
         },
 
         discard: true,
@@ -310,9 +311,8 @@ export default {
           self.toast({
             text: 'Data was discarded',
             timeout: 8000,
-            buttonText: 'Undo',
             buttonCallback () {
-              // undo
+              this.model = false
             }
           })
           next()

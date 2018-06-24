@@ -7,6 +7,7 @@
   <v-container v-if="!$root.$router.current" fluid grid-list-lg>
     <v-layout row wrap>
       <v-flex sm6 md5>
+
         <v-card class="mb-3" light color="yellow accent-1">
           <v-system-bar color="yellow accent-4">
             <v-icon color="yellow accent-1">notification_important</v-icon>
