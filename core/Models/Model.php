@@ -43,7 +43,7 @@ class Model extends BaseModel
      *
      * @return void
      */
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 

@@ -239,6 +239,7 @@ class AdjacentTo extends Relation
                 $this->table, $key, '=', $this->getQualifiedAncestorKeyName()
             )
             ->where($this->getQualifiedLengthKeyName(), 1)
+            ->groupBy($this->getQualifiedAncestorKeyName())
             ->get();
     }
 }

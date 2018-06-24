@@ -19,8 +19,9 @@ class LessonsTableSeeder extends Seeder
         foreach ($courses as $course) {
             for ($i = 0; $i < 10; $i++) {
                 $lesson = new Lesson();
-                $lesson->title = $title = str_replace('.', '', ucwords($faker->realText(40, 4)));
+                $lesson->title = $title = str_replace('.', '', ucwords($faker->unique()->realText(40, 4)));
                 $lesson->slug = $slug = str_slug($title);
+                $lesson->sort = $i;
                 $lesson->code = $code = $faker->swiftBicNumber;
                 $lesson->feature = $faker->imageUrl(300, 300);
                 $lesson->body = $body = $faker->paragraph;

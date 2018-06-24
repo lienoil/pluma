@@ -41,8 +41,8 @@ trait CourseResourceAdminTrait
      */
     public function create(Request $request)
     {
-        //
+        $resource = Course::first();
 
-        return view('Course::courses.create');
+        return view('Course::courses.create')->with(compact('resource'));
     }
 }
