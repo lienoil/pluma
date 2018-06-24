@@ -2,20 +2,28 @@
 
 namespace Blacksmith\Console\Commands\Furnace;
 
+use Blacksmith\Support\Console\GeneratorCommand;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\File;
-use Pluma\Support\Console\Command;
 use Pluma\Support\Filesystem\Filesystem;
+use Pluma\Support\Modules\Traits\ModulerTrait;
 
-class ForgeControllerCommand extends Command
+class ForgeControllerCommand extends GeneratorCommand
 {
+    use ModulerTrait;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'forge:controller
-                           {name=null : The controller to create}
+                           {name : The controller to create}
                            {--m|module=none : Specify the module it belongs to, if applicable}
+                           {--a|admin : Specify the controller extends the Admin Controller}
+                           {--p|public : Specify the controller extends the Public Controller}
+                           {--api : Specify the controller extends the Api Controller}
                            ';
 
     /**
@@ -26,61 +34,61 @@ class ForgeControllerCommand extends Command
     protected $description = 'Create a generic controller';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Controller';
+
+    /**
+     * The Composer instance.
+     *
+     * @var \Illuminate\Support\Composer
+     */
+    protected $composer;
+
+    /**
+     * Create a new command instance.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param  \Illuminate\Support\Composer  $composer
+     * @return void
+     */
+    public function __construct(Filesystem $files, Composer $composer)
+    {
+        parent::__construct($files);
+
+        $this->composer = $composer;
+    }
+
+    /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle(Filesystem $filesystem)
+    public function handle()
     {
-        try {
-            $name = studly_case($this->argument('name'));
-            $slug = strtolower(str_slug($name));
-            $option = $this->option();
-            $module = get_module($option['module']);
-            $modules = get_modules_path(true);
-
-            if ($this->argument('name') === 'null' || is_null($name)) {
-                $name = $this->ask("Please specify the controller name: (e.g. QuestController)");
-            }
-
-            if ($option['module'] === 'none' || is_null($module)) {
-                $module = get_module($option['module']);
-
-                if (is_null($module)) {
-                    $this->error("Please specify the module this controller belongs to.");
-                    $module = $this->choice("What module to put '$name' in?", $modules);
-                    $module = get_module($module);
-                }
-
-                $this->info("Using path: $module");
-            }
-
-            $file = "$module/Controllers/{$name}Controller.php";
-            $name = $name;
-            $namespace = basename($module);
-            $class = "{$name}Controller";
-            $model = basename($module);
-            $slug = strtolower(str_plural($name));
-
-            $template = $filesystem->put(
-                blacksmith_path("templates/controllers/Controller.stub"),
-                compact('namespace', 'name', 'class', 'model', 'slug')
+        if (! $module = $this->input->getOption('module')) {
+            $module = $this->getModulePath(
+                $this->choice("Specify the module the seeder will belong to.", $this->modules());
             );
-
-            if ($filesystem->make($file, $template)) {
-                $this->info("File created: $file");
-            }
-
-
-            exec("composer dump-autoload -o");
-        } catch (\Pluma\Support\Filesystem\FileAlreadyExists $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-        } catch (\Exception $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
         }
+        dd($module);
+
+        $this->input->setOption('module', $module);
+
+        parent::handle();
+
+        $this->composer->dumpAutoloads();
+    }
+
+    /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
+    protected function getStub()
+    {
+        return blacksmith_path('templates/controllers/Controller.stub');
     }
 }

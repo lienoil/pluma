@@ -33,7 +33,6 @@ return [
         // Application
         Pluma\Providers\ApplicationServiceProvider::class,
         Pluma\Providers\DatabaseServiceProvider::class,
-        // # TODO: can be deleted Pluma\Providers\FilesystemServiceProvider::class,
         Pluma\Providers\EventServiceProvider::class,
         Pluma\Providers\TranslationServiceProvider::class,
         Pluma\Providers\ModuleServiceProvider::class,
