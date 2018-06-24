@@ -42,6 +42,6 @@ class CourseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        parent::register();
     }
 }
