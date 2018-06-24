@@ -20,6 +20,12 @@ return [
             'description' => __('Manage courses'),
         ],
         'children' => [
+            /**
+             *------------------------------------------------------------------
+             * Public Routes
+             *------------------------------------------------------------------
+             *
+             */
             'all-courses' => [
                 'name' => 'all-courses',
                 'order' => 1,
@@ -32,6 +38,26 @@ return [
                     'description' => __('View the list of courses'),
                 ],
             ],
+
+            /**
+             *------------------------------------------------------------------
+             * Admin Routes
+             *------------------------------------------------------------------
+             *
+             */
+            'owned-courses' => [
+                'name' => 'owned-courses',
+                'order' => 1,
+                'slug' => route('courses.all'),
+                'code' => 'courses.owned',
+                'exclude_from_root' => true,
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('My Courses'),
+                    'description' => __('View list of your enrolled courses'),
+                ],
+            ],
+
             'view-courses' => [
                 'name' => 'view-courses',
                 'order' => 2,

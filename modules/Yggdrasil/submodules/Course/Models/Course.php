@@ -11,7 +11,11 @@ class Course extends Model
     use HasManyLessons,
         SoftDeletes;
 
-    protected $with = [];
-
-    protected $searchables = ['created_at', 'updated_at'];
+    protected $searchables = [
+        'title',
+        'code',
+        'body',
+        'created_at',
+        'updated_at'
+    ];
 }

@@ -43,6 +43,6 @@ trait CourseResourceAdminTrait
     {
         //
 
-        return view('Course::courses.create')->with(compact());
+        return view('Course::courses.create');
     }
 }
