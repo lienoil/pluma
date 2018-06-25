@@ -50,34 +50,4 @@ class Model extends BaseModel
         // For observer events
         Model::setEventDispatcher(app('events'));
     }
-
-    /**
-     * Get the default ancestor key name for the model.
-     *
-     * @return string
-     */
-    public function getAncestorKey()
-    {
-        return $this->ancestorKey ?? 'ancestor';
-    }
-
-    /**
-     * Get the default descendant key name for the model.
-     *
-     * @return string
-     */
-    public function getDescendantKey()
-    {
-        return $this->ancestorKey ?? 'descendant';
-    }
-
-    /**
-     * Get the default adjacent table name for the model.
-     *
-     * @return string
-     */
-    public function getAdjacentTableName()
-    {
-        return $this->adjacentTable ?? $this->getTable().'tree';
-    }
 }

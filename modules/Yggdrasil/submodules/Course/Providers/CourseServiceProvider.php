@@ -26,6 +26,15 @@ class CourseServiceProvider extends ServiceProvider
     ];
 
     /**
+     * Array of factories path to register.
+     *
+     * @var array
+     */
+    protected $factories = [
+        //
+    ];
+
+    /**
      * Bootstrap any application services.
      *
      * @return void
@@ -42,6 +51,8 @@ class CourseServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->factories[] = get_module('course').'/database/factories';
+
         parent::register();
     }
 }

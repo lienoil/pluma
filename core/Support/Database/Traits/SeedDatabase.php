@@ -20,6 +20,6 @@ trait SeedDatabase
      */
     public function seed()
     {
-        Artisan::call('phinx:seed:run');
+        Artisan::call('db:seed');
     }
 }

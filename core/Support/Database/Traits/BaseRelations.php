@@ -2,7 +2,7 @@
 
 namespace Pluma\Support\Database\Traits;
 
-use Pluma\Support\Database\Relations\AdjacentTo;
+use Pluma\Support\Database\Relations\AdjacentlyRelatedTo;
 use Pluma\Support\Database\Relations\BelongsToManyThrough;
 use Pluma\Support\Database\Relations\HasManyThroughMany;
 
@@ -46,23 +46,5 @@ trait BaseRelations
         $secondKey = $secondKey ?: $related->getForeignKey();
 
         return new HasManyThroughMany($related->newQuery(), $this, $through, $firstKey, $secondKey);
-    }
-
-    /**
-     * Retrieve the adjacent relation of the resource.
-     * Uses the Closure Table Heirarchy Model.
-     *
-     * @param string $table
-     * @param string $firstKey
-     * @param string $secondKey
-     * @return Illuminate\Database\Eloquent\Relations\Relation
-     */
-    public function adjacentTo($table = null, $firstKey = null, $secondKey = null)
-    {
-        $table = $table ?: $this->getAdjacentTableName();
-        $firstKey = $firstKey ?: $this->getAncestorKey();
-        $secondKey = $secondKey ?: $this->getDescendantKey();
-
-        return new AdjacentTo($this->newQuery(), $this, $table, $firstKey, $secondKey);
     }
 }

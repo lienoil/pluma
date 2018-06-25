@@ -35,11 +35,11 @@ class MigrationInstallCommand extends Command
      * @param  \Illuminate\Database\Migrations\MigrationRepositoryInterface  $repository
      * @return void
      */
-    public function __construct()
+    public function __construct(MigrationRepositoryInterface $repository)
     {
         parent::__construct();
 
-        $this->repository = app('migration.repository');
+        $this->repository = $repository;
     }
 
     /**

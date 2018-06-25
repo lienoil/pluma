@@ -76,6 +76,8 @@ abstract class TestCase extends BaseTestCase
 
         Facade::clearResolvedInstances();
 
+        Model::setConnectionResolver($this->app['db']);
+
         Model::setEventDispatcher($this->app['events']);
 
         $this->setUpHasRun = true;

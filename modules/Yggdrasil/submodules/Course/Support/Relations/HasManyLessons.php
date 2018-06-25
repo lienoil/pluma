@@ -15,4 +15,9 @@ trait HasManyLessons
     {
         return $this->hasMany(Lesson::class);
     }
+
+    public function getChildrenAttribute()
+    {
+        return $this->lessons()->root();
+    }
 }

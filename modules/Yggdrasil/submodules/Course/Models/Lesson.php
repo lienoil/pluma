@@ -4,13 +4,13 @@ namespace Course\Models;
 
 use Course\Support\Relations\BelongsToCourse;
 use Course\Support\Scopes\OrderBySortScope;
-use Pluma\Models\Model;
-use Support\Database\Traits\AdjacentlyRelatedToSelf;
+use Pluma\Support\Database\Adjacency\Relation\Model as AdjacentModel;
 
-class Lesson extends Model
+class Lesson extends AdjacentModel
 {
-    use BelongsToCourse,
-        AdjacentlyRelatedToSelf;
+    use BelongsToCourse;
+
+    protected $adjacentTable = 'lessonstree';
 
     protected $fillable = ['title', 'slug', 'code', 'feature', 'body'];
 

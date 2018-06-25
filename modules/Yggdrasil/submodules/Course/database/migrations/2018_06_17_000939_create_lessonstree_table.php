@@ -25,20 +25,19 @@ class CreateLessonstreeTable extends Migration
         }
 
         Schema::create($this->table, function (Blueprint $table) {
-            $table->integer('ancestor')->unsigned();
-            $table->integer('descendant')->unsigned();
-            $table->integer('sort')->default(0);
-            $table->integer('length')->default(0);
+            $table->integer('ancestor_id')->unsigned();
+            $table->integer('descendant_id')->unsigned();
+            $table->integer('depth')->default(0);
 
-            $table->index(['ancestor', 'descendant']);
+            $table->index(['ancestor_id', 'descendant_id']);
 
-            $table->foreign('ancestor')
+            $table->foreign('ancestor_id')
                   ->references('id')
                   ->on('lessons')
                   ->onUpdate('CASCADE')
                   ->onDelete('CASCADE');
 
-            $table->foreign('descendant')
+            $table->foreign('descendant_id')
                   ->references('id')
                   ->on('lessons')
                   ->onUpdate('CASCADE')

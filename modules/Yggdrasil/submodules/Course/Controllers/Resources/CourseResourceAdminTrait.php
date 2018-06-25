@@ -43,6 +43,8 @@ trait CourseResourceAdminTrait
     {
         $resource = Course::first();
 
+        // $lesson->insertNode(11, 4);
+
         return view('Course::courses.create')->with(compact('resource'));
     }
 }

@@ -17,7 +17,6 @@ class OrderBySortScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $table = $model->getTable();
-        $builder->orderBy($table.'.sort');
+        $builder->orderBy('sort');
     }
 }

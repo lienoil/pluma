@@ -44,11 +44,11 @@ class MigrationMigrateCommand extends BaseCommand
      * @param  \Illuminate\Database\Migrations\Migrator  $migrator
      * @return void
      */
-    public function __construct()
+    public function __construct(Migrator $migrator)
     {
         parent::__construct();
 
-        $this->migrator = app('migrator');
+        $this->migrator = $migrator;
     }
 
     /**

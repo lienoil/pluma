@@ -33,8 +33,6 @@ class CreateLessonsTable extends Migration
             $table->text('body')->nullable();
             $table->integer('sort')->default(0);
             $table->integer('course_id')->unsigned()->nullable();
-            $table->integer('lessonable_id')->unsigned()->nullable();
-            $table->string('lessonable_type')->nullable();
             $table->timestamps();
 
             $table->foreign('course_id')
