@@ -2,28 +2,23 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Database\Eloquent\Factory as EloquentFactory;
-use Illuminate\Database\Eloquent\Faker;
-use Tests\Support\Test\Concerns\InteractsWithAuthentication;
-use Tests\Support\Test\Concerns\InteractsWithConsole;
-use Tests\Support\Test\Concerns\InteractsWithDatabase;
-use Tests\Support\Test\WithFaker;
+use Tests\Support\Test\DatabaseMigrations;
 use Tests\Support\Test\WithRepository;
 use Tests\TestCase;
 use User\Models\User;
 use User\Repositories\UserRepository;
 
+
 class UserUnitTest extends TestCase
 {
-    use InteractsWithAuthentication,
-        InteractsWithDatabase,
-        InteractsWithConsole,
-        WithFaker,
+    use DatabaseMigrations,
         WithRepository;
 
     /**
+     * @test
      * @group user
-     * @return void
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testItCanCreateAUser()
     {

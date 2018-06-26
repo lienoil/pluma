@@ -3,6 +3,7 @@
 namespace Pluma\Support\Database\Adjacency\Relation;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Pluma\Support\Database\Adjacency\Relation\Contracts\AdjacencyRelationModelInterface;
 use Pluma\Support\Database\Adjacency\Relation\Scopes\GroupByRootScope;
@@ -57,49 +58,47 @@ class Model extends Eloquent implements AdjacencyRelationModelInterface
     public $timestamps = false;
 
     /**
-     * Get the short name of the "ancestor" column.
+     * Qualify model from parameters
      *
-     * @return string
+     * @param $parameters
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function getAncestorColumn()
+    protected function qualifyModel($parameters)
     {
-        return $this->ancestorKey;
-    }
+        $model = null;
 
-    /**
-     * Get the short name of the "descendant" column.
-     *
-     * @return string
-     */
-    public function getDescendantColumn()
-    {
-        return $this->descendantKey;
-    }
+        if ($parameters instanceof Eloquent) {
+            $model = $parameters;
+        } elseif (is_numeric($parameters)) {
+            $model = $this->findOrFail($parameters);
+        } else {
+            throw (new ModelNotFoundException)->setModel(
+                get_class($this->model), $parameters
+            );
+        }
 
-    /**
-     * Get the short name of the "depth" column.
-     *
-     * @return string
-     */
-    public function getDepthColumn()
-    {
-        return $this->depthKey;
+        return $model;
     }
 
     /**
      * Inserts new node into closure table.
      *
      * @param int $ancestorId
-     * @param int $descendantId
      * @return mixed
-     * @throws \InvalidArgumentException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function insertNode($ancestorId, $descendantId)
+    public function insertNodeAsChildOf($ancestorId)
     {
+        if (! $this->exists) {
+            throw new ModelNotFoundException();
+        }
+
+        $query = $this->newModelQuery();
         $table = $this->getAdjacentTable();
-        $ancestor = $this->getAncestorColumn();
-        $descendant = $this->getDescendantColumn();
-        $depth = $this->getDepthColumn();
+        $ancestor = $this->getAncestorKey();
+        $descendant = $this->getDescendantKey();
+        $descendantId = $this->getKey();
+        $depth = $this->getDepthKey();
 
         $query = "
             INSERT INTO {$table} ({$ancestor}, {$descendant}, {$depth})
@@ -108,19 +107,79 @@ class Model extends Eloquent implements AdjacencyRelationModelInterface
             WHERE tbl.{$descendant} = {$ancestorId}
             UNION ALL
             SELECT {$descendantId}, {$descendantId}, 0
+            -- ON DUPLICATE KEY UPDATE {$depth} = VALUES ({$depth})
         ";
 
-        // DB::table($table)
-        //   ->insert([$ancestor, $descendant, $depth])
-        //   ->select([$ancestor, $descendant, $depth])->statement($query);
+        return DB::insert($query);
+    }
+
+    /**
+     * Inserts self relation to closure table.
+     *
+     * @return bool
+     */
+    public function insertSelfToNode()
+    {
+        if (! $this->exists) {
+            throw new ModelNotFoundException();
+        }
+
+        $key = $this->getKey();
+        $table = $this->getAdjacentTable();
+        $ancestorKey = $this->getAncestorKey();
+        $descendantKey = $this->getDescendantKey();
+        $depthKey = $this->getDepthKey();
+
+        $query = "
+            INSERT INTO {$table} ({$ancestorKey}, {$descendantKey}, {$depthKey})
+            VALUES ({$key}, {$key}, 0)
+        ";
+
+        return DB::insert($query);
     }
 
     /**
      * Make a node a descendant of another ancestor or makes it a root node.
      *
      * @param int $ancestorId
-     * @return mixed
-     * @throws \InvalidArgumentException
+     * @return void
      */
-    public function moveNodeTo($ancestorId = null) {}
+    public function moveNodeTo($ancestorId = null)
+    {
+        // Before moving, delete the subtree.
+        $this->deleteNode($ancestorId);
+
+
+    }
+
+    public function deleteNode($ancestorId)
+    {
+        $table = $this->getAdjacentTable();
+        $ancestorKey = $this->getAncestorKey();
+        $descendantKey = $this->getDescendantKey();
+        $depthKey = $this->getDepthKey();
+
+        "
+        DELETE FROM $table
+        JOIN $table AS d ON a.descendant = d.descendant
+        LEFT JOIN $table AS x
+        ON x.ancestor = d.ancestor AND x.descendant = a.ancestor
+        WHERE d.ancestor = 'D' AND x.ancestor IS NULL;
+        ";
+
+        DB::table($table)
+            ->join($table, $table.'.'.$descendantKey, '=', $table.'.'.$descendantKey)
+            ->leftJoin($table, $table.'.'.$ancestorKey, '=', $table.'.'.$ancestorKey)
+            ->whereIn($descendantKey, function ($query) use ($descendantKey, $table, $ancestorKey, $ancestorId) {
+                $query->select($descendantKey)
+                    ->from($table)
+                    ->where($ancestorKey, $ancestorId);
+            })
+            ->whereNotIn($ancestorKey, function ($query) use ($descendantKey, $table, $ancestorKey, $ancestorId) {
+                $query->select($descendantKey)
+                    ->from($table)
+                    ->where($ancestorKey, $ancestorId);
+            })
+            ->delete();
+    }
 }

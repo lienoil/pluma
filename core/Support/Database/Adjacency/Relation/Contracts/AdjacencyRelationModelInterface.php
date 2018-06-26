@@ -14,31 +14,30 @@ interface AdjacencyRelationModelInterface
      *
      * @return string
      */
-    public function getAncestorColumn();
+    public function getAncestorKey();
 
     /**
      * Get the short name of the "descendant" column.
      *
      * @return string
      */
-    public function getDescendantColumn();
+    public function getDescendantKey();
 
     /**
      * Get the short name of the "depth" column.
      *
      * @return string
      */
-    public function getDepthColumn();
+    public function getDepthKey();
 
     /**
      * Inserts new node into closure table.
      *
      * @param int $ancestorId
-     * @param int $descendantId
      * @return mixed
      * @throws \InvalidArgumentException
      */
-    public function insertNode($ancestorId, $descendantId);
+    public function insertNodeAsChildOf($ancestorId);
 
     /**
      * Make a node a descendant of another ancestor or makes it a root node.

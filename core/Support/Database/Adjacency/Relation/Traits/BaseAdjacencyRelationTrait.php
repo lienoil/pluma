@@ -31,7 +31,7 @@ trait BaseAdjacencyRelationTrait
      */
     public function getAncestorKey()
     {
-        return $this->ancestorKey ?? 'ancestor';
+        return $this->ancestorKey ?? 'ancestor_id';
     }
 
     /**
@@ -41,7 +41,17 @@ trait BaseAdjacencyRelationTrait
      */
     public function getDescendantKey()
     {
-        return $this->descendantKey ?? 'descendant';
+        return $this->descendantKey ?? 'descendant_id';
+    }
+
+    /**
+     * Get the default descendant key name for the model.
+     *
+     * @return string
+     */
+    public function getDepthKey()
+    {
+        return $this->depthKey ?? 'depth';
     }
 
     /**
