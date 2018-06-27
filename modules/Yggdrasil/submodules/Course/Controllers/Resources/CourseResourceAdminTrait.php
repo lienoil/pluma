@@ -3,6 +3,7 @@
 namespace Course\Controllers\Resources;
 
 use Course\Models\Course;
+use Course\Models\Lesson;
 use Illuminate\Http\Request;
 
 trait CourseResourceAdminTrait
@@ -16,6 +17,7 @@ trait CourseResourceAdminTrait
     public function index(Request $request)
     {
         $resources = Course::search($request->all())->paginate();
+
 
         return view('Course::courses.index')->with(compact('resources'));
     }
@@ -41,9 +43,20 @@ trait CourseResourceAdminTrait
      */
     public function create(Request $request)
     {
-        $resource = Course::first();
+        // $resource = Course::first();
 
-        // $lesson->insertNode(11, 4);
+        // $course = factory(Course::class)->create();
+        // $lessons = factory(Lesson::class, 1)->create(['course_id' => $course->id]);
+        // foreach ($lessons as $lesson) {
+        //     $lesson->course()->associate($course);
+        //     $lesson->adjaceables()->addAsRoot();
+        //     $chapters = factory(Lesson::class, 1)->create(['course_id' => $course->id]);
+        //     collect($chapters)->each(function ($chapter) use ($course, $lesson) {
+        //         $chapter->course()->associate($course);
+        //         $lesson->adjaceables()->attach($chapter);
+        //     });
+        // }
+        $resource = Course::first();
 
         return view('Course::courses.create')->with(compact('resource'));
     }

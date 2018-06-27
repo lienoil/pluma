@@ -129,9 +129,10 @@ class LessonModelUnitTest extends TestCase
             });
         });
 
-        // Retrieve this:
+        // Retrieve Lesson 6:
         // Lesson 1
-        // ---- Chapter 1 <-- this
+        // ---- Lesson 6 <-- this
+        // ---- Lesson 7 ... 10
         // Lesson 2 ... 5
         $firstChapterOfFirstLesson = Lesson::find(6);
 

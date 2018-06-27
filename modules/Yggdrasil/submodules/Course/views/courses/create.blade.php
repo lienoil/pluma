@@ -15,9 +15,9 @@
           @endphp
           @foreach ($resource->children as $lesson)
             <li class="py-1">
-              <h3 class="headline">{{ $lesson->id }} - {{ $lesson->title }}</h3>
-              <ul class="pl-4">
-                @foreach ($lesson->children as $part)
+              <h3 class="headline">{{ $lesson->id }} - {{ $lesson->title }} | Parent: {{ $lesson->_parent }}</h3>
+              {{-- <ul class="pl-4">
+                @foreach ($lesson->descendants as $part)
                   <li class="py-1">
                     {{ $part->id }} - {{ $part->title }}
 
@@ -36,7 +36,7 @@
                     </ul>
                   </li>
                 @endforeach
-              </ul>
+              </ul> --}}
             </li>
           @endforeach
         </ul>
