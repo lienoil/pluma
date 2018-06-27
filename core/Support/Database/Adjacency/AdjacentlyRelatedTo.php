@@ -1,11 +1,13 @@
 <?php
 
-namespace Pluma\Support\Database\Adjacency\Relation;
+namespace Pluma\Support\Database\Adjacency;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 
 class AdjacentlyRelatedTo extends Relation
 {
@@ -22,6 +24,13 @@ class AdjacentlyRelatedTo extends Relation
      * @var string
      */
     protected $table;
+
+    /**
+     * The intermediate adjacent table for the relation.
+     *
+     * @var string
+     */
+    protected $adjacent;
 
     /**
      * The ancestor key for the relation.
@@ -60,8 +69,28 @@ class AdjacentlyRelatedTo extends Relation
         $this->table = $table;
         $this->ancestorKey = $ancestorKey;
         $this->descendantKey = $descendantKey;
+        $this->adjacent = $this->qualifyAdjacentModel($table);
 
         parent::__construct($query, $parent);
+    }
+
+    /**
+     * Instantiate a new model instance from string.
+     *
+     * @param string $table
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function qualifyAdjacentModel($table) : Eloquent
+    {
+        $model = (new $this->model)
+            ->setTable($table)
+            ->fillable([
+                $this->model->getAncestorKey(),
+                $this->model->getDescendantKey(),
+                $this->model->getDepthKey(),
+            ]);
+
+        return $model;
     }
 
     /**
@@ -231,14 +260,137 @@ class AdjacentlyRelatedTo extends Relation
         return $this->where($this->getQualifiedDepthKeyName(), 1)->first();
     }
 
-    public function root()
+    /**
+     * Attach a model to the parent.
+     *
+     * @return mixed
+     */
+    public function addAsRoot()
     {
-        $key = $this->model->getQualifiedKeyName();
+        $query = $this->buildInsertFromSelectNodeQuery(
+            $this->model->getKey(),
+            $this->model->getKey()
+        );
 
-        return $this
-            ->join($this->table, $key, '=', $this->getQualifiedAncestorKeyName())
-            ->where($this->getQualifiedDepthKeyName(), 0)
-            ->groupBy($this->getQualifiedAncestorKeyName())
-            ->get();
+        DB::insert($query);
+
+        return $this;
+    }
+
+    /**
+     * Add immediate child for the model.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $child
+     * @return  self
+     */
+    public function attach(Model $child)
+    {
+        $ancestorId = $this->model->getKey();
+        $descendantId = $child->getKey();
+        $query = $this->buildInsertFromSelectNodeQuery($ancestorId, $descendantId);
+
+        DB::insert($query);
+
+        return $this;
+    }
+
+    /**
+     * Move a node to a given immediate ancestor (parent).
+     *
+     * @param int $parentId
+     * @return self
+     */
+    public function move($parentId)
+    {
+        $key = $this->model->getKey();
+
+        $this->deleteNodeAndAllDescendants($key);
+
+        $query = $this->buildInsertFromSelectNodeQuery($parentId, $key);
+
+        DB::insert($query);
+    }
+
+    /**
+     * Detach models from the relationship.
+     *
+     * @return int
+     */
+    public function detach()
+    {
+        $key = $this->model->getKey();
+
+        return $this->deleteNodeAndAllDescendants($key);
+    }
+
+    /**
+     * Delete the node and all descendants.
+     *
+     * @param int $key
+     * @return void
+     */
+    protected function deleteNodeAndAllDescendants($key)
+    {
+        $table = $this->model->getAdjacentTable();
+        $ancestorKey = $this->model->getAncestorKey();
+        $descendantKey = $this->model->getDescendantKey();
+
+        $query = $this->buildDeleteFromJoinNodeQuery($key);
+        DB::delete($query);
+
+        return $this;
+    }
+
+    /**
+     * Build Insert From Select query.
+     *
+     * @param int $ancestorId
+     * @param int $descendantId
+     * @return string
+     */
+    protected function buildInsertFromSelectNodeQuery($ancestorId = null, $descendantId = null) : String
+    {
+        $table = $this->model->getAdjacentTable();
+        $ancestorKey = $this->model->getAncestorKey();
+        $descendantKey = $this->model->getDescendantKey();
+        $ancestorId = $ancestorId ?? $this->model->getKey();
+        $descendantId = $descendantId ?? $this->model->getKey();
+        $depth = $this->model->getDepthKey();
+
+        return "
+            INSERT INTO {$table} ({$ancestorKey}, {$descendantKey}, {$depth})
+            SELECT tbl.{$ancestorKey}, {$descendantId}, tbl.{$depth}+1
+            FROM {$table} AS tbl
+            WHERE tbl.{$descendantKey} = {$ancestorId}
+            UNION ALL
+            SELECT {$descendantId}, {$descendantId}, 0
+        ";
+    }
+
+    /**
+     * Build the delete query of the adjacent table.
+     *
+     * @param int $key
+     * @return string
+     */
+    protected function buildDeleteFromJoinNodeQuery($key) : String
+    {
+        $table = $this->model->getAdjacentTable();
+        $ancestorKey = $this->model->getAncestorKey();
+        $descendantKey = $this->model->getDescendantKey();
+
+        return "
+            DELETE FROM
+                {$table}
+            WHERE
+                {$descendantKey} IN (
+                    SELECT
+                        {$descendantKey}
+                    FROM
+                        {$table}
+                    WHERE
+                        {$ancestorKey} = {$key}
+                )
+        ";
     }
 }

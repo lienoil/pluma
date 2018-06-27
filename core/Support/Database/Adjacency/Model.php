@@ -1,11 +1,23 @@
 <?php
 
-namespace Pluma\Support\Database\Adjacency\Relation\Traits;
+namespace Pluma\Support\Database\Adjacency;
 
-use Pluma\Support\Database\Adjacency\Relation\AdjacentlyRelatedTo;
+use Pluma\Models\Model as BaseModel;
+use Pluma\Support\Database\Adjacency\AdjacentlyRelatedTo;
+use Pluma\Support\Database\Adjacency\Contracts\AdjacencyRelationModelInterface;
+use Pluma\Support\Database\Adjacency\Relations\AdjacentlyRelatedToSelf;
 
-trait BaseAdjacencyRelationTrait
+class Model extends BaseModel implements AdjacencyRelationModelInterface
 {
+    use AdjacentlyRelatedToSelf;
+
+    /**
+     * The table adjacently associated with the model.
+     *
+     * @var string
+     */
+    protected $adjacentTable;
+
     /**
      * Retrieve the adjacent relation of the resource.
      * Uses the Closure Table Heirarchy Model.
@@ -22,6 +34,16 @@ trait BaseAdjacencyRelationTrait
         $secondKey = $secondKey ?: $this->getDescendantKey();
 
         return new AdjacentlyRelatedTo($this->newQuery(), $this, $table, $firstKey, $secondKey);
+    }
+
+    /**
+     * Get the default adjacent table name for the model.
+     *
+     * @return string
+     */
+    public function getAdjacentTable()
+    {
+        return $this->adjacentTable ?? $this->getTable().'tree';
     }
 
     /**
@@ -53,15 +75,4 @@ trait BaseAdjacencyRelationTrait
     {
         return $this->depthKey ?? 'depth';
     }
-
-    /**
-     * Get the default adjacent table name for the model.
-     *
-     * @return string
-     */
-    public function getAdjacentTable()
-    {
-        return $this->adjacentTable ?? $this->getTable().'tree';
-    }
-
 }

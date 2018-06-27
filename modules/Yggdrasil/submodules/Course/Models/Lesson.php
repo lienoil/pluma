@@ -4,9 +4,9 @@ namespace Course\Models;
 
 use Course\Support\Relations\BelongsToCourse;
 use Course\Support\Scopes\OrderBySortScope;
-use Pluma\Support\Database\Adjacency\Relation\Model as AdjacentModel;
+use Pluma\Support\Database\Adjacency\Model as AdjacencyModel;
 
-class Lesson extends AdjacentModel
+class Lesson extends AdjacencyModel
 {
     use BelongsToCourse;
 

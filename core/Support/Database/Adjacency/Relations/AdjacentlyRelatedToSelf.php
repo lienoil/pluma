@@ -1,6 +1,6 @@
 <?php
 
-namespace Pluma\Support\Database\Adjacency\Relation\Traits;
+namespace Pluma\Support\Database\Adjacency\Relations;
 
 use Illuminate\Database\Eloquent\Builder;
 
@@ -11,7 +11,7 @@ trait AdjacentlyRelatedToSelf
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function lineage()
+    public function adjaceables()
     {
         return $this->adjacentlyRelatedTo();
     }
@@ -23,7 +23,7 @@ trait AdjacentlyRelatedToSelf
      */
     public function getDescendantsAttribute()
     {
-        return $this->lineage()->descendants();
+        return $this->adjacent->descendants();
     }
 
     /**
@@ -33,7 +33,7 @@ trait AdjacentlyRelatedToSelf
      */
     public function getChildrenAttribute()
     {
-        return $this->lineage()->children();
+        return $this->adjacent->children();
     }
 
     /**
@@ -43,7 +43,7 @@ trait AdjacentlyRelatedToSelf
      */
     public function getAncestorsAttribute()
     {
-        return $this->lineage()->ancestors();
+        return $this->adjacent->ancestors();
     }
 
     /**
@@ -53,16 +53,6 @@ trait AdjacentlyRelatedToSelf
      */
     public function getParentAttribute()
     {
-        return $this->lineage()->parent();
-    }
-
-    /**
-     * Retrieve all root nodes.
-     *
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    public function scopeRoot()
-    {
-        return $this->lineage()->root();
+        return $this->adjacent->parent();
     }
 }

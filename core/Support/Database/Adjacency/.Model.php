@@ -1,20 +1,16 @@
 <?php
 
-namespace Pluma\Support\Database\Adjacency\Relation;
+namespace Pluma\Support\Database\Adjacency;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
-use Pluma\Support\Database\Adjacency\Relation\Contracts\AdjacencyRelationModelInterface;
+use Pluma\Models\Model as BaseModel;
+use Pluma\Support\Database\Adjacency\Contracts\AdjacencyRelationModelInterface;
 use Pluma\Support\Database\Adjacency\Relation\Scopes\GroupByRootScope;
 use Pluma\Support\Database\Adjacency\Relation\Traits\AdjacentlyRelatedToSelf;
-use Pluma\Support\Database\Adjacency\Relation\Traits\BaseAdjacencyRelationTrait;
 
-class Model extends Eloquent implements AdjacencyRelationModelInterface
+class Model extends BaseModel implements AdjacencyRelationModelInterface
 {
-    use BaseAdjacencyRelationTrait,
-        AdjacentlyRelatedToSelf;
-
     /**
      * The table associated with the model.
      *
@@ -28,34 +24,6 @@ class Model extends Eloquent implements AdjacencyRelationModelInterface
      * @var string
      */
     protected $adjacentTable;
-
-    /**
-     * The ancestor key for the relation.
-     *
-     * @var string
-     */
-    protected $ancestorKey = 'ancestor_id';
-
-    /**
-     * The descendant key for the relation.
-     *
-     * @var string
-     */
-    protected $descendantKey = 'descendant_id';
-
-    /**
-     * The depth key for the relation.
-     *
-     * @var string
-     */
-    protected $depthKey = 'depth';
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Qualify model from parameters
@@ -95,19 +63,19 @@ class Model extends Eloquent implements AdjacencyRelationModelInterface
 
         $query = $this->newModelQuery();
         $table = $this->getAdjacentTable();
-        $ancestor = $this->getAncestorKey();
-        $descendant = $this->getDescendantKey();
+        $ancestorKey = $this->getAncestorKey();
+        $descendantKey = $this->getDescendantKey();
         $descendantId = $this->getKey();
-        $depth = $this->getDepthKey();
+        $depthKey = $this->getDepthKey();
 
         $query = "
-            INSERT INTO {$table} ({$ancestor}, {$descendant}, {$depth})
-            SELECT tbl.{$ancestor}, {$descendantId}, tbl.{$depth}+1
+            INSERT INTO {$table} ({$ancestorKey}, {$descendantKey}, {$depthKey})
+            SELECT tbl.{$ancestorKey}, {$descendantId}, tbl.{$depthKey}+1
             FROM {$table} AS tbl
-            WHERE tbl.{$descendant} = {$ancestorId}
+            WHERE tbl.{$descendantKey} = {$ancestorId}
             UNION ALL
             SELECT {$descendantId}, {$descendantId}, 0
-            -- ON DUPLICATE KEY UPDATE {$depth} = VALUES ({$depth})
+            -- ON DUPLICATE KEY UPDATE {$depthKey} = VALUES ({$depthKey})
         ";
 
         return DB::insert($query);
@@ -144,7 +112,7 @@ class Model extends Eloquent implements AdjacencyRelationModelInterface
      * @param int $ancestorId
      * @return void
      */
-    public function moveNodeTo($ancestorId = null)
+    public function moveNodeTo($ancestorId)
     {
         // Before moving, delete the subtree.
         $this->deleteNode($ancestorId);
@@ -152,34 +120,25 @@ class Model extends Eloquent implements AdjacencyRelationModelInterface
 
     }
 
-    public function deleteNode($ancestorId)
+    protected function deleteNode($ancestorId)
     {
         $table = $this->getAdjacentTable();
         $ancestorKey = $this->getAncestorKey();
         $descendantKey = $this->getDescendantKey();
         $depthKey = $this->getDepthKey();
-
         "
-        DELETE FROM $table
-        JOIN $table AS d ON a.descendant = d.descendant
-        LEFT JOIN $table AS x
-        ON x.ancestor = d.ancestor AND x.descendant = a.ancestor
-        WHERE d.ancestor = 'D' AND x.ancestor IS NULL;
+        -- DELETE FROM $table
+        -- JOIN $table AS d ON a.descendant = d.descendant
+        -- LEFT JOIN $table AS x
+        -- ON x.ancestor = d.ancestor AND x.descendant = a.ancestor
+        -- WHERE d.ancestor = 'D' AND x.ancestor IS NULL
         ";
 
         DB::table($table)
             ->join($table, $table.'.'.$descendantKey, '=', $table.'.'.$descendantKey)
             ->leftJoin($table, $table.'.'.$ancestorKey, '=', $table.'.'.$ancestorKey)
-            ->whereIn($descendantKey, function ($query) use ($descendantKey, $table, $ancestorKey, $ancestorId) {
-                $query->select($descendantKey)
-                    ->from($table)
-                    ->where($ancestorKey, $ancestorId);
-            })
-            ->whereNotIn($ancestorKey, function ($query) use ($descendantKey, $table, $ancestorKey, $ancestorId) {
-                $query->select($descendantKey)
-                    ->from($table)
-                    ->where($ancestorKey, $ancestorId);
-            })
+            ->where($table.'.'.$ancestorKey, $ancestorId)
+            ->whereNull($table.'.'.$ancestorKey)
             ->delete();
     }
 }

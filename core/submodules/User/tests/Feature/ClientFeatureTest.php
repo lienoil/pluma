@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Tests\Support\Test\Concerns\InteractsWithAuthentication;
 use Tests\Support\Test\DatabaseMigrations;
@@ -10,6 +11,11 @@ use Tests\TestCase;
 use User\Models\User;
 use User\Repositories\UserRepository;
 
+/**
+ * @package Tests
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class ClientFeatureTest extends TestCase
 {
     use DatabaseMigrations, WithRepository;
@@ -41,10 +47,8 @@ class ClientFeatureTest extends TestCase
      * @test
      * @group         client
      * @dataProvider  providerUser
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
-    public function testClientCanLogInViaLoginPage($user)
+    public function testItCanLogInViaLoginPage($user)
     {
         // Save to database first.
         $user = $this->persistProviderToDatabase($user);
@@ -60,22 +64,28 @@ class ClientFeatureTest extends TestCase
      * @test
      * @group         client
      * @dataProvider  providerUser
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testLoginWithWrongCredentials($user)
     {
         // Save to database first.
         $user = $this->persistProviderToDatabase($user);
 
+        // Navigate to the login page.
         $this->get(route('login.show'))
             ->assertStatus(200);
 
-        $this->post(route('login.login', $user->only(['username', 'password'])))
-            ;
+        // Login
+        $this->post(route('login.login'), $user->only(['username', 'password']))
+            ->assertStatus(302);
     }
 
-    protected function persistProviderToDatabase($user)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param array $user
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function persistProviderToDatabase(array $user) : Model
     {
         return $this->repository(UserRepository::class, User::class)
             ->create(array_merge(
