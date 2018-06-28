@@ -44,19 +44,26 @@ trait CourseResourceAdminTrait
     public function create(Request $request)
     {
         // $resource = Course::first();
+        app()->singleton(\Illuminate\Contracts\Console\Kernel::class, \Blacksmith\Console\Kernel::class);
+        \Blacksmith\Support\Facades\Blacksmith::call('db:truncate', ['tables' => 'lessons,courses,lessonstree']);
 
-        // $course = factory(Course::class)->create();
-        // $lessons = factory(Lesson::class, 1)->create(['course_id' => $course->id]);
-        // foreach ($lessons as $lesson) {
-        //     $lesson->course()->associate($course);
-        //     $lesson->adjaceables()->addAsRoot();
-        //     $chapters = factory(Lesson::class, 1)->create(['course_id' => $course->id]);
-        //     collect($chapters)->each(function ($chapter) use ($course, $lesson) {
-        //         $chapter->course()->associate($course);
-        //         $lesson->adjaceables()->attach($chapter);
-        //     });
-        // }
+        $course = factory(Course::class)->create();
+        $lessons = factory(Lesson::class, 3)->create(['course_id' => $course->id]);
+        foreach ($lessons as $lesson) {
+            $lesson->course()->associate($course);
+            $lesson->adjaceables()->addAsRoot();
+            $chapters = factory(Lesson::class, 3)->create(['course_id' => $course->id]);
+            collect($chapters)->each(function ($chapter) use ($course, $lesson) {
+                $chapter->course()->associate($course);
+                $lesson->adjaceables()->attach($chapter);
+            });
+        }
         $resource = Course::first();
+
+        $lessons = $resource->children;
+        foreach ($lessons as $lesson) {
+            $lesson->adjaceables()->children();
+        }
 
         return view('Course::courses.create')->with(compact('resource'));
     }

@@ -12,6 +12,6 @@ $factory->define(Lesson::class, function (Faker $faker) use ($factory) {
         'code' => $faker->unique()->swiftBicNumber,
         'feature' => $faker->imageUrl(300, 300),
         'body' => $faker->paragraph,
-        'course_id' => factory(Course::class)->create()->id,
+        // 'course_id' => factory(Course::class)->create()->id,
     ];
 });

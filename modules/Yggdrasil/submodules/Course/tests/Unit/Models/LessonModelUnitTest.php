@@ -2,8 +2,10 @@
 
 namespace Tests\Unit\Models;
 
+use Course\Models\Course;
 use Course\Models\Lesson;
 use Illuminate\Support\Facades\DB;
+use Pluma\Support\Database\Adjacency\Scopes\TreeScope;
 use Tests\Support\Test\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -23,8 +25,6 @@ class LessonModelUnitTest extends TestCase
     public function testLessonNodesCanBeAttached()
     {
         $lessons = factory(Lesson::class, 10)->create();
-
-        $actual = DB::table((new Lesson)->getAdjacentTable())->get();
 
         collect($lessons)->each(function ($lesson) {
             // Insert each lesson as a top level node.
@@ -119,7 +119,6 @@ class LessonModelUnitTest extends TestCase
     public function testLessonNodesCanBeDetached()
     {
         $lessons = factory(Lesson::class, 5)->create();
-
         collect($lessons)->each(function ($lesson) {
             $lesson->adjaceables()->addAsRoot();
 
@@ -135,6 +134,7 @@ class LessonModelUnitTest extends TestCase
         // ---- Lesson 7 ... 10
         // Lesson 2 ... 5
         $firstChapterOfFirstLesson = Lesson::find(6);
+        $this->assertInstanceOf(Lesson::class, $firstChapterOfFirstLesson);
 
         // Detach
         // Result:
@@ -153,6 +153,35 @@ class LessonModelUnitTest extends TestCase
 
         $expected = 42; // 53 - (1 + ((1 * 5) * 2))
         $actual = DB::table((new Lesson)->getAdjacentTable())->count();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @test
+     * @group lesson
+     */
+    public function testLessonNodesCanOnlyRetrieveRootNodesAutomaticallyViaScope()
+    {
+        $course = factory(Course::class)->create();
+        $lessons = factory(Lesson::class, 10)->create(['course_id' => $course->id]);
+
+        collect($lessons)->each(function ($lesson) use ($course) {
+            $lesson->course()->associate($course);
+            // Add all 10 lessons as root.
+            $lesson->adjaceables()->addAsRoot();
+
+            // And each root lessons will have 5 chapters.
+            $chapters = factory(Lesson::class, 5)->create(['course_id' => $course->id]);
+
+            collect($chapters)->each(function ($chapter) use ($course, $lesson) {
+                $chapter->course()->associate($course);
+                $lesson->adjaceables()->attach($chapter);
+            });
+        });
+
+        $expected = 10;
+        $actual = $course->children->count();
+
         $this->assertEquals($expected, $actual);
     }
 }

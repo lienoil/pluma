@@ -17,23 +17,24 @@ trait AdjacentlyRelatedToSelf
     }
 
     /**
+     * Gets the immediate children of the resource.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getChildrenAttribute()
+    {
+        dd($this->adjaceables()->children());
+        return $this->adjaceables()->children();
+    }
+
+    /**
      * Gets the mutated descendants attribute.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getDescendantsAttribute()
     {
-        return $this->adjacent->descendants();
-    }
-
-    /**
-     * Gets the mutated children attribute.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getChildrenAttribute()
-    {
-        return $this->adjacent->children();
+        return $this->adjaceables()->descendants();
     }
 
     /**
@@ -43,7 +44,7 @@ trait AdjacentlyRelatedToSelf
      */
     public function getAncestorsAttribute()
     {
-        return $this->adjacent->ancestors();
+        return $this->adjaceables()->ancestors();
     }
 
     /**
@@ -53,6 +54,6 @@ trait AdjacentlyRelatedToSelf
      */
     public function getParentAttribute()
     {
-        return $this->adjacent->parent();
+        return $this->adjaceables()->parent();
     }
 }

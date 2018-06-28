@@ -16,7 +16,18 @@ trait HasManyLessons
         return $this->hasMany(Lesson::class);
     }
 
-    public function getChildrenAttribute()
+    /**
+     * Gets the resources that belongs to this resource.
+     * Will only retrieve root nodes.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function children()
+    {
+        return $this->hasMany(Lesson::class)->tree();
+    }
+
+    public function getChildrenRAttribute()
     {
         $lessons = $this->lessons->pluck('id');
         $lessons = implode(',', $lessons->toArray());

@@ -3,6 +3,7 @@
 namespace Course\Models;
 
 use Course\Support\Relations\BelongsToCourse;
+use Course\Support\Relations\HasManyLessons;
 use Course\Support\Scopes\OrderBySortScope;
 use Pluma\Support\Database\Adjacency\Model as AdjacencyModel;
 

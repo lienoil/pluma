@@ -2,6 +2,7 @@
 
 namespace Pluma\Support\Database\Adjacency;
 
+use Illuminate\Database\Eloquent\Builder;
 use Pluma\Models\Model as BaseModel;
 use Pluma\Support\Database\Adjacency\AdjacentlyRelatedTo;
 use Pluma\Support\Database\Adjacency\Contracts\AdjacencyRelationModelInterface;
@@ -74,5 +75,38 @@ class Model extends BaseModel implements AdjacencyRelationModelInterface
     public function getDepthKey()
     {
         return $this->depthKey ?? 'depth';
+    }
+
+    /**
+     * Query only root resources.
+     *
+     * @param  Illuminate\Database\Eloquent\Builder $builder
+     * @param  int $depth
+     * @return void
+     */
+    public function scopeTree(Builder $builder, $depth = 1)
+    {
+        $key = $this->getKey();
+        $keyName = $this->getQualifiedKeyName();
+        $table = $this->getAdjacentTable();
+        $descendantKey = $table.'.'.$this->getDescendantKey();
+        $ancestorKey = $table.'.'.$this->getAncestorKey();
+        $depthKey = $table.'.'.$this->getDepthKey();
+
+        $builder->join($table, function ($query) use ($keyName, $ancestorKey) {
+                $query->on($keyName, '=', $ancestorKey);
+            })
+            ->groupBy($ancestorKey)
+            ->where($depthKey, $depth);
+    }
+
+    /**
+     * Get the immediate children of the resource.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getChildrenAttribute()
+    {
+        return $this->adjaceables;
     }
 }
