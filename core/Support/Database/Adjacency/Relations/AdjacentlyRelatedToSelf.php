@@ -23,7 +23,6 @@ trait AdjacentlyRelatedToSelf
      */
     public function getChildrenAttribute()
     {
-        dd($this->adjaceables()->children());
         return $this->adjaceables()->children();
     }
 

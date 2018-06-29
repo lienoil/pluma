@@ -84,29 +84,23 @@ class Model extends BaseModel implements AdjacencyRelationModelInterface
      * @param  int $depth
      * @return void
      */
-    public function scopeTree(Builder $builder, $depth = 1)
+    public function scopeTree(Builder $builder)
     {
-        $key = $this->getKey();
         $keyName = $this->getQualifiedKeyName();
         $table = $this->getAdjacentTable();
         $descendantKey = $table.'.'.$this->getDescendantKey();
         $ancestorKey = $table.'.'.$this->getAncestorKey();
         $depthKey = $table.'.'.$this->getDepthKey();
 
-        $builder->join($table, function ($query) use ($keyName, $ancestorKey) {
-                $query->on($keyName, '=', $ancestorKey);
+        $builder->join($table, function ($query) use ($keyName, $ancestorKey, $descendantKey, $depthKey) {
+                $query->on($keyName, '=', $ancestorKey)
+                    ->whereNotIn($ancestorKey, function ($query) use ($descendantKey, $depthKey) {
+                        $query
+                            ->select($descendantKey)
+                            ->from($this->getAdjacentTable())
+                            ->where($depthKey, '>', 0);
+                    });
             })
-            ->groupBy($ancestorKey)
-            ->where($depthKey, $depth);
-    }
-
-    /**
-     * Get the immediate children of the resource.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getChildrenAttribute()
-    {
-        return $this->adjaceables;
+            ->groupBy($ancestorKey);
     }
 }

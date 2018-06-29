@@ -158,7 +158,7 @@ class LessonModelUnitTest extends TestCase
 
     /**
      * @test
-     * @group lesson
+     * @group lesson-tree
      */
     public function testLessonNodesCanOnlyRetrieveRootNodesAutomaticallyViaScope()
     {
@@ -177,6 +177,31 @@ class LessonModelUnitTest extends TestCase
                 $chapter->course()->associate($course);
                 $lesson->adjaceables()->attach($chapter);
             });
+        });
+
+        $expected = 10;
+        $actual = $course->children->count();
+
+        $this->assertEquals($expected, $actual);
+
+        // Test an updated table.
+        // This simulates an update where new topics under chapter 12
+        // are created.
+        // Note that this extra code should not affect the expected result
+        // because we are not adding new root nodes.
+        //
+        // Result:
+        //  Lesson 1
+        //  ---- Chapter 11
+        //  ---- Chapter 12  <--- This is chapter 12
+        //  -------- Topic 1 ... 5 <--- Updated with 5 new topics
+        //  ---- Chapter 13 ... 15
+        //  Lesson 2 ... 10 <--- expected result should still be 10
+        $chapter = Lesson::find(12);
+        $topics = factory(Lesson::class, 5)->create(['course_id' => $course->id]);
+        collect($topics)->each(function ($topic) use ($course, $chapter) {
+            $topic->course()->associate($course);
+            $chapter->adjaceables()->attach($topic);
         });
 
         $expected = 10;

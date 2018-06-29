@@ -51,20 +51,28 @@ trait CourseResourceAdminTrait
         $lessons = factory(Lesson::class, 3)->create(['course_id' => $course->id]);
         foreach ($lessons as $lesson) {
             $lesson->course()->associate($course);
-            $lesson->adjaceables()->addAsRoot();
+            $lesson->adjaceables()->attach($lesson);
             $chapters = factory(Lesson::class, 3)->create(['course_id' => $course->id]);
             collect($chapters)->each(function ($chapter) use ($course, $lesson) {
                 $chapter->course()->associate($course);
                 $lesson->adjaceables()->attach($chapter);
+
             });
         }
+
+        $chapter = null;
+
+        // $chapter->adjaceables()->detach();
+        // (Lesson::find(2))->adjaceables()->attach($chapter);
+        $chapter = Lesson::find(8);
+        $topics = factory(Lesson::class, 2)->create(['course_id' => $course->id]);
+        collect($topics)->each(function ($topic) use ($course, $chapter) {
+            $topic->course()->associate($course);
+            $chapter->adjaceables()->attach($topic);
+        });
+
+
         $resource = Course::first();
-
-        $lessons = $resource->children;
-        foreach ($lessons as $lesson) {
-            $lesson->adjaceables()->children();
-        }
-
         return view('Course::courses.create')->with(compact('resource'));
     }
 }

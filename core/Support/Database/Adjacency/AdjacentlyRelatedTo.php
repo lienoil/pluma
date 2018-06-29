@@ -359,9 +359,9 @@ class AdjacentlyRelatedTo extends Relation
 
         return "
             INSERT INTO {$table} ({$ancestorKey}, {$descendantKey}, {$depth})
-            SELECT tbl.{$ancestorKey}, {$descendantId}, tbl.{$depth}+1
-            FROM {$table} AS tbl
-            WHERE tbl.{$descendantKey} = {$ancestorId}
+            SELECT t.{$ancestorKey}, {$descendantId}, t.{$depth}+t.{$depth}+1
+            FROM {$table} AS t
+            WHERE t.{$descendantKey} = {$ancestorId}
             UNION ALL
             SELECT {$descendantId}, {$descendantId}, 0
         ";
@@ -380,17 +380,12 @@ class AdjacentlyRelatedTo extends Relation
         $descendantKey = $this->model->getDescendantKey();
 
         return "
-            DELETE FROM
-                {$table}
-            WHERE
-                {$descendantKey} IN (
-                    SELECT
-                        {$descendantKey}
-                    FROM
-                        {$table}
-                    WHERE
-                        {$ancestorKey} = {$key}
-                )
+            DELETE FROM {$table}
+            WHERE {$descendantKey} IN (
+                SELECT {$descendantKey}
+                FROM {$table}
+                WHERE {$ancestorKey} = {$key}
+            )
         ";
     }
 }
