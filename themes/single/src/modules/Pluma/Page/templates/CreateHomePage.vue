@@ -1,24 +1,26 @@
 <template>
   <div>
-    <v-toolbar dark color="primary" class="elevation-2 sticky">
+    <v-toolbar light class="elevation-2 sticky">
       <v-btn icon exact :to="{name: 'pages.index'}"><v-icon>arrow_back</v-icon></v-btn>
       <v-toolbar-title>{{ trans('Create Page') }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <!-- <v-menu left>
-        <v-btn slot="activator" icon small><v-icon small>settings</v-icon></v-btn>
-        <v-list>
-          <v-list-tile @click="">
-            <v-list-tile-action>
-              <v-icon>drafts</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Save as Draft</v-list-tile-title>
-            </v-list-tile-content>
+
+      <v-btn :loading="resource.saving" ripple color="primary" @click="save(resource.item)">Save</v-btn>
+
+      <v-menu left>
+        <v-btn slot="activator" icon><v-icon>more_vert</v-icon></v-btn>
+        <v-list dense>
+          <v-list-tile @click="draft" v-shortkey="['ctrl', 'shift', 'p']" @shortkey="draft">
+            <v-list-tile-action><v-icon>save</v-icon></v-list-tile-action>
+            <v-list-tile-content>{{ trans('Save as draft') }}</v-list-tile-content>
+          </v-list-tile>
+          <v-divider></v-divider>
+          <v-list-tile @click="reset" v-shortkey="['alt', 'r']" @shortkey="reset">
+            <v-list-tile-action><v-icon>refresh</v-icon></v-list-tile-action>
+            <v-list-tile-content>{{ trans('Delete and reset fields values') }}</v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-divider class="vertical"></v-divider> -->
-      <v-btn :loading="resource.saving" ripple color="secondary" @click="save(resource.item)">Save</v-btn>
     </v-toolbar>
     <v-container fluid grid-list-lg>
       <v-form ref="form" v-model="resource.form.model">
@@ -60,7 +62,7 @@
           <v-flex xs12 sm4 md3>
 
             <template v-for="(mediabox, i) in mediaboxes.items">
-              <v-card class="mb-3">
+              <v-card flat class="mb-3">
                 <mediabox
                   :icon="mediabox.icon"
                   :menu-items="[{ name: 'Feature', title: 'Featured Image', icon: 'image' }]"
@@ -70,6 +72,7 @@
                   class="elevation-0"
                   item-text="name"
                   item-value="thumbnail"
+                  hide-toolbar
                   v-model="resource.item[mediabox.name]">
                   <template slot="menus" slot-scope="{props}">
                     <v-subheader v-html="trans('Catalogue')"></v-subheader>
@@ -140,6 +143,17 @@ export default {
     }
   },
   methods: {
+    draft () {
+      alert("That's the command for saving to draft")
+    },
+
+    reset () {
+      this.$refs['form'].reset()
+      this.$validator.reset()
+      this.resource.form.loading = false
+      this.toast({text: 'Form was reset', buttonIcon: 'close'})
+    },
+
     mountAttributes () {
       this.$http.post('/api/v1/pages/templates')
         .then(response => {

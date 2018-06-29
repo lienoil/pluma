@@ -1,13 +1,15 @@
 <template>
   <v-card class="card--thumbnail card-mediabox">
     <template v-if="!hideToolbar">
-      <v-toolbar
-        card
-        dense
-        >
-        <v-icon v-html="icon"></v-icon>
-        <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
-      </v-toolbar>
+      <slot name="toolbar">
+        <v-toolbar
+          card
+          dense
+          >
+          <v-icon v-html="icon"></v-icon>
+          <v-toolbar-title class="body-2" v-html="title"></v-toolbar-title>
+        </v-toolbar>
+      </slot>
     </template>
 
     <v-card
@@ -24,6 +26,7 @@
           <img class="stacked" v-for="(s, i) in selected" :key="i" :src="s">
         </slot>
       </template>
+
       <template v-else-if="typeof selected === 'string' && selected">
         <slot name="thumbnail" :props="{item: media.selected, src: selected}">
           <img :src="selected">
@@ -40,6 +43,7 @@
           </v-card>
         </slot>
       </template>
+
       <template v-else>
         <slot name="no-image-text" :props="{text: noImageText}">
           <v-card-text class="layout column ma-0 justify-center align-center">
@@ -48,7 +52,6 @@
           </v-card-text>
         </slot>
       </template>
-      <!--  -->
     </v-card>
 </template>
 
@@ -81,6 +84,34 @@ export default {
   },
   model: {
     prop: 'selected'
+  },
+  data () {
+    return {
+      media: {
+        box: { model: false },
+        headers: this.headers.length ? this.headers : [
+          { text: 'Name', align: 'left', value: 'name' },
+          { text: 'File Type', align: 'left', value: 'mimetype' },
+          { text: 'File Size', align: 'left', value: 'size' },
+          { text: 'Upload Date', align: 'left', value: 'created_at' }
+        ],
+        items: [],
+        selected: [],
+        loading: true,
+        search: { query: '' },
+        sidebar: {
+          model: false,
+          mini: this.$root.localstorage('single.media.sidebar.mini') === 'true'
+        },
+        url: this.url.all,
+        pagination: {
+          rowsPerPageItems: [12, 24, 30, {'text': 'All', 'value': -1}],
+          rowsPerPageText: 'Items per page:',
+          totalItems: 0
+        },
+        toggleview: 'grid'
+      }
+    }
   }
 }
 </script>

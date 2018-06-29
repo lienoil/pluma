@@ -17,9 +17,6 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
-        $course = \Course\Models\Course::find(1);
-        $course->commit(2);
-
         return view("Theme::tests.index");
     }
 

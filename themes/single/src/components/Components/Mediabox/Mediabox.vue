@@ -1,39 +1,23 @@
 <template>
   <v-card flat>
-    <thumbnail-card
-      :close-on-click="closeOnClick"
-      :headers="headers"
-      :height="height"
-      :hideActions="hideActions"
-      :thumbnailPreview="thumbnailPreview"
-      :hideToolbar="hideToolbar"
-      :icon="icon"
-      :itemDate="itemDate"
-      :menuItemId="menuItemId"
-      :itemIcon="itemIcon"
-      :itemMimetype="itemMimetype"
-      :itemSize="itemSize"
-      :itemText="itemText"
-      :itemValue="itemValue"
-      :menuItems="menuItems"
-      :params="params"
-      :multiple="multiple"
-      :noImageText="noImageText"
-      :noMediaText="noMediaText"
-      :title="title"
-      :uploadText="uploadText"
-      :url="url"
+    <media-thumbnail
+      @click.native="openMediaWindow()"
       v-model="thumbnailcard.model"
-    ></thumbnail-card>
+    ></media-thumbnail>
+
+    <mediabox-window v-model="mediawindow.model"></mediabox-window>
   </v-card>
 </template>
 
 <script>
-import _unionBy from 'lodash/unionBy'
+import store from './store'
 import _isEmpty from 'lodash/isEmpty'
-import ThumbnailCard from './ThumbnailCard'
+import _unionBy from 'lodash/unionBy'
+import MediaWindow from './MediaWindow'
+import MediaThumbnail from './MediaThumbnail'
 
 export default {
+  store,
   props: {
     closeOnClick: { type: Boolean, default: true },
     headers: { type: Array, default: () => { return [] } },
@@ -62,11 +46,15 @@ export default {
     prop: 'selected'
   },
   components: {
-    ThumbnailCard
+    MediaThumbnail,
+    MediaWindow
   },
   data () {
     return {
       thumbnailcard: {
+        model: false
+      },
+      mediawindow: {
         model: false
       },
       selected: [],
@@ -119,6 +107,9 @@ export default {
     }
   },
   methods: {
+    openMediaWindow () {
+      this.mediawindow.model = !this.mediawindow.model
+    },
     get () {
       const { sortBy, descending, page, rowsPerPage } = this.media.pagination
       let query = Object.assign({
