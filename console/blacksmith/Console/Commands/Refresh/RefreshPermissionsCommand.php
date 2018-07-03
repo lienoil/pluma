@@ -1,18 +1,18 @@
 <?php
 
-namespace Blacksmith\Console\Commands\Permissions;
+namespace Blacksmith\Console\Commands\Refresh;
 
 use Blacksmith\Support\Console\Command;
 use Role\Models\Permission;
 
-class PermissionsRefreshCommand extends Command
+class RefreshPermissionsCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'permissions:refresh';
+    protected $signature = 'refresh:permissions';
 
     /**
      * The console command description.
