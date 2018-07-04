@@ -36,7 +36,7 @@ export const settings = {
        *
        */
       sidebar: {
-        dark: this.localstorage('single.sidebar.dark', true) === 'true' || true,
+        dark: this.localstorage('single.sidebar.dark', 'true') === 'true' || false,
         clipped: this.localstorage('single.sidebar.clipped', false) === 'true',
         floating: this.localstorage('single.sidebar.floating', false) === 'true',
         mini: this.localstorage('single.sidebar.mini', false) === 'true',

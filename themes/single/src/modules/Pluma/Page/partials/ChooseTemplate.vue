@@ -21,7 +21,10 @@
         slot-scope="props"
         >
         <v-card ripple hover height="100%" @click.native="select(props.item)">
-          <v-card-media height="200px" :src="props.item.banner"></v-card-media>
+          <v-card-media v-if="props.item.banner" height="200px" :src="props.item.banner"></v-card-media>
+          <v-card-text v-if="props.item.icon" class="text-xs-center">
+            <v-icon class="display-4">{{ props.item.icon }}</v-icon>
+          </v-card-text>
           <v-card-title>
             <h3 class="subheading d-block" v-html="props.item.name"></h3>
           </v-card-title>
@@ -49,9 +52,9 @@ export default {
         search: { query: '' },
         selected: [],
         items: [
-          { banner: '//source.unsplash.com/400x600?nature', name: 'Home Page', code: 'CreateHomePage', description: 'Lorem ipsum dolor sit amet.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
-          { banner: '//source.unsplash.com/400x600?space', name: 'Blog Page', code: 'blog', description: 'Lorem ipsum dolor sit am.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
-          { banner: '//source.unsplash.com/400x600?people', name: 'Generic Page', code: 'generic', description: 'Lorem ipsum dolor sit amet.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] }
+          { icon: 'home', name: 'Home Page', code: 'CreateHomePage', description: 'Lorem ipsum dolor sit amet.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
+          { icon: 'collections', name: 'Blog Page', code: 'blog', description: 'Lorem ipsum dolor sit am.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
+          { icon: 'inbox', name: 'Generic Page', code: 'generic', description: 'Lorem ipsum dolor sit amet.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] }
         ],
         pagination: {
           rowsPerPageItems: [12, 24, 30, {'text': this.$root.trans('All'), 'value': -1}],

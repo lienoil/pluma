@@ -7,13 +7,8 @@
   v-model="rightsidebar.model"
 >
   <v-toolbar card dense color="transparent">
-    {{-- <v-icon left>flash_on</v-icon> --}}
-    <v-toolbar-title class="body-2 grey--text">{{ __('Quick Settings') }}</v-toolbar-title>
+    <v-toolbar-title class="body-2 text--disabled">{{ __('Quick Settings') }}</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon ripple @click="$refs['switch-theme'].click()">
-      <v-icon v-html="$root.theme.dark ? 'wb_sunny' : 'brightness_2'"></v-icon>
-    </v-btn>
-    {{-- <v-btn icon ripple @click="rightsidebar.model = false"><v-icon color="grey">keyboard_arrow_right</v-icon></v-btn> --}}
   </v-toolbar>
 
   <v-card flat tile :dark="theme.dark">
@@ -40,11 +35,16 @@
           <p>{{ __('Toggle the button to alternate between the light and dark theme.') }}</p>
           <v-switch
             ref="switch-theme"
-            :label="theme.dark ? `Use Light theme` : `Use Dark theme`"
+            label="Dark theme"
             @change="localstorage({'single.theme.dark': theme.dark})"
             {{-- :append-icon="theme.dark ? 'wb_sunny' : 'brightness_2'" --}}
             v-model="theme.dark"
           ></v-switch>
+          <v-checkbox
+            :label="trans('Sidebar remains same color regardless if theme is dark or light')"
+            v-model="sidebar.dark"
+            @change="localstorage({'single.sidebar.dark': sidebar.dark})"
+          ></v-checkbox>
         </v-card-text>
         <v-card-text>
           <p>{{ __('Change the zoom level on the Main Content Area by dragging the slider.') }}</p>
@@ -55,6 +55,8 @@
             :prepend-icon="settings.fontsize === 1 ? 'font_download' : 'refresh'"
             @input="localstorage({'single.settings.fontsize': settings.fontsize})"
             role="button"
+            hint="Note zooming the main content area may produce misalignment of some of the components in the page."
+            persistent-hint
             step="1"
             thumb-label
             v-model="settings.fontsize"

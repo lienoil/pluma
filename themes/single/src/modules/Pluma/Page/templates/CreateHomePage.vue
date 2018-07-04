@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar light class="elevation-2 sticky">
+    <v-toolbar class="elevation-2 sticky">
       <v-btn icon exact :to="{name: 'pages.index'}"><v-icon>arrow_back</v-icon></v-btn>
       <v-toolbar-title>{{ trans('Create Page') }}</v-toolbar-title>
       <v-spacer></v-spacer>

@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     :clipped="$root.sidebar.clipped"
-    :dark="$root.theme.dark"
+    :dark="$root.sidebar.dark"
     :floating="$root.sidebar.floating"
     :mini-variant.sync="$root.sidebar.mini"
     app
