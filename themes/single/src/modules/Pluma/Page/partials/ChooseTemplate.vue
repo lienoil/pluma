@@ -23,7 +23,7 @@
         <v-card ripple hover height="100%" @click.native="select(props.item)">
           <v-card-media v-if="props.item.banner" height="200px" :src="props.item.banner"></v-card-media>
           <v-card-text v-if="props.item.icon" class="text-xs-center">
-            <v-icon class="display-4">{{ props.item.icon }}</v-icon>
+            <v-icon class="display-4">home</v-icon>
           </v-card-text>
           <v-card-title>
             <h3 class="subheading d-block" v-html="props.item.name"></h3>
