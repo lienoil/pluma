@@ -1,7 +1,7 @@
 <template>
   <v-card flat color="transparent" class="text-xs-center">
     <v-card-text>
-      <div><v-icon color="text-emphasis--medium" class="display-4">rounded_corner</v-icon></div>
+      <div><v-icon color="text-emphasis--medium" x-large>rounded_corner</v-icon></div>
       <div class="text-emphasis--medium">{{ trans('No pages found. Try creating one, maybe a home page?') }}</div>
       <v-card-actions>
         <v-spacer></v-spacer>

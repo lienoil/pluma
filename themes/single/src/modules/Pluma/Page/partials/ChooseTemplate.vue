@@ -1,8 +1,5 @@
 <template>
   <v-container fluid grid-list-lg>
-    <v-layout row wrap>
-      <v-flex tag="h1" v-html="trans('Choose a template')"></v-flex>
-    </v-layout>
     <v-data-iterator
       :items="templates.items"
       :loading="templates.loading"
@@ -16,15 +13,22 @@
       select-all="accent"
       v-model="selected"
       >
+      <v-layout row wrap slot="header">
+        <v-flex tag="h1" v-html="trans('Choose Template')"></v-flex>
+      </v-layout>
+
       <v-flex
         slot="item"
         slot-scope="props"
         >
         <v-card ripple hover height="100%" @click.native="select(props.item)">
           <v-card-media v-if="props.item.banner" height="200px" :src="props.item.banner"></v-card-media>
-          <v-card-text v-if="props.item.icon" class="text-xs-center">
-            <v-icon class="display-4">home</v-icon>
-          </v-card-text>
+          <v-progress-linear
+            v-else
+            color="primary"
+            height="2"
+            value="100"
+          ></v-progress-linear>
           <v-card-title>
             <h3 class="subheading d-block" v-html="props.item.name"></h3>
           </v-card-title>
@@ -52,9 +56,9 @@ export default {
         search: { query: '' },
         selected: [],
         items: [
-          { icon: 'home', name: 'Home Page', code: 'CreateHomePage', description: 'Lorem ipsum dolor sit amet.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
-          { icon: 'collections', name: 'Blog Page', code: 'blog', description: 'Lorem ipsum dolor sit am.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
-          { icon: 'inbox', name: 'Generic Page', code: 'generic', description: 'Lorem ipsum dolor sit amet.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] }
+          { name: 'Home Page', code: 'CreateHomePage', description: 'Create a Landing Page for your site.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
+          { name: 'Blog Page', code: 'blog', description: 'Inherits the blog layout of your active theme.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] },
+          { name: 'Generic Page', code: 'generic', description: 'Just another default layout template.', supports: ['editor', 'title', 'featured', 'cover', 'sections'] }
         ],
         pagination: {
           rowsPerPageItems: [12, 24, 30, {'text': this.$root.trans('All'), 'value': -1}],

@@ -29,7 +29,6 @@
         <span>{{ trans("View trashed pages") }}</span>
       </v-tooltip>
 
-      <v-divider class="vertical"></v-divider>
       <v-btn color="secondary" v-can="{code: 'pages.create'}" exact :to="{name: 'pages.create'}">{{ trans('Create Page') }}</v-btn>
     </v-toolbar>
 

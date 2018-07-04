@@ -9,12 +9,14 @@
       <v-btn icon exact :to="{name: 'users.index'}"><v-icon>arrow_back</v-icon></v-btn>
       <v-toolbar-title v-html="trans('Create User')"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn type="submit" color="primary" :loading="resource.form.loading" @click.native="submit()">{{ trans('Save') }}</v-btn>
+
+      <v-btn type="submit" color="primary" :loading="resource.form.loading" @click="submit()">{{ trans('Save') }}</v-btn>
+
       <!-- <v-divider class="vertical"></v-divider> -->
       <v-menu left>
         <v-btn slot="activator" icon><v-icon>more_vert</v-icon></v-btn>
         <v-list dense>
-          <v-list-tile @click="draft" v-shortkey="['ctrl', 'shift', 'p']" @shortkey="draft">
+          <v-list-tile @click="draft" v-shortkey="['alt', 'shift', 'd']" @shortkey="draft">
             <v-list-tile-action><v-icon>save</v-icon></v-list-tile-action>
             <v-list-tile-content>{{ trans('Save as draft') }}</v-list-tile-content>
           </v-list-tile>
@@ -34,7 +36,7 @@
         <v-flex xs12 sm8 md9 lg9>
           <v-card>
             <v-card-text>
-              <div class="body-2 pa-0" v-html="trans('Basic Information')"></div>
+              <h3 class="body-2 mb-3" v-html="trans('Basic Information')"></h3>
               <v-text-field
                 :data-vv-as="trans('First name')"
                 :error-messages="errors.collect('firstname')"
@@ -63,7 +65,7 @@
                 v-validate="'required'"
               ></v-text-field>
 
-              <div class="body-2 pa-0 mt-4" v-html="trans('Account')"></div>
+              <h3 class="body-2 mb-3 mt-4" v-html="trans('Account')"></h3>
               <v-text-field
                 :data-vv-as="trans('Email')"
                 :error-messages="errors.collect('email')"
@@ -89,7 +91,7 @@
               ></v-text-field>
               <!-- unique:users,username -->
               <v-text-field
-                :append-icon-cb="() => (resource.passwordVisible = !resource.passwordVisible)"
+                @click:append="() => (resource.passwordVisible = !resource.passwordVisible)"
                 :append-icon="resource.passwordVisible ? 'visibility' : 'visibility_off'"
                 :data-vv-as="trans('Password')"
                 :error-messages="errors.collect('password')"
@@ -103,7 +105,7 @@
               ></v-text-field>
 
               <v-text-field
-                :append-icon-cb="() => (resource.passwordVisible = !resource.passwordVisible)"
+                @click:append="() => (resource.passwordVisible = !resource.passwordVisible)"
                 :append-icon="resource.passwordVisible ? 'visibility' : 'visibility_off'"
                 :data-vv-as="trans('Confirm Password')"
                 :error-messages="errors.collect('password_confirmation')"
@@ -118,7 +120,7 @@
 
               <input type="text" v-for="(role, i) in resource.item.roles" name="roles[]" :value="role">
 
-              <div class="body-2 pa-0 mt-4" v-html="trans('Background Details')"></div>
+              <h3 class="body-2 mb-3 mt-4" v-html="trans('Background Details')"></h3>
               <v-layout row wrap>
                 <v-flex xs3>
                   <v-radio-group
@@ -137,7 +139,7 @@
                 </v-flex>
                 <v-flex xs9>
                   <v-text-field
-                    :append-icon-cb="() => { resource.calendar.model = !resource.calendar.model }"
+                    @click:append="() => { resource.calendar.model = !resource.calendar.model }"
                     :data-vv-as="trans('Birthday')"
                     :error-messages="errors.collect('birthday')"
                     :hint="`MM/DD/YYYY ${trans('format')}`"
@@ -238,7 +240,7 @@ export default {
     },
 
     submit () {
-      // this.resource.form.loading = true
+      this.resource.form.loading = true
       // this.$validator.validate()
       //   .then(success => {
       //     if (success) {
@@ -262,6 +264,10 @@ export default {
 
       //     this.resource.form.loading = false
       //   })
+      setTimeout(() => {
+        this.resource.form.loading = false
+        this.toast({text: 'User successfully saved'})
+      }, 2000)
     }
   },
 
@@ -290,57 +296,49 @@ export default {
     let self = this
 
     if (this.resource.form.dirty) {
-      this.prompt({
-        title: 'You have unsaved changes',
-        text: 'You will lose your data permanently when you navigate away without saving.',
-        persistent: false,
+      // Save to draft automatically
+      // TODO: save to draft
 
-        actionText: 'Save to Drafts',
-        actionCallback () {
+      // Show toast
+      self.toast({
+        text: 'User was saved to drafts',
+        timeout: 9000,
+        buttonText: 'Discard',
+        buttonCallback () {
+          // TODO: delete save to draft
           this.model = false
-          // store.dispatch.saveUserOrSomeShitLikeThat
-          // then...
-          self.toast({text: 'User saved to drafts'})
-          next()
-        },
-
-        discard: true,
-        discardText: 'Discard changes',
-        discardCallback () {
-          this.model = false
-          self.toast({
-            text: 'Data was discarded',
-            timeout: 8000,
-            buttonCallback () {
-              this.model = false
-            }
-          })
-          next()
+          self.toast({text: 'Saved draft discarded', button: false})
         }
       })
-      // this.$root.dialogbox({
-      //   saveAsDraftCallback () {
+      next()
+      // this.prompt({
+      //   title: 'You have unsaved changes',
+      //   text: 'You will lose your data permanently when you navigate away without saving.',
+      //   persistent: false,
+
+      //   actionText: 'Save to Drafts',
+      //   actionCallback () {
       //     this.model = false
-      //     setTimeout(function () {
-      //       self.$root.alert({
-      //         text: 'User saved to draft',
-      //         timeout: 20000000,
-      //         x: 'right',
-      //         y: 'bottom'
-      //       })
-      //       next()
-      //     }, 900)
+      //     // store.dispatch.saveUserOrSomeShitLikeThat
+      //     // then...
+      //     self.toast({text: 'User saved to drafts'})
+      //     next()
       //   },
-      //   cancelCallback () {
-      //     this.model = false
-      //     next(false)
-      //   },
+
+      //   discard: true,
+      //   discardText: 'Discard changes',
       //   discardCallback () {
       //     this.model = false
+      //     self.toast({
+      //       text: 'Data was discarded',
+      //       timeout: 8000,
+      //       buttonCallback () {
+      //         this.model = false
+      //       }
+      //     })
       //     next()
       //   }
       // })
-      // next(false)
     } else {
       next()
     }

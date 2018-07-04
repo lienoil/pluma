@@ -15,7 +15,7 @@
     "serve": "php -S localhost:8080 -t ../../public"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^1.0.0-beta.4",
+    "@ckeditor/ckeditor5-build-classic": "^10.1.0",
     "axios": "^0.18.0",
     "dropzone": "^5.4.0",
     "lodash": "^4.17.10",

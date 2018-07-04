@@ -7,7 +7,7 @@
     <v-card-text>
       <!-- Template -->
       <template v-if="templatable">
-        <v-select clearable autocomplete :name="templateName" :item-value="templateValue" :item-text="templateText" :label="templateLabel" v-model="template.selected" :items="template.items">
+        <v-select clearable :name="templateName" :item-value="templateValue" :item-text="templateText" :label="templateLabel" v-model="template.selected" :items="template.items">
           <template slot="selection" slot-scope="data">
             <v-chip
               :key="JSON.stringify(data.item)"
@@ -35,7 +35,7 @@
 
       <!-- Tags -->
       <template v-if="taggable">
-        <v-select tags multiple cache-items clearable autocomplete :name="tagName" :label="tagLabel" v-model="tags.selected" :items="tags.items" hint="You may directly create new tags." persistent-hint>
+        <v-combobox multiple cache-items clearable :name="tagName" :label="tagLabel" v-model="tags.selected" :items="tags.items" hint="You may directly create new tags." persistent-hint>
           <template slot="selection" slot-scope="data">
             <v-chip
               close
@@ -54,7 +54,7 @@
               <v-list-tile-title v-html="data.item"></v-list-tile-title>
             </v-list-tile-content>
           </template>
-        </v-select>
+        </v-combobox>
       </template>
       <!-- Tags -->
     </v-card-text>

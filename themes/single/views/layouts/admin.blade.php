@@ -18,7 +18,6 @@
 @endpush
 
 @push("after-content")
-  @include("Theme::partials.bottomsheet")
   @include("Theme::partials.dialog")
   @include("Theme::partials.footer")
 @endpush

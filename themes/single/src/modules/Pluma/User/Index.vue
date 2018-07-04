@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar dark color="primary" class="sticky elevation-1">
-      <v-toolbar-title>{{ trans('All Accounts') }}</v-toolbar-title>
+      <v-toolbar-title>{{ trans('All Users') }}</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <!-- Bulk Commands -->
@@ -21,15 +21,13 @@
       <!-- Bulk Commands -->
 
       <v-tooltip bottom>
-        <v-btn slot="activator" icon :to="{name: 'users.trashed'}"><v-icon>archive</v-icon></v-btn>
+        <v-btn v-can="{code: 'users.trashed'}" slot="activator" icon :to="{name: 'users.trashed'}"><v-icon>archive</v-icon></v-btn>
         <span>{{ trans('View trashed users') }}</span>
       </v-tooltip>
 
-      <v-divider class="vertical"></v-divider>
-
       <v-tooltip bottom>
-        <v-btn slot="activator" color="secondary" :to="{name: 'users.create'}">{{ trans('Add Account') }}</v-btn>
-        <span>{{ trans('Create new account') }}</span>
+        <v-btn v-can="{code: 'users.create'}" slot="activator" color="secondary" :to="{name: 'users.create'}">{{ trans('Add User') }}</v-btn>
+        <span>{{ trans('Create new user') }}</span>
       </v-tooltip>
     </v-toolbar>
 
@@ -227,7 +225,7 @@ export default {
     }
   },
   mounted () {
-    // this.all()
+    this.all()
   }
 }
 </script>

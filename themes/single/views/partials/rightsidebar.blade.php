@@ -51,12 +51,12 @@
           <v-slider
             :max="40"
             :min="-1"
-            :prepend-icon-cb="() => { localstorage({'single.settings.fontsize': (settings.fontsize=1)}) }"
             :prepend-icon="settings.fontsize === 1 ? 'font_download' : 'refresh'"
+            @click:prepend="() => { localstorage({'single.settings.fontsize': (settings.fontsize=1)}) }"
             @input="localstorage({'single.settings.fontsize': settings.fontsize})"
-            role="button"
             hint="Note zooming the main content area may produce misalignment of some of the components in the page."
             persistent-hint
+            role="button"
             step="1"
             thumb-label
             v-model="settings.fontsize"

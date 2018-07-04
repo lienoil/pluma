@@ -28,12 +28,13 @@
           <v-flex xs12 sm8 md9>
             <input type="hidden" name="_token" :value="resource.token">
 
-            <v-card>
+            <v-card class="mb-3">
               <v-card-text>
                 <v-text-field
                   :error-messages="errors.collect('title')"
                   :label="trans('Title')"
                   @input="slugify"
+                  box
                   name="title"
                   v-focus
                   v-model="resource.item.title"
@@ -41,23 +42,30 @@
                   v-validate="'required'"
                 ></v-text-field>
                 <v-text-field
-                :append-icon-cb="() => {resource.lock.code = !resource.lock.code}"
-                :append-icon="resource.lock.code ? 'lock' : 'lock_open'"
-                :error-messages="errors.collect('code')"
-                @blur="resource.lock.code = true"
-                @focus="resource.lock.code = false"
-                name="code"
-                persistent-hint
-                prefix="app-url://"
-                v-bind="{'hint': 'This will be used as the slug for generating URLs. ' + (resource.lock.code ? 'Auto-suggestion mode is turned OFF' : 'Auto-suggestion mode is turned ON')}"
-                v-model="resource.item.code"
-                v-validate="'required'"
+                  :append-icon="resource.lock.code ? 'lock' : 'lock_open'"
+                  :error-messages="errors.collect('code')"
+                  :label="trans('Slug')"
+                  @blur="resource.lock.code = true"
+                  @click:append="() => {resource.lock.code = !resource.lock.code}"
+                  @focus="resource.lock.code = false"
+                  name="code"
+                  persistent-hint
+                  v-bind="{'hint': 'This will be used as the slug for generating URLs. ' + (resource.lock.code ? 'Auto-suggestion mode is turned OFF' : 'Auto-suggestion mode is turned ON')}"
+                  v-model="resource.item.code"
+                  v-validate="'required'"
                 ></v-text-field>
               </v-card-text>
 
-              <editor name="body" v-model="resource.item.body"></editor>
-
             </v-card>
+
+            <template v-for="(item, i) in section.items">
+              <v-card class="mb-3">
+                <v-card-title>Section {{ i+1 }}</v-card-title>
+                <editor></editor>
+              </v-card>
+            </template>
+            <v-btn @click="section.items.push({name: 'Section'})">Add eSection</v-btn>
+
           </v-flex>
           <v-flex xs12 sm4 md3>
 
@@ -107,8 +115,13 @@
 </template>
 
 <script>
+import Editor from '@/components/Components/Editor/Editor'
+
 export default {
   name: 'Create',
+  components: {
+    Editor
+  },
   data () {
     return {
       resource: {
@@ -133,6 +146,12 @@ export default {
         tags: { items: [] },
         library: { categories: { items: [] } },
         saving: false
+      },
+      section: {
+        current: 0,
+        items: [
+          { name: 'Section 1' }
+        ]
       },
       mediaboxes: {
         items: [
