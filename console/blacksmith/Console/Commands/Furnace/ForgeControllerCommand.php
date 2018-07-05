@@ -133,6 +133,7 @@ class ForgeControllerCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
+        // dd($rootNamespace);
         return $rootNamespace.'\Controllers';
     }
 
@@ -212,7 +213,7 @@ class ForgeControllerCommand extends GeneratorCommand
      */
     protected function rootNamespace()
     {
-        return $this->module;
+        return basename($this->module);
     }
 
     /**
@@ -224,6 +225,18 @@ class ForgeControllerCommand extends GeneratorCommand
     protected function getPath($name)
     {
         $name = basename($name);
-        return $this->rootNamespace().'/Controllers/'.$name.'.php';
+
+        return module_path($this->rootNamespace()).'/Controllers/'.$name.'.php';
+    }
+
+    /**
+     * Get the full namespace for a given class, without the class name.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getNamespace($name)
+    {
+        return $this->rootNamespace().'\Controllers';
     }
 }

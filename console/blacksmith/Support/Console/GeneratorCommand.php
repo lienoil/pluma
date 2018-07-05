@@ -73,6 +73,7 @@ abstract class GeneratorCommand extends Command
         $this->files->put($path, $this->buildClass($name));
 
         $this->info($this->type.' created successfully.');
+        $this->info($path);
     }
 
     /**
