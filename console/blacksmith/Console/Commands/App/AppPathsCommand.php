@@ -11,16 +11,14 @@ class AppPathsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:paths
-                            {--d|detailed : View other paths.}
-                            ';
+    protected $signature = 'app:paths';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = "Displays the app's paths.";
+    protected $description = "Display the list of app's paths.";
 
     /**
      * Execute the console command.
@@ -29,13 +27,19 @@ class AppPathsCommand extends Command
      */
     public function handle()
     {
-        $this->info("<comment>Base path: </comment>" . base_path());
+        $headers = ['Name', 'URI / Path', 'Function'];
 
-        if ($this->option('detailed')) {
-            $this->info("<comment>URL: </comment>" . url('/'));
-            $this->info("<comment>Core path: </comment>" . core_path());
-            $this->info("<comment>Public path: </comment>" . public_path());
-            $this->info("<comment>Modules path: </comment>" . modules_path());
-        }
+        $body = [
+            ["URL", url('/'), 'url($path = "")'],
+            ["Base Path", base_path(), 'base_path($path = "")'],
+            ["Core Path", core_path(), 'core_path($path = "")'],
+            ["Public Path", public_path(), 'public_path($path = "")'],
+            ["Modules Path", modules_path(), 'modules_path($path = "")'],
+            ["Themes Path", themes_path(), 'themes_path($path = "")'],
+            ["Storage Path", storage_path(), 'storage_path($path = "")'],
+            ["Database Path", database_path(), 'database_path($path = "")'],
+        ];
+
+        $this->table($headers, $body);
     }
 }
