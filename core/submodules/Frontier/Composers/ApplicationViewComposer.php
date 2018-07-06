@@ -235,11 +235,11 @@ class ApplicationViewComposer extends BaseViewComposer
      * if nothing found, then it will try to
      * construct words based from url.
      *
-     * @return void
+     * @return string
      */
     public function guessDescription()
     {
-        if ($this->model()) {
+        if ((bool) $this->model()) {
             return $this->model()->excerpt;
         }
 

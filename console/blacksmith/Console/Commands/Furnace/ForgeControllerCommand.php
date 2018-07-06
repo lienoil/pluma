@@ -6,6 +6,7 @@ use Blacksmith\Support\Console\GeneratorCommand;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Pluma\Support\Modules\Traits\ModulerTrait;
 
 class ForgeControllerCommand extends GeneratorCommand
@@ -194,7 +195,7 @@ class ForgeControllerCommand extends GeneratorCommand
     protected function parseModel($model)
     {
         if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
-            throw new InvalidArgumentException('Model name contains invalid characters.');
+            throw new \InvalidArgumentException('Model name contains invalid characters.');
         }
 
         $model = trim(str_replace('/', '\\', $model), '\\');

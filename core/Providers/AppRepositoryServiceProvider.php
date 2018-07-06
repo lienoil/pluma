@@ -13,6 +13,6 @@ class AppRepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind();
+        parent::register();
     }
 }

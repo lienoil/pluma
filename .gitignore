@@ -1,6 +1,7 @@
 !storage/**/.gitkeep
 **/*.zip
 **/tests/build/
+*.log
 *.sh
 .env
 .env.*.php
