@@ -1,23 +1,18 @@
 @extends("Theme::layouts.admin")
 
-@section("content")
-
-    <v-container fluid>
-        <head>
-          <title>How to use and customize SweetAlert2</title>
-          <!-- jQuery -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-          <!-- SweetAlert2 -->
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
-        </head>
-
-        <v-btn id="success" primary large>Success</v-btn>
-        <button id="error">Error</button>
-        <button id="warning">Warning</button>
-        <button id="info">Info</button>
-        <button id="question">Question</button>
-    </v-container>
+@section("main-content")
+  <v-container fluid>
+    <v-flex xs12>
+      @foreach ($resources as $lesson)
+        <p>{{ "{$lesson->id}. {$lesson->title}" }}</p>
+        <ul class="pl-5">
+          @foreach ($lesson->children as $child)
+            <li>{{ "{$child->id} - {$child->title}" }}</li>
+          @endforeach
+        </ul>
+      @endforeach
+    </v-flex>
+  </v-container>
 @endsection
 
 @push('css')

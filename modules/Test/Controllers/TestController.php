@@ -2,10 +2,11 @@
 
 namespace Test\Controllers;
 
-use Test\Models\Test;
-use Test\Requests\TestRequest;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Test\Models\Test;
+use Test\Requests\TestRequest;
 
 class TestController extends GeneralController
 {
@@ -17,10 +18,41 @@ class TestController extends GeneralController
      */
     public function index(Request $request)
     {
-        $course = \Course\Models\Course::find(1);
-        $course->commit(2);
+        $course = \Course\Models\Course::first();
+        $c = $course->lessons()->root();
+        // dd($c);
 
-        return view("Theme::tests.index");
+        // $faker = \Faker\Factory::create();
+        // $lesson = [];
+        // $lesson['title'] = $title = str_replace('.', '', ucwords($faker->realText(40, 4)));
+        // $lesson['slug'] = $slug = str_slug($title);
+        // $lesson['code'] = $code = $faker->swiftBicNumber;
+        // $lesson['feature'] = $faker->imageUrl(300, 300);
+        // $lesson['body'] = $body = $faker->paragraph;
+        // $course->lessons()->updateOrCreate(['code' => $lesson['code']], $lesson);
+        // foreach ($course->lessons as $lesson) {
+            // $lesson = $course->lessons()->find(2);
+            $sqlX = "
+                INSERT INTO `lessonstree` (`ancestor`, `descendant`, `length`)
+                SELECT t.ancestor, 3, t.length + 1
+                FROM `lessonstree` AS t
+                WHERE t.descendant = 2
+                UNION ALL
+                SELECT 3, 3, 0
+            ";
+            // DB::select($sqlX);
+        //     // $lesson->lineage()->select($sqlX)->execute();
+        // }
+
+        // $sql = "
+        //     SELECT c.* FROM `lessons` AS c
+        //         JOIN `lessonstree` AS t
+        //             ON (c.id = t.descendant)
+        //         WHERE t.ancestor = 4
+        // ";
+        // dd($c);
+
+        return view("Theme::tests.index")->with(['resources' => $c]);
     }
 
     /**

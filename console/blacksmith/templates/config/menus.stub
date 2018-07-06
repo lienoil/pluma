@@ -20,8 +20,8 @@ return [
             'description' => __('Manage $slug'),
         ],
         'children' => [
-            'view-$code' => [
-                'name' => 'view-$code',
+            'view-$slug' => [
+                'name' => 'view-$slug',
                 'order' => 1,
                 'slug' => route('$slug.index'),
                 'code' => '$slug.index',

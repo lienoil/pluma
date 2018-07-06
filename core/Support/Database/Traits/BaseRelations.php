@@ -2,6 +2,7 @@
 
 namespace Pluma\Support\Database\Traits;
 
+use Pluma\Support\Database\Relations\AdjacentlyRelatedTo;
 use Pluma\Support\Database\Relations\BelongsToManyThrough;
 use Pluma\Support\Database\Relations\HasManyThroughMany;
 
@@ -30,8 +31,8 @@ trait BaseRelations
     /**
      * Retrieve the Belonging resource through many model.
      *
-     * @param Model $related
-     * @param Model $through
+     * @param Model  $related
+     * @param Model  $through
      * @param string $firstKey
      * @param string $secondKey
      * @return Illuminate\Database\Eloquent\Relations\Relation

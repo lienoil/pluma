@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migrator;
 use Pluma\Support\Console\Traits\ConfirmableTrait;
 use Symfony\Component\Console\Input\InputOption;
 
-class MigrationRollbackCommand extends BaseCommand
+class MigrationResetCommand extends BaseCommand
 {
     use ConfirmableTrait;
 
@@ -16,14 +16,14 @@ class MigrationRollbackCommand extends BaseCommand
      *
      * @var string
      */
-    protected $name = 'migration:rollback';
+    protected $name = 'migration:reset';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Rollback the last database migration';
+    protected $description = 'Rollback all database migrations';
 
     /**
      * The migrator instance.
@@ -58,11 +58,15 @@ class MigrationRollbackCommand extends BaseCommand
 
         $this->migrator->setConnection($this->option('database'));
 
-        $this->migrator->rollback(
-            $this->getMigrationPaths(), [
-                'pretend' => $this->option('pretend'),
-                'step' => (int) $this->option('step'),
-            ]
+        // First, we'll make sure that the migration table actually exists before we
+        // start trying to rollback and re-run all of the migrations. If it's not
+        // present we'll just bail out with an info message for the developers.
+        if (! $this->migrator->repositoryExists()) {
+            return $this->comment('Migration table not found.');
+        }
+
+        $this->migrator->reset(
+            $this->getMigrationPaths(), $this->option('pretend')
         );
 
         // Once the migrator has run we will grab the note output and send it out to
@@ -85,13 +89,11 @@ class MigrationRollbackCommand extends BaseCommand
 
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
 
-            ['path', null, InputOption::VALUE_OPTIONAL, 'The path to the migrations files to be executed.'],
+            ['path', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The path(s) to the migrations files to be executed.'],
 
             ['realpath', null, InputOption::VALUE_NONE, 'Indicate any provided migration file paths are pre-resolved absolute paths.'],
 
             ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'],
-
-            ['step', null, InputOption::VALUE_OPTIONAL, 'The number of migrations to be reverted.'],
         ];
     }
 }
