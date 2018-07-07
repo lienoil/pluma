@@ -1,13 +1,13 @@
 <?php
 
-namespace $namespace\Controllers;
+namespace DummyNamespace;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use $namespace\Models\$model;
 use $namespace\Requests\$nameRequest;
 
-class $class extends AdminController
+class DummyClass extends AdminController
 {
     /**
      * Display a listing of the resource.

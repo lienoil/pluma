@@ -36,7 +36,7 @@ class ForgePermissionsCommand extends Command
             $filename = strtolower($this->argument('name'));
             $name = studly_case($this->argument('name'));
             $slug = strtolower(str_slug($name));
-            $option = $this->option();
+            $option = $this->options();
             $module = get_module($option['module']);
             $modules = get_modules_path(true);
 

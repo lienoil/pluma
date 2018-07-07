@@ -175,7 +175,10 @@ class ForgeControllerCommand extends GeneratorCommand
 
         if (! class_exists($modelClass)) {
             if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
-                $this->call('forge:model', ['name' => $modelClass]);
+                $this->call('forge:model', [
+                    'name' => $modelClass,
+                    '--module' => $this->module,
+                ]);
             }
         }
 
@@ -198,13 +201,13 @@ class ForgeControllerCommand extends GeneratorCommand
             throw new \InvalidArgumentException('Model name contains invalid characters.');
         }
 
-        $model = trim(str_replace('/', '\\', $model), '\\');
+        $model = trim(str_replace('/', '\\Models', $model), '\\');
 
-        if (! Str::startsWith($model, $rootNamespace = $this->webApp->getNamespace())) {
+        if (! Str::startsWith($model, $rootNamespace = $this->rootNamespace())) {
             $model = $rootNamespace.$model;
         }
 
-        return $model;
+        return $model.'\\Models\\'.$model;
     }
 
     /**
@@ -227,7 +230,7 @@ class ForgeControllerCommand extends GeneratorCommand
     {
         $name = basename($name);
 
-        return module_path($this->rootNamespace()).'/Controllers/'.$name.'.php';
+        return module_path($this->rootNamespace()).'Controllers/'.$name.'.php';
     }
 
     /**

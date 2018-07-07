@@ -18,12 +18,10 @@ class ForgeModuleCommand extends Command
      */
     protected $signature = 'forge:module
                            {name : The name of the module}
-                           {--m|module= : The module the factory belongs to}
-                           {--c|core : Specify the controller extends the Admin Controller}
-                           {--p|public : Specify the controller extends the Public Controller}
-                           {--g|general : Specify the controller extends the General purpose Controller}
-                           {--api : Specify the controller extends the Api Controller}
-                           {--model : Generate a resource controller for the given model}
+                           {--m|module= : The module the submodule belongs to}
+                           {--c|core : Specify the module should be core}
+                           {--standalone : Specify the module should be top level}
+                           {--empty : Generate folders only}
                            ';
 
     /**
@@ -66,17 +64,24 @@ class ForgeModuleCommand extends Command
     protected $path;
 
     /**
+     * The filesystem instance.
+     *
+     * @var Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
      * Create a new command instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $file
+     * @param  \Illuminate\Filesystem\Filesystem  $files
      * @param  \Illuminate\Support\Composer  $composer
      * @return void
      */
-    public function __construct(Filesystem $file, Composer $composer)
+    public function __construct(Filesystem $files, Composer $composer)
     {
-        parent::__construct($file);
+        parent::__construct($files);
 
-        $this->filesystem = $file;
+        $this->files = $files;
 
         $this->composer = $composer;
     }
@@ -96,7 +101,13 @@ class ForgeModuleCommand extends Command
 
         $this->qualifyPath();
 
-        $this->generateModule();
+        $this->generateFolders();
+
+        if (! $this->option('empty')) {
+            $this->generateConfig();
+            $this->generateController();
+            // $this->generateDatabase();
+        }
 
         $this->composer->dumpAutoloads();
     }
@@ -175,27 +186,71 @@ class ForgeModuleCommand extends Command
      *
      * @return void
      */
-    protected function generateModule()
+    protected function generateFolders()
     {
         $module = $this->path;
 
         $directories = [
             "$module/config",
             "$module/Controllers",
+            "$module/Controllers/Resources",
             "$module/database/factories",
             "$module/database/migrations",
             "$module/database/seeds",
             "$module/Models",
             "$module/Observers",
             "$module/Providers",
+            "$module/Repositories",
             "$module/Requests",
+            "$module/Resources",
             "$module/routes",
             "$module/views",
         ];
 
         foreach ($directories as $directory) {
-            $filesystem->directory($directory, 0755, true, true);
+            $this->files->makeDirectory($directory, 0755, true, true);
             $this->info("Directory created: $directory");
         }
+    }
+
+    /**
+     * Create common config files.
+     *
+     * @return void
+     */
+    protected function generateConfig()
+    {
+        $name = $this->argument('name');
+        $module = $this->module;
+
+        $commands = [
+            'forge:permissions' => [
+                '--module' => $module,
+            ],
+            // TODO: this
+            // 'forge:menus' => [
+            //     'name' => $name,
+            //     '--module' => $module,
+            // ],
+        ];
+
+        foreach ($commands as $command => $options) {
+            $this->call($command, $options);
+        }
+    }
+
+    /**
+     * Create controller file.
+     *
+     * @return void
+     */
+    protected function generateController()
+    {
+        $name = $this->argument('name').'Controller';
+        $this->call('forge:controller', [
+            'name' => $name,
+            '--general' => true,
+            '--module' => $this->argument('name'),
+        ]);
     }
 }
