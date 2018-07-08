@@ -134,7 +134,6 @@ class ForgeControllerCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        // dd($rootNamespace);
         return $rootNamespace.'\Controllers';
     }
 

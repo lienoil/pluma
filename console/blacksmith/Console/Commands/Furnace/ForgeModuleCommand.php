@@ -119,9 +119,14 @@ class ForgeModuleCommand extends Command
      */
     protected function qualifyModuleLevel()
     {
-        $name = $this->argument('name');
-
-        $this->level = $this->choice("What type of module do you want create with $name?", $this->moduleLevels);
+        if ($this->option('standalone')) {
+            $this->level = 'standalone';
+        } elseif ($this->option('core')) {
+            $this->level = 'core';
+        } else {
+            $name = $this->argument('name');
+            $this->level = $this->choice("What type of module do you want create with $name?", $this->moduleLevels);
+        }
     }
 
     /**
@@ -221,17 +226,15 @@ class ForgeModuleCommand extends Command
     protected function generateConfig()
     {
         $name = $this->argument('name');
-        $module = $this->module;
+        $module = basename($this->path);
 
         $commands = [
             'forge:permissions' => [
                 '--module' => $module,
             ],
-            // TODO: this
-            // 'forge:menus' => [
-            //     'name' => $name,
-            //     '--module' => $module,
-            // ],
+            'forge:menus' => [
+                '--module' => $module,
+            ],
         ];
 
         foreach ($commands as $command => $options) {
@@ -247,6 +250,7 @@ class ForgeModuleCommand extends Command
     protected function generateController()
     {
         $name = $this->argument('name').'Controller';
+
         $this->call('forge:controller', [
             'name' => $name,
             '--general' => true,
