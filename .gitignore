@@ -8,6 +8,7 @@
 .env.php
 .php_cs.cache
 .sass-cache/
+.phan/*.log
 bower_components/
 node_modules/
 npm-debug.log
