@@ -1,7 +1,10 @@
 @extends("Theme::layouts.admin")
 
-@section("content")
+@section("main-content")
+  {{ __('All Courses') }}
   @foreach ($resources as $course)
-    {{ $course->title }}<br>
+    <div>
+      <a href="{{ route('courses.show', $course->slug) }}">{{ $course->title }}</a>
+    </div>
   @endforeach
 @endsection

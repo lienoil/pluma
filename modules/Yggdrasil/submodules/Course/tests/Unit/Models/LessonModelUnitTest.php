@@ -20,13 +20,13 @@ class LessonModelUnitTest extends TestCase
 
     /**
      * @test
-     * @group lesson
+     * @group lesson:unit
      */
     public function testLessonNodesCanBeAttached()
     {
         $lessons = factory(Lesson::class, 10)->create();
 
-        collect($lessons)->each(function ($lesson) {
+        $lessons->each(function ($lesson) {
             // Insert each lesson as a top level node.
             // E.g.
             //   Lesson 1
@@ -46,7 +46,7 @@ class LessonModelUnitTest extends TestCase
             //   Lesson 2  <-- next $lesson in loop
             //   ---- Chapter 1
             //   ---- Chapter 2 ... 5
-            collect($chapters)->each(function ($chapter) use ($lesson) {
+            $chapters->each(function ($chapter) use ($lesson) {
                 $lesson->adjaceables()->attach($chapter);
             });
 
@@ -70,13 +70,13 @@ class LessonModelUnitTest extends TestCase
 
     /**
      * @test
-     * @group lesson
+     * @group lesson:unit
      */
     public function testLessonNodesCanBeMoved()
     {
         $lessons = factory(Lesson::class, 5)->create();
 
-        collect($lessons)->each(function ($lesson) {
+        $lessons->each(function ($lesson) {
             // Insert each lesson as a top level node.
             // E.g.
             //   Lesson 1
@@ -114,16 +114,16 @@ class LessonModelUnitTest extends TestCase
 
     /**
      * @test
-     * @group lesson
+     * @group lesson:unit
      */
     public function testLessonNodesCanBeDetached()
     {
         $lessons = factory(Lesson::class, 5)->create();
-        collect($lessons)->each(function ($lesson) {
+        $lessons->each(function ($lesson) {
             $lesson->adjaceables()->addAsRoot();
 
             $chapters = factory(Lesson::class, 5)->create();
-            collect($chapters)->each(function ($chapter) use ($lesson) {
+            $chapters->each(function ($chapter) use ($lesson) {
                 $lesson->adjaceables()->attach($chapter);
             });
         });
@@ -158,14 +158,14 @@ class LessonModelUnitTest extends TestCase
 
     /**
      * @test
-     * @group lesson-tree
+     * @group lesson:unit
      */
     public function testLessonNodesCanOnlyRetrieveRootNodesAutomaticallyViaScope()
     {
         $course = factory(Course::class)->create();
         $lessons = factory(Lesson::class, 10)->create(['course_id' => $course->id]);
 
-        collect($lessons)->each(function ($lesson) use ($course) {
+        $lessons->each(function ($lesson) use ($course) {
             $lesson->course()->associate($course);
             // Add all 10 lessons as root.
             $lesson->adjaceables()->addAsRoot();
@@ -173,7 +173,7 @@ class LessonModelUnitTest extends TestCase
             // And each root lessons will have 5 chapters.
             $chapters = factory(Lesson::class, 5)->create(['course_id' => $course->id]);
 
-            collect($chapters)->each(function ($chapter) use ($course, $lesson) {
+            $chapters->each(function ($chapter) use ($course, $lesson) {
                 $chapter->course()->associate($course);
                 $lesson->adjaceables()->attach($chapter);
             });
@@ -208,5 +208,159 @@ class LessonModelUnitTest extends TestCase
         $actual = $course->children->count();
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @test
+     * @group lesson:unit
+     */
+    public function testLessonChildCanRetrieveNextSibling()
+    {
+        // Setup
+        $lessons = factory(Lesson::class, 2)->create();
+        $lessons->each(function ($lesson) {
+            $lesson->adjaceables()->addAsRoot();
+            $chapters = factory(Lesson::class, 10)->create();
+            $chapters->each(function ($chapter) use ($lesson) {
+                $lesson->adjaceables()->attach($chapter);
+            });
+        });
+
+        // Main test
+        $lesson = Lesson::first();
+        $expected = Lesson::class;
+        $actual = $lesson->next();
+        $this->assertInstanceOf($expected, $actual);
+
+        $expectedId = 2;
+        $this->assertEquals($expectedId, $actual->id);
+
+        // Test chapters
+        $chapters = $lesson->children;
+
+        // Assert that it returned a Collection instance.
+        $this->assertInstanceOf(
+            \Illuminate\Database\Eloquent\Collection::class,
+            $chapters
+        );
+
+        /**
+         * Chapter Sibling Test
+         *
+         * Visual representation
+         * ---------------------
+         *   Lesson 1  <----. $lesson
+         *    Chapter 3  <--. $chapter
+         *    Chapter 4  <--. $expectedId
+         *    ...
+         *    Chapter 12
+         *   Lesson 2
+         *    Chapter 13
+         *    ...
+         *    Chapter 22
+         */
+        $expectedId = 4;
+        $chapter = $chapters->first();
+        $expected = Lesson::class;
+        $actual = $chapter->next();
+        $this->assertEquals($expectedId, $actual->id);
+    }
+
+    /**
+     * @test
+     * @group lesson:unitx
+     */
+    public function testShouldReturnNullIfNoSiblingIsFoundNext()
+    {
+        // Setup
+        $lessons = factory(Lesson::class, 2)->create();
+        $lessons->each(function ($lesson) {
+            $lesson->adjaceables()->addAsRoot();
+            $chapters = factory(Lesson::class, 10)->create();
+            $chapters->each(function ($chapter) use ($lesson) {
+                $lesson->adjaceables()->attach($chapter);
+            });
+        });
+
+        /**
+         * Chapter Sibling Null Test
+         *
+         * Visual representation
+         * ---------------------
+         *   Lesson 1  <----. $lesson
+         *    Chapter 3
+         *    Chapter 4
+         *    ...
+         *    Chapter 12 <--. $lastChapter
+         *               <--. $expected null
+         *   Lesson 2
+         *    Chapter 13
+         *    ...
+         *    Chapter 22
+         */
+        $lesson = Lesson::first();
+        $lastChapter = $lesson->children->last();
+        dd($lesson->next());
+        dd($lesson->children->first()->adjaceables()->siblings());
+        $expected = null;
+        $actual = $lastChapter->next();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @testx
+     * @group lesson:unit
+     */
+    public function xtestLessonChildCanRetrievePreviousSibling()
+    {
+        // Setup
+        $lessons = factory(Lesson::class, 2)->create();
+        $lessons->each(function ($lesson) {
+            $lesson->adjaceables()->addAsRoot();
+            $chapters = factory(Lesson::class, 10)->create();
+            $chapters->each(function ($chapter) use ($lesson) {
+                $lesson->adjaceables()->attach($chapter);
+            });
+        });
+
+        // Main test
+        $lesson = Lesson::first();
+        $expected = Lesson::class;
+        $actual = $lesson->next();
+        $this->assertInstanceOf($expected, $actual);
+
+        $expectedId = 2;
+        $this->assertEquals($expectedId, $actual->id);
+
+        // Test chapters
+        $chapters = $lesson->children;
+
+        // Assert that it returned a Collection instance.
+        $this->assertInstanceOf(
+            \Illuminate\Database\Eloquent\Collection::class,
+            $chapters
+        );
+
+        /**
+         * Chapter Sibling Test
+         *
+         * Visual representation
+         * ---------------------
+         *   Lesson 1  <----. $lesson
+         *    Chapter 3  <--. $chapter
+         *    Chapter 4  <--. $expectedId
+         *    ...
+         *    Chapter 12
+         *   Lesson 2
+         *    Chapter 13
+         *    ...
+         *    Chapter 22
+         */
+        $expectedId = 4;
+        $chapter = $chapters->first();
+        $expected = Lesson::class;
+        $actual = $chapter->next();
+        $this->assertEquals($expectedId, $actual->id);
     }
 }

@@ -21,16 +21,15 @@ class CourseAdminFeatureTest extends TestCase
 
     /**
      * @test
-     * @group course:client
-     * @dataProvider  providerSeed
+     * @group course:feature
      */
-    public function testUserCanInteractWithCoursesPage($user)
+    public function testUserCanInteractWithCoursesPage()
     {
         // Save to database first.
-        $user = $this->persistProviderToDatabase($user);
-        $course = factory(Course::class)->create();
-
+        $user = factory(User::class)->create(['password' => Hash::make('secret')]);
         $this->actingAs($user);
+
+        $course = factory(Course::class)->create();
 
         $response = $this->get(route('courses.index'));
 
@@ -39,28 +38,24 @@ class CourseAdminFeatureTest extends TestCase
             ->assertStatus(200)
             // Important to let the users see
             // a confirmation title.
-            ->assertSee(__('All Courses'))
-            // Check if the courses are displayed
-            ->assertSee($course->title);
+            ->assertSee(__('All Courses'));
     }
 
     /**
      * @test
-     * @group course:client
+     * @group course:feature
      * @dataProvider providerSeed
      */
     public function testUserCanReadASingleCourse($user)
     {
-        $user = $this->persistProviderToDatabase($user);
+        $user = factory(User::class)->create(); // $this->persistProviderToDatabase($user);
         $this->actingAs($user);
 
         $course = factory(Course::class)->create();
 
-        $response = $this->get(route('courses.show', $course->id));
+        $response = $this->get(route('courses.show', $course->slug));
 
-        $response
-            ->assertSee($course->title)
-            ->assertStatus(200);
+        $response->assertStatus(200);
     }
 
     /** @provider */

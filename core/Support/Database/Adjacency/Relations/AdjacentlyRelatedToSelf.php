@@ -17,7 +17,7 @@ trait AdjacentlyRelatedToSelf
     }
 
     /**
-     * Gets the immediate children of the resource.
+     * Retrieve the immediate children of the resource.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -27,7 +27,7 @@ trait AdjacentlyRelatedToSelf
     }
 
     /**
-     * Gets the mutated descendants attribute.
+     * Retrieve the descendants attribute.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -37,7 +37,7 @@ trait AdjacentlyRelatedToSelf
     }
 
     /**
-     * Gets the mutated ancestors attribute.
+     * Retrieve the ancestors attribute.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -47,12 +47,31 @@ trait AdjacentlyRelatedToSelf
     }
 
     /**
-     * Gets the mutated parent attribute.
+     * Retrieve the parent attribute.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getParentAttribute()
     {
         return $this->adjaceables()->parent();
+    }
+
+    /**
+     * Retrieve next sibling.
+     * E.g.
+     * ---------------------
+     *    Sibling 1  <-- if this is the current $key value
+     *    Sibling 2  <-- then we should receive this
+     *    Sibling 3
+     *    ...
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function scopeNext()
+    {
+        $keyName = $this->getKeyName();
+        $key = $this->getKey();
+
+        return $this->adjaceables()->siblings()->where($keyName, '>', $key)->first();
     }
 }

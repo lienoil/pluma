@@ -37,6 +37,8 @@ class CreateCoursesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->index(['slug', 'code']);
+
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')

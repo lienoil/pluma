@@ -11,6 +11,8 @@ class Lesson extends AdjacencyModel
 {
     use BelongsToCourse;
 
+    protected $table = 'lessons';
+
     protected $adjacentTable = 'lessonstree';
 
     protected $fillable = ['title', 'slug', 'code', 'feature', 'body'];

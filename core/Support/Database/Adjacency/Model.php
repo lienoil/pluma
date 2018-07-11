@@ -80,8 +80,7 @@ class Model extends BaseModel implements AdjacencyRelationModelInterface
     /**
      * Query only root resources.
      *
-     * @param  Illuminate\Database\Eloquent\Builder $builder
-     * @param  int $depth
+     * @param  \Illuminate\Database\Eloquent\Builder $builder
      * @return void
      */
     public function scopeTree(Builder $builder)

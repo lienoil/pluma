@@ -1,8 +1,9 @@
 <?php
 
-use Pluma\Support\Database\Seeder;
-use Faker\Factory as Faker;
 use Course\Models\Course;
+use Course\Models\Lesson;
+use Faker\Factory as Faker;
+use Pluma\Support\Database\Seeder;
 
 class CoursesTableSeeder extends Seeder
 {
@@ -13,16 +14,22 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
-        for ($i = 0; $i < 3; $i++) {
-            $course = new Course();
-            $course->title = $title = str_replace('.', '', ucwords($faker->realText(40, 4)));
-            $course->slug = $slug = str_slug($title);
-            $course->code = $code = $faker->swiftBicNumber;
-            $course->feature = $faker->imageUrl(300, 300);
-            $course->backdrop = $faker->imageUrl(1000, 600);
-            $course->body = $body = $faker->paragraph;
-            $course->save();
-        }
+        $courses = factory(Course::class, 10)->create();
+
+        collect($courses)->each(function ($course) {
+            $lessons = factory(Lesson::class, 10)->create([
+                'course_id' => $course->id,
+            ]);
+
+            collect($lessons)->each(function ($lesson) use ($course) {
+                $lesson->adjaceables()->addAsRoot();
+
+                $chapters = factory(Lesson::class, 10)->create();
+
+                collect($chapters)->each(function ($chapter) use ($lesson) {
+                    $lesson->adjaceables()->attach($chapter);
+                });
+            });
+        });
     }
 }
