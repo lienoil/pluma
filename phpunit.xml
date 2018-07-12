@@ -12,6 +12,10 @@
     printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
     >
     <testsuites>
+        <testsuite name="API">
+            <directory suffix="Test.php">./tests/API</directory>
+        </testsuite>
+
         <testsuite name="Feature">
             <directory suffix="Test.php">./core</directory>
             <directory suffix="Test.php">./modules</directory>

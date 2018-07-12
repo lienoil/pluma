@@ -3,6 +3,9 @@
 @section("main-content")
   <v-container fluid grid-list-lg>
     <v-flex sm12>
+      <v-card flat>
+        {{-- <v-card-media src="{{ $resource->backdrop }}" height="250px"></v-card-media> --}}
+      </v-card>
       <h1>{{ $resource->title }}</h1>
 
       <p>Lessons:</p>
@@ -10,14 +13,20 @@
         @foreach ($resource->lessons as $lesson)
           <li>
             <a name="{{ $lesson->code }}"></a>
-            {{ $lesson->title }}
-            <v-btn small href="#{{ $lesson->next }}">Next</v-btn>
+            {{ $lesson->id }} {{ $lesson->title }}
             <ul>
               @foreach ($lesson->children as $chapter)
                 <li>
                   <a name="{{ $chapter->code }}"></a>
+
+
+                  @if ($chapter->previous())
+                    <a href="#{{ $chapter->previous()->code }}">Previous</a>
+                  @endif
                   {{ $chapter->title }}
-                  <v-btn small>Next</v-btn>
+                  @if ($chapter->next())
+                    <a href="#{{ $chapter->next()->code }}">Next</a>
+                  @endif
                 </li>
               @endforeach
             </ul>

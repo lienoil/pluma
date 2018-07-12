@@ -268,7 +268,6 @@ class AdjacentlyRelatedTo extends Relation
     public function siblings()
     {
         $query = $this->query;
-
         $table = $this->table;
         $modelTable = $this->model->getTable();
         $modelKeyName = $this->model->getKeyName();
@@ -287,7 +286,42 @@ class AdjacentlyRelatedTo extends Relation
             ->where('s.'.$depthKey, $depth)
             ->where('m.'.$modelKeyName, '<>', $modelKey);
 
-        return $query->get();
+        return $this;
+    }
+
+    /**
+     * Retrieve the next item on the collection.
+     *
+     * @return mixed
+     */
+    public function next()
+    {
+        $query = $this->query;
+        $key = $this->model->getKey();
+        $keyName = $this->model->getKeyName();
+
+        $sortKey = $this->model->getSortKey();
+        $sort = $this->model->{$sortKey};
+
+        return $query->where($sortKey, '>', $sort);
+    }
+
+    /**
+     * Retrieve the next item on the collection.
+     *
+     * @return mixed
+     */
+    public function previous()
+    {
+        $query = $this->query;
+        $key = $this->model->getKey();
+        $keyName = $this->model->getKeyName();
+
+        $sortKey = $this->model->getSortKey();
+        $sort = $this->model->{$sortKey};
+
+        return $query
+            ->where($sortKey, '<', $sort);
     }
 
     /**

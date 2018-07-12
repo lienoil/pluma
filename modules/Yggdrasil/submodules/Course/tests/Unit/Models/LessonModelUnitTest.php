@@ -217,7 +217,8 @@ class LessonModelUnitTest extends TestCase
     public function testLessonChildCanRetrieveNextSibling()
     {
         // Setup
-        $lessons = factory(Lesson::class, 2)->create();
+        $course = factory(Course::class)->create();
+        $lessons = factory(Lesson::class, 2)->create(['course_id' => $course->id]);
         $lessons->each(function ($lesson) {
             $lesson->adjaceables()->addAsRoot();
             $chapters = factory(Lesson::class, 10)->create();
@@ -225,24 +226,6 @@ class LessonModelUnitTest extends TestCase
                 $lesson->adjaceables()->attach($chapter);
             });
         });
-
-        // Main test
-        $lesson = Lesson::first();
-        $expected = Lesson::class;
-        $actual = $lesson->next();
-        $this->assertInstanceOf($expected, $actual);
-
-        $expectedId = 2;
-        $this->assertEquals($expectedId, $actual->id);
-
-        // Test chapters
-        $chapters = $lesson->children;
-
-        // Assert that it returned a Collection instance.
-        $this->assertInstanceOf(
-            \Illuminate\Database\Eloquent\Collection::class,
-            $chapters
-        );
 
         /**
          * Chapter Sibling Test
@@ -259,18 +242,19 @@ class LessonModelUnitTest extends TestCase
          *    ...
          *    Chapter 22
          */
-        $expectedId = 4;
+        $lesson = Lesson::first();
+        $chapters = $lesson->children;
         $chapter = $chapters->first();
-        $expected = Lesson::class;
+        $expectedId = 4;
         $actual = $chapter->next();
         $this->assertEquals($expectedId, $actual->id);
     }
 
     /**
      * @test
-     * @group lesson:unitx
+     * @group lesson:unit
      */
-    public function testShouldReturnNullIfNoSiblingIsFoundNext()
+    public function testLessonChildCanRetrievePreviousSibling()
     {
         // Setup
         $lessons = factory(Lesson::class, 2)->create();
@@ -283,7 +267,47 @@ class LessonModelUnitTest extends TestCase
         });
 
         /**
-         * Chapter Sibling Null Test
+         * Chapter Sibling Test
+         *
+         * Visual representation
+         * ---------------------
+         *   Lesson 1
+         *    Chapter 3
+         *    Chapter 4
+         *    ...
+         *    Chapter 12
+         *   Lesson 2  <----. $lesson
+         *    Chapter 13 <--. $expectedId
+         *    Chapter 14 <--. $chapter
+         *    ...
+         *    Chapter 22
+         */
+        $lesson = Lesson::find(2);
+        $chapters = $lesson->children;
+        $chapter = $chapters->get(1);
+        $expectedId = 13;
+        $actual = $chapter->previous();
+        $this->assertEquals($expectedId, $actual->id);
+    }
+
+    /**
+     * @test
+     * @group lesson:unit
+     */
+    public function testLastLessonShouldReturnNullIfQueryingForNextLesson()
+    {
+        // Setup
+        $lessons = factory(Lesson::class, 2)->create();
+        $lessons->each(function ($lesson) {
+            $lesson->adjaceables()->addAsRoot();
+            $chapters = factory(Lesson::class, 10)->create();
+            $chapters->each(function ($chapter) use ($lesson) {
+                $lesson->adjaceables()->attach($chapter);
+            });
+        });
+
+        /**
+         * Baseline Test
          *
          * Visual representation
          * ---------------------
@@ -292,7 +316,7 @@ class LessonModelUnitTest extends TestCase
          *    Chapter 4
          *    ...
          *    Chapter 12 <--. $lastChapter
-         *               <--. $expected null
+         *               <--. $expected 'null'
          *   Lesson 2
          *    Chapter 13
          *    ...
@@ -300,19 +324,39 @@ class LessonModelUnitTest extends TestCase
          */
         $lesson = Lesson::first();
         $lastChapter = $lesson->children->last();
-        dd($lesson->next());
-        dd($lesson->children->first()->adjaceables()->siblings());
         $expected = null;
         $actual = $lastChapter->next();
+        $this->assertEquals((int) $expected, (int) $actual);
 
+        /**
+         * Last Lesson's Last Chapter's Next Sibling Should Be Null
+         * Main Test
+         *
+         * Visual representation
+         * ---------------------
+         *   Lesson 1
+         *    Chapter 3
+         *    Chapter 4
+         *    ...
+         *    Chapter 12
+         *   Lesson 2 <-----. $lesson
+         *    Chapter 13
+         *    ...
+         *    Chapter 22 <--. $lastChapter
+         *               <--. $expected 'null'
+         */
+        $lesson = Lesson::find(2);
+        $lastChapter = $lesson->children->last();
+        $expected = null;
+        $actual = $lastChapter->next();
         $this->assertEquals($expected, $actual);
     }
 
     /**
-     * @testx
+     * @test
      * @group lesson:unit
      */
-    public function xtestLessonChildCanRetrievePreviousSibling()
+    public function testFirstLessonChildShouldReturnNullIfQueryingForPreviousLesson()
     {
         // Setup
         $lessons = factory(Lesson::class, 2)->create();
@@ -324,32 +368,37 @@ class LessonModelUnitTest extends TestCase
             });
         });
 
-        // Main test
-        $lesson = Lesson::first();
-        $expected = Lesson::class;
-        $actual = $lesson->next();
-        $this->assertInstanceOf($expected, $actual);
-
-        $expectedId = 2;
-        $this->assertEquals($expectedId, $actual->id);
-
-        // Test chapters
-        $chapters = $lesson->children;
-
-        // Assert that it returned a Collection instance.
-        $this->assertInstanceOf(
-            \Illuminate\Database\Eloquent\Collection::class,
-            $chapters
-        );
-
         /**
-         * Chapter Sibling Test
+         * Baseline Test
          *
          * Visual representation
          * ---------------------
-         *   Lesson 1  <----. $lesson
-         *    Chapter 3  <--. $chapter
-         *    Chapter 4  <--. $expectedId
+         *   Lesson 1
+         *    Chapter 3
+         *    Chapter 4
+         *    ...
+         *    Chapter 12
+         *   Lesson 2 <-----. $lesson
+         *               <--. $expected 'null', not Chapter 12
+         *    Chapter 13 <--. $firstChapter
+         *    ...
+         *    Chapter 22
+         */
+        $lesson = Lesson::find(2);
+        $lastChapter = $lesson->children->first();
+        $expected = null;
+        $actual = $lastChapter->previous();
+        $this->assertEquals($expected, $actual);
+
+        /**
+         * First Lesson's First Chapter's Previous Sibling Should Be Null
+         *
+         * Visual representation
+         * ---------------------
+         *   Lesson 1 <-----. $lesson
+         *               <--. $expected 'null'
+         *    Chapter 3  <--. $firstChapter
+         *    Chapter 4
          *    ...
          *    Chapter 12
          *   Lesson 2
@@ -357,10 +406,11 @@ class LessonModelUnitTest extends TestCase
          *    ...
          *    Chapter 22
          */
-        $expectedId = 4;
-        $chapter = $chapters->first();
-        $expected = Lesson::class;
-        $actual = $chapter->next();
-        $this->assertEquals($expectedId, $actual->id);
+        $lesson = Lesson::first();
+        $firstChapter = $lesson->children->first();
+        $expected = null;
+        $actual = $firstChapter->previous();
+        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $lesson->previous());
     }
 }

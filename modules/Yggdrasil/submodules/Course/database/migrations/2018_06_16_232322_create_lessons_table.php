@@ -35,6 +35,9 @@ class CreateLessonsTable extends Migration
             $table->integer('course_id')->unsigned()->nullable();
             $table->timestamps();
 
+            $table->index('slug');
+            $table->index('code');
+
             $table->foreign('course_id')
                   ->references('id')
                   ->on('courses')
