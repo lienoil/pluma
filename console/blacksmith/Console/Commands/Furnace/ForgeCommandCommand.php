@@ -4,7 +4,6 @@ namespace Blacksmith\Console\Commands\Furnace;
 
 use Illuminate\Support\Facades\File;
 use Blacksmith\Support\Console\Command;
-use Pluma\Support\Filesystem\Filesystem;
 
 class ForgeCommandCommand extends Command
 {
@@ -29,7 +28,7 @@ class ForgeCommandCommand extends Command
      *
      * @return mixed
      */
-    public function handle(Filesystem $filesystem)
+    public function handle()
     {
         // TODO: forge:command
         $this->info("{$this->checkmark()} command not finished yet");
