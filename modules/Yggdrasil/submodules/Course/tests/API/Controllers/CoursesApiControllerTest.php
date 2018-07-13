@@ -19,19 +19,27 @@ class CoursesApiControllerTest extends TestCase
     const API_GET_COURSES = '/api/v1/courses/all';
     const API_POST_COURSE = '/api/v1/courses';
 
-    private $http;
+    private $client;
 
     /** setup */
     public function setUp()
     {
         parent::setUp();
 
-        $this->http = new Client([
+        $this->client = new Client([
             'base_uri' => url('/'),
             'request.options' => [
                 'exceptions' => false,
             ]
         ]);
+    }
+
+    /** tear down */
+    public function tearDown()
+    {
+        $this->client = null;
+
+        parent::tearDown();
     }
 
     /**
@@ -40,20 +48,17 @@ class CoursesApiControllerTest extends TestCase
      */
     public function testGetAllCourses()
     {
-        $course = factory(Course::class)->make();
+        $course = factory(Course::class)->create();
 
-        $request = $this->http->get(self::API_GET_COURSES, null);
-        $response = $request->send();
+        $response = $this->client->get(self::API_GET_COURSES, []);
 
         $expected = 200;
         $actual = $response->getStatusCode();
         $this->assertEquals($expected, $actual);
 
-        $contentType = $response->getHeaders()["Content-Type"][0];
-        $this->assertEquals("application/json", $contentType);
+        $contentType = $response->getHeaders()['Content-Type'][0];
+        $this->assertEquals('application/json', $contentType);
 
-        // $this->assertTrue($response->hasHeader('Location'));
-        // $data = json_decode($response->getBody(true), true);
-        // $this->assertArrayHasKey('title', $data);
+        dd($response->getBody());
     }
 }
