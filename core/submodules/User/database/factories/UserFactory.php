@@ -22,6 +22,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $email = $faker->unique()->safeEmail,
         'username' => str_slug($email),
         'password' => 'secret', // $2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm
+        'api_token' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
         'remember_token' => str_random(10),
     ];
 });

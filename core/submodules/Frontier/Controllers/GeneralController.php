@@ -8,6 +8,12 @@ use Pluma\Controllers\Controller;
 
 class GeneralController extends Controller implements GenericResourceInterface
 {
+    const KEY_ONLY_TRASHED = 'only_trashed';
+    const KEY_DESCENDING = 'descending';
+    const KEY_SEARCH = 'search';
+    const KEY_SORT = 'sort';
+    const KEY_TAKE = 'take';
+
     /**
      * Registered authenticatable methods.
      *

@@ -6,16 +6,10 @@ use Illuminate\Http\Request;
 use Role\Models\Role;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
-use Course\Resources\Course as CourseResource;
+use Course\Resources\CourseCollection;
 
 trait CourseResourceApiTrait
 {
-    const KEY_ONLY_TRASHED = 'only_trashed';
-    const KEY_DESCENDING = 'descending';
-    const KEY_SEARCH = 'search';
-    const KEY_SORT = 'sort';
-    const KEY_TAKE = 'take';
-
     /**
      * Retrieve list of resources.
      *
@@ -50,7 +44,7 @@ trait CourseResourceApiTrait
 
         $users = $take ? $resources->paginate($take) : $resources->paginate(Course::count());
 
-        return CourseResource::collection($users);
+        return new CourseCollection($users);
     }
 
     /**

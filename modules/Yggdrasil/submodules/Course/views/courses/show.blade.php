@@ -13,7 +13,13 @@
         @foreach ($resource->lessons as $lesson)
           <li>
             <a name="{{ $lesson->code }}"></a>
+            @if ($lesson->previous())
+              <a href="#{{ $lesson->previous()->code }}">Previous</a>
+            @endif
             {{ $lesson->id }} {{ $lesson->title }}
+            @if ($lesson->next())
+              <a href="#{{ $lesson->next()->code }}">Next</a>
+            @endif
             <ul>
               @foreach ($lesson->children as $chapter)
                 <li>

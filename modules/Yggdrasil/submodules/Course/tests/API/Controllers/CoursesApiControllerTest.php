@@ -6,6 +6,7 @@ use Course\Models\Course;
 use GuzzleHttp\Client;
 use Tests\Support\Test\DatabaseMigrations;
 use Tests\TestCase;
+use User\Models\User;
 
 /**
  * @package Tests
@@ -16,8 +17,8 @@ class CoursesApiControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
-    const API_GET_COURSES = '/api/v1/courses/all';
-    const API_POST_COURSE = '/api/v1/courses';
+    const API_GET_ALL_COURSES = 'api.courses.all';
+    const API_POST_STORE_COURSE = 'api.courses.store';
 
     private $client;
 
@@ -46,19 +47,29 @@ class CoursesApiControllerTest extends TestCase
      * @test
      * @group course:api
      */
-    public function testGetAllCourses()
+    public function testShouldReturnAllCoursesWithAPITokenAuthentication()
     {
         $course = factory(Course::class)->create();
+        $user = factory(User::class)->create(
+            ['api_token' => User::tokenize('secret')]
+        );
 
-        $response = $this->client->get(self::API_GET_COURSES, []);
-
-        $expected = 200;
+        // Should redirect since user token is missing from parameters.
+        $response = $this->get(route(self::API_GET_ALL_COURSES));
+        $expected = 302;
         $actual = $response->getStatusCode();
         $this->assertEquals($expected, $actual);
 
-        $contentType = $response->getHeaders()['Content-Type'][0];
-        $this->assertEquals('application/json', $contentType);
-
-        dd($response->getBody());
+        // Should return 200
+        $user = new \User\Resources\User($user);
+        $response = $this->get(
+            route(
+                self::API_GET_ALL_COURSES,
+                $user->only('api_token')
+            )
+        );
+        $expected = 200;
+        $actual = $response->getStatusCode();
+        $this->assertEquals($expected, $actual);
     }
 }
