@@ -78,10 +78,19 @@ class Model extends BaseModel implements AdjacencyRelationModelInterface
     }
 
     /**
+     * Get the default sort key name for the model.
+     *
+     * @return string
+     */
+    public function getSortKey()
+    {
+        return $this->sortKey ?? 'sort';
+    }
+
+    /**
      * Query only root resources.
      *
-     * @param  Illuminate\Database\Eloquent\Builder $builder
-     * @param  int $depth
+     * @param  \Illuminate\Database\Eloquent\Builder $builder
      * @return void
      */
     public function scopeTree(Builder $builder)
@@ -92,8 +101,10 @@ class Model extends BaseModel implements AdjacencyRelationModelInterface
         $ancestorKey = $table.'.'.$this->getAncestorKey();
         $depthKey = $table.'.'.$this->getDepthKey();
 
-        $builder->join($table, function ($query) use ($keyName, $ancestorKey, $descendantKey, $depthKey) {
-                $query->on($keyName, '=', $ancestorKey)
+        $builder
+            ->join($table, function ($query) use ($keyName, $ancestorKey, $descendantKey, $depthKey) {
+                $query
+                    ->on($keyName, '=', $ancestorKey)
                     ->whereNotIn($ancestorKey, function ($query) use ($descendantKey, $depthKey) {
                         $query
                             ->select($descendantKey)
@@ -102,5 +113,31 @@ class Model extends BaseModel implements AdjacencyRelationModelInterface
                     });
             })
             ->groupBy($ancestorKey);
+    }
+
+    /**
+     * Retrieves the siblings of the given root node.
+     *
+     * @return void
+     */
+    public function scopeRoots()
+    {
+        $query = $this->query->newQuery();
+        $table = $this->table;
+        $modelTable = $this->model->getTable();
+        $modelKeyName = $this->model->getKeyName();
+        $modelKey = $this->model->getKey();
+        $ancestorKeyName = $this->model->getAncestorKey();
+        $descendantKeyName = $this->model->getDescendantKey();
+        $depthKey = $this->model->getDepthKey();
+        $depth = $this->model->{$depthKey};
+
+        $query
+            ->select(DB::raw('m.*'))
+            ->from(DB::raw("$table AS a"))
+            ->join(DB::raw("$modelTable AS m"), 'm.'.$modelKeyName, '=', 'a.'.$descendantKeyName, '')
+            ->where('a.'.$descendantKeyName, $modelKey)
+            ->groupBy('a.'.$descendantKeyName)
+            ->having('a.'.$descendantKeyName, '=', 1)->toSql();
     }
 }
