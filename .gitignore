@@ -1,24 +1,22 @@
-# Ignore files in folder
-storage/**
+# ignore files in folder storage
+storage/*
 tests/build/
 **/tests/build/
 .sass-cache/
 vendor/
 
-# Keep the folder
+# but please keep the folder
 !storage/**/.keep
+!storage/framework/*/.keep
 !storage/.keep
-!.keep
+!**/.keep
 
-# Ignore files
+# ignore files
+bower_components/
+node_modules/
 .phan/*.log
 **/*.zip
 *.log
 *.sh
-.env
-.env.*.php
-.env.php
 .php_cs.cache
-bower_components/
-node_modules/
-npm-debug.log
+.env
