@@ -1,13 +1,13 @@
 # Ignore files in folder
-storage/**
-tests/build
+storage/
+tests/build/
 **/tests/build/
 .sass-cache/
 vendor/
 
 # Keep the folder
-!storage/.gitkeep
 !storage/**/.gitkeep
+!storage/.gitkeep
 
 # Ignore files
 .phan/*.log
