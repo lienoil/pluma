@@ -1,5 +1,4 @@
 # Ignore files in folder
-storage/
 tests/build/
 **/tests/build/
 .sass-cache/
@@ -12,6 +11,7 @@ vendor/
 !storage/.keep
 
 # Ignore files
+storage/**
 .phan/*.log
 **/*.zip
 *.log
