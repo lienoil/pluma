@@ -29,7 +29,6 @@ trait PageResourceAdminTrait
      * Show a given page resource.
      *
      * @param  Request $request
-     * @param  string  $slug
      * @param  int     $id
      * @return Illuminate\Http\Response
      */

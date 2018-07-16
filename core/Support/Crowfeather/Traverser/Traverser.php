@@ -210,7 +210,7 @@ class Traverser implements TraverserContract
         $this->traversable = array_shift($traversable);
         $this->left = $left;
         $this->right = $left + 1;
-        $this->update($parent);
+        $this->update($parent, null);
 
         return $this;
     }
@@ -220,7 +220,7 @@ class Traverser implements TraverserContract
      *
      * @param  array $traversables
      * @param  func $callback
-     * @return void
+     * @return array
      */
     public function update(&$traversables, $callback, &$oldTraversable = null)
     {

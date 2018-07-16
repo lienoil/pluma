@@ -18,6 +18,7 @@ class DBDropCommand extends Command
     protected $signature = 'db:drop
                            {--t|tables= : The table to truncate. If multiple, separate by comma, enclose in quotations}
                            {--a|all : Drop all tables including the migrations table}
+                           {--f|force : Force drop without user prompt.}
                            ';
 
     /**
@@ -36,9 +37,11 @@ class DBDropCommand extends Command
     {
         $tables = explode(',', $this->option('tables'));
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        // DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        Schema::disableForeignKeyConstraints();
+
         if ($this->option('all')) {
-            if (! $this->confirm("You are about to drop all tables. Are you sure?", false)) {
+            if (! $this->option('force') && ! $this->confirm("You are about to drop all tables. Are you sure?", false)) {
                 $this->info("Command aborted");
                 exit();
             }
@@ -47,7 +50,9 @@ class DBDropCommand extends Command
         } else {
             $this->dropTable($tables);
         }
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+
+        // DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -57,12 +62,7 @@ class DBDropCommand extends Command
      */
     public function dropAllTables()
     {
-        foreach (DB::select('SHOW TABLES') as $table) {
-            $table = get_object_vars($table);
-            $name = $table[key($table)];
-            $this->info("Dropping table ``$name`");
-            Schema::drop($name);
-        }
+        Schema::dropAllTables();
 
         $this->info("All tables were dropped.");
     }

@@ -56,6 +56,15 @@ class ServiceProvider extends BaseServiceProvider
     ];
 
     /**
+     * Array of factories path to register.
+     *
+     * @var array
+     */
+    protected $factories = [
+        //
+    ];
+
+    /**
      * Boot the service provider
      *
      * @return void
@@ -79,6 +88,8 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerProviders();
+
+        $this->registerEloquentFactories();
     }
 
     /**
@@ -166,6 +177,18 @@ class ServiceProvider extends BaseServiceProvider
     {
         foreach ($this->providers as $provider) {
             $this->app->register($provider);
+        }
+    }
+
+    /**
+     * Register array of factories.
+     *
+     * @return void
+     */
+    protected function registerEloquentFactories()
+    {
+        foreach ($this->factories as $factoryPath) {
+            $this->registerEloquentFactoriesFrom($factoryPath);
         }
     }
 

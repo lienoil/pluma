@@ -13,9 +13,7 @@ trait DatabaseMigrations
      */
     public function runDatabaseMigrations()
     {
-        $this->console('migration:fresh');
-
-        $this->app[Kernel::class]->setArtisan(null);
+        $this->console('db:migrate');
 
         $this->beforeApplicationDestroyed(function () {
             $this->console('migration:rollback');

@@ -71,7 +71,14 @@ class Handler extends BaseHandler
 
         // 404 | Model not found exception
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-            return response()->json(["[ERR 403] Page requested not found"], 404);
+            return response()->json([
+                'errors' => [
+                    'status' => 404,
+                    'source' => ['pointer' => ''],
+                    'title' => $exception->getMessage(),
+                    'detail' => 'Model requested not found.',
+                ]
+            ], 404);
         }
 
         return parent::render($request, $exception);

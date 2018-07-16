@@ -31,7 +31,6 @@ return [
         'Chronos',
         'Announcement',
         'Bookmark',
-        'Yggdrasil',
         'Forum',
         'Shop',
     ],

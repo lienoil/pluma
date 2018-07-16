@@ -14,7 +14,7 @@
  * You MIGHT need to put an index(.php||.html) on every folder just to make sure.
  *
  * Anyway...
- * Also note, you MIGHT need to change the files/folders permission. 
+ * Also note, you MIGHT need to change the files/folders permission.
  * If the stylesheet and/or javascript files inside your module
  * doesn't load, try to set the directory and files to 0777, or the equivalent
  * on your system.
@@ -48,7 +48,7 @@ require __DIR__ . '/bootstrap/autoload.php';
  * sensitive information from the server.
  *
  */
-require __DIR__ . '/bootstrap/reporting.php';
+
 require __DIR__ . '/bootstrap/exceptions.php';
 
 /**
@@ -61,6 +61,7 @@ require __DIR__ . '/bootstrap/exceptions.php';
  */
 $app = require_once __DIR__ . '/bootstrap/app.php';
 
+// Change the public_path to use current directory.
 $app->instance('path.public', realpath(__DIR__));
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);

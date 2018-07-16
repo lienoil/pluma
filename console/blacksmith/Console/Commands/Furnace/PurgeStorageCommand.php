@@ -43,9 +43,7 @@ class PurgeStorageCommand extends Command
         exec('composer dump-autoload -o');
 
         if ((bool) $option['truncate']) {
-            \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
-            \Illuminate\Support\Facades\DB::table('library')->truncate();
-            \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+            $this->call('db:truncate', ['tables' => 'library']);
         }
 
         $this->info("Done.");

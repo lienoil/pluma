@@ -1,6 +1,9 @@
 <?php
 
-trait $moduleResourceAdminTrait
+use Illuminate\Http\Request;
+use DummyNamespace\Requests\DummyNamespaceRequest;
+
+trait DummyNamespaceResourceAdminTrait
 {
     /**
      * Display a listing of the resource.

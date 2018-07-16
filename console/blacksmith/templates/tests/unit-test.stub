@@ -2,17 +2,20 @@
 
 namespace DummyNamespace;
 
+use Tests\Support\Test\DatabaseMigrations;
 use Tests\TestCase;
-use Tests\Support\Test\WithFaker;
-use Tests\Support\Test\RefreshDatabase;
 
+/**
+ * @package Tests
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
 class DummyClass extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
-     * _________________________.
-     *
      * @test
-     * @return void
      */
     public function testExample()
     {
