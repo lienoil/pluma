@@ -6,8 +6,10 @@ tests/build/
 vendor/
 
 # Keep the folder
-!storage/**/.gitkeep
-!storage/.gitkeep
+!storage/**/.keep
+!storage/framework/sessions/.keep
+!storage/framework/cache/.keep
+!storage/.keep
 
 # Ignore files
 .phan/*.log
