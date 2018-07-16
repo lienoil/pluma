@@ -6,6 +6,7 @@ tests/build
 vendor/
 
 # Keep the folder
+!storage/.gitkeep
 !storage/**/.gitkeep
 
 # Ignore files
