@@ -7,8 +7,6 @@ vendor/
 
 # Keep the folder
 !storage/**/.keep
-!storage/framework/sessions/.keep
-!storage/framework/cache/.keep
 !storage/.keep
 !.keep
 
