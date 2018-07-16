@@ -1,21 +1,22 @@
-!storage/**/.gitkeep
-**/*.zip
+# Ignore files in folder
+storage/**
+tests/build
 **/tests/build/
+.sass-cache/
+vendor/
+
+# Keep the folder
+!storage/**/.gitkeep
+
+# Ignore files
+.phan/*.log
+**/*.zip
 *.log
 *.sh
 .env
 .env.*.php
 .env.php
 .php_cs.cache
-.sass-cache/
-.phan/*.log
 bower_components/
 node_modules/
 npm-debug.log
-storage/*.key
-storage/compiled
-storage/framework
-storage/logs
-storage/public
-tests/build/
-vendor/
