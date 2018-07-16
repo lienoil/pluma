@@ -37,7 +37,6 @@ class DBDropCommand extends Command
     {
         $tables = explode(',', $this->option('tables'));
 
-        // DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
         Schema::disableForeignKeyConstraints();
 
         if ($this->option('all')) {
@@ -51,7 +50,6 @@ class DBDropCommand extends Command
             $this->dropTable($tables);
         }
 
-        // DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
         Schema::enableForeignKeyConstraints();
     }
 
