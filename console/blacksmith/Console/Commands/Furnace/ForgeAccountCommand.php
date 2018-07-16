@@ -19,6 +19,7 @@ class ForgeAccountCommand extends Command
      */
     protected $signature = 'forge:account
                            {--r|random : Generate random account}
+                           {--p|pretend : Will not save to database}
                            ';
 
     /**
@@ -160,8 +161,12 @@ class ForgeAccountCommand extends Command
     protected function generateAccount(array $params = [], Role $role) : Model
     {
         $model = config('auth.providers.users.model', \User\Models\User::class);
-        $user = factory($model)->create($params);
-        $user->roles()->save($role);
+        if ($this->option('pretend')) {
+            $user = factory($model)->make($params);
+        } else {
+            $user = factory($model)->create($params);
+            $user->roles()->save($role);
+        }
 
         $this->info('Completed generating account.');
 
