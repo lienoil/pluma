@@ -68,9 +68,9 @@ class Kernel extends BaseKernel
                        ->in($path);
 
         foreach ($files as $file) {
-            $command = str_replace("{$path}/", '', $file->getRealPath());
+            $command = str_replace($path.DIRECTORY_SEPARATOR, '', $file->getRealPath());
             $command = str_replace(".php", '', $command);
-            $command = str_replace("/", '\\', $command);
+            $command = str_replace(DIRECTORY_SEPARATOR, '\\', $command);
 
             $this->commands[] = "Blacksmith\\Console\\Commands\\{$command}";
         }

@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\File;
 use Pluma\Support\Console\Command;
 use Pluma\Support\Filesystem\Filesystem;
 
-class ForgeControllerCommand extends Command
+class ForgePermissionsCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'forge:controller
-                           {name=null : The controller to create}
+    protected $signature = 'forge:permissions
+                           {name=permissions : The model to create}
                            {--m|module=none : Specify the module it belongs to, if applicable}
                            ';
 
@@ -23,7 +23,7 @@ class ForgeControllerCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create a generic controller';
+    protected $description = 'Create the permissions file';
 
     /**
      * Execute the console command.
@@ -33,44 +33,44 @@ class ForgeControllerCommand extends Command
     public function handle(Filesystem $filesystem)
     {
         try {
+            $filename = strtolower($this->argument('name'));
             $name = studly_case($this->argument('name'));
             $slug = strtolower(str_slug($name));
-            $option = $this->option();
+            $option = $this->options();
             $module = get_module($option['module']);
             $modules = get_modules_path(true);
 
-            if ($this->argument('name') === 'null' || is_null($name)) {
-                $name = $this->ask("Please specify the controller name: (e.g. QuestController)");
-            }
+            $this->info("Creating file: $filename.php");
 
-            if ($option['module'] === 'none' || is_null($module)) {
+            if ($module && ! $this->isModule($module)) {
                 $module = get_module($option['module']);
 
                 if (is_null($module)) {
-                    $this->error("Please specify the module this controller belongs to.");
-                    $module = $this->choice("What module to put '$name' in?", $modules);
+                    $this->error("Please specify the module this model belongs to.");
+                    $module = $this->choice("What module to put '$filename.php' in?", $modules);
                     $module = get_module($module);
                 }
 
                 $this->info("Using path: $module");
             }
 
-            $file = "$module/Controllers/{$name}Controller.php";
-            $name = $name;
-            $namespace = basename($module);
-            $class = "{$name}Controller";
-            $model = basename($module);
-            $slug = strtolower(str_plural($name));
+            $files = [
+                "$module/config/{$filename}.php",
+            ];
 
-            $template = $filesystem->put(
-                blacksmith_path("templates/controllers/Controller.stub"),
-                compact('namespace', 'name', 'class', 'model', 'slug')
-            );
+            foreach ($files as $file) {
+                $slug = strtolower(str_plural(basename($module)));
+                $name = studly_case(basename($module));
+                $code = str_singular($slug);
+                $template = $filesystem->put(
+                    blacksmith_path("templates/config/permissions.stub"),
+                    compact('code', 'module', 'name', 'slug')
+                );
 
-            if ($filesystem->make($file, $template)) {
-                $this->info("File created: $file");
+                if ($filesystem->make($file, $template)) {
+                    $this->info("File created: $file");
+                }
             }
-
 
             exec("composer dump-autoload -o");
         } catch (\Pluma\Support\Filesystem\FileAlreadyExists $e) {

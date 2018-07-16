@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File;
 use Pluma\Support\Filesystem\Filesystem;
 use Pluma\Support\Modules\Traits\ModulerTrait;
 
-class ForgePermissionsCommand extends GeneratorCommand
+class ForgeMenusCommand extends GeneratorCommand
 {
     use ModulerTrait;
 
@@ -16,9 +16,9 @@ class ForgePermissionsCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'forge:permissions
-                           {name=permissions : The permission file name}
-                           {--m|module= : Specify the module the permission file belongs to}
+    protected $signature = 'forge:menus
+                           {name=menus : The menu file name}
+                           {--m|module= : Specify the module the menu file belongs to}
                            ';
 
     /**
@@ -26,14 +26,14 @@ class ForgePermissionsCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a permissions file';
+    protected $description = 'Create a menus config file';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'Permission';
+    protected $type = 'Menu';
 
     /**
      * Execute the console command.
@@ -57,7 +57,7 @@ class ForgePermissionsCommand extends GeneratorCommand
         $module = $this->option('module');
 
         if (! $this->isModule($module)) {
-            $module = $this->choice("Specify the module the permission file will belong to.", $this->modules());
+            $module = $this->choice("Specify the module the menu file will belong to.", $this->modules());
         }
 
         $this->module = $this->getModulePath($module);
@@ -74,7 +74,7 @@ class ForgePermissionsCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return blacksmith_path("templates/config/permissions.stub");
+        return blacksmith_path("templates/config/menus.stub");
     }
 
     /**
@@ -114,8 +114,14 @@ class ForgePermissionsCommand extends GeneratorCommand
     protected function replaceSlug(&$stub, $name)
     {
         $slug = str_plural(strtolower(basename($this->module)));
+        $names = ucfirst($slug);
+        $name = ucfirst(str_singular($slug));
 
-        $stub = str_replace(['$slug'], [$slug], $stub);
+        $stub = str_replace(
+            ['$slug', '$names', '$name'],
+            [$slug, $names, $name],
+            $stub
+        );
 
         return $this;
     }

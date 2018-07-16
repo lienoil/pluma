@@ -2,170 +2,259 @@
 
 namespace Blacksmith\Console\Commands\Furnace;
 
-use Illuminate\Support\Facades\File;
-use Pluma\Support\Console\Command;
-use Pluma\Support\Filesystem\Filesystem;
+use Blacksmith\Support\Console\Command;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Composer;
+use Pluma\Support\Modules\Traits\ModulerTrait;
 
 class ForgeModuleCommand extends Command
 {
+    use ModulerTrait;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'forge:module
-                           {name : The module to create}
-                           {--m|module=none : Specify the module it belongs to, if applicable}
+                           {name : The name of the module}
+                           {--m|module= : The module the submodule belongs to}
+                           {--c|core : Specify the module should be core}
+                           {--standalone : Specify the module should be top level}
+                           {--empty : Generate folders only}
                            ';
 
     /**
-     * The console command description.
+     * The Composer instance.
+     *
+     * @var \Illuminate\Support\Composer
+     */
+    protected $composer;
+
+    /**
+     * The module the generated file belongs to.
      *
      * @var string
      */
-    protected $description = 'Create the directories for the module';
+    protected $module;
+
+    /**
+     * Array of module levels.
+     *
+     * @var array
+     */
+    protected $moduleLevels = [
+        'core' => 'Core',
+        'module' => 'Save in the modules folder',
+        'submodule' => 'Save as a submodule of another module'
+    ];
+
+    /**
+     * The selected module level.
+     *
+     * @var string
+     */
+    protected $level;
+
+    /**
+     * The path the folders and files will be created.
+     *
+     * @var string
+     */
+    protected $path;
+
+    /**
+     * The filesystem instance.
+     *
+     * @var Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
+     * Create a new command instance.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param  \Illuminate\Support\Composer  $composer
+     * @return void
+     */
+    public function __construct(Filesystem $files, Composer $composer)
+    {
+        parent::__construct($files);
+
+        $this->files = $files;
+
+        $this->composer = $composer;
+    }
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle(Filesystem $filesystem)
+    public function handle()
     {
-        $name = studly_case($this->argument('name'));
-        $slug = strtolower(str_slug($name));
-        $option = $this->option();
-        $module = modules_path($name);
-        $modules = get_modules_path(true);
+        $this->qualifyModuleLevel();
 
-        // Then its a submodule
-        $submodule = $name;
-        $module = get_module($option['module']) ? get_module($option['module']) . "/submodules/$submodule" : null;
-        if (is_null($module)) {
-            $this->info("Module will be $name.");
-            $chosen = $this->choice("Options available", ["create '$name' as a top-level module", "make '$name' a submodule of an existing module", 'cancel']);
-
-            switch ($chosen) {
-                case "make '$name' a submodule of an existing module":
-                    $module = $this->choice("What module to put '$name' in?", array_merge(['core'], $modules));
-                    $module = $module === "core" ? core_path("submodules/$name") : get_module($module) . "/submodules/$submodule";
-                    break;
-
-                case "create '$name' as a top-level module":
-                    $module = modules_path($name);
-                    // $module = "$module/submodules/$submodule";
-                    break;
-
-                case 'cancel':
-                default:
-                    exit();
-                    break;
-            }
+        if ($this->isSubmoduleLevel()) {
+            $this->qualifyModule();
         }
 
-        $this->info("Using path: $module");
+        $this->qualifyPath();
 
-        // Create the module files
+        $this->generateFolders();
+
+        if (! $this->option('empty')) {
+            $this->generateConfig();
+            $this->generateController();
+            // $this->generateDatabase();
+        }
+
+        $this->composer->dumpAutoloads();
+    }
+
+    /**
+     * Get the level of the module.
+     *
+     * @return void
+     */
+    protected function qualifyModuleLevel()
+    {
+        if ($this->option('standalone')) {
+            $this->level = 'standalone';
+        } elseif ($this->option('core')) {
+            $this->level = 'core';
+        } else {
+            $name = $this->argument('name');
+            $this->level = $this->choice("What type of module do you want create with $name?", $this->moduleLevels);
+        }
+    }
+
+    /**
+     * Get the module the file belongs to.
+     *
+     * @return string
+     */
+    protected function qualifyModule()
+    {
+        $module = $this->input->getOption('module');
+
+        if (! $module || ! $this->isModule($module)) {
+            $module = $this->choice("Specify the module the submodule will belong to.", $this->modules());
+        }
+
+        $this->module = $this->getModulePath($module);
+
+        $this->input->setOption('module', $this->module);
+
+        return $this->module;
+    }
+
+    /**
+     * Get the path of the module.
+     *
+     * @return void
+     */
+    protected function qualifyPath()
+    {
+        switch ($this->level) {
+            case 'core':
+                $path = core_path('submodules');
+                break;
+
+            case 'submodule':
+                $path = $this->module.DIRECTORY_SEPARATOR.'submodules';
+                break;
+
+            case 'module':
+            default:
+                $path = modules_path();
+                break;
+        }
+
+        $this->path = $path.DIRECTORY_SEPARATOR.$this->argument('name');
+
+        $this->info("Using path: {$this->path}");
+    }
+
+    /**
+     * Check if level is equal to submodule.
+     *
+     * @return boolean
+     */
+    protected function isSubmoduleLevel(): bool
+    {
+        return $this->level === 'submodule';
+    }
+
+    /**
+     * Create module folder.
+     *
+     * @return void
+     */
+    protected function generateFolders()
+    {
+        $module = $this->path;
+
         $directories = [
-            "$module/assets",
             "$module/config",
             "$module/Controllers",
+            "$module/Controllers/Resources",
+            "$module/database/factories",
             "$module/database/migrations",
             "$module/database/seeds",
             "$module/Models",
             "$module/Observers",
             "$module/Providers",
+            "$module/Repositories",
             "$module/Requests",
+            "$module/Resources",
             "$module/routes",
             "$module/views",
         ];
+
         foreach ($directories as $directory) {
-            $filesystem->directory($directory, 0755, true, true);
+            $this->files->makeDirectory($directory, 0755, true, true);
             $this->info("Directory created: $directory");
         }
+    }
 
-        $slug = str_plural($slug);
-        $files = [
-            "$module/config/menus.php",
-            "$module/Providers/{$name}ServiceProvider.php",
-            "$module/Requests/{$name}Request.php",
-            "$module/routes/admin.php",
-            "$module/views/$slug/create.blade.php",
-            "$module/views/$slug/edit.blade.php",
-            "$module/views/$slug/index.blade.php",
-            "$module/views/$slug/trash.blade.php",
+    /**
+     * Create common config files.
+     *
+     * @return void
+     */
+    protected function generateConfig()
+    {
+        $name = $this->argument('name');
+        $module = basename($this->path);
+
+        $commands = [
+            'forge:permissions' => [
+                '--module' => $module,
+            ],
+            'forge:menus' => [
+                '--module' => $module,
+            ],
         ];
 
-        // Controller
-        $this->call("forge:controller", ['name' => "$name", '--module' => basename($module)]);
-
-        // Model
-        $this->call("forge:model", ['name' => "$name", '--module' => basename($module)]);
-
-        // config/permissions.php
-        $this->call("forge:permissions", ['--module' => basename($module)]);
-
-        // Observers
-        $this->call("forge:observer", ['name' => "{$name}Observer", '--module' => basename($module)]);
-
-        foreach ($files as $file) {
-            switch ($file) {
-                case "$module/views/$slug/create.blade.php":
-                case "$module/views/$slug/edit.blade.php":
-                case "$module/views/$slug/index.blade.php":
-                case "$module/views/$slug/trash.blade.php":
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/views/generic.stub"),
-                        []
-                    );
-                    break;
-
-                case "$module/Requests/{$name}Request.php":
-                    $code = str_singular($slug);
-                    $name = studly_case($this->argument('name'));
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/requests/FormRequest.stub"),
-                        compact('code', 'name', 'slug')
-                    );
-                    break;
-
-                case "$module/Providers/{$name}ServiceProvider.php":
-                    $name = studly_case($this->argument('name'));
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/providers/ServiceProvider.stub"),
-                        compact('file', 'module', 'name', 'slug')
-                    );
-                    break;
-
-                case "$module/config/menus.php":
-                    $name = studly_case($this->argument('name'));
-                    $code = str_singular($slug);
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/config/menus.stub"),
-                        compact('code', 'module', 'name', 'slug')
-                    );
-                    break;
-
-                case "$module/routes/admin.php":
-                case "$module/routes/public.php":
-                    $name = studly_case($this->argument('name'));
-                    $code = str_singular($slug);
-                    $template = $filesystem->put(
-                        blacksmith_path("templates/routes/route.stub"),
-                        compact('code', 'module', 'name', 'slug')
-                    );
-                    break;
-
-                default:
-                    $template = "<?php ";
-                    break;
-            }
-
-            if ($filesystem->make($file, $template)) {
-                $this->info("File created: $file");
-            }
+        foreach ($commands as $command => $options) {
+            $this->call($command, $options);
         }
+    }
 
-        exec("composer dump-autoload -o");
+    /**
+     * Create controller file.
+     *
+     * @return void
+     */
+    protected function generateController()
+    {
+        $name = $this->argument('name').'Controller';
+
+        $this->call('forge:controller', [
+            'name' => $name,
+            '--general' => true,
+            '--module' => $this->argument('name'),
+        ]);
     }
 }

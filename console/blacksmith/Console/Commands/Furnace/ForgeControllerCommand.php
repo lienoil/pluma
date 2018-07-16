@@ -6,6 +6,7 @@ use Blacksmith\Support\Console\GeneratorCommand;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Pluma\Support\Modules\Traits\ModulerTrait;
 
 class ForgeControllerCommand extends GeneratorCommand
@@ -173,7 +174,10 @@ class ForgeControllerCommand extends GeneratorCommand
 
         if (! class_exists($modelClass)) {
             if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
-                $this->call('forge:model', ['name' => $modelClass]);
+                $this->call('forge:model', [
+                    'name' => $modelClass,
+                    '--module' => $this->module,
+                ]);
             }
         }
 
@@ -193,16 +197,16 @@ class ForgeControllerCommand extends GeneratorCommand
     protected function parseModel($model)
     {
         if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
-            throw new InvalidArgumentException('Model name contains invalid characters.');
+            throw new \InvalidArgumentException('Model name contains invalid characters.');
         }
 
-        $model = trim(str_replace('/', '\\', $model), '\\');
+        $model = trim(str_replace('/', '\\Models', $model), '\\');
 
-        if (! Str::startsWith($model, $rootNamespace = $this->webApp->getNamespace())) {
+        if (! Str::startsWith($model, $rootNamespace = $this->rootNamespace())) {
             $model = $rootNamespace.$model;
         }
 
-        return $model;
+        return $model.'\\Models\\'.$model;
     }
 
     /**
@@ -212,7 +216,7 @@ class ForgeControllerCommand extends GeneratorCommand
      */
     protected function rootNamespace()
     {
-        return $this->module;
+        return basename($this->module);
     }
 
     /**
@@ -224,6 +228,18 @@ class ForgeControllerCommand extends GeneratorCommand
     protected function getPath($name)
     {
         $name = basename($name);
-        return $this->rootNamespace().'/Controllers/'.$name.'.php';
+
+        return module_path($this->rootNamespace()).'Controllers/'.$name.'.php';
+    }
+
+    /**
+     * Get the full namespace for a given class, without the class name.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getNamespace($name)
+    {
+        return $this->rootNamespace().'\Controllers';
     }
 }

@@ -5,10 +5,13 @@ namespace Blacksmith\Support\Console;
 use Blacksmith\Support\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use Pluma\Support\Modules\Traits\ModulerTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
 abstract class GeneratorCommand extends Command
 {
+    use ModulerTrait;
+
     /**
      * The filesystem instance.
      *
@@ -22,6 +25,13 @@ abstract class GeneratorCommand extends Command
      * @var string
      */
     protected $type;
+
+    /**
+     * The module the generated file belongs to.
+     *
+     * @var string
+     */
+    protected $module;
 
     /**
      * Create a new controller creator command instance.
@@ -73,6 +83,7 @@ abstract class GeneratorCommand extends Command
         $this->files->put($path, $this->buildClass($name));
 
         $this->info($this->type.' created successfully.');
+        $this->info($path);
     }
 
     /**
@@ -96,6 +107,26 @@ abstract class GeneratorCommand extends Command
         return $this->qualifyClass(
             $this->getDefaultNamespace(trim($rootNamespace, '\\')).'\\'.$name
         );
+    }
+
+    /**
+     * Get the module the file belongs to.
+     *
+     * @return string
+     */
+    protected function qualifyModule()
+    {
+        $module = $this->input->getOption('module');
+
+        if (! $module || ! $this->isModule($module)) {
+            $module = $this->choice("Specify the module the seeder will belong to.", $this->modules());
+        }
+
+        $this->module = $this->getModulePath($module);
+
+        $this->input->setOption('module', $this->module);
+
+        return $this->module;
     }
 
     /**
