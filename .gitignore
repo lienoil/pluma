@@ -8,7 +8,7 @@ vendor/
 # but please keep the folder
 !storage/**/.keep
 !storage/.keep
-!.keep
+!**/.keep
 
 # ignore files
 .phan/*.log
