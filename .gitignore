@@ -1,16 +1,16 @@
-# Ignore files in folder
+# ignore files in folder
 storage/**
 tests/build/
 **/tests/build/
 .sass-cache/
 vendor/
 
-# Keep the folder
+# but please keep the folder
 !storage/**/.keep
 !storage/.keep
 !.keep
 
-# Ignore files
+# ignore files
 .phan/*.log
 **/*.zip
 *.log
