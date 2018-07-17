@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 export default {
   name: 'Editor',
@@ -20,13 +20,13 @@ export default {
     }
   },
   mounted () {
-    let element = this.$refs['editor']
+    // let element = this.$refs['editor']
 
-    ClassicEditor
-      .create(element)
-      .then(editor => {
-        console.log(editor)
-      })
+    // ClassicEditor
+    //   .create(element)
+    //   .then(editor => {
+    //     console.log(editor)
+    //   })
   }
 }
 </script>

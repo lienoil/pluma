@@ -119,7 +119,7 @@ class SidebarComposer extends BaseViewComposer
 
             // Set route name
             if (isset($menu['code'])) {
-                $menu['routename'] = $menu['code'];
+                // $menu['routename'] = $menu['code'];
             }
 
             if (isset($menu['routename'])) {

@@ -19,13 +19,14 @@
     "axios": "^0.18.0",
     "dropzone": "^5.4.0",
     "lodash": "^4.17.10",
+    "npm-watch": "^0.3.0",
     "vee-validate": "^2.0.9",
     "vue": "^2.5.16",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vue-shortkey": "^3.1.4",
     "vuedraggable": "^2.16.0",
-    "vuetify": "^1.1.1",
+    "vuetify": "^1.1.4",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
