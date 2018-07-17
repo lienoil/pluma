@@ -1,11 +1,20 @@
 <template>
-  <v-card flat>
+  <v-card>
     <media-thumbnail
+      :hideToolbar="hideToolbar"
+      :no-media-thumbnail="noMediaThumbnail"
+      :no-media-text="noMediaText"
       @click.native="openMediaWindow()"
-      v-model="thumbnailcard.model"
+      v-model="media.thumbnail"
     ></media-thumbnail>
 
-    <mediabox-window v-model="mediawindow.model"></mediabox-window>
+    <v-dialog full-width lazy scrollable persistent v-model="mediawindow.model">
+      <media-window
+        :window-icon="windowIcon"
+        :window-title="windowTitle"
+        v-model="mediawindow.model"
+        ></media-window>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -15,31 +24,40 @@ import _isEmpty from 'lodash/isEmpty'
 import _unionBy from 'lodash/unionBy'
 import MediaWindow from './MediaWindow'
 import MediaThumbnail from './MediaThumbnail'
+import * as noMediaThumbnail from './assets/img/add-media.svg'
+import { mapGetters } from 'vuex'
 
 export default {
   store,
   props: {
-    closeOnClick: { type: Boolean, default: true },
-    headers: { type: Array, default: () => { return [] } },
-    height: { type: String, default: 'auto' },
-    hideActions: { type: Boolean, default: false },
-    thumbnailPreview: { type: Boolean, default: false },
+    noMediaThumbnail: { type: String, default: noMediaThumbnail },
+    noMediaText: { type: String, default: 'Add photo' },
+
+    windowIcon: { type: String, default: 'landscape' },
+    windowTitle: { type: String, default: 'Mediabox' },
+
+    // closeOnClick: { type: Boolean, default: true },
+    // headers: { type: Array, default: () => { return [] } },
+    // height: { type: String, default: 'auto' },
+    // hideActions: { type: Boolean, default: false },
+    // thumbnailPreview: { type: Boolean, default: false },
+
     hideToolbar: { type: Boolean, default: false },
-    icon: { type: String, default: 'landscape' },
-    itemDate: { type: String, default: 'created' },
-    menuItemId: { type: String, default: 'catalogue_id' },
-    itemIcon: { type: String, default: 'icon' },
-    itemMimetype: { type: String, default: 'mimetype' },
-    itemSize: { type: String, default: 'filesize' },
-    itemText: { type: String, default: 'text' },
-    itemValue: { type: String, default: 'value' },
+    // icon: { type: String, default: 'landscape' },
+    // itemDate: { type: String, default: 'created' },
+    // menuItemId: { type: String, default: 'catalogue_id' },
+    // itemIcon: { type: String, default: 'icon' },
+    // itemMimetype: { type: String, default: 'mimetype' },
+    // itemSize: { type: String, default: 'filesize' },
+    // itemText: { type: String, default: 'text' },
+    // itemValue: { type: String, default: 'value' },
     menuItems: { type: Array, default: () => { return [] } },
-    params: { type: Object, default: () => { return {} } },
-    multiple: { type: Boolean, default: false },
-    noImageText: { type: String, default: 'Add image' },
-    noMediaText: { type: String, default: 'No media found' },
-    title: { type: String, default: 'Mediabox' },
-    uploadText: { type: String, default: 'Upload' },
+    // params: { type: Object, default: () => { return {} } },
+    // multiple: { type: Boolean, default: false },
+    // noImageText: { type: String, default: 'Add image' },
+    // noMediaText: { type: String, default: 'No media found' },
+    // title: { type: String, default: 'Mediabox' },
+    // uploadText: { type: String, default: 'Upload' },
     url: { type: Object, default: () => { return { all: '/', search: '/' } } }
   },
   model: {
@@ -48,6 +66,11 @@ export default {
   components: {
     MediaThumbnail,
     MediaWindow
+  },
+  computed: {
+    ...mapGetters({
+      mediabox: 'mediabox/mediabox'
+    })
   },
   data () {
     return {
@@ -60,12 +83,12 @@ export default {
       selected: [],
       media: {
         box: { model: false },
-        headers: this.headers.length ? this.headers : [
-          { text: 'Name', align: 'left', value: 'name' },
-          { text: 'File Type', align: 'left', value: 'mimetype' },
-          { text: 'File Size', align: 'left', value: 'size' },
-          { text: 'Upload Date', align: 'left', value: 'created_at' }
-        ],
+        // headers: this.headers.length ? this.headers : [
+        //   { text: 'Name', align: 'left', value: 'name' },
+        //   { text: 'File Type', align: 'left', value: 'mimetype' },
+        //   { text: 'File Size', align: 'left', value: 'size' },
+        //   { text: 'Upload Date', align: 'left', value: 'created_at' }
+        // ],
         items: [],
         selected: [],
         loading: true,
@@ -89,26 +112,29 @@ export default {
       }
     }
   },
-  watch: {
-    'media.url': function (val) {
-      this.get()
-    },
-    'media.search.query': function (val) {
-      this.search(val)
-    },
-    'menuItems': function (val) {
-      this.menus.items = val
-    },
-    'media.pagination': {
-      handler () {
-        this.get()
-      },
-      deep: true
-    }
-  },
+  // watch: {
+  //   'media.url': function (val) {
+  //     this.get()
+  //   },
+  //   'media.search.query': function (val) {
+  //     this.search(val)
+  //   },
+  //   'menuItems': function (val) {
+  //     this.menus.items = val
+  //   },
+  //   'media.pagination': {
+  //     handler () {
+  //       this.get()
+  //     },
+  //     deep: true
+  //   }
+  // },
   methods: {
     openMediaWindow () {
       this.mediawindow.model = !this.mediawindow.model
+      // this
+      //   .$store
+      //   .dispatch('mediabox/SHOW_WINDOW', Object.assign(this.mediabox, { window: true }))
     },
     get () {
       const { sortBy, descending, page, rowsPerPage } = this.media.pagination
@@ -235,8 +261,7 @@ export default {
     }
   },
   mounted () {
-    this.get()
-
+    // this.get()
     this.menus.items = this.menus.items.concat(this.menuItems)
     // this.menuToggle(this.menus.items[0], this.menus.items[0].url)
   }

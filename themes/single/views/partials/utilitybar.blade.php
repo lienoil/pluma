@@ -2,8 +2,6 @@
   :dark="theme.dark"
   app
   flat
-  absolute
-  scroll-off-screen
   transition="slide-y-transition"
   >
   <v-toolbar-side-icon @click="localstorage({'single.sidebar.model': (sidebar.model = !sidebar.model)})"></v-toolbar-side-icon>
@@ -49,5 +47,4 @@
   </v-menu>
 
   <v-btn icon small ripple @click="rightsidebar.model = !rightsidebar.model"><v-icon small color="grey">keyboard_arrow_left</v-icon></v-btn>
-
 </v-toolbar>
