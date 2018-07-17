@@ -13,6 +13,10 @@
     v-model="snackbar.model"
     >
 
+  <v-snackbar
+    :bottom="snackbar.y"
+    >
+
     <span v-html="snackbar.text"></span>
 
     <v-btn
