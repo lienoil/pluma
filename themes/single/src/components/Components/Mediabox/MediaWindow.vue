@@ -9,6 +9,9 @@
       absolute
       width="280"
       >
+      <v-toolbar card color="transparent">
+        <v-toolbar-title>{{ trans('Mediabox') }}</v-toolbar-title>
+      </v-toolbar>
       <v-list>
         <v-list-tile
           @click="load(menu)"
@@ -91,17 +94,9 @@
     <v-progress-linear height="2" indeterminate v-show="mediawindow.loading" class="ma-0"></v-progress-linear>
 
     <v-card-text class="media-window__content">
-      <p class="text--disabled">{{ trans('Most Recent') }}</p>
-      <v-container fluid grid-list-lg>
-        <v-layout row wrap>
-          <v-flex xs12 sm3 v-for="i in 4" :key="i">
-            <v-card color="grey lighten-2" height="200">
-              <img width="100%" :src="`//source.unsplash.com/300x300?lake&${i}`" alt="">
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-      <component :is="mediawindow.component"></component>
+      <keep-alive>
+        <component :is="mediawindow.component"></component>
+      </keep-alive>
     </v-card-text>
 
     <v-card-actions>
@@ -136,7 +131,8 @@ export default {
         current: 'main',
         items: [
           { active: true, code: 'main', icon: this.windowIcon, title: this.windowTitle, component: () => import('./partials/MainMediaWindow') },
-          { active: false, code: 'recent', icon: 'star', title: 'Recent', component: () => import('./partials/RecentMediaWindow') }
+          { active: false, code: 'recent', icon: 'access_time', title: 'Recent', component: () => import('./partials/RecentMediaWindow') },
+          { active: false, code: 'trash', icon: 'delete', title: 'Trash', component: () => import('./partials/TrashMediaWindow') }
         ]
       },
       newFolderDialog: {
@@ -168,6 +164,9 @@ export default {
   &__content {
     width: auto;
     margin-left: 280px;
+  }
+  &__content {
+    padding: 0;
   }
 }
 </style>

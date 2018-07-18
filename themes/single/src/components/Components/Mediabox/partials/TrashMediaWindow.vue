@@ -1,11 +1,12 @@
 <template>
   <v-card flat height="100vh">
-    recmain
+    trash
+
   </v-card>
 </template>
 
 <script>
 export default {
-  name: 'RecentMediaWindow'
+  name: 'TrashMediaWindow'
 }
 </script>

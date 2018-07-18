@@ -2,12 +2,13 @@
   <v-card>
     <media-thumbnail
       :hideToolbar="hideToolbar"
-      :no-media-thumbnail="noMediaThumbnail"
+      :no-media-caption="noMediaCaption"
       :no-media-text="noMediaText"
+      :no-media-thumbnail="noMediaThumbnail"
+      :thumbnail="media.thumbnail"
       @click.native="openMediaWindow()"
       v-model="media.thumbnail"
     ></media-thumbnail>
-
     <v-dialog full-width lazy scrollable persistent v-model="mediawindow.model">
       <media-window
         :window-icon="windowIcon"
@@ -19,19 +20,20 @@
 </template>
 
 <script>
+import AddMediaIcon from '@/components/Icons/AddMediaIcon'
 import store from './store'
 import _isEmpty from 'lodash/isEmpty'
 import _unionBy from 'lodash/unionBy'
 import MediaWindow from './MediaWindow'
 import MediaThumbnail from './MediaThumbnail'
-import * as noMediaThumbnail from './assets/img/add-media.svg'
 import { mapGetters } from 'vuex'
 
 export default {
   store,
   props: {
-    noMediaThumbnail: { type: String, default: noMediaThumbnail },
+    noMediaThumbnail: { type: String, default: AddMediaIcon },
     noMediaText: { type: String, default: 'Add photo' },
+    noMediaCaption: { type: String, default: 'Tap to open the media window' },
 
     windowIcon: { type: String, default: 'landscape' },
     windowTitle: { type: String, default: 'Mediabox' },
@@ -65,7 +67,8 @@ export default {
   },
   components: {
     MediaThumbnail,
-    MediaWindow
+    MediaWindow,
+    AddMediaIcon
   },
   computed: {
     ...mapGetters({
