@@ -1,21 +1,17 @@
 <template>
   <v-layout row wrap align-start justify-start>
-    <v-card v-for="i in 5" :key="i" flat hover color="transparent" class="folder-card" @dblclick.native="open">
-      <v-card-text class="text-xs-center">
-        <folder-icon width="5em" height="5em" :icon-color="colors.error"></folder-icon>
-        <span>Work Related</span>
-      </v-card-text>
-    </v-card>
+    <folder v-for="i in 5" :key="i" @dblclick.native="open" :color="colors.primary"></folder>
   </v-layout>
 </template>
 
 <script>
-import folderIcon from '@/components/Icons/FolderIcon'
+import Folder from '@/components/Components/Folder/Folder'
 
 export default {
   name: 'MediaList',
+
   components: {
-    folderIcon
+    Folder
   },
 
   data () {
@@ -37,17 +33,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-.folder-card {
-  width: 7.5em;
-  text-align: center;
-  &:not(:first-child) {
-    margin-left: 1em;
-  }
-
-  &:hover {
-    background-color: rgba(0,0,0,0.02);
-  }
-}
-</style>
