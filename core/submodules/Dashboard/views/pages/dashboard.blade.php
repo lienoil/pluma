@@ -46,7 +46,9 @@
               actionText: 'Save as Draft',
               timeout: 20000000
           })">Dialog</v-btn>
-          <mediabox></mediabox>
+          <mediabox class="mb-3"></mediabox>
+          <mediabox class="mb-3" hide-toolbar></mediabox>
+          <mediabox window-title="My Library" class="elevation-0 transparent mb-3" hide-toolbar></mediabox>
           {{-- @include("Theme::partials.dialogbox") --}}
       </v-flex>
     </v-layout>

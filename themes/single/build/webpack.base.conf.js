@@ -49,7 +49,7 @@ module.exports = {
         include: [resolve('src'), resolve('test')]
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -70,6 +70,19 @@ module.exports = {
         options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'vue-svg-loader',
+        options: {
+          // optional [svgo](https://github.com/svg/svgo) options
+          svgo: {
+            plugins: [
+              { removeDoctype: true },
+              { removeComments: true }
+            ]
+          }
         }
       }
     ]

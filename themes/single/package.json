@@ -12,7 +12,7 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "serve": "php -S localhost:8080 -t ../../public"
+    "watch": "watch 'npm run build' src/"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^10.1.0",
@@ -95,8 +95,10 @@
     "url-loader": "^0.6.2",
     "vue-loader": "^13.7.2",
     "vue-style-loader": "^3.0.3",
+    "vue-svg-loader": "^0.5.0",
     "vue-template-compiler": "^2.5.16",
     "vuex-undo-redo": "^1.0.5",
+    "watch": "^1.0.2",
     "webpack": "^3.12.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-middleware": "^1.12.0",
