@@ -9,7 +9,16 @@ export const state = () => ({
     // Buttons visibility
     action: true,
     cancel: true,
-    discard: false,
+    discard: true,
+
+    // Icon
+    icon: null,
+
+    // Icon Color
+    iconColor: 'primary--text',
+
+    // Alignment
+    alignedCenter: false,
 
     // Buttons color
     actionColor: null,

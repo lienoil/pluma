@@ -1,18 +1,45 @@
 <template>
   <v-dialog
     :persistent="dialogbox.persistent"
-    max-width="290px"
+    max-width="450px"
     lazy
     v-model="dialogbox.model"
     v-shortkey="['esc']" @shortkey.native="dialogbox.cancelCallback() || hide()"
     >
-    <v-card>
-      <v-card-title v-if="dialogbox.title" v-html="trans(dialogbox.title)"></v-card-title>
-      <v-card-text v-if="dialogbox.text" v-html="trans(dialogbox.text)"></v-card-text>
+    <v-card :class="{ 'text-xs-center': dialogbox.alignedCenter }">
+      <v-card-text>
+        <v-icon
+          class="icon--xlarge"
+          :class="dialogbox.iconColor"
+          v-html="dialogbox.icon"
+          v-if="dialogbox.icon"
+          >
+        </v-icon>
+        <img
+          height="160px"
+          v-if="dialogbox.image"
+          :src="dialogbox.image"
+        />
+        <v-card-text
+          >
+          <h2
+            class="headline"
+            v-if="dialogbox.title"
+            v-html="trans(dialogbox.title)"
+            >
+          </h2>
+        </v-card-text>
+        <v-card-text
+            v-if="dialogbox.text"
+            v-html="trans(dialogbox.text)"
+            >
+        </v-card-text>
+      </v-card-text>
 
       <v-card-actions
         v-if="dialogbox.cancel || dialogbox.action"
         :class="dialogbox.discard ? `layout column wrap align-end` : `flex row wrap`"
+        class="emphasis--medium"
         >
         <v-btn
           v-if="dialogbox.discardText || dialogbox.discard"
