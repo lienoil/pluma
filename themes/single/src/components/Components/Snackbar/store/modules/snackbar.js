@@ -13,7 +13,7 @@ export const state = () => ({
     mode: null, // e.g. multi-line, vertical
 
     // Position
-    x: 'right',
+    x: 'center',
     y: 'bottom',
 
     // Button
