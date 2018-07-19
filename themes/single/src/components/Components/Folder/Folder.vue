@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-card flat color="transparent" class="folder-card">
+    <v-card flat color="transparent" class="folder-card" @contextmenu="togglemenu">
       <v-card-text class="text-xs-center folder-card__content pa-1">
 
         <template v-if="metadata.foldertype === 'image'">
@@ -21,30 +21,23 @@
         <v-text-field v-if="renaming" v-focus required @focus="$event.target.select()" @blur="renamed" @keyup.enter="renamed" hide-details class="ma-0 folder-card__title--renaming" v-model="metadata.title"></v-text-field>
         <!-- editmode -->
       </v-card-text>
+
+      <slot name="contextmenu" :props="{item: metadata, open: contextmenu.show}">
+        <context-menu v-if="contextmenu.show" @rename="rename"></context-menu>
+      </slot>
     </v-card>
   </section>
 </template>
 
 <script>
-import store from '@/store'
-import FolderIcon from '@/components/Icons/FolderIcon'
-import PhotoIcon from '@/components/Icons/PhotoIcon'
-import AudioIcon from '@/components/Icons/AudioIcon'
+import store from './store'
 import { mapGetters } from 'vuex'
 
 export default {
+  // Local store
   store,
+
   name: 'Folder',
-
-  model: {
-    prop: 'metadata'
-  },
-
-  components: {
-    AudioIcon,
-    FolderIcon,
-    PhotoIcon
-  },
 
   props: {
     metadata: {
@@ -59,18 +52,21 @@ export default {
 
   computed: {
     ...mapGetters({
-      folder: 'folder/folder'
+      contextmenu: 'contextmenu/contextmenu',
+      folder: 'folder/folder',
     })
   },
 
   data () {
     return {
+      file: {},
+      options: {
+        x: 0,
+        y: 0,
+        show: false,
+      },
       renaming: false
     }
-  },
-
-  mounted () {
-    this.id = this.folder.id
   },
 
   methods: {
@@ -78,10 +74,23 @@ export default {
       alert('open folder')
     },
 
-    rename () {
+    togglemenu (e) {
+      this.options.x = e.clientX
+      this.options.y = e.clientY
+      if (this.contextmenu.open) {
+        this.options.show = false
+      } else {
+        this.options.show = true
+      }
+      this.$nextTick(() => {
+        this.$store.dispatch('contextmenu/open', this.options)
+      })
+    },
+
+    rename (c) {
       this.renaming = true
-      this.metadata.renaming = true
-      this.$store.dispatch('folder/rename', this.metadata)
+      this.$emit('rename')
+      console.log(c, 'rename')
     },
 
     renamed () {
@@ -100,13 +109,10 @@ export default {
   },
 
   watch: {
-    'folder.folders': function (val) {
-      this.metadata = val[this.id]
-      console.log(this.metadata)
-    },
-
-    'folder.data.renaming': function (val) {
-      this.renaming = val
+    'contextmenu.show': function (v) {
+      if (!v) {
+        this.$store.dispatch('contextmenu/close')
+      }
     }
   }
 }

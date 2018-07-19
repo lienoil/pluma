@@ -4,21 +4,18 @@
     <folder
       :key="i"
       :ref="`folder-${i}`"
-      v-model="folder"
+      :metadata="folder"
       @click.native="select"
-      @contextmenu.native="menu($event, folder, i)"
       v-for="(folder, i) in folders"
-      ></folder>
+      >
+    </folder>
 
-    <context-menu></context-menu>
   </v-layout>
 </template>
 
 <script>
-import store from '@/store'
+import store from '@/components/Components/Folder/store'
 import Vue from 'vue'
-import Folder from '@/components/Components/Folder/Folder'
-import ContextMenu from '@/components/Components/Folder/ContextMenu'
 import Sortable from 'vue-sortable'
 import { mapGetters } from 'vuex'
 
@@ -28,16 +25,13 @@ export default {
   store,
   name: 'MediaList',
 
-  components: {
-    Folder,
-    ContextMenu
-  },
-
   data () {
     return {
       folders: [
         { renaming: false, color: 'goldenrod', code: 'pictures', foldertype: 'image', title: 'Pictures' },
-        { renaming: false, color: 'blue', code: 'music', foldertype: 'audio', title: 'Music' }
+        { renaming: false, color: this.$vuetify.theme.primary, code: 'music', foldertype: 'audio', title: 'Music' },
+        { renaming: false, color: this.$vuetify.theme.primary, code: 'generic', foldertype: 'generic', title: 'Apps' },
+        { renaming: false, color: this.$vuetify.theme.primary, code: 'documents', foldertype: 'generic', title: 'Documents' },
       ],
 
       context: {
@@ -52,7 +46,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      folder: 'folder/folder'
+      folder: 'folder/folder',
+      contextmenu: 'contextmenu/contextmenu',
     })
   },
 
@@ -75,8 +70,11 @@ export default {
       this.$store.dispatch('folder/openContextMenu', this.context)
     },
 
-    rename (val) {
-      this.editing = true
+    rename (props, i) {
+      console.log(props, i)
+      props.folder.item.renaming = true
+      this.folders[i].renaming = true
+      // folder.renaming = true
     }
   }
 }

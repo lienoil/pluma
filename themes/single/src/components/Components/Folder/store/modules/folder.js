@@ -37,9 +37,8 @@ export const mutations = {
     state.folder.context.y = 0
   },
 
-  'RENAME_FILE' (state, payload) {
-    state.folder.data = payload
-    state.folder.data.renaming = payload.renaming
+  'RENAME' (state, payload) {
+    state.folder.renaming = payload.renaming
   },
 
   emptyState () {
@@ -53,7 +52,7 @@ export const actions = {
   },
 
   rename: ({commit}, payload) => {
-    commit('RENAME_FILE', payload)
+    commit('RENAME', payload)
   }
 }
 

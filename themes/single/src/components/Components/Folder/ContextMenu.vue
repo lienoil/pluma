@@ -1,11 +1,11 @@
 <template>
   <v-menu
-    :position-x="folder.context.x"
-    :position-y="folder.context.y"
+    :position-x="contextmenu.x"
+    :position-y="contextmenu.y"
     absolute
     lazy
     offset-y
-    v-model="folder.context.show"
+    v-model="contextmenu.show"
     >
     <v-list>
       <v-list-tile @click="rename">
@@ -13,7 +13,7 @@
           <v-icon>mdi-rename-box</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>{{ trans('Rename...') }}</v-list-tile-title>
+          <v-list-tile-title>{{ trans('Rename') }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
@@ -61,22 +61,14 @@
 </template>
 
 <script>
-import store from '@/store'
+import store from './store'
 import { mapGetters } from 'vuex'
 
 export default {
   store,
   name: 'ContextMenu',
 
-  model: {
-    prop: 'value'
-  },
-
   props: {
-    value: {
-      type: [String, Boolean],
-      default: false
-    },
     x: {
       type: [Number],
       default: 0
@@ -89,17 +81,15 @@ export default {
 
   computed: {
     ...mapGetters({
-      folder: 'folder/folder'
+      contextmenu: 'contextmenu/contextmenu',
     })
   },
 
   methods: {
-    rename () {
-      let id = this.folder.id
-      // this.folder.folders[id]
-      this.folder.folders[id].renaming = true
-      console.log(this.folder)
-      // this.$emit('rename', this.folder.data)
+    rename (e) {
+      console.log('emitting rename event from contextmenu.')
+      this.$emit('rename')
+      e.preventDefault()
     },
 
     renamed (value) {
@@ -110,6 +100,6 @@ export default {
     trash () {},
     download () {},
     changetype () {}
-  }
+  },
 }
 </script>
