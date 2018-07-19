@@ -9,9 +9,6 @@
       absolute
       width="280"
       >
-      <v-toolbar card color="transparent">
-        <v-toolbar-title>{{ trans('Mediabox') }}</v-toolbar-title>
-      </v-toolbar>
       <v-list>
         <v-list-tile
           @click="load(menu)"
@@ -91,7 +88,7 @@
       <v-btn class="hidden-sm-and-down" icon @click="closeMediaWindow()"><v-icon>close</v-icon></v-btn>
     </v-toolbar>
     <v-divider></v-divider>
-    <v-progress-linear height="2" indeterminate v-show="mediawindow.loading" class="ma-0"></v-progress-linear>
+    <v-progress-linear height="2" :indeterminate="mediawindow.loading" class="media-window__progress-linear"></v-progress-linear>
 
     <v-card-text class="media-window__content">
       <keep-alive>
@@ -158,7 +155,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .media-window {
   &__toolbar,
   &__content {
@@ -168,5 +165,10 @@ export default {
   &__content {
     padding: 0;
   }
+
+}
+.media-window__progress-linear {
+  margin: 0;
+  background-color: transparent;
 }
 </style>
