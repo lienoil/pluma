@@ -1,25 +1,26 @@
 <template>
   <v-layout row wrap align-start justify-start>
 
-    <folder
-      :key="i"
-      :ref="`folder-${i}`"
-      :metadata.sync="item"
-      @click.native="select"
-      v-for="(item, i) in items"
-      >
-    </folder>
+    <template v-for="(item, i) in items">
+      <file
+        :key="i"
+        :metadata.sync="item"
+        :ref="`file-${i}`"
+        :tabindex="i"
+        @click.native="select"
+        @dropped="move"
+        @remove="remove(item, i)"
+        @open="open"
+        >
+      </file>
+    </template>
 
   </v-layout>
 </template>
 
 <script>
 import store from '@/components/Components/Folder/store'
-import Vue from 'vue'
-import Sortable from 'vue-sortable'
 import { mapGetters } from 'vuex'
-
-Vue.use(Sortable)
 
 export default {
   store,
@@ -55,12 +56,8 @@ export default {
   },
 
   methods: {
-    select ($event) {
-      //
-    },
-
     open () {
-      alert('doiuble clicj')
+      alert('opened')
     },
 
     menu (e, folder, i) {
@@ -73,11 +70,12 @@ export default {
       this.$store.dispatch('folder/openContextMenu', this.context)
     },
 
-    rename (props, i) {
-      console.log(props, i)
-      props.folder.item.renaming = true
-      this.folders[i].renaming = true
-      // folder.renaming = true
+    move (item, i) {
+      console.log(item, i)
+    },
+
+    remove (item, i) {
+      this.items.splice(i, 1)
     }
   }
 }

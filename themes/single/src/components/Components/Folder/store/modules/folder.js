@@ -13,7 +13,25 @@ export const state = () => ({
 
     id: null,
     folders: [],
-    data: {}
+    data: {},
+
+    // New Folder variables
+    new: {
+      model: false,
+      name: 'New Folder',
+      foldertype: '',
+      color: 'goldenrod',
+      code: 'new-folder',
+    },
+
+    // Foldertypes
+    foldertypes: [
+      { value: 'audio', text: 'Audios' },
+      { value: 'video', text: 'Videos' },
+      { value: 'book', text: 'Books' },
+      { value: 'archive', text: 'Archives' },
+      { value: 'image', text: 'Images' },
+    ],
   }
 })
 
@@ -22,13 +40,8 @@ export const getters = {
 }
 
 export const mutations = {
-  'OPEN_CONTEXTMENU' (state, payload) {
-    state.folder.context.show = payload.show
-    state.folder.context.x = payload.x
-    state.folder.context.y = payload.y
-    state.folder.data = payload.data
-    state.folder.folders = payload.folders
-    state.folder.id = payload.id
+  'CREATE' (state, payload) {
+    state.folder = Object.assign(state.folder, payload)
   },
 
   'CLOSE_CONTEXTMENU' (state) {
@@ -47,8 +60,8 @@ export const mutations = {
 }
 
 export const actions = {
-  openContextMenu: ({commit}, payload) => {
-    commit('OPEN_CONTEXTMENU', payload)
+  create: ({commit}, payload) => {
+    commit('CREATE', payload)
   },
 
   rename: ({commit}, payload) => {

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat height="100vh">
+  <v-card flat height="67vh">
     recmain
   </v-card>
 </template>

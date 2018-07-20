@@ -40,14 +40,42 @@
       <v-menu>
         <v-btn large color="primary" slot="activator">{{ trans(windowTitle) }}<v-icon right>arrow_drop_down</v-icon></v-btn>
         <v-list>
-          <v-list-tile @click="openNewFolderDialog()">
-            <v-list-tile-action>
-              <v-icon>create_new_folder</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ trans('New folder...') }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+
+          <v-dialog v-model="newfolder.model" full-width lazy max-width="320px">
+            <v-list-tile slot="activator" @click="">
+              <v-list-tile-action>
+                <v-icon>create_new_folder</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ trans('New folder...') }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-card>
+              <v-card-title>{{ trans('Create new folder') }}</v-card-title>
+              <v-card-text>
+                <v-text-field v-model="folder.new.name" :label="trans('Folder name')" hide-details v-focus @keyup.enter="createNewFolder" @focus="$event.target.select()" :value="trans('New Folder')"></v-text-field>
+                <v-combobox v-model="folder.new.foldertype" :label="trans('Folder type')" hide-details :items="folder.foldertypes">
+                  <template
+                    slot="item"
+                    slot-scope="{ index, item, parent }"
+                    >
+                    <v-list-tile-action>
+                      <component :is="`${item.value}Icon`"></component>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+                    </v-list-tile-content>
+                  </template>
+                </v-combobox>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn flat @click="cancelNewFolder">{{ trans('Cancel') }}</v-btn>
+                <v-btn color="primary" depressed @click="createNewFolder">{{ trans('Create') }}</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
           <v-divider></v-divider>
           <v-list-tile @click="openNewFolderDialog()">
             <v-list-tile-action>
@@ -104,15 +132,29 @@
 </template>
 
 <script>
+import store from '@/components/Components/Folder/store'
+import { mapGetters } from 'vuex'
+
 export default {
+  store,
+
   name: 'MediaWindow',
+
   model: {
     prop: 'mediawindow.model'
   },
+
   props: {
     windowIcon: { type: String, default: 'landscape' },
     windowTitle: { type: String, default: 'Mediabox' }
   },
+
+  computed: {
+    ...mapGetters({
+      folder: 'folder/folder',
+    }),
+  },
+
   data () {
     return {
       mediawindow: {
@@ -124,6 +166,7 @@ export default {
         loading: false,
         component: () => import('./partials/MainMediaWindow')
       },
+
       menus: {
         current: 'main',
         items: [
@@ -132,9 +175,14 @@ export default {
           { active: false, code: 'trash', icon: 'delete', title: 'Trash', component: () => import('./partials/TrashMediaWindow') }
         ]
       },
-      newFolderDialog: {
-        model: false
-      }
+
+      newfolder: {
+        model: false,
+        item: {
+          name: this.trans('New Folder'),
+          foldertype: 'generic',
+        }
+      },
     }
   },
   methods: {
@@ -148,8 +196,16 @@ export default {
       this.$emit('input', (this.mediawindow.model = false))
     },
 
+    // Folder Management
     openNewFolderDialog () {
       this.newFolderDialog.model = !this.newFolderDialog.model
+    },
+    createNewFolder () {
+      this.newfolder.model = false
+      this.$store.dispatch('folder/create', this.newfolder.item)
+    },
+    cancelNewFolder () {
+      this.newfolder.model = false
     }
   }
 }
