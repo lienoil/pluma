@@ -1,14 +1,19 @@
 <template>
-  <?xml
+  <svg
     :height="height"
     :width="width"
-    version="1.0" encoding="iso-8859-1"?>
-    <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-       viewBox="0 0 501.551 501.551" style="enable-background:new 0 0 501.551 501.551;" xml:space="preserve">
+    id="Layer_1"
+    style="enable-background:new 0 0 501.551 501.551;"
+    version="1.1"
+    viewBox="0 0 501.551 501.551"
+    x="0px" y="0px"
+    xml:space="preserve"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://www.w3.org/2000/svg"
+    >
     <path style="fill:#F2F2F2;" d="M480.653,0H20.898C9.404,0,0,9.404,0,20.898v459.755c0,11.494,9.404,20.898,20.898,20.898h459.755
       c11.494,0,20.898-9.404,20.898-20.898V20.898C501.551,9.404,492.147,0,480.653,0z"/>
-    <rect x="36.571" y="36.571" style="fill:#84DBFF;" width="428.408" height="345.861"/>
+    <rect x="36.571" y="36.571" style="fill:#87CEEB" width="428.408" height="345.861"/>
     <path style="fill:#334A5E;" d="M261.224,382.433H36.571v-87.771c17.763-5.224,37.616-7.314,57.469-7.314
       c25.078,0,50.155,4.18,71.053,12.539c6.269,2.09,11.494,4.18,16.718,7.314C218.384,323.918,246.596,350.041,261.224,382.433z"/>
     <path style="fill:#40596B;" d="M464.98,271.673v110.759H127.478c9.404-29.257,29.257-55.38,55.38-76.278

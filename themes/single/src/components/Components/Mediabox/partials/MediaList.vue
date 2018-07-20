@@ -4,9 +4,9 @@
     <folder
       :key="i"
       :ref="`folder-${i}`"
-      :metadata="folder"
+      :metadata.sync="item"
       @click.native="select"
-      v-for="(folder, i) in folders"
+      v-for="(item, i) in items"
       >
     </folder>
 
@@ -23,17 +23,20 @@ Vue.use(Sortable)
 
 export default {
   store,
+
   name: 'MediaList',
+
+  props: {
+    items: {
+      type: [Array, Object],
+      default: () => {
+        return []
+      }
+    },
+  },
 
   data () {
     return {
-      folders: [
-        { renaming: false, color: 'goldenrod', code: 'pictures', foldertype: 'image', title: 'Pictures' },
-        { renaming: false, color: this.$vuetify.theme.primary, code: 'music', foldertype: 'audio', title: 'Music' },
-        { renaming: false, color: this.$vuetify.theme.primary, code: 'generic', foldertype: 'generic', title: 'Apps' },
-        { renaming: false, color: this.$vuetify.theme.primary, code: 'documents', foldertype: 'generic', title: 'Documents' },
-      ],
-
       context: {
         show: false,
         x: 0,

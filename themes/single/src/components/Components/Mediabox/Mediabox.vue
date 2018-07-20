@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card @contextmenu="prevent">
     <media-thumbnail
       :hideToolbar="hideToolbar"
       :no-media-caption="noMediaCaption"
@@ -133,6 +133,10 @@ export default {
   //   }
   // },
   methods: {
+    prevent (e) {
+      e.preventDefault()
+    },
+
     openMediaWindow () {
       this.mediawindow.model = !this.mediawindow.model
       // this
