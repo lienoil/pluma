@@ -1,25 +1,67 @@
 <template>
   <section>
+
+    <v-toolbar
+      flat
+      large
+      class="sticky v-toolbar__main"
+      >
+      <v-menu left>
+        <v-btn
+          flat
+          large
+          class="primary--text"
+          slot="activator"
+          >
+          Library <v-icon right>keyboard_arrow_down</v-icon>
+        </v-btn>
+
+        <v-list>
+          <v-list-tile ripple @click="">
+            <v-list-tile-action>
+              <v-icon>create_new_folder</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>New Folder</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile ripple @click="">
+            <v-list-tile-action>
+              <v-icon>cloud_upload</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Upload Files</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+      <v-spacer></v-spacer>
+      <v-btn icon><v-icon>sort</v-icon></v-btn>
+      <v-divider vertical></v-divider>
+      <v-btn icon><v-icon>add</v-icon></v-btn>
+      <v-btn icon><v-icon>delete</v-icon></v-btn>
+    </v-toolbar>
+
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <v-flex md4 xs12>
           <!-- Dialogbox -->
-          <v-card flat class="mb-3 text-xs-center">
-            <v-card-title class="emphasis--medium"><strong>Dialogbox</strong></v-card-title>
+          <!-- <v-card flat class="mb-3 text-xs-center">
+            <v-card-title class="emphasis--medium">Dialogbox</v-card-title>
             <v-card-text>
               <dialogbox></dialogbox>
               <v-btn color="secondary" @click="openDialogbox">Open Dialog Test</v-btn>
             </v-card-text>
-          </v-card>
+          </v-card> -->
           <!-- Dialogbox -->
 
           <!-- IconMenu -->
-          <v-card class="mb-3">
-            <v-card-title class="emphasis--medium"><strong>IconMenu</strong></v-card-title>
+          <!-- <v-card class="mb-3">
+            <v-card-title class="emphasis--medium">IconMenu</v-card-title>
             <v-card-text>
               <icon-menu></icon-menu>
             </v-card-text>
-          </v-card>
+          </v-card> -->
           <!-- IconMenu -->
         </v-flex>
       </v-layout>
@@ -27,85 +69,11 @@
       <v-layout row wrap>
         <v-flex xs12>
           <!-- Data Iterator -->
-          <v-card class="mb-3">
-            <v-card-title class="emphasis--medium"><strong>Library</strong></v-card-title>
-              <v-card-text>
-                <v-data-iterator
-                  :items="dataiterator.items"
-                  :rows-per-page-items="dataiterator.rowsPerPageItems"
-                  :pagination.sync="dataiterator.pagination"
-                  content-tag="v-layout"
-                  row
-                  wrap
-                >
-                  <v-flex
-                    slot="item"
-                    slot-scope="props"
-                    xs12
-                    sm6
-                    md4
-                    lg3
-                  >
-                    <v-card height="100%">
-                      <v-card-media
-                        :src="props.item.thumbnail"
-                        height="160px">
-                      </v-card-media>
+          <data-iterator :items="courses">
+          </data-iterator>
 
-                      <v-toolbar flat class="transparent">
-                        <v-toolbar-title>
-                          <span class="body-1">
-                            <strong v-hmtl="props.item.title"></strong>
-                          </span>
-                          <div
-                            class="caption grey--text"
-                            v-html="props.item.category">
-                          </div>
-                        </v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-btn icon><v-icon>more_vert</v-icon></v-btn>
-                      </v-toolbar>
-
-                      <v-card-text>
-                        <p
-                          class="body-2 mb-2 primary--text">
-                          <strong v-html="props.item.category"></strong>
-                        </p>
-                        <h3
-                          class="title mb-3"
-                          v-html="props.item.title">
-                        </h3>
-                        <p>
-                          <span
-                            class="text--ellipsis"
-                            v-html="props.item.description"
-                            >
-                          </span>
-                        </p>
-                      </v-card-text>
-                      <v-card-actions
-                        bottom
-                        class="grey--text pa-3"
-                        >
-                        <span
-                          class="body-1"
-                          v-html="props.item.timestamp"
-                          >
-                        </span>
-                        <v-spacer></v-spacer>
-                        <span class="body-1">
-                          <v-icon
-                            class="grey--text">list</v-icon>
-                          <span
-                            v-html="props.item.part"></span> Parts
-                        </span>
-                      </v-card-actions>
-                    </v-card>
-                  </v-flex>
-                </v-data-iterator>
-              </v-card-text>
-            </v-card-title>
-          </v-card>
+          <data-iterator :items="library">
+          </data-iterator>
           <!-- Data Iterator -->
         </v-flex>
       </v-layout>
@@ -117,10 +85,11 @@
   .v-input__slot {
     margin-bottom: 0;
   }
+
+
 </style>
 
 <script>
-// import Dialogbox from '@/components/Components/Dialog/Dialogbox.vue'
 import store from '@/store'
 import { mapGetters } from 'vuex'
 
@@ -132,30 +101,46 @@ export default {
       iconmenu: {
         multiple: true
       },
-      dataiterator: {
-        rowsPerPageItems: [4, 8, 12],
-        pagination: {
-          rowsPerPage: 4
-        },
+      courses: {
+        lg3: false,
+        showToolbar: false,
+        showMimetype: false,
+        hover: true,
         items: [
           {
-            value: false,
             title: 'Develop Personal Effectiveness at Operations Level',
-            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/6.png',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
-            description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals, managing time effectively, maintaining work-life balance, and managing stress, as well as personal finances so as to optimise effectiveness at work.',
-            part: '6'
+            description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.',
+            part: '6',
+            fileSize: '24 KB',
+            fileName: 'Ubuntu Wallpaper'
           }
         ]
-      }
+      },
+      library: {
+        showCardText: false,
+        showPart: false,
+        items: [
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/6.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          }
+        ]
+      },
     }
   },
 
   computed: {
     ...mapGetters({
       dialogbox: 'dialogbox/dialogbox',
-      iconmenu: 'iconmenu/iconmenu'
+      iconmenu: 'iconmenu/iconmenu',
+      dataiterator: 'dataiterator/dataiterator'
     })
   },
 
@@ -174,6 +159,7 @@ export default {
             text: 'You are about to permanently delete those resources.This action is irreversible. Do you want to proceed?',
             persistent: true,
             width: '100%',
+            alignedCenter: true,
 
             actionText: 'Delete',
             actionColor: 'error',
@@ -184,7 +170,6 @@ export default {
             },
 
             discard: false,
-            alignedCenter: false
           }
         )
       )

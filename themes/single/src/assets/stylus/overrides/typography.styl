@@ -2,8 +2,13 @@
   display: -webkit-box;
   max-width: 100%;
   line-height: 1.4;
-  box-orient: vertical;
-  line-clamp: 3;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+     -moz-box-orient:  vertical;
+          box-orient:   vertical;
+  /* autoprefixer: on */
+  -webkit-line-clamp: 3;
+    line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
 }

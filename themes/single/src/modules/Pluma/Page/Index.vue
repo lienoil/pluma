@@ -125,9 +125,9 @@ export default {
     }
   },
   watch: {
-    'dataset.items': function (items) {
-      this.dataset.empty = items.length === 0
-    },
+    // 'dataset.items': function (items) {
+    //   this.dataset.empty = items.length === 0
+    // },
     'dataset.pagination': {
       handler () {
         this.all()

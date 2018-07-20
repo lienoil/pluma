@@ -4,8 +4,7 @@ import { base } from './base'
 import { snackbar } from '@/components/Components/Snackbar/store/modules/snackbar'
 import { dialogbox } from '@/components/Components/Dialog/store/modules/dialogbox'
 import { iconmenu } from '@/components/Components/IconMenu/store/modules/iconmenu'
-// import { loop } from '@/components/Components/Loop/store/modules/loop'
-// import { dataiterator } from '@/components/Components/DataIterator/store/modules/dataiterator'
+import { dataiterator } from '@/components/Components/DataIterator/store/modules/dataiterator'
 
 Vue.use(Vuex)
 
@@ -14,9 +13,8 @@ export default new Vuex.Store({
     base,
     snackbar,
     dialogbox,
-    iconmenu
-    // loop,
-    // dataiterator
+    iconmenu,
+    dataiterator
   },
   // Making sure that we're doing
   // everything correctly by enabling

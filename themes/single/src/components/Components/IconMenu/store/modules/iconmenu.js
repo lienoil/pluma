@@ -2,7 +2,7 @@ export const state = () => ({
   iconmenu: {
     chipColor: 'primary',
     iconColor: 'white--text',
-    multiple: false,
+    multiple: true,
     hideDetails: true,
     label: 'Choose Category',
     model: '',

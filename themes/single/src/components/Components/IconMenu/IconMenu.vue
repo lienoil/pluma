@@ -12,7 +12,7 @@
 </template> -->
 
 <template>
-  <v-select
+  <v-autocomplete
     v-model="iconmenu.model"
     :items="iconmenu.items"
     box
@@ -63,7 +63,7 @@
         </v-list-tile-content>
       </template>
     </template>
-  </v-select>
+  </v-autocomplete>
 </template>
 
 <script>
