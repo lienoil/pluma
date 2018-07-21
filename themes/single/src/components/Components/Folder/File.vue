@@ -7,6 +7,7 @@
           @click.native="select"
           @contextmenu="togglemenu"
           @keyup.113="rename"
+          @keyup.delete="remove"
           tabindex="0"
           class="file-card"
           flat
@@ -58,7 +59,7 @@
           v-model="options.show"
           >
           <v-list>
-            <v-list-tile v-focus tabindex="0" @click="open">
+            <v-list-tile ripple v-focus tabindex="0" @click="open">
               <v-list-tile-action>
                 <v-icon v-if="isFolder">mdi-folder-search</v-icon>
                 <v-icon v-else>mdi-file-find</v-icon>
@@ -71,7 +72,7 @@
 
             <v-divider></v-divider>
 
-            <v-list-tile tabindex="0" @click="move">
+            <v-list-tile ripple tabindex="0" @click="move">
               <v-list-tile-action>
                 <v-icon>mdi-folder-move</v-icon>
               </v-list-tile-action>
@@ -80,7 +81,7 @@
               </v-list-tile-content>
             </v-list-tile>
 
-            <v-list-tile tabindex="0" @click="rename">
+            <v-list-tile ripple tabindex="0" @click="rename">
               <v-list-tile-action>
                 <v-icon>mdi-rename-box</v-icon>
               </v-list-tile-action>
@@ -90,7 +91,7 @@
             </v-list-tile>
 
             <v-menu offset-x right open-on-hover v-if="isFolder">
-              <v-list-tile slot="activator" @click="">
+              <v-list-tile ripple slot="activator" @click="">
                 <v-list-tile-action>
                   <v-icon>mdi-shape</v-icon>
                 </v-list-tile-action>
@@ -103,7 +104,7 @@
               </v-list-tile>
 
               <v-list>
-                <v-list-tile tabindex="0" @click="changetype($event, 'image')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, 'image')">
                   <v-list-tile-action>
                     <image-icon width="31px" height="31px"></image-icon>
                   </v-list-tile-action>
@@ -111,7 +112,7 @@
                     <v-list-tile-title>{{ trans('Image') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile tabindex="0" @click="changetype($event, 'audio')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, 'audio')">
                   <v-list-tile-action>
                     <audio-icon width="25px" height="25px"></audio-icon>
                   </v-list-tile-action>
@@ -119,7 +120,7 @@
                     <v-list-tile-title>{{ trans('Audio') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile tabindex="0" @click="changetype($event, 'archive')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, 'archive')">
                   <v-list-tile-action>
                     <archive-icon width="25px" height="25px"></archive-icon>
                   </v-list-tile-action>
@@ -127,7 +128,7 @@
                     <v-list-tile-title>{{ trans('Archive') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile tabindex="0" @click="changetype($event, 'video')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, 'video')">
                   <v-list-tile-action>
                     <video-icon width="25px" height="25px"></video-icon>
                   </v-list-tile-action>
@@ -135,7 +136,7 @@
                     <v-list-tile-title>{{ trans('Video') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile tabindex="0" @click="changetype($event, 'book')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, 'book')">
                   <v-list-tile-action>
                     <book-icon width="25px" height="25px"></book-icon>
                   </v-list-tile-action>
@@ -144,7 +145,7 @@
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
-                <v-list-tile tabindex="0" @click="changetype($event, '')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, '')">
                   <v-list-tile-action>
                     <v-icon>mdi-close</v-icon>
                   </v-list-tile-action>
@@ -157,7 +158,7 @@
 
             <v-divider></v-divider>
 
-            <v-list-tile tabindex="0" @click="download">
+            <v-list-tile ripple tabindex="0" @click="download">
               <v-list-tile-action>
                 <v-icon>mdi-download</v-icon>
               </v-list-tile-action>
@@ -168,7 +169,7 @@
 
             <v-divider></v-divider>
 
-            <v-list-tile tabindex="0" @click="remove">
+            <v-list-tile ripple tabindex="0" @click="remove">
               <v-list-tile-action>
                 <v-icon>mdi-delete</v-icon>
               </v-list-tile-action>
