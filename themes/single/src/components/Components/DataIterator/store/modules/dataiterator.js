@@ -39,6 +39,9 @@ export const state = () => ({
     md4: true,
     sm6: true,
     xs12: true,
+
+    // Search
+    search: ''
   }
 })
 

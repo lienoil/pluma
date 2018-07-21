@@ -1,4 +1,4 @@
-.table {
+.v-table {
   &__striped {
     border-bottom: none !important;
 
@@ -13,5 +13,14 @@
         }
       }
     }
+  }
+
+  .table--ellipsis {
+    max-width: 21.43em; //300px
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    padding: 0.93em !important; //13px
   }
 }

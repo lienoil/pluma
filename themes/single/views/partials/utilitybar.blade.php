@@ -6,9 +6,12 @@
   >
   <v-toolbar-side-icon @click="localstorage({'single.sidebar.model': (sidebar.model = !sidebar.model)})"></v-toolbar-side-icon>
 
-  <v-text-field id="searchbar" v-shortkey="['ctrl', '/']" @shortkey.native="search().open($event)" flat solo  placeholder="Search">
+  {{-- <v-text-field id="searchbar" v-shortkey="['ctrl', '/']" @shortkey.native="search().open($event)" flat solo  placeholder="Search">
     <template slot="suffix">asdasd</template>
-  </v-text-field>
+  </v-text-field> --}}
+  <v-btn icon large>
+    <v-icon>search</v-icon>
+  </v-btn>
   <v-spacer></v-spacer>
 
   <v-menu left offset-y nudge-width="200px">

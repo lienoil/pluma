@@ -1,13 +1,18 @@
 <template>
   <v-card>
-    <v-card-title>
-      Nutrition
-      <v-spacer></v-spacer>
-      <v-text-field
-        append-icon="search"
+    <v-card-title class="primary">
+      <v-text-fieldgit status
+        full-width
+        dark
         hide-details
         label="Search"
+        append-icon="search"
         single-line
+        solo
+        solo-inverted
+        color="grey"
+        clearable
+        flat
         v-model="dataset.search"
       ></v-text-field>
     </v-card-title>
@@ -15,23 +20,50 @@
       :headers="dataset.headers"
       :items="dataset.items"
       :search="dataset.search"
-    >
-      <template slot="items" slot-scope="props">
+      >
+      <template
+        slot="items"
+        slot-scope="props"
+        >
         <td v-html="props.item.id"></td>
         <td>
           <v-avatar size="36px">
             <img :src="props.item.thumbnail">
           </v-avatar>
         </td>
-        <td v-html="props.item.title"></td>
+        <td class="table--ellipsis">
+          <v-tooltip
+            max-width="300px"
+            bottom
+            transition="scale-transition"
+            >
+            <a
+              href=""
+              v-html="props.item.title"
+              slot="activator"
+              >
+            </a>
+            <span v-html="props.item.title"></span>
+          </v-tooltip>
+        </td>
         <td v-html="props.item.category"></td>
         <td v-html="props.item.timestamp"></td>
         <td v-html="props.item.part"></td>
-        <td width="10%">
-          <v-btn icon><v-icon>edit</v-icon></v-btn>
+        <td class="text-xs-right">
+          <v-tooltip bottom width="50">
+            <v-btn icon slot="activator">
+              <v-icon small>edit</v-icon>
+            </v-btn>
+            <span>Edit</span>
+          </v-tooltip>
         </td>
-        <td width="10%">
-          <v-btn icon><v-icon>delete</v-icon></v-btn>
+        <td class="text-xs-right">
+          <v-tooltip bottom>
+            <v-btn icon slot="activator">
+              <v-icon small>delete</v-icon>
+            </v-btn>
+            <span>Delete</span>
+          </v-tooltip>
         </td>
       </template>
       <v-alert
