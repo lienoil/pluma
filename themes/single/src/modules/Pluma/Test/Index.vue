@@ -69,12 +69,16 @@
       <v-layout row wrap>
         <v-flex xs12>
           <!-- Data Iterator -->
-          <data-iterator :items="courses">
+          <!-- <data-iterator :items="coursesIterator">
           </data-iterator>
 
-          <data-iterator :items="library">
-          </data-iterator>
+          <data-iterator :items="libraryIterator">
+          </data-iterator> -->
           <!-- Data Iterator -->
+
+          <!-- Data Table -->
+          <data-table :items="coursesTable">
+          <!-- Data Table -->
         </v-flex>
       </v-layout>
     </v-container>
@@ -101,31 +105,98 @@ export default {
       iconmenu: {
         multiple: true
       },
-      courses: {
-        lg3: false,
-        showToolbar: false,
-        showMimetype: false,
+      coursesIterator: {
+        cardLink: '//www.google.com',
+        chip: true,
         hover: true,
+        lg3: false,
+        showMimetype: false,
+        showToolbar: false,
         items: [
           {
+            id: '1',
             title: 'Develop Personal Effectiveness at Operations Level',
-            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/2.png',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
             description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.',
             part: '6',
-            fileSize: '24 KB',
-            fileName: 'Ubuntu Wallpaper'
           }
         ]
       },
-      library: {
+      coursesTable: {
+        headers: [
+          { text: 'ID', value: 'id' },
+          { text: 'Featured', value: 'thumbnail' },
+          { text: 'Title', value: 'title' },
+          { text: 'Category', value: 'category' },
+          { text: 'Timestamp', value: 'timestamp' },
+          { text: 'Part', value: 'part' },
+          { text: 'Actions', value: 'actions', sortable: false },
+        ],
+        items: [
+          {
+            title: 'Develop Personal Effectiveness at Operations Level',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/2.png',
+            category: 'DPE OPS',
+            timestamp: '2 hours ago',
+            part: '6',
+          }
+        ]
+      },
+      libraryIterator: {
+        cardMediaHeight: '120px',
+        lg2: true,
+        lg3: false,
+        md2: true,
+        md4: false,
         showCardText: false,
         showPart: false,
+        xs12: false,
         items: [
           {
             title: 'Ubuntu Solarized Wallpaper',
             thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/6.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/2.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/3.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/4.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/5.png',
             timestamp: '3 hours ago',
             mimetype: 'image/png',
             size: '24 KB',

@@ -1,20 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { base } from './base'
-import { snackbar } from '@/components/Components/Snackbar/store/modules/snackbar'
+import { dataiterator } from '@/components/Components/DataIterator/store/modules/dataiterator'
+import { datatable } from '@/components/Components/DataTable/store/modules/datatable'
 import { dialogbox } from '@/components/Components/Dialog/store/modules/dialogbox'
 import { iconmenu } from '@/components/Components/IconMenu/store/modules/iconmenu'
-import { dataiterator } from '@/components/Components/DataIterator/store/modules/dataiterator'
+import { snackbar } from '@/components/Components/Snackbar/store/modules/snackbar'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     base,
-    snackbar,
+    dataiterator,
+    datatable,
     dialogbox,
     iconmenu,
-    dataiterator
+    snackbar,
   },
   // Making sure that we're doing
   // everything correctly by enabling

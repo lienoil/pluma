@@ -1,14 +1,21 @@
 export const state = () => ({
   dataiterator: {
+    // Card
+    cardHeight: '100%',
+    hover: false,
+
+    // Card Media
+    cardMediaHeight: '160px',
+
+    // Chip
+    chip: false,
+
     // Card Text
     showCardText: true,
 
     // Card Actions
-    showPart: true,
     showMimetype: true,
-
-    // Toolbar
-    showToolbar: true,
+    showPart: true,
 
     // Pagination
     rowsPerPageItems: [4, 8, 12],
@@ -16,14 +23,22 @@ export const state = () => ({
       rowsPerPage: 4
     },
 
-    toolbarTitleClass: 'body-2',
+    // Toolbar
+    showToolbar: true,
     toolbarFlat: true,
     toolbarClass: 'transparent',
+    toolbarTitleClass: 'body-2',
+
+    // File
     fileSizeClass: 'caption grey--text',
+
+    // Grid System
+    lg2: false,
     lg3: true,
-    hover: false,
-    cardHeight: '100%',
-    cardMediaHeight: '160px',
+    md2: false,
+    md4: true,
+    sm6: true,
+    xs12: true,
   }
 })
 

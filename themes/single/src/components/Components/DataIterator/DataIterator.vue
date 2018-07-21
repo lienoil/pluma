@@ -8,30 +8,50 @@
     wrap
     >
     <v-flex
-      slot="item"
-      slot-scope="props"
-      xs12
-      sm6
-      md4
+      :lg2="dataset.lg2"
       :lg3="dataset.lg3"
+      :md2="dataset.md2"
+      :md4="dataset.md4"
+      :sm6="dataset.sm6"
+      :xs12="dataset.xs12"
+      slot-scope="props"
+      slot="item"
       >
       <v-card
+        :class="dataset.cardClass"
         :height="dataset.cardHeight"
         :hover="dataset.hover"
-        :class="dataset.cardClass"
+        :href="dataset.cardLink"
         >
         <v-card-media
-          :src="props.item.thumbnail"
-          :height="dataset.cardMediaHeight"
           :class="dataset.cardMediaClass"
+          :height="dataset.cardMediaHeight"
+          :src="props.item.thumbnail"
           >
+
+          <v-layout
+            align-end
+            class="mx-3"
+            fill-height
+            justify-end
+            v-if="dataset.chip"
+            >
+            <v-chip
+              class="elevation-2"
+              color="success"
+              dark
+              text-color="white"
+              >
+              Enrolled
+            </v-chip>
+          </v-layout>
         </v-card-media>
 
         <!-- media-title -->
         <v-toolbar
-          v-if="dataset.showToolbar"
           :class="dataset.toolbarClass"
           :flat="dataset.toolbarFlat"
+          v-if="dataset.showToolbar"
           >
           <v-toolbar-title>
             <v-tooltip
@@ -58,8 +78,8 @@
 
         <!-- card-text -->
         <v-card-text
-          v-if="dataset.showCardText"
           :class="cardTextClass"
+          v-if="dataset.showCardText"
           >
           <p
             class="body-2 mb-2 primary--text">
@@ -67,7 +87,8 @@
           </p>
           <h3
             class="title mb-3"
-            v-html="props.item.title">
+            v-html="props.item.title"
+            >
           </h3>
           <p>
             <span
@@ -90,7 +111,10 @@
           </span>
           <v-spacer></v-spacer>
           <!-- part -->
-          <span v-if="dataset.showPart" class="body-1">
+          <span
+            class="body-1"
+            v-if="dataset.showPart"
+            >
             <v-icon class="grey--text">list</v-icon>
             <span v-html="props.item.part"></span>
             <span>Parts</span>
@@ -98,9 +122,22 @@
           <!-- part -->
 
           <!-- mimetype -->
-          <span v-if="dataset.showMimetype" class="body-1">
-            <v-icon class="grey--text" v-html="props.item.icon"></v-icon>
-            <span v-html="props.item.mimetype"></span>
+          <span
+            class="body-1"
+            v-if="dataset.showMimetype"
+            >
+            <v-tooltip
+              bottom
+              >
+              <span slot="activator">
+                <v-icon
+                  class="grey--text"
+                  v-html="props.item.icon"
+                  >
+                </v-icon>
+              </span>
+              <span v-html="props.item.mimetype"></span>
+            </v-tooltip>
           </span>
           <!-- mimetype -->
         </v-card-actions>
@@ -108,7 +145,6 @@
     </v-flex>
   </v-data-iterator>
 </template>
-
 
 <script>
 import store from '@/store'
