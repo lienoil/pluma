@@ -11,6 +11,7 @@
       >
       <v-list>
         <v-list-tile
+          :key="i"
           @click="load(menu)"
           v-for="(menu, i) in menus.items"
           v-model="menu.active"

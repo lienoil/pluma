@@ -34,7 +34,7 @@
                 v-else
                 :height="size"
                 :icon-color="metadata.color"
-                :is="`${metadata.type}Icon`"
+                :is="`${metadata.filetype}Icon`"
                 :width="size"
               ></component>
             </v-card>
@@ -240,6 +240,9 @@ export default {
       this.clickcount++
 
       this.metadata.selected = true
+
+      this.$emit('selected', this.metadata)
+      this.$store.dispatch('folder/select', this.metadata)
     },
 
     open () {

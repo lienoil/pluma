@@ -36,7 +36,7 @@ export default {
         { renaming: false, type: 'folder', color: 'goldenrod', code: 'music', foldertype: 'audio', title: 'Music' },
         { renaming: false, type: 'folder', color: 'goldenrod', code: 'generic', foldertype: 'generic', title: 'Apps' },
         { renaming: false, type: 'folder', color: 'goldenrod', code: 'documents', foldertype: 'generic', title: 'Documents' },
-        { renaming: false, type: 'txt', color: '#7171b3', code: 'db_schema', title: 'db_schema.txt' },
+        { renaming: false, type: 'file', filetype: 'txt', color: '#7171b3', code: 'db_schema', title: 'db_schema.txt' },
       ],
     }
   },

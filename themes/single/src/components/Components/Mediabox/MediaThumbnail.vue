@@ -31,8 +31,11 @@
 
 <script>
 import noMediaThumbnail from '@/components/Icons/MediaIcon'
+import store from '@/components/Components/Folder/store'
+import { mapGetters } from 'vuex'
 
 export default {
+  store,
   name: 'MediaThumbnail',
   components: {
     noMediaThumbnail
@@ -47,20 +50,27 @@ export default {
     noMediaCaption: { type: String, default: null }
   },
 
+  computed: {
+    ...mapGetters({
+      file: 'folder/file',
+    }),
+    hasNoThumbnail: function () {
+      return this.file.selected.type !== 'file'
+    },
+
+    hasThumbnail: function () {
+      return this.file.selected.type === 'file' // !== null
+    },
+  },
+
   data () {
     return {
       //
     }
   },
 
-  computed: {
-    hasNoThumbnail: function () {
-      return this.thumbnail === null
-    },
-
-    hasThumbnail: function () {
-      return this.thumbnail !== null
-    }
+  mounted () {
+    console.log(this.file)
   }
 }
 </script>

@@ -32,11 +32,16 @@ export const state = () => ({
       { value: 'archive', text: 'Archives' },
       { value: 'image', text: 'Images' },
     ],
-  }
+  },
+
+  file: {
+    selected: {}
+  },
 })
 
 export const getters = {
-  folder: state => state.folder
+  folder: state => state.folder,
+  file: state => state.file,
 }
 
 export const mutations = {
@@ -44,14 +49,12 @@ export const mutations = {
     state.folder = Object.assign(state.folder, payload)
   },
 
-  'CLOSE_CONTEXTMENU' (state) {
-    state.folder.context.show = false
-    state.folder.context.x = 0
-    state.folder.context.y = 0
-  },
-
   'RENAME' (state, payload) {
     state.folder.renaming = payload.renaming
+  },
+
+  'SELECT_FILE' (state, payload) {
+    state.file.selected = payload
   },
 
   emptyState () {
@@ -66,7 +69,13 @@ export const actions = {
 
   rename: ({commit}, payload) => {
     commit('RENAME', payload)
-  }
+  },
+
+  select: ({commit}, payload) => {
+    if (payload.type === 'file') {
+      commit('SELECT_FILE', payload)
+    }
+  },
 }
 
 export const folder = {

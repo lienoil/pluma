@@ -7,10 +7,10 @@
         :metadata.sync="item"
         :ref="`file-${i}`"
         :tabindex="i"
-        @click.native="select"
         @dropped="move"
         @remove="remove(item, i)"
         @open="open"
+        @selected="selected"
         >
       </file>
     </template>
@@ -76,6 +76,16 @@ export default {
 
     remove (item, i) {
       this.items.splice(i, 1)
+    },
+
+    select () {
+
+    },
+
+    selected (item) {
+      if (item) {
+        alert('File was selected')
+      }
     }
   }
 }
