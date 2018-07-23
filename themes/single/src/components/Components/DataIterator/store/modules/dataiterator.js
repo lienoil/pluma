@@ -41,7 +41,10 @@ export const state = () => ({
     xs12: true,
 
     // Search
-    search: ''
+    search: '',
+
+    // Bookmark
+    bookmark: 'bookmark',
   }
 })
 

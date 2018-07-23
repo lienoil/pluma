@@ -2,8 +2,9 @@
   <section>
 
     <v-toolbar
+      dark
       flat
-      class="sticky v-toolbar__main"
+      class="primary sticky v-toolbar__main"
       >
       <!-- <v-menu left>
         <v-btn
@@ -34,7 +35,7 @@
           </v-list-tile>
         </v-list>
       </v-menu> -->
-      <v-toolbar-title class="primary--text"><strong>All Courses</strong></v-toolbar-title>
+      <v-toolbar-title>All Courses</v-toolbar-title>
       <v-spacer></v-spacer>
       <template v-model="showListView" v-if="showListView">
         <v-tooltip bottom>
@@ -91,16 +92,16 @@
       <v-layout row wrap>
         <v-flex xs12>
           <!-- grid / list view -->
-          <!-- <template v-model="showListView" v-if="showListView">
+          <template v-model="showListView" v-if="showListView">
             <data-table :items="courses"></data-table>
           </template>
 
           <template v-else>
             <data-iterator search :items="courses"></data-iterator>
-          </template> -->
+          </template>
           <!-- grid / list view -->
 
-          <data-table :items="courses"></data-table>
+          <!-- <data-table :items="courses"></data-table> -->
         </v-flex>
       </v-layout>
     </v-container>
@@ -146,8 +147,7 @@ export default {
             text: 'Actions',
             value: 'actions',
             sortable: false,
-            align: 'center',
-            colspan: '2'
+            align: 'center'
           },
         ],
         items: [
@@ -162,13 +162,22 @@ export default {
           },
           {
             id: '2',
-            title: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean',
-            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/2.png',
+            title: 'Develop Personal Effectiveness at Supervisory Level',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/6.png',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
             description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
             part: '6',
-          }
+          },
+          {
+            id: '3',
+            title: 'Develop Personal Effectiveness at Supervisory Level',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
+            category: 'DPE OPS',
+            timestamp: '2 hours ago',
+            description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
+            part: '6',
+          },
         ]
       },
       library: {
