@@ -1,19 +1,6 @@
 <template>
-  <v-transition-group transition="scale-transition">
+  <v-slide-y-transition>
     <v-card>
-      <v-card-title class="emphasis--medium">
-        <v-text-field
-          full-width
-          hide-details
-          label="Search"
-          append-icon="search"
-          single-line
-          solo
-          clearable
-          flat
-          v-model="dataset.search"
-        ></v-text-field>
-      </v-card-title>
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"
@@ -23,6 +10,12 @@
           slot="items"
           slot-scope="props"
           >
+          <td>
+            <v-checkbox
+              hide-details
+              v-model="props.item.selected">
+            </v-checkbox>
+          </td>
           <td v-html="props.item.id"></td>
           <td>
             <v-avatar size="36px">
@@ -47,19 +40,28 @@
           <td v-html="props.item.category"></td>
           <td v-html="props.item.timestamp"></td>
           <td v-html="props.item.part"></td>
-          <td class="text-xs-right">
+          <td v-html="props.item.status"></td>
+          <td class="text-xs-center">
             <v-tooltip bottom width="50">
-              <v-btn icon slot="activator">
-                <v-icon small>edit</v-icon>
-              </v-btn>
+              <v-icon
+                slot="activator"
+                small
+                class="mx-3"
+                @click=""
+                >
+                edit
+              </v-icon>
               <span>Edit</span>
             </v-tooltip>
-          </td>
-          <td class="text-xs-right">
             <v-tooltip bottom>
-              <v-btn icon slot="activator">
-                <v-icon small>delete</v-icon>
-              </v-btn>
+              <v-icon
+                slot="activator"
+                small
+                class="mx-3"
+                @click=""
+                >
+                delete
+              </v-icon>
               <span>Delete</span>
             </v-tooltip>
           </td>
@@ -74,7 +76,7 @@
         </v-alert>
       </v-data-table>
     </v-card>
-  </v-transition-group>
+  </v-slide-y-transition>
 </template>
 
 <script>

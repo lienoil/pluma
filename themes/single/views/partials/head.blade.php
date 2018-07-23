@@ -55,6 +55,7 @@
   @stack("css")
     <link rel="stylesheet" href="{{ theme('dist/static/css/app.min.css') }}">
     <style>
+      .title__text--ellipsis,
       .text--ellipsis {
         -webkit-box-orient: vertical;
       }

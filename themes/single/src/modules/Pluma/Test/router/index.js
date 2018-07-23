@@ -24,6 +24,16 @@ export default [
         }
       },
       {
+        title: 'Show Test',
+        path: 'show',
+        name: 'tests.show',
+        component: () => import('@/modules/Pluma/Test/Show.vue'),
+        meta: {
+          title: 'Show Test',
+          authenticatable: false
+        }
+      },
+      {
         title: 'Trashed Tests',
         path: '/admin/tests/trashed',
         name: 'tests.trashed',

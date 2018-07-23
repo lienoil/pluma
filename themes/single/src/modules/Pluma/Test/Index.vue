@@ -1,70 +1,97 @@
-<template>
+<template v-cloak>
   <section>
-
     <v-toolbar
       dark
       flat
       class="primary sticky v-toolbar__main"
       >
-      <!-- <v-menu left>
-        <v-btn
-          flat
-          large
-          class="primary--text"
-          slot="activator"
-          >
-          Library <v-icon right>keyboard_arrow_down</v-icon>
-        </v-btn>
+      <!-- searchbar -->
+      <template v-model="showSearchbar" v-if="showSearchbar">
+        <!-- <v-slide-x-transition bottom> -->
+          <v-text-field
+            autofocus
+            append-icon="search"
+            class="mr-2"
+            clearable
+            clear-icon="cancel"
+            dark
+            flat
+            full-width
+            hide-details
+            label="Search"
+            single-line
+            solo
+            solo-inverted
+            v-model="courses.search"
+          ></v-text-field>
+        <!-- </v-slide-x-transition> -->
+      </template>
+      <!-- searchbar -->
 
-        <v-list>
-          <v-list-tile ripple @click="">
-            <v-list-tile-action>
-              <v-icon>create_new_folder</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>New Folder</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile ripple @click="">
-            <v-list-tile-action>
-              <v-icon>cloud_upload</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Upload Files</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-menu> -->
-      <v-toolbar-title>All Courses</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <template v-model="showListView" v-if="showListView">
+      <template v-else>
+        <!-- <v-slide-y-transition> -->
+          <v-toolbar-title>All Courses</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <template v-model="showListView" v-if="showListView">
+            <v-tooltip bottom>
+              <v-btn icon slot="activator" @click="showListView = !showGridView">
+                <v-icon>view_module</v-icon>
+              </v-btn>
+              <span>Switch to Grid View</span>
+            </v-tooltip>
+          </template>
+          <template v-else>
+            <v-tooltip bottom>
+              <v-btn icon slot="activator" @click="showListView = !showListView">
+                <v-icon>view_list</v-icon>
+              </v-btn>
+              <span>Switch to List View</span>
+            </v-tooltip>
+          </template>
+
+          <v-tooltip bottom>
+            <v-btn
+              icon
+              slot="activator"
+              v-model="courses.bulkDestroy"
+              >
+              <v-icon>check_circle</v-icon>
+            </v-btn>
+            <span>Toggle Bulk Command</span>
+          </v-tooltip>
+
+          <v-tooltip bottom>
+            <v-btn icon slot="activator">
+              <v-icon>archive</v-icon>
+            </v-btn>
+            <span>View Trashed Items</span>
+          </v-tooltip>
+        <!-- </v-slide-y-transition> -->
+      </template>
+
+      <!-- search button -->
+      <template v-model="showSearchbar" v-if="showSearchbar">
         <v-tooltip bottom>
-          <v-btn icon slot="activator" @click="showListView = !showGridView"><v-icon>view_module</v-icon></v-btn>
-          <span>Switch to Grid View</span>
+          <v-btn icon slot="activator" @click="showSearchbar = !hideSearchbar">
+            <v-icon>close</v-icon></v-btn>
+          <span>Close Searchbar</span>
         </v-tooltip>
       </template>
       <template v-else>
         <v-tooltip bottom>
-          <v-btn icon slot="activator" @click="showListView = !showListView"><v-icon>view_list</v-icon></v-btn>
-          <span>Switch to List View</span>
+          <v-btn icon slot="activator" @click="showSearchbar = !showSearchbar">
+            <v-icon>search</v-icon>
+          </v-btn>
+          <span>Search Resources</span>
         </v-tooltip>
       </template>
+      <!-- search button -->
 
-      <v-tooltip bottom>
-        <v-btn icon slot="activator">
-          <v-icon>check_circle</v-icon>
-        </v-btn>
-        <span>Toggle Bulk Command</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <v-btn icon slot="activator">
-          <v-icon>archive</v-icon>
-        </v-btn>
-        <span>View Trashed Items</span>
-      </v-tooltip>
       <v-divider
         vertical
-        class="mx-2">
+        dark
+        class="mx-2"
+        >
       </v-divider>
       <v-btn class="secondary">Create</v-btn>
     </v-toolbar>
@@ -97,7 +124,7 @@
           </template>
 
           <template v-else>
-            <data-iterator search :items="courses"></data-iterator>
+            <data-iterator :items="courses"></data-iterator>
           </template>
           <!-- grid / list view -->
 
@@ -124,25 +151,34 @@ export default {
 
   data () {
     return {
+      selected: [],
       showListView: false,
       showGridView: true,
+      showSearchbar: false,
+      hideSearchbar: true,
       iconmenu: {
         multiple: true
       },
       courses: {
-        cardLink: '//www.google.com',
+        selected: [],
+        bulkDestroy: false,
+        selectAll: true,
+        search: '',
+        cardLink: 'tests/show',
         chip: true,
         hover: true,
         lg3: false,
         showMimetype: false,
         showToolbar: false,
         headers: [
+          { text: '', value: 'selected' },
           { text: 'ID', value: 'id' },
           { text: 'Featured', value: 'thumbnail' },
           { text: 'Title', value: 'title' },
           { text: 'Category', value: 'category' },
           { text: 'Timestamp', value: 'timestamp' },
           { text: 'Part', value: 'part' },
+          { text: 'Status', value: 'status' },
           {
             text: 'Actions',
             value: 'actions',
@@ -154,16 +190,17 @@ export default {
           {
             id: '1',
             title: 'Develop Personal Effectiveness at Operations Level',
-            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/2.png',
+            thumbnail: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
             description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
             part: '6',
+            status: 'enrolled'
           },
           {
             id: '2',
             title: 'Develop Personal Effectiveness at Supervisory Level',
-            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/6.png',
+            thumbnail: '//cdn.dribbble.com/users/904433/screenshots/2994633/animation_fin.gif',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
             description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
@@ -172,7 +209,7 @@ export default {
           {
             id: '3',
             title: 'Develop Personal Effectiveness at Supervisory Level',
-            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
+            thumbnail: '//i.pinimg.com/564x/74/2b/8e/742b8e6e87ef56e698b9c8bc4e930dae.jpg',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
             description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
@@ -192,7 +229,7 @@ export default {
         items: [
           {
             title: 'Ubuntu Solarized Wallpaper',
-            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/6.png',
+            thumbnail: 'https://cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
             timestamp: '3 hours ago',
             mimetype: 'image/png',
             size: '24 KB',
@@ -283,15 +320,16 @@ export default {
     },
 
     toggleAll () {
-      if (this.selected.length) this.selected = []
-      else this.selected = this.desserts.slice()
+      if (this.courses.selected.length) this.courses.selected = []
+      else this.courses.selected = this.courses.items.slice()
     },
+
     changeSort (column) {
-      if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending
+      if (this.courses.pagination.sortBy === column) {
+        this.courses.pagination.descending = !this.courses.pagination.descending
       } else {
-        this.pagination.sortBy = column
-        this.pagination.descending = false
+        this.courses.pagination.sortBy = column
+        this.courses.pagination.descending = false
       }
     }
   }

@@ -1,10 +1,11 @@
 <template>
-  <v-transition-group transition="scale-transition">
+  <v-slide-y-transition>
     <v-data-iterator
       :items="dataset.items"
       :pagination.sync="dataset.pagination"
       :rows-per-page-items="dataset.rowsPerPageItems"
       content-tag="v-layout"
+      transition="scale-transition"
       row
       wrap
       >
@@ -22,7 +23,7 @@
           :class="dataset.cardClass"
           :height="dataset.cardHeight"
           :hover="dataset.hover"
-          :href="dataset.cardLink"
+          :href="dataset.hover ? dataset.cardLink : ''"
           >
           <v-card-media
             :class="dataset.cardMediaClass"
@@ -42,7 +43,7 @@
 
             <v-layout
               align-end
-              class="ma-3"
+              class="ma-2"
               justify-end
               v-if="dataset.chip"
               >
@@ -51,8 +52,9 @@
                 color="success"
                 dark
                 text-color="white"
+                v-if="props.item.status"
                 >
-                Enrolled
+                {{ props.item.status }}
               </v-chip>
             </v-layout>
 
@@ -94,14 +96,18 @@
             v-if="dataset.showCardText"
             >
             <p
-              class="body-2 mb-2 primary--text">
+              class="body-2 mb-2 primary--text text--lighten-2">
               <strong v-html="props.item.category"></strong>
             </p>
-            <h3
-              class="title mb-3"
-              v-html="props.item.title"
-              >
-            </h3>
+            <v-tooltip bottom>
+              <h3
+                slot="activator"
+                class="title mb-3 title__text--ellipsis"
+                v-html="props.item.title"
+                >
+              </h3>
+              <span v-html="props.item.title"></span>
+            </v-tooltip>
             <p>
               <span
                 class="text--ellipsis"
@@ -156,7 +162,7 @@
         </v-card>
       </v-flex>
     </v-data-iterator>
-  </v-transition-group>
+  </v-slide-y-transition>
 </template>
 
 <script>
