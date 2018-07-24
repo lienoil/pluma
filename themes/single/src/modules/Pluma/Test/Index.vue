@@ -34,7 +34,11 @@
           <v-spacer></v-spacer>
           <template v-model="showListView" v-if="showListView">
             <v-tooltip bottom>
-              <v-btn icon slot="activator" @click="showListView = !showGridView">
+              <v-btn
+                icon
+                slot="activator"
+                @click="showListView = !showGridView"
+                >
                 <v-icon>view_module</v-icon>
               </v-btn>
               <span>Switch to Grid View</span>
@@ -42,7 +46,11 @@
           </template>
           <template v-else>
             <v-tooltip bottom>
-              <v-btn icon slot="activator" @click="showListView = !showListView">
+              <v-btn
+                icon
+                slot="activator"
+                @click="showListView = !showListView"
+                >
                 <v-icon>view_list</v-icon>
               </v-btn>
               <span>Switch to List View</span>
@@ -72,14 +80,22 @@
       <!-- search button -->
       <template v-model="showSearchbar" v-if="showSearchbar">
         <v-tooltip bottom>
-          <v-btn icon slot="activator" @click="showSearchbar = !hideSearchbar">
+          <v-btn
+            icon
+            slot="activator"
+            @click="showSearchbar = !hideSearchbar"
+            >
             <v-icon>close</v-icon></v-btn>
           <span>Close Searchbar</span>
         </v-tooltip>
       </template>
       <template v-else>
         <v-tooltip bottom>
-          <v-btn icon slot="activator" @click="showSearchbar = !showSearchbar">
+          <v-btn
+            icon
+            slot="activator"
+            @click="showSearchbar = !showSearchbar"
+            >
             <v-icon>search</v-icon>
           </v-btn>
           <span>Search Resources</span>
@@ -97,38 +113,178 @@
     </v-toolbar>
 
     <v-container fluid grid-list-lg>
-     <!--  <v-layout row wrap>
+      <v-layout row wrap>
         <v-flex md4 xs12>
           <v-card flat class="mb-3 text-xs-center">
-            <v-card-title class="emphasis--medium">Dialogbox</v-card-title>
+            <v-card-title
+              class="emphasis--medium"
+              >
+              Dialogbox
+            </v-card-title>
             <v-card-text>
               <dialogbox></dialogbox>
-              <v-btn color="secondary" @click="openDialogbox">Open Dialog Test</v-btn>
+              <v-btn
+                color="secondary"
+                @click="openDialogbox"
+                >
+                Open Dialog Test
+              </v-btn>
             </v-card-text>
           </v-card>
 
           <v-card class="mb-3">
-            <v-card-title class="emphasis--medium">IconMenu</v-card-title>
+            <v-card-title class="emphasis--medium">
+              Icon Menu
+            </v-card-title>
             <v-card-text>
               <icon-menu></icon-menu>
             </v-card-text>
           </v-card>
         </v-flex>
-      </v-layout> -->
+
+        <v-flex md8 xs12>
+          <v-card class="mb-3">
+            <v-card-title class="emphasis--medium">
+              Tag Card
+            </v-card-title>
+            <v-card-text>
+              <tag :items="tag"></tag>
+            </v-card-text>
+          </v-card>
+
+          <v-card class="mb-3">
+            <v-card-title class="emphasis--medium">
+              Category Card
+            </v-card-title>
+
+            <template v-model="categoryList" v-if="categoryList">
+              <v-card-text>
+                <icon-menu
+                  :label="category.label"
+                  v-model="category.model"
+                  >
+                </icon-menu>
+              </v-card-text>
+              <v-card-text>
+                <v-text-field
+                  box
+                  label="Category Name"
+                  name="category"
+                ></v-text-field>
+              </v-card-text>
+
+              <v-card-title>
+                <v-btn
+                  flat
+                  @click="categoryList = !categoryCreate"
+                  >
+                  Cancel
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  @click="">
+                  Save
+                </v-btn>
+              </v-card-title>
+            </template>
+
+            <template v-else>
+                <v-card-text>
+                  <v-autocomplete
+                    :items="category.items"
+                    :label="category.label"
+                    :multiple="category.multiple"
+                    append-icon="keyboard_arrow_down"
+                    box
+                    chips
+                    hide-details="category.hideDetails"
+                    item-text="name"
+                    item-value="name"
+                    v-model="category.model"
+                    >
+                    <template
+                      slot="selection"
+                      slot-scope="props"
+                      >
+                      <v-chip
+                        :selected="props.selected"
+                        close
+                        class="chip--select-multi"
+                        @input="props.parent.selectItem(props.item)"
+                        >
+                        <v-avatar
+                          :class="category.chipColor"
+                          >
+                          <v-icon
+                            :class="category.iconColor"
+                            small
+                            v-html="props.item.icon"
+                            >
+                          </v-icon>
+                        </v-avatar>
+                        {{ props.item.name }}
+                      </v-chip>
+                    </template>
+                    <template
+                      slot="item"
+                      slot-scope="props"
+                      >
+                      <template v-if="typeof props.item !== 'object'">
+                        <v-list-tile-content
+                          v-text="props.item"
+                          >
+                        </v-list-tile-content>
+                      </template>
+                      <template v-else>
+                        <v-list-tile-action>
+                          <v-icon
+                            v-html="props.item.icon"
+                            >
+                          </v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title
+                            v-if="props.item.name"
+                            v-html="props.item.name"
+                            >
+                          </v-list-tile-title>
+                          <v-list-tile-sub-title
+                            v-if="props.item.group"
+                            v-html="props.item.group"
+                            >
+                          </v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </template>
+                    </template>
+                  </v-autocomplete>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    flat
+                    @click="categoryList = !categoryList"
+                    >
+                    <v-icon left>add</v-icon>
+                    Create Category
+                  </v-btn>
+                </v-card-actions>
+            </template>
+          </v-card>
+        </v-flex>
+      </v-layout>
 
       <v-layout row wrap>
         <v-flex xs12>
           <!-- grid / list view -->
-          <template v-model="showListView" v-if="showListView">
+         <!--  <template v-model="showListView" v-if="showListView">
             <data-table :items="courses"></data-table>
           </template>
 
           <template v-else>
             <data-iterator :items="courses"></data-iterator>
-          </template>
+          </template> -->
           <!-- grid / list view -->
-
-          <!-- <data-table :items="courses"></data-table> -->
         </v-flex>
       </v-layout>
     </v-container>
@@ -156,8 +312,30 @@ export default {
       showGridView: true,
       showSearchbar: false,
       hideSearchbar: true,
-      iconmenu: {
-        multiple: true
+      categoryList: false,
+      categoryCreate: true,
+
+      createCategory: {
+        multiple: false,
+      },
+      category: {
+        model: 'categoryModel',
+        label: 'Choose Category Icon',
+        items: [
+          { name: 'Video', icon: 'videocam' },
+          { name: 'Image', icon: 'photo' },
+        ],
+        multiple: false,
+        chipColor: 'primary',
+        iconColor: 'white--text'
+      },
+      tag: {
+        clearable: false,
+        items: [
+          'Programming',
+          'Reading',
+          'Eating'
+        ],
       },
       courses: {
         selected: [],
@@ -208,6 +386,15 @@ export default {
           },
           {
             id: '3',
+            title: 'Develop Personal Effectiveness at Supervisory Level',
+            thumbnail: '//i.pinimg.com/564x/74/2b/8e/742b8e6e87ef56e698b9c8bc4e930dae.jpg',
+            category: 'DPE OPS',
+            timestamp: '2 hours ago',
+            description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
+            part: '6',
+          },
+          {
+            id: '4',
             title: 'Develop Personal Effectiveness at Supervisory Level',
             thumbnail: '//i.pinimg.com/564x/74/2b/8e/742b8e6e87ef56e698b9c8bc4e930dae.jpg',
             category: 'DPE OPS',

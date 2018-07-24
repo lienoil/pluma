@@ -1,6 +1,6 @@
 export const state = () => ({
   datatable: {
-    search: '',
+    searchTable: '',
     selected: [],
     headers: [],
   }

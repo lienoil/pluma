@@ -18,9 +18,9 @@ export const state = () => ({
     showPart: true,
 
     // Pagination
-    rowsPerPageItems: [4, 8, 12],
+    rowsPerPageItems: [3, 6, 9, 12, 'All'],
     pagination: {
-      rowsPerPage: 4
+      rowsPerPage: 3
     },
 
     // Toolbar

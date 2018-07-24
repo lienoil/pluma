@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="$root.theme.dark">
+  <v-app v-cloak :dark="$root.theme.dark">
     <sidebar
       :title="app.title"
       :logo="app.logo"

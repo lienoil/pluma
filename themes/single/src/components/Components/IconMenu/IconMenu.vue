@@ -1,27 +1,15 @@
-<!-- <template>
-  <v-list>
-    <v-list-tile v-for="(item, index) in iconmenu.items">
-      <v-list-tile-action>
-        <v-icon v-html="item.icon">
-      </v-list-tile-action>
-      <v-list-tile-content>
-        <v-list-tile-title v-html="item.name"></v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
-  </v-list>
-</template> -->
-
 <template>
   <v-autocomplete
-    v-model="iconmenu.model"
     :items="iconmenu.items"
-    box
-    hide-details="iconmenu.hideDetails"
-    chips
     :label="iconmenu.label"
+    :multiple="iconmenu.multiple"
+    append-icon="keyboard_arrow_down"
+    box
+    chips
+    hide-details="iconmenu.hideDetails"
     item-text="name"
     item-value="name"
-    :multiple="iconmenu.multiple"
+    v-model="iconmenu.model"
     >
     <template
       slot="selection"
@@ -55,7 +43,7 @@
       </template>
       <template v-else>
         <v-list-tile-action>
-          <v-icon v-html="props.item.icon">
+          <v-icon v-html="props.item.icon"></v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title v-if="props.item.name" v-html="props.item.name"></v-list-tile-title>

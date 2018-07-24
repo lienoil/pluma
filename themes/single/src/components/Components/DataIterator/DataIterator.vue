@@ -1,11 +1,17 @@
 <template>
   <v-slide-y-transition>
+    <!-- <v-text-field
+      append-icon="search"
+      hide-details
+      label="Search"
+      single-line
+      v-model="dataset.search"
+    ></v-text-field> -->
     <v-data-iterator
       :items="dataset.items"
       :pagination.sync="dataset.pagination"
       :rows-per-page-items="dataset.rowsPerPageItems"
       content-tag="v-layout"
-      transition="scale-transition"
       row
       wrap
       >

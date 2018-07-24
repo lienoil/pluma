@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-toolbar class="transparent">
+    <v-toolbar flat class="primary">
 
     </v-toolbar>
   </section>

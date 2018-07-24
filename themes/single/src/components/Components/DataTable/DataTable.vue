@@ -1,10 +1,17 @@
 <template>
   <v-slide-y-transition>
     <v-card>
+      <!-- <v-text-field
+        append-icon="search"
+        hide-details
+        label="Search"
+        single-line
+        v-model="dataset.searchTable"
+      ></v-text-field> -->
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"
-        :search="dataset.search"
+        :search="dataset.searchTable"
         >
         <template
           slot="items"
@@ -72,7 +79,7 @@
           color="error"
           icon="warning"
           >
-          Your search for "{{ search }}" found no results.
+          Your search for "{{ dataset.searchTable }}" found no results.
         </v-alert>
       </v-data-table>
     </v-card>

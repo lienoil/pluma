@@ -2,10 +2,10 @@ export const state = () => ({
   iconmenu: {
     chipColor: 'primary',
     iconColor: 'white--text',
-    multiple: true,
+    multiple: false,
     hideDetails: true,
-    label: 'Choose Category',
-    model: '',
+    label: 'Choose Icon',
+    model: 'Icon Menu',
     name: 'Categories',
     items: [
       { header: 'Icons' },

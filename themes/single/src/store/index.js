@@ -6,6 +6,7 @@ import { datatable } from '@/components/Components/DataTable/store/modules/datat
 import { dialogbox } from '@/components/Components/Dialog/store/modules/dialogbox'
 import { iconmenu } from '@/components/Components/IconMenu/store/modules/iconmenu'
 import { snackbar } from '@/components/Components/Snackbar/store/modules/snackbar'
+import { tag } from '@/components/Components/Tag/store/modules/tag'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     dialogbox,
     iconmenu,
     snackbar,
+    tag,
   },
   // Making sure that we're doing
   // everything correctly by enabling
