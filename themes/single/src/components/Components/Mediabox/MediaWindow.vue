@@ -1,12 +1,11 @@
 <template>
   <v-card flat>
-
     <!-- Sidebar -->
     <v-navigation-drawer
-      class="media-window__sidebar hidden-sm-and-down"
-      permanent
-      height="100%"
       absolute
+      class="media-window__sidebar hidden-sm-and-down"
+      height="100%"
+      permanent
       width="280"
       >
       <v-list>
@@ -38,7 +37,7 @@
       </v-btn>
 
       <!-- New Menu -->
-      <v-menu>
+      <!-- <v-menu>
         <v-btn large color="primary" slot="activator">{{ trans(windowTitle) }}<v-icon right>arrow_drop_down</v-icon></v-btn>
         <v-list>
 
@@ -95,10 +94,10 @@
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-      </v-menu>
+      </v-menu> -->
       <!-- New Menu -->
 
-      <v-spacer class="hidden-sm-and-down"></v-spacer>
+      <!-- <v-spacer class="hidden-sm-and-down"></v-spacer> -->
 
       <template v-if="mediawindow.toggleview === 'table'">
         <v-tooltip left>
@@ -112,11 +111,13 @@
           <span>Grid view</span>
         </v-tooltip>
       </template>
-      <v-btn icon @click="mediawindow.loading = !mediawindow.loading"><v-icon>info</v-icon></v-btn>
 
+      <v-btn icon @click="toggle('details-view')" v-model="mediabox.options.showDetails"><v-icon>info</v-icon></v-btn>
       <v-btn class="hidden-sm-and-down" icon @click="closeMediaWindow()"><v-icon>close</v-icon></v-btn>
     </v-toolbar>
+
     <v-divider></v-divider>
+
     <v-progress-linear height="2" :indeterminate="mediawindow.loading" class="media-window__progress-linear"></v-progress-linear>
 
     <v-card-text class="media-window__content">
@@ -125,15 +126,17 @@
       </keep-alive>
     </v-card-text>
 
+    <v-divider></v-divider>
+
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="closeMediaWindow()">{{ trans('Done') }}</v-btn>
+      <v-btn color="primary" @click="select()">{{ trans('Done') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import store from '@/components/Components/Folder/store'
+import store from './store'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -152,7 +155,9 @@ export default {
 
   computed: {
     ...mapGetters({
-      folder: 'folder/folder',
+      mediabox: 'mediabox/mediabox',
+      mediawindow: 'mediawindow/mediawindow',
+      mediathumbnail: 'mediathumbnail/mediathumbnail',
     }),
   },
 
@@ -187,10 +192,24 @@ export default {
     }
   },
   methods: {
+    select () {
+      let item = this.mediathumbnail.item
+      this.$store.dispatch('mediawindow/toggle', {model: false})
+      this.$emit('open', item)
+    },
+
     load (item) {
       this.menus.items.map(item => { item.active = false })
       item.active = true
       this.mediawindow.component = item.component
+    },
+
+    toggle (view) {
+      switch (view) {
+        case 'details-view':
+          this.$store.dispatch('mediabox/options', { options: { showDetails: !this.mediabox.options.showDetails } })
+          break
+      }
     },
 
     closeMediaWindow () {

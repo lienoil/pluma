@@ -1,27 +1,44 @@
 <template>
-  <v-card flat color="transparent" height="67vh" @contextmenu="prevent">
+  <v-card flat color="transparent" clsas="media-window" height="67vh" @contextmenu="prevent">
 
     <main-media-window-empty-state v-if="isFilesEmpty"></main-media-window-empty-state>
+
     <quick-recent-media-window v-if="haveQuickRecents"></quick-recent-media-window>
 
-    <v-container fluid grid-list-lg fill-height>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <h4 class="media-window__subheader text--disabled">{{ trans('Files') }}</h4>
-          <media-list :items="folders"></media-list>
+    <v-container fluid fill-height v-if="!isFilesEmpty" class="pa-0">
+      <v-layout row wrap class="ma-0">
+        <v-flex v-bind="{sm9: mediabox.options.showDetails, xs12: !mediabox.options.showDetails}">
+          <v-container fluid fill-height grid-list-lg>
+            <v-layout row wrap>
+              <v-flex xs12>
+                <h4 class="media-window__subheader text--disabled">{{ trans('Files') }}</h4>
+                <media-list :items="mediabox.items"></media-list>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-flex>
+        <v-slide-x-reverse-transition mode="out-in">
+          <v-flex xs12 sm3 v-show="mediabox.options.showDetails">
+            <file-details v-if="mediabox.options.showDetails" v-model="mediabox.selected"></file-details>
+          </v-flex>
+        </v-slide-x-reverse-transition>
       </v-layout>
     </v-container>
   </v-card>
 </template>
 
 <script>
+import store from '../store'
 import MainMediaWindowEmptyState from './MainMediaWindowEmptyState'
 import MediaList from './MediaList'
 import QuickRecentMediaWindow from './QuickRecentMediaWindow'
+import { mapGetters } from 'vuex'
 
 export default {
+  store,
+
   name: 'MainMediaWindow',
+
   components: {
     MainMediaWindowEmptyState,
     QuickRecentMediaWindow,
@@ -31,24 +48,28 @@ export default {
   data () {
     return {
       recents: [],
-      folders: [
-        { renaming: false, type: 'folder', color: 'goldenrod', code: 'pictures', foldertype: 'image', title: 'Pictures' },
-        { renaming: false, type: 'folder', color: 'goldenrod', code: 'music', foldertype: 'audio', title: 'Music' },
-        { renaming: false, type: 'folder', color: 'goldenrod', code: 'generic', foldertype: 'generic', title: 'Apps' },
-        { renaming: false, type: 'folder', color: 'goldenrod', code: 'documents', foldertype: 'generic', title: 'Documents' },
-        { renaming: false, type: 'file', filetype: 'txt', color: '#7171b3', code: 'db_schema', title: 'db_schema.txt' },
-      ],
     }
   },
 
   computed: {
+    ...mapGetters({
+      mediabox: 'mediabox/mediabox',
+    }),
+
     haveQuickRecents () {
       return this.recents.length
     },
 
     isFilesEmpty () {
-      return !this.folders.length
+      return !this.mediabox.items
     }
+  },
+
+  created () {
+    this.$http.get('/api/v1/library/all')
+      .then((response) => {
+        this.$store.dispatch('mediabox/set', {items: response.data.data, total: response.data.total})
+      })
   },
 
   methods: {
@@ -71,6 +92,10 @@ export default {
 
 <style lang="stylus">
 .media-window {
+  div {
+    touch-callout: none;
+    user-select: none;
+  }
   &__subheader {
     touch-callout: none;
     user-select: none;

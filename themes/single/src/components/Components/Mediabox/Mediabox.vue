@@ -6,8 +6,6 @@
       :no-media-text="noMediaText"
       :no-media-thumbnail="noMediaThumbnail"
       :thumbnail="media.thumbnail"
-      @click.native="openMediaWindow()"
-      v-model="media.thumbnail"
     ></media-thumbnail>
     <v-dialog full-width lazy scrollable persistent v-model="mediawindow.model">
       <media-window
@@ -26,10 +24,11 @@ import _isEmpty from 'lodash/isEmpty'
 import _unionBy from 'lodash/unionBy'
 import MediaWindow from './MediaWindow'
 import MediaThumbnail from './MediaThumbnail'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   store,
+
   props: {
     noMediaThumbnail: { type: String, default: AddMediaIcon },
     noMediaText: { type: String, default: 'Add photo' },
@@ -62,29 +61,34 @@ export default {
     // uploadText: { type: String, default: 'Upload' },
     url: { type: Object, default: () => { return { all: '/', search: '/' } } }
   },
+
   model: {
     prop: 'selected'
   },
+
   components: {
     MediaThumbnail,
     MediaWindow,
     AddMediaIcon
   },
+
   computed: {
     ...mapGetters({
-      mediabox: 'mediabox/mediabox'
+      mediabox: 'mediabox/mediabox',
+      mediawindow: 'mediawindow/mediawindow',
     })
   },
+
   data () {
     return {
       thumbnailcard: {
         model: false
       },
-      mediawindow: {
-        model: false
-      },
       selected: [],
       media: {
+        window: {
+          model: false,
+        },
         box: { model: false },
         // headers: this.headers.length ? this.headers : [
         //   { text: 'Name', align: 'left', value: 'name' },
@@ -115,34 +119,21 @@ export default {
       }
     }
   },
-  // watch: {
-  //   'media.url': function (val) {
-  //     this.get()
-  //   },
-  //   'media.search.query': function (val) {
-  //     this.search(val)
-  //   },
-  //   'menuItems': function (val) {
-  //     this.menus.items = val
-  //   },
-  //   'media.pagination': {
-  //     handler () {
-  //       this.get()
-  //     },
-  //     deep: true
-  //   }
-  // },
+
   methods: {
+    ...mapActions({
+      select: 'mediabox/select',
+    }),
+
     prevent (e) {
       e.preventDefault()
     },
 
     openMediaWindow () {
-      this.mediawindow.model = !this.mediawindow.model
-      // this
-      //   .$store
-      //   .dispatch('mediabox/SHOW_WINDOW', Object.assign(this.mediabox, { window: true }))
+      // this.media.window.model = !this.media.window.model
+      this.$store.dispatch('mediawindow/toggle', {model: !this.media.window.model})
     },
+
     get () {
       const { sortBy, descending, page, rowsPerPage } = this.media.pagination
       let query = Object.assign({
@@ -250,6 +241,7 @@ export default {
         this.media.url = url
       }
     },
+
     merge (item1, item2, unique) {
       let updated = JSON.parse(JSON.stringify(this.multiple ? item2 : [item2]))
 

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat tile color="transparent empty_state--hover">
+  <v-card flat tile color="transparent empty_state--hover" @click="toggle">
     <v-toolbar
       v-if="!hideToolbar"
       card
@@ -21,8 +21,10 @@
 
     <!-- Thumbnail Preview -->
     <slot name="preview">
-      <v-card-media v-if="hasThumbnail">
-        <img :src="thumbnail" width="100%" height="auto">
+      <v-card-media v-if="hasThumbnail" :src="mediathumbnail.item.thumbnail" height="200px">
+        <v-layout row wrap fill-height align-start justify-end>
+          <v-btn dark depressed icon small color="error" @click.prevent="unset"><v-icon small>close</v-icon></v-btn>
+        </v-layout>
       </v-card-media>
     </slot>
     <!-- Thumbnail Preview -->
@@ -31,11 +33,12 @@
 
 <script>
 import noMediaThumbnail from '@/components/Icons/MediaIcon'
-import store from '@/components/Components/Folder/store'
-import { mapGetters } from 'vuex'
+import store from './store'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   store,
+
   name: 'MediaThumbnail',
   components: {
     noMediaThumbnail
@@ -52,26 +55,25 @@ export default {
 
   computed: {
     ...mapGetters({
-      file: 'folder/file',
+      mediabox: 'mediabox/mediabox',
+      mediathumbnail: 'mediathumbnail/mediathumbnail',
     }),
+
     hasNoThumbnail: function () {
-      return this.file.selected.type !== 'file'
+      return !this.mediathumbnail.item
     },
 
     hasThumbnail: function () {
-      return this.file.selected.type === 'file' // !== null
+      return this.mediathumbnail.item
     },
   },
 
-  data () {
-    return {
-      //
-    }
+  methods: {
+    ...mapActions({
+      unset: 'mediathumbnail/unset',
+      toggle: 'mediawindow/toggle',
+    }),
   },
-
-  mounted () {
-    console.log(this.file)
-  }
 }
 </script>
 

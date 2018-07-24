@@ -3,7 +3,8 @@
     <drop @drop="dropped">
       <section>
         <v-card
-          :class="{'file-card--active': this.metadata.selected}"
+          :class="{'file-card--active': this.selected}"
+          @blur="unselect"
           @click.native="select"
           @contextmenu="togglemenu"
           @keyup.113="rename"
@@ -23,29 +24,32 @@
               ></component>
             </template>
 
-            <v-card flat color="transparent" @dblclick="open">
-              <folder-icon
-                v-if="metadata.type === 'folder'"
-                :height="size"
-                :icon-color="metadata.color"
-                :width="size"
-              ></folder-icon>
-              <component
-                v-else
-                :height="size"
-                :icon-color="metadata.color"
-                :is="`${metadata.filetype}Icon`"
-                :width="size"
-              ></component>
-            </v-card>
+            <v-tooltip bottom>
+              <v-card slot="activator" flat color="transparent" @dblclick="open">
+                <folder-icon
+                  v-if="metadata.type === 'folder'"
+                  :height="size"
+                  :icon-color="metadata.color"
+                  :width="size"
+                ></folder-icon>
+                <component
+                  v-else
+                  :height="size"
+                  :icon-color="metadata.color"
+                  is="TxtIcon"
+                  :width="size"
+                ></component>
+              </v-card>
+              <span>{{ trans(metadata.filesize) }}</span>
+            </v-tooltip>
 
-            <v-tooltip bottom v-if="!metadata.renaming">
-              <div slot="activator" class="file-card__title mt-1" @dblclick="rename" v-html="trans(metadata.title)"></div>
-              {{ trans(metadata.title) }}
+            <v-tooltip bottom v-if="!renaming">
+              <div slot="activator" class="file-card__title mt-1" @dblclick="rename" v-html="trans(metadata.name)"></div>
+              {{ trans(metadata.name) }}
             </v-tooltip>
 
             <!-- editmode -->
-            <v-text-field v-if="metadata.renaming" @keyup.esc="renamed" v-focus required @focus="$event.target.select()" @blur="renamed" @keyup.enter="renamed" hide-details class="ma-0 file-card__title--renaming" v-model="metadata.title"></v-text-field>
+            <v-text-field v-if="renaming" @keyup.esc="renamed" v-focus required @focus="$event.target.select()" @blur="renamed" @keyup.enter="renamed" hide-details class="ma-0 file-card__title--renaming" v-model="metadata.name"></v-text-field>
             <!-- editmode -->
           </v-card-text>
         </v-card>
@@ -231,18 +235,30 @@ export default {
         show: false,
       },
       renaming: false,
+      selected: false,
       clickcount: 0,
     }
+  },
+
+  mounted () {
+    console.log(this.metadata)
   },
 
   methods: {
     select (e) {
       this.clickcount++
-
       this.metadata.selected = true
-
-      this.$emit('selected', this.metadata)
+      this.selected = true
       this.$store.dispatch('folder/select', this.metadata)
+      this.$emit('selected', this.metadata)
+    },
+
+    unselect (e) {
+      this.clickcount = 0
+      this.metadata.selected = false
+      this.selected = false
+      this.$store.dispatch('folder/unselect')
+      this.$emit('unselected')
     },
 
     open () {
@@ -315,7 +331,9 @@ export default {
 </script>
 
 <style lang="stylus">
-.file-card {
+@import '../../../assets/stylus/theme';
+
+.file-card, .v-card.file-card {
   width: 7.5em;
   text-align: center;
   border: 1px solid transparent;
@@ -349,13 +367,13 @@ export default {
   }
 
   &:hover, &:active, &:focus {
-    background-color: rgba(0,0,0,0.02);
+    background-color: lighten($theme.primary, 88%);
     filter: brightness(110%);
     border-color: rgba(0,0,0,0.1)
   }
 
   &--active {
-    background-color: rgba(255,0,0,0.2);
+    background-color: lighten($theme.primary, 85%);
   }
 }
 </style>

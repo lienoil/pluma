@@ -1,25 +1,22 @@
 <template>
-  <v-layout row wrap align-start justify-start>
+  <v-layout row wrap align-start justify-start @click="unselected">
 
     <template v-for="(item, i) in items">
-      <file
+      <media-file
         :key="i"
-        :metadata.sync="item"
-        :ref="`file-${i}`"
+        :item.sync="item"
+        :ref="`media-file-${i}`"
         :tabindex="i"
-        @dropped="move"
         @remove="remove(item, i)"
-        @open="open"
-        @selected="selected"
         >
-      </file>
+      </media-file>
     </template>
 
   </v-layout>
 </template>
 
 <script>
-import store from '@/components/Components/Folder/store'
+import store from '../store'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -50,42 +47,17 @@ export default {
 
   computed: {
     ...mapGetters({
-      folder: 'folder/folder',
-      contextmenu: 'contextmenu/contextmenu',
-    })
+      mediabox: 'mediabox/mediabox',
+    }),
   },
 
   methods: {
-    open () {
-      alert('opened')
-    },
-
-    menu (e, folder, i) {
-      this.context.x = e.clientX
-      this.context.y = e.clientY
-      this.context.show = true
-      this.context.folders = this.folders
-      this.context.data = folder
-      this.context.id = i
-      this.$store.dispatch('folder/openContextMenu', this.context)
-    },
-
-    move (item, i) {
-      console.log(item, i)
-    },
-
     remove (item, i) {
       this.items.splice(i, 1)
     },
 
-    select () {
-
-    },
-
-    selected (item) {
-      if (item) {
-        alert('File was selected')
-      }
+    unselected () {
+      this.$store.dispatch('mediabox/unselect', {selected: null})
     }
   }
 }

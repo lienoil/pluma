@@ -1,6 +1,7 @@
 export const state = () => ({
   mediathumbnail: {
-    visibility: false
+    visibility: false,
+    item: null
   }
 })
 
@@ -9,18 +10,23 @@ export const getters = {
 }
 
 export const mutations = {
-  SHOW_TOAST: (state, payload) => {
-    payload = Object.assign(state.snackbar, payload, { model: true })
-  }
+  SET: (state, payload) => {
+    state.mediathumbnail.item = payload.item
+  },
+
+  UNSET: (state, payload) => {
+    state.mediathumbnail.item = null
+  },
 }
 
 export const actions = {
-  showToast: (context, payload) => {
-    context.commit('SHOW_TOAST', payload)
+  set: ({commit}, payload) => {
+    commit('SET', payload)
   },
-  hideToast: (context, payload) => {
-    context.commit('HIDE_TOAST', payload)
-  }
+
+  unset: ({commit}, payload) => {
+    commit('UNSET', payload)
+  },
 }
 
 export const mediathumbnail = {

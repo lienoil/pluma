@@ -57,6 +57,10 @@ export const mutations = {
     state.file.selected = payload
   },
 
+  'UNSELECT' (state) {
+    state.file.selected = null
+  },
+
   emptyState () {
     this.replaceState({ folder: null })
   }
@@ -75,6 +79,10 @@ export const actions = {
     if (payload.type === 'file') {
       commit('SELECT_FILE', payload)
     }
+  },
+
+  unselect: ({commit}) => {
+    commit('UNSELECT')
   },
 }
 
