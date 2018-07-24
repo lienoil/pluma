@@ -1,15 +1,15 @@
 <template>
   <v-autocomplete
-    :items="iconmenu.items"
-    :label="iconmenu.label"
-    :multiple="iconmenu.multiple"
+    :hide-details="dataset.hideDetails"
+    :items="dataset.items"
+    :label="dataset.label"
+    :multiple="dataset.multiple"
     append-icon="keyboard_arrow_down"
     box
     chips
-    hide-details="iconmenu.hideDetails"
     item-text="name"
     item-value="name"
-    v-model="iconmenu.model"
+    v-model="dataset.model"
     >
     <template
       slot="selection"
@@ -17,15 +17,14 @@
       >
       <v-chip
         :selected="props.selected"
-        close
         class="chip--select-multi"
         @input="props.parent.selectItem(props.item)"
       >
         <v-avatar
-          :class="iconmenu.chipColor"
+          :class="dataset.chipColor"
           >
           <v-icon
-            :class="iconmenu.iconColor"
+            :class="dataset.iconColor"
             small
             v-html="props.item.icon"
             >
@@ -61,6 +60,26 @@ import { mapGetters } from 'vuex'
 export default {
   store,
   name: 'IconMenu',
+
+  props: {
+    items: {
+      type: [Object, Array],
+      default: () => {
+        return {}
+      }
+    }
+  },
+
+  data () {
+    return {
+      dataset: {}
+    }
+  },
+
+  mounted () {
+    this.dataset = Object.assign({}, this.iconmenu, this.items)
+  },
+
   computed: {
     ...mapGetters({
       iconmenu: 'iconmenu/iconmenu'

@@ -15,15 +15,14 @@
     >
     <template
       slot="selection"
-      slot-scope="props">
+      slot-scope="props"
+      >
       <v-chip
         :selected="props.selected"
         close
         @input="remove(props.item)"
         >
         {{ props.item }}
-        <!-- &nbsp; -->
-        <!-- <span>(interest)</span> -->
       </v-chip>
     </template>
     <template slot="no-data">
@@ -61,9 +60,14 @@ export default {
 
   data () {
     return {
-      dataset: {
+      dataset: {}
+    }
+  },
 
-      }
+  methods: {
+    remove (item) {
+      this.dataset.model.splice(this.dataset.model.indexOf(item), 1)
+      this.dataset.model = [...this.dataset.model]
     }
   },
 

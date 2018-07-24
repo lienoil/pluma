@@ -1,5 +1,6 @@
 export const state = () => ({
   tag: {
+    model: [],
     clearable: true,
     hint: 'To add new tags, type the word on field and press enter.',
     label: 'Choose Tag/s',
@@ -7,7 +8,7 @@ export const state = () => ({
     persistentHint: true,
     search: null,
     items: [],
-  }
+  },
 })
 
 export const getters = {

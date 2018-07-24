@@ -114,7 +114,7 @@
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
-        <v-flex md4 xs12>
+        <v-flex md9 xs12>
           <v-card flat class="mb-3 text-xs-center">
             <v-card-title
               class="emphasis--medium"
@@ -137,12 +137,12 @@
               Icon Menu
             </v-card-title>
             <v-card-text>
-              <icon-menu></icon-menu>
+              <icon-menu :items="iconmenu"></icon-menu>
             </v-card-text>
           </v-card>
         </v-flex>
 
-        <v-flex md8 xs12>
+        <v-flex md3 xs12>
           <v-card class="mb-3">
             <v-card-title class="emphasis--medium">
               Tag Card
@@ -152,21 +152,19 @@
             </v-card-text>
           </v-card>
 
-          <v-card class="mb-3">
-            <v-card-title class="emphasis--medium">
+          <v-card class="hide-overflow mb-3">
+            <v-card-title>
               Category Card
             </v-card-title>
 
-            <template v-model="categoryList" v-if="categoryList">
+            <!-- <template v-model="category.categoryList" v-if="category.categoryList">
               <v-card-text>
-                <icon-menu
-                  :label="category.label"
-                  v-model="category.model"
-                  >
+                <icon-menu :items="categoryIcon">
                 </icon-menu>
               </v-card-text>
               <v-card-text>
                 <v-text-field
+                  :disabled="!category.isEditing"
                   box
                   label="Category Name"
                   name="category"
@@ -176,17 +174,38 @@
               <v-card-title>
                 <v-btn
                   flat
-                  @click="categoryList = !categoryCreate"
+                  @click="category.categoryList = !category.categoryCreate"
                   >
                   Cancel
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn
-                  color="primary"
-                  @click="">
-                  Save
-                </v-btn>
+                <template v-if="category.isEditing">
+                  <v-btn
+                    :disabled="!category.isEditing"
+                    color="primary"
+                    @click="save"
+                    >
+                    Save
+                  </v-btn>
+                </template>
+                <template v-else>
+                  <v-btn
+                    color="secondary"
+                    @click="category.isEditing = !category.isEditing"
+                    >
+                    Edit
+                  </v-btn>
+                </template>
               </v-card-title>
+              <v-snackbar
+                v-model="category.hasSaved"
+                :timeout="2000"
+                absolute
+                bottom
+                left
+              >
+                Your profile has been updated
+              </v-snackbar>
             </template>
 
             <template v-else>
@@ -209,7 +228,6 @@
                       >
                       <v-chip
                         :selected="props.selected"
-                        close
                         class="chip--select-multi"
                         @input="props.parent.selectItem(props.item)"
                         >
@@ -263,13 +281,15 @@
                   <v-spacer></v-spacer>
                   <v-btn
                     flat
-                    @click="categoryList = !categoryList"
+                    @click="category.categoryList = !category.categoryList"
                     >
                     <v-icon left>add</v-icon>
                     Create Category
                   </v-btn>
                 </v-card-actions>
-            </template>
+            </template> -->
+
+            <category :items="category"></category>
           </v-card>
         </v-flex>
       </v-layout>
@@ -312,24 +332,29 @@ export default {
       showGridView: true,
       showSearchbar: false,
       hideSearchbar: true,
-      categoryList: false,
-      categoryCreate: true,
 
       createCategory: {
         multiple: false,
       },
+      iconmenu: {
+        model: '',
+        label: 'Choose Icon Menu'
+      },
       category: {
-        model: 'categoryModel',
-        label: 'Choose Category Icon',
+        hasSaved: false,
+        isEditing: true,
+        categoryList: false,
+        categoryCreate: true,
+        label: 'Choose Category',
         items: [
           { name: 'Video', icon: 'videocam' },
           { name: 'Image', icon: 'photo' },
         ],
-        multiple: false,
-        chipColor: 'primary',
-        iconColor: 'white--text'
+        chipColor: 'secondary',
+        iconColor: 'white--text',
       },
       tag: {
+        model: [],
         clearable: false,
         items: [
           'Programming',
@@ -518,6 +543,11 @@ export default {
         this.courses.pagination.sortBy = column
         this.courses.pagination.descending = false
       }
+    },
+
+    save () {
+      this.category.isEditing = !this.category.isEditing
+      this.category.hasSaved = true
     }
   }
 }

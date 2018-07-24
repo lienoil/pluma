@@ -4,8 +4,8 @@ export const state = () => ({
     iconColor: 'white--text',
     multiple: false,
     hideDetails: true,
-    label: 'Choose Icon',
-    model: 'Icon Menu',
+    label: 'Icon',
+    model: '',
     name: 'Categories',
     items: [
       { header: 'Icons' },
