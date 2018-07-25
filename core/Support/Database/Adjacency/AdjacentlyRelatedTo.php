@@ -261,6 +261,70 @@ class AdjacentlyRelatedTo extends Relation
     }
 
     /**
+     * Retrieves the siblings of the given resource.
+     *
+     * @return mixed
+     */
+    public function siblings()
+    {
+        $query = $this->query;
+        $table = $this->table;
+        $modelTable = $this->model->getTable();
+        $modelKeyName = $this->model->getKeyName();
+        $modelKey = $this->model->getKey();
+        $ancestorKeyName = $this->model->getAncestorKey();
+        $descendantKeyName = $this->model->getDescendantKey();
+        $depthKey = $this->model->getDepthKey();
+        $depth = $this->model->{$depthKey};
+
+        $query
+            ->select(DB::raw('m.*'))
+            ->from(DB::raw("$table AS a"))
+            ->join(DB::raw("$table AS s"), 's.'.$ancestorKeyName, '=', 'a.'.$ancestorKeyName, '')
+            ->join(DB::raw("$modelTable AS m"), 'm.'.$modelKeyName, '=', 's.'.$descendantKeyName, '')
+            ->where('a.'.$descendantKeyName, $modelKey)
+            ->where('s.'.$depthKey, $depth)
+            ->where('m.'.$modelKeyName, '<>', $modelKey);
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the next item on the collection.
+     *
+     * @return mixed
+     */
+    public function next()
+    {
+        $query = $this->query;
+        $key = $this->model->getKey();
+        $keyName = $this->model->getKeyName();
+
+        $sortKey = $this->model->getSortKey();
+        $sort = $this->model->{$sortKey};
+
+        return $query->where($sortKey, '>', $sort);
+    }
+
+    /**
+     * Retrieve the next item on the collection.
+     *
+     * @return mixed
+     */
+    public function previous()
+    {
+        $query = $this->query;
+        $key = $this->model->getKey();
+        $keyName = $this->model->getKeyName();
+
+        $sortKey = $this->model->getSortKey();
+        $sort = $this->model->{$sortKey};
+
+        return $query
+            ->where($sortKey, '<', $sort);
+    }
+
+    /**
      * Attach a model to the parent.
      *
      * @return mixed

@@ -4,7 +4,7 @@ namespace Pluma\Support\Database\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait SlugOrFailScope
+trait SlugOrFail
 {
     /**
      * Limit the query by the slug equal to the given value.

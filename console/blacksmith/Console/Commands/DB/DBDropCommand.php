@@ -2,6 +2,7 @@
 
 namespace Blacksmith\Console\Commands\DB;
 
+use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ class DBDropCommand extends Command
      * @var string
      */
     protected $signature = 'db:drop
-                           {--t|tables= : The table to truncate. If multiple, separate by comma, enclose in quotations}
+                           {tables : The table to truncate. If multiple, separate by comma, enclosed in quotations}
                            {--a|all : Drop all tables including the migrations table}
                            {--f|force : Force drop without user prompt.}
                            ';
@@ -29,15 +30,34 @@ class DBDropCommand extends Command
     protected $description = 'Truncate the tables specified';
 
     /**
+     * The migrator instance.
+     *
+     * @var \Illuminate\Database\Migrations\Migrator
+     */
+    protected $migrator;
+
+    /**
+     * Create a new migration rollback command instance.
+     *
+     * @param  \Illuminate\Database\Migrations\Migrator  $migrator
+     * @return void
+     */
+    public function __construct(Migrator $migrator)
+    {
+        parent::__construct();
+
+        $this->migrator = $migrator;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle(Filesystem $filesystem)
     {
-        $tables = explode(',', $this->option('tables'));
+        $tables = explode(',', $this->argument('tables'));
 
-        // DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
         Schema::disableForeignKeyConstraints();
 
         if ($this->option('all')) {
@@ -48,10 +68,9 @@ class DBDropCommand extends Command
 
             $this->dropAllTables();
         } else {
-            $this->dropTable($tables);
+            $this->dropTables($tables);
         }
 
-        // DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
         Schema::enableForeignKeyConstraints();
     }
 
@@ -64,15 +83,16 @@ class DBDropCommand extends Command
     {
         Schema::dropAllTables();
 
-        $this->info("All tables were dropped.");
+        $this->info("All tables dropped.");
     }
 
     /**
      * Drop specific tables.
      *
+     * @param  array $tables
      * @return void
      */
-    public function dropTable($tables)
+    public function dropTables(array $tables)
     {
         foreach ($tables as $table) {
             $table = trim($table);
@@ -87,8 +107,9 @@ class DBDropCommand extends Command
             }
 
             // Remove from migrations table
-            $className = "Create".studly_case($table)."Table";
-            DB::table(config('database.migrations'))->where('migration_name', '=', $className)->delete();
+            $className = strtolower($table)."_table";
+            $this->migrator->getRepository()->delete($className);
+            DB::table(config('database.migrations'))->where('migration', 'LIKE', '%'.$className)->delete();
         }
     }
 }

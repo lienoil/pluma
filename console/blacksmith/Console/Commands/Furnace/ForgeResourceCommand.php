@@ -46,15 +46,33 @@ class ForgeResourceCommand extends GeneratorCommand
      */
     public function handle()
     {
+        $this->qualifyModule();
+
         if ($this->collection()) {
             $this->type = 'Resource collection';
         }
 
-        if (! $this->module) {
-            $this->module = $this->ask('Specify the module the resource belongs to.', $this->modules());
+        parent::handle();
+    }
+
+    /**
+     * Get the module the file belongs to.
+     *
+     * @return string
+     */
+    protected function qualifyModule()
+    {
+        $module = $this->input->getOption('module');
+
+        if (! $module || ! $this->isModule($module)) {
+            $module = $this->choice("Specify the module the seeder will belong to.", $this->modules());
         }
 
-        parent::handle();
+        $this->module = $this->getModulePath($module);
+
+        $this->input->setOption('module', $this->module);
+
+        return $this->module;
     }
 
     /**
@@ -81,6 +99,16 @@ class ForgeResourceCommand extends GeneratorCommand
     }
 
     /**
+     * Get the root namespace for the class.
+     *
+     * @return string
+     */
+    protected function rootNamespace()
+    {
+        return basename($this->module);
+    }
+
+    /**
      * Get the default namespace for the class.
      *
      * @param  string  $rootNamespace
@@ -88,8 +116,20 @@ class ForgeResourceCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $rootNamespace = $this->module;
         return $rootNamespace.'\Resources';
+    }
+
+    /**
+     * Get the destination class path.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getPath($name)
+    {
+        $name = $this->argument('name');
+        $path = $this->module;
+        return $path.'/Resources/'.$name.'.php';
     }
 
     /**

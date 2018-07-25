@@ -39,9 +39,7 @@ class DBEmptyCommand extends Command
 
         $tables = explode(',', $this->argument('tables'));
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
-        $this->warn("Disabled foreign key checks.");
-        $this->line("");
+        Schema::disableForeignKeyConstraints();
 
         foreach ($tables as $table) {
             $table = trim($table);
@@ -55,9 +53,7 @@ class DBEmptyCommand extends Command
             $this->info("Truncated: Table `{$table}`");
         }
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
-        $this->line("");
-        $this->warn("Re-enabled foreign key checks.");
+        Schema::enableForeignKeyConstraints();
 
         $this->info('Took '.$this->time($n).' to finish the command.');
     }

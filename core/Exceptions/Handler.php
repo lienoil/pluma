@@ -44,7 +44,7 @@ class Handler extends BaseHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($request->ajax()) {
+        if ($request->ajax() || $request->wantsJson() || $request->expectsJson()) {
             return $this->renderAjaxExceptions($request, $exception);
         } else {
             return $this->renderExceptions($request, $exception);
