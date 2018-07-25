@@ -106,11 +106,16 @@
           v-if="dataset.bulk"
           >
           <v-btn
-            @click="dataset.bulkLink"
+            @click="dataset.checkbox = !dataset.checkbox"
             icon
             slot="activator"
             >
-            <v-icon>check_circle</v-icon>
+            <template v-if="dataset.checkbox">
+              <v-icon color="success">check_circle</v-icon>
+            </template>
+            <template v-else>
+              <v-icon>check_circle</v-icon>
+            </template>
           </v-btn>
           <span>Bulk Selection</span>
         </v-tooltip>
@@ -233,7 +238,8 @@ export default {
         uploadTitle: 'Upload',
         searchField: false,
         searchButton: true,
-        dividerVertical: true
+        dividerVertical: true,
+        emptyState: ''
       },
       courses: {
         selected: [],

@@ -99,7 +99,6 @@
                 >
                 <v-btn
                   slot="activator"
-                  dark
                   icon
                   >
                   <v-icon>more_vert</v-icon>

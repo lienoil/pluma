@@ -1,13 +1,13 @@
 <template>
   <v-slide-y-transition>
     <v-card>
-      <!-- <v-text-field
+      <v-text-field
         append-icon="search"
         hide-details
         label="Search"
         single-line
         v-model="dataset.searchTable"
-      ></v-text-field> -->
+      ></v-text-field>
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"
@@ -73,25 +73,37 @@
             </v-tooltip>
           </td>
         </template>
-        <v-alert
-          slot="no-results"
+        <v-card
+          flat
           :value="true"
-          color="error"
-          icon="warning"
+          slot="no-results"
+          class="text-xs-center"
           >
-          Your search for "{{ dataset.searchTable }}" found no results.
-        </v-alert>
+          <v-card-text>
+            <v-avatar size="160px">
+              <img src="@/assets/logo.png" alt="">
+            </v-avatar>
+          </v-card-text>
+          <v-card-text>
+            Your search for
+            "{{ dataset.searchTable }}"
+            found no results.
+          </v-card-text>
+        </v-card>
       </v-data-table>
     </v-card>
   </v-slide-y-transition>
 </template>
 
 <script>
+import AddMediaIcon from '@/components/Icons/AddMediaIcon'
 import store from '@/store'
 import { mapGetters } from 'vuex'
 
 export default {
   store,
+  AddMediaIcon,
+
   name: 'DataTable',
 
   props: {
@@ -111,6 +123,10 @@ export default {
 
   mounted () {
     this.dataset = Object.assign({}, this.datatable, this.items)
+  },
+
+  components: {
+    AddMediaIcon,
   },
 
   computed: {

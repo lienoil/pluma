@@ -167,17 +167,11 @@
       >
     </v-divider>
 
-    <!-- create -->
+    <!-- raised -->
     <v-btn
       color="secondary"
-      v-html="trans(dataset.createTitle)"
-      v-if="dataset.create"
-      >
-    </v-btn>
-    <v-btn
-      color="secondary"
-      v-html="trans(dataset.uploadTitle)"
-      v-if="dataset.upload"
+      v-html="trans(dataset.raisedTitle)"
+      v-if="dataset.raised"
       >
     </v-btn>
   </v-toolbar>

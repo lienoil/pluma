@@ -51,35 +51,32 @@
             </v-card-text>
           </v-card>
 
-          <v-card-media
-            contain
-            @click.stop="dataset.dialog = true"
-            height="160px"
-            :src="dataset.thumbnail">
-          </v-card-media>
           <!-- lightbox -->
+          <v-card>
+            <v-card-media
+              @click.stop="dataset.dialog = true"
+              height="160px"
+              :src="dataset.thumbnail">
+            </v-card-media>
+          </v-card>
+
           <v-dialog
             v-model="dataset.dialog"
-            width="80vw"
-            height="80vh"
+            width="70vw"
             >
-            <v-card>
-              <v-layout row wrap>
-                <v-flex xs9>
-                  <v-card-media
-                    contain
-                    width="100vw"
-                    height="100vh"
-                    :src="dataset.thumbnail"
-                  >
-                  </v-card-media>
+            <v-card height="70vh">
+              <!-- <v-layout row wrap>
+                <v-flex xs12>
+                  <v-card>
+                    <v-card-media
+                      contain
+                      :src="dataset.thumbnail"
+                      >
+                    </v-card-media>
+                  </v-card>
                 </v-flex>
-                <v-flex xs3>
-                  <v-card-text>
-                    { details: }
-                  </v-card-text>
-                </v-flex>
-              </v-layout>
+              </v-layout> -->
+              <img :src="dataset.thumbnail" width="100%" alt="">
             </v-card>
           </v-dialog>
           <!-- lightbox -->
@@ -134,7 +131,6 @@ export default {
         archive: false,
         searchButton: false,
         searchField: false,
-        raised: true,
       },
 
       createCategory: {
@@ -153,7 +149,7 @@ export default {
         categoryCreate: true,
         label: 'Choose Category',
         items: [
-          { name: 'Video', icon: 'videocam' },
+          { name: 'Video', icon: 'mdi-anchor' },
           { name: 'Image', icon: 'photo' },
         ],
         chipColor: 'secondary',
@@ -240,6 +236,9 @@ export default {
 
       library: {
         cardMediaHeight: '120px',
+        pagination: {
+          rowsPerPage: 6
+        },
         lg2: true,
         lg3: false,
         md2: true,

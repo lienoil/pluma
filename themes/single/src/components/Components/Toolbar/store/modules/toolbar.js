@@ -14,14 +14,15 @@ export const state = () => ({
     list: false,
     bulk: true,
     archive: true,
+    raised: true,
     raisedButton: true,
     raisedTitle: 'sdsdsd',
+    raisedColor: 'primary',
+    raisedLink: '',
     searchField: false,
     searchButton: true,
     settings: true,
     dividerVertical: true,
-    raisedColor: 'primary',
-    raisedLink: 'tests/show'
   },
 })
 
