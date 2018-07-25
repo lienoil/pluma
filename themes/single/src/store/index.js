@@ -8,6 +8,7 @@ import { dialogbox } from '@/components/Components/Dialog/store/modules/dialogbo
 import { iconmenu } from '@/components/Components/IconMenu/store/modules/iconmenu'
 import { snackbar } from '@/components/Components/Snackbar/store/modules/snackbar'
 import { tag } from '@/components/Components/Tag/store/modules/tag'
+import { toolbar } from '@/components/Components/Toolbar/store/modules/toolbar'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     iconmenu,
     snackbar,
     tag,
+    toolbar,
   },
   // Making sure that we're doing
   // everything correctly by enabling

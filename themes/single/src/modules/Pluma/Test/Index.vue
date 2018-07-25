@@ -1,116 +1,6 @@
 <template v-cloak>
   <section>
-    <v-toolbar
-      dark
-      flat
-      class="primary sticky v-toolbar__main"
-      >
-      <!-- searchbar -->
-      <template v-model="showSearchbar" v-if="showSearchbar">
-        <!-- <v-slide-x-transition bottom> -->
-          <v-text-field
-            autofocus
-            append-icon="search"
-            class="mr-2"
-            clearable
-            clear-icon="cancel"
-            dark
-            flat
-            full-width
-            hide-details
-            label="Search"
-            single-line
-            solo
-            solo-inverted
-            v-model="courses.search"
-          ></v-text-field>
-        <!-- </v-slide-x-transition> -->
-      </template>
-      <!-- searchbar -->
-
-      <template v-else>
-        <!-- <v-slide-y-transition> -->
-          <v-toolbar-title>All Courses</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <template v-model="showListView" v-if="showListView">
-            <v-tooltip bottom>
-              <v-btn
-                icon
-                slot="activator"
-                @click="showListView = !showGridView"
-                >
-                <v-icon>view_module</v-icon>
-              </v-btn>
-              <span>Switch to Grid View</span>
-            </v-tooltip>
-          </template>
-          <template v-else>
-            <v-tooltip bottom>
-              <v-btn
-                icon
-                slot="activator"
-                @click="showListView = !showListView"
-                >
-                <v-icon>view_list</v-icon>
-              </v-btn>
-              <span>Switch to List View</span>
-            </v-tooltip>
-          </template>
-
-          <v-tooltip bottom>
-            <v-btn
-              icon
-              slot="activator"
-              v-model="courses.bulkDestroy"
-              >
-              <v-icon>check_circle</v-icon>
-            </v-btn>
-            <span>Toggle Bulk Command</span>
-          </v-tooltip>
-
-          <v-tooltip bottom>
-            <v-btn icon slot="activator">
-              <v-icon>archive</v-icon>
-            </v-btn>
-            <span>View Trashed Items</span>
-          </v-tooltip>
-        <!-- </v-slide-y-transition> -->
-      </template>
-
-      <!-- search button -->
-      <template v-model="showSearchbar" v-if="showSearchbar">
-        <v-tooltip bottom>
-          <v-btn
-            icon
-            slot="activator"
-            @click="showSearchbar = !hideSearchbar"
-            >
-            <v-icon>close</v-icon></v-btn>
-          <span>Close Searchbar</span>
-        </v-tooltip>
-      </template>
-      <template v-else>
-        <v-tooltip bottom>
-          <v-btn
-            icon
-            slot="activator"
-            @click="showSearchbar = !showSearchbar"
-            >
-            <v-icon>search</v-icon>
-          </v-btn>
-          <span>Search Resources</span>
-        </v-tooltip>
-      </template>
-      <!-- search button -->
-
-      <v-divider
-        vertical
-        dark
-        class="mx-2"
-        >
-      </v-divider>
-      <v-btn class="secondary">Create</v-btn>
-    </v-toolbar>
+    <toolbar-menu :items="toolbar"></toolbar-menu>
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
@@ -156,140 +46,9 @@
             <v-card-title>
               Category Card
             </v-card-title>
-
-            <!-- <template v-model="category.categoryList" v-if="category.categoryList">
-              <v-card-text>
-                <icon-menu :items="categoryIcon">
-                </icon-menu>
-              </v-card-text>
-              <v-card-text>
-                <v-text-field
-                  :disabled="!category.isEditing"
-                  box
-                  label="Category Name"
-                  name="category"
-                ></v-text-field>
-              </v-card-text>
-
-              <v-card-title>
-                <v-btn
-                  flat
-                  @click="category.categoryList = !category.categoryCreate"
-                  >
-                  Cancel
-                </v-btn>
-                <v-spacer></v-spacer>
-                <template v-if="category.isEditing">
-                  <v-btn
-                    :disabled="!category.isEditing"
-                    color="primary"
-                    @click="save"
-                    >
-                    Save
-                  </v-btn>
-                </template>
-                <template v-else>
-                  <v-btn
-                    color="secondary"
-                    @click="category.isEditing = !category.isEditing"
-                    >
-                    Edit
-                  </v-btn>
-                </template>
-              </v-card-title>
-              <v-snackbar
-                v-model="category.hasSaved"
-                :timeout="2000"
-                absolute
-                bottom
-                left
-              >
-                Your profile has been updated
-              </v-snackbar>
-            </template>
-
-            <template v-else>
-                <v-card-text>
-                  <v-autocomplete
-                    :items="category.items"
-                    :label="category.label"
-                    :multiple="category.multiple"
-                    append-icon="keyboard_arrow_down"
-                    box
-                    chips
-                    hide-details="category.hideDetails"
-                    item-text="name"
-                    item-value="name"
-                    v-model="category.model"
-                    >
-                    <template
-                      slot="selection"
-                      slot-scope="props"
-                      >
-                      <v-chip
-                        :selected="props.selected"
-                        class="chip--select-multi"
-                        @input="props.parent.selectItem(props.item)"
-                        >
-                        <v-avatar
-                          :class="category.chipColor"
-                          >
-                          <v-icon
-                            :class="category.iconColor"
-                            small
-                            v-html="props.item.icon"
-                            >
-                          </v-icon>
-                        </v-avatar>
-                        {{ props.item.name }}
-                      </v-chip>
-                    </template>
-                    <template
-                      slot="item"
-                      slot-scope="props"
-                      >
-                      <template v-if="typeof props.item !== 'object'">
-                        <v-list-tile-content
-                          v-text="props.item"
-                          >
-                        </v-list-tile-content>
-                      </template>
-                      <template v-else>
-                        <v-list-tile-action>
-                          <v-icon
-                            v-html="props.item.icon"
-                            >
-                          </v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                          <v-list-tile-title
-                            v-if="props.item.name"
-                            v-html="props.item.name"
-                            >
-                          </v-list-tile-title>
-                          <v-list-tile-sub-title
-                            v-if="props.item.group"
-                            v-html="props.item.group"
-                            >
-                          </v-list-tile-sub-title>
-                        </v-list-tile-content>
-                      </template>
-                    </template>
-                  </v-autocomplete>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    flat
-                    @click="category.categoryList = !category.categoryList"
-                    >
-                    <v-icon left>add</v-icon>
-                    Create Category
-                  </v-btn>
-                </v-card-actions>
-            </template> -->
-
-            <category :items="category"></category>
+            <v-card-text>
+              <category :items="category"></category>
+            </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
@@ -297,13 +56,16 @@
       <v-layout row wrap>
         <v-flex xs12>
           <!-- grid / list view -->
-         <!--  <template v-model="showListView" v-if="showListView">
+          <template
+            v-model="toolbar.list"
+            v-if="toolbar.list"
+            >
             <data-table :items="courses"></data-table>
           </template>
 
           <template v-else>
             <data-iterator :items="courses"></data-iterator>
-          </template> -->
+          </template>
           <!-- grid / list view -->
         </v-flex>
       </v-layout>
@@ -315,7 +77,6 @@
   .v-input__slot {
     margin-bottom: 0;
   }
-
 </style>
 
 <script>
@@ -327,19 +88,24 @@ export default {
 
   data () {
     return {
-      selected: [],
-      showListView: false,
-      showGridView: true,
-      showSearchbar: false,
-      hideSearchbar: true,
+      toolbar: {
+        color: 'dark',
+        sort: false,
+        filter: false,
+        list: false,
+        raisedColor: 'secondary',
+        raisedTitle: 'Save'
+      },
 
       createCategory: {
         multiple: false,
       },
+
       iconmenu: {
         model: '',
         label: 'Choose Icon Menu'
       },
+
       category: {
         hasSaved: false,
         isEditing: true,
@@ -353,6 +119,7 @@ export default {
         chipColor: 'secondary',
         iconColor: 'white--text',
       },
+
       tag: {
         model: [],
         clearable: false,
@@ -362,6 +129,7 @@ export default {
           'Eating'
         ],
       },
+
       courses: {
         selected: [],
         bulkDestroy: false,
@@ -429,6 +197,7 @@ export default {
           },
         ]
       },
+
       library: {
         cardMediaHeight: '120px',
         lg2: true,
@@ -496,7 +265,8 @@ export default {
     ...mapGetters({
       dialogbox: 'dialogbox/dialogbox',
       iconmenu: 'iconmenu/iconmenu',
-      dataiterator: 'dataiterator/dataiterator'
+      dataiterator: 'dataiterator/dataiterator',
+      toolbar: 'toolbar/toolbar',
     })
   },
 
