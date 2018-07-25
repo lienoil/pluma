@@ -32,12 +32,14 @@
     </template>
     <!-- show searchField -->
 
-    <!-- hide searchField -->
+    <!-- hide searchField && show icon buttons -->
     <template v-else>
+      <!-- toolbar title -->
       <v-toolbar-title
         v-html="trans(dataset.title)"
         >
       </v-toolbar-title>
+
       <v-spacer v-if="dataset.spacer"></v-spacer>
 
       <!-- sort -->
@@ -46,7 +48,7 @@
         v-if="dataset.sort"
         >
         <v-btn
-          @click="dataset.sortLink"
+          :href="dataset.sortLink"
           icon
           slot="activator"
           >
@@ -61,7 +63,7 @@
         v-if="dataset.filter"
         >
         <v-btn
-          @click="dataset.filterLink"
+          :href="dataset.filterLink"
           icon
           slot="activator"
           >
@@ -76,7 +78,7 @@
           <v-btn
             icon
             slot="activator"
-            @click="dataset.list = !dataset.grid"
+            @click="update({toolbar:{list:!dataset.grid}})"
             >
             <v-icon>view_module</v-icon>
           </v-btn>
@@ -90,7 +92,7 @@
           <v-btn
             icon
             slot="activator"
-            @click="dataset.list = !dataset.list"
+            @click="update({toolbar:{list:dataset.grid}})"
             >
             <v-icon>view_list</v-icon>
           </v-btn>
@@ -119,7 +121,7 @@
         v-if="dataset.archive"
         >
         <v-btn
-          @click="dataset.archiveLink"
+          :href="dataset.archiveLink"
           icon
           slot="activator"
           >
@@ -128,9 +130,9 @@
         <span>Trashed List</span>
       </v-tooltip>
     </template>
-    <!-- hide searchField -->
+    <!-- hide searchField && show icon buttons -->
 
-    <!-- searchButton -->
+    <!-- show--searchButton -->
     <template
       v-model="dataset.searchField"
       v-if="dataset.searchField"
@@ -148,7 +150,10 @@
 
     <!-- close--searchButton -->
     <template v-else>
-      <v-tooltip bottom>
+      <v-tooltip
+        bottom
+        v-if="dataset.searchButton"
+        >
         <v-btn
           icon
           slot="activator"
@@ -160,12 +165,26 @@
       </v-tooltip>
     </template>
 
+    <!-- settings -->
+    <v-tooltip
+      bottom
+      v-if="dataset.settings"
+      >
+      <v-btn
+        :href="dataset.settingsLink"
+        icon
+        slot="activator"
+        >
+        <v-icon>settings</v-icon>
+      </v-btn>
+      <span>More Actions</span>
+    </v-tooltip>
+
     <!-- divider vertical -->
     <v-divider
       vertical
       v-if="dataset.dividerVertical"
       class="mr-2"
-      color="white"
       >
     </v-divider>
 
@@ -182,7 +201,7 @@
 
 <script>
 import store from '@/store'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   store,
@@ -201,6 +220,12 @@ export default {
     return {
       dataset: {}
     }
+  },
+
+  methods: {
+    ...mapActions({
+      update: 'toolbar/update',
+    }),
   },
 
   mounted () {

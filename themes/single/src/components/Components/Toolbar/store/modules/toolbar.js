@@ -18,6 +18,7 @@ export const state = () => ({
     raisedTitle: 'sdsdsd',
     searchField: false,
     searchButton: true,
+    settings: true,
     dividerVertical: true,
     raisedColor: 'primary',
     raisedLink: 'tests/show'
@@ -31,7 +32,17 @@ export const getters = {
 export const mutations = {
   emptyState () {
     this.replaceState({ toolbar: null })
-  }
+  },
+
+  'UPDATE' (state, payload) {
+    state.toolbar = Object.assign(state.toolbar, payload)
+  },
+}
+
+export const actions = {
+  update: ({commit}, payload) => {
+    commit('UPDATE', payload)
+  },
 }
 
 export const toolbar = {

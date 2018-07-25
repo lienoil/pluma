@@ -1,6 +1,6 @@
 <template v-cloak>
   <section>
-    <toolbar-menu :items="toolbar"></toolbar-menu>
+    <toolbar-menu :items="toolbarMenu"></toolbar-menu>
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
@@ -42,7 +42,7 @@
             </v-card-text>
           </v-card>
 
-          <v-card class="hide-overflow mb-3">
+          <v-card class="mb-3">
             <v-card-title>
               Category Card
             </v-card-title>
@@ -50,13 +50,30 @@
               <category :items="category"></category>
             </v-card-text>
           </v-card>
+
+          <v-card-media
+            contain
+            @click.stop="dataset.dialog = true"
+            height="160px"
+            :src="dataset.thumbnail">
+          </v-card-media>
+          <!-- lightbox -->
+          <v-dialog
+            v-model="dataset.dialog"
+            max-width="800"
+            >
+            <v-card>
+              <v-card-media :src="dataset.thumbnail"></v-card-media>
+            </v-card>
+          </v-dialog>
+          <!-- lightbox -->
         </v-flex>
       </v-layout>
 
       <v-layout row wrap>
         <v-flex xs12>
           <!-- grid / list view -->
-          <template
+          <!-- <template
             v-model="toolbar.list"
             v-if="toolbar.list"
             >
@@ -65,7 +82,7 @@
 
           <template v-else>
             <data-iterator :items="courses"></data-iterator>
-          </template>
+          </template> -->
           <!-- grid / list view -->
         </v-flex>
       </v-layout>
@@ -88,13 +105,21 @@ export default {
 
   data () {
     return {
-      toolbar: {
+      dataset: {
+        dialog: false,
+        thumbnail: 'https://source.unsplash.com/user/erondu/1600x900',
+      },
+      toolbarMenu: {
         color: 'dark',
         sort: false,
         filter: false,
         list: false,
         raisedColor: 'secondary',
-        raisedTitle: 'Save'
+        raisedTitle: 'Save',
+        bulk: false,
+        archive: false,
+        searchButton: false,
+        searchField: false,
       },
 
       createCategory: {
