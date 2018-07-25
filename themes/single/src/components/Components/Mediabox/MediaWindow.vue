@@ -97,7 +97,7 @@
       </v-menu> -->
       <!-- New Menu -->
 
-      <!-- <v-spacer class="hidden-sm-and-down"></v-spacer> -->
+      <v-spacer class="hidden-sm-and-down"></v-spacer>
 
       <template v-if="mediawindow.toggleview === 'table'">
         <v-tooltip left>

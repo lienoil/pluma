@@ -6,8 +6,8 @@
     <quick-recent-media-window v-if="haveQuickRecents"></quick-recent-media-window>
 
     <v-container fluid fill-height v-if="!isFilesEmpty" class="pa-0">
-      <v-layout row wrap class="ma-0">
-        <v-flex v-bind="{sm9: mediabox.options.showDetails, xs12: !mediabox.options.showDetails}">
+      <v-layout fill-height row wrap class="ma-0">
+        <v-flex fill-height v-bind="{sm9: mediabox.options.showDetails, xs12: !mediabox.options.showDetails}">
           <v-container fluid fill-height grid-list-lg>
             <v-layout row wrap>
               <v-flex xs12>
@@ -17,11 +17,9 @@
             </v-layout>
           </v-container>
         </v-flex>
-        <v-slide-x-reverse-transition mode="out-in">
-          <v-flex xs12 sm3 v-show="mediabox.options.showDetails">
-            <file-details v-if="mediabox.options.showDetails" v-model="mediabox.selected"></file-details>
-          </v-flex>
-        </v-slide-x-reverse-transition>
+        <v-flex fill-height xs12 sm3 v-if="mediabox.options.showDetails" class="media-window__file-details">
+          <file-details v-if="mediabox.options.showDetails" v-model.sync="mediabox.selected"></file-details>
+        </v-flex>
       </v-layout>
     </v-container>
   </v-card>
@@ -96,9 +94,14 @@ export default {
     touch-callout: none;
     user-select: none;
   }
+
   &__subheader {
     touch-callout: none;
     user-select: none;
+  }
+
+  &__file-details {
+    background-color: rgba(0,0,0,0.02);
   }
 }
 </style>

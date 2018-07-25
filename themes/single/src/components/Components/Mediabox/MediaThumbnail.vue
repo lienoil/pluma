@@ -1,5 +1,5 @@
 <template>
-  <v-card flat tile color="transparent empty_state--hover" @click="toggle">
+  <v-card flat tile color="transparent" class="media-thumbnail">
     <v-toolbar
       v-if="!hideToolbar"
       card
@@ -11,22 +11,26 @@
 
     <!-- Empyt States -->
     <slot name="empty">
-      <v-layout v-if="hasNoThumbnail" column wrap align-center justify-center class="pa-4">
-        <component :is="noMediaThumbnail" width="80px" height="80px" class="empty_state--disabled"></component>
-        <div class="grey--text" v-html="noMediaText"></div>
-        <div class="grey--text caption" v-html="noMediaCaption"></div>
-      </v-layout>
+      <v-card flat color="transparent" class="empty_state--hover">
+        <v-layout v-if="hasNoThumbnail" @click="open" column wrap align-center justify-center class="pa-4">
+          <component :is="noMediaThumbnail" width="80px" height="80px" class="empty_state--disabled"></component>
+          <div class="grey--text" v-html="noMediaText"></div>
+          <div class="grey--text caption" v-html="noMediaCaption"></div>
+        </v-layout>
+      </v-card>
     </slot>
     <!-- Empyt States -->
 
     <!-- Thumbnail Preview -->
-    <slot name="preview">
-      <v-card-media v-if="hasThumbnail" :src="mediathumbnail.item.thumbnail" height="200px">
-        <v-layout row wrap fill-height align-start justify-end>
+    <v-card flat v-if="hasThumbnail">
+      <slot name="preview" :props="{item: mediathumbnail.item, unset: unset}">
+        <img :src="mediathumbnail.item.thumbnail" @click.prevent="open" class="media-thumbnail__preview">
+        <v-card-actions>
+          <v-spacer></v-spacer>
           <v-btn dark depressed icon small color="error" @click.prevent="unset"><v-icon small>close</v-icon></v-btn>
-        </v-layout>
-      </v-card-media>
-    </slot>
+        </v-card-actions>
+      </slot>
+    </v-card>
     <!-- Thumbnail Preview -->
   </v-card>
 </template>
@@ -40,9 +44,11 @@ export default {
   store,
 
   name: 'MediaThumbnail',
+
   components: {
     noMediaThumbnail
   },
+
   props: {
     hideToolbar: { type: Boolean, default: false },
     toolbarIcon: { type: String, default: 'landscape' },
@@ -56,6 +62,7 @@ export default {
   computed: {
     ...mapGetters({
       mediabox: 'mediabox/mediabox',
+      mediawindow: 'mediawindow/mediawindow',
       mediathumbnail: 'mediathumbnail/mediathumbnail',
     }),
 
@@ -73,11 +80,23 @@ export default {
       unset: 'mediathumbnail/unset',
       toggle: 'mediawindow/toggle',
     }),
+
+    open () {
+      this.$store.dispatch('mediawindow/toggle', {model: !this.mediawindow.model})
+    },
   },
 }
 </script>
 
 <style lang="stylus">
+.media-thumbnail {
+  &__preview {
+    cursor: pointer;
+    height: auto;
+    position: absolute;
+    width: 100%;
+  }
+}
 .empty {
   &_state {
     &--hover {

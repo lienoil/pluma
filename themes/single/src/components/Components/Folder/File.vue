@@ -8,19 +8,18 @@
           @click.native="select"
           @contextmenu="togglemenu"
           @keyup.113="rename"
-          @keyup.delete="remove"
-          tabindex="0"
           class="file-card"
           flat
+          tabindex="0"
           >
           <v-card-text class="text-xs-center file-card__content pa-1">
 
             <template v-if="metadata.type === 'folder'">
               <component
-                height="31px"
+                height="32px"
                 class="file-card__mimetype"
                 :is="`${metadata.foldertype}Icon`"
-                width="31px"
+                width="32px"
               ></component>
             </template>
 
@@ -32,6 +31,13 @@
                   :icon-color="metadata.color"
                   :width="size"
                 ></folder-icon>
+                <v-card-media
+                  :src="metadata.thumbnail"
+                  class="file-card__thumbnail"
+                  v-else-if="metadata.thumbnail"
+                  height="8em"
+                  >
+                </v-card-media>
                 <component
                   v-else
                   :height="size"
@@ -49,7 +55,7 @@
             </v-tooltip>
 
             <!-- editmode -->
-            <v-text-field v-if="renaming" @keyup.esc="renamed" v-focus required @focus="$event.target.select()" @blur="renamed" @keyup.enter="renamed" hide-details class="ma-0 file-card__title--renaming" v-model="metadata.name"></v-text-field>
+            <v-text-field v-if="renaming" @keyup.esc="renamed" v-focus required @focus="$event.target.select()" @blur="renamed" @keyup.enter="renamed" required class="ma-0 file-card__title--renaming" v-model="metadata.name"></v-text-field>
             <!-- editmode -->
           </v-card-text>
         </v-card>
@@ -110,7 +116,7 @@
               <v-list>
                 <v-list-tile ripple tabindex="0" @click="changetype($event, 'image')">
                   <v-list-tile-action>
-                    <image-icon width="31px" height="31px"></image-icon>
+                    <image-icon width="32px" height="32px"></image-icon>
                   </v-list-tile-action>
                   <v-list-tile-content>
                     <v-list-tile-title>{{ trans('Image') }}</v-list-tile-title>
@@ -241,7 +247,7 @@ export default {
   },
 
   mounted () {
-    console.log(this.metadata)
+    //
   },
 
   methods: {
@@ -250,7 +256,7 @@ export default {
       this.metadata.selected = true
       this.selected = true
       this.$store.dispatch('folder/select', this.metadata)
-      this.$emit('selected', this.metadata)
+      this.$emit('selected', {item: this.metadata})
     },
 
     unselect (e) {
@@ -262,10 +268,6 @@ export default {
     },
 
     open () {
-      if (this.metadata.type === 'folder') {
-
-      }
-
       this.$emit('open', this.metadata)
     },
 
@@ -288,10 +290,16 @@ export default {
     rename (c) {
       this.renaming = true
       this.metadata.renaming = true
+      this.metadata.oldname = this.metadata.name
       this.$emit('renaming')
     },
 
     renamed () {
+      if (!this.metadata.name.length) {
+        this.metadata.name = this.metadata.oldname
+        return false
+      }
+
       // TODO: Check if name is valid
       this.renaming = false
       this.metadata.renaming = false
@@ -318,12 +326,10 @@ export default {
 
     // Drag and Drop
     dragging (data, transferData, nativeElement) {
-      console.log('dragging', transferData, nativeElement)
       this.$emit('dragging', {file: this.metadata, transferData, nativeElement})
     },
 
     dropped (transferData, nativeElement) {
-      console.log('dropped', transferData, nativeElement)
       this.$emit('dropped', {file: this.metadata, transferData, nativeElement})
     }
   },
@@ -334,11 +340,11 @@ export default {
 @import '../../../assets/stylus/theme';
 
 .file-card, .v-card.file-card {
-  width: 7.5em;
   text-align: center;
   border: 1px solid transparent;
   background-color: transparent;
   margin: 0.25em;
+  width: 8em;
 
   &__title {
     display: block;
@@ -360,20 +366,25 @@ export default {
 
   &__mimetype {
     position: absolute;
-    width: 31px;
+    width: 32px;
     left: 28px;
     top: 3em;
     z-index: 3;
   }
 
   &:hover, &:active, &:focus {
-    background-color: lighten($theme.primary, 88%);
+    background-color: rgba(0,0,0,0.05);
     filter: brightness(110%);
     border-color: rgba(0,0,0,0.1)
   }
 
   &--active {
-    background-color: lighten($theme.primary, 85%);
+    background-color: rgba(0,0,0,0.05);
+  }
+
+  &__thumbnail {
+    height: 8em;
+    width: auto;
   }
 }
 </style>

@@ -49,13 +49,17 @@ export default {
       this.$emit('remove', {item, i})
     },
 
-    selected (item) {
-      this.$store.dispatch('mediathumbnail/set', {item: item})
-      this.$store.dispatch('mediabox/select', {selected: item})
-      this.$emit('selected', item)
+    selected ({item}) {
+      this.$nextTick(() => {
+        this.$store.dispatch('mediabox/select', {selected: item})
+        this.$store.dispatch('mediathumbnail/set', {item: item})
+        this.$emit('selected', item)
+      })
     },
 
     unselected () {
+      this.$store.dispatch('mediabox/unselect', {selected: null})
+      this.$store.dispatch('mediathumbnail/unset', {item: null})
       this.$emit('unselected')
     },
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-card @contextmenu="prevent">
+  <v-card @contextmenu.prevent="prevent">
     <media-thumbnail
       :hideToolbar="hideToolbar"
       :no-media-caption="noMediaCaption"
@@ -7,6 +7,7 @@
       :no-media-thumbnail="noMediaThumbnail"
       :thumbnail="media.thumbnail"
     ></media-thumbnail>
+
     <v-dialog full-width lazy scrollable persistent v-model="mediawindow.model">
       <media-window
         :window-icon="windowIcon"
@@ -37,33 +38,15 @@ export default {
     windowIcon: { type: String, default: 'landscape' },
     windowTitle: { type: String, default: 'Mediabox' },
 
-    // closeOnClick: { type: Boolean, default: true },
-    // headers: { type: Array, default: () => { return [] } },
-    // height: { type: String, default: 'auto' },
-    // hideActions: { type: Boolean, default: false },
-    // thumbnailPreview: { type: Boolean, default: false },
-
     hideToolbar: { type: Boolean, default: false },
-    // icon: { type: String, default: 'landscape' },
-    // itemDate: { type: String, default: 'created' },
-    // menuItemId: { type: String, default: 'catalogue_id' },
-    // itemIcon: { type: String, default: 'icon' },
-    // itemMimetype: { type: String, default: 'mimetype' },
-    // itemSize: { type: String, default: 'filesize' },
-    // itemText: { type: String, default: 'text' },
-    // itemValue: { type: String, default: 'value' },
+
     menuItems: { type: Array, default: () => { return [] } },
-    // params: { type: Object, default: () => { return {} } },
-    // multiple: { type: Boolean, default: false },
-    // noImageText: { type: String, default: 'Add image' },
-    // noMediaText: { type: String, default: 'No media found' },
-    // title: { type: String, default: 'Mediabox' },
-    // uploadText: { type: String, default: 'Upload' },
+
     url: { type: Object, default: () => { return { all: '/', search: '/' } } }
   },
 
   model: {
-    prop: 'selected'
+    prop: 'selected',
   },
 
   components: {
@@ -112,6 +95,7 @@ export default {
         },
         toggleview: 'grid'
       },
+
       menus: {
         current: { tabmodel: 'Upload' },
         upload: { name: 'Upload', icon: 'cloud_upload', model: false },
@@ -127,11 +111,6 @@ export default {
 
     prevent (e) {
       e.preventDefault()
-    },
-
-    openMediaWindow () {
-      // this.media.window.model = !this.media.window.model
-      this.$store.dispatch('mediawindow/toggle', {model: !this.media.window.model})
     },
 
     get () {
