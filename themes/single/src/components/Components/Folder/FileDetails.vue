@@ -1,58 +1,47 @@
 <template>
-  <v-card flat color="transparent" class="file-details" height="100%">
-    <v-container fluid v-if="metadata">
-      <v-card flat class="mb-3" color="transparent">
-        <v-layout row wrap align-center justify-center>
-          <v-flex xs12 align-center justify-center>
-            <img width="100%" height="auto" :src="metadata.thumbnail" :alt="metadata.name">
-            <div>
-              <v-icon v-if="metadata.icon" left small>{{ metadata.icon }}</v-icon>
-              <strong>{{ metadata.name }}</strong></div>
-            <div v-if="metadata.description" class="text--disabled"><small>{{ trans(metadata.description) }}</small></div>
-          </v-flex>
-        </v-layout>
-      </v-card>
-      <v-layout row wrap>
-        <v-flex xs4>
-          <small class="text--disabled">{{ trans('File name') }}</small>
-        </v-flex>
-        <v-flex xs8>
-          <small>{{ trans(metadata.filename) }}</small>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex xs4>
-          <small class="text--disabled">{{ trans('Type') }}</small>
-        </v-flex>
-        <v-flex xs8>
-          <small>{{ trans(metadata.mimetype) }}</small>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex xs4>
-          <small class="text--disabled">{{ trans('Size') }}</small>
-        </v-flex>
-        <v-flex xs8>
-          <small>{{ trans(metadata.filesize) }}</small>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex xs4>
-          <small class="text--disabled">{{ trans('Created') }}</small>
-        </v-flex>
-        <v-flex xs8>
-          <small>{{ trans(metadata.created) }}</small>
-        </v-flex>
-      </v-layout>
-    </v-container>
-
-    <v-container fluid align-start justify-center v-else>
-      <v-flex xs12 fill-height align-start justify-center class="text-xs-center">
-        <open-book-icon class="file-details__icon" width="6em" height="6em" :icon-color="color"></open-book-icon>
-        <div class="text--disabled">{{ trans('Select a file or folder to view its details.') }}</div>
+  <v-container fluid fill-height v-if="metadata">
+    <v-layout row wrap>
+      <v-flex xs12 align-center justify-center>
+        <img class="file-details__thumbnail" width="100%" height="auto" :src="metadata.thumbnail" :alt="metadata.name">
+        <div class="mb-3">
+          <v-icon v-if="metadata.icon" left small>{{ metadata.icon }}</v-icon>
+          <strong>{{ metadata.name }}</strong>
+          <div v-if="metadata.description" class="text--disabled"><small>{{ trans(metadata.description) }}</small></div>
+        </div>
       </v-flex>
-    </v-container>
-  </v-card>
+      <v-flex xs4>
+        <small class="text--disabled">{{ trans('File name') }}</small>
+      </v-flex>
+      <v-flex xs8>
+        <small>{{ trans(metadata.filename) }}</small>
+      </v-flex>
+      <v-flex xs4>
+        <small class="text--disabled">{{ trans('Type') }}</small>
+      </v-flex>
+      <v-flex xs8>
+        <small>{{ trans(metadata.mimetype) }}</small>
+      </v-flex>
+      <v-flex xs4>
+        <small class="text--disabled">{{ trans('Size') }}</small>
+      </v-flex>
+      <v-flex xs8>
+        <small>{{ trans(metadata.filesize) }}</small>
+      </v-flex>
+      <v-flex xs4>
+        <small class="text--disabled">{{ trans('Created') }}</small>
+      </v-flex>
+      <v-flex xs8>
+        <small>{{ trans(metadata.created) }}</small>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+  <v-container fluid fill-height align-start justify-center v-else>
+    <v-flex xs12 fill-height align-start justify-center class="text-xs-center">
+      <open-book-icon class="file-details__icon" width="6em" height="6em" :icon-color="color"></open-book-icon>
+      <div class="text--disabled">{{ trans('Select a file or folder to view its details.') }}</div>
+    </v-flex>
+  </v-container>
 </template>
 
 <script>
@@ -84,6 +73,11 @@ export default {
 
   &__icon {
     filter: grayscale(0.8);
+  }
+
+  &__thumbnail {
+    max-height: 500px;
+    max-width: 100%;
   }
 }
 </style>

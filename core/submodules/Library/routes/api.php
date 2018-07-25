@@ -10,5 +10,6 @@ Route::group(['prefix' => 'v1'], function () {
     })->name('library.catalogues');
 
     # API normal routes
-    Route::get('library/all', 'LibraryController@getAll')->name('library.all');
+    Route::get('library', 'LibraryController@getAll')->name('library.all');
+    Route::post('library/find', 'LibraryController@postFind')->name('library.all');
 });

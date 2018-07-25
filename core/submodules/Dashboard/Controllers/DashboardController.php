@@ -17,6 +17,8 @@ class DashboardController extends AdminController
     {
         $pages = \User\Models\User::cached();
 
+        // $library = \Library\Models\Library::first();
+
         return view("Dashboard::pages.dashboard");
     }
 }

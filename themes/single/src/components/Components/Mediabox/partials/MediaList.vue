@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap align-start justify-start @click="unselected">
+  <v-layout row wrap align-start justify-start @click.native="unselected">
 
     <template v-for="(item, i) in items">
       <media-file

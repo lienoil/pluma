@@ -24,7 +24,7 @@
     <!-- Thumbnail Preview -->
     <v-card flat v-if="hasThumbnail">
       <slot name="preview" :props="{item: mediathumbnail.item, unset: unset}">
-        <img :src="mediathumbnail.item.thumbnail" @click.prevent="open" class="media-thumbnail__preview">
+        <img :src="mediathumbnail.item.thumbnail" @contextmenu="open" @click.prevent="open" class="media-thumbnail__preview">
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn dark depressed icon small color="error" @click.prevent="unset"><v-icon small>close</v-icon></v-btn>

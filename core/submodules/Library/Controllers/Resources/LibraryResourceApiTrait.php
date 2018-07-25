@@ -1,10 +1,11 @@
 <?php
 
-namespace Library\Support\Traits;
+namespace Library\Controllers\Resources;
 
 use Illuminate\Http\Request;
 use Library\Models\Library;
 use Library\Requests\LibraryRequest;
+use Library\Resources\Library as LibraryResource;
 use User\Models\User;
 
 trait LibraryResourceApiTrait
@@ -70,7 +71,7 @@ trait LibraryResourceApiTrait
 
         $libraries = $resources->paginate($take);
 
-        return response()->json($libraries);
+        return LibraryResource::collection($libraries);
     }
 
     /**

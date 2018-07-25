@@ -35,7 +35,7 @@ class CreateLibraryTable extends Migration
             $table->string('type')->nullable();
             $table->text('description')->nullable();
             $table->text('thumbnail')->nullable();
-            $table->text('url')->nullable();
+            $table->text('uri')->nullable();
             $table->integer('catalogue_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

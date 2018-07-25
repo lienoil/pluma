@@ -7,11 +7,10 @@ use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Library\Models\Library;
 use Library\Requests\LibraryRequest;
-use Library\Support\Traits\LibraryResourceApiTrait;
 
 class LibraryController extends AdminController
 {
-    use LibraryResourceApiTrait;
+    use Resources\LibraryResourceApiTrait;
 
     /**
      * Display a listing of the resource.

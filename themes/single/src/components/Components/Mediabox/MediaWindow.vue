@@ -102,18 +102,29 @@
       <template v-if="mediawindow.toggleview === 'table'">
         <v-tooltip left>
           <v-btn slot="activator" icon @click="mediawindow.toggleview = 'grid'"><v-icon>list</v-icon></v-btn>
-          <span>List view</span>
+          <span>{{ trans('List view') }}</span>
         </v-tooltip>
       </template>
       <template v-else>
         <v-tooltip left>
           <v-btn slot="activator" icon @click="mediawindow.toggleview = 'table'"><v-icon>view_module</v-icon></v-btn>
-          <span>Grid view</span>
+          <span>{{ trans('Grid view') }}</span>
         </v-tooltip>
       </template>
 
-      <v-btn icon @click="toggle('details-view')" v-model="mediabox.options.showDetails"><v-icon>info</v-icon></v-btn>
-      <v-btn class="hidden-sm-and-down" icon @click="closeMediaWindow()"><v-icon>close</v-icon></v-btn>
+      <template>
+        <v-tooltip left>
+          <v-btn slot="activator" icon @click="toggle('details-view')" v-model="mediabox.toolbar.details.model"><v-icon>info</v-icon></v-btn>
+          <span>{{ trans('Toggle details pane') }}</span>
+        </v-tooltip>
+      </template>
+
+      <template>
+        <v-tooltip left>
+          <v-btn slot="activator" class="hidden-sm-and-down" icon @click="closeMediaWindow()"><v-icon>close</v-icon></v-btn>
+          <span>{{ trans('Close this window') }}</span>
+        </v-tooltip>
+      </template>
     </v-toolbar>
 
     <v-divider></v-divider>
@@ -207,7 +218,13 @@ export default {
     toggle (view) {
       switch (view) {
         case 'details-view':
-          this.$store.dispatch('mediabox/options', { options: { showDetails: !this.mediabox.options.showDetails } })
+          this.$store.dispatch('mediabox/toolbar', {
+            toolbar: {
+              details: {
+                model: !this.mediabox.toolbar.details.model
+              }
+            }
+          })
           break
       }
     },

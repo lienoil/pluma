@@ -3,8 +3,8 @@
     <drop @drop="dropped">
       <section>
         <v-card
-          :class="{'file-card--active': this.selected}"
-          @blur="unselect"
+          :class="{'file-card--active': this.metadata.selected}"
+          @focus="select"
           @click.native="select"
           @contextmenu="togglemenu"
           @keyup.113="rename"
@@ -76,7 +76,7 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title v-if="isFolder">{{ trans('Open') }}</v-list-tile-title>
-                <v-list-tile-title v-else>{{ trans('Preview') }}</v-list-tile-title>
+                <v-list-tile-title v-else>{{ trans('Select') }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
 
@@ -168,7 +168,7 @@
 
             <v-divider></v-divider>
 
-            <v-list-tile ripple tabindex="0" @click="download">
+            <v-list-tile ripple tabindex="0" target="_blank" :href="metadata.url">
               <v-list-tile-action>
                 <v-icon>mdi-download</v-icon>
               </v-list-tile-action>
@@ -263,7 +263,7 @@ export default {
       this.clickcount = 0
       this.metadata.selected = false
       this.selected = false
-      this.$store.dispatch('folder/unselect')
+      // this.$store.dispatch('folder/unselect')
       this.$emit('unselected')
     },
 

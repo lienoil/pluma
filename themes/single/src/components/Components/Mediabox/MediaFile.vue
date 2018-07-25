@@ -50,6 +50,7 @@ export default {
     },
 
     selected ({item}) {
+      this.item.selected = true
       this.$nextTick(() => {
         this.$store.dispatch('mediabox/select', {selected: item})
         this.$store.dispatch('mediathumbnail/set', {item: item})
@@ -59,7 +60,7 @@ export default {
 
     unselected () {
       this.$store.dispatch('mediabox/unselect', {selected: null})
-      this.$store.dispatch('mediathumbnail/unset', {item: null})
+      // this.$store.dispatch('mediathumbnail/unset', {item: null})
       this.$emit('unselected')
     },
   }

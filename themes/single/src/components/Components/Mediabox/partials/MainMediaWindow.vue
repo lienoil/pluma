@@ -1,5 +1,5 @@
 <template>
-  <v-card flat color="transparent" clsas="media-window" height="67vh" @contextmenu="prevent">
+  <v-card flat color="transparent" clsas="media-window" @contextmenu="prevent">
 
     <main-media-window-empty-state v-if="isFilesEmpty"></main-media-window-empty-state>
 
@@ -7,7 +7,7 @@
 
     <v-container fluid fill-height v-if="!isFilesEmpty" class="pa-0">
       <v-layout fill-height row wrap class="ma-0">
-        <v-flex fill-height v-bind="{sm9: mediabox.options.showDetails, xs12: !mediabox.options.showDetails}">
+        <v-flex fill-height v-bind="{sm9: details, xs12: !details}">
           <v-container fluid fill-height grid-list-lg>
             <v-layout row wrap>
               <v-flex xs12>
@@ -17,8 +17,8 @@
             </v-layout>
           </v-container>
         </v-flex>
-        <v-flex fill-height xs12 sm3 v-if="mediabox.options.showDetails" class="media-window__file-details">
-          <file-details v-if="mediabox.options.showDetails" v-model.sync="mediabox.selected"></file-details>
+        <v-flex fill-height xs12 sm3 v-if="details" class="media-window__file-details">
+          <file-details v-if="details" v-model.sync="mediabox.selected"></file-details>
         </v-flex>
       </v-layout>
     </v-container>
@@ -60,11 +60,15 @@ export default {
 
     isFilesEmpty () {
       return !this.mediabox.items
+    },
+
+    details () {
+      return this.mediabox.toolbar.details.model
     }
   },
 
   created () {
-    this.$http.get('/api/v1/library/all')
+    this.$http.get('/api/v1/library')
       .then((response) => {
         this.$store.dispatch('mediabox/set', {items: response.data.data, total: response.data.total})
       })
@@ -74,6 +78,7 @@ export default {
     prevent (e) {
       e.preventDefault()
     },
+
     add () {
       let folder = {
         renaming: true,

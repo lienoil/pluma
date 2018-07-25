@@ -4,8 +4,10 @@ export const state = () => ({
   mediabox: {
     window: false,
     thumbnail: '',
-    options: {
-      showDetails: true,
+    toolbar: {
+      details: {
+        model: false,
+      },
     },
 
     // Mediabox selected object
@@ -46,8 +48,8 @@ export const mutations = {
     state.mediabox.items = payload.items
   },
 
-  OPTIONS: (state, payload) => {
-    state.mediabox.options = Object.assign(state.mediabox.options, payload.options)
+  TOOLBAR: (state, payload) => {
+    state.mediabox.toolbar = Object.assign(state.mediabox.toolbar, payload.toolbar)
   },
 }
 
@@ -72,8 +74,8 @@ export const actions = {
     commit('SET_ITEMS', payload)
   },
 
-  options: ({commit}, payload) => {
-    commit('OPTIONS', payload)
+  toolbar: ({commit}, payload) => {
+    commit('TOOLBAR', payload)
   },
 
   async fetch ({commit}, payload) {

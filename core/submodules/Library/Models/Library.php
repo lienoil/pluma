@@ -6,6 +6,7 @@ use Catalogue\Support\Scopes\OfCatalogue;
 use Catalogue\Support\Traits\BelongsToCatalogue;
 use Frontier\Support\Traits\TypeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Library\Support\Accessors\LibraryAccessor;
 use Library\Support\Mutators\LibraryMutator;
 use Pluma\Models\Model;
 
@@ -13,6 +14,7 @@ class Library extends Model
 {
     use BelongsToCatalogue,
         LibraryMutator,
+        LibraryAccessor,
         OfCatalogue,
         SoftDeletes,
         TypeTrait;

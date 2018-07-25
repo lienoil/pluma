@@ -51,7 +51,7 @@ class ForgeResourceCommand extends GeneratorCommand
         }
 
         if (! $this->module) {
-            $this->module = $this->ask('Specify the module the resource belongs to.', $this->modules());
+            $this->module = $this->choice('Specify the module the resource belongs to.', $this->modules());
         }
 
         parent::handle();
