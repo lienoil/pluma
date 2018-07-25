@@ -2,7 +2,7 @@
 
 namespace Setting\Support\Traits;
 
-trait Themes
+trait Themeable
 {
     /**
      * Gets the registered themes.

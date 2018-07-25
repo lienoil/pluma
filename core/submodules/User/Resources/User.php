@@ -25,6 +25,7 @@ class User extends JsonResource
             'roles' => $this->roles->pluck('alias', 'code'),
             'photo' => $this->photo,
             'created' => $this->created,
+            'api_token' => $this->token,
             'modified' => $this->modified,
         ];
     }
