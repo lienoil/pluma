@@ -24,8 +24,8 @@
     <!-- Thumbnail Preview -->
     <v-card flat v-if="hasThumbnail">
       <slot name="preview" :props="{item: mediathumbnail.item, unset: unset}">
-        <img :src="mediathumbnail.item.thumbnail" @contextmenu="open" @click.prevent="open" class="media-thumbnail__preview">
-        <v-card-actions>
+        <v-card-media :src="mediathumbnail.item.thumbnail" @contextmenu="open" @click.prevent="open" class="media-thumbnail__preview" height="180px"></v-card-media>
+        <v-card-actions class="media-thumbnail__actions">
           <v-spacer></v-spacer>
           <v-btn dark depressed icon small color="error" @click.prevent="unset"><v-icon small>close</v-icon></v-btn>
         </v-card-actions>
@@ -45,11 +45,16 @@ export default {
 
   name: 'MediaThumbnail',
 
+  model: {
+    prop: 'window',
+  },
+
   components: {
     noMediaThumbnail
   },
 
   props: {
+    window: { type: Boolean, default: false },
     hideToolbar: { type: Boolean, default: false },
     toolbarIcon: { type: String, default: 'landscape' },
     toolbarTitle: { type: String, default: 'Media' },
@@ -73,6 +78,10 @@ export default {
     hasThumbnail: function () {
       return this.mediathumbnail.item
     },
+
+    thumbnail: function () {
+      return JSON.parse(JSON.stringify(this.mediathumbnail.item.thumbnail))
+    },
   },
 
   methods: {
@@ -82,7 +91,8 @@ export default {
     }),
 
     open () {
-      this.$store.dispatch('mediawindow/toggle', {model: !this.mediawindow.model})
+      this.$emit('input', !this.window)
+      // this.$store.dispatch('mediawindow/toggle', {model: !this.mediawindow.model})
     },
   },
 }
@@ -93,8 +103,15 @@ export default {
   &__preview {
     cursor: pointer;
     height: auto;
-    position: absolute;
     width: 100%;
+  }
+
+  &__actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
   }
 }
 .empty {

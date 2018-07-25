@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height v-if="metadata">
+  <v-container fluid v-if="metadata">
     <v-layout row wrap>
       <v-flex xs12 align-center justify-center>
         <img class="file-details__thumbnail" width="100%" height="auto" :src="metadata.thumbnail" :alt="metadata.name">

@@ -11,8 +11,15 @@
           <v-container fluid fill-height grid-list-lg>
             <v-layout row wrap>
               <v-flex xs12>
-                <h4 class="media-window__subheader text--disabled">{{ trans('Files') }}</h4>
-                <media-list :items="mediabox.items"></media-list>
+                <template v-if="folder.items.length">
+                  <h4 class="media-window__subheader text--disabled">{{ trans('Folders') }}</h4>
+                  <media-list :items="folder.items"></media-list>
+                </template>
+
+                <template v-if="mediabox.items">
+                  <h4 class="media-window__subheader text--disabled">{{ trans('Files') }}</h4>
+                  <media-list :items="mediabox.items"></media-list>
+                </template>
               </v-flex>
             </v-layout>
           </v-container>
@@ -52,6 +59,7 @@ export default {
   computed: {
     ...mapGetters({
       mediabox: 'mediabox/mediabox',
+      folder: 'folder/folder',
     }),
 
     haveQuickRecents () {
@@ -103,10 +111,16 @@ export default {
   &__subheader {
     touch-callout: none;
     user-select: none;
+    margin-top: 1.5em;
   }
 
   &__file-details {
     background-color: rgba(0,0,0,0.02);
+    height: 100%;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 </style>

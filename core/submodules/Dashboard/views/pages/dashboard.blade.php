@@ -37,6 +37,7 @@
           </v-card> --}}
 
           <mediabox window-title="My Library" class="elevation-0 transparent mb-3" hide-toolbar></mediabox>
+          <mediabox window-title="My Stuff" class="mb-3"></mediabox>
           {{-- @include("Theme::partials.dialogbox") --}}
       </v-flex>
     </v-layout>

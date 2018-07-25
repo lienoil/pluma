@@ -19,9 +19,9 @@ trait LibraryAccessor
      *
      * @return string
      */
-    public function getThumbnailAttribute()
+    public function getPreviewAttribute()
     {
-        return $this->guessThumbnailFromMimeType($this->mimetype, $this->uri);
+        return $this->guessThumbnailFromMimeType($this->mimetype, $this->thumbnail);
     }
 
     /**

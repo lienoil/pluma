@@ -37,8 +37,15 @@
       </v-btn>
 
       <!-- New Menu -->
-      <!-- <v-menu>
-        <v-btn large color="primary" slot="activator">{{ trans(windowTitle) }}<v-icon right>arrow_drop_down</v-icon></v-btn>
+      <v-menu>
+        <v-btn
+          large
+          color="primary"
+          slot="activator"
+          >
+          {{ trans(windowTitle) }}
+          <v-icon right>arrow_drop_down</v-icon>
+        </v-btn>
         <v-list>
 
           <v-dialog v-model="newfolder.model" full-width lazy max-width="320px">
@@ -53,7 +60,7 @@
             <v-card>
               <v-card-title>{{ trans('Create new folder') }}</v-card-title>
               <v-card-text>
-                <v-text-field v-model="folder.new.name" :label="trans('Folder name')" hide-details v-focus @keyup.enter="createNewFolder" @focus="$event.target.select()" :value="trans('New Folder')"></v-text-field>
+                <v-text-field v-model="folder.new.name" :label="trans('Folder name')" hide-details v-focus @keyup.enter="createNewFolder" @focus="$event.target.select()"></v-text-field>
                 <v-combobox v-model="folder.new.foldertype" :label="trans('Folder type')" hide-details :items="folder.foldertypes">
                   <template
                     slot="item"
@@ -94,7 +101,7 @@
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-      </v-menu> -->
+      </v-menu>
       <!-- New Menu -->
 
       <v-spacer class="hidden-sm-and-down"></v-spacer>
@@ -169,6 +176,7 @@ export default {
       mediabox: 'mediabox/mediabox',
       mediawindow: 'mediawindow/mediawindow',
       mediathumbnail: 'mediathumbnail/mediathumbnail',
+      folder: 'folder/folder',
     }),
   },
 
@@ -196,8 +204,8 @@ export default {
       newfolder: {
         model: false,
         item: {
-          name: this.trans('New Folder'),
-          foldertype: 'generic',
+          name: 'New Folder',
+          foldertype: {text: null, value: null},
         }
       },
     }
@@ -239,7 +247,7 @@ export default {
     },
     createNewFolder () {
       this.newfolder.model = false
-      this.$store.dispatch('folder/create', this.newfolder.item)
+      this.$store.dispatch('folder/create', this.folder.new)
     },
     cancelNewFolder () {
       this.newfolder.model = false

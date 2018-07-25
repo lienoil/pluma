@@ -42,6 +42,18 @@ class LibraryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerEloquentFactories();
+    }
+
+    /**
+     * Register the Eloquent factory instance in the container.
+     *
+     * @return void
+     */
+    protected function registerEloquentFactories()
+    {
+        $factoryPath = get_module('library').'/'.basename($this->app->databasePath()).'/factories';
+
+        $this->registerEloquentFactoriesFrom($factoryPath);
     }
 }

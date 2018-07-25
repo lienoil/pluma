@@ -14,40 +14,40 @@
           >
           <v-card-text class="text-xs-center file-card__content pa-1">
 
-            <template v-if="metadata.type === 'folder'">
+            <template v-if="isFolder">
               <component
                 height="32px"
                 class="file-card__mimetype"
-                :is="`${metadata.foldertype}Icon`"
+                :is="`${metadata.foldertype.value}Icon`"
                 width="32px"
               ></component>
             </template>
 
-            <v-tooltip bottom>
-              <v-card slot="activator" flat color="transparent" @dblclick="open">
-                <folder-icon
-                  v-if="metadata.type === 'folder'"
-                  :height="size"
-                  :icon-color="metadata.color"
-                  :width="size"
-                ></folder-icon>
+            <v-card slot="activator" flat color="transparent" @dblclick="open">
+              <folder-icon
+                v-if="metadata.type === 'folder'"
+                :height="size"
+                :icon-color="metadata.color"
+                :width="size"
+              ></folder-icon>
+              <v-tooltip bottom v-else-if="metadata.thumbnail">
                 <v-card-media
                   :src="metadata.thumbnail"
                   class="file-card__thumbnail"
-                  v-else-if="metadata.thumbnail"
                   height="8em"
+                  slot="activator"
                   >
                 </v-card-media>
-                <component
-                  v-else
-                  :height="size"
-                  :icon-color="metadata.color"
-                  is="TxtIcon"
-                  :width="size"
-                ></component>
-              </v-card>
-              <span>{{ trans(metadata.filesize) }}</span>
-            </v-tooltip>
+                <span>{{ trans(metadata.filesize) }}</span>
+              </v-tooltip>
+              <component
+                v-else
+                :height="size"
+                :icon-color="metadata.color"
+                is="TxtIcon"
+                :width="size"
+              ></component>
+            </v-card>
 
             <v-tooltip bottom v-if="!renaming">
               <div slot="activator" class="file-card__title mt-1" @dblclick="rename" v-html="trans(metadata.name)"></div>
@@ -114,7 +114,7 @@
               </v-list-tile>
 
               <v-list>
-                <v-list-tile ripple tabindex="0" @click="changetype($event, 'image')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, {text: 'Image', value: 'image'})">
                   <v-list-tile-action>
                     <image-icon width="32px" height="32px"></image-icon>
                   </v-list-tile-action>
@@ -122,7 +122,7 @@
                     <v-list-tile-title>{{ trans('Image') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile ripple tabindex="0" @click="changetype($event, 'audio')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, {text: 'Audio', value: 'audio'})">
                   <v-list-tile-action>
                     <audio-icon width="25px" height="25px"></audio-icon>
                   </v-list-tile-action>
@@ -130,7 +130,7 @@
                     <v-list-tile-title>{{ trans('Audio') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile ripple tabindex="0" @click="changetype($event, 'archive')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, {text: 'Archive', value: 'archive'})">
                   <v-list-tile-action>
                     <archive-icon width="25px" height="25px"></archive-icon>
                   </v-list-tile-action>
@@ -138,7 +138,7 @@
                     <v-list-tile-title>{{ trans('Archive') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile ripple tabindex="0" @click="changetype($event, 'video')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, {text: 'Video', value: 'video'})">
                   <v-list-tile-action>
                     <video-icon width="25px" height="25px"></video-icon>
                   </v-list-tile-action>
@@ -146,7 +146,7 @@
                     <v-list-tile-title>{{ trans('Video') }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile ripple tabindex="0" @click="changetype($event, 'book')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, {text: 'Book', value: 'book'})">
                   <v-list-tile-action>
                     <book-icon width="25px" height="25px"></book-icon>
                   </v-list-tile-action>
@@ -155,7 +155,7 @@
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
-                <v-list-tile ripple tabindex="0" @click="changetype($event, '')">
+                <v-list-tile ripple tabindex="0" @click="changetype($event, {text: '', value: ''})">
                   <v-list-tile-action>
                     <v-icon>mdi-close</v-icon>
                   </v-list-tile-action>
@@ -166,16 +166,17 @@
               </v-list>
             </v-menu>
 
-            <v-divider></v-divider>
-
-            <v-list-tile ripple tabindex="0" target="_blank" :href="metadata.url">
-              <v-list-tile-action>
-                <v-icon>mdi-download</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ trans('Download') }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+            <template v-if="!isFolder">
+              <v-divider></v-divider>
+              <v-list-tile ripple tabindex="0" target="_blank" :href="metadata.url">
+                <v-list-tile-action>
+                  <v-icon>mdi-download</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ trans('Download') }}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </template>
 
             <v-divider></v-divider>
 

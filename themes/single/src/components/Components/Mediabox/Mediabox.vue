@@ -6,13 +6,14 @@
       :no-media-text="noMediaText"
       :no-media-thumbnail="noMediaThumbnail"
       :thumbnail="media.thumbnail"
+      v-model="media.window.model"
     ></media-thumbnail>
 
-    <v-dialog full-width lazy scrollable persistent v-model="mediawindow.model">
+    <v-dialog full-width lazy scrollable persistent v-model="media.window.model">
       <media-window
         :window-icon="windowIcon"
         :window-title="windowTitle"
-        v-model="mediawindow.model"
+        v-model="media.window.model"
         ></media-window>
     </v-dialog>
   </v-card>
