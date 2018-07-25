@@ -63,8 +63,6 @@
                 {{ props.item.status }}
               </v-chip>
             </v-layout>
-
-
           </v-card-media>
 
           <!-- media-title -->
@@ -93,6 +91,40 @@
               </div>
             </v-toolbar-title>
             <v-spacer></v-spacer>
+            <v-tooltip bottom>
+              <v-menu
+                bottom
+                left
+                slot="activator"
+                >
+                <v-btn
+                  slot="activator"
+                  dark
+                  icon
+                  >
+                  <v-icon>more_vert</v-icon>
+                </v-btn>
+                <v-list dense>
+                  <v-list-tile @click="">
+                    <v-list-tile-avatar>
+                      <v-icon color="warning">delete</v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                      <v-list-tile-title>Move to Trash</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile @click="">
+                    <v-list-tile-avatar>
+                      <v-icon color="error">delete_forever</v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                      <v-list-tile-title>Delete Permanently</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+              <span>More Actions</span>
+            </v-tooltip>
           </v-toolbar>
           <!-- media-title -->
 

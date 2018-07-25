@@ -12,7 +12,6 @@
 
       <!-- show searchField -->
       <template
-        v-model="dataset.searchField"
         v-if="dataset.searchField"
         >
         <v-text-field
@@ -74,7 +73,7 @@
         </v-tooltip>
 
         <!-- grid -->
-        <template v-model="dataset.list" v-if="dataset.list">
+        <template v-if="dataset.list">
           <v-tooltip bottom>
             <v-btn
               icon
@@ -135,7 +134,6 @@
 
       <!-- searchButton -->
       <template
-        v-model="dataset.searchField"
         v-if="dataset.searchField"
         >
         <v-tooltip bottom>
@@ -191,11 +189,8 @@
       <v-layout row wrap>
         <v-flex xs12>
           <!-- grid -->
-          <template
-            v-model="dataset.list"
-            v-if="dataset.list"
-            >
-             <data-table :items="courses"></data-table>
+          <template v-if="dataset.list">
+            <data-table :items="courses"></data-table>
           </template>
 
           <!-- list -->

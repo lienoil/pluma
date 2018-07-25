@@ -60,10 +60,26 @@
           <!-- lightbox -->
           <v-dialog
             v-model="dataset.dialog"
-            max-width="800"
+            width="80vw"
+            height="80vh"
             >
             <v-card>
-              <v-card-media :src="dataset.thumbnail"></v-card-media>
+              <v-layout row wrap>
+                <v-flex xs9>
+                  <v-card-media
+                    contain
+                    width="100vw"
+                    height="100vh"
+                    :src="dataset.thumbnail"
+                  >
+                  </v-card-media>
+                </v-flex>
+                <v-flex xs3>
+                  <v-card-text>
+                    { details: }
+                  </v-card-text>
+                </v-flex>
+              </v-layout>
             </v-card>
           </v-dialog>
           <!-- lightbox -->
@@ -73,16 +89,13 @@
       <v-layout row wrap>
         <v-flex xs12>
           <!-- grid / list view -->
-          <!-- <template
-            v-model="toolbar.list"
-            v-if="toolbar.list"
-            >
+          <template v-if="toolbarMenu.list">
             <data-table :items="courses"></data-table>
           </template>
 
           <template v-else>
-            <data-iterator :items="courses"></data-iterator>
-          </template> -->
+            <data-iterator :items="library"></data-iterator>
+          </template>
           <!-- grid / list view -->
         </v-flex>
       </v-layout>
@@ -105,6 +118,7 @@ export default {
 
   data () {
     return {
+      loaded: false,
       dataset: {
         dialog: false,
         thumbnail: 'https://source.unsplash.com/user/erondu/1600x900',
@@ -120,6 +134,7 @@ export default {
         archive: false,
         searchButton: false,
         searchField: false,
+        raised: true,
       },
 
       createCategory: {

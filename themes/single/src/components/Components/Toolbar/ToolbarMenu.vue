@@ -9,7 +9,6 @@
 
     <!-- show searchField -->
     <template
-      v-model="dataset.searchField"
       v-if="dataset.searchField"
       >
       <v-text-field
@@ -32,14 +31,12 @@
     </template>
     <!-- show searchField -->
 
-    <!-- hide searchField && show icon buttons -->
+    <!-- hide searchField -->
     <template v-else>
-      <!-- toolbar title -->
       <v-toolbar-title
         v-html="trans(dataset.title)"
         >
       </v-toolbar-title>
-
       <v-spacer v-if="dataset.spacer"></v-spacer>
 
       <!-- sort -->
@@ -48,7 +45,7 @@
         v-if="dataset.sort"
         >
         <v-btn
-          :href="dataset.sortLink"
+          @click="dataset.sortLink"
           icon
           slot="activator"
           >
@@ -63,7 +60,7 @@
         v-if="dataset.filter"
         >
         <v-btn
-          :href="dataset.filterLink"
+          @click="dataset.filterLink"
           icon
           slot="activator"
           >
@@ -73,12 +70,12 @@
       </v-tooltip>
 
       <!-- grid -->
-      <template v-model="dataset.list" v-if="dataset.list">
+      <template v-if="dataset.list">
         <v-tooltip bottom>
           <v-btn
             icon
             slot="activator"
-            @click="update({toolbar:{list:!dataset.grid}})"
+            @click="dataset.list = !dataset.grid"
             >
             <v-icon>view_module</v-icon>
           </v-btn>
@@ -92,7 +89,7 @@
           <v-btn
             icon
             slot="activator"
-            @click="update({toolbar:{list:dataset.grid}})"
+            @click="dataset.list = !dataset.list"
             >
             <v-icon>view_list</v-icon>
           </v-btn>
@@ -121,7 +118,7 @@
         v-if="dataset.archive"
         >
         <v-btn
-          :href="dataset.archiveLink"
+          @click="dataset.archiveLink"
           icon
           slot="activator"
           >
@@ -130,11 +127,10 @@
         <span>Trashed List</span>
       </v-tooltip>
     </template>
-    <!-- hide searchField && show icon buttons -->
+    <!-- hide searchField -->
 
-    <!-- show--searchButton -->
+    <!-- searchButton -->
     <template
-      v-model="dataset.searchField"
       v-if="dataset.searchField"
       >
       <v-tooltip bottom>
@@ -150,10 +146,7 @@
 
     <!-- close--searchButton -->
     <template v-else>
-      <v-tooltip
-        bottom
-        v-if="dataset.searchButton"
-        >
+      <v-tooltip bottom>
         <v-btn
           icon
           slot="activator"
@@ -165,35 +158,26 @@
       </v-tooltip>
     </template>
 
-    <!-- settings -->
-    <v-tooltip
-      bottom
-      v-if="dataset.settings"
-      >
-      <v-btn
-        :href="dataset.settingsLink"
-        icon
-        slot="activator"
-        >
-        <v-icon>settings</v-icon>
-      </v-btn>
-      <span>More Actions</span>
-    </v-tooltip>
-
     <!-- divider vertical -->
     <v-divider
       vertical
       v-if="dataset.dividerVertical"
       class="mr-2"
+      color="white"
       >
     </v-divider>
 
-    <!-- raised button -->
+    <!-- create -->
     <v-btn
-      :color="dataset.raisedColor"
-      v-html="trans(dataset.raisedTitle)"
-      v-if="dataset.raisedButton"
-      :href="dataset.raisedLink"
+      color="secondary"
+      v-html="trans(dataset.createTitle)"
+      v-if="dataset.create"
+      >
+    </v-btn>
+    <v-btn
+      color="secondary"
+      v-html="trans(dataset.uploadTitle)"
+      v-if="dataset.upload"
       >
     </v-btn>
   </v-toolbar>
