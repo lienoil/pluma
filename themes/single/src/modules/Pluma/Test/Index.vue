@@ -32,26 +32,14 @@
             </v-card-text>
           </v-card>
 
-          <v-card class="mb-3">
+          <!-- <v-card class="mb-3">
             <lightbox
               id="mylightbox"
               :images="dataset.images"
               :image_class=" 'img-responsive' "
               :options="dataset.options">
             </lightbox>
-          </v-card>
-
-          <!-- <v-layout row wrap>
-            <v-flex md6 xs12>
-              <v-card flex md3 class="mb-3">
-                <v-card-media
-                  height="160px"
-                  :src="media.thumbnail"
-                  >
-                </v-card-media>
-              </v-card>
-            </v-flex>
-          </v-layout> -->
+          </v-card> -->
         </v-flex>
 
         <v-flex md3 xs12>
