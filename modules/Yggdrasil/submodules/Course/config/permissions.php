@@ -73,4 +73,40 @@ return [
         'description' => 'Ability to restore the course from trash',
         'group' => 'course',
     ],
+
+    /**
+     * ------------------------------------------------------------------------------
+     * Student
+     * ------------------------------------------------------------------------------
+     */
+    'my-courses' => [
+        'name' => 'courses.my',
+        'code' => 'my-courses',
+        'description' => 'Ability to view owned courses',
+        'group' => ['course'],
+    ],
+
+    /**
+     * ------------------------------------------------------------------------------
+     * Bookmarked
+     * ------------------------------------------------------------------------------
+     */
+    'bookmarked-courses' => [
+        'name' => 'courses.bookmarked',
+        'code' => 'bookmarked-courses',
+        'description' => 'Ability to view list bookmarked courses',
+        'group' => 'student',
+    ],
+    'bookmark-course' => [
+        'name' => 'courses.bookmark',
+        'code' => 'bookmark-course',
+        'description' => 'Ability to remove from a course from bookmark list',
+        'group' => 'student',
+    ],
+    'unbookmark-course' => [
+        'name' => 'courses.unbookmark',
+        'code' => 'unbookmark-course',
+        'description' => 'Ability to remove from a course from bokmarks list',
+        'group' => 'student',
+    ],
 ];

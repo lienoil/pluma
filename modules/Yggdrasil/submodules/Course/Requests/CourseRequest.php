@@ -2,6 +2,8 @@
 
 namespace Course\Requests;
 
+use Course\Models\Course;
+use Course\Repositories\CourseRepository;
 use Pluma\Requests\FormRequest;
 
 class CourseRequest extends FormRequest
@@ -13,6 +15,8 @@ class CourseRequest extends FormRequest
      */
     public function authorize()
     {
+        return true;
+
         switch ($this->method()) {
             case 'POST':
                 if ($this->user()->can('store-course')) {
@@ -47,12 +51,13 @@ class CourseRequest extends FormRequest
      */
     public function rules()
     {
-        $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
+        // $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
-        return [
-            'name' => 'required|max:255',
-            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
-        ];
+        // return [
+        //     'name' => 'required|max:255',
+        //     'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
+        // ];
+        return CourseRepository::bind($this->course)->rules();
     }
 
     /**

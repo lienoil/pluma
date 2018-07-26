@@ -20,3 +20,4 @@
 Route::softDeletes('users', 'UserController', ['module' => 'Pluma', 'trashed' => 'deactivated']);
 
 Route::resource('users', 'UserController', ['module' => 'Pluma']);
+

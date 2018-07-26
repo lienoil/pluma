@@ -91,6 +91,43 @@ return [
                     'description' => __('View list of all courses moved to trash'),
                 ],
             ],
+
+            /**
+             * ----------------------------------------------------------------------
+             *  My Courses
+             * ----------------------------------------------------------------------
+             *
+             * These routes will be handled by MyCourseController.
+             * # My Courses
+             */
+            'my-courses' => [
+                'name' => 'my-courses',
+                'code' => 'my-courses',
+                'order' => 6,
+                'slug' => route('courses.my'),
+                'always_viewable' => false,
+                // 'exclude_from_root' => true,
+                'labels' => [
+                    'title' => __('My Courses'),
+                    'description' => __('View your current courses'),
+                ],
+            ],
+
+            /**
+             * --------------------------------------------------------------------
+             * Bookmark Course
+             * --------------------------------------------------------------------
+             */
+            // 'bookmarked-courses' => [
+            //     'order' => 7,
+            //     // 'slug' => route('courses.bookmarked'),
+            //     'icon' => 'bookmark',
+            //     'always_viewable' => false,
+            //     'labels' => [
+            //         'title' => __('Bookmarked Courses'),
+            //         'description' => __('View all your bookmarked courses'),
+            //     ],
+            // ],
         ],
     ],
 ];

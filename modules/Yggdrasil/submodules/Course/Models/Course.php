@@ -15,7 +15,10 @@ class Course extends Model
 
     protected $searchables = [
         'title',
+        'slug',
         'code',
+        'feature',
+        'backdrop',
         'body',
         'created_at',
         'updated_at'
