@@ -66,7 +66,7 @@
                 </v-chip>
               </v-layout>
             </v-card-media>
-            <span v-html="props.item.title"></span>
+            <span v-html="trans(props.item.title)"></span>
           </v-tooltip>
 
           <!-- media-title -->
@@ -82,10 +82,10 @@
                 <span
                   :class="dataset.toolbarTitleClass"
                   slot="activator"
-                  v-html="props.item.title"
+                  v-html="trans(props.item.title)"
                   >
                 </span>
-                <span v-html="props.item.title"></span>
+                <span v-html="trans(props.item.title)"></span>
               </v-tooltip>
 
               <div
@@ -138,21 +138,21 @@
             >
             <p
               class="body-2 mb-2 primary--text text--lighten-2">
-              <strong v-html="props.item.category"></strong>
+              <strong v-html="trans(props.item.category)"></strong>
             </p>
             <v-tooltip bottom>
               <h3
                 slot="activator"
                 class="title mb-3 title__text--ellipsis"
-                v-html="props.item.title"
+                v-html="trans(props.item.title)"
                 >
               </h3>
-              <span v-html="props.item.title"></span>
+              <span v-html="trans(props.item.title)"></span>
             </v-tooltip>
             <p>
               <span
                 class="text--ellipsis"
-                v-html="props.item.description"
+                v-html="trans(props.item.description)"
                 >
               </span>
             </p>
@@ -176,7 +176,7 @@
               v-if="dataset.showPart"
               >
               <v-icon class="grey--text">list</v-icon>
-              <span v-html="props.item.part"></span>
+              <span v-html="trans(props.item.part)"></span>
               <span>Parts</span>
             </span>
             <!-- part -->
@@ -196,7 +196,7 @@
                     >
                   </v-icon>
                 </span>
-                <span v-html="props.item.mimetype"></span>
+                <span v-html="trans(props.item.mimetype)"></span>
               </v-tooltip>
             </span>
             <!-- mimetype -->

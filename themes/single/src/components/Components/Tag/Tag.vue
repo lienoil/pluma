@@ -22,7 +22,7 @@
         close
         @input="remove(props.item)"
         >
-        {{ props.item }}
+        {{ trans(props.item) }}
       </v-chip>
     </template>
     <template slot="no-data">

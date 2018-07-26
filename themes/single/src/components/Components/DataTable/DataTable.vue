@@ -37,17 +37,17 @@
               >
               <a
                 href=""
-                v-html="props.item.title"
+                v-html="trans(props.item.title)"
                 slot="activator"
                 >
               </a>
-              <span v-html="props.item.title"></span>
+              <span v-html="trans(props.item.title)"></span>
             </v-tooltip>
           </td>
-          <td v-html="props.item.category"></td>
-          <td v-html="props.item.timestamp"></td>
-          <td v-html="props.item.part"></td>
-          <td v-html="props.item.status"></td>
+          <td v-html="trans(props.item.category)"></td>
+          <td v-html="trans(props.item.timestamp)"></td>
+          <td v-html="trans(props.item.part)"></td>
+          <td v-html="trans(props.item.status)"></td>
           <td class="text-xs-center">
             <v-tooltip bottom width="50">
               <v-btn slot="activator" icon @click="">
