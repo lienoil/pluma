@@ -30,6 +30,21 @@
               <icon-menu :items="iconmenu"></icon-menu>
             </v-card-text>
           </v-card>
+
+          <!-- lightbox -->
+          <v-card class="mb-3">
+            <v-card-media>
+
+            </v-card-media>
+            <lightbox
+              id="mylightbox"
+              :images="dataset.images"
+              :image_class=" 'img-responsive' "
+              :album_class=" 'my-album-class' "
+              :options="options">
+            </lightbox>
+          </v-card>
+          <!-- lightbox -->
         </v-flex>
 
         <v-flex md3 xs12>
@@ -50,41 +65,13 @@
               <category :items="category"></category>
             </v-card-text>
           </v-card>
-
-          <!-- lightbox -->
-          <v-card>
-            <v-card-media
-              @click.stop="dataset.dialog = true"
-              height="160px"
-              :src="dataset.thumbnail">
-            </v-card-media>
-          </v-card>
-
-          <v-dialog
-            v-model="dataset.dialog"
-            width="70vw"
-            >
-            <v-card height="70vh">
-              <!-- <v-layout row wrap>
-                <v-flex xs12>
-                  <v-card>
-                    <v-card-media
-                      contain
-                      :src="dataset.thumbnail"
-                      >
-                    </v-card-media>
-                  </v-card>
-                </v-flex>
-              </v-layout> -->
-              <img :src="dataset.thumbnail" width="100%" alt="">
-            </v-card>
-          </v-dialog>
-          <!-- lightbox -->
         </v-flex>
       </v-layout>
 
       <v-layout row wrap>
         <v-flex xs12>
+          <data-iterator :items="courses"></data-iterator>
+
           <!-- grid / list view -->
           <template v-if="toolbarMenu.list">
             <data-table :items="courses"></data-table>
@@ -109,16 +96,29 @@
 <script>
 import store from '@/store'
 import { mapGetters } from 'vuex'
+import Lightbox from 'vue-simple-lightbox'
 
 export default {
   store,
+
+  components: {
+    Lightbox,
+  },
 
   data () {
     return {
       loaded: false,
       dataset: {
-        dialog: false,
-        thumbnail: 'https://source.unsplash.com/user/erondu/1600x900',
+        images: [
+          {
+            src: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
+            title: 'Lightbox Image Title'
+          },
+          {
+            src: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
+            title: 'Byrushan'
+          }
+        ],
       },
       toolbarMenu: {
         color: 'dark',
@@ -239,6 +239,8 @@ export default {
         pagination: {
           rowsPerPage: 6
         },
+        showToolbar: false,
+        cardActions: false,
         lg2: true,
         lg3: false,
         md2: true,

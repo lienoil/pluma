@@ -14,6 +14,7 @@ export const state = () => ({
     showCardText: true,
 
     // Card Actions
+    cardActions: true,
     showMimetype: true,
     showPart: true,
 

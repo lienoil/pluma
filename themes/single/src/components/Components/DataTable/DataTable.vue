@@ -1,13 +1,13 @@
 <template>
   <v-slide-y-transition>
     <v-card>
-      <v-text-field
+      <!-- <v-text-field
         append-icon="search"
         hide-details
         label="Search"
         single-line
         v-model="dataset.searchTable"
-      ></v-text-field>
+      ></v-text-field> -->
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"

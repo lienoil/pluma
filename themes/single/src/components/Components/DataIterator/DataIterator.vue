@@ -31,39 +31,43 @@
           :hover="dataset.hover"
           :href="dataset.hover ? dataset.cardLink : ''"
           >
-          <v-card-media
-            :class="dataset.cardMediaClass"
-            :height="dataset.cardMediaHeight"
-            :src="props.item.thumbnail"
-            >
-            <!-- <v-layout
-              align-start
-              justify-start
-              class="ma-3"
-              v-if="dataset.bookmark"
+          <v-tooltip bottom>
+            <v-card-media
+              :class="dataset.cardMediaClass"
+              :height="dataset.cardMediaHeight"
+              :src="props.item.thumbnail"
+              slot="activator"
               >
-              <v-btn icon>
-                <v-icon v-html="dataset.bookmark"></v-icon>
-              </v-btn>
-            </v-layout> -->
-
-            <v-layout
-              align-end
-              class="ma-2"
-              justify-end
-              v-if="dataset.chip"
-              >
-              <v-chip
-                class="elevation-2"
-                color="success"
-                dark
-                text-color="white"
-                v-if="props.item.status"
+              <!-- <v-layout
+                align-start
+                justify-start
+                class="ma-3"
+                v-if="dataset.bookmark"
                 >
-                {{ props.item.status }}
-              </v-chip>
-            </v-layout>
-          </v-card-media>
+                <v-btn icon>
+                  <v-icon v-html="dataset.bookmark"></v-icon>
+                </v-btn>
+              </v-layout> -->
+
+              <v-layout
+                align-end
+                class="ma-2"
+                justify-end
+                v-if="dataset.chip"
+                >
+                <v-chip
+                  class="elevation-2"
+                  color="success"
+                  dark
+                  text-color="white"
+                  v-if="props.item.status"
+                  >
+                  {{ props.item.status }}
+                </v-chip>
+              </v-layout>
+            </v-card-media>
+            <span v-html="props.item.title"></span>
+          </v-tooltip>
 
           <!-- media-title -->
           <v-toolbar
@@ -158,6 +162,7 @@
           <v-card-actions
             bottom
             class="grey--text pa-3"
+            v-if="dataset.cardActions"
             >
             <span
               class="body-1"
