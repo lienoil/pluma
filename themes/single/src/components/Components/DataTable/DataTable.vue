@@ -50,25 +50,25 @@
           <td v-html="props.item.status"></td>
           <td class="text-xs-center">
             <v-tooltip bottom width="50">
-              <v-icon
-                slot="activator"
-                small
-                class="mx-3"
-                @click=""
-                >
-                edit
-              </v-icon>
+              <v-btn slot="activator" icon @click="">
+                <v-icon
+                  small
+                  class="mx-3"
+                  >
+                  edit
+                </v-icon>
+              </v-btn>
               <span>Edit</span>
             </v-tooltip>
             <v-tooltip bottom>
-              <v-icon
-                slot="activator"
-                small
-                class="mx-3"
-                @click=""
-                >
-                delete
-              </v-icon>
+              <v-btn slot="activator" icon @click="">
+                <v-icon
+                  small
+                  class="mx-3"
+                  >
+                  delete
+                </v-icon>
+              </v-btn>
               <span>Delete</span>
             </v-tooltip>
           </td>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <!-- <toolbar-main :items="dataset"></toolbar-main> -->
+    <!-- <toolbar-menu :items="dataset"></toolbar-menu> -->
 
     <v-toolbar
       :class="dataset.toolbarClass"
@@ -78,7 +78,7 @@
             <v-btn
               icon
               slot="activator"
-              @click="dataset.list = !dataset.grid"
+              @click="toggleGrid"
               >
               <v-icon>view_module</v-icon>
             </v-btn>
@@ -92,7 +92,7 @@
             <v-btn
               icon
               slot="activator"
-              @click="dataset.list = !dataset.list"
+              @click="toggleList"
               >
               <v-icon>view_list</v-icon>
             </v-btn>
@@ -321,6 +321,13 @@ export default {
   },
 
   methods: {
+    toggleList () {
+      this.dataset.list = !this.dataset.list
+    },
+
+    toggleGrid () {
+      this.dataset.list = !this.dataset.grid
+    },
 
     toggleAll () {
       if (this.courses.selected.length) this.courses.selected = []

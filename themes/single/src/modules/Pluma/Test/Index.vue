@@ -1,6 +1,7 @@
 <template v-cloak>
   <section>
-    <toolbar-menu :items="toolbarMenu"></toolbar-menu>
+    <toolbar-menu :items="toolbarMenu">
+    </toolbar-menu>
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
@@ -31,8 +32,7 @@
             </v-card-text>
           </v-card>
 
-          <!-- lightbox -->
-          <v-card class="mb-3">
+          <!-- <v-card class="mb-3">
             <v-card-media>
 
             </v-card-media>
@@ -43,8 +43,7 @@
               :album_class=" 'my-album-class' "
               :options="options">
             </lightbox>
-          </v-card>
-          <!-- lightbox -->
+          </v-card> -->
         </v-flex>
 
         <v-flex md3 xs12>
@@ -70,7 +69,7 @@
 
       <v-layout row wrap>
         <v-flex xs12>
-          <data-iterator :items="courses"></data-iterator>
+          <data-iterator :items="library"></data-iterator>
 
           <!-- grid / list view -->
           <template v-if="toolbarMenu.list">
@@ -78,7 +77,7 @@
           </template>
 
           <template v-else>
-            <data-iterator :items="library"></data-iterator>
+            <data-iterator :items="courses"></data-iterator>
           </template>
           <!-- grid / list view -->
         </v-flex>
@@ -107,7 +106,6 @@ export default {
 
   data () {
     return {
-      loaded: false,
       dataset: {
         images: [
           {
@@ -120,17 +118,12 @@ export default {
           }
         ],
       },
+
       toolbarMenu: {
-        color: 'dark',
-        sort: false,
-        filter: false,
+        color: 'primary',
         list: false,
         raisedColor: 'secondary',
-        raisedTitle: 'Save',
-        bulk: false,
-        archive: false,
-        searchButton: false,
-        searchField: false,
+        raisedTitle: 'Create',
       },
 
       createCategory: {
@@ -239,7 +232,7 @@ export default {
         pagination: {
           rowsPerPage: 6
         },
-        showToolbar: false,
+        showToolbar: true,
         cardActions: false,
         lg2: true,
         lg3: false,
@@ -312,6 +305,14 @@ export default {
   },
 
   methods: {
+    toggleList () {
+      this.dataset.list = !this.dataset.list
+    },
+
+    toggleGrid () {
+      this.dataset.list = !this.dataset.grid
+    },
+
     openDialogbox () {
       this.$store.dispatch(
         'dialogbox/PROMPT_DIALOG',
@@ -342,10 +343,10 @@ export default {
       )
     },
 
-    toggleAll () {
-      if (this.courses.selected.length) this.courses.selected = []
-      else this.courses.selected = this.courses.items.slice()
-    },
+    // toggleAll () {
+    //   if (this.courses.selected.length) this.courses.selected = []
+    //   else this.courses.selected = this.courses.items.slice()
+    // },
 
     changeSort (column) {
       if (this.courses.pagination.sortBy === column) {

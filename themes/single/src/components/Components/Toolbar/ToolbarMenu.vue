@@ -75,7 +75,7 @@
           <v-btn
             icon
             slot="activator"
-            @click="dataset.list = !dataset.grid"
+            @click="toggleGrid"
             >
             <v-icon>view_module</v-icon>
           </v-btn>
@@ -89,7 +89,7 @@
           <v-btn
             icon
             slot="activator"
-            @click="dataset.list = !dataset.list"
+            @click="toggleList"
             >
             <v-icon>view_list</v-icon>
           </v-btn>
@@ -204,6 +204,14 @@ export default {
     ...mapActions({
       update: 'toolbar/update',
     }),
+
+    toggleList () {
+      this.dataset.list = !this.dataset.list
+    },
+
+    toggleGrid () {
+      this.dataset.list = !this.dataset.grid
+    },
   },
 
   mounted () {
