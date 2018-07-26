@@ -32,18 +32,26 @@
             </v-card-text>
           </v-card>
 
-          <!-- <v-card class="mb-3">
-            <v-card-media>
-
-            </v-card-media>
+          <v-card class="mb-3">
             <lightbox
               id="mylightbox"
               :images="dataset.images"
               :image_class=" 'img-responsive' "
-              :album_class=" 'my-album-class' "
-              :options="options">
+              :options="dataset.options">
             </lightbox>
-          </v-card> -->
+          </v-card>
+
+          <!-- <v-layout row wrap>
+            <v-flex md6 xs12>
+              <v-card flex md3 class="mb-3">
+                <v-card-media
+                  height="160px"
+                  :src="media.thumbnail"
+                  >
+                </v-card-media>
+              </v-card>
+            </v-flex>
+          </v-layout> -->
         </v-flex>
 
         <v-flex md3 xs12>
@@ -69,10 +77,10 @@
 
       <v-layout row wrap>
         <v-flex xs12>
-          <data-iterator :items="library"></data-iterator>
+          <!-- <data-iterator :items="library"></data-iterator> -->
 
           <!-- grid / list view -->
-          <template v-if="toolbarMenu.list">
+          <template v-show="togglelist">
             <data-table :items="courses"></data-table>
           </template>
 
@@ -101,11 +109,14 @@ export default {
   store,
 
   components: {
-    Lightbox,
+    Lightbox
   },
 
   data () {
     return {
+      media: {
+        thumbnail: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png'
+      },
       dataset: {
         images: [
           {
@@ -117,6 +128,10 @@ export default {
             title: 'Byrushan'
           }
         ],
+        options: {
+          captionPosition: 'top',
+          scaleImageToRatio: true
+        }
       },
 
       toolbarMenu: {
@@ -142,7 +157,7 @@ export default {
         categoryCreate: true,
         label: 'Choose Category',
         items: [
-          { name: 'Video', icon: 'mdi-anchor' },
+          { name: 'Video', icon: 'videocam' },
           { name: 'Image', icon: 'photo' },
         ],
         chipColor: 'secondary',

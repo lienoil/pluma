@@ -17,7 +17,7 @@
           slot="items"
           slot-scope="props"
           >
-          <template v-if="dataset.checkbox">
+          <template>
             <td>
               <v-checkbox
                 hide-details

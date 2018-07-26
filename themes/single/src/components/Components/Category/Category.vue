@@ -100,10 +100,11 @@
         <v-spacer></v-spacer>
         <v-btn
           flat
+          color="secondary"
           @click="dataset.categoryList = !dataset.categoryList"
           >
           <v-icon left>add</v-icon>
-          Create New Category
+          Create
         </v-btn>
       </v-card-actions>
     </v-template>

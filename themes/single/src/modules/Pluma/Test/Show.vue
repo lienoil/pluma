@@ -106,7 +106,7 @@
           v-if="dataset.bulk"
           >
           <v-btn
-            @click="toggleList"
+            @click=""
             icon
             slot="activator"
             >
@@ -204,8 +204,26 @@
           </template>
 
           <!-- cover image -->
-          <cover-image :items="coverimage"></cover-image>
+          <!-- <cover-image :items="coverimage"></cover-image> -->
         </v-flex>
+
+          <v-btn
+            color="primary"
+            dark
+            @click.stop="dialogbox.dialog = true"
+          >
+            Open Dialog
+          </v-btn>
+
+          <v-dialog
+            v-model="dialogbox.dialog"
+            max-width=""
+            flat
+            >
+            <div class="text-xs-center">
+              <img :src="dialogbox.src" alt="">
+            </div>
+          </v-dialog>
       </v-layout>
     </v-container>
   </section>
@@ -220,6 +238,10 @@ export default {
 
   data () {
     return {
+      dialogbox: {
+        dialog: false,
+        src: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png'
+      },
       dataset: {
         model: '',
         title: '',
