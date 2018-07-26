@@ -2,6 +2,8 @@
 
 namespace Course\API\Controllers;
 
+use Pluma\API\Controllers\APIController;
+
 class BookmarkCourseController extends APIController
 {
     /**

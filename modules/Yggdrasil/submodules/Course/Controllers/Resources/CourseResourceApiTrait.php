@@ -95,6 +95,7 @@ trait CourseResourceApiTrait
      */
     public function postStore(CourseRequest $request)
     {
+        dd('api', $request->all());
         $course = new Course();
         $course->title = $request->input('title');
         $course->slug = $request->input('slug');

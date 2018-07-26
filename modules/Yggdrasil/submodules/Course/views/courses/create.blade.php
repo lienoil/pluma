@@ -49,20 +49,23 @@
             </li>
           @endforeach
         </ul> --}}
-        <form action="{{ route('courses.store') }}" method="POST">
+        <form action="{{ route('api.courses.store') }}" method="POST">
           {{ csrf_field() }}
-          Title : <input type="text" name="title">
+          <input type="text" name="api_token" value="{{ user()->token }}">
           <br>
-          Slug : <input type="text" name="slug">
+          Title : <input type="text" name="title" value="posdaowe12120d">
           <br>
-          Code : <input type="text" name="code">
+          Slug : <input type="text" name="slug" value="posdaowe12120d">
           <br>
-          Feature : <input type="text" name="feature">
+          Code : <input type="text" name="code" value="posdaowe12120d">
           <br>
-          Backdrop : <input type="text" name="backdrop">
+          Feature : <input type="text" name="feature" value="posdaowe12120d">
           <br>
-          Body : <input type="text" name="body">
+          Backdrop : <input type="text" name="backdrop" value="posdaowe12120d">
           <br>
+          Body : <input type="text" name="body" value="posdaowe12120d">
+          <br>
+          <input type="text" name="lessons[0][title]" value="">
           <button type="submit">Submit</button>
         </form>
       </v-flex>

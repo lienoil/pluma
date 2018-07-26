@@ -15,7 +15,12 @@ class CourseRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        // TODO:
+        // added check if user is Root to skip authorization
+        // ENDTODO
+        if ($this->user()->isRoot()) {
+            return true;
+        }
 
         switch ($this->method()) {
             case 'POST':
@@ -37,7 +42,7 @@ class CourseRequest extends FormRequest
                 break;
 
             default:
-                return false;
+                return $this->user()->isRoot();
                 break;
         }
 
@@ -51,13 +56,15 @@ class CourseRequest extends FormRequest
      */
     public function rules()
     {
-        // $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
-
-        // return [
-        //     'name' => 'required|max:255',
-        //     'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:courses'.$isUpdating,
-        // ];
-        return CourseRepository::bind($this->course)->rules();
+        // TODO:
+        // Updated your code.
+        // your $this->course will return null,
+        // we only use "$this->course " if the route has a {course}
+        // E.g. routes/admin.php => Route::get('/courses/{course}', '...');
+        //
+        // Most of the time, the code below will work on all modules
+        // ENDTODO
+        return CourseRepository::rules();
     }
 
     /**
@@ -67,8 +74,9 @@ class CourseRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
-        ];
+        // TODO:
+        // Replaced messages to use the messages defined in CourseRepository
+        // ENDTODO
+        return CourseRepository::messages();
     }
 }

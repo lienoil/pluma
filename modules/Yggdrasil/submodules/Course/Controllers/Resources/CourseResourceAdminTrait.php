@@ -14,11 +14,18 @@ trait CourseResourceAdminTrait
     /**
      * Show list of resources.
      *
+     * // TODO:
+     * // Reference the fully qualified name, e.g. "\Illuminate\Http\Request"
+     * // with leading "\"
+     * // ENDTODO
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
+        // TODO:
+        // remove extra space
+        // ENDTODO
 
         $resources = Course::search($request->all())->paginate();
 
@@ -32,6 +39,9 @@ trait CourseResourceAdminTrait
      */
     public function create(Request $request)
     {
+        // TODO:
+        // remove this block of comments lines 45-72
+        // ENDTODO
         // // $resource = Course::first();
         // app()->singleton(\Illuminate\Contracts\Console\Kernel::class, \Blacksmith\Console\Kernel::class);
         // \Blacksmith\Support\Facades\Blacksmith::call('db:truncate', ['tables' => 'lessons,courses,lessonstree']);
@@ -59,9 +69,15 @@ trait CourseResourceAdminTrait
         //     $topic->course()->associate($course);
         //     $chapter->adjaceables()->attach($topic);
         // });
-
+        // TODO:
+        // remove extra space
+        // ENDTODO
 
         $resource = Course::first();
+        // TODO:
+        // add extra space before the return statement
+        // ENDTODO
+
         return view('Course::courses.create')->with(compact('resource'));
     }
 
@@ -73,7 +89,6 @@ trait CourseResourceAdminTrait
      */
     public function store(CourseRequest $request)
     {
-        //dd($request->all());
         $course = new Course();
         $course->title = $request->input('title');
         $course->slug = str_slug($request->input('slug'));
@@ -81,8 +96,8 @@ trait CourseResourceAdminTrait
         $course->feature = $request->input('feature');
         $course->backdrop = $request->input('backdrop');
         $course->body = $request->input('body');
-        // $course->user()->save(User::find($request->user)); //or $request->user() or $request->input('user_id');
-        // $course->category()->save(Category::find($request->input('category_id')));
+        $course->user()->save($request->user());
+        $course->category()->save(Category::find($request->input('category_id')));
         $course->save();
 
         // Chapters
@@ -108,6 +123,8 @@ trait CourseResourceAdminTrait
         //         $chapter->adjaceables()->attach($content);
         //     });
         // });
+
+        return back();
     }
 
     /**

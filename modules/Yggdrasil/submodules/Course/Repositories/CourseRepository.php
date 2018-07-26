@@ -22,21 +22,28 @@ class CourseRepository extends Repository
      *
      * @return array
      */
-    public static function rules()
+    public static function rules(): array
     {
         return [
             'title' => 'required|max:255',
-            'slug' => [
-                'required',
-                Rule::unique('courses')->ignore(self::$id),
-            ],
-            'code' => [
-                'required',
-                Rule::unique('courses')->ignore(self::$id),
-            ],
-            'feature' => 'required|max:255',
-            'backdrop' => 'required|max:255',
-            'body' => 'required|max:255',
+            'slug' => ['required', Rule::unique('courses')->ignore(self::$id)],
+            'code' => ['required', Rule::unique('courses')->ignore(self::$id)],
+            'lessons' => 'array|required',
+            'lessons.*.title' => 'required|max:255',
+            'lessons.*.slug' => 'required|max:255',
+            'lessons.*.code' => 'required|max:255',
+        ];
+    }
+
+    /**
+     * Defines custom messages to be used by the validation.
+     *
+     * @return array
+     */
+    public static function messages(): array
+    {
+        return [
+            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
         ];
     }
 }
