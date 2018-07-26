@@ -17,7 +17,7 @@
 
     <!-- Empty State -->
     <slot name="empty">
-      <v-card flat color="transparent" class="empty_state--hover">
+      <v-card flat tile color="transparent" class="empty_state--hover">
         <v-layout v-if="hasNoThumbnail" @click="open" column wrap align-center justify-center class="pa-4">
           <component :is="noMediaThumbnail" width="80px" height="80px" class="empty_state--disabled"></component>
           <div class="grey--text" v-html="noMediaText"></div>
@@ -28,7 +28,7 @@
     <!-- Empty State -->
 
     <!-- Thumbnail Preview -->
-    <v-card flat v-if="hasThumbnail">
+    <v-card flat tile v-if="hasThumbnail">
       <v-card-media
         :src="thumbnailpreview"
         @click.prevent="open"
@@ -118,6 +118,10 @@ export default {
     cursor: pointer;
     height: auto;
     width: 100%;
+
+    &:hover, &:focus, &:active {
+      filter: brightness(110%);
+    }
   }
 
   &__actions {

@@ -48,7 +48,7 @@ export default {
   },
 
   model: {
-    prop: 'selected',
+    prop: 'media.thumbnail',
   },
 
   components: {
@@ -69,7 +69,6 @@ export default {
       thumbnailcard: {
         model: false
       },
-      selected: [],
       media: {
         window: {
           model: false,
@@ -102,7 +101,7 @@ export default {
         current: { tabmodel: 'Upload' },
         upload: { name: 'Upload', icon: 'cloud_upload', model: false },
         items: []
-      }
+      },
     }
   },
 
@@ -116,7 +115,6 @@ export default {
     },
 
     thumbnail (thumbnail) {
-      console.log('Thumbnail', thumbnail)
       this.media.thumbnail = thumbnail
     },
 

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card flat tile>
     <!-- Sidebar -->
     <v-navigation-drawer
       absolute

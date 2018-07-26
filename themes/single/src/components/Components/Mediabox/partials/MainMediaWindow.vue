@@ -49,7 +49,7 @@ export default {
 
   components: {
     MainMediaWindowEmptyState,
-    MediaList
+    MediaList,
   },
 
   data () {
@@ -63,10 +63,6 @@ export default {
       mediabox: 'mediabox/mediabox',
       folder: 'folder/folder',
     }),
-
-    haveQuickRecents () {
-      return this.recents.length
-    },
 
     isFilesEmpty () {
       return !this.mediabox.items
@@ -97,12 +93,13 @@ export default {
         foldertype: 'image',
         title: 'New Folder',
       }
+
       this.folders.push(folder)
     },
 
     fileSelected (item) {
       this.$emit('file-selected', item)
-    }
+    },
   }
 }
 </script>
