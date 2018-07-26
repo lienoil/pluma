@@ -2,6 +2,7 @@
 
 namespace Course\Controllers\Resources;
 
+use Course\Models\Student;
 use Illuminate\Http\Request;
 
 trait MyCourseResourceTrait
@@ -14,6 +15,6 @@ trait MyCourseResourceTrait
      */
     public function current(Request $request)
     {
-        $resources = Student::findOrFail(user()->id)
+        $resources = Student::findOrFail(user()->id);
     }
 }

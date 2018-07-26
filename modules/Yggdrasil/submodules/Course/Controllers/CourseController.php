@@ -15,6 +15,7 @@ class CourseController extends GeneralController
     use Resources\CourseResourceAdminTrait,
         Resources\CourseResourceApiTrait,
         // Resources\CourseResourceSoftDeletesTrait,
-        Resources\CourseResourcePublicTrait;
+        Resources\CourseResourcePublicTrait,
+        Resources\MyCourseResourceTrait;
 
 }

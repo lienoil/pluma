@@ -103,7 +103,7 @@ trait CourseResourceAdminTrait
         //     $parts = $lesson['parts'];
         //     collect($parts)->each(function($part) use ($chapter) {
         //         $content =new Lesson();
-        //         // $content->title = $part['itite']
+        //         // $content->title = $part['title']
         //         $content->save();
         //         $chapter->adjaceables()->attach($content);
         //     });

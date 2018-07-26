@@ -118,16 +118,17 @@ return [
              * Bookmark Course
              * --------------------------------------------------------------------
              */
-            // 'bookmarked-courses' => [
-            //     'order' => 7,
-            //     // 'slug' => route('courses.bookmarked'),
-            //     'icon' => 'bookmark',
-            //     'always_viewable' => false,
-            //     'labels' => [
-            //         'title' => __('Bookmarked Courses'),
-            //         'description' => __('View all your bookmarked courses'),
-            //     ],
-            // ],
+           // 'bookmarked-courses' => [
+           //      'name' => 'bookmarked-courses',
+           //      'order' => 7,
+           //      'slug' => route('courses.bookmarked'),
+           //      'icon' => 'bookmark',
+           //      'always_viewable' => false,
+           //      'labels' => [
+           //          'title' => __('Bookmarked Courses'),
+           //          'description' => __('View all your bookmarked courses'),
+           //      ],
+           //  ],
         ],
     ],
 ];

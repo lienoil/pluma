@@ -9,7 +9,7 @@ use Course\Support\Relations\BelongsToManyCourses;
 
 class Student extends User
 {
-    use CourseUserMutator
+    use CourseUserMutator;
 
     protected $table = 'users';
 
