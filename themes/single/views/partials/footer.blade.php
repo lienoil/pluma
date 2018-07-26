@@ -1,4 +1,4 @@
-<v-footer app inset absolute height="auto">
+<v-footer app inset fixed height="auto">
   <v-container fluid>
     <v-layout row wrap>
       <v-flex tag="small" class="text-emphasis--medium">{!! $application->site->copyright !!}</v-flex>

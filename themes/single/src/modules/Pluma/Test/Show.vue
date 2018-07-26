@@ -106,7 +106,7 @@
           v-if="dataset.bulk"
           >
           <v-btn
-            @click="dataset.checkbox = !dataset.checkbox"
+            @click="toggleList"
             icon
             slot="activator"
             >
@@ -202,6 +202,9 @@
           <template v-else>
             <data-iterator :items="courses"></data-iterator>
           </template>
+
+          <!-- cover image -->
+          <cover-image :items="coverimage"></cover-image>
         </v-flex>
       </v-layout>
     </v-container>
@@ -239,7 +242,9 @@ export default {
         searchField: false,
         searchButton: true,
         dividerVertical: true,
-        emptyState: ''
+        emptyState: '',
+        checkbox: false,
+        hideCheckbox: false,
       },
       courses: {
         selected: [],
@@ -327,6 +332,10 @@ export default {
 
     toggleGrid () {
       this.dataset.list = !this.dataset.grid
+    },
+
+    showCheckbox () {
+      this.dataset.checkbox = !this.checkbox
     },
 
     toggleAll () {

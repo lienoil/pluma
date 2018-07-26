@@ -17,12 +17,17 @@
           slot="items"
           slot-scope="props"
           >
-          <td>
-            <v-checkbox
-              hide-details
-              v-model="props.item.selected">
-            </v-checkbox>
-          </td>
+          <template v-if="dataset.checkbox">
+            <td>
+              <v-checkbox
+                hide-details
+                v-model="props.item.selected">
+              </v-checkbox>
+            </td>
+          </template>
+          <template v-else>
+            <td v-if="dataset.hideCheckbox"></td>
+          </template>
           <td v-html="props.item.id"></td>
           <td>
             <v-avatar size="36px">
