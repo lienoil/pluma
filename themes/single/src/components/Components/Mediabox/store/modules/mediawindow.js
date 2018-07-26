@@ -1,5 +1,6 @@
 export const state = () => ({
   mediawindow: {
+    // TODO: remove this, not recommended for multiple instance
     model: false,
   }
 })

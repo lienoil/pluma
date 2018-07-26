@@ -10,6 +10,7 @@ export const getters = {
 }
 
 export const mutations = {
+  // TODO: delete this. Not recommended for multiple instance
   SET: (state, payload) => {
     state.mediathumbnail.item = payload.item
   },

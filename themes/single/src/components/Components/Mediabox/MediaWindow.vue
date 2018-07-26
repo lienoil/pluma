@@ -140,7 +140,7 @@
 
     <v-card-text class="media-window__content">
       <keep-alive>
-        <component :is="mediawindow.component"></component>
+        <component :is="mediawindow.component" @file-selected="select"></component>
       </keep-alive>
     </v-card-text>
 
@@ -148,7 +148,7 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="select()">{{ trans('Done') }}</v-btn>
+      <v-btn color="primary" @click="select">{{ trans('Done') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -211,10 +211,10 @@ export default {
     }
   },
   methods: {
-    select () {
-      let item = this.mediathumbnail.item
-      this.$store.dispatch('mediawindow/toggle', {model: false})
-      this.$emit('open', item)
+    select (item) {
+      this.$emit('input', !this.mediawindow.model)
+      this.$emit('open', !this.mediawindow.model)
+      this.$emit('thumbnail', item)
     },
 
     load (item) {
@@ -265,6 +265,7 @@ export default {
   }
   &__content {
     padding: 0;
+    height: 100vh;
   }
 
 }

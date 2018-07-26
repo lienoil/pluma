@@ -5,7 +5,7 @@
       :no-media-caption="noMediaCaption"
       :no-media-text="noMediaText"
       :no-media-thumbnail="noMediaThumbnail"
-      :thumbnail="media.thumbnail"
+      :thumbnail.sync="media.thumbnail"
       v-model="media.window.model"
     ></media-thumbnail>
 
@@ -13,6 +13,7 @@
       <media-window
         :window-icon="windowIcon"
         :window-title="windowTitle"
+        @thumbnail="thumbnail"
         v-model="media.window.model"
         ></media-window>
     </v-dialog>
@@ -114,6 +115,11 @@ export default {
       e.preventDefault()
     },
 
+    thumbnail (thumbnail) {
+      console.log('Thumbnail', thumbnail)
+      this.media.thumbnail = thumbnail
+    },
+
     get () {
       const { sortBy, descending, page, rowsPerPage } = this.media.pagination
       let query = Object.assign({
@@ -133,6 +139,7 @@ export default {
           this.media.loading = false
         })
     },
+
     search (val) {
       const { sortBy, descending, page, rowsPerPage } = this.media.pagination
       let query = {
@@ -151,6 +158,7 @@ export default {
           this.media.loading = false
         })
     },
+
     select (item) {
       let self = this
 

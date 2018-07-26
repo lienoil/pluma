@@ -7,6 +7,7 @@
         :item.sync="item"
         :ref="`media-file-${i}`"
         :tabindex="i"
+        @open="selected"
         @remove="remove(item, i)"
         >
       </media-file>
@@ -52,6 +53,10 @@ export default {
   },
 
   methods: {
+    selected (item) {
+      this.$emit('selected', item)
+    },
+
     remove (item, i) {
       this.items.splice(i, 1)
     },

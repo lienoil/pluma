@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import store from './store'
-import { mapGetters } from 'vuex'
+import store from '../store'
 
 export default {
   store,
+
   name: 'MediaFile',
 
   props: {
@@ -26,17 +26,8 @@ export default {
     },
   },
 
-  computed: {
-    ...mapGetters({
-      mediabox: 'mediabox/mediabox',
-      mediawindow: 'mediawindow/mediawindow',
-      mediathumbnail: 'mediathumbnail/mediathumbnail',
-    })
-  },
-
   methods: {
     open (item) {
-      this.$store.dispatch('mediathumbnail/set', {item: item})
       this.$store.dispatch('mediawindow/toggle', {model: false})
       this.$emit('open', item)
     },

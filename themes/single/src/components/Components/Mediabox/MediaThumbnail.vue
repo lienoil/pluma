@@ -1,15 +1,21 @@
 <template>
-  <v-card flat tile color="transparent" class="media-thumbnail">
+  <v-card
+    class="media-thumbnail"
+    color="transparent"
+    flat
+    tile
+    >
+
     <v-toolbar
-      v-if="!hideToolbar"
       card
       dense
+      v-if="!hideToolbar"
       >
       <v-icon>{{ toolbarIcon }}</v-icon>
       <v-toolbar-title class="subheading">{{ toolbarTitle }}</v-toolbar-title>
     </v-toolbar>
 
-    <!-- Empyt States -->
+    <!-- Empty State -->
     <slot name="empty">
       <v-card flat color="transparent" class="empty_state--hover">
         <v-layout v-if="hasNoThumbnail" @click="open" column wrap align-center justify-center class="pa-4">
@@ -19,17 +25,22 @@
         </v-layout>
       </v-card>
     </slot>
-    <!-- Empyt States -->
+    <!-- Empty State -->
 
     <!-- Thumbnail Preview -->
     <v-card flat v-if="hasThumbnail">
-      <slot name="preview" :props="{item: mediathumbnail.item, unset: unset}">
-        <v-card-media :src="mediathumbnail.item.thumbnail" @contextmenu="open" @click.prevent="open" class="media-thumbnail__preview" height="180px"></v-card-media>
-        <v-card-actions class="media-thumbnail__actions">
-          <v-spacer></v-spacer>
-          <v-btn dark depressed icon small color="error" @click.prevent="unset"><v-icon small>close</v-icon></v-btn>
-        </v-card-actions>
-      </slot>
+      <v-card-media
+        :src="thumbnailpreview"
+        @click.prevent="open"
+        @contextmenu="open"
+        class="media-thumbnail__preview"
+        height="180px"
+        >
+      </v-card-media>
+      <v-card-actions class="media-thumbnail__actions">
+        <v-spacer></v-spacer>
+        <v-btn dark depressed icon small color="error" @click.prevent="unset"><v-icon small>close</v-icon></v-btn>
+      </v-card-actions>
     </v-card>
     <!-- Thumbnail Preview -->
   </v-card>
@@ -58,7 +69,7 @@ export default {
     hideToolbar: { type: Boolean, default: false },
     toolbarIcon: { type: String, default: 'landscape' },
     toolbarTitle: { type: String, default: 'Media' },
-    thumbnail: { type: String, default: null },
+    thumbnail: { type: [Object, String], default: null },
     noMediaThumbnail: { type: String, default: noMediaThumbnail },
     noMediaText: { type: String, default: 'No media found' },
     noMediaCaption: { type: String, default: null }
@@ -68,27 +79,30 @@ export default {
     ...mapGetters({
       mediabox: 'mediabox/mediabox',
       mediawindow: 'mediawindow/mediawindow',
-      mediathumbnail: 'mediathumbnail/mediathumbnail',
     }),
 
     hasNoThumbnail: function () {
-      return !this.mediathumbnail.item
+      return !this.thumbnail
     },
 
     hasThumbnail: function () {
-      return this.mediathumbnail.item
+      return this.thumbnail
     },
 
-    thumbnail: function () {
-      return JSON.parse(JSON.stringify(this.mediathumbnail.item.thumbnail))
+    thumbnailpreview: function () {
+      return JSON.parse(JSON.stringify(this.thumbnail.thumbnail || this.thumbnail))
     },
   },
 
   methods: {
     ...mapActions({
-      unset: 'mediathumbnail/unset',
       toggle: 'mediawindow/toggle',
     }),
+
+    unset () {
+      this.thumbnail = null
+      this.$emit('unset', this.thumbnail)
+    },
 
     open () {
       this.$emit('input', !this.window)
