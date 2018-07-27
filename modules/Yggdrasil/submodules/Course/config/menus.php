@@ -31,8 +31,8 @@ return [
                 'order' => 1,
                 'slug' => route('courses.all'),
                 'code' => 'courses.all',
-                'exclude_from_root' => true,
                 'always_viewable' => true,
+                'exclude_from_root' => true,
                 'labels' => [
                     'title' => __('All Courses'),
                     'description' => __('View the list of courses'),
@@ -91,7 +91,6 @@ return [
                     'description' => __('View list of all courses moved to trash'),
                 ],
             ],
-
             /**
              * ----------------------------------------------------------------------
              *  My Courses
@@ -102,11 +101,11 @@ return [
              */
             'my-courses' => [
                 'name' => 'my-courses',
-                'code' => 'my-courses',
                 'order' => 6,
                 'slug' => route('courses.my'),
+                'code' => 'my-courses',
                 'always_viewable' => false,
-                // 'exclude_from_root' => true,
+                'exclude_from_root' => true,
                 'labels' => [
                     'title' => __('My Courses'),
                     'description' => __('View your current courses'),
@@ -118,17 +117,37 @@ return [
              * Bookmark Course
              * --------------------------------------------------------------------
              */
-           // 'bookmarked-courses' => [
-           //      'name' => 'bookmarked-courses',
-           //      'order' => 7,
-           //      'slug' => route('courses.bookmarked'),
-           //      'icon' => 'bookmark',
-           //      'always_viewable' => false,
-           //      'labels' => [
-           //          'title' => __('Bookmarked Courses'),
-           //          'description' => __('View all your bookmarked courses'),
-           //      ],
-           //  ],
+           'bookmarked-courses' => [
+                'name' => 'bookmarked-courses',
+                'order' => 7,
+                'slug' => route('courses.bookmarked'),
+                'code' => 'bookmarked-courses',
+                'always_viewable' => false,
+                // 'exclude_from_root' => true,
+                'labels' => [
+                    'title' => __('Bookmarked Courses'),
+                    'description' => __('View all your bookmarked courses'),
+                ],
+            ],
         ],
     ],
 ];
+            // 'all-courses' => [
+            //     'name' => 'all-courses',
+            //     'permission' => 'all-courses',
+            //     'order' => 5,
+            //     'slug' => route('courses.all'),
+            //     'code' => 'all-courses',
+            //     'always_viewable' => false,
+            //     'exclude_from_root' => true,
+            //     'routes' => [
+            //         'name' => 'courses.all',
+            //         'children' => [
+            //             'courses.single',
+            //         ]
+            //     ],
+            //     'labels' => [
+            //         'title' => __('All Courses'),
+            //         'description' => __('View list of all courses'),
+            //     ],
+            // ],

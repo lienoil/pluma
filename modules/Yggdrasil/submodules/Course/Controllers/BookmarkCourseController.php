@@ -4,8 +4,10 @@ namespace Course\Controllers;
 
 use Bookmark\Models\Bookmark;
 use Course\Models\Course;
+use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
+use User\Models\User;
 
 class BookmarkCourseController extends AdminController
 {

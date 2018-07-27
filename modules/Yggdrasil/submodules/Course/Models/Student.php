@@ -21,9 +21,9 @@ class Student extends User
     public function courses()
     {
         return $this->belongsToMany(
-            Course::class,
-            'course_user',
-            'user_id'
+            Course::class
+            // 'course_user',
+            // 'user_id'
         );
     }
 }

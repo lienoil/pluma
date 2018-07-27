@@ -79,11 +79,17 @@ return [
      * Student
      * ------------------------------------------------------------------------------
      */
+    'all-courses' => [
+        'name' => 'courses.all',
+        'code' => 'all-courses',
+        'description' => 'Ability to view list of courses',
+        'group' => 'student',
+    ],
     'my-courses' => [
         'name' => 'courses.my',
         'code' => 'my-courses',
         'description' => 'Ability to view owned courses',
-        'group' => ['course'],
+        'group' => 'student',
     ],
 
     /**
