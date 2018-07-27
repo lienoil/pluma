@@ -26,7 +26,7 @@
           single-line
           solo
           solo-inverted
-          v-model="dataset.search"
+          v-model="dataset.searchTable"
           >
         </v-text-field>
       </template>
@@ -99,19 +99,34 @@
         </template>
 
         <!-- bulk -->
-        <v-tooltip
-          bottom
-          v-model="dataset.bulkDestroy"
-          >
-          <v-btn
-            @click="dataset.bulkLink"
-            icon
-            slot="activator"
+        <template v-if="dataset.bulkdestroy">
+          <v-tooltip
+            bottom
             >
-            <v-icon>check_circle</v-icon>
-          </v-btn>
-          <span>Bulk Selection</span>
-        </v-tooltip>
+            <v-btn
+              @click="bulkDestroy"
+              icon
+              slot="activator"
+              >
+              <v-icon>check_circle</v-icon>
+            </v-btn>
+            <span>Bulk Selection</span>
+          </v-tooltip>
+        </template>
+        <template v-else>
+          <v-tooltip
+            bottom
+            >
+            <v-btn
+              @click="bulkDestroy"
+              icon
+              slot="activator"
+              >
+              <v-icon>add</v-icon>
+            </v-btn>
+            <span>Bulk Selection</span>
+          </v-tooltip>
+        </template>
 
         <!-- archive -->
         <v-tooltip
@@ -180,13 +195,13 @@
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <v-flex xs12>
-          <template v-if="dataset.toggleview">
+          <!-- <template v-if="dataset.toggleview"> -->
             <data-table :items="courses"></data-table>
-          </template>
+          <!-- </template> -->
 
-          <template v-else>
+          <!-- <template v-else>
             <data-iterator :items="courses"></data-iterator>
-          </template>
+          </template> -->
         </v-flex>
       </v-layout>
     </v-container>
@@ -214,24 +229,24 @@ export default {
         sort: true,
         filter: true,
         toggleview: false,
-        bulk: true,
         archive: true,
         raised: true,
         raisedButton: true,
-        raisedTitle: 'sdsdsd',
+        raisedTitle: 'Create',
         raisedColor: 'primary',
         raisedLink: '',
         searchField: false,
         searchButton: true,
         settings: true,
         dividerVertical: true,
-        bulkDestroy: false,
+        bulkdestroy: true,
       },
 
       courses: {
+        bulkdestroy: true,
         selected: [],
-        selectAll: true,
-        search: '',
+        selectAll: false,
+        searchTable: '',
         cardLink: 'tests/show',
         chip: true,
         hover: true,
@@ -250,7 +265,8 @@ export default {
             text: 'Actions',
             value: 'actions',
             sortable: false,
-            align: 'center'
+            align: 'right',
+            span: '2'
           },
         ],
         items: [
@@ -275,16 +291,7 @@ export default {
           },
           {
             id: '3',
-            title: 'Develop Personal Effectiveness at Supervisory Level',
-            thumbnail: '//i.pinimg.com/564x/74/2b/8e/742b8e6e87ef56e698b9c8bc4e930dae.jpg',
-            category: 'DPE OPS',
-            timestamp: '2 hours ago',
-            description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
-            part: '6',
-          },
-          {
-            id: '4',
-            title: 'Develop Personal Effectiveness at Supervisory Level',
+            title: 'Introduction to Web Programming',
             thumbnail: '//i.pinimg.com/564x/74/2b/8e/742b8e6e87ef56e698b9c8bc4e930dae.jpg',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
@@ -301,7 +308,8 @@ export default {
       dialogbox: 'dialogbox/dialogbox',
       iconmenu: 'iconmenu/iconmenu',
       dataiterator: 'dataiterator/dataiterator',
-      toolbar: 'toolbar/toolbar'
+      toolbar: 'toolbar/toolbar',
+      datatable: 'datatable/datatable'
     })
   },
 
@@ -309,6 +317,10 @@ export default {
     toggleView () {
       this.dataset.toggleview = !this.dataset.toggleview
     },
+
+    bulkDestroy () {
+      this.dataset.bulkdestroy = !this.dataset.bulkdestroy
+    }
   }
 }
 </script>

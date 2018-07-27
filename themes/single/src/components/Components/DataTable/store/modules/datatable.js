@@ -3,7 +3,8 @@ export const state = () => ({
     searchTable: '',
     selected: [],
     headers: [],
-    selectAll: false
+    selectAll: false,
+    bulkdestroy: false,
   }
 })
 

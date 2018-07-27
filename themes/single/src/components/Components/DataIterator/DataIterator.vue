@@ -1,6 +1,6 @@
 <template>
   <v-slide-y-transition>
-    <!-- <v-text-field
+   <!--  <v-text-field
       append-icon="search"
       hide-details
       label="Search"
@@ -14,6 +14,7 @@
       content-tag="v-layout"
       row
       wrap
+      :search="dataset.search"
       >
       <v-flex
         :lg2="dataset.lg2"

@@ -3,7 +3,7 @@
     <toolbar-menu :items="toolbarMenu"></toolbar-menu>
 
     <v-container fluid grid-list-lg>
-      <!-- <v-layout row wrap>
+      <v-layout row wrap>
         <v-flex md9 xs12>
           <v-card flat class="mb-3 text-xs-center">
             <v-card-title
@@ -31,14 +31,14 @@
             </v-card-text>
           </v-card>
 
-          <v-card class="mb-3">
+          <!-- <v-card class="mb-3">
             <lightbox
               id="mylightbox"
               :images="dataset.images"
               :image_class=" 'img-responsive' "
               :options="dataset.options">
             </lightbox>
-          </v-card>
+          </v-card> -->
         </v-flex>
 
         <v-flex md3 xs12>
@@ -58,7 +58,7 @@
             <category :items="category"></category>
           </v-card>
         </v-flex>
-      </v-layout> -->
+      </v-layout>
 
       <v-layout row wrap>
         <v-flex xs12>
@@ -304,6 +304,7 @@ export default {
               this.model = false
               // store.dispatch.saveUserOrSomeShitLikeThat
               // then...
+              alert('test')
             },
 
             discard: false,

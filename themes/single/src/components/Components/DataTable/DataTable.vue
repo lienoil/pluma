@@ -1,19 +1,19 @@
 <template>
   <v-slide-y-transition>
     <v-card>
-      <!-- <v-text-field
+      <v-text-field
         append-icon="search"
         hide-details
         label="Search"
         single-line
         v-model="dataset.searchTable"
-      ></v-text-field> -->
+      ></v-text-field>
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"
         :search="dataset.searchTable"
         item-key="title"
-        :select-all="dataset.selectAll"
+        :select-all="dataset.bulkdestroy"
         v-model="dataset.selected"
         >
         <template slot="headerCell" slot-scope="props">
@@ -30,7 +30,7 @@
           slot="items"
           slot-scope="props"
           >
-          <template v-if="dataset.bulkDestroy">
+          <template v-if="dataset.bulkdestroy">
             <td>
               <v-checkbox
                 v-model="props.selected"
@@ -65,7 +65,7 @@
           <td v-html="trans(props.item.timestamp)"></td>
           <td v-html="trans(props.item.part)"></td>
           <td v-html="trans(props.item.status)"></td>
-          <td class="text-xs-center">
+          <td class="px-0 text-xs-right">
             <v-tooltip bottom width="50">
               <v-btn slot="activator" icon @click="">
                 <v-icon
@@ -77,6 +77,8 @@
               </v-btn>
               <span>Edit</span>
             </v-tooltip>
+          </td>
+          <td class="px-0 text-xs-right">
             <v-tooltip bottom>
               <v-btn slot="activator" icon @click="">
                 <v-icon
@@ -96,11 +98,8 @@
           slot="no-results"
           class="text-xs-center"
           >
-          <v-card-text>
-            <v-avatar size="160px">
-              <img src="@/assets/logo.png" alt="">
-            </v-avatar>
-          </v-card-text>
+          <!-- insert mediaicon -->
+
           <v-card-text>
             Your search for
             "{{ dataset.searchTable }}"
@@ -119,7 +118,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   store,
-  AddMediaIcon,
 
   name: 'DataTable',
 
@@ -134,7 +132,8 @@ export default {
 
   data () {
     return {
-      dataset: {}
+      dataset: {
+      }
     }
   },
 
@@ -158,7 +157,7 @@ export default {
 
     hide () {
       this.$store.dispatch('datatable/PROMPT_DIALOG', { model: false })
-    }
+    },
   }
 }
 </script>
