@@ -1,6 +1,6 @@
 <?php
 
-namespace Pluma\Support\Repository;
+namespace Pluma\Repository\Contracts;
 
 interface RepositoryInterface
 {
@@ -8,6 +8,11 @@ interface RepositoryInterface
      * Retrieve all instances of model.
      */
     public function all();
+
+    /**
+     * Retrieve the paginated resource.
+     */
+    public function paginate();
 
     /**
      * Create model resource.
