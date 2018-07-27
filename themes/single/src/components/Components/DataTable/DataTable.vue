@@ -12,21 +12,33 @@
         :headers="dataset.headers"
         :items="dataset.items"
         :search="dataset.searchTable"
+        item-key="title"
+        :select-all="dataset.selectAll"
+        v-model="dataset.selected"
         >
+        <template slot="headerCell" slot-scope="props">
+          <v-tooltip bottom>
+            <span slot="activator">
+              {{ trans(props.header.text) }}
+            </span>
+            <span>
+              {{ trans(props.header.text) }}
+            </span>
+          </v-tooltip>
+        </template>
         <template
           slot="items"
           slot-scope="props"
           >
-          <template>
+          <template v-if="dataset.bulkDestroy">
             <td>
               <v-checkbox
+                v-model="props.selected"
+                accent
+                color="accent"
                 hide-details
-                v-model="props.item.selected">
-              </v-checkbox>
+              ></v-checkbox>
             </td>
-          </template>
-          <template v-else>
-            <td v-if="dataset.hideCheckbox"></td>
           </template>
           <td v-html="props.item.id"></td>
           <td>

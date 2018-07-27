@@ -3,6 +3,7 @@ export const state = () => ({
     searchTable: '',
     selected: [],
     headers: [],
+    selectAll: false
   }
 })
 

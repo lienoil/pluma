@@ -1,10 +1,9 @@
 <template v-cloak>
   <section>
-    <toolbar-menu :items="toolbarMenu">
-    </toolbar-menu>
+    <toolbar-menu :items="toolbarMenu"></toolbar-menu>
 
     <v-container fluid grid-list-lg>
-      <v-layout row wrap>
+      <!-- <v-layout row wrap>
         <v-flex md9 xs12>
           <v-card flat class="mb-3 text-xs-center">
             <v-card-title
@@ -32,14 +31,14 @@
             </v-card-text>
           </v-card>
 
-          <!-- <v-card class="mb-3">
+          <v-card class="mb-3">
             <lightbox
               id="mylightbox"
               :images="dataset.images"
               :image_class=" 'img-responsive' "
               :options="dataset.options">
             </lightbox>
-          </v-card> -->
+          </v-card>
         </v-flex>
 
         <v-flex md3 xs12>
@@ -52,21 +51,17 @@
             </v-card-text>
           </v-card>
 
-          <v-card class="mb-3">
+          <v-card class="mb-3 emphasis--medium">
             <v-card-title>
               Category Card
             </v-card-title>
-            <v-card-text>
-              <category :items="category"></category>
-            </v-card-text>
+            <category :items="category"></category>
           </v-card>
         </v-flex>
-      </v-layout>
+      </v-layout> -->
 
       <v-layout row wrap>
         <v-flex xs12>
-          <!-- <data-iterator :items="library"></data-iterator> -->
-
           <!-- grid / list view -->
           <template v-if="toolbar.toggleview">
             <data-table :items="courses"></data-table>
@@ -105,33 +100,12 @@ export default {
       media: {
         thumbnail: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png'
       },
-      dataset: {
-        toggleview: false,
-        images: [
-          {
-            src: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
-            title: 'Lightbox Image Title'
-          },
-          {
-            src: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
-            title: 'Byrushan'
-          }
-        ],
-        options: {
-          captionPosition: 'top',
-          scaleImageToRatio: true
-        }
-      },
 
       toolbarMenu: {
         color: 'primary',
         list: false,
         raisedColor: 'secondary',
         raisedTitle: 'Create',
-      },
-
-      createCategory: {
-        multiple: false,
       },
 
       iconmenu: {
@@ -175,7 +149,6 @@ export default {
         showMimetype: false,
         showToolbar: false,
         headers: [
-          { text: '', value: 'selected' },
           { text: 'ID', value: 'id' },
           { text: 'Featured', value: 'thumbnail' },
           { text: 'Title', value: 'title' },
@@ -309,10 +282,6 @@ export default {
   },
 
   methods: {
-    toggleView () {
-      this.dataset.toggleview = !this.dataset.toggleview
-    },
-
     openDialogbox () {
       this.$store.dispatch(
         'dialogbox/PROMPT_DIALOG',
@@ -342,11 +311,6 @@ export default {
         )
       )
     },
-
-    // toggleAll () {
-    //   if (this.courses.selected.length) this.courses.selected = []
-    //   else this.courses.selected = this.courses.items.slice()
-    // },
 
     changeSort (column) {
       if (this.courses.pagination.sortBy === column) {

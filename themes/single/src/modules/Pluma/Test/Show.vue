@@ -1,7 +1,5 @@
 <template>
   <section>
-    <!-- <toolbar-menu :items="dataset"></toolbar-menu> -->
-
     <v-toolbar
       :class="dataset.toolbarClass"
       :flat="dataset.flat"
@@ -73,12 +71,12 @@
         </v-tooltip>
 
         <!-- grid -->
-        <template v-if="dataset.list">
+        <template v-if="dataset.toggleview">
           <v-tooltip bottom>
             <v-btn
               icon
               slot="activator"
-              @click="toggleGrid"
+              @click="toggleView"
               >
               <v-icon>view_module</v-icon>
             </v-btn>
@@ -92,7 +90,7 @@
             <v-btn
               icon
               slot="activator"
-              @click="toggleList"
+              @click="toggleView"
               >
               <v-icon>view_list</v-icon>
             </v-btn>
@@ -103,19 +101,14 @@
         <!-- bulk -->
         <v-tooltip
           bottom
-          v-if="dataset.bulk"
+          v-model="dataset.bulkDestroy"
           >
           <v-btn
-            @click=""
+            @click="dataset.bulkLink"
             icon
             slot="activator"
             >
-            <template v-if="dataset.checkbox">
-              <v-icon color="success">check_circle</v-icon>
-            </template>
-            <template v-else>
-              <v-icon>check_circle</v-icon>
-            </template>
+            <v-icon>check_circle</v-icon>
           </v-btn>
           <span>Bulk Selection</span>
         </v-tooltip>
@@ -175,17 +168,11 @@
         >
       </v-divider>
 
-      <!-- create -->
+      <!-- raised -->
       <v-btn
         color="secondary"
-        v-html="trans(dataset.createTitle)"
-        v-if="dataset.create"
-        >
-      </v-btn>
-      <v-btn
-        color="secondary"
-        v-html="trans(dataset.uploadTitle)"
-        v-if="dataset.upload"
+        v-html="trans(dataset.raisedTitle)"
+        v-if="dataset.raised"
         >
       </v-btn>
     </v-toolbar>
@@ -193,37 +180,14 @@
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <v-flex xs12>
-          <!-- grid -->
-          <template v-if="dataset.list">
+          <template v-if="dataset.toggleview">
             <data-table :items="courses"></data-table>
           </template>
 
-          <!-- list -->
           <template v-else>
             <data-iterator :items="courses"></data-iterator>
           </template>
-
-          <!-- cover image -->
-          <!-- <cover-image :items="coverimage"></cover-image> -->
         </v-flex>
-
-          <v-btn
-            color="primary"
-            dark
-            @click.stop="dialogbox.dialog = true"
-          >
-            Open Dialog
-          </v-btn>
-
-          <v-dialog
-            v-model="dialogbox.dialog"
-            max-width=""
-            flat
-            >
-            <div class="text-xs-center">
-              <img :src="dialogbox.src" alt="">
-            </div>
-          </v-dialog>
       </v-layout>
     </v-container>
   </section>
@@ -238,10 +202,6 @@ export default {
 
   data () {
     return {
-      dialogbox: {
-        dialog: false,
-        src: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png'
-      },
       dataset: {
         model: '',
         title: '',
@@ -253,24 +213,23 @@ export default {
         spacer: true,
         sort: true,
         filter: true,
-        grid: true,
-        list: false,
+        toggleview: false,
         bulk: true,
         archive: true,
-        create: true,
-        createTitle: 'Create',
-        upload: false,
-        uploadTitle: 'Upload',
+        raised: true,
+        raisedButton: true,
+        raisedTitle: 'sdsdsd',
+        raisedColor: 'primary',
+        raisedLink: '',
         searchField: false,
         searchButton: true,
+        settings: true,
         dividerVertical: true,
-        emptyState: '',
-        checkbox: false,
-        hideCheckbox: false,
+        bulkDestroy: false,
       },
+
       courses: {
         selected: [],
-        bulkDestroy: false,
         selectAll: true,
         search: '',
         cardLink: 'tests/show',
@@ -280,7 +239,6 @@ export default {
         showMimetype: false,
         showToolbar: false,
         headers: [
-          { text: '', value: 'selected' },
           { text: 'ID', value: 'id' },
           { text: 'Featured', value: 'thumbnail' },
           { text: 'Title', value: 'title' },
@@ -348,30 +306,8 @@ export default {
   },
 
   methods: {
-    toggleList () {
-      this.dataset.list = !this.dataset.list
-    },
-
-    toggleGrid () {
-      this.dataset.list = !this.dataset.grid
-    },
-
-    showCheckbox () {
-      this.dataset.checkbox = !this.checkbox
-    },
-
-    toggleAll () {
-      if (this.courses.selected.length) this.courses.selected = []
-      else this.courses.selected = this.courses.items.slice()
-    },
-
-    changeSort (column) {
-      if (this.courses.pagination.sortBy === column) {
-        this.courses.pagination.descending = !this.courses.pagination.descending
-      } else {
-        this.courses.pagination.sortBy = column
-        this.courses.pagination.descending = false
-      }
+    toggleView () {
+      this.dataset.toggleview = !this.dataset.toggleview
     },
   }
 }

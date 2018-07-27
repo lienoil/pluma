@@ -208,10 +208,6 @@ export default {
     toggleView () {
       this.update({toggleview: !this.toolbar.toggleview})
     },
-
-    toggleGrid () {
-      this.dataset.list = !this.dataset.grid
-    },
   },
 
   mounted () {
