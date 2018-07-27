@@ -70,12 +70,12 @@
       </v-tooltip>
 
       <!-- grid -->
-      <template v-if="dataset.list">
+      <template v-if="toolbar.toggleview">
         <v-tooltip bottom>
           <v-btn
             icon
             slot="activator"
-            @click="toggleGrid"
+            @click="toggleView"
             >
             <v-icon>view_module</v-icon>
           </v-btn>
@@ -89,7 +89,7 @@
           <v-btn
             icon
             slot="activator"
-            @click="toggleList"
+            @click="toggleView"
             >
             <v-icon>view_list</v-icon>
           </v-btn>
@@ -205,8 +205,8 @@ export default {
       update: 'toolbar/update',
     }),
 
-    toggleList () {
-      this.dataset.list = !this.dataset.list
+    toggleView () {
+      this.update({toggleview: !this.toolbar.toggleview})
     },
 
     toggleGrid () {

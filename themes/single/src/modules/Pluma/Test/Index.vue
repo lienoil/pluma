@@ -68,7 +68,7 @@
           <!-- <data-iterator :items="library"></data-iterator> -->
 
           <!-- grid / list view -->
-          <template v-show="togglelist">
+          <template v-if="toolbar.toggleview">
             <data-table :items="courses"></data-table>
           </template>
 
@@ -106,6 +106,7 @@ export default {
         thumbnail: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png'
       },
       dataset: {
+        toggleview: false,
         images: [
           {
             src: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
@@ -308,12 +309,8 @@ export default {
   },
 
   methods: {
-    toggleList () {
-      this.dataset.list = !this.dataset.list
-    },
-
-    toggleGrid () {
-      this.dataset.list = !this.dataset.grid
+    toggleView () {
+      this.dataset.toggleview = !this.dataset.toggleview
     },
 
     openDialogbox () {

@@ -10,8 +10,7 @@ export const state = () => ({
     spacer: true,
     sort: true,
     filter: true,
-    grid: true,
-    list: false,
+    toggleview: false,
     bulk: true,
     archive: true,
     raised: true,
@@ -50,5 +49,6 @@ export const toolbar = {
   namespaced: true,
   state,
   getters,
-  mutations
+  mutations,
+  actions,
 }
