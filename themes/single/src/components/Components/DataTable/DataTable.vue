@@ -1,13 +1,13 @@
 <template>
   <v-slide-y-transition>
     <v-card>
-      <v-text-field
-        append-icon="search"
+      <!-- <v-text-field
+        append-icon="search"git s
         hide-details
         label="Search"
         single-line
         v-model="dataset.searchTable"
-      ></v-text-field>
+      ></v-text-field> -->
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"
@@ -65,8 +65,8 @@
           <td v-html="trans(props.item.timestamp)"></td>
           <td v-html="trans(props.item.part)"></td>
           <td v-html="trans(props.item.status)"></td>
-          <td class="px-0 text-xs-right">
-            <v-tooltip bottom width="50">
+          <td class="layout mx-0 justify-center">
+            <v-tooltip bottom>
               <v-btn slot="activator" icon @click="">
                 <v-icon
                   small
@@ -75,10 +75,8 @@
                   edit
                 </v-icon>
               </v-btn>
-              <span>Edit</span>
+              <span>{{ trans('Edit') }}</span>
             </v-tooltip>
-          </td>
-          <td class="px-0 text-xs-right">
             <v-tooltip bottom>
               <v-btn slot="activator" icon @click="">
                 <v-icon
@@ -88,7 +86,7 @@
                   delete
                 </v-icon>
               </v-btn>
-              <span>Delete</span>
+              <span>{{ trans('Move to trash') }}</span>
             </v-tooltip>
           </td>
         </template>
@@ -133,7 +131,7 @@ export default {
   data () {
     return {
       dataset: {
-      }
+      },
     }
   },
 

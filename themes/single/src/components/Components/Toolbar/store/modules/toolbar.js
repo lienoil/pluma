@@ -11,7 +11,7 @@ export const state = () => ({
     sort: true,
     filter: true,
     toggleview: false,
-    bulk: true,
+    bulkdestroy: true,
     archive: true,
     raised: true,
     raisedButton: true,

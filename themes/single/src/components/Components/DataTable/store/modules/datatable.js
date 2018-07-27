@@ -5,6 +5,9 @@ export const state = () => ({
     headers: [],
     selectAll: false,
     bulkdestroy: false,
+  },
+  toolbar: {
+    bulkdestroy: true,
   }
 })
 

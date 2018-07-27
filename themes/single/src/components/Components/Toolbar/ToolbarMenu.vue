@@ -73,9 +73,9 @@
       <template v-if="toolbar.toggleview">
         <v-tooltip bottom>
           <v-btn
+            @click="toggleView"
             icon
             slot="activator"
-            @click="toggleView"
             >
             <v-icon>view_module</v-icon>
           </v-btn>
@@ -98,19 +98,19 @@
       </template>
 
       <!-- bulk -->
-      <v-tooltip
-        bottom
-        v-if="dataset.bulk"
-        >
-        <v-btn
-          @click="dataset.bulkLink"
-          icon
-          slot="activator"
+      <template v-if="toolbar.bulkdestroy">
+        <v-tooltip bottom
           >
-          <v-icon>check_circle</v-icon>
-        </v-btn>
-        <span>Bulk Selection</span>
-      </v-tooltip>
+          <v-btn
+            @click="bulkDestroy"
+            icon
+            slot="activator"
+            >
+            <v-icon>check_circle</v-icon>
+          </v-btn>
+          <span>Bulk Selection</span>
+        </v-tooltip>
+      </template>
 
       <!-- archive -->
       <v-tooltip
@@ -208,6 +208,11 @@ export default {
     toggleView () {
       this.update({toggleview: !this.toolbar.toggleview})
     },
+
+    bulkDestroy () {
+      alert('show datatable + bulkdestroy')
+      this.update({bulkdestroy: this.toolbar.bulkdestroy})
+    }
   },
 
   mounted () {

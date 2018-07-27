@@ -278,6 +278,7 @@ export default {
       iconmenu: 'iconmenu/iconmenu',
       dataiterator: 'dataiterator/dataiterator',
       toolbar: 'toolbar/toolbar',
+      datatable: 'datatable/datatable',
     })
   },
 
