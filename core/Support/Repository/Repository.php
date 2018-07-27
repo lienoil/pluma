@@ -2,8 +2,16 @@
 
 namespace Pluma\Support\Repository;
 
-class Repository implements RepositoryInterface
+abstract class Repository implements RepositoryInterface
 {
+    const KEY_ONLY_TRASHED = 'only_trashed';
+    const KEY_ORDERBY = 'order';
+    const KEY_SEARCH = 'search';
+    const KEY_SORT = 'sort';
+    const KEY_TAKE = 'take';
+    const KEY_OFFSET = 'offset';
+    const KEY_PAGINATE = 'paginate';
+
     /**
      * The property on class instances.
      *
@@ -48,13 +56,49 @@ class Repository implements RepositoryInterface
     }
 
     /**
+     * The model instance.
+     *
+     * @return \Pluma\Models\Model
+     */
+    public function model()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Search the model.
+     *
+     * @param array $parameters
+     * @return self
+     */
+    public function search($parameters)
+    {
+        $this->parameters = $this->params($parameters);
+        $this->model = $this->model->search($this->parameters[self::KEY_SEARCH]);
+
+        return $this;
+    }
+
+    /**
+     * Returns a paginated instance of the model.
+     *
+     * @return self
+     */
+    public function paginate()
+    {
+        return $this->model->paginate();
+    }
+
+    /**
      * Retrieve all instances of model.
      *
      * @return mixed
      */
     public function all()
     {
-        return $this->model->all();
+        $this->model = $this->model->all();
+
+        return $this;
     }
 
     /**
@@ -85,7 +129,9 @@ class Repository implements RepositoryInterface
      */
     public function find($id)
     {
-        return $this->model->findOrFail($id);
+        $this->model = $this->model->findOrFail($id);
+
+        return $this;
     }
 
     /**
@@ -116,5 +162,48 @@ class Repository implements RepositoryInterface
     public function restore($id)
     {
         return $this->model->restore($id);
+    }
+
+    /**
+     * Retrieve parameters for the model search.
+     *
+     * @param array $parameters
+     * @return array
+     */
+    protected function params($parameters)
+    {
+        $onlyTrashed = $parameters[self::KEY_ONLY_TRASHED] ?? false;
+        $search = $parameters[self::KEY_SEARCH] ?? $parameters;
+        $orderBy = $parameters[self::KEY_ORDERBY] ?? false;
+        $sort = $parameters[self::KEY_SORT] ?? 'ASC';
+        $take = $parameters[self::KEY_TAKE] ?? false;
+        $offset = $parameters[self::KEY_OFFSET] ?? 0;
+        $paginate = $parameters[self::KEY_OFFSET] ?? false;
+
+        if ($onlyTrashed) {
+            $this->model = $this->model->onlyTrashed();
+        }
+
+        if ($orderBy) {
+            $this->model = $this->model->orderBy($orderBy, $sort);
+        }
+
+        if ($take) {
+            // $this->model = $this->model->offset($offset)->limit($take)->get();
+        }
+
+        if ($paginate) {
+            // $this->model = $this->model->paginate($paginate);
+        }
+
+        return [
+            self::KEY_ORDERBY => $orderBy,
+            self::KEY_ONLY_TRASHED => $onlyTrashed,
+            self::KEY_SEARCH => $search,
+            self::KEY_SORT => $sort,
+            self::KEY_TAKE => $take,
+            self::KEY_OFFSET => $offset,
+            self::KEY_PAGINATE => $paginate,
+        ];
     }
 }

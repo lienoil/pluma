@@ -50,6 +50,24 @@ class ApiResourceRegistrar extends ResourceRegistrar
     }
 
     /**
+     * Add the show method for a resourceful route.
+     *
+     * @param  string  $name
+     * @param  string  $base
+     * @param  string  $controller
+     * @param  array   $options
+     * @return \Illuminate\Routing\Route
+     */
+    protected function addResourceShow($name, $base, $controller, $options)
+    {
+        $uri = $this->getResourceUri($name).'/{'.$base.'}';
+
+        $action = $this->getResourceAction($name, $controller, 'show', $options);
+
+        return $this->router->get($uri, $action);
+    }
+
+    /**
      * Add the delete method for a resourceful route.
      *
      * @param  string  $name

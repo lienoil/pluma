@@ -2,10 +2,9 @@
 
 namespace Course\Resources;
 
-use Course\Resources\Lesson;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Course extends JsonResource
+class Lesson extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +17,11 @@ class Course extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            // 'slug' => $this->slug,
-            // 'code' => $this->code,
-            // 'feature' => $this->feature,
-            // 'backdrop' => $this->backdrop,
-            // 'body' => $this->body,
-            // 'lessons' => Lesson::collection($this->whenLoaded('lessons'))
+            'slug' => $this->slug,
+            'code' => $this->code,
+            'feature' => $this->feature,
+            'backdrop' => $this->backdrop,
+            'body' => $this->body,
         ];
     }
 }
