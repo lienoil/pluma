@@ -8,7 +8,7 @@ export const state = () => ({
   },
   toolbar: {
     bulkdestroy: true,
-  }
+  },
 })
 
 export const getters = {

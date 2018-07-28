@@ -1,13 +1,15 @@
 <template>
   <v-slide-y-transition>
     <v-card>
-      <!-- <v-text-field
+      <v-text-field
         append-icon="search"git s
         hide-details
         label="Search"
         single-line
         v-model="dataset.searchTable"
-      ></v-text-field> -->
+        clearable
+        clear-icon="cancel"
+      ></v-text-field>
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"
@@ -96,7 +98,8 @@
           slot="no-results"
           class="text-xs-center"
           >
-          <!-- insert mediaicon -->
+
+          <add-media-icon></add-media-icon>
 
           <v-card-text>
             Your search for
@@ -120,18 +123,26 @@ export default {
   name: 'DataTable',
 
   props: {
+    width: {
+      type: [Number, String],
+      default: 120
+    },
+    height: {
+      type: [Number, String],
+      default: 120
+    },
     items: {
       type: [Object, Array],
       default: () => {
-        return {}
+        return {
+        }
       }
     }
   },
 
   data () {
     return {
-      dataset: {
-      },
+      dataset: {},
     }
   },
 

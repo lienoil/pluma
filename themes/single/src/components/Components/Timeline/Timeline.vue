@@ -12,27 +12,12 @@
         <v-subheader>July 20, 2018</v-subheader>
       </v-flex>
       <v-flex md10 xs12>
-        <template v-if="dataset.model">
-          <v-card>
-            <template v-for="item in dataset.items">
-              <v-card-text>
-                <span class="subheading mb-3">
-                  <a v-html="item.user" href=""></a>
-                  <span v-html="item.activity"></span>
-                </span>
-                <v-spacer></v-spacer>
-                <v-icon small>schedule</v-icon>
-                <span
-                  class="body-1 text--emphasis-medium"
-                  v-html="item.created">
-                </span>
-              </v-card-text>
-              <v-divider></v-divider>
-            </template>
-          </v-card>
-        </template>
-        <template v-else>
-
+        <template v-for="(item, i) in dataset.items">
+            <v-card>
+              <v-card-text v-html="item.title"></v-card-text>
+              <v-card-text v-html="item.category"></v-card-text>
+            </v-card>
+          </template>
         </template>
       </v-flex>
     </v-layout>
@@ -41,7 +26,7 @@
 
 <script>
 import store from '@/store'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   store,

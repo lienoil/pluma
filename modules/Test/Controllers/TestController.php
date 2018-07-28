@@ -43,4 +43,16 @@ class TestController extends GeneralController
 
         return view("Test::tests.create");
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  Request $request
+     * @return Illuminate\Http\Response
+     */
+    public function trashed(Request $request)
+    {
+
+        return view("Test::tests.trashed");
+    }
 }

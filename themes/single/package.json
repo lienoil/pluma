@@ -27,7 +27,6 @@
     "vue-shortkey": "^3.1.4",
     "vue-simple-lightbox": "^1.1.0",
     "vuedraggable": "^2.16.0",
-    "vuejs-carousel": "^0.6.0",
     "vuetify": "^1.1.8",
     "vuex": "^3.0.1"
   },

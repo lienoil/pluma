@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { base } from './base'
 import { category } from '@/components/Components/Category/store/modules/category'
-import { coverimage } from '@/components/Components/CoverImage/store/modules/coverimage'
 import { dataiterator } from '@/components/Components/DataIterator/store/modules/dataiterator'
 import { datatable } from '@/components/Components/DataTable/store/modules/datatable'
 import { dialogbox } from '@/components/Components/Dialog/store/modules/dialogbox'
@@ -18,7 +17,6 @@ export default new Vuex.Store({
   modules: {
     base,
     category,
-    coverimage,
     dataiterator,
     datatable,
     dialogbox,

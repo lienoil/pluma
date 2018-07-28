@@ -1,6 +1,6 @@
 <template v-cloak>
   <section>
-    <toolbar-menu :items="toolbarMenu"></toolbar-menu>
+    <toolbar-menu></toolbar-menu>
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
@@ -30,15 +30,6 @@
               <icon-menu :items="iconmenu"></icon-menu>
             </v-card-text>
           </v-card>
-
-          <!-- <v-card class="mb-3">
-            <lightbox
-              id="mylightbox"
-              :images="dataset.images"
-              :image_class=" 'img-responsive' "
-              :options="dataset.options">
-            </lightbox>
-          </v-card> -->
         </v-flex>
 
         <v-flex md3 xs12>
@@ -68,7 +59,7 @@
           </template>
 
           <template v-else>
-            <data-iterator :items="courses"></data-iterator>
+            <data-iterator :items="library"></data-iterator>
           </template>
           <!-- grid / list view -->
         </v-flex>
@@ -86,28 +77,14 @@
 <script>
 import store from '@/store'
 import { mapGetters } from 'vuex'
-import Lightbox from 'vue-simple-lightbox'
 
 export default {
   store,
 
-  components: {
-    Lightbox
-  },
+  components: {},
 
   data () {
     return {
-      media: {
-        thumbnail: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png'
-      },
-
-      toolbarMenu: {
-        color: 'primary',
-        list: false,
-        raisedColor: 'secondary',
-        raisedTitle: 'Create',
-      },
-
       iconmenu: {
         model: '',
         label: 'Choose Icon Menu'
