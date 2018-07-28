@@ -5,11 +5,11 @@
     id="timeline"
     >
     <v-card-title>
-      <h3>July 2018</h3>
+      <h3 v-html="trans(dataset.monthYear)"></h3>
     </v-card-title>
     <v-layout row wrap>
       <v-flex md2 xs12>
-        <v-subheader>July 20, 2018</v-subheader>
+        <v-subheader v-html="trans(dataset.dateToday)"></v-subheader>
       </v-flex>
       <v-flex md10 xs12>
         <template v-for="(item, i) in dataset.items">

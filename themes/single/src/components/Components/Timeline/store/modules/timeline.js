@@ -1,9 +1,11 @@
 export const state = () => ({
   timeline: {
     model: true,
+    monthYear: 'August 2018',
+    dateToday: 'August 01, 2018',
     items: [
       {
-        user: 'Princess Alto'
+        user: 'John Doe',
       }
     ]
   },

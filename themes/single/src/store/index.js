@@ -5,6 +5,7 @@ import { category } from '@/components/Components/Category/store/modules/categor
 import { dataiterator } from '@/components/Components/DataIterator/store/modules/dataiterator'
 import { datatable } from '@/components/Components/DataTable/store/modules/datatable'
 import { dialogbox } from '@/components/Components/Dialog/store/modules/dialogbox'
+import { gallery } from '@/components/Components/Gallery/store/modules/gallery'
 import { iconmenu } from '@/components/Components/IconMenu/store/modules/iconmenu'
 import { snackbar } from '@/components/Components/Snackbar/store/modules/snackbar'
 import { tag } from '@/components/Components/Tag/store/modules/tag'
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     dataiterator,
     datatable,
     dialogbox,
+    gallery,
     iconmenu,
     snackbar,
     tag,
