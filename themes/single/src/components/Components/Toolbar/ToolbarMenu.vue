@@ -39,6 +39,21 @@
       </v-toolbar-title>
       <v-spacer v-if="dataset.spacer"></v-spacer>
 
+      <!-- bulk -->
+      <template v-if="toolbar.bulkdestroy">
+        <v-tooltip bottom
+          >
+          <v-btn
+            @click="bulkDestroy"
+            icon
+            slot="activator"
+            >
+            <v-icon>check_circle</v-icon>
+          </v-btn>
+          <span>Bulk Selection</span>
+        </v-tooltip>
+      </template>
+
       <!-- sort -->
       <v-tooltip
         bottom
@@ -94,21 +109,6 @@
             <v-icon>view_list</v-icon>
           </v-btn>
           <span>Switch to List View</span>
-        </v-tooltip>
-      </template>
-
-      <!-- bulk -->
-      <template v-if="toolbar.bulkdestroy">
-        <v-tooltip bottom
-          >
-          <v-btn
-            @click="bulkDestroy"
-            icon
-            slot="activator"
-            >
-            <v-icon>check_circle</v-icon>
-          </v-btn>
-          <span>Bulk Selection</span>
         </v-tooltip>
       </template>
 

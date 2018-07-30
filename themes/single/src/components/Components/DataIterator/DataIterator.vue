@@ -105,11 +105,15 @@
                 <v-btn
                   slot="activator"
                   icon
+                  ripple
                   >
                   <v-icon>more_vert</v-icon>
                 </v-btn>
                 <v-list dense>
-                  <v-list-tile @click="">
+                  <v-list-tile
+                    ripple
+                    @click=""
+                    >
                     <v-list-tile-avatar>
                       <v-icon color="warning">delete</v-icon>
                     </v-list-tile-avatar>
@@ -117,7 +121,10 @@
                       <v-list-tile-title>Move to Trash</v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
-                  <v-list-tile @click="">
+                  <v-list-tile
+                    ripple
+                    @click=""
+                    >
                     <v-list-tile-avatar>
                       <v-icon color="error">delete_forever</v-icon>
                     </v-list-tile-avatar>

@@ -3,11 +3,21 @@
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <v-flex xs12>
-          <timeline></timeline>
+          <template v-if="dataset.loaded">
+            <timeline></timeline>
+          </template>
+          <template v-else>
+            <v-card flat class="transparent text-xs-center">
+              <add-user-icon width="80px" height="80px"></add-user-icon>
+              <v-card-text class="grey--text">
+                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet blanditiis commodi est hic voluptas, magnam ullam reiciendis sequi cum id accusamus vitae odio, ab cupiditate dolorem quas voluptate maiores deserunt.</h3>
+              </v-card-text>
+            </v-card>
+          </template>
         </v-flex>
       </v-layout>
 
-     <!--  <v-layout row wrap>
+      <!-- <v-layout row wrap>
         <v-flex xs12>
           <v-card class="mb-3">
             <lightbox :images="lightbox.images"></lightbox>
@@ -19,6 +29,10 @@
 </template>
 
 <style>
+  .simple-lightbox .sl-close {
+    color: #fff !important;
+  }
+
   .my-gallery a img {
     margin: 6px !important;
     border: none !important;
@@ -26,7 +40,9 @@
   }
 
   .my-gallery a:hover img {
-    box-shadow: 0 5px 25px -2px rgba(0,0,0,.1), 0 8px 50px 1px rgba(0,0,0,.1), 0 3px 70px 2px rgba(0,0,0,.1);
+    box-shadow: 0 5px 25px -2px rgba(0,0,0,.1),
+                0 8px 50px 1px rgba(0,0,0,.1),
+                0 3px 70px 2px rgba(0,0,0,.1);
     z-index: 1 !important;
   }
 
@@ -42,17 +58,20 @@
 import store from '@/store'
 import { mapGetters } from 'vuex'
 import Lightbox from 'vue-simple-lightbox'
+import AddUserIcon from '@/components/Icons/AddUserIcon'
 
 export default {
   store,
 
   components: {
-    Lightbox
+    Lightbox,
+    AddUserIcon
   },
 
   data () {
     return {
       dataset: {
+        loaded: false,
         items: [
           {
             title: 'A Series',
@@ -91,7 +110,7 @@ export default {
         options: {
           closeText: 'x'
         }
-      }
+      },
     }
   },
 
@@ -105,7 +124,6 @@ export default {
     })
   },
 
-  methods: {
-  }
+  methods: {}
 }
 </script>

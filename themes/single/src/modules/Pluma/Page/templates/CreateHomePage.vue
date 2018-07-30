@@ -55,7 +55,6 @@
                   v-validate="'required'"
                 ></v-text-field>
               </v-card-text>
-
             </v-card>
 
             <template v-for="(item, i) in section.items">
