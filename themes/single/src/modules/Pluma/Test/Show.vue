@@ -13,7 +13,7 @@
               height="70vh"
               >
               <v-layout fill-height column justify-center align-center>
-                <add-user-icon width="160" height="160"></add-user-icon>
+                <add-user-icon width="120" height="120"></add-user-icon>
                 <v-card-text class="grey--text">
                   <h3>You do not have any resources on this module.</h3>
                   <p>Start upload by clicking the button below.</p>
