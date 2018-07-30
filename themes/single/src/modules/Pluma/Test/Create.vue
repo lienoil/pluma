@@ -5,13 +5,7 @@
     <v-container fluid grid-list-lg>
       <v-layout row wrap justify-end>
         <v-flex md9 xs12>
-          <v-card>
-            <v-card-title>
-              {{ trans('Lorem ipsum dolor') }}
-            </v-card-title>
-            <v-card-text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto cum aliquid veritatis, ab qui numquam accusantium nobis. Fugiat, quam atque, magni minus doloremque accusamus in, dolorum earum iure laudantium perspiciatis.
-            </v-card-text>
+          <v-card height="300px">
           </v-card>
         </v-flex>
 

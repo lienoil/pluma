@@ -98,13 +98,18 @@
           slot="no-results"
           class="text-xs-center"
           >
-
-          <add-media-icon></add-media-icon>
-
           <v-card-text>
-            Your search for
-            "{{ dataset.searchTable }}"
-            found no results.
+            <data-table-icon
+              width="120"
+              height="120"
+              class="mb-3"
+              >
+            </data-table-icon>
+            <div class="grey--text">
+              Your search for
+              "{{ dataset.searchTable }}"
+              found no results.
+            </div>
           </v-card-text>
         </v-card>
       </v-data-table>
@@ -113,7 +118,7 @@
 </template>
 
 <script>
-import AddMediaIcon from '@/components/Icons/AddMediaIcon'
+import DataTableIcon from '@/components/Icons/DataTableIcon'
 import store from '@/store'
 import { mapGetters } from 'vuex'
 
@@ -151,7 +156,7 @@ export default {
   },
 
   components: {
-    AddMediaIcon,
+    DataTableIcon,
   },
 
   computed: {

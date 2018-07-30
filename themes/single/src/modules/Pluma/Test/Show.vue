@@ -7,11 +7,21 @@
             <timeline></timeline>
           </template>
           <template v-else>
-            <v-card flat class="transparent text-xs-center">
-              <add-user-icon width="80px" height="80px"></add-user-icon>
-              <v-card-text class="grey--text">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet blanditiis commodi est hic voluptas, magnam ullam reiciendis sequi cum id accusamus vitae odio, ab cupiditate dolorem quas voluptate maiores deserunt.</h3>
-              </v-card-text>
+            <v-card
+              flat
+              class="transparent text-xs-center"
+              height="70vh"
+              >
+              <v-layout fill-height column justify-center align-center>
+                <add-user-icon width="160" height="160"></add-user-icon>
+                <v-card-text class="grey--text">
+                  <h3>You do not have any resources on this module.</h3>
+                  <p>Start upload by clicking the button below.</p>
+                  <v-btn color="secondary">
+                    {{ trans('Create Test') }}
+                  </v-btn>
+                </v-card-text>
+              </v-layout>
             </v-card>
           </template>
         </v-flex>
