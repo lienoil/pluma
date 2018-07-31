@@ -9,7 +9,8 @@ node_modules/
 .env
 
 # ignore files in folder storage
-storage/
+storage/framework
+storage/logs
 tests/build/
 **/tests/build/
 .sass-cache/
