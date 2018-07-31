@@ -9,7 +9,7 @@ node_modules/
 .env
 
 # ignore files in folder storage
-storage/framework
+storage/framework/*
 storage/logs
 tests/build/
 **/tests/build/
