@@ -20,10 +20,10 @@ class Student extends User
      */
     public function courses()
     {
-        return $this->belongsToMany(
-            Course::class
-            // 'course_user',
-            // 'user_id'
-        );
+        // return $this->belongsToMany(
+        //     Course::class,
+        //     'courses',
+        //     'user_id'
+        // );
     }
 }

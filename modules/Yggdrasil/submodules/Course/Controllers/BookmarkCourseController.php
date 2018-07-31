@@ -11,6 +11,7 @@ use User\Models\User;
 
 class BookmarkCourseController extends AdminController
 {
+
     /**
      * Display list of bookmarked resource.
      *

@@ -39,6 +39,10 @@
           </li>
         @endforeach
       </ul>
+      <br><br>
+     <a href="{{ route('courses.bookmarked') }}">REQUEST COURSE</a>
+      <br><br>
+     <a href="{{ route('courses.my') }}">BOOKMARK COURSE</a>
     </v-flex>
   </v-container>
 

@@ -123,7 +123,7 @@ return [
                 'slug' => route('courses.bookmarked'),
                 'code' => 'bookmarked-courses',
                 'always_viewable' => false,
-                // 'exclude_from_root' => true,
+                'exclude_from_root' => true,
                 'labels' => [
                     'title' => __('Bookmarked Courses'),
                     'description' => __('View all your bookmarked courses'),
