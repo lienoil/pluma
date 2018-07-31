@@ -1,38 +1,19 @@
-@include("Theme::partials.header")
+@include('Frontier::partials.head')
 
-<div id="application-root" class="application-root" data-application-root toolbar--fixed toolbar>
-    <v-app standalone>
+<div id="application-root" data-application-root>
+  @stack('before-main')
 
-        @yield("pre-content")
+  @section('main')
+    <main id="main" data-main>
+      @stack('before-content')
 
-        <main id="main" data-main :style="{fontSize: settings.fontsize.model+'px'}">
+      @yield('content')
 
-            @section("pre-container")
-                @include("Theme::partials.breadcrumbs")
-                {{-- @include("Theme::partials.debug") --}}
-            @show
+      @stack('after-content')
+    </main>
+  @show
 
-            @yield("root")
-
-        </main>
-
-        @section("post-container")
-            @include("Theme::partials.endnote")
-        @show
-
-        @yield("post-content")
-
-    </v-app>
+  @stack('after-main')
 </div>
 
-@section("scripts")
-    <script>
-        let mixins = [{ data: { page: { model: false, }, }, }];
-    </script>
-    @stack("pre-scripts")
-    <script src='{{ assets("frontier/app/filters.js") }}'></script>
-    <script src='{{ assets("frontier/app/dist/app.js") }}'></script>
-    @stack("post-scripts")
-@show
-
-@include("Theme::partials.footer")
+@include('Frontier::partials.foot')

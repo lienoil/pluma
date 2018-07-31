@@ -1,23 +1,10 @@
-@include("Frontier::partials.header")
+@extends('Frontier::layouts.master')
 
-@yield("pre-content")
-
-<div id="application-root" class="application-root" data-application-root>
-    <v-app standalone>
-        @yield("content")
-    </v-app>
-</div>
-
-@yield("post-content")
-
-@section("scripts")
-    <script>
-        let mixins = [{ data: { page: { model: false, }, }, }];
-    </script>
-    @stack("pre-scripts")
-    <script src='{{ assets("frontier/app/filters.js") }}'></script>
-    <script src='{{ assets("frontier/app/dist/app.js") }}'></script>
-    @stack("post-scripts")
-@show
-
-@include("Frontier::partials.footer")
+{{-- Override the main section from master --}}
+@section('main')
+  <div class="authentication-card">
+    <div class="authentication-card__content">
+      @yield('content')
+    </div>
+  </div>
+@endsection
