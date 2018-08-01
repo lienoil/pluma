@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-container fluid grid-list-lg>
+    <v-container grid-list-lg>
    <!--    <v-layout row wrap>
         <v-flex xs12>
           <template v-if="dataset.loaded">
@@ -36,19 +36,44 @@
 
       <v-layout row wrap>
         <v-flex
-           :md8="courses.view"
-           xs12
-           >
+          :md8="courses.md8"
+          xs12
+          >
+          <v-card flat class="mb-3">
+            <v-tooltip right>
+              <v-btn
+                color="secondary"
+                fab
+                icon
+                slot="activator"
+                small
+                >
+                <v-icon ripple>chevron_left</v-icon>
+              </v-btn>
+              <span>{{ trans('Back to Courses') }}</span>
+            </v-tooltip>
+          </v-card>
           <v-scale-transition>
             <v-card>
               <v-card-media
+                class="primary lighten-1"
                 :src="courses.thumbnail"
                 height="500"
                 >
               </v-card-media>
               <v-card-actions class="emphasis--medium">
                 <v-spacer></v-spacer>
-                <v-btn @click="courses.view = !courses.view" icon small><v-icon>fullscreen</v-icon></v-btn>
+                <v-tooltip bottom>
+                  <v-btn
+                    @click="courses.md8 = !courses.md8"
+                    icon
+                    small
+                    slot="activator"
+                    >
+                    <v-icon>fullscreen</v-icon>
+                  </v-btn>
+                  <span v-html="courses.md8 ? 'Theatre mode' : 'Default view'"></span>
+                </v-tooltip>
               </v-card-actions>
             </v-card>
           </v-scale-transition>
@@ -101,8 +126,8 @@ export default {
   data () {
     return {
       courses: {
-        view: true,
-        thumbnail: 'http://cdn.dribbble.com/users/904433/screenshots/2994633/animation_fin.gif',
+        md8: true,
+        thumbnail: 'https://px6vg4ekvl21gtxs836x5jyx-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/segmentation-hero@2x-1.png',
         items: [
           {
 
