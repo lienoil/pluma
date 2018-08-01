@@ -34,30 +34,34 @@
         </v-flex>
       </v-layout> -->
 
+      <v-card
+        flat
+        color="transparent"
+        class="mb-3"
+        >
+        <v-tooltip right>
+          <v-btn
+            color="secondary"
+            fab
+            icon
+            slot="activator"
+            small
+            >
+            <v-icon ripple>chevron_left</v-icon>
+          </v-btn>
+          <span>{{ trans('Back to Courses') }}</span>
+        </v-tooltip>
+      </v-card>
+
       <v-layout row wrap>
-        <v-flex
-          :md8="courses.md8"
-          xs12
-          >
-          <v-card flat class="mb-3">
-            <v-tooltip right>
-              <v-btn
-                color="secondary"
-                fab
-                icon
-                slot="activator"
-                small
-                >
-                <v-icon ripple>chevron_left</v-icon>
-              </v-btn>
-              <span>{{ trans('Back to Courses') }}</span>
-            </v-tooltip>
-          </v-card>
-          <v-scale-transition>
+          <v-flex
+            :md8="course.md8"
+            xs12
+            >
             <v-card>
               <v-card-media
                 class="primary lighten-1"
-                :src="courses.thumbnail"
+                :src="course.thumbnail"
                 height="500"
                 >
               </v-card-media>
@@ -65,18 +69,54 @@
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
                   <v-btn
-                    @click="courses.md8 = !courses.md8"
+                    @click="course.md8 = !course.md8"
                     icon
                     small
                     slot="activator"
                     >
                     <v-icon>fullscreen</v-icon>
                   </v-btn>
-                  <span v-html="courses.md8 ? 'Theatre mode' : 'Default view'"></span>
+                  <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
                 </v-tooltip>
               </v-card-actions>
             </v-card>
-          </v-scale-transition>
+          </v-flex>
+
+          <v-flex
+          :md4="course.md4"
+          xs12
+          >
+          <v-card
+            flat
+            color="transparent"
+            class="mb-3"
+            >
+            <v-expansion-panel flat class="elevation-0 py-3 transparent">
+              <v-expansion-panel-content
+                v-for="(item,i) in course.chapters"
+                :key="i"
+                class="transparent"
+                flat
+                >
+                <div slot="header">
+                  <div class="title" v-html="item.chapterTitle"></div>
+                  <div class="grey--text" v-html="item.chapterSubTitle"></div>
+                </div>
+                <v-card>
+                  <v-list>
+                    <v-list-tile ripple @click="">
+                      <v-list-tile-avatar>
+                        <v-icon>play_arrow</v-icon>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title>Introduction</v-list-tile-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                </v-card>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-card>
         </v-flex>
       </v-layout>
     </v-container>
@@ -125,12 +165,15 @@ export default {
 
   data () {
     return {
-      courses: {
+      panel: [true, false],
+      course: {
         md8: true,
+        md4: true,
         thumbnail: 'https://px6vg4ekvl21gtxs836x5jyx-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/segmentation-hero@2x-1.png',
-        items: [
+        chapters: [
           {
-
+            chapterTitle: 'Chapter 1',
+            chapterSubTitle: 'Lorem ipsum dolor',
           }
         ],
       },
