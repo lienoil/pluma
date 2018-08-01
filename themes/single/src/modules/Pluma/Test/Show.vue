@@ -48,17 +48,10 @@
               </v-card-media>
               <v-card-actions class="emphasis--medium">
                 <v-spacer></v-spacer>
-                <v-btn @click="courses.view = false" icon small><v-icon>fullscreen</v-icon></v-btn>
+                <v-btn @click="courses.view = !courses.view" icon small><v-icon>fullscreen</v-icon></v-btn>
               </v-card-actions>
             </v-card>
           </v-scale-transition>
-        </v-flex>
-
-        <v-flex md4 xs12>
-          <v-card>
-            <v-card-text>
-            </v-card-text>
-          </v-card>
         </v-flex>
       </v-layout>
     </v-container>
@@ -111,9 +104,9 @@ export default {
         view: true,
         thumbnail: 'http://cdn.dribbble.com/users/904433/screenshots/2994633/animation_fin.gif',
         items: [
-        {
+          {
 
-        }
+          }
         ],
       },
 
