@@ -59,7 +59,7 @@
           </template>
 
           <template v-else>
-            <data-iterator :items="library"></data-iterator>
+            <data-iterator :items="courses"></data-iterator>
           </template>
           <!-- grid / list view -->
         </v-flex>

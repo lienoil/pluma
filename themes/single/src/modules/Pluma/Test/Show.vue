@@ -1,7 +1,7 @@
 <template>
   <section>
     <v-container fluid grid-list-lg>
-      <v-layout row wrap>
+   <!--    <v-layout row wrap>
         <v-flex xs12>
           <template v-if="dataset.loaded">
             <timeline></timeline>
@@ -26,14 +26,41 @@
           </template>
         </v-flex>
       </v-layout>
-
-      <!-- <v-layout row wrap>
+      <v-layout row wrap>
         <v-flex xs12>
           <v-card class="mb-3">
             <lightbox :images="lightbox.images"></lightbox>
           </v-card>
         </v-flex>
       </v-layout> -->
+
+      <v-layout row wrap>
+        <v-flex
+           :md8="courses.view"
+           xs12
+           >
+          <v-scale-transition>
+            <v-card>
+              <v-card-media
+                :src="courses.thumbnail"
+                height="500"
+                >
+              </v-card-media>
+              <v-card-actions class="emphasis--medium">
+                <v-spacer></v-spacer>
+                <v-btn @click="courses.view = false" icon small><v-icon>fullscreen</v-icon></v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-scale-transition>
+        </v-flex>
+
+        <v-flex md4 xs12>
+          <v-card>
+            <v-card-text>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-container>
   </section>
 </template>
@@ -80,6 +107,16 @@ export default {
 
   data () {
     return {
+      courses: {
+        view: true,
+        thumbnail: 'http://cdn.dribbble.com/users/904433/screenshots/2994633/animation_fin.gif',
+        items: [
+        {
+
+        }
+        ],
+      },
+
       dataset: {
         loaded: false,
         items: [

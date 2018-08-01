@@ -23,6 +23,7 @@
                 item-value="thumbnail"
                 hide-toolbar
                 v-model="resource.item[mediabox.name]">
+
                 <template slot="menus" slot-scope="{props}">
                   <v-subheader v-html="trans('Catalogue')"></v-subheader>
                   <v-list-tile v-model="menu.model" :key="i" v-for="(menu, i) in props.menus" @click="props.toggle(menu, menu.url)">
