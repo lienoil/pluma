@@ -2,6 +2,7 @@
 
 namespace Course\Models;
 
+use Content\Support\Relations\BelongsToManyContents;
 use Course\Controllers\Resources\CourseUserMutator;
 use Course\Support\Relations\BelongsToManyCourses;
 use Course\Support\Scopes\EnrolledToACourse;

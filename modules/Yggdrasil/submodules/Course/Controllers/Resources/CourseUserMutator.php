@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 trait CourseUserMutator
 {
-    public function FunctionName($value='')
+    public function getCurrentAttribute()
     {
         return $this->courses()->find($course_id)->current;
     }

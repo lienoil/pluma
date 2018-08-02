@@ -4,8 +4,9 @@ namespace Course\Controllers\Resources;
 
 use Course\Mail\CourseRequested;
 use Course\Mail\NewCourseRequest;
+use Course\Models\Course;
 use Course\Models\Student;
-use Course\Resources\Course;
+use Course\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,9 +21,9 @@ trait MyCourseResourceTrait
     public function current(Request $request)
     {
         $resources = Student::findOrFail(user()->id)
-                            ->courses();
-                            // ->search($request->all())
-                            // ->paginate();
+                            ->courses()
+                            ->search($request->all())
+                            ->paginate();
 
         if ($request->ajax()) {
             return response()->json($resources);
@@ -40,13 +41,14 @@ trait MyCourseResourceTrait
      */
     public function bookmarked(Request $request)
     {
-        // $resources = Course::onlyBookmarkedBy(user())
-        //                    ->search($request->all())
-        //                    ->paginate();
+        $resources = Course::onlyBookmarkedBy(user())
+                           ->search($request->all())
+                           ->paginate();
 
         if ($request->ajax()) {
             return response()->json($resources);
         }
+
         return view("Theme::courses.bookmarked")->with(compact('resources'));
     }
 
@@ -75,6 +77,7 @@ trait MyCourseResourceTrait
        # to student
        Mail::to($student->email)
            ->send(new CourseRequested($course, $student));
+
        #to trainer
        Mail::to($course->user->email)
            ->cc(settings('site_email'))

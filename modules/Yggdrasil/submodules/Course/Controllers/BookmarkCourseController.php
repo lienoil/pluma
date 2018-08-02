@@ -3,11 +3,17 @@
 namespace Course\Controllers;
 
 use Bookmark\Models\Bookmark;
+use Catalogue\Models\Catalogue;
+use Category\Models\Category;
+use Content\Models\Content;
 use Course\Models\Course;
+use Course\Models\User;
 use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use User\Models\User;
+use Course\Models\Lesson;
+use Library\Models\Library;
+
 
 class BookmarkCourseController extends AdminController
 {

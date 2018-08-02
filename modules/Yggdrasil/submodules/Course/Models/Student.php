@@ -2,10 +2,10 @@
 
 namespace Course\Models;
 
-use Course\Controllers\Resources\CourseUserMutator;
 use Course\Models\Course;
-use User\Models\User;
+use Course\Controllers\Resources\CourseUserMutator;
 use Course\Support\Relations\BelongsToManyCourses;
+use User\Models\User;
 
 class Student extends User
 {
@@ -20,10 +20,10 @@ class Student extends User
      */
     public function courses()
     {
-        // return $this->belongsToMany(
-        //     Course::class,
-        //     'courses',
-        //     'user_id'
-        // );
+        return $this->belongsToMany(
+            Course::class,
+            'course_user',
+            'user_id'
+        );
     }
 }
