@@ -54,6 +54,7 @@
       </v-card>
 
       <v-layout row wrap>
+        <!-- interactive media -->
         <v-flex
           :md8="course.md8"
           xs12
@@ -67,6 +68,18 @@
               class="primary lighten-1"
               height="500"
               >
+              <div style="background: rgba(0, 0, 0, 0.60); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
+              <v-layout row wrap justify-center fill-height align-center>
+                <v-card flat class="transparent">
+                  <v-icon
+                    dark
+                    @click=""
+                    size="150"
+                    >
+                    play_arrow
+                  </v-icon>
+                </v-card>
+              </v-layout>
             </v-card-media>
             <v-card-actions class="emphasis--medium">
               <v-spacer></v-spacer>
@@ -86,10 +99,10 @@
 
           <v-card
             flat
-            class="mb-3 transparent"
+            class="mb-3 transparent my-4"
             >
             <v-card-text
-              class="px-0 my-4"
+              class="px-0"
               >
               <div class="primary--text text--lighten-2 body-1">
                 <strong>PSDM SUP</strong>
@@ -105,9 +118,16 @@
                 </a>
               </div>
             </v-card-text>
+            <v-card-text
+              class="px-0"
+              v-html="course.description"
+              >
+            </v-card-text>
           </v-card>
         </v-flex>
+        <!-- interactive media -->
 
+        <!-- course playlist -->
         <v-flex
           :md4="course.md4"
           xs12
@@ -139,6 +159,7 @@
                     >
                   </div>
                 </div>
+
                 <v-card class="transparent">
                   <v-list class="transparent">
                     <v-list-tile
@@ -191,17 +212,40 @@
             </v-expansion-panel>
           </v-card>
         </v-flex>
+        <!-- course playlist -->
 
-        <v-flex md8 xs12 order-md2 order-xs-3>
-          <v-card>
-            <v-card-actions class="emphasis--medium">
-              {{ trans(course.title) }}
-            </v-card-actions>
+        <!-- comment system -->
+        <v-flex md8 xs12 order-md2 order-xs3>
+          <!-- ckeditor@inline -->
+          <v-card height="100" style="cursor: text;">
             <v-card-text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est assumenda optio possimus accusamus, id ipsum incidunt numquam quibusdam nisi nam aliquam dolorum ratione, porro voluptatem excepturi, et quos corporis expedita!
+              <p class="grey--text">
+                {{ trans('Post a Comment...') }}
+              </p>
             </v-card-text>
           </v-card>
+          <!-- ckeditor@inline -->
+          <v-card-actions class="py-3 px-0">
+            <v-spacer></v-spacer>
+            <v-btn color="secondary">
+              {{ trans('Post Comment') }}
+            </v-btn>
+          </v-card-actions>
+
+          <template>
+            <v-card
+              flat
+              class="transparent text-xs-center"
+              >
+              <comment-icon width="120" height="120"></comment-icon>
+              <v-card-text class="grey--text">
+                <h3>There's nothing here</h3>
+                <p>Fill me up, buttercup!</p>
+              </v-card-text>
+            </v-card>
+          </template>
         </v-flex>
+        <!-- comment system -->
       </v-layout>
     </v-container>
   </section>
@@ -238,13 +282,15 @@ import store from '@/store'
 import { mapGetters } from 'vuex'
 import Lightbox from 'vue-simple-lightbox'
 import AddUserIcon from '@/components/Icons/AddUserIcon'
+import CommentIcon from '@/components/Icons/CommentIcon'
 
 export default {
   store,
 
   components: {
     Lightbox,
-    AddUserIcon
+    AddUserIcon,
+    CommentIcon
   },
 
   data () {
@@ -255,6 +301,7 @@ export default {
         md8: true,
         md4: true,
         title: 'Communicate and Relate Effectively at the Workplace at Operations Level',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea corporis sapiente, blanditiis voluptas, commodi aliquid officia magni temporibus nulla iusto, unde corrupti deserunt ipsum error labore praesentium voluptatem ipsam saepe.',
         created: '3 weeks ago',
         author: 'John Lenon',
         thumbnail: 'https://px6vg4ekvl21gtxs836x5jyx-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/segmentation-hero@2x-1.png',
