@@ -192,8 +192,15 @@
           </v-card>
         </v-flex>
 
-        <v-flex md8 xs12 order-md2 order-xs3>
-          <v-card height="300"></v-card>
+        <v-flex md8 xs12 order-md2 order-xs-3>
+          <v-card>
+            <v-card-actions class="emphasis--medium">
+              {{ trans(course.title) }}
+            </v-card-actions>
+            <v-card-text>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est assumenda optio possimus accusamus, id ipsum incidunt numquam quibusdam nisi nam aliquam dolorum ratione, porro voluptatem excepturi, et quos corporis expedita!
+            </v-card-text>
+          </v-card>
         </v-flex>
       </v-layout>
     </v-container>
