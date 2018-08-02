@@ -1,7 +1,7 @@
 <template>
   <section>
-    <v-container grid-list-lg>
-   <!--    <v-layout row wrap>
+    <v-container fluid grid-list-lg>
+     <!--  <v-layout row wrap>
         <v-flex xs12>
           <template v-if="dataset.loaded">
             <timeline></timeline>
@@ -54,62 +54,135 @@
       </v-card>
 
       <v-layout row wrap>
-          <v-flex
-            :md8="course.md8"
-            xs12
+        <v-flex
+          :md8="course.md8"
+          xs12
+          order-md1 order-xs1
+          >
+          <v-card
+            transition="scale-transition"
             >
-            <v-card>
-              <v-card-media
-                class="primary lighten-1"
-                :src="course.thumbnail"
-                height="500"
-                >
-              </v-card-media>
-              <v-card-actions class="emphasis--medium">
-                <v-spacer></v-spacer>
-                <v-tooltip bottom>
-                  <v-btn
-                    @click="course.md8 = !course.md8"
-                    icon
-                    small
-                    slot="activator"
-                    >
-                    <v-icon>fullscreen</v-icon>
-                  </v-btn>
-                  <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
-                </v-tooltip>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
+            <v-card-media
+              :src="course.thumbnail"
+              class="primary lighten-1"
+              height="500"
+              >
+            </v-card-media>
+            <v-card-actions class="emphasis--medium">
+              <v-spacer></v-spacer>
+              <v-tooltip bottom>
+                <v-btn
+                  @click="fullscreen"
+                  icon
+                  slot="activator"
+                  small
+                  >
+                  <v-icon>fullscreen</v-icon>
+                </v-btn>
+                <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
+              </v-tooltip>
+            </v-card-actions>
+          </v-card>
 
-          <v-flex
+          <v-card
+            flat
+            class="mb-3 transparent"
+            >
+            <v-card-text
+              class="px-0 my-4"
+              >
+              <div class="primary--text text--lighten-2 body-1">
+                <strong>PSDM SUP</strong>
+              </div>
+              <h2 v-html="course.title"></h2>
+              <div class="grey--text">
+                {{ course.created }} {{ trans('by') }}
+                <a
+                  class="author"
+                  href=""
+                  v-html="course.author"
+                  >
+                </a>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+
+        <v-flex
           :md4="course.md4"
           xs12
+          class="text-xs-right"
+          :order-md3="orderMd3" order-xs2
           >
           <v-card
             flat
             color="transparent"
             class="mb-3"
             >
-            <v-expansion-panel flat class="elevation-0 py-3 transparent">
+            <v-expansion-panel
+              flat
+              class="elevation-0 mb-3 transparent"
+              >
               <v-expansion-panel-content
-                v-for="(item,i) in course.chapters"
                 :key="i"
                 class="transparent"
                 flat
+                v-for="(item,i) in course.chapters"
                 >
                 <div slot="header">
-                  <div class="title" v-html="item.chapterTitle"></div>
-                  <div class="grey--text" v-html="item.chapterSubTitle"></div>
+                  <div class="title"
+                    v-html="item.chapterTitle"
+                    >
+                  </div>
+                  <div class="grey--text"
+                    v-html="item.chapterSubTitle"
+                    >
+                  </div>
                 </div>
-                <v-card>
-                  <v-list>
-                    <v-list-tile ripple @click="">
+                <v-card class="transparent">
+                  <v-list class="transparent">
+                    <v-list-tile
+                      ripple
+                      @click=""
+                      >
                       <v-list-tile-avatar>
-                        <v-icon>play_arrow</v-icon>
+                        <v-icon color="success">check</v-icon>
                       </v-list-tile-avatar>
                       <v-list-tile-content>
-                        <v-list-tile-title>Introduction</v-list-tile-title>
+                        <v-list-tile-title class="success--text">Introduction</v-list-tile-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile
+                      ripple
+                      @click=""
+                      >
+                      <v-list-tile-avatar>
+                        <v-icon color="secondary">play_arrow</v-icon>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title class="secondary--text">Interaction</v-list-tile-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile
+                      ripple
+                      @click=""
+                      >
+                      <v-list-tile-avatar>
+                        <v-icon color="grey">lock</v-icon>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title class="grey--text">Video</v-list-tile-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile
+                      ripple
+                      @click=""
+                      >
+                      <v-list-tile-avatar>
+                        <v-icon color="grey">lock</v-icon>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title class="grey--text">Knowledge Check</v-list-tile-title>
                       </v-list-tile-content>
                     </v-list-tile>
                   </v-list>
@@ -117,6 +190,10 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-card>
+        </v-flex>
+
+        <v-flex md8 xs12 order-md2 order-xs3>
+          <v-card height="300"></v-card>
         </v-flex>
       </v-layout>
     </v-container>
@@ -167,13 +244,25 @@ export default {
     return {
       panel: [true, false],
       course: {
+        orderMd3: false,
         md8: true,
         md4: true,
+        title: 'Communicate and Relate Effectively at the Workplace at Operations Level',
+        created: '3 weeks ago',
+        author: 'John Lenon',
         thumbnail: 'https://px6vg4ekvl21gtxs836x5jyx-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/segmentation-hero@2x-1.png',
         chapters: [
           {
             chapterTitle: 'Chapter 1',
-            chapterSubTitle: 'Lorem ipsum dolor',
+            chapterSubTitle: 'How to interpret and analyse information received',
+          },
+          {
+            chapterTitle: 'Chapter 2',
+            chapterSubTitle: 'How to plan a response to information received',
+          },
+          {
+            chapterTitle: 'Chapter 3',
+            chapterSubTitle: 'How to use appropriate communication techniques',
           }
         ],
       },
@@ -232,6 +321,11 @@ export default {
     })
   },
 
-  methods: {}
+  methods: {
+    fullscreen () {
+      this.course.md8 = !this.course.md8
+      this.orderMd3 = !this.orderMd3
+    }
+  }
 }
 </script>

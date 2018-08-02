@@ -2,6 +2,7 @@
   :dark="theme.dark"
   app
   flat
+  class="utilitybar"
   transition="slide-y-transition"
   >
   <v-toolbar-side-icon @click="localstorage({'single.sidebar.model': (sidebar.model = !sidebar.model)})"></v-toolbar-side-icon>

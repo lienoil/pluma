@@ -3,7 +3,7 @@
     <toolbar-menu></toolbar-menu>
 
     <v-container fluid grid-list-lg>
-      <v-layout row wrap>
+      <!-- <v-layout row wrap>
         <v-flex md9 xs12>
           <v-card flat class="mb-3 text-xs-center">
             <v-card-title
@@ -49,7 +49,7 @@
             <category :items="category"></category>
           </v-card>
         </v-flex>
-      </v-layout>
+      </v-layout> -->
 
       <v-layout row wrap>
         <v-flex xs12>
