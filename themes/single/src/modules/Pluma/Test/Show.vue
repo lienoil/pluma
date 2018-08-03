@@ -61,6 +61,7 @@
           order-md1 order-xs1
           >
           <v-card
+            class="mb-3"
             transition="scale-transition"
             >
             <v-card-media
@@ -85,45 +86,52 @@
               <v-spacer></v-spacer>
               <v-tooltip bottom>
                 <v-btn
-                  @click="fullscreen"
+                  @click="viewMode"
                   icon
                   slot="activator"
-                  small
+                  >
+                  <v-icon v-html="course.md8 ? 'crop_landscape' : 'crop_square'"></v-icon>
+                </v-btn>
+                <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <v-btn
+                  @click=""
+                  icon
+                  slot="activator"
                   >
                   <v-icon>fullscreen</v-icon>
                 </v-btn>
-                <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
+                <span>{{ trans('Fullscreen') }}</span>
               </v-tooltip>
             </v-card-actions>
           </v-card>
 
-          <v-card
-            flat
-            class="mb-3 transparent my-4"
+          <!-- pre/next button -->
+          <v-card-actions
+            class="px-0"
             >
-            <v-card-text
-              class="px-0"
-              >
-              <div class="primary--text text--lighten-2 body-1">
-                <strong>PSDM SUP</strong>
-              </div>
-              <h2 v-html="course.title"></h2>
-              <div class="grey--text">
-                {{ course.created }} {{ trans('by') }}
-                <a
-                  class="author"
-                  href=""
-                  v-html="course.author"
-                  >
-                </a>
-              </div>
-            </v-card-text>
-            <v-card-text
-              class="px-0"
-              v-html="course.description"
-              >
-            </v-card-text>
-          </v-card>
+            <span class="pr-3">
+              <v-icon
+                color="secondary"
+                left
+                @click>
+                arrow_back
+              </v-icon>
+            </span>
+            <span class="secondary--text">{{ trans('Previous') }}</span>
+            <v-spacer></v-spacer>
+            <span class="secondary--text">{{ trans('Next') }}</span>
+            <span class="pl-3">
+              <v-icon
+                color="secondary"
+                right
+                @click>
+                arrow_forward
+              </v-icon>
+            </span>
+          </v-card-actions>
+          <!-- pre/next button -->
         </v-flex>
         <!-- interactive media -->
 
@@ -214,8 +222,67 @@
         </v-flex>
         <!-- course playlist -->
 
-        <!-- comment system -->
         <v-flex md8 xs12 order-md2 order-xs3>
+          <v-card
+            class="mb-5"
+            >
+            <v-tabs
+              v-model="active"
+              color="emphasis--medium"
+              slider-color="accent"
+              >
+              <v-tab
+                ripple
+                key="overview"
+                id="overview"
+                >
+                {{ trans('Overview') }}
+              </v-tab>
+              <v-tab
+                ripple
+                key="resources"
+                id="overview"
+                >
+                {{ trans('Resources') }}
+              </v-tab>
+
+              <v-tab-item href="#overview">
+                <v-card flat>
+                  <v-card-text>
+                    <div class="primary--text text--lighten-2 body-1">
+                      <strong>PSDM SUP</strong>
+                    </div>
+                    <h2 v-html="course.title"></h2>
+                    <div class="grey--text">
+                      {{ course.created }} {{ trans('by') }}
+                      <a
+                        class="author"
+                        href=""
+                        v-html="course.author"
+                        >
+                      </a>
+                    </div>
+                  </v-card-text>
+                  <v-card-text
+                    v-html="course.description"
+                    >
+                  </v-card-text>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item ref="#resources">
+                <v-card flat>
+                  <v-card-text class="text-xs-center">
+                    <assignment-icon width="120" height="120"></assignment-icon>
+                  </v-card-text>
+                  <v-card-text class="text-xs-center">
+                    No assignments for this course.
+                  </v-card-text>
+                </v-card>
+              </v-tab-item>
+            </v-tabs>
+          </v-card>
+
+          <!-- comment system -->
           <!-- ckeditor@inline -->
           <v-card height="100" style="cursor: text;">
             <v-card-text>
@@ -244,8 +311,8 @@
               </v-card-text>
             </v-card>
           </template>
+          <!-- comment system -->
         </v-flex>
-        <!-- comment system -->
       </v-layout>
     </v-container>
   </section>
@@ -283,6 +350,7 @@ import { mapGetters } from 'vuex'
 import Lightbox from 'vue-simple-lightbox'
 import AddUserIcon from '@/components/Icons/AddUserIcon'
 import CommentIcon from '@/components/Icons/CommentIcon'
+import AssignmentIcon from '@/components/Icons/AssignmentIcon'
 
 export default {
   store,
@@ -290,7 +358,8 @@ export default {
   components: {
     Lightbox,
     AddUserIcon,
-    CommentIcon
+    CommentIcon,
+    AssignmentIcon,
   },
 
   data () {
@@ -376,7 +445,7 @@ export default {
   },
 
   methods: {
-    fullscreen () {
+    viewMode () {
       this.course.md8 = !this.course.md8
       this.orderMd3 = !this.orderMd3
     }
