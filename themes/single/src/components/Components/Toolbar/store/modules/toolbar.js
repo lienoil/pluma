@@ -15,7 +15,7 @@ export const state = () => ({
     archive: true,
     raised: true,
     raisedButton: true,
-    raisedTitle: 'sdsdsd',
+    raisedTitle: 'Create',
     raisedColor: 'primary',
     raisedLink: '',
     searchField: false,

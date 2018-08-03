@@ -1,7 +1,7 @@
 <template>
   <v-slide-y-transition>
     <v-card>
-      <v-text-field
+      <!-- <v-text-field
         append-icon="search"git s
         hide-details
         label="Search"
@@ -9,7 +9,7 @@
         v-model="dataset.searchTable"
         clearable
         clear-icon="cancel"
-      ></v-text-field>
+      ></v-text-field> -->
       <v-data-table
         :headers="dataset.headers"
         :items="dataset.items"

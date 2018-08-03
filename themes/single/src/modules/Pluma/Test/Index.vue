@@ -144,7 +144,7 @@ export default {
           {
             id: '1',
             title: 'Develop Personal Effectiveness at Operations Level',
-            thumbnail: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
+            thumbnail: '//preview.ibb.co/cMCYYz/card_Media.png',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
             description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',
@@ -172,7 +172,7 @@ export default {
           {
             id: '4',
             title: 'Develop Personal Effectiveness at Supervisory Level',
-            thumbnail: '//i.pinimg.com/564x/74/2b/8e/742b8e6e87ef56e698b9c8bc4e930dae.jpg',
+            thumbnail: '//cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
             category: 'DPE OPS',
             timestamp: '2 hours ago',
             description: 'Apply knowledge and skills such as establishing personal goals and relating them to workplace goals. Far far away, behind the word',

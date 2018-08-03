@@ -1,7 +1,7 @@
 <template>
   <v-snackbar
     :bottom="snackbar.y === 'bottom'"
-    :color="snackbar.color"
+    :color="$root.theme.dark ? 'white' : 'dark'"
     :dark="theme.dark"
     :left="snackbar.x === 'left'"
     :light="!theme.dark"
@@ -13,7 +13,11 @@
     v-model="snackbar.model"
     >
 
-    <span v-html="snackbar.text"></span>
+    <span
+      :class="$root.theme.dark ? 'black--text' : 'white--text'"
+      v-html="snackbar.text"
+      >
+    </span>
 
     <v-btn
       v-if="snackbar.button"

@@ -34,7 +34,34 @@
         </v-flex>
       </v-layout> -->
 
-      <v-card
+      <!-- course completed -->
+      <v-snackbar
+        :color="$root.theme.dark ? 'white' : 'dark'"
+        :timeout="course.snackbarTimeout"
+        bottom
+        right
+        v-model="course.snackbar"
+        >
+        <span
+          class="subheading"
+          :class="$root.theme.dark ? 'black--text' : 'white--text'"
+          >
+          {{ trans('You have already finished this part of the lesson') }}
+        </span>
+        <v-btn
+          @click="course.snackbar = false"
+          icon
+          >
+          <v-icon
+            :class="$root.theme.dark ? 'black--text' : 'white--text'"
+            >
+            close
+          </v-icon>
+        </v-btn>
+      </v-snackbar>
+      <!-- course completed -->
+
+      <!-- <v-card
         flat
         color="transparent"
         class="mb-3"
@@ -51,7 +78,7 @@
           </v-btn>
           <span>{{ trans('Back to Courses') }}</span>
         </v-tooltip>
-      </v-card>
+      </v-card> -->
 
       <v-layout row wrap>
         <!-- interactive media -->
@@ -66,71 +93,103 @@
             >
             <v-card-media
               :src="course.thumbnail"
-              class="primary lighten-1"
+              style="background: linear-gradient(135deg, #003073, #029797);"
               height="500"
               >
-              <div style="background: rgba(0, 0, 0, 0.60); position: absolute; width: 100%; height: 100%; z-index: 0;"></div>
-              <v-layout row wrap justify-center fill-height align-center>
-                <v-card flat class="transparent">
-                  <v-icon
-                    dark
-                    @click=""
-                    size="150"
-                    >
-                    play_arrow
-                  </v-icon>
-                </v-card>
-              </v-layout>
+              <!-- enrolled -->
+              <template v-if="course.enrolled">
+                <template v-if="course.locked">
+                  <div class="card--overlay-darken-1"></div>
+                  <v-layout align-center justify-center row fill-height>
+                    <v-card flat dark class="transparent">
+                      <v-card-text>
+                        <h2>This part is still locked.</h2>
+                        <p>Please finish the previous interaction.</p>
+                        <v-btn large color="secondary">Go to Current Course</v-btn>
+                      </v-card-text>
+                    </v-card>
+                  </v-layout>
+                </template>
+
+                <template v-else>
+                  <div class="card--overlay"></div>
+                  <v-layout row wrap justify-center fill-height align-center>
+                    <v-card flat class="transparent">
+                      <v-icon
+                        dark
+                        @click=""
+                        size="150"
+                        >
+                        play_arrow
+                      </v-icon>
+                    </v-card>
+                  </v-layout>
+                </template>
+              </template>
+
+              <!-- not enrolled -->
+              <template v-else>
+                <div class="card--overlay-darken-1"></div>
+                <v-layout align-center justify-center row fill-height>
+                  <v-card flat dark class="transparent">
+                    <v-card-text>
+                      <h2>You are not enrolled in this course.</h2>
+                      <p>Enroll now to get access on this course.</p>
+                      <v-btn large color="secondary">Enroll Now</v-btn>
+                    </v-card-text>
+                  </v-card>
+                </v-layout>
+              </template>
             </v-card-media>
-            <v-card-actions class="emphasis--medium">
-              <v-spacer></v-spacer>
-              <v-tooltip bottom>
-                <v-btn
-                  @click="viewMode"
-                  icon
-                  slot="activator"
-                  >
-                  <v-icon v-html="course.md8 ? 'crop_landscape' : 'crop_square'"></v-icon>
-                </v-btn>
-                <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
-              </v-tooltip>
-              <v-tooltip bottom>
-                <v-btn
-                  @click=""
-                  icon
-                  slot="activator"
-                  >
-                  <v-icon>fullscreen</v-icon>
-                </v-btn>
-                <span>{{ trans('Fullscreen') }}</span>
-              </v-tooltip>
-            </v-card-actions>
+            <template v-if="course.enrolled">
+              <v-card-actions class="emphasis--medium">
+                <v-spacer></v-spacer>
+                <v-tooltip bottom>
+                  <v-btn
+                    @click="viewMode"
+                    icon
+                    slot="activator"
+                    >
+                    <v-icon v-html="course.md8 ? 'crop_landscape' : 'crop_square'"></v-icon>
+                  </v-btn>
+                  <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <v-btn
+                    @click=""
+                    icon
+                    slot="activator"
+                    >
+                    <v-icon>fullscreen</v-icon>
+                  </v-btn>
+                  <span>{{ trans('Fullscreen') }}</span>
+                </v-tooltip>
+              </v-card-actions>
+            </template>
           </v-card>
 
           <!-- pre/next button -->
-          <v-card-actions
-            class="px-0"
-            >
-            <span class="pr-3">
-              <v-icon
-                color="secondary"
-                left
-                @click>
-                arrow_back
-              </v-icon>
-            </span>
-            <span class="secondary--text">{{ trans('Previous') }}</span>
-            <v-spacer></v-spacer>
-            <span class="secondary--text">{{ trans('Next') }}</span>
-            <span class="pl-3">
-              <v-icon
-                color="secondary"
-                right
-                @click>
-                arrow_forward
-              </v-icon>
-            </span>
-          </v-card-actions>
+          <template v-if="course.enrolled">
+            <v-card-actions
+              class="px-0"
+              >
+              <v-btn dark icon color="secondary">
+                <v-icon
+                  >
+                  chevron_left
+                </v-icon>
+              </v-btn>
+              <span class="secondary--text mx-3">{{ trans('Previous') }}</span>
+              <v-spacer></v-spacer>
+              <span class="secondary--text mx-3">{{ trans('Next') }}</span>
+              <v-btn dark icon color="secondary">
+                <v-icon
+                  >
+                  chevron_right
+                </v-icon>
+              </v-btn>
+            </v-card-actions>
+          </template>
           <!-- pre/next button -->
         </v-flex>
         <!-- interactive media -->
@@ -148,8 +207,10 @@
             class="mb-3"
             >
             <v-expansion-panel
-              flat
               class="elevation-0 mb-3 transparent"
+              expand
+              flat
+              v-model="course.panel"
               >
               <v-expansion-panel-content
                 :key="i"
@@ -158,7 +219,9 @@
                 v-for="(item,i) in course.chapters"
                 >
                 <div slot="header">
-                  <div class="title"
+                  <div
+                    class="title"
+                    :class="item.headerClass"
                     v-html="item.chapterTitle"
                     >
                   </div>
@@ -364,15 +427,19 @@ export default {
 
   data () {
     return {
-      panel: [true, false],
       course: {
+        panel: [false, true, false],
+        snackbarTimeout: 0,
+        snackbar: true,
+        enrolled: false,
+        locked: false,
         orderMd3: false,
         md8: true,
         md4: true,
         title: 'Communicate and Relate Effectively at the Workplace at Operations Level',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea corporis sapiente, blanditiis voluptas, commodi aliquid officia magni temporibus nulla iusto, unde corrupti deserunt ipsum error labore praesentium voluptatem ipsam saepe.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea corporis sapiente, blanditiis voluptas, commodi aliquid officia magni temporibus nulla iusto, unde corrupti deserunt ipsum error labore praesentium voluptatem ipsam saepe. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda dignissimos alias odio architecto atque minus earum, iste aliquam laboriosam, reprehenderit sint in quas voluptas, consequatur. Neque libero doloribus esse qui.',
         created: '3 weeks ago',
-        author: 'John Lenon',
+        author: 'Lemony Snicket',
         thumbnail: 'https://px6vg4ekvl21gtxs836x5jyx-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/segmentation-hero@2x-1.png',
         chapters: [
           {
@@ -382,6 +449,7 @@ export default {
           {
             chapterTitle: 'Chapter 2',
             chapterSubTitle: 'How to plan a response to information received',
+            headerClass: 'secondary--text'
           },
           {
             chapterTitle: 'Chapter 3',
