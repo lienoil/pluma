@@ -370,6 +370,7 @@
 
           <!-- comment system -->
           <!-- ckeditor@inline -->
+          <empty-state></empty-state>
           <v-card height="100" style="cursor: text;">
             <v-card-text>
               <p class="grey--text">
@@ -433,20 +434,11 @@
 <script>
 import store from '@/store'
 import { mapGetters } from 'vuex'
-import Lightbox from 'vue-simple-lightbox'
-import AddUserIcon from '@/components/Icons/AddUserIcon'
-import CommentIcon from '@/components/Icons/CommentIcon'
-import AssignmentIcon from '@/components/Icons/AssignmentIcon'
+import EmptyState from './partials/EmptyState.vue'
 
 export default {
   store,
-
-  components: {
-    Lightbox,
-    AddUserIcon,
-    CommentIcon,
-    AssignmentIcon,
-  },
+  EmptyState,
 
   data () {
     return {
