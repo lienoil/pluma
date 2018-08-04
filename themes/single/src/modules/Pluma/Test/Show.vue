@@ -112,18 +112,41 @@
                 </template>
 
                 <template v-else>
-                  <div class="card--overlay"></div>
-                  <v-layout row wrap justify-center fill-height align-center>
+                  <template v-if="course.isForm > 2">
                     <v-card flat class="transparent">
-                      <v-icon
-                        dark
-                        @click=""
-                        size="150"
-                        >
-                        play_arrow
-                      </v-icon>
+                      <v-card-text>
+                        {{ trans('Insert form here.') }}
+                      </v-card-text>
                     </v-card>
-                  </v-layout>
+                  </template>
+                  <template v-else-if="course.isForm > 0">
+                    <v-layout row wrap fill-height justify-center align-center>
+                      <v-card flat class="transparent">
+                        <v-card-text>
+                          <div class="mb-3">
+                            <media-icon width="180" height="180"></media-icon>
+                          </div>
+                          <div>
+                            {{ trans('No interactive content for this lesson. Fill me up!') }}
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-layout>
+                  </template>
+                  <template v-else>
+                    <div class="card--overlay"></div>
+                    <v-layout row wrap justify-center fill-height align-center>
+                      <v-card flat class="transparent">
+                        <v-icon
+                          dark
+                          @click=""
+                          size="150"
+                          >
+                          play_arrow
+                        </v-icon>
+                      </v-card>
+                    </v-layout>
+                  </template>
                 </template>
               </template>
 
@@ -428,6 +451,7 @@ export default {
   data () {
     return {
       course: {
+        isForm: 0,
         panel: [true, false, false],
         snackbarTimeout: 0,
         snackbar: true,
@@ -445,11 +469,11 @@ export default {
           {
             chapterTitle: 'Chapter 1',
             chapterSubTitle: 'How to interpret and analyse information received',
+            headerClass: 'secondary--text'
           },
           {
             chapterTitle: 'Chapter 2',
             chapterSubTitle: 'How to plan a response to information received',
-            headerClass: 'secondary--text'
           },
           {
             chapterTitle: 'Chapter 3',
