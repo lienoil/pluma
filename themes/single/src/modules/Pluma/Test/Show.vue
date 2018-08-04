@@ -99,7 +99,7 @@
               <!-- enrolled -->
               <template v-if="course.enrolled">
                 <template v-if="course.locked">
-                  <div class="card--overlay-darken-1"></div>
+                  <div class="card--overlay"></div>
                   <v-layout align-center justify-center row fill-height>
                     <v-card flat dark class="transparent">
                       <v-card-text>
@@ -129,7 +129,7 @@
 
               <!-- not enrolled -->
               <template v-else>
-                <div class="card--overlay-darken-1"></div>
+                <div class="card--overlay"></div>
                 <v-layout align-center justify-center row fill-height>
                   <v-card flat dark class="transparent">
                     <v-card-text>
@@ -428,10 +428,10 @@ export default {
   data () {
     return {
       course: {
-        panel: [false, true, false],
+        panel: [true, false, false],
         snackbarTimeout: 0,
         snackbar: true,
-        enrolled: false,
+        enrolled: true,
         locked: false,
         orderMd3: false,
         md8: true,
