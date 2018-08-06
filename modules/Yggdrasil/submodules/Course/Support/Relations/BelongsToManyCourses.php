@@ -11,7 +11,7 @@ trait BelongsToManyCourses
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function course()
+    public function courses()
     {
         return $this->belongsToMany(Course::class)
                     ->withPivot('dropped_at', 'status', 'enrolled_at');

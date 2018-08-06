@@ -2,6 +2,9 @@
 
 namespace Course\Support\Scopes;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+
 
 trait EnrolledToACourse
 {

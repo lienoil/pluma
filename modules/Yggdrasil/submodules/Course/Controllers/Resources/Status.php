@@ -2,6 +2,8 @@
 
 namespace Course\Resources;
 
+use Course\Models\Status;
+
 trait Status
 {
     /**

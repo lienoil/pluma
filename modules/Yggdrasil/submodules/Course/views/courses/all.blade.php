@@ -1,14 +1,6 @@
-@extends("Theme::layouts.admin")
+@extends("Theme::layouts.public")
 
 @section("main-content")
-<template>
-  <v-toolbar>
-    <v-toolbar-title>My Courses</v-toolbar-title>
-  </v-toolbar>
-  {{-- @foreach ($resources as $course)
-    <a href="{{ route('courses.show', $course->slug) }}"><p class="ml-2">{{ $course->title }}</p></a>
-  @endforeach --}}
-</template>
 <v-container fluid grid-list-lg>
   <v-layout row wrap fill-height>
     <template>
@@ -16,7 +8,11 @@
       <v-flex lg3 md4>
             <v-card class="elevation-1 c-lift" height="100%">
               <v-layout column wrap fill-height class="ma-0">
-                <a class="td-n" href="{{ route('courses.single', $resource->slug) }}">
+                @if ($resource->enrolled)
+                  <a class="td-n" href="{{ route('courses.single', $resource->slug) }}">
+                @else
+                  <a class="td-n" href="{{ route('courses.show', $resource->slug) }}">
+                @endif
                   <v-card-media class="accent lighten-3" src="{{ $resource->backdrop }}" height="220px">
                       <v-container fill-height fluid class="white--text py-0">
                           <v-layout fill-height column wrap>
@@ -33,8 +29,10 @@
                                       </v-avatar>
                                       <v-spacer></v-spacer>
                                       {{-- If Enrolled --}}
-                                      <v-chip small class="ml-0 green td-n white--text">{{ __('Enrolled') }}
-                                      </v-chip>
+                                      @if ($resource->enrolled)
+                                        <v-chip small class="ml-0 green td-n white--text">{{ __('Enrolled') }}</v-chip>
+                                      @endif
+
                                       {{-- /If Enrolled --}}
                                   </v-card-actions>
                               </v-card>
@@ -43,9 +41,15 @@
                   </v-card-media>
                 </a>
                 {{-- Title --}}
-                <v-card-title>
+                @if ($resource->enrolled)
+                  <v-card-title>
                     <a href="{{ route('courses.single', $resource->slug) }}">{{ $resource->title }}</a>
-                </v-card-title>
+                  </v-card-title>
+                @else
+                  <v-card-title>
+                    <a href="{{ route('courses.show', $resource->slug) }}">{{ $resource->title }}</a>
+                  </v-card-title>
+                @endif
                 <v-card-actions>
                   <div class="text-xs-center caption pa-1 grey--text" title="{{ __('Course code') }}">
                       <v-icon class="caption" left>class</v-icon>

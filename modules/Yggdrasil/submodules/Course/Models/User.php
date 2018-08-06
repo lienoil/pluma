@@ -2,7 +2,7 @@
 
 namespace Course\Models;
 
-use Content\Support\Relations\BelongsToManyContents;
+// use Content\Support\Relations\BelongsToManyContents;
 use Course\Controllers\Resources\CourseUserMutator;
 use Course\Support\Relations\BelongsToManyCourses;
 use Course\Support\Scopes\EnrolledToACourse;
@@ -11,7 +11,7 @@ use User\Models\User as BaseUser;
 
 class User extends BaseUser
 {
-    use EnrolledToACourse, BelongsToManyCourses, BelongsToManyContents, CourseUserMutator;
+    use EnrolledToACourse, BelongsToManyCourses, CourseUserMutator;
 
     protected $with = ['roles'];
 

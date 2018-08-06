@@ -2,18 +2,17 @@
 
 @section("head-title", $resource->title)
 
-@section("content")
+@section("main-content")
   <v-parallax class="elevation-1" src="{{ $resource->backdrop }}" height="100%">
     @if ($resource->enrolled)
     <v-toolbar class="elevation-0 transparent">
       @if ($resource->enrolled)
         <v-chip small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
       @endif
-
       @if ($resource->bookmarked)
         <form action="">
           {{ csrf_field() }}
-          <v-btn type="submit" icon ripple v-tooltip:left="{ html: '{{ __('Remove from your Bookmarks') }}' }">
+          <v-btn type="submit" icon ripple v-tooltip left="{{ __('Remove from your Bookmarks') }}">
             <v-icon light class="red--text">bookmark</v-icon>
           </v-btn>
         </form>
@@ -91,28 +90,6 @@
       </v-flex>
     </v-layout>
   </v-parallax>
-  <v-container grid-list-lg>
-        <v-layout row wrap>
-            <v-flex md9 xs12 order-lg1>
-                <v-card class="mb-3 elevation-1">
-                    <v-toolbar card class="transparent">
-                        <v-toolbar-title class="page-title accent--text">{{ __('Overview') }}</v-toolbar-title>
-                    </v-toolbar>
-                    <v-divider></v-divider>
-                    <v-card-text class="quill-text grey--text text--darken-2 page-content body-1">{!! $resource->body !!}</v-card-text>
-                    <v-card-text class="text-xs-center">
-                        <v-btn
-                            secondary
-                            class="elevation-1"
-                            href="{{ $resource->first_content }}"
-                            >
-                            {{ __('Start this course') }}
-                        </v-btn>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </v-container>
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ assets('course/css/course.css') }}?v={{ app()->version() }}">

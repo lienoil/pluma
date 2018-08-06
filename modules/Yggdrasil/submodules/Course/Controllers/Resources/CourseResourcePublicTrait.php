@@ -2,8 +2,9 @@
 
 namespace Course\Controllers\Resources;
 
-use Course\Models\Course;
+use Menu\Models\Menu;
 use Illuminate\Http\Request;
+use Course\Models\Course;
 
 trait CourseResourcePublicTrait
 {
@@ -33,6 +34,7 @@ trait CourseResourcePublicTrait
                           ->orWhere('code', $code)
                           ->firstOrFail();
 
+        // dd($resource);
         return view("Theme::courses.single")->with(compact('resource'));
     }
 }

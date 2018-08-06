@@ -2,17 +2,16 @@
 
 namespace Content\Models;
 
+use Comment\Support\Relations\MorphManyComments;
+use Course\Support\Relations\BelongsToManyUsers;
+use Library\Support\Traits\BelongsToLibrary;
 use Pluma\Models\Model;
 
 class Content extends Model
 {
 
-    use BelongsToLesson,
-        HasCourseThroughLesson,
-        BelongsToLibrary,
-        ContentMutator,
+    use BelongsToLibrary,
         BelongsToManyUsers,
-        MorphToContentable,
         MorphManyComments;
 
     protected $with = ['library'];
