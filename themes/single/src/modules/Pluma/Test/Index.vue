@@ -1,6 +1,6 @@
 <template v-cloak>
   <section>
-    <toolbar-menu></toolbar-menu>
+    <toolbar-menu :items="toolbar"></toolbar-menu>
 
     <v-container fluid grid-list-lg>
       <!-- <v-layout row wrap>
@@ -85,6 +85,10 @@ export default {
 
   data () {
     return {
+      toolbar: {
+        title: 'All Courses'
+      },
+
       iconmenu: {
         model: '',
         label: 'Choose Icon Menu'

@@ -356,12 +356,12 @@
                 </v-card>
               </v-tab-item>
               <v-tab-item ref="#resources">
-                <v-card flat>
+                <v-card flat class="pa-5">
                   <v-card-text class="text-xs-center">
                     <assignment-icon width="120" height="120"></assignment-icon>
                   </v-card-text>
                   <v-card-text class="text-xs-center">
-                    No assignments for this course.
+                    {{ trans('No assignments for this course.') }}
                   </v-card-text>
                 </v-card>
               </v-tab-item>
@@ -375,6 +375,7 @@
             <v-card-text>
               <p class="grey--text">
                 {{ trans('Post a Comment...') }}
+                <span><em>{{ trans('Sample comment card') }}</em></span>
               </p>
             </v-card-text>
           </v-card>
@@ -393,7 +394,7 @@
               >
               <comment-icon width="120" height="120"></comment-icon>
               <v-card-text class="grey--text">
-                <h3>There's nothing here</h3>
+                <h3>{{ trans('There\'s nothing here') }}</h3>
                 <p>Fill me up, buttercup!</p>
               </v-card-text>
             </v-card>
