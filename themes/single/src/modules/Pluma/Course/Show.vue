@@ -1,7 +1,7 @@
 <template v-cloak>
   <section>
     <v-container fluid grid-list-lg>
-      <course-empty-state v-if="courseEmptyState"></course-empty-state>
+      <course-empty-state v-if="course.courseEmptyState"></course-empty-state>
       <!-- course completed -->
       <v-snackbar
         :color="$root.theme.dark ? 'white' : 'dark'"
@@ -373,32 +373,6 @@
   </section>
 </template>
 
-<style>
-  .simple-lightbox .sl-close {
-    color: #fff !important;
-  }
-
-  .my-gallery a img {
-    margin: 6px !important;
-    border: none !important;
-    width: 19% !important;
-  }
-
-  .my-gallery a:hover img {
-    box-shadow: 0 5px 25px -2px rgba(0,0,0,.1),
-                0 8px 50px 1px rgba(0,0,0,.1),
-                0 3px 70px 2px rgba(0,0,0,.1);
-    z-index: 1 !important;
-  }
-
-  .my-galley a {
-    color: red !important;
-    display: flex !important;
-    overflow: hidden !important;
-    position: absolute !important;
-  }
-</style>
-
 <script>
 import store from '@/store'
 import { mapGetters } from 'vuex'
@@ -410,8 +384,8 @@ export default {
 
   data () {
     return {
-      courseEmptyState: true,
       course: {
+        courseEmptyState: true,
         isForm: 0,
         panel: [true, false, false],
         snackbarTimeout: 0,
@@ -441,48 +415,6 @@ export default {
             chapterSubTitle: 'How to use appropriate communication techniques',
           }
         ],
-      },
-
-      dataset: {
-        loaded: false,
-        items: [
-          {
-            title: 'A Series',
-            category: 'PSDM'
-          },
-        ]
-      },
-
-      lightbox: {
-        images: [
-          {
-            src: 'https://cdn.dribbble.com/users/904433/screenshots/3884774/engagement_dribbble.png',
-            title: ''
-          },
-          {
-            src: 'https://cdn.dribbble.com/users/2559/screenshots/3145041/illushome.png',
-            title: ''
-          },
-          {
-            src: 'https://cdn.dribbble.com/users/2559/screenshots/2932883/illustration-engagement.png',
-            title: ''
-          },
-          {
-            src: 'https://cdn.dribbble.com/users/1294892/screenshots/3536824/laptop-01-01.jpg',
-            title: ''
-          },
-          {
-            src: 'https://cdn.dribbble.com/users/1596469/screenshots/3626310/test.png',
-            title: ''
-          },
-          {
-            src: 'https://cdn.dribbble.com/users/385430/screenshots/3333398/engineering_illo.png',
-            title: ''
-          },
-        ],
-        options: {
-          closeText: 'x'
-        }
       },
     }
   },
