@@ -1,11 +1,11 @@
 <?php
 
-namespace Test\Controllers;
+namespace Course\Controllers;
 
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 
-class TestController extends GeneralController
+class CourseController extends GeneralController
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class TestController extends GeneralController
     public function index(Request $request)
     {
 
-        return view("Test::tests.index");
+        return view("Course::courses.index");
     }
 
     /**
@@ -29,7 +29,7 @@ class TestController extends GeneralController
     public function show(Request $request)
     {
 
-        return view("Test::tests.show");
+        return view("Course::courses.show");
     }
 
     /**
@@ -41,7 +41,7 @@ class TestController extends GeneralController
     public function create(Request $request)
     {
 
-        return view("Test::tests.create");
+        return view("Course::courses.create");
     }
 
     /**
@@ -53,6 +53,6 @@ class TestController extends GeneralController
     public function trashed(Request $request)
     {
 
-        return view("Test::tests.trashed");
+        return view("Course::courses.trashed");
     }
 }

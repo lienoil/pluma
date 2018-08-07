@@ -16,7 +16,7 @@ return [
         'always_viewable' => false,
         'icon' => '',
         'labels' => [
-            'title' => __('Courses'),
+            'title' => __('Tests'),
             'description' => __('Manage tests'),
         ],
         'children' => [
@@ -27,7 +27,7 @@ return [
                 'code' => 'tests.index',
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('All Courses'),
+                    'title' => __('All Tests'),
                     'description' => __('View the list of all tests'),
                 ],
             ],
@@ -38,7 +38,7 @@ return [
                 'code' => 'tests.create',
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Create Course'),
+                    'title' => __('Create Test'),
                     'description' => __('Create a Test'),
                 ],
             ],
@@ -49,7 +49,7 @@ return [
                 'code' => 'tests.trashed',
                 'always_viewable' => false,
                 'labels' => [
-                    'title' => __('Trashed Courses'),
+                    'title' => __('Trashed Tests'),
                     'description' => __('View list of all tests moved to trash'),
                 ],
             ],
