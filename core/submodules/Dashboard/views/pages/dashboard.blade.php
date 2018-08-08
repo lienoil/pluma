@@ -1,6 +1,6 @@
 @extends("Theme::layouts.admin")
 
-@section("main-content")
+@section("content")
   {{-- @parent --}}
   {{-- @include("Dashboard::partials.overview") --}}
 
