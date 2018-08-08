@@ -2,7 +2,7 @@
   <section>
     <v-container fluid grid-list-lg>
       <!-- course completed -->
-      <course-completed v-if="course.completed"></course-completed>
+      <course-completed></course-completed>
       <!-- course completed -->
 
       <v-layout row wrap>
@@ -126,8 +126,6 @@ export default {
         locked: false,
         hasInteractive: true,
         isForm: false,
-        snackbar: true,
-        snackbarTimeout: 0,
         md8: true,
         md4: true,
         orderMd3: false,

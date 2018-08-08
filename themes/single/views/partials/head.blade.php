@@ -41,7 +41,7 @@
 
   @stack('fonts')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Palanquin:400,600,700|Raleway:400,700,900|Roboto:300,400,500,700|Material+Icons&style=twotone">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     {!! font_link_tags() !!}
   @show
 

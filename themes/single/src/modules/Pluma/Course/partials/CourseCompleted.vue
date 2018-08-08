@@ -32,8 +32,8 @@ export default {
   data () {
     return {
       course: {
-        snackbarTimeout: 0,
         snackbar: true,
+        snackbarTimeout: 0,
       }
     }
   }

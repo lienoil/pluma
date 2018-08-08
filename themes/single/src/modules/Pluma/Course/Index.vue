@@ -1,44 +1,70 @@
 <template v-cloak>
   <section>
-    <template v-if="courses.loaded">
-      <v-card
-        flat
-        class="transparent text-xs-center"
-        height="70vh"
-        >
-        <v-layout fill-height column justify-center align-center>
-          <add-user-icon width="120" height="120"></add-user-icon>
-          <v-card-text class="grey--text">
-            <h3>You do not have any resources on this module.</h3>
-            <p>Start upload by clicking the button below.</p>
-            <v-btn color="secondary">
-              {{ trans('Create Test') }}
-            </v-btn>
-          </v-card-text>
-        </v-layout>
-      </v-card>
-    </template>
+    <toolbar-menu></toolbar-menu>
 
+    <v-container fluid grid-list-lg>
+      <!-- <v-layout row wrap>
+        <v-flex md9 xs12>
+          <v-card flat class="mb-3 text-xs-center">
+            <v-card-title
+              class="emphasis--medium"
+              >
+              Dialogbox
+            </v-card-title>
+            <v-card-text>
+              <dialogbox></dialogbox>
+              <v-btn
+                color="secondary"
+                @click="openDialogbox"
+                >
+                Open Dialog Test
+              </v-btn>
+            </v-card-text>
+          </v-card>
 
-    <template v-else>
-      <toolbar-menu :items="toolbar"></toolbar-menu>
+          <v-card class="mb-3">
+            <v-card-title class="emphasis--medium">
+              Icon Menu
+            </v-card-title>
+            <v-card-text>
+              <icon-menu :items="iconmenu"></icon-menu>
+            </v-card-text>
+          </v-card>
+        </v-flex>
 
-      <v-container fluid grid-list-lg>
-        <v-layout row wrap>
-          <v-flex xs12>
-            <!-- grid / list view -->
-            <template v-if="toolbar.toggleview">
-              <data-table :items="courses"></data-table>
-            </template>
+        <v-flex md3 xs12>
+          <v-card class="mb-3">
+            <v-card-title class="emphasis--medium">
+              Tag Card
+            </v-card-title>
+            <v-card-text>
+              <tag :items="tag"></tag>
+            </v-card-text>
+          </v-card>
 
-            <template v-else>
-              <data-iterator :items="courses"></data-iterator>
-            </template>
-            <!-- grid / list view -->
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </template>
+          <v-card class="mb-3 emphasis--medium">
+            <v-card-title>
+              Category Card
+            </v-card-title>
+            <category :items="category"></category>
+          </v-card>
+        </v-flex>
+      </v-layout> -->
+
+      <v-layout row wrap>
+        <v-flex xs12>
+          <!-- grid / list view -->
+          <template v-if="toolbar.toggleview">
+            <data-table :items="courses"></data-table>
+          </template>
+
+          <template v-else>
+            <data-iterator :items="courses"></data-iterator>
+          </template>
+          <!-- grid / list view -->
+        </v-flex>
+      </v-layout>
+    </v-container>
   </section>
 </template>
 
@@ -59,11 +85,36 @@ export default {
 
   data () {
     return {
-      toolbar: {
-        title: 'All Courses'
+      iconmenu: {
+        model: '',
+        label: 'Choose Icon Menu'
       },
+
+      category: {
+        hasSaved: false,
+        isEditing: true,
+        categoryList: false,
+        categoryCreate: true,
+        label: 'Choose Category',
+        items: [
+          { name: 'Video', icon: 'videocam' },
+          { name: 'Image', icon: 'photo' },
+        ],
+        chipColor: 'secondary',
+        iconColor: 'white--text',
+      },
+
+      tag: {
+        model: [],
+        clearable: false,
+        items: [
+          'Programming',
+          'Reading',
+          'Eating'
+        ],
+      },
+
       courses: {
-        loaded: false,
         selected: [],
         bulkDestroy: false,
         selectAll: true,
@@ -129,11 +180,79 @@ export default {
           },
         ]
       },
+
+      library: {
+        cardMediaHeight: '120px',
+        pagination: {
+          rowsPerPage: 6
+        },
+        showToolbar: true,
+        cardActions: false,
+        lg2: true,
+        lg3: false,
+        md2: true,
+        md4: false,
+        showCardText: false,
+        showPart: false,
+        xs12: false,
+        items: [
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: 'https://cdn.dribbble.com/users/2559/screenshots/3145041/illushome_1x.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/1.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/2.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/3.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/4.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          },
+          {
+            title: 'Ubuntu Solarized Wallpaper',
+            thumbnail: '//byrushan.com/projects/ma/1-6-1/jquery/dark/img/headers/sm/5.png',
+            timestamp: '3 hours ago',
+            mimetype: 'image/png',
+            size: '24 KB',
+            icon: 'photo'
+          }
+        ]
+      },
     }
   },
 
   computed: {
     ...mapGetters({
+      dialogbox: 'dialogbox/dialogbox',
+      iconmenu: 'iconmenu/iconmenu',
       dataiterator: 'dataiterator/dataiterator',
       toolbar: 'toolbar/toolbar',
       datatable: 'datatable/datatable',
@@ -141,6 +260,37 @@ export default {
   },
 
   methods: {
+    openDialogbox () {
+      this.$store.dispatch(
+        'dialogbox/PROMPT_DIALOG',
+        Object.assign(
+          this.dialogbox,
+          {
+            model: true,
+            // icon: 'add',
+            // iconColor: 'success--text',
+            image: '//img.stackshare.io/stack/26394/laravel_logo-circle-tp-xs.png',
+            title: 'Delete Resources',
+            text: 'You are about to permanently delete those resources.This action is irreversible. Do you want to proceed?',
+            persistent: true,
+            width: '100%',
+            alignedCenter: true,
+
+            actionText: 'Delete',
+            actionColor: 'error',
+            actionCallback () {
+              this.model = false
+              // store.dispatch.saveUserOrSomeShitLikeThat
+              // then...
+              alert('test')
+            },
+
+            discard: false,
+          }
+        )
+      )
+    },
+
     changeSort (column) {
       if (this.courses.pagination.sortBy === column) {
         this.courses.pagination.descending = !this.courses.pagination.descending
