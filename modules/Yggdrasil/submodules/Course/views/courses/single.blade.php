@@ -10,46 +10,46 @@
         <v-chip small class="ml-0 green white--text">{{ __('Enrolled') }}</v-chip>
       @endif
       @if ($resource->bookmarked)
-        <form action="">
-          {{ csrf_field() }}
-          <v-btn type="submit" icon ripple v-tooltip left="{{ __('Remove from your Bookmarks') }}">
-            <v-icon light class="red--text">bookmark</v-icon>
-          </v-btn>
-        </form>
+          <form action="{{ route('courses.bookmark.unbookmark', $resource->id) }}" method="POST">
+              {{ csrf_field() }}
+              <v-btn type="submit" icon ripple v-tooltip left="{ html: '{{ __('Remove from your Bookmarks') }}' }">
+                  <v-icon light class="red--text">bookmark</v-icon>
+              </v-btn>
+          </form>
       @endif
       <v-spacer></v-spacer>
       <v-menu full-width>
-        <v-btn slot="activator" icon v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
+        <v-btn slot="activator" icon v-tooltip left><v-icon>more_vert</v-icon></v-btn>
         <v-list>
-            @can('bookmark-course')
-                @if (! $resource->bookmarked)
-                    <v-list-tile avatar ripple @click="$refs.bookmark_form.submit()">
-                        <v-list-tile-avatar>
-                            <v-icon class="red--text">bookmark_outline</v-icon>
-                        </v-list-tile-avatar>
-                        <v-list-tile-title>
-                            <form
-                                ref="bookmark_form"
-                                method="POST">
-                                {{ csrf_field() }}
-                                {{ __('Bookmark this Course') }}
-                            </form>
-                        </v-list-tile-title>
-                    </v-list-tile>
-                @else
-                    <v-list-tile avatar ripple @click="$refs.unbookmark_form.submit()">
-                        <v-list-tile-avatar>
-                            <v-icon class="red--text">bookmark</v-icon>
-                        </v-list-tile-avatar>
-                        <v-list-tile-title>
-                            <form ref="unbookmark_form" method="POST">
-                                {{ csrf_field() }}
-                                {{ __('Remove from your Bookmarks') }}
-                            </form>
-                        </v-list-tile-title>
-                    </v-list-tile>
-                @endif
-            @endcan
+        @can('bookmark-course')
+            @if (! $resource->bookmarked)
+                <v-list-tile avatar ripple @click="$refs.bookmark_form.submit()">
+                    <v-list-tile-avatar>
+                        <v-icon class="red--text">bookmark_outline</v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-title>
+                        <form
+                            ref="bookmark_form" action="{{ route('courses.bookmark', $resource->id) }}"
+                            method="POST">
+                            {{ csrf_field() }}
+                            {{ __('Bookmark this Course') }}
+                        </form>
+                    </v-list-tile-title>
+                </v-list-tile>
+            @else
+                <v-list-tile avatar ripple @click="$refs.unbookmark_form.submit()">
+                    <v-list-tile-avatar>
+                        <v-icon class="red--text">bookmark</v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-title>
+                        <form ref="unbookmark_form" action="{{ route('courses.bookmark.unbookmark', $resource->id) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ __('Remove from your Bookmarks') }}
+                        </form>
+                    </v-list-tile-title>
+                </v-list-tile>
+            @endif
+        @endcan
         </v-list>
       </v-menu>
     </v-toolbar>

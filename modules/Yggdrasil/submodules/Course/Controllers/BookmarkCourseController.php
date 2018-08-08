@@ -45,7 +45,7 @@ class BookmarkCourseController extends AdminController
         $course = Course::find($id);
         $course->bookmarks()->save($bookmark);
 
-        return view("Theme::courses.my");
+        return back();
     }
 
     /**

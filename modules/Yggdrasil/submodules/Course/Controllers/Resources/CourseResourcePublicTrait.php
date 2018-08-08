@@ -34,7 +34,7 @@ trait CourseResourcePublicTrait
                           ->orWhere('code', $code)
                           ->firstOrFail();
 
-        // dd($resource);
+         // dd($resource);
         return view("Theme::courses.single")->with(compact('resource'));
     }
 }
