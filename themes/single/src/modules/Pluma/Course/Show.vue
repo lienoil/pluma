@@ -11,62 +11,62 @@
           xs12
           order-md1 order-xs1
           >
-          <v-card
-            transition="scale-transition"
-            >
-            <!-- enrolled -->
-            <template v-if="course.enrolled">
-              <template v-if="course.locked">
-                <course-locked></course-locked>
-              </template>
-
-              <template v-else>
-                <template v-if="course.isForm">
-                  <course-form></course-form>
+          <v-scale-transition>
+            <v-card transition="scale-transition">
+              <!-- enrolled -->
+              <template v-if="course.enrolled">
+                <template v-if="course.locked">
+                  <course-locked></course-locked>
                 </template>
+
                 <template v-else>
-                  <template v-if="course.hasInteractive">
-                    <course-with-interactive></course-with-interactive>
-                    <!-- card-actions -->
-                      <v-card-actions class="emphasis--medium">
-                        <v-spacer></v-spacer>
-                        <v-tooltip bottom>
-                          <v-btn
-                            @click="viewMode"
-                            icon
-                            slot="activator"
-                            >
-                            <v-icon v-html="course.md8 ? 'crop_landscape' : 'crop_square'"></v-icon>
-                          </v-btn>
-                          <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
-                        </v-tooltip>
-                        <v-tooltip bottom>
-                          <v-btn
-                            @click=""
-                            icon
-                            slot="activator"
-                            >
-                            <v-icon>fullscreen</v-icon>
-                          </v-btn>
-                          <span>{{ trans('Fullscreen') }}</span>
-                        </v-tooltip>
-                      </v-card-actions>
-                    <!-- card-actions -->
+                  <template v-if="course.isForm">
+                    <course-form></course-form>
                   </template>
                   <template v-else>
-                    <course-without-interactive></course-without-interactive>
+                    <template v-if="course.hasInteractive">
+                      <course-with-interactive></course-with-interactive>
+                      <!-- card-actions -->
+                        <v-card-actions class="emphasis--medium">
+                          <v-spacer></v-spacer>
+                          <v-tooltip bottom>
+                            <v-btn
+                              @click="viewMode"
+                              icon
+                              slot="activator"
+                              >
+                              <v-icon v-html="course.md8 ? 'crop_landscape' : 'crop_square'"></v-icon>
+                            </v-btn>
+                            <span v-html="course.md8 ? 'Theatre mode' : 'Default view'"></span>
+                          </v-tooltip>
+                          <v-tooltip bottom>
+                            <v-btn
+                              @click=""
+                              icon
+                              slot="activator"
+                              >
+                              <v-icon>fullscreen</v-icon>
+                            </v-btn>
+                            <span>{{ trans('Fullscreen') }}</span>
+                          </v-tooltip>
+                        </v-card-actions>
+                      <!-- card-actions -->
+                    </template>
+                    <template v-else>
+                      <course-without-interactive></course-without-interactive>
+                    </template>
                   </template>
                 </template>
               </template>
-            </template>
-            <!-- enrolled -->
+              <!-- enrolled -->
 
-            <!-- not enrolled -->
-            <template v-else>
-              <course-not-enrolled></course-not-enrolled>
-            </template>
-            <!-- not enrolled -->
-          </v-card>
+              <!-- not enrolled -->
+              <template v-else>
+                <course-not-enrolled></course-not-enrolled>
+              </template>
+              <!-- not enrolled -->
+            </v-card>
+          </v-scale-transition>
 
           <template v-if="course.md8">
             <course-resources class="mt-3"></course-resources>
