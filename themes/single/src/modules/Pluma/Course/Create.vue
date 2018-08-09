@@ -28,7 +28,6 @@
 import CurrentCourseProgress from './widgets/CurrentCourseProgress.vue'
 import ToDo from './widgets/ToDo.vue'
 
-
 export default {
   components: {
     CurrentCourseProgress,
