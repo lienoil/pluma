@@ -6,7 +6,7 @@
       </v-toolbar-title>
     </v-toolbar>
     <v-list two-line>
-      <v-list-tile v-for="item in todo.items">
+      <v-list-tile ripple @click="" v-for="item in todo.items">
         <v-list-tile-action>
           <v-checkbox></v-checkbox>
         </v-list-tile-action>
