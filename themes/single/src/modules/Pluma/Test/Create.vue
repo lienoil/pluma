@@ -4,12 +4,7 @@
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap justify-end>
-        <v-flex md9 xs12>
-          <v-card height="300px">
-          </v-card>
-        </v-flex>
-
-        <v-flex xs12 md3>
+        <v-flex xs12 md4>
           <template v-for="(mediabox, i) in mediaboxes.items">
             <v-card class="mb-3">
               <mediabox
