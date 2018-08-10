@@ -27,6 +27,7 @@ class CourseUnitTest extends TestCase
 
     /**
      * @test
+     * @group course
      */
     public function testCoursesCanBeCreated()
     {

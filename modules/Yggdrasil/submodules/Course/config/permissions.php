@@ -43,6 +43,12 @@ return [
         'description' => 'Ability to save the course',
         'group' => 'course',
     ],
+    'edit-course' => [
+        'name' => 'courses.edit',
+        'code' => 'edit-course',
+        'description' => 'Ability to show the form to edit course',
+        'group' => 'course',
+    ],
     'update-course' => [
         'name' => 'update-course',
         'code' => 'courses.update',
@@ -72,5 +78,77 @@ return [
         'code' => 'courses.restore',
         'description' => 'Ability to restore the course from trash',
         'group' => 'course',
+    ],
+
+    /**
+     * ------------------------------------------------------------------------------
+     * Enrolled
+     * ------------------------------------------------------------------------------
+     */
+    'view-enrolled-courses' => [
+        'name' => 'courses.enrolled.index',
+        'code' => 'view-enrolled-courses',
+        'description' => 'Ability to view enrolled courses',
+        'group' => ['course', 'student'],
+    ],
+    'show-enrolled-courses' => [
+        'name' => 'courses.enrolled.show',
+        'code' => 'show-enrolled-courses',
+        'description' => 'Ability to view enrolled courses',
+        'group' => ['course', 'student'],
+    ],
+    'enroll-course' => [
+        'name' => 'courses.enroll',
+        'code' => 'enroll-course',
+        'description' => 'Ability to enroll to a course',
+        'group' => ['course', 'student'],
+    ],
+
+    /**
+     * ------------------------------------------------------------------------------
+     * Student
+     * ------------------------------------------------------------------------------
+     */
+    'all-course' => [
+        'name' => 'courses.all',
+        'code' => 'all-course',
+        'description' => 'Ability to view list of courses',
+        'group' => 'student',
+    ],
+    'single-course' => [
+        'name' =>  'courses.single',
+        'code' => 'single-course',
+        'description' => 'Ability to view single course',
+        'group' => 'student',
+    ],
+    'my-courses' => [
+        'name' => 'courses.my',
+        'code' => 'my-courses',
+        'description' => 'Ability to view owned courses',
+        'group' => 'student',
+    ],
+
+    /**
+     * ------------------------------------------------------------------------------
+     * Bookmarked
+     * ------------------------------------------------------------------------------
+     */
+    'bookmarked-courses' => [
+        'name' => 'courses.bookmarked',
+        'code' => 'bookmarked-courses',
+        'description' => 'Ability to view list bookmarked courses',
+        'group' => 'student',
+    ],
+    'bookmark-course' => [
+        'name' => 'courses.bookmark',
+        'code' => 'bookmark-course',
+        'description' => 'Ability to remove from a course from bookmark list',
+        'group' => 'student',
+    ],
+    'unbookmark-course' => [
+        'name' => 'courses.unbookmark',
+        'code' => 'unbookmark-course',
+        'description' => 'Ability to remove from a course from bokmarks list',
+        'group' => 'student',
     ],
 ];

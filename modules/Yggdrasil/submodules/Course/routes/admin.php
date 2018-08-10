@@ -1,5 +1,10 @@
 <?php
 
-Route::softDeletes('courses', 'CourseController');
+require_once __DIR__ . '/admin-mycourses.php';
+require_once __DIR__ . '/admin-bookmarked.php';
+
+// Route::softDeletes('courses', 'CourseController');
+
+// Route::resource('courses', 'CourseController', ['module' => 'Pluma']);
 
 Route::resource('courses', 'CourseController');

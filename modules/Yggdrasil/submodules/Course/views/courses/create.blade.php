@@ -1,10 +1,10 @@
 @extends("Theme::layouts.admin")
 
 @section("main-content")
-  <v-jumbotron src="{{ $resource->feature }}" height="180px"></v-jumbotron>
+  {{-- <v-jumbotron src="{{ $resource->feature }}" height="180px"></v-jumbotron> --}}
   <v-container fluid grid-list-lg>
     <v-layout row wrap>
-      <v-flex sm12>
+      <v-flex sm12>{{--
         <p class="mb-0"><strong><small>{{ $resource->code }}</small></strong></p>
         <h1 class="title mb-3">{{ $resource->title }}</h1>
 
@@ -48,7 +48,23 @@
               </ul>
             </li>
           @endforeach
-        </ul>
+        </ul> --}}
+        <form action="{{ route('courses.store') }}" method="POST">
+          {{ csrf_field() }}
+          Title : <input type="text" name="title">
+          <br>
+          Slug : <input type="text" name="slug">
+          <br>
+          Code : <input type="text" name="code">
+          <br>
+          Feature : <input type="text" name="feature">
+          <br>
+          Backdrop : <input type="text" name="backdrop">
+          <br>
+          Body : <input type="text" name="body">
+          <br>
+          <button type="submit">Submit</button>
+        </form>
       </v-flex>
     </v-layout>
   </v-container>

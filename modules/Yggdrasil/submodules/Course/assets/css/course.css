@@ -1,0 +1,21 @@
+.media-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.30);
+}
+.overlay-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(204, 96, 96, 0.64);
+    z-index: 0;
+}
+.media .card__text {
+    z-index: 1;
+}
+.weight-600 {
+    font-weight: 600 !important;
+}

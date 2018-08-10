@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use Course\Models\Course;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Role\Models\Role;
 use Tests\Support\Test\DatabaseMigrations;
 use Tests\Support\Test\WithRepository;
 use Tests\TestCase;
@@ -26,7 +28,10 @@ class CourseAdminFeatureTest extends TestCase
     public function testUserCanInteractWithCoursesPage()
     {
         // Save to database first.
+        Artisan::call('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        Artisan::call('db:seed', ['--class' => 'RolesTableSeeder']);
         $user = factory(User::class)->create(['password' => Hash::make('secret')]);
+        $user->roles()->attach(Role::whereCode('superadmin')->first());
         $this->actingAs($user);
 
         $course = factory(Course::class)->create();
@@ -44,16 +49,103 @@ class CourseAdminFeatureTest extends TestCase
     /**
      * @test
      * @group course:feature
-     * @dataProvider providerSeed
+     *
      */
-    public function testUserCanReadASingleCourse($user)
+    public function testUserCanReadASingleCourse()
     {
-        $user = factory(User::class)->create(); // $this->persistProviderToDatabase($user);
+        // Save to database first.
+        Artisan::call('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        Artisan::call('db:seed', ['--class' => 'RolesTableSeeder']);
+        $user = factory(User::class)->create(['password' => Hash::make('secret')]);
+        $user->roles()->attach(Role::whereCode('superadmin')->first());
         $this->actingAs($user);
 
         $course = factory(Course::class)->create();
 
         $response = $this->get(route('courses.show', $course->slug));
+
+        $response
+            // Check if no error is thrown.
+            ->assertStatus(200);
+    }
+
+    /**
+     * @test
+     * @group course:feature
+     */
+    public function testUserCanCreateCourse()
+    {
+        // Save to database first.
+        Artisan::call('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        Artisan::call('db:seed', ['--class' => 'RolesTableSeeder']);
+        $user = factory(User::class)->create(['password' => Hash::make('secret')]);
+        $user->roles()->attach(Role::whereCode('superadmin')->first());
+        $this->actingAs($user);
+
+        $response = $this->get(route('courses.create'));
+        $response
+            // Chcek if no error is thrown.
+            ->assertStatus(200);
+    }
+
+    /**
+     * @test
+     * @group course:feature
+     */
+    public function testUserCanStoreCourse()
+    {
+        // Save to database first.
+        Artisan::call('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        Artisan::call('db:seed', ['--class' => 'RolesTableSeeder']);
+        $user = factory(User::class)->create(['password' => Hash::make('secret')]);
+        $user->roles()->attach(Role::whereCode('superadmin')->first());
+        $this->actingAs($user);
+
+        $course = factory(Course::class)->make();
+
+        $response = $this->get(route('courses.store', $course));
+
+        $response
+            // Check if no error is thrown.
+            ->assertStatus(200);
+    }
+
+    /**
+     * @test
+     * @group course:feature
+     */
+    public function testUserCanUpdateCourse()
+    {
+        Artisan::call('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        Artisan::call('db:seed', ['--class' => 'RolesTableSeeder']);
+        $user = factory(User::class)->create(['password' => Hash::make('secret')]);
+        $user->roles()->attach(Role::whereCode('superadmin')->first());
+        $this->actingAs($user);
+
+        $course = factory(Course::class)->make();
+
+        $response = $this->get(route('courses.update', $course));
+
+        $response
+            // Check if no error is thrown.
+            ->assertStatus(200);
+    }
+
+    /**
+     * @test
+     * @group course:feature
+     */
+    public function testuserCandDestroyCourse()
+    {
+        Artisan::call('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        Artisan::call('db:seed', ['--class' => 'RolesTableSeeder']);
+        $user = factory(User::class)->create(['password' => Hash::make('secret')]);
+        $user->roles()->attach(Role::whereCode('superadmin')->first());
+        $this->actingAs($user);
+
+        $course = factory(Course::class)->make();
+
+        $response = $this->get(route('courses.destroy', $course));
 
         $response->assertStatus(200);
     }
@@ -84,4 +176,5 @@ class CourseAdminFeatureTest extends TestCase
                 $user, ['password' => Hash::make('secret')]
             ));
     }
+
 }

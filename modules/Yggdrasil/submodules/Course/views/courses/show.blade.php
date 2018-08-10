@@ -1,11 +1,13 @@
 @extends("Theme::layouts.admin")
 
+@section("head-title", $resource->title)
 @section("main-content")
   <v-container fluid grid-list-lg>
     <v-flex sm12>
       <v-card flat>
         {{-- <v-card-media src="{{ $resource->backdrop }}" height="250px"></v-card-media> --}}
       </v-card>
+
       <h1>{{ $resource->title }}</h1>
 
       <p>Lessons:</p>
@@ -38,8 +40,8 @@
             </ul>
           </li>
         @endforeach
+        @include("Course::widgets.enrolled")
       </ul>
     </v-flex>
   </v-container>
-
 @endsection

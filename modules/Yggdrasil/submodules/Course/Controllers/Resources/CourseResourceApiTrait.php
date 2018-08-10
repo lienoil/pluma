@@ -2,11 +2,12 @@
 
 namespace Course\Controllers\Resources;
 
-use Illuminate\Http\Request;
-use Role\Models\Role;
 use Course\Models\Course;
 use Course\Requests\CourseRequest;
 use Course\Resources\CourseCollection;
+use Illuminate\Http\Request;
+use Role\Models\Role;
+use Course\Resources\Course as CourseResource;
 
 trait CourseResourceApiTrait
 {
@@ -42,9 +43,9 @@ trait CourseResourceApiTrait
             $resources->onlyTrashed();
         }
 
-        $users = $take ? $resources->paginate($take) : $resources->paginate(Course::count());
+        $course = $take ? $resources->paginate($take) : $resources->paginate(Course::count());
 
-        return new CourseCollection($users);
+        return response()->json($course);
     }
 
     /**
@@ -81,9 +82,9 @@ trait CourseResourceApiTrait
             $resources->onlyTrashed();
         }
 
-        $users = $resources->paginate($take);
+        $course = $resources->paginate($take);
 
-        return response()->json($users);
+        return response()->json($course);
     }
 
     /**
@@ -94,26 +95,21 @@ trait CourseResourceApiTrait
      */
     public function postStore(CourseRequest $request)
     {
-        $user = new Course();
-        $user->prefixname = $request->input('prefixname');
-        $user->firstname = $request->input('firstname');
-        $user->middlename = $request->input('middlename');
-        $user->lastname = $request->input('lastname');
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->avatar = $request->input('avatar');
-        $user->tokenize($request->input('username'));
-        $user->save();
-
-        // $user->role()->associate(Role::find($request->input('roles')));
+        $course = new Course();
+        $course->title = $request->input('title');
+        $course->slug = $request->input('slug');
+        $course->code = $request->input('code');
+        $course->feature = $request->input('feature');
+        $course->backdrop = $request->input('backdrop');
+        $course->body = $request->input('body');
+        $course->save();
 
         // Details
         foreach (($request->input('details') ?? []) as $key => $value) {
-            $user->details()->create(['key' => $key, 'value' => $value]);
+            $course->details()->create(['key' => $key, 'value' => $value]);
         }
 
-        return response()->json($user->id);
+        return response()->json($course->id);
     }
 
     /**
@@ -125,9 +121,9 @@ trait CourseResourceApiTrait
      */
     public function getShow(Request $request, $id)
     {
-        $user = Course::findOrFail($id);
+        $course = Course::findOrFail($id);
 
-        return new CourseResource($user);
+        return new CourseResource($course);
     }
 
     /**
@@ -139,17 +135,17 @@ trait CourseResourceApiTrait
      */
     public function putUpdate(Request $request, $id)
     {
-        $user = Course::findOrFail($id);
-        $user->title = $request->input('title');
-        $user->code = $request->input('code');
-        $user->feature = $request->input('feature');
-        $user->body = $request->input('body');
-        $user->delta = $request->input('delta');
-        $user->template = $request->input('template');
-        $user->user()->associate(Course::find($request->input('user_id')));
-        $user->save();
+        $course = Course::findOrFail($id);
+        $course->title = $request->input('title');
+        $course->code = $request->input('code');
+        $course->feature = $request->input('feature');
+        $course->body = $request->input('body');
+        $course->delta = $request->input('delta');
+        $course->template = $request->input('template');
+        $course->course()->associate(Course::find($request->input('course_id')));
+        $course->save();
 
-        return response()->json($user->id);
+        return response()->json($course->id);
     }
 
     /**
@@ -175,13 +171,13 @@ trait CourseResourceApiTrait
      */
     public function postRestore(Request $request, $id = null)
     {
-        $user = Course::onlyTrashed()->find($id);
-        $user->exists() || $user->restore();
+        $course = Course::onlyTrashed()->find($id);
+        $course->exists() || $course->restore();
 
         if (is_array($request->input('id'))) {
             foreach ($request->input('id') as $id) {
-                $user = Course::onlyTrashed()->find($id);
-                $user->restore();
+                $course = Course::onlyTrashed()->find($id);
+                $course->restore();
             }
         }
 
@@ -195,7 +191,7 @@ trait CourseResourceApiTrait
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deleteDelete(Request $request, $id = null)
+    public function postDelete(Request $request, $id = null)
     {
         $success = Course::forceDelete($id ? $id : $request->input('id'));
 
