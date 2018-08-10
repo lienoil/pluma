@@ -18,4 +18,17 @@ Route::group(['prefix' => 'v1'], function () {
     // Route::post('users/save', 'UserController@postStore')->name('users.save');
     // Route::post('users/store', 'UserController@postStore')->name('users.store');
     // Route::delete('users/{user}/destroy', 'UserController@deleteDestroy')->name('users.destroy');
+
+    /**
+     *--------------------------------------------------------------------------
+     * Authentication
+     *--------------------------------------------------------------------------
+     *
+     */
+    Route::post('login', 'LoginApiController@login')
+        ->middleware(['api', 'preflight', 'cors'])
+        ->name('login.login');
+    Route::post('authenticate', 'LoginApiController@authenticate')
+        ->middleware(['api', 'preflight', 'cors'])
+        ->name('login.authenticate');
 });

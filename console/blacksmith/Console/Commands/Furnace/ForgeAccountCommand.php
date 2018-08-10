@@ -102,9 +102,9 @@ class ForgeAccountCommand extends Command
     protected function displayTable()
     {
         $this->table(
-            ['Full Name', 'Email', 'Username', 'Password', 'Role'],
+            ['Full Name', 'Email', 'Username', 'API Token', 'Password', 'Role'],
             [array_merge(
-                $this->user->only(['fullname', 'email', 'username']),
+                $this->user->only(['fullname', 'email', 'username', 'api_token']),
                 [
                     'password' => $this->password,
                     'role' => $this->role->name,
@@ -131,7 +131,7 @@ class ForgeAccountCommand extends Command
         $password = Hash::make($password);
         $user = compact('firstname', 'lastname', 'email', 'username', 'password');
 
-        $this->user = $this->generateAccount($user, $role);
+        $this->user = $this->generateAccount($role, $user);
     }
 
     /**
@@ -148,7 +148,7 @@ class ForgeAccountCommand extends Command
         // Generate the user.
         $params = ['password' => Hash::make($this->password)];
 
-        $this->user = $this->generateAccount($params, $role);
+        $this->user = $this->generateAccount($role, $params);
     }
 
     /**
@@ -158,7 +158,7 @@ class ForgeAccountCommand extends Command
      * @param  Role  $role
      * @return  \Illuminate\Database\Eloquent\Model
      */
-    protected function generateAccount(array $params = [], Role $role) : Model
+    protected function generateAccount(Role $role, array $params = []): Model
     {
         $model = config('auth.providers.users.model', \User\Models\User::class);
         if ($this->option('pretend')) {
@@ -179,7 +179,7 @@ class ForgeAccountCommand extends Command
      * @param int|integer $length
      * @return string
      */
-    protected function getRandomPassword(int $length = 10) : String
+    protected function getRandomPassword(int $length = 10): String
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

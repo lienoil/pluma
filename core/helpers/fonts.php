@@ -10,7 +10,8 @@ if (! function_exists('font_link_tags')) {
      */
     function font_link_tags($fonts = [])
     {
-        $tags = config('editor.fonts.links', $fonts);
+        $tags = empty($fonts) ? config('editor.fonts.links', $fonts) : $fonts;
+
         return implode("\n\r", $tags);
     }
 }
