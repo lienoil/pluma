@@ -11,33 +11,35 @@ use Course\Support\Relations\BelongsToManyUsers;
 use Course\Support\Scopes\EnrolledToACourse;
 use Course\Support\Scopes\OnlyBookmarkedByScope;
 use Course\Support\Traits\CourseCommitTrait;
-use Course\Controllers\Resources\EnrolledUserMutator;
+use Course\Support\Traits\EnrolledUserMutator;
 use Form\Support\Relations\BelongsToManyForms;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Course\Support\Relations\HasManyLessons;
-use Submission\Support\Relations\HasManySubmissions;
-use Pluma\Support\Database\Scopes\SlugOrFail;
+use Lesson\Support\Traits\HasManyContentsThroughLesson;
+use Lesson\Support\Traits\HasManyLessons;
 use Pluma\Models\Model;
+use Pluma\Support\Database\Scopes\SlugOrFail;
+use Submission\Support\Relations\HasManySubmissions;
 use User\Support\Traits\BelongsToUser;
+
 
 class Course extends Model
 {
-    use HasManyLessons,
-        SoftDeletes,
-        SlugOrFail,
-        BelongsToCategory,
+    use BelongsToCategory,
         BelongsToManyUsers, // Students of the Course (course_user)
         BelongsToUser, // Author of the Course (courses.user_id)
         MorphManyBookmarks,
         CourseCommitTrait,
+        CourseMutator,
         EnrolledToACourse,
         EnrolledUserMutator,
         BelongsToManyForms,
+        HasManyContentsThroughLesson,
         HasManyLessons,
         MorphManyComments,
         OnlyBookmarkedByScope,
         HasManySubmissions,
-        SoftDeletes;
+        SoftDeletes,
+        SlugOrFail;
 
     protected $with = [];
 

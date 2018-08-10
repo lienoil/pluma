@@ -2,16 +2,16 @@
 
 namespace Course\Models;
 
-// use Content\Support\Relations\BelongsToManyContents;
 use Course\Controllers\Resources\CourseUserMutator;
 use Course\Support\Relations\BelongsToManyCourses;
+use Course\Support\Scopes\BelongsToManyContents;
 use Course\Support\Scopes\EnrolledToACourse;
 use Illuminate\Database\Eloquent\Builder;
 use User\Models\User as BaseUser;
 
 class User extends BaseUser
 {
-    use EnrolledToACourse, BelongsToManyCourses, CourseUserMutator;
+    use EnrolledToACourse, BelongsToManyCourses, BelongsToManyContents, CourseUserMutator;
 
     protected $with = ['roles'];
 

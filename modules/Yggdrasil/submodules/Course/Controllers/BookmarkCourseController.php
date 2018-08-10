@@ -11,13 +11,11 @@ use Course\Models\User;
 use Course\Requests\CourseRequest;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use Course\Models\Lesson;
+use Lesson\Models\Lesson;
 use Library\Models\Library;
-
 
 class BookmarkCourseController extends AdminController
 {
-
     /**
      * Display list of bookmarked resource.
      *
@@ -65,5 +63,10 @@ class BookmarkCourseController extends AdminController
         } finally {
             return back();
         }
+    }
+
+    public function try()
+    {
+        # code...
     }
 }

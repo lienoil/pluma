@@ -19,7 +19,7 @@
       @endif
       <v-spacer></v-spacer>
       <v-menu full-width>
-        <v-btn slot="activator" icon v-tooltip left><v-icon>more_vert</v-icon></v-btn>
+        <v-btn slot="activator" icon v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
         <v-list>
         @can('bookmark-course')
             @if (! $resource->bookmarked)

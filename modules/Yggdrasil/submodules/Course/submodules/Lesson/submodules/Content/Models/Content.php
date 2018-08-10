@@ -3,15 +3,22 @@
 namespace Content\Models;
 
 use Comment\Support\Relations\MorphManyComments;
-use Course\Support\Relations\BelongsToManyUsers;
+use Content\Support\Relations\BelongsToManyUsers;
+use Content\Support\Relations\MorphToContentable;
+use Content\Support\Traits\ContentMutator;
+use Lesson\Support\Traits\BelongsToLesson;
+use Lesson\Support\Traits\HasCourseThroughLesson;
 use Library\Support\Traits\BelongsToLibrary;
 use Pluma\Models\Model;
 
 class Content extends Model
 {
-
-    use BelongsToLibrary,
+    use BelongsToLesson,
+        HasCourseThroughLesson,
+        BelongsToLibrary,
+        ContentMutator,
         BelongsToManyUsers,
+        MorphToContentable,
         MorphManyComments;
 
     protected $with = ['library'];

@@ -1,12 +1,12 @@
 <?php
 
-namespace Course\Support\Scopes;
+namespace Content\Support\Relations;
 
 use Content\Models\Content;
 
 trait BelongsToManyContents
 {
-   /**
+    /**
      * Gets all Content resources associated
      * with this model.
      *

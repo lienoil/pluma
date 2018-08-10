@@ -1,6 +1,6 @@
 <?php
 
-namespace Course\Controllers\Resources;
+namespace Course\Support\Traits;
 
 use Course\Models\User;
 
