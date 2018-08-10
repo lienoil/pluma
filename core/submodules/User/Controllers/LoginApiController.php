@@ -34,7 +34,7 @@ class LoginApiController extends ApiController
         $user = User::where('api_token', $request->input('api_token'));
 
         if (! $user->exists()) {
-            return response()->json(['token' => null]);
+            return response()->json(['token' => null, 'user' => null]);
         }
 
         $user = $user->first();
