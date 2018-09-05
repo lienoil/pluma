@@ -7,6 +7,7 @@ use Bookmark\Support\Traits\Bookmarkable;
 use Category\Support\Relations\BelongsToCategory;
 use Comment\Support\Relations\MorphManyComments;
 use Course\Support\Mutators\CourseMutator;
+use Course\Support\Accessor\CourseAccessor;
 use Course\Support\Relations\BelongsToManyUsers;
 use Course\Support\Scopes\EnrolledToACourse;
 use Course\Support\Scopes\OnlyBookmarkedByScope;
@@ -29,7 +30,8 @@ class Course extends Model
         BelongsToUser, // Author of the Course (courses.user_id)
         MorphManyBookmarks,
         CourseCommitTrait,
-        CourseMutator,
+        // CourseMutator,
+        CourseAccessor,
         EnrolledToACourse,
         EnrolledUserMutator,
         BelongsToManyForms,

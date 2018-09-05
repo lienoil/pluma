@@ -4,7 +4,8 @@ namespace Forum\Models;
 
 use Category\Support\Relations\BelongsToCategory;
 use Comment\Support\Relations\MorphManyComments;
-use Forum\Support\Traits\ForumMutatorTrait;
+// use Forum\Support\Traits\ForumMutatorTrait;
+use Forum\Support\Accessors\ForumMutatorTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 use User\Support\Traits\BelongsToUser;

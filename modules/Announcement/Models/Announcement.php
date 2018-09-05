@@ -3,7 +3,8 @@
 namespace Announcement\Models;
 
 use Announcement\Support\Scopes\PublishedTrait;
-use Announcement\Support\Traits\AnnouncementMutator;
+// use Announcement\Support\Traits\AnnouncementMutator;
+use Announcement\Support\Accessors\AnnouncementMutator;
 use Category\Support\Relations\BelongsToCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;

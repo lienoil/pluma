@@ -4,7 +4,8 @@ namespace Form\Models;
 
 use Field\Support\Relations\HasManyFields;
 use Form\Support\Relations\BelongsToForm;
-use Form\Support\Traits\FormMutatorTrait;
+// use Form\Support\Traits\FormMutatorTrait;
+use Form\Support\Accessors\FormAccessorsTrait;
 use Frontier\Support\Traits\TypeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;

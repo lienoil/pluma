@@ -44,8 +44,8 @@ return [
         'group' => 'course',
     ],
     'edit-course' => [
-        'name' => 'courses.edit',
-        'code' => 'edit-course',
+        'name' => 'edit-course',
+        'code' => 'courses.edit',
         'description' => 'Ability to show the form to edit course',
         'group' => 'course',
     ],
@@ -89,19 +89,19 @@ return [
         'name' => 'courses.enrolled.index',
         'code' => 'view-enrolled-courses',
         'description' => 'Ability to view enrolled courses',
-        'group' => ['course', 'student'],
+        'group' => 'student',
     ],
     'show-enrolled-courses' => [
         'name' => 'courses.enrolled.show',
         'code' => 'show-enrolled-courses',
         'description' => 'Ability to view enrolled courses',
-        'group' => ['course', 'student'],
+        'group' => 'student',
     ],
     'enroll-course' => [
         'name' => 'courses.enroll',
         'code' => 'enroll-course',
         'description' => 'Ability to enroll to a course',
-        'group' => ['course', 'student'],
+        'group' => 'student',
     ],
 
     /**

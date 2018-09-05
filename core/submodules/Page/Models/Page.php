@@ -4,7 +4,8 @@ namespace Page\Models;
 
 use Category\Support\Relations\BelongsToCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Page\Support\Mutators\PageMutator;
+// use Page\Support\Mutators\PageMutator;
+use Page\Support\Accessors\PageAccessors;
 use Page\Support\Relations\BelongsToPage;
 use Page\Support\Relations\PageHasManyPages;
 use Page\Support\Traits\PageValidationTrait;

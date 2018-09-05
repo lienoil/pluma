@@ -28,7 +28,7 @@ return [
      *
      */
 
-    'compiled' => realpath(storage_path('compiled/views')),
+    'compiled' => realpath(storage_path('framework/views')),
 
     'static' => realpath(resource_path('views/static')),
 ];
