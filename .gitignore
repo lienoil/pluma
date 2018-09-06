@@ -1,16 +1,3 @@
-# ignore files in folder storage
-storage/*
-tests/build/
-**/tests/build/
-.sass-cache/
-vendor/
-
-# but please keep the folder
-!storage/**/.keep
-!storage/framework/*/.keep
-!storage/.keep
-!**/.keep
-
 # ignore files
 bower_components/
 node_modules/
@@ -20,3 +7,23 @@ node_modules/
 *.sh
 .php_cs.cache
 .env
+
+# ignore files in folder storage
+storage/framework/cache/*
+storage/framework/views/*
+storage/framework/sessions/*
+storage/logs
+tests/build/
+**/tests/build/
+.sass-cache/
+vendor/
+
+# but please keep these folders
+!storage/**/.keep
+!storage/framework/*/.keep
+!storage/framework/cache/.keep
+!storage/framework/views/.keep
+!storage/framework/sessions/.keep
+!storage/.keep
+!**/.keep
+!.keep

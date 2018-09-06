@@ -48,6 +48,18 @@ class RoleServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        parent::register();
+
+        $this->registerEloquentFactories();
+    }
+
+    /**
      * Registers the Permissions as Gate policies.
      *
      * @return void
@@ -61,5 +73,17 @@ class RoleServiceProvider extends ServiceProvider
                 });
             }
         }
+    }
+
+    /**
+     * Register the Eloquent factory instance in the container.
+     *
+     * @return void
+     */
+    protected function registerEloquentFactories()
+    {
+        $factoryPath = get_module('role').'/'.basename($this->app->databasePath()).'/factories';
+
+        $this->registerEloquentFactoriesFrom($factoryPath);
     }
 }

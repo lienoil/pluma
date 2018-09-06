@@ -438,7 +438,7 @@ if (! function_exists('is_installed')) {
 }
 
 if (! function_exists('write_to_env')) {
-    function write_to_env($data)
+    function write_to_env($data, $envFile = null)
     {
         if (! count($data)) {
             return;
@@ -446,7 +446,7 @@ if (! function_exists('write_to_env')) {
 
         $pattern = '/([^\=]*)\=[^\n]*/';
 
-        $envFile = base_path('.env');
+        $envFile = $envFile ?? base_path('.env');
 
         $lines = file($envFile);
         $newLines = [];

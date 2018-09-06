@@ -1,24 +1,36 @@
-@extends("Theme::layouts.auth")
+@extends('Theme::layouts.auth')
 
-@section("main")
-  {{-- @parent --}}
-  <v-jumbotron class="grey lighten-3" :xgradient="`to top right, #022242 10%, #420224 100%`" height="100%">
-    <v-container fluid fill-height>
-      <v-layout row wrap justify-center align-center>
-        <v-flex lg3 md4 sm8 xs12 justify-center align-center>
+@section('content')
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="p-card">
+          <h3 class="p-card__title">{{ $application->site->title }}</h3>
+          <p class="p-card__content">Sign in</p>
 
-          <v-slide-y-transition mode="in-out">
-            <login-card
-              box
-              color="primary"
-              logo="{{ $application->site->logo }}"
-              subtitle="{{ $application->site->tagline }}"
-              title="{{ $application->site->title }}"
-            ></login-card>
-          </v-slide-y-transition>
+          <form action="{{ route('login.login') }}" method="POST">
+            {{ csrf_field() }}
 
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-jumbotron>
+            <div class="p-form-validation {{ $errors->has('username') ? 'is-error' : '' }}">
+              <input
+                id="username"
+                type="text"
+                class="p-form-validation__input"
+                name="username"
+                placeholder="{{ __('Username or email') }}"
+              />
+              @if ($errors->has('username'))
+                <p class="p-form-validation__message is-error">
+                  {{ $errors->first('username') }}
+                </p>
+              @endif
+            </div>
+
+            <input id="password" type="password" name="password" placeholder="{{ __('Password') }}">
+            <p><button type="submit" class="p-button--brand">{{ __('Sign in') }}</button></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection

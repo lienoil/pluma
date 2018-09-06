@@ -31,16 +31,12 @@ class AppThemeCommand extends Command
     {
         $this->info(__("Getting installed theme lists..."));
 
-        $themes = [];
-        foreach (Theme::themes() as $theme) {
-            $themes[] = $theme->name;
-        }
-
-        $theme = $this->choice("Please select a theme", $themes);
+        $themes = collect(Theme::themes())->pluck('name', 'code');
+        $theme = $this->choice("Please select a theme", $themes->toArray());
         $theme = Theme::theme($theme);
 
         $this->info(__("Activating {$theme->name}..."));
         Setting::updateOrCreate(['key' => 'active_theme'], ['value' => $theme->code]);
-        $this->info(__("Done."));
+        $this->info(__("Theme '{$theme->name}' activated."));
     }
 }

@@ -22,7 +22,7 @@ class AuthenticateSession extends BaseAuthenticateSession
             return $next($request);
         }
 
-        if (! $request->ajax() && $this->auth->viaRemember()) {
+        if (! $request->ajax() && method_exists($this->auth, 'viaRemember') && $this->auth->viaRemember()) {
             $passwordHash = explode('|', $request->cookies->get($this->auth->getRecallerName()))[2];
 
             if ($passwordHash != $request->user()->getAuthPassword()) {

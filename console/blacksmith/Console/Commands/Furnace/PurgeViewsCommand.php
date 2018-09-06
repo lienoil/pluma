@@ -28,9 +28,9 @@ class PurgeViewsCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        $this->line("Clearing cached views from /storage/compiled/views...");
+        $this->line("Clearing cached views from /storage/framework/views...");
 
-        $path = storage_path('compiled/views');
+        $path = storage_path('framework/views');
 
         $restrictedFiles = ['.gitignore', '.gitkeep'];
 
