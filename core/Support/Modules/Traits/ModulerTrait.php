@@ -51,7 +51,7 @@ trait ModulerTrait
      * @param array $modules
      * @return $this
      */
-    public function setModules(Array $modules = null)
+    public function setModules(array $modules = null)
     {
         $this->modules = $modules;
 
@@ -96,19 +96,19 @@ trait ModulerTrait
      */
     public function getFileFromModules($file)
     {
-        return cache()->remember("cached::$file", 120, function () use ($file) {
-            return collect($this->modulePaths())
-                ->filter(function ($path) use ($file) {
-                    if (file_exists("$path/$file")) {
-                        return "$path/$file";
-                    }
-                })
-                ->map(function ($path) use ($file) {
+        // return cache()->remember("cached::$file", 120, function () use ($file) {
+        // });
+        return collect($this->modulePaths())
+            ->filter(function ($path) use ($file) {
+                if (file_exists("$path/$file")) {
                     return "$path/$file";
-                })
-                ->values()
-                ->all();
-        });
+                }
+            })
+            ->map(function ($path) use ($file) {
+                return "$path/$file";
+            })
+            ->values()
+            ->all();
     }
 
     /**

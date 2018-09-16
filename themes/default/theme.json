@@ -1,8 +1,0 @@
-{
-    "name": "Default",
-    "description": "This is the default theme for Pluma. Leave this theme installed to avoid messing up the UI when no theme is activated.",
-    "author": {
-        "name": "Pluma CMS",
-        "email": ""
-    }
-}

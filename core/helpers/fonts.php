@@ -3,15 +3,13 @@
 if (! function_exists('font_link_tags')) {
     /**
      * Gets the HTML link tags specified
-     * in config/editor.php:`fonts.links`
      *
-     * @param  array  $fonts
+     * @param  string  $fonts
      * @return HTML|string
      */
-    function font_link_tags($fonts = [])
+    function font_link_tags($configFileLocation)
     {
-        $tags = empty($fonts) ? config('editor.fonts.links', $fonts) : $fonts;
-
-        return implode("\n\r", $tags);
+        $tags = config($configFileLocation, null);
+        return implode("\n\r", $tags ?? []);
     }
 }

@@ -48,7 +48,7 @@ class LibraryRequest extends FormRequest
     public function rules()
     {
         $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
-        $mimes = implode(',', config('downloadables', []));
+        $mimes = implode(',', config('download.supported', []));
 
         return [
             'originalname' => 'sometimes|required|unique:library'.$isUpdating,

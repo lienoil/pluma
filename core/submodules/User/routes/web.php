@@ -25,10 +25,10 @@ Route::post('register', 'RegisterController@register')->name('register.register'
  * The route of the password recovery pages.
  *
  */
-Route::group(['prefix' => 'password'], function () {
+Route::group(['prefix' => 'authentications/password'], function () {
     Route::get('{user}/verify/{token}', 'VerifyUserController@verify')->name('user.verify');
     // Forgot Password Form
-    Route::get('request', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::get('forgot', 'ForgotPasswordController@showLinkRequestForm')->name('password.forgot');
     Route::post('sent', 'ForgotPasswordController@sendResetLinkEmail')->name('password.send');
 
     Route::get('reset/{token}', 'ResetPasswordController@showResetForm')->name('password.token');

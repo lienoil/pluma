@@ -4,7 +4,6 @@ namespace Pluma\Routing;
 
 use Illuminate\Routing\PendingResourceRegistration;
 use Illuminate\Routing\Router as BaseRouter;
-use Pluma\Routing\ApiResourceRegistrar;
 use Pluma\Routing\ResourceRegistrar;
 use Pluma\Routing\SoftDeletesResourceRegistrar;
 
@@ -45,27 +44,6 @@ class Router extends BaseRouter
             $registrar = $this->container->make(SoftDeletesResourceRegistrar::class);
         } else {
             $registrar = new SoftDeletesResourceRegistrar($this);
-        }
-
-        return new PendingResourceRegistration(
-            $registrar, $name, $controller, $options
-        );
-    }
-
-    /**
-     * Register an array of API resource controllers.
-     *
-     * @param  string  $name
-     * @param  string  $controller
-     * @param  array   $options
-     * @return \Illuminate\Routing\PendingResourceRegistration
-     */
-    public function api($name, $controller, array $options = [])
-    {
-        if ($this->container && $this->container->bound(ApiResourceRegistrar::class)) {
-            $registrar = $this->container->make(ApiResourceRegistrar::class);
-        } else {
-            $registrar = new ApiResourceRegistrar($this);
         }
 
         return new PendingResourceRegistration(

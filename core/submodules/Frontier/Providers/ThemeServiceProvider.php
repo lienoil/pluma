@@ -58,16 +58,6 @@ class ThemeServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot the service.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
-    /**
      * Register the services.
      *
      * @return void
@@ -97,12 +87,9 @@ class ThemeServiceProvider extends ServiceProvider
             $this->loadViewsFrom(base_path("$themePath/$activeTheme/views"), $this->basename);
         }
 
-        // Load all themes in their own hint path
-        foreach (get_themes() as $theme) {
-            // Load hint path same as theme's name
-            if (is_dir($theme->path)) {
-                $this->loadViewsFrom("{$theme->path}/views", ucfirst($theme->hintpath));
-            }
+        // Load the default theme in the 'Theme' hint path.
+        if (is_dir(core_path('theme'))) {
+            $this->loadViewsFrom(core_path('theme/views'), ucfirst($this->basename));
         }
 
         // Default is loaded after the themes.

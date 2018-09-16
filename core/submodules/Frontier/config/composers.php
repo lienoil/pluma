@@ -14,7 +14,6 @@ return [
     ],
     [
         'appears' => [
-            'Theme::layouts.admin',
             'Theme::partials.sidebar',
         ],
         'class' => \Frontier\Composers\SidebarComposer::class

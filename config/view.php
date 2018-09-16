@@ -14,7 +14,8 @@ return [
      */
 
     'paths' => [
-        realpath(core_path('resources/views')),
+        realpath(resource_path('views')),
+        realpath(core_path('theme/views'))
     ],
 
     /**
@@ -30,5 +31,15 @@ return [
 
     'compiled' => realpath(storage_path('framework/views')),
 
+    /**
+     *--------------------------------------------------------------------------
+     * Static View Path
+     *--------------------------------------------------------------------------
+     *
+     * Static views are used as fallbacks if no view was found for a specific
+     * request.
+     * The static views can be access via the 'Static' hint path.
+     * E.g. view('Static::index')
+     */
     'static' => realpath(resource_path('views/static')),
 ];

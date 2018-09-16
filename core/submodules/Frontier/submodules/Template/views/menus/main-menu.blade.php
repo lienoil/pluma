@@ -13,7 +13,7 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-        @include("Template::recursives.main-menu", ['items' => get_navmenus('main-menu')])
+        @include("Template::recursives.main-menu", ['items' => get_menu('main-menu')])
 
         @if (settings('show_login_at_main_menu', true))
             <v-btn flat primary href="{{ route('login.show') }}">{{ __(user() ? 'Dashboard' : 'Login') }}</v-btn>

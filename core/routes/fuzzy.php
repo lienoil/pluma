@@ -1,34 +1,22 @@
 <?php
 
+use Illuminate\Support\Facades\File;
+
 Route::get('themes/{file?}', function ($file = null) {
     $path = themes_path(settings('active_theme', 'default')."/$file");
     $extension = File::extension($path);
+    $contentType = config("mimetypes.$extension", 'txt');
 
     if (in_array($extension, config('download.restricted', []))) {
         return abort(403);
     }
 
+    if (! File::exists($path)) {
+        $path = core_path("theme/{$file}");
+    }
+
     if (File::exists($path)) {
-        $contentType = config("mimetypes.$extension", 'txt');
-
         return response()->file($path, array('Content-Type' => $contentType));
-    }
-
-    return abort(404);
-
-    $path = base_path(config('path.themes', 'themes').'/'.settings('active_theme', 'default'))."/$file";
-    $fileArray = explode('/', $file);
-    $lastFile = end($fileArray);
-    $extension = explode(".", $lastFile);
-    $fileExtension = end($extension);
-    $isCss = 'css' === $fileExtension ? true : false;
-
-    if (! in_array($fileExtension, config('downloadables', []))) {
-        return abort(403);
-    }
-
-    if (\File::exists($path)) {
-        return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : []);
     }
 
     return abort(404);
@@ -36,18 +24,19 @@ Route::get('themes/{file?}', function ($file = null) {
 
 Route::get('anytheme/{file?}', function ($file = null) {
     $path = themes_path("$file");
-    $fileArray = explode('/', $file);
-    $lastFile = end($fileArray);
-    $extension = explode(".", $lastFile);
-    $fileExtension = end($extension);
-    $isCss = 'css' === $fileExtension ? true : false;
+    $extension = File::extension($path);
+    $contentType = config("mimetypes.$extension", 'txt');
 
-    if (! in_array($fileExtension, config('downloadables', []))) {
+    if (in_array($extension, config('download.restricted', []))) {
         return abort(403);
     }
 
-    if (\File::exists($path)) {
-        return response()->file($path, $isCss ? array('Content-Type' => 'text/css') : []);
+    if (! File::exists($path)) {
+        $path = core_path("theme/{$file}");
+    }
+
+    if (File::exists($path)) {
+        return response()->file($path, array('Content-Type' => $contentType));
     }
 
     return abort(404);

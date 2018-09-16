@@ -7,7 +7,7 @@ return [
 	 *--------------------------------------------------------------------------
 	 *
 	 */
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://127.0.0.1:8000'),
     'locale' => 'en',
     'env' => env('APP_ENV', 'production'),
     'file' => '.env',

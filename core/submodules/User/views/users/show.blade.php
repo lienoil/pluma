@@ -1,31 +1,76 @@
-@extends("Theme::layouts.admin")
+@extends('Theme::layouts.admin')
 
-@section("content")
+@section('head-title', $resource->fullname)
 
-    <v-container fluid grid-list-lg>
+@section('page-title')
+  <a title="{{ __('Back') }}" href="{{ route('users.index') }}" role="button" class="btn btn-secondary">
+    <i class="fe fe-arrow-left"></i>
+    <span class="sr-only">{{ __('Back') }}</span>
+  </a>
+  <a href="{{ route('users.edit', $resource->id) }}" role="button" class="btn btn-secondary"><i class="fe fe-edit-2"></i> {{ __('Edit') }}</a>
+  <a href="{{ route('users.edit', $resource->id) }}" role="button" class="btn btn-secondary"><i class="fe fe-trash-2"></i> {{ __('Deactivate') }}</a>
+@endsection
 
-        @include("Theme::partials.banner")
+@section('page-content')
+  <div class="container-fluid">
+    <div class="row">
 
-        <v-layout row wrap>
-            <v-flex sm8 offset-sm2>
-                <v-card class="mb-3 elevation-1">
-                    <v-toolbar card class="transparent">
-                        <v-toolbar-title class="accent--text">{{ __($resource->fullname) }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                    </v-toolbar>
+      @section('user.sidebar')
+        <div class="col-lg-3">
+          @section('user.avatar')
+            <div class="card p-1">
+              <img src="{{ $resource->photo }}" width="100%" height="auto" class="rounded">
+            </div>
+          @show
+        </div>
+      @show
 
-                    <v-subheader>{{ __('Basic Information') }}</v-subheader>
+      @section('user.main')
+        <div class="col-lg-9">
+          <h1 class="display-6 m-0 p-0">{{ $resource->fullname }}</h1>
+          <div class="page-subtitle">
+            @if ($resource->email)
+              <div class="mb-1">
+                <i class="fe fe-mail"></i>
+                <span>{{ $resource->email }}</span>
+              </div>
+            @endif
+            @if ($resource->displayrole)
+              <div class="mb-1">
+                <i class="fe fe-user"></i>
+                <strong>{{ $resource->displayrole }}</strong>
+              </div>
+            @endif
+          </div>
+          <div class="mt-6">
+            <h3 class="h3">{{ __('About') }}</h3>
+            {{-- <div class="row">
+              <strong class="col-3">{{ __('Address') }}</strong>
+              <div class="col">{{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum laudantium distinctio quasi.' }}</div>
+            </div>
+            <div class="row">
+              <strong class="col-3">{{ __('Phone Address') }}</strong>
+              <div class="col">{{ '0987654322345' }}</div>
+            </div> --}}
+            @if ($resource->detail('phone'))
+              <div class="col">{{ __('Phone') }}</div>
+              <div class="col-auto">{{ $resource->detail('phone') }}</div>
+            @endif
 
-                    <v-list two-lines>
-                        <v-list-tile>
-                            <v-list-tile-title>
-                                <div>{{ $resource->email }}</div>
-                                <span class="caption grey--text">{{ __('Email') }}</span>
-                            </v-list-tile-title>
-                        </v-list-tile>
-                    </v-list>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </v-container>
+            @if ($resource->detail('address'))
+              <div class="col">{{ __('Address') }}</div>
+              <div class="col-auto">{{ $resource->detail('address') }}</div>
+            @endif
+          </div>
+
+          @section('user.activity')
+            <div class="mt-6">
+              <h3 class="h3">{{ __('Activity') }}</h3>
+            </div>
+          @show
+        </div>
+      @show
+
+    </div>
+  </div>
 @endsection

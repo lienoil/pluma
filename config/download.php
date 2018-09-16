@@ -12,7 +12,7 @@ return [
      *
      */
     'allowed' => [
-        // 'html', 'swf'
+        // '*',
     ],
 
     /**
@@ -29,4 +29,79 @@ return [
         'php',
         'env',
     ],
+
+    /**
+     *--------------------------------------------------------------------------
+     * Array of Supported file extensions
+     *--------------------------------------------------------------------------
+     *
+     */
+    'supported' => [
+        '7z',
+        'css',
+        'docx',
+        'gif',
+        'htm',
+        'html',
+        'jpe',
+        'jpeg',
+        'jpg',
+        'js',
+        'json',
+        'map',
+        'mp3',
+        'mp4',
+        'mpeg',
+        'mpga',
+        'ogg',
+        'ogv',
+        'pdf',
+        'png',
+        'ppt',
+        'pptx',
+        'rar',
+        'swf',
+        'tiff',
+        'wmv',
+        'xls',
+        'xlsx',
+        'xml',
+        'zip',
+        'woff',
+        'ttf',
+
+        // Uppercase
+        '7Z',
+        'CSS',
+        'DOCX',
+        'GIF',
+        'HTM',
+        'HTML',
+        'JPE',
+        'JPEG',
+        'JPG',
+        'JS',
+        'JSON',
+        'MAP',
+        'MP3',
+        'MP4',
+        'MPEG',
+        'MPGA',
+        'OGG',
+        'OGV',
+        'PDF',
+        'PNG',
+        'PPT',
+        'PPTX',
+        'RAR',
+        'SWF',
+        'TIFF',
+        'WMV',
+        'XLS',
+        'XLSX',
+        'XML',
+        'ZIP',
+        'WOFF',
+        'TTF',
+    ]
 ];

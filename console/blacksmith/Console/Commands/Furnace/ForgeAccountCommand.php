@@ -102,9 +102,9 @@ class ForgeAccountCommand extends Command
     protected function displayTable()
     {
         $this->table(
-            ['Full Name', 'Email', 'Username', 'API Token', 'Password', 'Role'],
+            ['Full Name', 'Email', 'Username', 'Password', 'Role'],
             [array_merge(
-                $this->user->only(['fullname', 'email', 'username', 'api_token']),
+                $this->user->only(['fullname', 'email', 'username']),
                 [
                     'password' => $this->password,
                     'role' => $this->role->name,
@@ -131,7 +131,7 @@ class ForgeAccountCommand extends Command
         $password = Hash::make($password);
         $user = compact('firstname', 'lastname', 'email', 'username', 'password');
 
-        $this->user = $this->generateAccount($role, $user);
+        $this->user = $this->generateAccount($user, $role);
     }
 
     /**
@@ -146,9 +146,12 @@ class ForgeAccountCommand extends Command
         $this->password = $this->getRandomPassword();
 
         // Generate the user.
-        $params = ['password' => Hash::make($this->password)];
+        $params = [
+            'password' => Hash::make($this->password),
+            'api_token' => Hash::make($this->getRandomPassword()),
+        ];
 
-        $this->user = $this->generateAccount($role, $params);
+        $this->user = $this->generateAccount($params, $role);
     }
 
     /**
@@ -158,7 +161,7 @@ class ForgeAccountCommand extends Command
      * @param  Role  $role
      * @return  \Illuminate\Database\Eloquent\Model
      */
-    protected function generateAccount(Role $role, array $params = []): Model
+    protected function generateAccount(array $params = [], Role $role = null) : Model
     {
         $model = config('auth.providers.users.model', \User\Models\User::class);
         if ($this->option('pretend')) {
@@ -179,7 +182,7 @@ class ForgeAccountCommand extends Command
      * @param int|integer $length
      * @return string
      */
-    protected function getRandomPassword(int $length = 10): String
+    protected function getRandomPassword(int $length = 10) : String
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

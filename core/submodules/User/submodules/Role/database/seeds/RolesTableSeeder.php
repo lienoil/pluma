@@ -25,12 +25,6 @@ class RolesTableSeeder extends Seeder
                 'code' => 'admin',
                 'description' => 'The official site admin which manages creation of other users.',
             ),
-            array(
-                'name' => 'Student',
-                'alias' => 'Student',
-                'code' => 'student',
-                'description' => 'The ability to view owned courses and enrolled course.'
-            ),
         );
 
         $dataset = array_merge($dataset, config('auth.roles', []));

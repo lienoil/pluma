@@ -15,6 +15,8 @@ class DashboardController extends AdminController
      */
     public function index(Request $request)
     {
-        return view("Dashboard::pages.dashboard");
+        $pages = \User\Models\User::cached();
+
+        return view("Dashboard::admin.index");
     }
 }

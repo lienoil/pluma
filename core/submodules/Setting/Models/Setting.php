@@ -4,11 +4,11 @@ namespace Setting\Models;
 
 use Pluma\Models\Model;
 use Setting\Support\Traits\Keyable;
-use Setting\Support\Traits\Themeable;
+use Setting\Support\Traits\Themes;
 
 class Setting extends Model
 {
-    use Keyable, Themeable;
+    use Keyable, Themes;
 
     protected $fillable = ['key', 'value'];
 

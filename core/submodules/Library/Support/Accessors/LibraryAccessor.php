@@ -6,7 +6,7 @@ use Chumper\Zipper\Zipper;
 use Illuminate\Support\Facades\File;
 use Parchment\Helpers\Word;
 
-trait LibrayAccessor
+trait LibraryAccessor
 {
     /**
      * Gets the thumbnail of the library resource.
@@ -103,8 +103,8 @@ trait LibrayAccessor
      */
     public static function isExtractable($mimetype)
     {
-        $extractables = config("extractbales", []);
-        if (in_array($mimetype, $extractbales)) {
+        $extractables = config("extractables", []);
+        if (in_array($mimetype, $extractables)) {
             return true;
         }
 

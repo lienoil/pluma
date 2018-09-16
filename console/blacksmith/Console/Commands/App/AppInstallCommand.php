@@ -141,7 +141,6 @@ class AppInstallCommand extends Command
     protected function loadEnv($file = '.env')
     {
         with(new \Dotenv\Dotenv(base_path(), $file))->overload();
-        sleep(1);
         with(new LoadConfiguration())->bootstrap(app());
     }
 

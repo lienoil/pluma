@@ -88,7 +88,7 @@ trait MenuBuilderTrait
                 $menu['is_absolute_slug'] = true;
                 $menu['url'] = $menu['slug'];
             } else {
-                if (url(Request::path()) === url($menu['slug'])) {
+                if (url(Request::path()) === url($menu['slug']) || Request::path() === $menu['slug']) {
                     $menu['active'] = true;
                 }
                 $menu['url'] = url($menu['slug']);
@@ -135,7 +135,9 @@ trait MenuBuilderTrait
 
         $menus = unserialize(settings('social_links', ''));
 
-        if (empty($menus)) return [];
+        if (empty($menus)) {
+            return [];
+        }
 
         foreach ($menus as $key => $menu) {
             $menus[$key] = [

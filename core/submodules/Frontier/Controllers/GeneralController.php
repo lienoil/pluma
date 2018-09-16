@@ -50,11 +50,14 @@ class GeneralController extends Controller implements GenericResourceInterface
     protected $methodsApi = [
         'getAll',
         'getShow',
+        'getCreate',
         'postStore',
+        'getEdit',
         'putUpdate',
-        'patchRestore',
-        'deleteDelete',
         'deleteDestroy',
+        'deleteDelete',
+        'getTrashed',
+        'postRestore',
     ];
 
     /**
@@ -64,6 +67,8 @@ class GeneralController extends Controller implements GenericResourceInterface
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('auth.admin')->only($this->methodsAdmin);
 
         // TODO: implement auth.permissions

@@ -156,6 +156,10 @@ class ApplicationViewComposer extends BaseViewComposer
      */
     public function guessTitle()
     {
+        if ($model = $this->model() && isset($model->title)) {
+            return $model->title;
+        }
+
         $segments = collect(explode("/", $this->getCurrentUrl()));
 
         foreach ($segments as $id => $segment) {
@@ -261,7 +265,6 @@ class ApplicationViewComposer extends BaseViewComposer
     public function guessCopyright()
     {
         $blurb = settings('site_copyright', env("APP_COPYRIGHT"));
-
         $blurb = preg_replace("/\{APP_NAME\}/", settings("site_title"), $blurb);
         $blurb = preg_replace("/\{APP_TAGLINE\}/", settings("site_tagline"), $blurb);
         $blurb = preg_replace("/\{APP_YEAR\}/", settings("site_year", config('env.site_year')), $blurb);
@@ -269,12 +272,12 @@ class ApplicationViewComposer extends BaseViewComposer
         $blurb = preg_replace("/\{CURRENT_YEAR\}/", date('Y'), $blurb);
 
         $copy = preg_replace(
-                "/\{APP_YEAR_TO_CURRENT_YEAR\}/",
-                (settings("site_year", date('Y')) < date('Y')
-                    ? settings("site_year") . " - " . date('Y')
-                    : date('Y')),
-                $blurb
-            );
+            "/\{APP_YEAR_TO_CURRENT_YEAR\}/",
+            (settings("site_year", date('Y')) < date('Y')
+                ? settings("site_year") . " - " . date('Y')
+                : date('Y')),
+            $blurb
+        );
 
         // Translate
         foreach ($copy = explode(' ', $copy) as $i => $string) {

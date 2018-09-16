@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'default' => env("APP_TIMEZONE", "Asia/Manila"),
+    'default' => env('APP_TIMEZONE', 'Asia/Manila'),
 ];

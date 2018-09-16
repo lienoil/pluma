@@ -47,7 +47,7 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
-            'database' => 'database/sqlite/database.sqlite', // env('DB_DATABASE', 'database/sqlite/database.sqlite'),
+            'database' => 'database/sqlite/database.sqlite',
             'prefix' => '',
         ],
 
@@ -69,8 +69,8 @@ return [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
+            'database' => env('DB_DATABASE', 'notauser'),
+            'username' => env('DB_USERNAME', 'notauser'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',

@@ -3,12 +3,12 @@
 namespace Category\Models;
 
 use Category\Support\Scopes\TypeTrait;
-use Category\Support\Traits\CategoryMutatorTrait;
+use Category\Support\Accessors\CategoryAccessor;
 use Pluma\Models\Model;
 
 class Category extends Model
 {
-    use TypeTrait, CategoryMutatorTrait;
+    use TypeTrait, CategoryAccessor;
 
     protected $with = [];
 

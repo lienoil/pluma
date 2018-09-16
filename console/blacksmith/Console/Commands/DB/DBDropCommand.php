@@ -17,7 +17,7 @@ class DBDropCommand extends Command
      * @var string
      */
     protected $signature = 'db:drop
-                           {tables? : The table to truncate. If multiple, separate by comma, enclosed in quotations}
+                           {tables : The table to truncate. If multiple, separate by comma, enclosed in quotations}
                            {--a|all : Drop all tables including the migrations table}
                            {--f|force : Force drop without user prompt.}
                            ';
@@ -56,6 +56,8 @@ class DBDropCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
+        $tables = explode(',', $this->argument('tables'));
+
         Schema::disableForeignKeyConstraints();
 
         if ($this->option('all')) {
@@ -66,7 +68,6 @@ class DBDropCommand extends Command
 
             $this->dropAllTables();
         } else {
-            $tables = explode(',', $this->argument('tables'));
             $this->dropTables($tables);
         }
 
@@ -99,7 +100,7 @@ class DBDropCommand extends Command
 
             if (Schema::hasTable($table)) {
                 Schema::dropIfExists($table);
-                $this->warn('Table dropped.');
+                $this->warn('Another one bites the dust...');
             } else {
                 $this->warn("No table named `$table` found.");
                 break;

@@ -12,6 +12,9 @@ return [
      * This file, we don't know why it's here. We just left it here in fear of
      * breaking something somewhere in the app.
      *
+     * Edit: Yup, found the use of this file. It's to check the mimetypes of
+     * assets served on the frontend. See core/routes/fuzzy.php for use case.
+     *
      */
     'txt' => 'text/plain',
     'htm' => 'text/html',

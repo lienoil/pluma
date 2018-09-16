@@ -19,7 +19,7 @@ trait UserResourceSoftDeleteTrait
                          ->search($request->all())
                          ->paginate();
 
-        return view("User::users.trashed")->with(compact('resources'));
+        return view("User::users.index")->with(compact('resources'));
     }
 
     /**

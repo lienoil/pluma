@@ -2,17 +2,22 @@
 
 return [
     /**
-     * -------------------------------------------------------------------------
-     * List of all Settings Keyword
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
+     * List of some settings keyword
+     *--------------------------------------------------------------------------
+     *
+     * The following settings keywords are used as defaults
+     * when installing the app.
      *
      */
     'active_theme' => 'default',
     'default_theme' => 'default',
     'social_links' => '',
 
-    // Language
+    // Site Settings
     'site_language' => 'en',
+    'site_title' => env('APP_NAME', 'Pluma CMS'),
+    'site_tagline' => env('APP_TAGLINE', ''),
 
     // Dates
     'date_format' => 'Y-m-d',

@@ -3,32 +3,52 @@
 @section('content')
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <div class="p-card">
-          <h3 class="p-card__title">{{ $application->site->title }}</h3>
-          <p class="p-card__content">Sign in</p>
-
-          <form action="{{ route('login.login') }}" method="POST">
-            {{ csrf_field() }}
-
-            <div class="p-form-validation {{ $errors->has('username') ? 'is-error' : '' }}">
-              <input
-                id="username"
-                type="text"
-                class="p-form-validation__input"
-                name="username"
-                placeholder="{{ __('Username or email') }}"
-              />
+      <div class="col col-login mx-auto">
+        <div class="text-center mb-6">
+          <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}" width="100" height="auto">
+          <h1 class="page-title">{{ $application->site->title }}</h1>
+        </div>
+        <form class="card" action="{{ route('login.login') }}" method="POST">
+          {{ csrf_field() }}
+          <div class="card-body p-6">
+            <div class="card-title">{{ __("Sign in with your {$application->site->title} account") }}</div>
+            <div class="form-group">
+              <label class="form-label">{{ __('Email or username') }}</label>
+              <input type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="{{ __('Type email or username') }}" value="{{ old('username') }}">
               @if ($errors->has('username'))
-                <p class="p-form-validation__message is-error">
-                  {{ $errors->first('username') }}
-                </p>
+                <div class="invalid-feedback">{{ __($errors->first('username')) }}</div>
               @endif
             </div>
-
-            <input id="password" type="password" name="password" placeholder="{{ __('Password') }}">
-            <p><button type="submit" class="p-button--brand">{{ __('Sign in') }}</button></p>
-          </form>
+            <div class="form-group">
+              <label class="form-label">
+                {{ __('Password') }}
+              </label>
+              <input type="password" name="password" class="form-control  {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="{{ old('password') }}">
+              @if ($errors->has('password'))
+                <div class="invalid-feedback">{{ __($errors->first('password')) }}</div>
+              @endif
+              <a href="{{ route('password.forgot') }}" class="float-right small">{{ __('Forgot password?') }}</a>
+            </div>
+            <div class="form-footer">
+              <button type="submit" class="btn btn-primary btn-block">{{ __('Sign in') }}</button>
+            </div>
+            <div class="form-group mt-2">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" name="remember" checked value="1" class="custom-control-input">
+                <span class="custom-control-label">{{ __('Remember me') }}</span>
+              </label>
+            </div>
+          </div>
+        </form>
+        <div class="text-center text-muted">
+          <ul class="list-inline list-inline-dots mb-0">
+            <li class="list-inline-item">
+              {{ __("Don't have account yet?") }} <a href="{{ route('register.show') }}">{{ __('Sign up') }}</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{ home() }}">{{ __('Home') }}</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

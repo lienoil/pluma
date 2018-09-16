@@ -4,10 +4,11 @@ return [
     'page' => [
         'name' => 'page',
         'is_parent' => true,
+        'is_hidden' => true,
         'order' => 30,
         'slug' => '#',
         'always_viewable' => false,
-        'icon' => 'attach_file',
+        'icon' => 'fa fa-file',
         'labels' => [
             'title' => __('Pages'),
             'description' => __('Manage site pages'),

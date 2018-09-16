@@ -4,8 +4,7 @@ namespace Form\Models;
 
 use Field\Support\Relations\HasManyFields;
 use Form\Support\Relations\BelongsToForm;
-// use Form\Support\Traits\FormMutatorTrait;
-use Form\Support\Accessors\FormAccessorsTrait;
+use Form\Support\Accessors\FormAccessor;
 use Frontier\Support\Traits\TypeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
@@ -17,7 +16,7 @@ class Form extends Model
 {
     use BelongsToForm,
         BelongsToUser,
-        FormMutatorTrait,
+        FormAccessor,
         TypeTrait,
         HasManyFields,
         HasManySubmissions,

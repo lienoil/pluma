@@ -11,7 +11,7 @@ return [
      * By default, all modules are enabled. So no need to write it here.
      */
     'enabled' => [
-        //
+        // '*'
     ],
 
     /**
@@ -25,13 +25,10 @@ return [
      * will only look here if no module entry was found there.
      */
     'disabled' => [
-        'Single',
+        'Library',
         'Calendar',
         'Note',
-        'Chronos',
-        'Announcement',
-        'Bookmark',
-        'Forum',
-        'Shop',
+        'Form',
+        'Appearance',
     ],
 ];

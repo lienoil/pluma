@@ -105,7 +105,7 @@ class Handler extends BaseHandler
                 'error' => [
                     'code' => 'NOT_FOUND',
                     'message' => $exception->getMessage(),
-                    'description' => 'The page you requested was not found.',
+                    'description' => config('errors.messages.404'),
                 ]
             ], 404);
         }
@@ -116,7 +116,7 @@ class Handler extends BaseHandler
                 'error' => [
                     'code' => 'NOT_FOUND',
                     'message' => $exception->getMessage(),
-                    'description' => config('messages.404'),
+                    'description' => config('errors.messages.404'),
                 ]
             ], 404);
         }
@@ -128,7 +128,7 @@ class Handler extends BaseHandler
                 'error' => [
                     'code' => 'NOT_AUTHORIZED',
                     'message' => $exception->getMessage(),
-                    'description' => 'Unauthorized request.',
+                    'description' => config('errors.messages.403'),
                 ]
             ], 403);
         }

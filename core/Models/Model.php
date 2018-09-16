@@ -3,6 +3,7 @@
 namespace Pluma\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Illuminate\Support\Facades\Request;
 use Pluma\Scopes\ExceptScope;
 use Pluma\Support\Cache\Scopes\CachedScope;
 use Pluma\Support\Database\Scopes\ExceptableTrait;
@@ -35,6 +36,7 @@ class Model extends BaseModel
     {
         parent::__construct($attributes);
 
+        $this->perPage = Request::get('per_page') ?? $this->perPage;
         $this->setPerPage(settings('items_per_page', $this->perPage));
     }
 

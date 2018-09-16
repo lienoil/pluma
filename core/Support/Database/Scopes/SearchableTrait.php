@@ -27,14 +27,17 @@ trait SearchableTrait
             return $builder;
         }
 
-
         if (is_array($search)) {
-            $this->setSearchables($search);
-
-            foreach ($this->getSearchables() as $column => $value) {
-                $builder->orWhere($column, 'LIKE', "%{$value}%");
+            if (array_key_exists('search', $search)) {
+                foreach ($this->getSearchables() as $column) {
+                    $builder->orWhere($column, 'LIKE', "%{$search['search']}%");
+                }
+            } else {
+                $this->setSearchables($search);
+                foreach ($this->getSearchables() as $column => $value) {
+                    $builder->orWhere($column, 'LIKE', "%{$value}%");
+                }
             }
-
             return $builder;
         }
 

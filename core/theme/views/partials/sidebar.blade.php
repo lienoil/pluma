@@ -1,0 +1,73 @@
+<nav id="sidebar" class="sidebar p-4" data-sidebar>
+  <header class="sidebar-header">
+    <img class="sidebar-brand" src="{{ $application->site->logo }}">
+    <h2 class="sidebar-title">{{ $application->site->title }}</h2>
+    {{-- <button type="button" class="btn btn-info">
+      <i class="fa fa-align-left"></i>
+    </button> --}}
+  </header>
+  <div class="sidebar-content">
+    <div class="sidebar-nav list-group list-group-transparent mb-0">
+      @foreach ($sidebar as $i => $menu)
+
+        @if (! isset($menu['is_hidden']) || ! $menu['is_hidden'])
+          @if ($menu['has_children'])
+
+            <div class="sidebar-item sidebar-dropdown">
+              <a role="button" href="#" aria-expanded="{{ $menu['active'] ? 'true' : 'false' }}" data-toggle="collapse" data-target="#sidebar-dropdown-{{ $i }}" class="dropdown-toggle list-group-item list-group-item-action d-flex align-items-center {{ $menu['active'] ? 'active' : '' }}">
+                <span class="icon mr-3">
+                  @isset ($menu['icon'])
+                    <i class="{{ $menu['icon'] }}"></i>
+                  @endisset
+                </span>
+
+                @if (isset($menu['labels']))
+                  {{ __($menu['labels']['title']) }}
+                @endif
+
+                <span class="icon ml-auto text-muted">
+                  <i class="fe fe-chevron-down"></i>
+                </span>
+              </a>
+              <div id="sidebar-dropdown-{{ $i }}" class="sidebar-dropdown-menu {{ $menu['active'] ? 'show active' : '' }}">
+                @foreach ($menu['children'] as $submenu)
+                  <a class="dropdown-item sidebar-dropdown-item {{ $submenu['active'] ? 'active' : '' }}" href="{{ $submenu['url'] }}">
+                    @isset ($submenu['labels'])
+                      {{ $submenu['labels']['title'] }}
+                    @endisset
+                  </a>
+                @endforeach
+              </div>
+            </div>
+
+          @elseif (isset($menu['is_header']) && $menu['is_header'])
+
+            <div class="list-group-item list-group-separator"></div>
+
+          @else
+            <a role="button" href="{{ $menu['url'] }}" class="list-group-item list-group-item-action d-flex align-items-center {{ $menu['active'] ? 'active' : '' }}">
+              <span class="icon mr-3">
+                @if (isset($menu['icon']))
+                  <i class="{{ $menu['icon'] }}"></i>
+                @endif
+              </span>
+
+              @if (isset($menu['labels']))
+                {{ __($menu['labels']['title']) }}
+              @endif
+
+              @if (isset($menu['badge']))
+                <span class="ml-auto badge badge-primary">{{ $menu['badge'] }}</span>
+              @endif
+            </a>
+          @endif
+        @endif
+
+      @endforeach
+
+    </div>
+    <div class="mt-4">
+      <a role="button" href="#" class="btn btn-secondary btn-block">{{ __('Create Timesheet') }}</a>
+    </div>
+  </div>
+</nav>
