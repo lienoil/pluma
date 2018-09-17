@@ -4,6 +4,7 @@ namespace Assignment\Providers;
 
 use Pluma\Support\Providers\ServiceProvider;
 
+
 class AssignmentServiceProvider extends ServiceProvider
 {
     /**
@@ -12,7 +13,6 @@ class AssignmentServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observables = [
-        //
     ];
 
     /**
@@ -21,12 +21,11 @@ class AssignmentServiceProvider extends ServiceProvider
      *
      * @var mixed
      */
-    protected $middlewares = [
-        //
+    protected $middleware = [
     ];
 
     /**
-     * Bootstrap any application services.
+     * Boostrap any application services.
      *
      * @return void
      */
@@ -40,7 +39,7 @@ class AssignmentServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Register the service providers.
      *
      * @return void
      */
@@ -49,11 +48,6 @@ class AssignmentServiceProvider extends ServiceProvider
         //
     }
 
-    /**
-     * Boots the composers variable
-     *
-     * @return void
-     */
     public function bootComposers()
     {
         if (file_exists(__DIR__."/../config/composers.php")) {

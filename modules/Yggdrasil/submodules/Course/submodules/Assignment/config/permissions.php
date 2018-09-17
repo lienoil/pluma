@@ -1,8 +1,8 @@
 <?php
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Permissions Array
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * Here we define our permissions that you can attach to roles.
  *
@@ -14,32 +14,32 @@
  */
 return [
     /**
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      * Assignment Permissions
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
      *
      */
-    'view-assignment' => [
-        'name' =>  'assignments.index',
-        'code' => 'view-assignment',
+    'view-assignments' => [
+        'name' =>  'view-assignments',
+        'code' => 'assignments.index',
         'description' => 'Ability to view list of assignments',
         'group' => 'assignment',
     ],
     'show-assignment' => [
-        'name' => 'assignments.show',
-        'code' => 'show-assignment',
+        'name' => 'show-assignment',
+        'code' => 'assignments.show',
         'description' => 'Ability to show a single assignment',
         'group' => 'assignment',
     ],
     'create-assignment' => [
-        'name' => 'assignments.create',
-        'code' => 'create-assignment',
-        'description' => 'Ability to show the form to create assignment',
+        'name' => 'create-assignment',
+        'code' => 'assignments.create',
+        'description' => 'Ability to create new assignment',
         'group' => 'assignment',
     ],
     'store-assignment' => [
-        'name' => 'assignments.store',
-        'code' => 'store-assignment',
+        'name' => 'store-assignment',
+        'code' => 'assignments.store',
         'description' => 'Ability to save the assignment',
         'group' => 'assignment',
     ],
@@ -50,45 +50,45 @@ return [
         'group' => 'assignment',
     ],
     'update-assignment' => [
-        'name' => 'assignments.update',
-        'code' => 'update-assignment',
+        'name' => 'update-assignment',
+        'code' => 'assignments.update',
         'description' => 'Ability to update the assignment',
         'group' => 'assignment',
     ],
     'destroy-assignment' => [
-        'name' =>  'assignments.destroy',
-        'code' => 'destroy-assignment',
+        'name' => 'destroy-assignment',
+        'code' =>  'assignments.destroy',
         'description' => 'Ability to move the assignment to trash',
         'group' => 'assignment',
     ],
     'delete-assignment' => [
-        'name' =>  'assignments.delete',
-        'code' => 'delete-assignment',
+        'name' => 'delete-assignment',
+        'code' =>  'assignments.delete',
         'description' => 'Ability to permanently delete the assignment',
         'group' => 'assignment',
     ],
-    'trash-assignment' => [
-        'name' =>  'assignments.trash',
-        'code' => 'trash-assignment',
-        'description' => 'Ability to view the list of all trashed assignment',
+    'trashed-assignments' => [
+        'name' => 'trashed-assignments',
+        'code' =>  'assignments.trashed',
+        'description' => 'Ability to view the list of all trashed assignments',
         'group' => 'assignment',
     ],
     'restore-assignment' => [
-        'name' => 'assignments.restore',
-        'code' => 'restore-assignment',
-        'description' => 'Ability to restore the assignment',
+        'name' => 'restore-assignment',
+        'code' => 'assignments.restore',
+        'description' => 'Ability to restore the assignment from trash',
         'group' => 'assignment',
     ],
 
     // Many
     'destroy-many-assignment' => [
-        'name' =>  'assignments.many.destroy',
+        'name' => 'assignments.many.destroy',
         'code' => 'destroy-many-assignment',
-        'description' => 'Ability to destroy many assignments',
+        'description' => 'Ability to permanently delete many assignments',
         'group' => 'assignment',
     ],
     'delete-many-assignment' => [
-        'name' =>  'assignments.many.delete',
+        'name' => 'assignments.many.delete',
         'code' => 'delete-many-assignment',
         'description' => 'Ability to permanently delete many assignments',
         'group' => 'assignment',
@@ -99,6 +99,4 @@ return [
         'description' => 'Ability to restore many assignments',
         'group' => 'assignment',
     ],
-
-    //
 ];

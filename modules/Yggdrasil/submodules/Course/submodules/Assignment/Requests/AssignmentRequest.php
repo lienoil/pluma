@@ -55,11 +55,6 @@ class AssignmentRequest extends FormRequest
         ];
     }
 
-    /**
-     * The array of override messages to use.
-     *
-     * @return array
-     */
     public function messages()
     {
         return [

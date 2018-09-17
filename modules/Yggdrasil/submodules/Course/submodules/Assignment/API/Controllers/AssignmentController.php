@@ -16,10 +16,9 @@ class AssignmentController extends APIController
      */
     public function search(Request $request)
     {
-        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
-        $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
-        $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
-        $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly') : false;
+        $order = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
+        $sort = $request->get('sort') : 'id';
         $take = $request->get('take') && $request->get('take') > 0 ? $request->get('take') : 0;
 
         $resources = Assignment::search($search)->orderBy($sort, $order);
@@ -34,12 +33,12 @@ class AssignmentController extends APIController
     /**
      * Get all resources.
      *
-     * @param  Illuminate\Http\Request $request [description]
+     * @param  Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
      */
     public function all(Request $request)
     {
-        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly'): false;
+        $onlyTrashed = $request->get('trashedOnly') !== 'null' && $request->get('trashedOnly') ? $request->get('trashedOnly') : false;
         $order = $request->get('descending') === 'true' && $request->get('descending') !== 'null' ? 'DESC' : 'ASC';
         $search = $request->get('q') !== 'null' && $request->get('q') ? $request->get('q'): '';
         $sort = $request->get('sort') && $request->get('sort') !== 'null' ? $request->get('sort') : 'id';
@@ -48,42 +47,51 @@ class AssignmentController extends APIController
         if ($onlyTrashed) {
             $resources->onlyTrashed();
         }
-        $resources = $resources->get();
+        $resource = $resources->get();
 
         return response()->json($resources);
     }
 
+    public function destroy(Request $request, $id)
+    {
+        $assingment = Assignment::findOrFail($id);
+        $assingment->delete();
+
+        return response()->json($this->successResponse);
+    }
+
     /**
-     * Remove the specified resource from storage.
+     * Remove the speicified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illumiate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        $assignment = Assignment::findOrFail($id);
-        $assignment->delete();
+        $assingment = Assignment::findOrFail($id);
+        $assingment->delete();
 
         return response()->json($this->successResponse);
     }
 
     /**
      * Copy the resource as a new resource.
+     *
      * @param  Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function clone(Request $request, $id)
     {
-        $assignment = Assignment::findOrFail($id);
+        $assingment = Assignment::findOrFail($id);
 
         $clone = new Assignment();
-        $clone->name = $assignment->name;
-        $clone->code = "{$assignment->code}-clone-{$id}";
-        $clone->description = $assignment->description;
+        $clone->name = $assingment->name;
+        $clone->code = "{$assingment->code}-clone-{$id}";
+        $clone->description = $assingment->description;
         $clone->save();
-        $clone->permissions()->attach($assignment->permissions->pluck('id')->toArray());
+        $clone->permissions()->attach($assingment->permissions->pluck('id')->toArray());
 
         return response()->json($this->successResponse);
     }

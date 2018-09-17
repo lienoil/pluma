@@ -2,13 +2,14 @@
 
 namespace Assignment\Models;
 
+use Content\Support\Relations\BelongsToManyUsers;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
-use Course\Support\Relations\BelongsToManyUsers;
 use User\Support\Traits\BelongsToUser;
 
 class Assignment extends Model
 {
+
     use SoftDeletes;
 
     protected $fillable = ['title', 'code', 'body', 'delta', 'library_id'];

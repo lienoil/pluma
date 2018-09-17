@@ -14,7 +14,7 @@ class AssignmentViewComposer extends BaseViewComposer
      *
      * @var string
      */
-    protected $name = 'assignments';
+    protected $name = 'assignments'
 
     /**
      * Collection of assignments.
@@ -26,8 +26,8 @@ class AssignmentViewComposer extends BaseViewComposer
     /**
      * Main function to tie everything together.
      *
-     * @param  Illuminate\View\View   $view
-     * @return void
+     * @param  Illuminate\View\View $view
+     * @return [type]       [description]
      */
     public function compose(View $view)
     {
@@ -45,11 +45,9 @@ class AssignmentViewComposer extends BaseViewComposer
     {
         $user = User::find(user()->id);
 
-        foreach ($user->courses as $course) {
-            foreach ($course->lessons as $lesson) {
-                if ($lesson->assignment()->exists()) {
-                    $this->assignments[$lesson->assignment->code] = $lesson->assignment;
-                }
+        foreach ($user->lessons as $lesson) {
+            if ($lesson->assignment()->exists()) {
+                $this->assignment[$lesson->assignment->code] = $lesson->assignment;
             }
         }
 
