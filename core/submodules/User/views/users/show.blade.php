@@ -2,70 +2,83 @@
 
 @section('head-title', $resource->fullname)
 
-@section('page-title')
-  <a title="{{ __('Back') }}" href="{{ route('users.index') }}" role="button" class="btn btn-secondary">
-    <i class="fe fe-arrow-left"></i>
-    <span class="sr-only">{{ __('Back') }}</span>
-  </a>
-  <a href="{{ route('users.edit', $resource->id) }}" role="button" class="btn btn-secondary"><i class="fe fe-edit-2"></i> {{ __('Edit') }}</a>
-  <a href="{{ route('users.edit', $resource->id) }}" role="button" class="btn btn-secondary"><i class="fe fe-trash-2"></i> {{ __('Deactivate') }}</a>
+@section('main-title')
+  <header class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <a role="button" href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="fe fe-arrow-left"></i> {{ __('Back') }}</a>
+      </div>
+    </div>
+  </header>
 @endsection
 
 @section('page-content')
-  <div class="container-fluid">
+  <div class="container-fluid mt-6">
+
     <div class="row">
 
       @section('user.sidebar')
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-3 col-sm-5">
           @section('user.avatar')
-            <div class="card p-1">
-              <img src="{{ $resource->photo }}" width="100%" height="auto" class="rounded">
+            <div class="card bg-light" data-avatar>
+              <div class="card-body p-1 border-0 text-center">
+                <div class="p-4">
+                  <img data-avatar-img class="rounded-circle" width="100%" height="auto" src="{{ $resource->photo }}" alt="{{ $resource->alt }}">
+                </div>
+              </div>
             </div>
+          @show
+
+          @section('user.sidemenu')
           @show
         </div>
       @show
 
       @section('user.main')
-        <div class="col-lg-9">
-          <h1 class="display-6 m-0 p-0">{{ $resource->fullname }}</h1>
-          <div class="page-subtitle">
-            @if ($resource->email)
-              <div class="mb-1">
-                <i class="fe fe-mail"></i>
-                <span>{{ $resource->email }}</span>
+        <div class="col-lg-9 col-md-9 col-sm-7">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h1 class="display-6">{{ $resource->fullname }}</h1>
+              <div>
+                @if ($resource->email)
+                  <div class="mb-1">
+                    <i class="fe fe-mail"></i>
+                    <span>{{ $resource->email }}</span>
+                  </div>
+                @endif
+                @if ($resource->displayrole)
+                  <div class="mb-1">
+                    <i class="fe fe-user"></i>
+                    <span>{{ $resource->displayrole }}</span>
+                  </div>
+                @endif
               </div>
-            @endif
-            @if ($resource->displayrole)
-              <div class="mb-1">
-                <i class="fe fe-user"></i>
-                <strong>{{ $resource->displayrole }}</strong>
-              </div>
-            @endif
-          </div>
-          <div class="mt-6">
-            <h3 class="h3">{{ __('About') }}</h3>
-            {{-- <div class="row">
-              <strong class="col-3">{{ __('Address') }}</strong>
-              <div class="col">{{ 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum laudantium distinctio quasi.' }}</div>
-            </div>
-            <div class="row">
-              <strong class="col-3">{{ __('Phone Address') }}</strong>
-              <div class="col">{{ '0987654322345' }}</div>
-            </div> --}}
-            @if ($resource->detail('phone'))
-              <div class="col">{{ __('Phone') }}</div>
-              <div class="col-auto">{{ $resource->detail('phone') }}</div>
-            @endif
 
-            @if ($resource->detail('address'))
-              <div class="col">{{ __('Address') }}</div>
-              <div class="col-auto">{{ $resource->detail('address') }}</div>
-            @endif
+              <div class="mt-6">
+                <h3 class="h4">{{ __('About') }}</h3>
+              </div>
+              <div class="row">
+                <div class="col">{{ __('Phone') }}</div>
+                <div class="col-auto">{{ $resource->detail('phone') }}</div>
+              </div>
+              <div class="row">
+                <div class="col">{{ __('Address') }}</div>
+                <div class="col-auto">{{ $resource->detail('address') }}</div>
+              </div>
+
+              {{-- @section('user.activity')
+                <div class="mt-6">
+                  <h3 class="h3">{{ __('Activity') }}</h3>
+                </div>
+              @show --}}
+            </div>
           </div>
 
           @section('user.activity')
-            <div class="mt-6">
-              <h3 class="h3">{{ __('Activity') }}</h3>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="h4">{{ __('Activity') }}</h3>
+              </div>
             </div>
           @show
         </div>

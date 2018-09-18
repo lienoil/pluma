@@ -14,7 +14,7 @@ return [
         'order' => 600,
         'slug' => route('users.index'),
         'always_viewable' => false,
-        'icon' => 'account_box',
+        'icon' => 'fe fe-users',
         'labels' => [
             'title' => __('Users'),
             'description' => __("Manage users, roles, and permissions"),
@@ -30,7 +30,6 @@ return [
                     'children' => [
                         'users.edit',
                         'users.show',
-                        'password.change.form',
                     ]
                 ],
                 'labels' => [
@@ -58,7 +57,7 @@ return [
                 'order' => 3,
                 'slug' => route('users.trashed'),
                 'code' => 'users.trashed',
-                'icon' => 'delete',
+                'icon' => 'fe fe-user-x',
                 'always_viewable' => false,
                 'routes' => [
                     'name' => 'users.trashed',

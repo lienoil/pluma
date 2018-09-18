@@ -22,20 +22,13 @@ if (! function_exists('navigations')) {
         $composer = new NavigationViewComposer();
         $composer->setCurrentUrl(Request::path());
         $composer->setCurrentRouteName(Route::currentRouteName());
+        $composer->setMenus($composer->requireFileFromModules('config/menus.php', modules(true, null, false)));
         $composer->setBreadcrumbs($composer->getCurrentUrl());
-        $composer->setMenus(
-            $composer->requireFileFromModules(
-                'config/menus.php',
-                modules(true, null, false)
-                )
-            );
 
         $composer = $collected
             ? ($composer->handle()->{$key}->collect ?? $composer->handle()->{$key})
             : $composer->handle()->{$key};
 
-        // cache()->remember("navigations.$key", $composer, now()->addMinutes(60));
-        // dd($composer);
         return $composer;
     }
 }
@@ -78,5 +71,17 @@ if (! function_exists('sidebar')) {
             $composer = new SidebarComposer();
             return $composer->handle();
         });
+    }
+}
+
+if (! function_exists('breadcrumbs')) {
+    /**
+     * Retrieves the breadcrumbs menus
+     *
+     * @return mixed
+     */
+    function breadcrumbs()
+    {
+        return navigations('breadcrumbs');
     }
 }

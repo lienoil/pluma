@@ -4,13 +4,19 @@ $sidebar-width-min: 50px;
 #app {
   display: flex;
   align-items: stretch;
+  perspective: 1500px;
 }
 
 .sidebar {
   min-width: $sidebar-width-full;
   max-width: $sidebar-width-full;
   min-height: 100vh;
-  transition: all 0.3s ease-out;
+  margin-left: -$sidebar-width-full;
+  transition: all 0.3s cubic-bezier(0.45, 0, 0.32, 1);
+
+  &.active {
+    margin-left: 0;
+  }
 
   &--hidden {
     margin-left: -$sidebar-width-full;
@@ -43,6 +49,11 @@ $sidebar-width-min: 50px;
       .sidebar-item,
       .list-group-item {
         border: 2px;
+
+        &.active {
+          font-weight: normal;
+        }
+
         &.list-group-separator {
           padding: 0;
           margin: 0.5rem auto;
@@ -59,7 +70,7 @@ $sidebar-width-min: 50px;
         overflow: hidden;
         transition: all 0.3s ease-in;
         border: none;
-        margin-left: 1rem;
+        padding-left: 1rem;
 
         &.show {
           height: auto;
@@ -71,6 +82,15 @@ $sidebar-width-min: 50px;
           &.active {
             background-color: transparent;
             color: $primary;
+          }
+
+          &:hover, &:active, &:focus {
+            background-color: transparent;
+            color: $primary;
+          }
+
+          .icon, &-icon {
+            margin-left: -1.5rem;
           }
         }
       }

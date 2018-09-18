@@ -14,7 +14,7 @@ return [
         'order' => 1000,
         'slug' => route('settings'),
         'always_viewable' => false,
-        'icon' => 'settings',
+        'icon' => 'fe fe-sliders',
         'routes' => [
             'name' => 'settings',
             'children' => [

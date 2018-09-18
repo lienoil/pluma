@@ -5,27 +5,29 @@
 @endpush
 
 @section('main')
-  <div id="workspace" class="workspace page" data-workspace>
+  <div id="workspace" class="workspace page justify-content-start" data-workspace>
 
     @include('Theme::partials.utilitybar')
+    @include('Theme::partials.breadcrumbs')
 
     <main id="main" class="main page-single flex-column justify-content-start" role="main">
       @stack('before-content')
 
       @section('content')
         @section('main-title')
-          <header class="container">
+          <header class="container-fluid">
             <div class="row">
               <div class="col-lg-12 mb-4">
-                @section('page-title')
-                  <h1 class="page-title">
+                <h1 class="page-title">
+                  @section('page-title')
                     {{ $application->page->title }}
-                  </h1>
-                @show
+                  @show
+                </h1>
               </div>
             </div>
           </header>
         @show
+
 
         @section('main-content')
           @yield('page-content')

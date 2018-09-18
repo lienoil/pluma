@@ -1,0 +1,9 @@
+.workspace {
+  > .footer:last-child {
+    padding: 0;
+  }
+
+  > .main {
+    padding-top: 0;
+  }
+}

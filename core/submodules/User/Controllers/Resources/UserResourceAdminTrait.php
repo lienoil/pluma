@@ -18,6 +18,7 @@ trait UserResourceAdminTrait
     public function index(Request $request)
     {
         $resources = User::search($request->all())->paginate();
+        $resources->appends(['per_page' => 2]);
 
         return view("Theme::users.index")->with(compact('resources'));
     }

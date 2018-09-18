@@ -1,7 +1,7 @@
 @extends("Theme::layouts.admin")
 
 @section('page-content')
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
 
@@ -76,7 +76,8 @@
               </table>
             </div>
             @if ($resources->lastPage() > 1)
-              <footer class="card-footer">
+              <footer class="card-footer d-flex justify-content-between">
+                @include('Theme::partials.pagestats')
                 @include('Theme::partials.pagination')
               </footer>
             @endif

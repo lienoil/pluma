@@ -22,4 +22,14 @@ trait UserAccessor
             return $avatar->create($this->fullname)->toBase64()->getEncoded();
         });
     }
+
+    /**
+     * Retrieves the mutated crumb field.
+     *
+     * @return string
+     */
+    public function getCrumbAttribute()
+    {
+        return $this->fullname;
+    }
 }

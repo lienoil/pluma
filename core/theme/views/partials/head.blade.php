@@ -62,4 +62,4 @@
     @endif
   @show
 </head>
-<body>
+<body data-sidebar>

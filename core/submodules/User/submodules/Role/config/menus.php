@@ -25,7 +25,7 @@ return [
         'parent' => 'user',
         'order' => 10,
         'always_viewable' => false,
-        'icon' => 'supervisor_account',
+        'icon' => 'fe fe-user-check',
         'labels' => [
             'title' => __('Roles'),
             'description' => __('View the list of all roles'),
@@ -48,7 +48,7 @@ return [
             ]
         ],
         'always_viewable' => false,
-        'icon' => 'lock',
+        'icon' => 'fe fe-check-circle',
         'labels' => [
             'title' => __('Permissions'),
             'description' => __('View the list of all permissions'),

@@ -1,10 +1,7 @@
-<nav id="sidebar" class="sidebar p-4" data-sidebar>
+<nav id="sidebar" class="sidebar active p-4" data-sidebar>
   <header class="sidebar-header">
     <img class="sidebar-brand" src="{{ $application->site->logo }}">
     <h2 class="sidebar-title">{{ $application->site->title }}</h2>
-    {{-- <button type="button" class="btn btn-info">
-      <i class="fa fa-align-left"></i>
-    </button> --}}
   </header>
   <div class="sidebar-content">
     <div class="sidebar-nav list-group list-group-transparent mb-0">
@@ -14,7 +11,7 @@
           @if ($menu['has_children'])
 
             <div class="sidebar-item sidebar-dropdown">
-              <a role="button" href="#" aria-expanded="{{ $menu['active'] ? 'true' : 'false' }}" data-toggle="collapse" data-target="#sidebar-dropdown-{{ $i }}" class="dropdown-toggle list-group-item list-group-item-action d-flex align-items-center {{ $menu['active'] ? 'active' : '' }}">
+              <a role="button" href="#" aria-expanded="{{ $menu['active'] ? 'true' : 'false' }}" data-toggle="collapse" data-target="#sidebar-dropdown-{{ $i }}" class="dropdown-toggle list-group-item list-group-item-action d-flex align-items-center rounded {{ $menu['active'] ? 'active' : '' }}">
                 <span class="icon mr-3">
                   @isset ($menu['icon'])
                     <i class="{{ $menu['icon'] }}"></i>
@@ -31,11 +28,20 @@
               </a>
               <div id="sidebar-dropdown-{{ $i }}" class="sidebar-dropdown-menu {{ $menu['active'] ? 'show active' : '' }}">
                 @foreach ($menu['children'] as $submenu)
-                  <a class="dropdown-item sidebar-dropdown-item {{ $submenu['active'] ? 'active' : '' }}" href="{{ $submenu['url'] }}">
-                    @isset ($submenu['labels'])
-                      {{ $submenu['labels']['title'] }}
-                    @endisset
-                  </a>
+                  @if ($submenu['is_divider'])
+                    <div class="sidebar-dropdown-divider dropdown-divider"></div>
+                  @else
+                    <a class="dropdown-item sidebar-dropdown-item {{ $submenu['active'] ? 'active' : '' }}" href="{{ $submenu['url'] }}">
+                      @isset ($submenu['icon'])
+                        <span class="icon mr-2">
+                          <i class="{{ $submenu['icon'] }}"></i>
+                        </span>
+                      @endisset
+                      @isset ($submenu['labels'])
+                        {{ $submenu['labels']['title'] }}
+                      @endisset
+                    </a>
+                  @endif
                 @endforeach
               </div>
             </div>

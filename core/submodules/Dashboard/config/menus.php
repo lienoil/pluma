@@ -7,7 +7,7 @@ return [
         'order' => 5,
         'slug' => route('dashboard'),
         'always_viewable' => true,
-        'icon' => 'fa fa-dashboard',
+        'icon' => 'fe fe-triangle',
         'labels' => [
             'title' => __('Dashboard'),
             'description' => __('View summary and overview of the app.'),

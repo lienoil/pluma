@@ -1,7 +1,7 @@
 @if ($resources->lastPage() > 1)
   <ul class="pagination m-0 justify-content-end">
     {{-- First Item Button --}}
-    @if ($resources->currentPage() == 1)
+    @if ($resources->onFirstPage())
       <li class="page-item disabled">
         <span class="page-link" aria-label="{{ __('First') }}">
           <span aria-hidden="true">&laquo;</span>
@@ -28,7 +28,7 @@
       </li>
     @else
       <li class="page-item">
-        <a class="page-link" href="{{ $resources->url($resources->currentPage() - 1) }}{{ $section ?? '' }}" aria-label="{{ __('Previous') }}">
+        <a class="page-link" href="{{ $resources->previousPageUrl() }}{{ $section ?? '' }}" aria-label="{{ __('Previous') }}">
           <span aria-hidden="true">&lsaquo;</span>
           <span class="sr-only">{{ __('Previous') }}</span>
         </a>
@@ -50,7 +50,7 @@
     {{-- Page Loop --}}
 
     {{-- Next Button --}}
-    @if ($resources->currentPage() == $resources->lastPage())
+    @if (! $resources->hasMorePages())
       <li class="page-item disabled">
         <span class="page-link" aria-label="{{ __('Next') }}">
           <span aria-hidden="true">&rsaquo;</span>
@@ -59,7 +59,7 @@
       </li>
     @else
       <li class="page-item">
-        <a class="page-link" href="{{ $resources->url($resources->currentPage() + 1) }}{{ $section ?? '' }}" aria-label="{{ __('Next') }}">
+        <a class="page-link" href="{{ $resources->nextPageUrl() }}{{ $section ?? '' }}" aria-label="{{ __('Next') }}">
           <span aria-hidden="true">&rsaquo;</span>
           <span class="sr-only">{{ __('Next') }}</span>
         </a>
@@ -68,7 +68,7 @@
     {{-- Next Button --}}
 
     {{-- Last Item Button --}}
-    @if ($resources->currentPage() == $resources->lastPage())
+    @if (! $resources->hasMorePages())
       <li class="page-item disabled">
         <span class="page-link" aria-label="{{ __('Last') }}">
           <span aria-hidden="true">&raquo;</span>

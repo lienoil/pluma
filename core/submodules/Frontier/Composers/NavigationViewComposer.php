@@ -166,7 +166,7 @@ class NavigationViewComposer extends BaseViewComposer
         foreach ($url as &$segment) {
             if (! empty($segment)) {
                 if (is_numeric($segment)) {
-                    $segment = $this->guessStringFromNumeric($segment, $old);
+                    $segment = request()->route('breadcrumb') ?? $this->guessStringFromNumeric($segment, $old);
                 }
                 $old .= "/$segment";
                 $segment = $this->swapWord($segment);
@@ -230,9 +230,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function breadcrumbs()
     {
-        return json_decode(json_encode([
-            'collect' => collect(json_decode(json_encode($this->breadcrumbs)))
-        ]));
+        return collect(json_decode(json_encode($this->breadcrumbs)));
     }
 
     /**
@@ -359,7 +357,7 @@ class NavigationViewComposer extends BaseViewComposer
         $string = str_replace('.', " ", $string);
         $string = str_replace('_', " ", $string);
 
-        return ucwords($string);
+        return $c ?? ucwords($string);
     }
 
     /**

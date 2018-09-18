@@ -3,9 +3,9 @@
 return [
     [
         'appears' => [
-            'Frontier::layouts.admin',
             'Theme::layouts.admin',
             'Theme::settings.*',
+            'Theme::partials.sidemenu',
             'Theme::partials.settingsbar',
             'Setting::partials.settingsbar',
             'Setting::settings.*',
@@ -31,4 +31,11 @@ return [
         ],
         'class' => \Frontier\Composers\ClientSideVariableViewComposer::class
     ],
+    [
+        'appears' => [
+            'Theme::partials.sidemenu',
+        ],
+        'class' => \Frontier\Composers\SidemenuComposer::class
+    ],
+
 ];
