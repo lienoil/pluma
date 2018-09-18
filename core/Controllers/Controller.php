@@ -13,6 +13,13 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests, DefaultViewsForAdmin;
 
     /**
+     * The repository instance.
+     *
+     * @var \Pluma\Support\Repository\Repository
+     */
+    protected $repository;
+
+    /**
      * Create a new controller instance.
      *
      * @return void

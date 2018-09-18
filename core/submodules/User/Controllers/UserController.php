@@ -3,16 +3,13 @@
 namespace User\Controllers;
 
 use Frontier\Controllers\GeneralController;
-use Illuminate\Http\Request;
-use Role\Models\Role;
 use User\Controllers\Resources\CanUploadToStorageTrait;
 use User\Controllers\Resources\UserResourceAdminTrait;
 use User\Controllers\Resources\UserResourceApiTrait;
 use User\Controllers\Resources\UserResourceExportTrait;
 use User\Controllers\Resources\UserResourceSoftDeleteTrait;
-use User\Models\Detail;
 use User\Models\User;
-use User\Requests\UserRequest;
+use User\Repositories\UserRepository;
 
 class UserController extends GeneralController
 {
@@ -20,4 +17,13 @@ class UserController extends GeneralController
         UserResourceApiTrait,
         UserResourceExportTrait,
         UserResourceSoftDeleteTrait;
+
+    /**
+     * Inject the resource model to the model variable.
+     * @param \Pluma\Models\Model $model
+     */
+    public function __construct(User $model)
+    {
+        $this->repository = new UserRepository($model);
+    }
 }

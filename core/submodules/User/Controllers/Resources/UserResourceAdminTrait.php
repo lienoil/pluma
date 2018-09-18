@@ -17,10 +17,9 @@ trait UserResourceAdminTrait
      */
     public function index(Request $request)
     {
-        $resources = User::search($request->all())->paginate();
-        $resources->appends(['per_page' => 2]);
+        $resources = $this->repository->model()->search($request->all())->paginate();
 
-        return view("Theme::users.index")->with(compact('resources'));
+        return view('Theme::users.index')->with(compact('resources'));
     }
 
     /**
@@ -81,7 +80,7 @@ trait UserResourceAdminTrait
      */
     public function show(Request $request, $id)
     {
-        $resource = User::findOrFail($id);
+        $resource = $this->repository->find($id);
 
         return view("Theme::users.show")->with(compact('resource'));
     }

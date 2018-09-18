@@ -138,6 +138,30 @@ class SidebarComposer extends BaseViewComposer
                     unset($all[$menu['name']]);
                 }
             }
+
+            /**
+             * Child hidden routes
+             * ['routes']['children'] are routes not present in the sidebar menus
+             * but is still under a parent sidebar menu.
+             * E.g.
+             * User (user)
+             * -- All Users (users.index)
+             * ---- Show User (users.show)  <------- This is not part of the sidebar menu.
+             * -- Create User (users.create)
+             * -- Trashed Users (users.trashed)
+             * =======
+             * The above example shows `users.show` to be under `users.index`, therefore
+             * we need to put an `active` flag on `users.index` and `user` when we are in the
+             * `users.show` page.
+             */
+            $childRoutes = isset($menu['routes']['children']) ? $menu['routes']['children'] : [];
+            $currentRouteName = $this->getCurrentRouteName();
+            if ($menu['child']['active'] = in_array($currentRouteName, $childRoutes)) {
+                // This is the main sidebar menu
+                $parent['active'] = $menu['child']['active'];
+                // This is the main sidebar menu's submenu
+                $menu['active'] = $menu['child']['active'];
+            }
         });
         $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent, &$all) {
             if ($menu['is_parent'] && $menu['parent'] == 'root' && empty($menu['children'])) {
@@ -149,7 +173,6 @@ class SidebarComposer extends BaseViewComposer
                     unset($all[$key]);
                 }
             }
-
         });
         $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent, &$all) {
             if ($menu['is_header']) {

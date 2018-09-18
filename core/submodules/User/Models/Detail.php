@@ -3,11 +3,13 @@
 namespace User\Models;
 
 use Pluma\Models\Model;
+use User\Support\Accessors\DetailAccessor;
 use User\Support\Traits\BelongsToUser;
 
 class Detail extends Model
 {
-    use BelongsToUser;
+    use BelongsToUser,
+        DetailAccessor;
 
     protected $fillable = ['user_id', 'key', 'value'];
 

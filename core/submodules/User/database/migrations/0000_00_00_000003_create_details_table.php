@@ -28,6 +28,7 @@ class CreateDetailsTable extends Migration
             $table->increments('id');
             $table->string('key');
             $table->text('value')->nullable();
+            $table->string('icon')->nullable();
             $table->string('status')->default(1);
             $table->integer('user_id')->unsigned();
             $table->timestamps();

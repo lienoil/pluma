@@ -166,9 +166,10 @@ class NavigationViewComposer extends BaseViewComposer
         foreach ($url as &$segment) {
             if (! empty($segment)) {
                 if (is_numeric($segment)) {
-                    $segment = request()->route('breadcrumb') ?? $this->guessStringFromNumeric($segment, $old);
+                    $original = $this->guessStringFromNumeric($segment, $old);
+                    $segment = request()->route('breadcrumb') ?? $original;
                 }
-                $old .= "/$segment";
+                $old .= '/'.($original ?? $segment);
                 $segment = $this->swapWord($segment);
 
                 $segment = [

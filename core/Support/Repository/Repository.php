@@ -29,6 +29,16 @@ class Repository implements RepositoryInterface
     }
 
     /**
+     * Retrieve the full model instance.
+     *
+     * @return \Pluma\Models\Model
+     */
+    public function model()
+    {
+        return $this->model;
+    }
+
+    /**
      * Bind the resource model statically.
      *
      * @param mixed $model
@@ -116,5 +126,16 @@ class Repository implements RepositoryInterface
     public function restore($id)
     {
         return $this->model->restore($id);
+    }
+
+    /**
+     * Get the model with relation.
+     *
+     * @param string $relation
+     * @return \Pluma\Models\Model
+     */
+    public function with($relation)
+    {
+        return $this->model->with($relation);
     }
 }

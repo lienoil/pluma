@@ -32,4 +32,16 @@ trait UserAccessor
     {
         return $this->fullname;
     }
+
+    /**
+     * Retrieves the info detail of the user.
+     * Except the most common details for
+     * it will be displayed somewhere else.
+     *
+     * @return \Pluma\Models\Model
+     */
+    public function getInfoAttribute()
+    {
+        return $this->details()->whereNotIn('key', ['gender', 'nickname'])->get();
+    }
 }
