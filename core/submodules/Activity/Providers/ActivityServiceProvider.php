@@ -42,6 +42,9 @@ class ActivityServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $path = get_module('activity');
+        if (file_exists("$path/helpers/helpers.php")) {
+            require "$path/helpers/helpers.php";
+        }
     }
 }

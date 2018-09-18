@@ -13,7 +13,8 @@ use Pluma\Support\Modules\Traits\ModulerTrait;
 
 class NavigationViewComposer extends BaseViewComposer
 {
-    use Module;
+    // use Module;
+    use ModulerTrait;
 
     /**
      * The view's variable.
@@ -51,13 +52,6 @@ class NavigationViewComposer extends BaseViewComposer
     protected $traverser;
 
     /**
-     * The breadcrumbs menu.
-     *
-     * @var array|object|mixed
-     */
-    protected $breadcrumbs;
-
-    /**
      * Prefix for url.
      *
      * @var string
@@ -75,8 +69,7 @@ class NavigationViewComposer extends BaseViewComposer
         $this->setCurrentUrl(Request::path());
         $this->setCurrentRouteName(Route::currentRouteName());
 
-        $this->setMenus($this->requireFileFromModules('config/menus.php', modules(true, null, false)));
-        $this->setBreadcrumbs($this->getCurrentUrl());
+        $this->setMenus($this->fileToArray($this->getFileFromModules('config/menus.php')));
 
         $this->setName($this->name);
         $view->with($this->name(), $this->handle());
@@ -92,11 +85,9 @@ class NavigationViewComposer extends BaseViewComposer
         $navigation = json_decode(json_encode([
             'menu' => $this->menu(),
             'sidebar' => $this->sidebar(),
-            'breadcrumbs' => $this->breadcrumbs(),
             'current' => $this->current(),
             'parent' => $this->parent(),
             'profile' => $this->profile(),
-            // 'utilitybar' => $this->utilitybar(),
         ]));
 
         // Save to config
@@ -153,42 +144,6 @@ class NavigationViewComposer extends BaseViewComposer
     }
 
     /**
-     * Sets the breadcrumbs.
-     *
-     * @param string $currentUrl
-     */
-    public function setBreadcrumbs($currentUrl)
-    {
-        $currentUrl = ltrim($currentUrl, '/');
-        $url = explode('/', $currentUrl);
-        $old = "";
-
-        foreach ($url as &$segment) {
-            if (! empty($segment)) {
-                if (is_numeric($segment)) {
-                    $original = $this->guessStringFromNumeric($segment, $old);
-                    $segment = request()->route('breadcrumb') ?? $original;
-                }
-                $old .= '/'.($original ?? $segment);
-                $segment = $this->swapWord($segment);
-
-                $segment = [
-                    'last' => end($url) === $segment,
-                    'active' => $this->hasRouteNameFromUrl(strtolower(url($old))),
-                    'label' => $this->transformStringToHumanPresentable($segment),
-                    'name' => $segment,
-                    'slug' => $old,
-                    'url' => $this->hasRouteNameFromUrl(strtolower(url($old)))
-                                ? strtolower(url($old))
-                                : '',
-                ];
-            }
-        }
-
-        $this->breadcrumbs = $url;
-    }
-
-    /**
      * Retrieves the current menu via route name.
      *
      * @return mixed
@@ -222,16 +177,6 @@ class NavigationViewComposer extends BaseViewComposer
     private function menu()
     {
         return Menu::all();
-    }
-
-    /**
-     * Generates breadcrumbs.
-     *
-     * @return array
-     */
-    private function breadcrumbs()
-    {
-        return collect(json_decode(json_encode($this->breadcrumbs)));
     }
 
     /**
@@ -324,7 +269,7 @@ class NavigationViewComposer extends BaseViewComposer
     public function guessStringFromNumeric($segment, $url)
     {
         try {
-            $action = app('request')->route()->getAction();
+            $action = request()->route()->getAction();
             $controller = class_basename($action['controller']);
             $table = strtolower(str_plural(explode("Controller", $controller)[0]));
             $result = \Illuminate\Support\Facades\DB::table($table)->find($segment);
@@ -374,5 +319,23 @@ class NavigationViewComposer extends BaseViewComposer
         }
 
         return $profile['avatar'] ?? [];
+    }
+
+    /**
+     * Utility to convert config files to array.
+     *
+     * @param array $files
+     * @return array
+     */
+    protected function fileToArray(array $files): Array
+    {
+        $items = [];
+        foreach ($files as $path) {
+            if (file_exists($path)) {
+                $items += (array) require $path;
+            }
+        }
+
+        return $items;
     }
 }

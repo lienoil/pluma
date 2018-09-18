@@ -1,6 +1,17 @@
 <?php
 
+use Frontier\Composers\NavigationViewComposer;
+use Frontier\Composers\SidebarComposer;
+use Frontier\Support\Breadcrumbs\Composers\BreadcrumbComposer;
+
 return [
+    [
+        'appears' => [
+            'Theme::layouts.admin',
+            'Theme::partials.breadrumbs',
+        ],
+        'class' => BreadcrumbComposer::class
+    ],
     [
         'appears' => [
             'Theme::layouts.admin',
@@ -10,13 +21,13 @@ return [
             'Setting::partials.settingsbar',
             'Setting::settings.*',
         ],
-        'class' => \Frontier\Composers\NavigationViewComposer::class
+        'class' => NavigationViewComposer::class
     ],
     [
         'appears' => [
             'Theme::partials.sidebar',
         ],
-        'class' => \Frontier\Composers\SidebarComposer::class
+        'class' => SidebarComposer::class
     ],
     [
         'appears' => [

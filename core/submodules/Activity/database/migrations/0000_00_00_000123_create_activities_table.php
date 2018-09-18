@@ -26,13 +26,13 @@ class CreateActivitiesTable extends Migration
 
         Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->index();
-            $table->text('description')->nullable();
-            $table->integer('log_id')->nullable();
-            $table->string('log_type')->nullable();
-            $table->integer('causer_id')->nullable();
-            $table->string('causer_type')->nullable();
-            $table->text('properties')->nullable();
+            $table->text('subject', 255)->index()->nullable();
+            $table->string('url')->nullable();
+            $table->string('method')->nullable();
+            $table->integer('causer_id')->index()->nullable();
+            $table->string('causer_type')->index()->nullable();
+            $table->text('ip_address')->nullable();
+            $table->string('agent')->nullable();
             $table->timestamps();
         });
     }

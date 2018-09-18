@@ -1,6 +1,6 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent small">
-    @foreach ($navigation->breadcrumbs as $crumb)
+    @foreach (breadcrumbs() as $crumb)
       <li class="breadcrumb-item small {{ $crumb->last ? 'active' : '' }}" {{ $crumb->last ? 'aria-current="page"' : '' }}">
         @if ($crumb->last)
           <span>{{ __($crumb->label) }}</span>

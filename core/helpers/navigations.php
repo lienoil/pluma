@@ -2,6 +2,7 @@
 
 use Frontier\Composers\NavigationViewComposer;
 use Frontier\Composers\SidebarComposer;
+use Frontier\Support\Breadcrumbs\Composers\BreadcrumbComposer;
 use Illuminate\Support\Facades\Request;
 use Pluma\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ if (! function_exists('navigations')) {
         $composer = new NavigationViewComposer();
         $composer->setCurrentUrl(Request::path());
         $composer->setCurrentRouteName(Route::currentRouteName());
-        $composer->setMenus($composer->requireFileFromModules('config/menus.php', modules(true, null, false)));
+        $composer->setMenus($composer->getFileFromModules('config/menus.php'));
         $composer->setBreadcrumbs($composer->getCurrentUrl());
 
         $composer = $collected
@@ -82,6 +83,10 @@ if (! function_exists('breadcrumbs')) {
      */
     function breadcrumbs()
     {
-        return navigations('breadcrumbs');
+        $composer = new BreadcrumbComposer();
+        $composer->setCurrentUrl(Request::path());
+        $composer->setCurrentRouteName(Route::currentRouteName());
+        $composer->setBreadcrumbs($composer->getCurrentUrl());
+        return $composer->handle();
     }
 }

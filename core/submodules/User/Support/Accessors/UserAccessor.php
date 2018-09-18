@@ -24,16 +24,6 @@ trait UserAccessor
     }
 
     /**
-     * Retrieves the mutated crumb field.
-     *
-     * @return string
-     */
-    public function getCrumbAttribute()
-    {
-        return $this->fullname;
-    }
-
-    /**
      * Retrieves the info detail of the user.
      * Except the most common details for
      * it will be displayed somewhere else.

@@ -2,6 +2,8 @@
 
 namespace User\Models;
 
+use Activity\Support\Relations\MorphManyActivities;
+use Frontier\Support\Breadcrumbs\Accessors\Breadcrumable;
 use Pluma\Support\Auth\User as Authenticatable;
 use Pluma\Support\Token\Traits\TokenizableTrait;
 use Role\Support\Relations\BelongsToManyRoles;
@@ -16,14 +18,23 @@ use User\Support\Traits\WhereDetailTrait;
 class User extends Authenticatable
 {
     use BelongsToManyRoles,
+        Breadcrumable,
         CanResetPasswordTrait,
         HasManyDetails,
-        UserAccessor,
         HasManyPermissionsThroughRoles,
         HasManySettings,
+        MorphManyActivities,
         TokenizableTrait,
+        UserAccessor,
         WhereDetailTrait,
         WhereSettingTrait;
+
+    /**
+     * The key to use for the breadcrumb middleware.
+     *
+     * @var string
+     */
+    protected $crumb = 'fullname';
 
     protected $fillable = [
         'firstname',
