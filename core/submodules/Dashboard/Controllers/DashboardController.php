@@ -17,12 +17,6 @@ class DashboardController extends AdminController
     {
         $pages = \User\Models\User::cached();
 
-        $logger = new \Monolog\Logger('general');
-        $logger->pushProcessor(new \Monolog\Processor\WebProcessor);
-        $browserHandler = new \Monolog\Handler\BrowserConsoleHandler(\Monolog\Logger::INFO);
-        $logger->pushHandler($browserHandler);
-        $logger->info('Info message');
-
         return view("Dashboard::admin.index");
     }
 }

@@ -11,6 +11,6 @@ trait MorphManyActivities
      */
     public function activities()
     {
-        return $this->morphMany(Activity::class, 'causer');
+        return $this->morphMany(Activity::class, 'causer')->latest();
     }
 }

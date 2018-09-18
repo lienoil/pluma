@@ -1,34 +1,13 @@
-@foreach ($activities as $activity)
-  <div class="media">
-    <div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/16.jpg)"></div>
-    <div class="media-body">
-      <div class="media-heading">
-        <small class="float-right text-muted">4 min</small>
-        <h5>Peter Richards</h5>
-      </div>
+<ul class="timeline">
+  @foreach ($activities as $activity)
+    <li class="timeline-item">
+      <div class="timeline-badge bg-primary"></div>
       <div>
-        Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras
-        justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes,
-        nascetur ridiculus mus.
+        <em>{{ $activity->subject }}</em>
+        <div class="d-block text-muted">{{ $activity->ip_address }} * Home</div>
+        <small class="d-block text-muted">{{ $activity->agent }}</small>
       </div>
-      <ul class="media-list">
-        <li class="media mt-4">
-          <div class="media-object avatar mr-4" style="background-image: url(demo/faces/female/17.jpg)"></div>
-          <div class="media-body">
-            <strong>Debra Beck: </strong>
-            Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
-            auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere consectetur est at lobortis.
-          </div>
-        </li>
-        <li class="media mt-4">
-          <div class="media-object avatar mr-4" style="background-image: url(demo/faces/male/32.jpg)"></div>
-          <div class="media-body">
-            <strong>Jack Ruiz: </strong>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-            amet risus.
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-@endforeach
+      <div class="timeline-time"><em class="small">{{ __($activity->created) }}</em></div>
+    </li>
+  @endforeach
+</ul>
