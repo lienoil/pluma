@@ -22,13 +22,7 @@
       @section('user.sidebar')
         <div class="col-auto">
           @section('user.avatar')
-            <div class="card bg-light shadow-none mb-3" data-avatar>
-              <div class="card-body p-1 border-0 text-center">
-                <div class="p-4">
-                  <img data-avatar-img class="avatar-fit rounded-circle" width="150px" height="150px" src="{{ $resource->photo }}" alt="{{ $resource->alt }}">
-                </div>
-              </div>
-            </div>
+            <img data-avatar-img class="avatar-fit rounded-circle" width="150px" height="150px" src="{{ $resource->photo }}" alt="{{ $resource->alt }}">
           @show
 
           @section('user.sidemenu')
@@ -37,7 +31,7 @@
       @show
 
       @section('user.main')
-        <div class="col col-sm-7">
+        <div class="col">
           <h1 class="display-6">{{ $resource->fullname }}</h1>
           <div>
             @if ($resource->username)
@@ -82,10 +76,9 @@
             <div class="mt-6">
               <h3 class="h4">{{ __('Activity') }}</h3>
             </div>
-            {{-- {{ activity()->log("Pluma CMS visited Ma. Claycie Torres's user profile. Again.", [user()->id, 'User\Models\User']) }} --}}
             {{-- @can('activities.show') --}}
               <div class="row mb-1">
-                @empty ($resource->activities)
+                @empty ($resource->activities->all())
                   <p class="col text-muted"><em>{{ __('Either no activity available or this feed is hidden.') }}</em></p>
                 @else
                   <div class="col">
@@ -93,6 +86,8 @@
                   </div>
                 @endempty
               </div>
+            {{-- @else --}}
+              {{-- <p class="col text-muted"><em>{{ __('Either no activity available or this feed is hidden.') }}</em></p> --}}
             {{-- @endcan --}}
           @show
         </div>

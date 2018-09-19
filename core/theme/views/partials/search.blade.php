@@ -6,14 +6,12 @@
       <label for="page-search" class="sr-only">Password</label>
       <input id="page-search" tabindex="0" type="text" name="search" class="form-control" aria-describedby="search" placeholder="{{ __('Search') }}" value="{{ request()->get('search') }}">
 
-      {{-- @if (request()->get('search'))
-        <div class="input-group-append">
-          <a role="button" href="{{ request()->url() }}" class="btn btn-outline-secondary py-1"><i class="fe fe-x"></i></a>
-        </div>
-      @endif --}}
     </div>
   </div>
   <div class="col">
+    @if (request()->get('search'))
+      <a role="button" href="{{ request()->url() }}" class="btn btn-secondary"><i class="fe fe-x"></i></a>
+    @endif
     <button type="submit" class="btn btn-secondary"><i class="fe fe-search"></i></button>
   </div>
 </form>

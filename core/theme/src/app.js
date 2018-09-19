@@ -1,3 +1,3 @@
 import '@/plugins/bootstrap'
-import '@/plugins/tabler'
+import '@/plugins/datatables'
 import '@/components/index'

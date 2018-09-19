@@ -1,13 +1,11 @@
 <ul class="timeline">
-  @foreach ($activities as $activity)
+  @foreach ($activities as $i => $activity)
     <li class="timeline-item">
-      <div class="timeline-badge bg-primary"></div>
-      <div>
-        <em>{{ $activity->subject }}</em>
-        <div class="d-block text-muted">{{ $activity->ip_address }} * Home</div>
-        <small class="d-block text-muted">{{ $activity->agent }}</small>
+      <div class="timeline-badge text-orange"></div>
+      <div class="pl-2 list-inline list-inline-dots">
+        <span class="list-inline-item">{{ $activity->logged }}</span>
+        <small class="timeline-time">{{ $activity->created }}</small>
       </div>
-      <div class="timeline-time"><em class="small">{{ __($activity->created) }}</em></div>
     </li>
   @endforeach
 </ul>

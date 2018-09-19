@@ -2,12 +2,14 @@
 
 namespace Activity\Models;
 
+use Activity\Support\Accessors\ActivityAccessor;
 use Activity\Support\Relations\MorphToActivity;
 use Pluma\Models\Model;
 
 class Activity extends Model
 {
-    use MorphToActivity;
+    use ActivityAccessor,
+        MorphToActivity;
 
     protected $with = [];
 
