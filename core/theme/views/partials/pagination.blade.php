@@ -3,14 +3,14 @@
     {{-- First Item Button --}}
     @if ($resources->onFirstPage())
       <li class="page-item disabled">
-        <span class="page-link" aria-label="{{ __('First') }}">
+        <span class="page-link border-0 small m-1 rounded-circle" aria-label="{{ __('First') }}">
           <span aria-hidden="true">&laquo;</span>
           <span class="sr-only">{{ __('First') }}</span>
         </span>
       </li>
     @else
       <li class="page-item">
-        <a class="page-link" href="{{ $resources->url(1) }}{{ $section ?? '' }}" tabindex="-1" aria-label="{{ __('First') }}">
+        <a class="page-link border-0 small m-1 rounded-circle" href="{{ $resources->url(1) }}{{ $section ?? '' }}" tabindex="-1" aria-label="{{ __('First') }}">
           <span aria-hidden="true">&laquo;</span>
           <span class="sr-only">{{ __('First') }}</span>
         </a>
@@ -21,14 +21,14 @@
     {{-- Previous Button --}}
     @if ($resources->currentPage() == 1)
       <li class="page-item disabled">
-        <span class="page-link" aria-label="{{ __('Previous') }}">
+        <span class="page-link border-0 small m-1 rounded-circle" aria-label="{{ __('Previous') }}">
           <span aria-hidden="true">&lsaquo;</span>
           <span class="sr-only">{{ __('Previous') }}</span>
         </span>
       </li>
     @else
       <li class="page-item">
-        <a class="page-link" href="{{ $resources->previousPageUrl() }}{{ $section ?? '' }}" aria-label="{{ __('Previous') }}">
+        <a class="page-link border-0 small m-1 rounded-circle" href="{{ $resources->previousPageUrl() }}{{ $section ?? '' }}" aria-label="{{ __('Previous') }}">
           <span aria-hidden="true">&lsaquo;</span>
           <span class="sr-only">{{ __('Previous') }}</span>
         </a>
@@ -39,7 +39,7 @@
     {{-- Page Loop --}}
     @for ($i = 1; $i <= $resources->lastPage(); $i++)
       <li class="page-item {{ $resources->currentPage() == $i ? 'active' : '' }}">
-        <a class="page-link" href="{{ $resources->url($i) }}{{ $section ?? '' }}">
+        <a class="page-link border-0 small m-1 rounded-circle" href="{{ $resources->url($i) }}{{ $section ?? '' }}">
           {{ $i }}
           @if ($resources->currentPage() == $i)
             <span class="sr-only">({{ __('current') }})</span>
@@ -52,14 +52,14 @@
     {{-- Next Button --}}
     @if (! $resources->hasMorePages())
       <li class="page-item disabled">
-        <span class="page-link" aria-label="{{ __('Next') }}">
+        <span class="page-link border-0 small m-1 rounded-circle" aria-label="{{ __('Next') }}">
           <span aria-hidden="true">&rsaquo;</span>
           <span class="sr-only">{{ __('Next') }}</span>
         </span>
       </li>
     @else
       <li class="page-item">
-        <a class="page-link" href="{{ $resources->nextPageUrl() }}{{ $section ?? '' }}" aria-label="{{ __('Next') }}">
+        <a class="page-link border-0 small m-1 rounded-circle" href="{{ $resources->nextPageUrl() }}{{ $section ?? '' }}" aria-label="{{ __('Next') }}">
           <span aria-hidden="true">&rsaquo;</span>
           <span class="sr-only">{{ __('Next') }}</span>
         </a>
@@ -70,14 +70,14 @@
     {{-- Last Item Button --}}
     @if (! $resources->hasMorePages())
       <li class="page-item disabled">
-        <span class="page-link" aria-label="{{ __('Last') }}">
+        <span class="page-link border-0 small m-1 rounded-circle" aria-label="{{ __('Last') }}">
           <span aria-hidden="true">&raquo;</span>
           <span class="sr-only">{{ __('Last') }}</span>
         </span>
       </li>
     @else
       <li class="page-item">
-        <a class="page-link" href="{{ $resources->url($resources->lastPage()) }}{{ $section ?? '' }}" aria-label="{{ __('Last') }}">
+        <a class="page-link border-0 small m-1 rounded-circle" href="{{ $resources->url($resources->lastPage()) }}{{ $section ?? '' }}" aria-label="{{ __('Last') }}">
           <span aria-hidden="true">&raquo;</span>
           <span class="sr-only">{{ __('Last') }}</span>
         </a>

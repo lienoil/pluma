@@ -19,4 +19,6 @@
 
 Route::softDeletes('users', 'UserController', ['trashed' => 'deactivated']);
 
+Route::post('users/export/{user?}', 'UserController@export')->name('users.export');
+
 Route::resource('users', 'UserController', ['middleware' => 'breadcrumbs:\User\Models\User']);

@@ -115,7 +115,7 @@ class Repository implements RepositoryInterface
      */
     public function destroy($id)
     {
-        return $this->model->delete($id);
+        return $this->model->destroy($id);
     }
 
     /**

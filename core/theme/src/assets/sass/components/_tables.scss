@@ -17,6 +17,12 @@
 		font-weight: 400;
 	}
 
+  tr {
+    &.active {
+      background-color: $table-hover-bg !important;
+    }
+  }
+
   &-responsive {
     overflow: auto;
   }

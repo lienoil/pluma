@@ -17,12 +17,12 @@
 @section('page-content')
   <div class="container-fluid mt-6">
 
-    <div class="row">
+    <div class="row text-center text-lg-left">
 
       @section('user.sidebar')
-        <div class="col-auto">
+        <div class="col-lg-auto col-sm-12">
           @section('user.avatar')
-            <img data-avatar-img class="avatar-fit rounded-circle" width="150px" height="150px" src="{{ $resource->photo }}" alt="{{ $resource->alt }}">
+            <img data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="{{ $resource->photo }}" alt="{{ $resource->alt }}">
           @show
 
           @section('user.sidemenu')
@@ -31,9 +31,9 @@
       @show
 
       @section('user.main')
-        <div class="col">
+        <div class="col-lg col-sm-12">
           <h1 class="display-6">{{ $resource->fullname }}</h1>
-          <div>
+          <div class="mb-7">
             @if ($resource->username)
               <div class="mb-1" title="{{ __('Username') }}">
                 <i class="fe fe-at-sign"></i>
@@ -55,40 +55,44 @@
           </div>
 
           @section('user.about')
-            <div class="mt-6">
-              <h3 class="h4">{{ __('About') }}</h3>
+            <div class="mb-7">
+              <div class="mt-6">
+                <h3 class="h4">{{ __('About') }}</h3>
+              </div>
+              @empty($resource->info->toArray())
+                <div class="row mb-2">
+                  <p class="col text-muted"><em>{{ __('No additional information available.') }}</em></p>
+                </div>
+              @endempty
+              @foreach ($resource->info as $detail)
+                <div class="row mb-2">
+                  <div class="col-auto"><i class="{{ $detail->icon }}"></i></div>
+                  <div class="col-auto">{{ __($detail->keyword) }}</div>
+                  <div class="col text-left"><em>{{ $detail->value }}</em></div>
+                </div>
+              @endforeach
             </div>
-            @empty($resource->info->toArray())
-              <div class="row mb-1">
-                <p class="col text-muted"><em>{{ __('No additional information available.') }}</em></p>
-              </div>
-            @endempty
-            @foreach ($resource->info as $detail)
-              <div class="row mb-1">
-                <div class="col-auto"><i class="{{ $detail->icon }}"></i></div>
-                <div class="col-auto">{{ __($detail->keyword) }}</div>
-                <div class="col"><em>{{ $detail->value }}</em></div>
-              </div>
-            @endforeach
           @show
 
           @section('user.activity')
-            <div class="mt-6">
-              <h3 class="h4">{{ __('Activity') }}</h3>
-            </div>
-            {{-- @can('activities.show') --}}
-              <div class="row mb-1">
-                @empty ($resource->activities->all())
-                  <p class="col text-muted"><em>{{ __('Either no activity available or this feed is hidden.') }}</em></p>
-                @else
-                  <div class="col">
-                    @include('Theme::partials.timeline', ['activities' => $resource->activities])
-                  </div>
-                @endempty
+            <div class="mb-7">
+              <div class="mt-6">
+                <h3 class="h4">{{ __('Activity') }}</h3>
               </div>
-            {{-- @else --}}
-              {{-- <p class="col text-muted"><em>{{ __('Either no activity available or this feed is hidden.') }}</em></p> --}}
-            {{-- @endcan --}}
+              {{-- @can('activities.show') --}}
+                <div class="row mb-1">
+                  @empty ($resource->activities->all())
+                    <p class="col text-muted"><em>{{ __('Either no activity available or this feed is hidden.') }}</em></p>
+                  @else
+                    <div class="col text-left">
+                      @include('Theme::partials.timeline', ['activities' => $resource->activities])
+                    </div>
+                  @endempty
+                </div>
+              {{-- @else --}}
+                {{-- <p class="col text-muted"><em>{{ __('Either no activity available or this feed is hidden.') }}</em></p> --}}
+              {{-- @endcan --}}
+            </div>
           @show
         </div>
       @show

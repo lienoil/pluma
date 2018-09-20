@@ -1,10 +1,17 @@
+// Sidebar
 $sidebar-width-full: 250px;
 $sidebar-width-min: 50px;
+$sidebar-bg-color: transparent;
+$sidebar-bg-colot-alt: #2b343a;
 
 #app {
   display: flex;
   align-items: stretch;
   perspective: 1500px;
+
+  @include media-breakpoint-down(md) {
+    overflow-x: hidden;
+  }
 }
 
 .sidebar {
@@ -12,7 +19,19 @@ $sidebar-width-min: 50px;
   max-width: $sidebar-width-full;
   min-height: 100vh;
   margin-left: -$sidebar-width-full;
-  transition: all 0.3s cubic-bezier(0.45, 0, 0.32, 1);
+  transition: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
+  background-color: $sidebar-bg-color;
+
+  &.sidebar-bg-colored, &.sidebar-alt {
+    background-color: $sidebar-bg-colot-alt;
+    color: #fff;
+
+    .sidebar-item,
+    .list-group-item,
+    .sidebar-dropdown-item {
+      color: #fff;
+    }
+  }
 
   &.active {
     margin-left: 0;
@@ -113,5 +132,30 @@ $sidebar-width-min: 50px;
 
   ~ .workspace {
     width: 100%;
+  }
+
+  @include media-breakpoint-down(md) {
+    // Reverse the active state.
+    // If sidebar has active class on `md` and down
+    // it means it's hidden.
+    & {
+      background-color: $sidebar-bg-color;
+      margin-left: 0;
+      z-index: 999;
+      ~ .workspace {
+        overflow-y: auto;
+        min-width: 100vw;
+        // transform: translateX($sidebar-width-full);
+      }
+    }
+
+    // Should hide the sidebar
+    &.active {
+      margin-left: -$sidebar-width-full;
+      ~ .workspace {
+        transform: translateX(0);
+      }
+    }
+
   }
 }

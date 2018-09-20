@@ -17,7 +17,13 @@ trait UserResourceAdminTrait
      */
     public function index(Request $request)
     {
-        $resources = $this->repository->model()->search($request->all())->paginate();
+        $resources = $this->repository->model()
+            ->search($request->all());
+
+        if ($request->input('order')) {
+            $resources = $resources->orderBy($request->input('sort'), $request->input('order'));
+        }
+        $resources = $resources->paginate();
 
         return view('Theme::users.index')->with(compact('resources'));
     }
@@ -141,14 +147,13 @@ trait UserResourceAdminTrait
      * Remove the specified resource from storage.
      *
      * @param  Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  mixed $id
      * @return Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id = null)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        $this->repository->destroy($id ?? $request->input('id'));
 
-        return redirect()->route('users.index');
+        return back();
     }
 }

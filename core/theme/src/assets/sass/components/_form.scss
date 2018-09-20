@@ -44,6 +44,7 @@ textarea {
 
 .custom-control-label {
 	vertical-align: middle;
+  min-height: 24px;
 
 	&:before {
 		border: 1px solid $input-border-color;

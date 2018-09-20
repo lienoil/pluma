@@ -10,6 +10,17 @@
 	}
 }
 
+.icon {
+  &-border {
+    border: 5px solid;
+    border-radius: 50%;
+    padding: 1.3rem;
+  }
+  &-faded {
+    opacity: 0.75;
+  }
+}
+
 .icons-list-wrap {
 	overflow: hidden;
 }

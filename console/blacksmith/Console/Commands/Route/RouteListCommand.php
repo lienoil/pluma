@@ -117,15 +117,21 @@ class RouteListCommand extends Command
      */
     protected function getRouteInformation(Route $route)
     {
-        return $this->filterRoute([
-            'host'   => $route->domain(),
-            'method' => implode('|', $route->methods()),
-            'uri'    => $route->uri(),
-            'name'   => $route->getName(),
-            'action' => ltrim($route->getActionName(), '\\'),
-            'middleware' => $this->getMiddleware($route),
-            'module' => guess_module($route->getName()),
-        ]);
+        $routes = null;
+
+        if (in_array(guess_module($route->getName()), get_modules_path(true))) {
+            $routes = $this->filterRoute([
+                'host'   => $route->domain(),
+                'method' => implode('|', $route->methods()),
+                'uri'    => $route->uri() ?? 'N/A',
+                'name'   => $route->getName(),
+                'action' => ltrim($route->getActionName(), '\\'),
+                'middleware' => $this->getMiddleware($route),
+                'module' => guess_module($route->getName()),
+            ]);
+        }
+
+        return $routes;
     }
 
     /**

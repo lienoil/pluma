@@ -49,17 +49,17 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 
-$blue: #185686;
-$azure: #45aaf2;
+$blue: #0C5689;
+$azure: #00B8D6;
 $indigo: #6574cd;
 $purple: #a55eea;
 $pink: #f66d9b;
-$red: #cd201f;
+$red: #F44336;
 $orange: #fd9644;
-$yellow: #f1c40f;
+$yellow: #EAC011;
 $lime: #7bd235;
-$green: #5eba00;
-$teal: #00a185; // #2bcbba;
+$green: #30A300;
+$teal: #23CCAB; // #2bcbba;
 $cyan: #17a2b8;
 
 
@@ -70,6 +70,7 @@ $white: #fff;
 
 $primary: $blue;
 $secondary: $gray-600;
+$accent: $teal;
 $success: $green;
 $info: $azure;
 $warning: $yellow;

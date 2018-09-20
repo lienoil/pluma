@@ -28,3 +28,7 @@ body.fancy {
 [role="button"] {
   cursor: pointer;
 }
+
+[disabled], .disabled {
+  pointer-events: none;
+}

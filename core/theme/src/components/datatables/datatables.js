@@ -1,8 +1,10 @@
 import $ from 'jquery'
 import 'datatables'
+import './checkbox'
 
 $(document).ready(function () {
   $('[data-table]').each(function (i) {
-    $(this).DataTable(JSON.parse($(this).data('options')))
+    const options = $(this).data('options') ? JSON.parse($(this).data('options')) : {}
+    $(this).DataTable(options)
   })
 })
