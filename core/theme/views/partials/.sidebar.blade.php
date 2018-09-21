@@ -4,7 +4,7 @@
     <h2 class="sidebar-title">{{ $application->site->title }}</h2>
   </header>
   <div class="sidebar-content">
-    <div class="sidebar-nav list-group list-group-transparent mb-0" data-sidebar-nav>
+    <div class="sidebar-nav list-group list-group-transparent mb-0">
       @foreach ($sidebar as $i => $menu)
 
         @if (! isset($menu['is_hidden']) || ! $menu['is_hidden'])
@@ -26,7 +26,7 @@
                   <i class="fe fe-chevron-down"></i>
                 </span>
               </a>
-              <div id="sidebar-dropdown-{{ $i }}" class="sidebar-dropdown-menu collapse {{ $menu['active'] ? 'show active' : '' }}" data-parent="[data-sidebar-nav]">
+              <div id="sidebar-dropdown-{{ $i }}" class="sidebar-dropdown-menu {{ $menu['active'] ? 'show active' : '' }}">
                 @foreach ($menu['children'] as $submenu)
                   @if ($submenu['is_divider'])
                     <div class="sidebar-dropdown-divider dropdown-divider"></div>
@@ -48,9 +48,7 @@
 
           @elseif (isset($menu['is_header']) && $menu['is_header'])
 
-            <div class="list-group-item list-group-separator text-muted mb-4 px-4 {{ $menu['class'] }}">
-              <small>{{ $menu['text'] }}</small>
-            </div>
+            <div class="list-group-item list-group-separator"></div>
 
           @else
             <a role="button" href="{{ $menu['url'] }}" class="list-group-item list-group-item-action d-flex align-items-center {{ $menu['active'] ? 'active' : '' }}">

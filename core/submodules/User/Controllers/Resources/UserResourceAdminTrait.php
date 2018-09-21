@@ -25,7 +25,7 @@ trait UserResourceAdminTrait
         }
         $resources = $resources->paginate();
 
-        return view('Theme::users.index')->with(compact('resources'));
+        return view('User::admin.index')->with(compact('resources'));
     }
 
     /**

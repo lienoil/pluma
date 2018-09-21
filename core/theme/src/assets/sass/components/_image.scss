@@ -9,4 +9,17 @@
 		padding-right: .25rem;
 		padding-bottom: .5rem;
 	}
+
+}
+
+.img {
+  &-inverted {
+    filter: invert(1);
+  }
+
+  &-fit {
+    object-fit: cover;
+    max-width: 150px;
+    max-height: 150px;
+  }
 }

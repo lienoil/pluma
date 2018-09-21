@@ -1,6 +1,6 @@
-@stack("pre-footer")
+@stack('before-footer')
 
-@section("footer")
+@section('footer')
   <footer class="footer">
     <div class="container">
       <div class="row align-items-center flex-row-reverse">
@@ -19,4 +19,4 @@
   </footer>
 @show
 
-@stack("post-footer")
+@stack('after-footer')

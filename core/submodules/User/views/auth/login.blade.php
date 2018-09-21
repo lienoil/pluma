@@ -1,12 +1,21 @@
 @extends('Theme::layouts.auth')
 
+@push('after-css')
+  <style>
+    .card {
+      box-shadow: -2px 3px 0 rgba(0,0,0,.05);
+      border: 0;
+    }
+  </style>
+@endpush
+
 @section('content')
   <div class="container">
     <div class="row">
       <div class="col col-login mx-auto">
-        <div class="text-center mb-6">
-          <img src="{{ $application->site->logo }}" alt="{{ $application->site->title }}" width="100" height="auto">
-          <h1 class="page-title">{{ $application->site->title }}</h1>
+        <div class="text-center mb-2">
+          <img class="brand-img brand-img-shadow img-inverted" src="{{ $application->site->logo }}" alt="{{ $application->site->title }}" width="100" height="auto">
+          <h1 class="text-white brand-title brand-title-shadow">{{ $application->site->title }}</h1>
         </div>
         <form class="card" action="{{ route('login.login') }}" method="POST">
           {{ csrf_field() }}
@@ -32,24 +41,17 @@
             <div class="form-footer">
               <button type="submit" class="btn btn-primary btn-block">{{ __('Sign in') }}</button>
             </div>
-            <div class="form-group mt-2">
+            <div class="form-group mt-2 mb-5">
               <label class="custom-control custom-checkbox">
                 <input type="checkbox" name="remember" checked value="1" class="custom-control-input">
                 <span class="custom-control-label">{{ __('Remember me') }}</span>
               </label>
             </div>
+            <div class="text-left text-muted small">
+              <small>{{ __("Don't have account yet?") }} <a href="{{ route('register.show') }}">{{ __('Sign up') }}</a></small>
+            </div>
           </div>
         </form>
-        <div class="text-center text-muted">
-          <ul class="list-inline list-inline-dots mb-0">
-            <li class="list-inline-item">
-              {{ __("Don't have account yet?") }} <a href="{{ route('register.show') }}">{{ __('Sign up') }}</a>
-            </li>
-            <li class="list-inline-item">
-              <a href="{{ home() }}">{{ __('Home') }}</a>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>

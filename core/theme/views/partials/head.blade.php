@@ -42,7 +42,7 @@
     {{-- Display the links specified in config/stylesheets.php --}}
     {!! font_link_tags('stylesheets') !!}
   @show
-  @stack('pre-css')
+  @stack('before-css')
     @if (settings('is_rtl', false))
       <link rel="preload" href="{{ theme('dist/app.rtl.min.css') }}" as="style">
     @else
@@ -61,5 +61,6 @@
       <link rel="stylesheet" type="text/css" href="{{ theme('dist/app.min.css') }}">
     @endif
   @show
+  @stack('after-css')
 </head>
 <body>

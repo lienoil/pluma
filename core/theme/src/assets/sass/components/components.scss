@@ -46,8 +46,6 @@
 @import 'syntax';
 @import 'infobox';
 @import 'carousel';
-@import 'sidebar';
-@import 'workspace';
 
 @import 'forms/custom-range';
 @import 'forms/custom-selectgroup';
@@ -55,6 +53,11 @@
 @import 'forms/custom-imagecheck';
 @import 'forms/custom-colorinput';
 
+@import 'sidebar';
+@import 'workspace';
+@import 'app';
+@import 'brand';
+@import 'gradients';
 @import 'timeline';
 
 @import 'browser';

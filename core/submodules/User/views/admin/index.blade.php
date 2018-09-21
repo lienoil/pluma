@@ -60,74 +60,106 @@
                       </div>
                     </th>
                     <th colspan="3" class="pl-5">
-                      @switch (request()->get('order'))
-                        @case('asc')
-                          <a href="{{ route('users.index', ['sort' => 'firstname', 'order' => 'desc']) }}">{{ __('Account Name') }} <i class="fe fe-arrow-down"></i></a>
-                          @break
+                      @if (request()->get('sort') === 'firstname')
+                        @switch (request()->get('order'))
+                          @case('asc')
+                            <a href="{{ route('users.index', ['sort' => 'firstname', 'order' => 'desc']) }}">{{ __('Account Name') }} <i class="fa fa-sort-alpha-down"></i></a>
+                            @break
 
-                        @case('desc')
-                          <a href="{{ route('users.index') }}">{{ __('Account Name') }} <i class="fe fe-arrow-up"></i></a>
-                          @break
+                          @case('desc')
+                            <a href="{{ route('users.index') }}">{{ __('Account Name') }} <i class="fa fa-sort-alpha-up"></i></a>
+                            @break
 
-                        @default
-                          <a href="{{ route('users.index', ['sort' => 'firstname', 'order' => 'asc']) }}">{{ __('Account Name') }}</a>
-                      @endswitch
+                          @default
+                            <a href="{{ route('users.index', ['sort' => 'firstname', 'order' => 'asc']) }}">{{ __('Account Name') }}</a>
+                        @endswitch
+                      @else
+                        <a href="{{ route('users.index', ['sort' => 'firstname', 'order' => 'asc']) }}">{{ __('Account Name') }}</a>
+                      @endif
                     </th>
                     <th>
-                      @switch (request()->get('order'))
-                        @case('asc')
-                          <a href="{{ route('users.index', ['sort' => 'email', 'order' => 'desc']) }}">{{ __('Email') }} <i class="fe fe-arrow-down"></i></a>
-                          @break
+                      @if (request()->get('sort') === 'email')
+                        @switch (request()->get('order'))
+                          @case('asc')
+                            <a href="{{ route('users.index', ['sort' => 'email', 'order' => 'desc']) }}">{{ __('Email') }} <i class="fa fa-sort-alpha-down"></i></a>
+                            @break
 
-                        @case('desc')
-                          <a href="{{ route('users.index') }}">{{ __('Email') }} <i class="fe fe-arrow-up"></i></a>
-                          @break
+                          @case('desc')
+                            <a href="{{ route('users.index') }}">{{ __('Email') }} <i class="fa fa-sort-alpha-up"></i></a>
+                            @break
 
-                        @default
-                          <a href="{{ route('users.index', ['sort' => 'email', 'order' => 'asc']) }}">{{ __('Email') }}</a>
-                      @endswitch
+                          @default
+                            <a href="{{ route('users.index', ['sort' => 'email', 'order' => 'asc']) }}">{{ __('Email') }}</a>
+                        @endswitch
+                      @else
+                        <a href="{{ route('users.index', ['sort' => 'email', 'order' => 'asc']) }}">{{ __('Email') }}</a>
+                      @endif
                     </th>
                     <th>{{ __('Role') }}</th>
-                    <th>{{ __('Date Created') }}</th>
+                    <th>
+                      @if (request()->get('sort') === 'created_at')
+                        @switch (request()->get('order'))
+                          @case('asc')
+                            <a href="{{ route('users.index', ['sort' => 'created_at', 'order' => 'desc']) }}">{{ __('Date Created') }} <i class="fa fa-sort-numeric-down"></i></a>
+                            @break
+
+                          @case('desc')
+                            <a href="{{ route('users.index') }}">{{ __('Date Created') }} <i class="fa fa-sort-numeric-up"></i></a>
+                            @break
+
+                          @default
+                            <a href="{{ route('users.index', ['sort' => 'created_at', 'order' => 'asc']) }}">{{ __('Date Created') }}</a>
+                        @endswitch
+                      @else
+                        <a href="{{ route('users.index', ['sort' => 'created_at', 'order' => 'asc']) }}">{{ __('Date Created') }}</a>
+                      @endif
+                    </th>
                     <th class="text-center">{{ __('Actions') }}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($resources as $i => $user)
+                  @foreach ($resources as $i => $resource)
                     <tr>
                       <td class="table-select collapse">
                         <div class="custom-control custom-checkbox">
-                          <input data-select data-target=".bulk-data" id="checkbox-{{ $user->id }}" type="checkbox" class="custom-control-input" value="{{ $user->id }}" name="id[]">
-                          <label for="checkbox-{{ $user->id }}" class="custom-control-label"></label>
+                          <input data-select data-target=".bulk-data" id="checkbox-{{ $resource->id }}" type="checkbox" class="custom-control-input" value="{{ $resource->id }}" name="id[]">
+                          <label for="checkbox-{{ $resource->id }}" class="custom-control-label"></label>
                         </div>
                       </td>
                       <td class="w-1 pl-5">
-                        @if (user()->id === $user->id)
+                        @if (user()->id === $resource->id)
                           <div title="{{ __('This is your account') }}"><i class="fe fe-user text-muted"></i></div>
                         @endif
                       </td>
                       <td class="w-1">
                         <div class="d-flex">
-                          <span class="avatar" style="background-image: url({{ $user->photo }})"></span>
+                          <span class="avatar" style="background-image: url({{ $resource->photo }})"></span>
                         </div>
                       </td>
                       <td style="min-width: 200px">
-                        <a title="{{ __('View details') }}" href="{{ route('users.show', $user->id) }}">
-                          {{ $user->displayname }}
+                        <a title="{{ __('View details') }}" href="{{ route('users.show', $resource->id) }}">
+                          {{ $resource->displayname }}
                         </a>
                       </td>
-                      <td>{{ $user->email }}</td>
-                      <td>{{ $user->displayrole }}</td>
-                      <td>{{ $user->created }}</td>
+                      <td>{{ $resource->email }}</td>
+                      <td>{{ $resource->displayrole }}</td>
+                      <td title="{{ $resource->created_at }}">{{ $resource->created }}</td>
                       <td class="text-center justify-content-center">
-                        <a title="{{ __('Edit this user') }}" href="{{ route('users.edit', $user->id) }}" role="button" class="btn btn-secondary btn-sm"><i class="fe fe-edit-2"></i></a>
+                        <a title="{{ __('Edit this user') }}" href="{{ route('users.edit', $resource->id) }}" role="button" class="btn btn-secondary btn-sm"><i class="fe fe-edit-2"></i></a>
 
-                        <form class="btn p-0 ml-1 form-row form-inline" action="{{ route('users.destroy', $user->id) }}" method="POST">
-                          {{ csrf_field() }}
-                          {{ method_field('DELETE') }}
-                          <input type="hidden" name="id" value="{{ $user->id }}">
-                          <button title="{{ __('Move this user to trash') }}" role="button" type="submit" class="btn btn-secondary btn-sm"><i class="fe fe-trash-2"></i></button>
-                        </form>
+                        @include('Theme::partials.modal', [
+                          'id' => 'delete-single-confirmbox-'.$resource->id,
+                          'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
+                          'lead' => __('You are about to deactivate the selected user.'),
+                          'text' => 'If you have selected your account and continued, you will be signed out from the app. Are you sure yout want to continue?',
+                          'method' => 'DELETE',
+                          'action' => route('users.destroy', $resource->id),
+                          'button' => __("Deactivate User {$resource->fullname}"),
+                          'context' => 'warning',
+                        ])
+                        <button data-modal-toggle type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#delete-single-confirmbox-{{ $resource->id }}" title="{{ __('Move this user to trash') }}">
+                          <i class="fe fe-trash-2"></i>
+                        </button>
                       </td>
                     </tr>
                   @endforeach
@@ -148,9 +180,9 @@
   </div>
 @endsection
 
-@push('post-footer')
+@push('after-footer')
   {{-- Export --}}
-  @include('Theme::admin.components.modal', [
+  @include('Theme::partials.modal', [
     'id' => 'export-confirmbox',
     'icon' => 'fe fe-download-cloud display-1 icon-border icon-faded d-inline-block',
     'lead' => __('Select format to download.'),
@@ -159,11 +191,11 @@
     'button' => __('Download'),
     'action' => route('users.export'),
     'context' => 'primary',
-    'include' => 'User::cards.avatar',
+    'include' => 'User::cards.field-export',
   ])
 
   {{-- Move to Trash --}}
-  @include('Theme::admin.components.modal', [
+  @include('Theme::partials.modal', [
     'id' => 'delete-confirmbox',
     'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
     'lead' => __('You are about to deactivate the selected users.'),

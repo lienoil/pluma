@@ -25,5 +25,7 @@ class UserController extends GeneralController
     public function __construct(User $model)
     {
         $this->repository = new UserRepository($model);
+
+        parent::__construct();
     }
 }

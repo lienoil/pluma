@@ -100,3 +100,16 @@
     </div>
   </div>
 @endsection
+
+@push('post-footer')
+  @include('Theme::partials.modal', [
+    'id' => 'delete-confirmbox',
+    'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
+    'lead' => __('You are about to deactivate the selected users.'),
+    'text' => 'If you have selected your account and continued, you will be signed out from the app. Are you sure yout want to continue?',
+    'method' => 'DELETE',
+    'action' => route('users.destroy'),
+    'button' => __('Deactivate Users'),
+    'context' => 'warning',
+  ])
+@endpush

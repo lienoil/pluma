@@ -5,12 +5,12 @@
 @endpush
 
 @section('main')
-  <div id="workspace" class="workspace page justify-content-start" data-workspace>
+  <div id="workspace" class="workspace justify-content-start" data-workspace>
 
     @include('Theme::partials.utilitybar')
     @include('Theme::partials.breadcrumbs')
 
-    <main id="main" class="main page-single flex-column justify-content-start" role="main">
+    <main id="main" class="main justify-content-start" role="main">
       @stack('before-content')
 
       @section('content')

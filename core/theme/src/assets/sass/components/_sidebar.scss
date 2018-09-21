@@ -4,16 +4,6 @@ $sidebar-width-min: 50px;
 $sidebar-bg-color: transparent;
 $sidebar-bg-colot-alt: #2b343a;
 
-#app {
-  display: flex;
-  align-items: stretch;
-  perspective: 1500px;
-
-  @include media-breakpoint-down(md) {
-    overflow-x: hidden;
-  }
-}
-
 .sidebar {
   min-width: $sidebar-width-full;
   max-width: $sidebar-width-full;
@@ -41,11 +31,23 @@ $sidebar-bg-colot-alt: #2b343a;
     margin-left: -$sidebar-width-full;
   }
 
-  &--fixed {
+  &-fixed {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    left: 0;
+    overflow-y: auto;
     position: fixed;
     top: 0;
-    left: 0;
     z-index: 999;
+
+    &.active ~ .workspace {
+      margin-left: $sidebar-width-full;
+    }
+
+    &:not(.active) ~ .workspace {
+      margin-left: 0;
+    }
   }
 
   &-header {
@@ -62,9 +64,10 @@ $sidebar-bg-colot-alt: #2b343a;
 
   &-content {
     padding: 1rem;
+    height: 100%;
 
     .sidebar-nav {
-      font-size: $font-size-base/1.15;
+      // font-size: $font-size-base/1.15;
       .sidebar-item,
       .list-group-item {
         border: 2px;
@@ -89,7 +92,7 @@ $sidebar-bg-colot-alt: #2b343a;
         overflow: hidden;
         transition: all 0.3s ease-in;
         border: none;
-        padding-left: 1rem;
+        padding-left: 1.2rem;
 
         &.show {
           height: auto;
@@ -98,6 +101,8 @@ $sidebar-bg-colot-alt: #2b343a;
         }
 
         .sidebar-dropdown-item {
+          padding-top: .5rem;
+          padding-bottom: .5rem;
           &.active {
             background-color: transparent;
             color: $primary;
@@ -131,6 +136,7 @@ $sidebar-bg-colot-alt: #2b343a;
   }
 
   ~ .workspace {
+    transition: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     width: 100%;
   }
 
@@ -145,7 +151,11 @@ $sidebar-bg-colot-alt: #2b343a;
       ~ .workspace {
         overflow-y: auto;
         min-width: 100vw;
-        // transform: translateX($sidebar-width-full);
+      }
+
+      &-fixed ~ .workspace {
+        margin-left: 0;
+        transform: translateX($sidebar-width-full);
       }
     }
 
@@ -154,6 +164,11 @@ $sidebar-bg-colot-alt: #2b343a;
       margin-left: -$sidebar-width-full;
       ~ .workspace {
         transform: translateX(0);
+      }
+
+      &.sidebar-fixed ~ .workspace {
+        transform: translateX(0);
+        margin-left: 0;
       }
     }
 
