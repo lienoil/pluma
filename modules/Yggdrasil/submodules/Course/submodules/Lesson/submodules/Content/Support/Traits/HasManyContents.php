@@ -10,7 +10,7 @@ trait HasManyContents
     /**
      * Get the contents for the resource.
      *
-     * @return  \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function contents()
     {

@@ -1,0 +1,58 @@
+<?php
+
+return [
+    /**
+     *--------------------------------------------------------------------------
+     * Contents Menus
+     *--------------------------------------------------------------------------
+     *
+     * Specify here the menus to appear on the sidebar.
+     *
+     */
+    'content' => [
+        'name' => 'content',
+        'order' => 51,
+        'slug' => route('contents.index'),
+        'always_viewable' => false,
+        'icon' => '',
+        'labels' => [
+            'title' => __('Contents'),
+            'description' => __('Manage contents'),
+        ],
+        'children' => [
+            'view-contents' => [
+                'name' => 'view-contents',
+                'order' => 1,
+                'slug' => route('contents.index'),
+                'code' => 'contents.index',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('All Contents'),
+                    'description' => __('View the list of all contents'),
+                ],
+            ],
+            'create-content' => [
+                'name' => 'create-content',
+                'order' => 2,
+                'slug' => route('contents.create'),
+                'code' => 'contents.create',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Create Content'),
+                    'description' => __('Create a Content'),
+                ],
+            ],
+            'trashed-content' => [
+                'name' => 'trashed-content',
+                'order' => 3,
+                'slug' => route('contents.trashed'),
+                'code' => 'contents.trashed',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Trashed Contents'),
+                    'description' => __('View list of all contents moved to trash'),
+                ],
+            ],
+        ],
+    ],
+];

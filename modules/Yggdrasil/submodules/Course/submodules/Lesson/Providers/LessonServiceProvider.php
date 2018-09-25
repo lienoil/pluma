@@ -15,12 +15,6 @@ class LessonServiceProvider extends ServiceProvider
         //
     ];
 
-    /**
-     * Registered middlewares on the
-     * Service Providers Level.
-     *
-     * @var mixed
-     */
     protected $middlewares = [
         //
     ];

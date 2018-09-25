@@ -1,21 +1,21 @@
 <template>
-  <div class="lesson-container">
+    <div class="lessons-container">
 
-  </div>
+    </div>
 </template>
 
 <script>
-  export default {
-    name: 'Lessons',
-    props: {
+    export default {
+        name: 'Lessons',
+        props: {
 
-    },
-    data () {
-      return {
+        },
+        data () {
+            return {
 
-      };
-    },
-  }
+            };
+        },
+    }
 </script>
 
 <style>

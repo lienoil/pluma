@@ -20,6 +20,6 @@ trait ContentPublicResourceTrait
         $resource = Content::with('lesson.course')->find($id);
         $course = Course::with('lessons')->whereSlug($course)->first();
 
-        return view("Theme::courses.single")->with(compact('resource', 'course'));
+        return view("Theme::course.single")->with(compact('resource', 'course'));
     }
 }

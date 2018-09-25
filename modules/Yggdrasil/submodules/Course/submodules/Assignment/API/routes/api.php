@@ -1,7 +1,7 @@
 <?php
 
 Route::delete('assignments/destroy/{assignment}', 'Assignment\API\Controllers\AssignmentController@destroy')->name('assignments.destroy');
-Route::delete('assignments/delete/{assignment}', 'Assignment\API\Controllers\AssignmentController@delete')->('assignments.delete');
+Route::delete('assignments/delete/{assignment}', 'Assignment\API\Controllers\AssignmentController@delete')->name('assignments.delete');
 Route::get('assignments/all', 'Assignment\API\Controllers\AssignmentController@all')->name('assignments.all');
 Route::get('assignments/search', 'Assignment\API\Controllers\AssignmentController@search')->name('assignments.search');
 Route::get('assignments/trash/all', 'Assignment\API\Controllers\AssignmentController@getTrash')->name('assignments.trash.all');

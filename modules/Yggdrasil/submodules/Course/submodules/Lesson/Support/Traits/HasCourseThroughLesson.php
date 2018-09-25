@@ -8,7 +8,7 @@ trait HasCourseThroughLesson
      * Shorthand of Lesson > Course Relationship.
      * Access the course through lesson.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\ELoquent\Model
      */
     public function getCourseAttribute()
     {

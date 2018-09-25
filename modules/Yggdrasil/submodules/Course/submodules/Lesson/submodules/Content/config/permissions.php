@@ -1,8 +1,8 @@
 <?php
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Permissions Array
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * Here we define our permissions that you can attach to roles.
  *
@@ -14,91 +14,89 @@
  */
 return [
     /**
-     * -------------------------------------------------------------------------
-     * Content Permissions
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
+     * $name Permissions
+     *--------------------------------------------------------------------------
      *
      */
-    'view-content' => [
-        'name' =>  'contents.index',
-        'code' => 'view-content',
+    'view-contents' => [
+        'name' =>  'view-contents',
+        'code' => 'contents.index',
         'description' => 'Ability to view list of contents',
         'group' => 'content',
     ],
     'show-content' => [
-        'name' => 'contents.show',
-        'code' => 'show-content',
+        'name' => 'show-content',
+        'code' => 'contents.show',
         'description' => 'Ability to show a single content',
         'group' => 'content',
     ],
     'create-content' => [
-        'name' => 'contents.create',
-        'code' => 'create-content',
-        'description' => 'Ability to show the form to create content',
+        'name' => 'create-content',
+        'code' => 'contents.create',
+        'description' => 'Ability to create new content',
         'group' => 'content',
     ],
     'store-content' => [
-        'name' => 'contents.store',
-        'code' => 'store-content',
+        'name' => 'store-content',
+        'code' => 'contents.store',
         'description' => 'Ability to save the content',
         'group' => 'content',
     ],
     'edit-content' => [
-        'name' => 'contents.edit',
-        'code' => 'edit-content',
+        'name' => 'store-content',
+        'code' => 'contents.store',
         'description' => 'Ability to show the form to edit content',
         'group' => 'content',
     ],
     'update-content' => [
-        'name' => 'contents.update',
-        'code' => 'update-content',
+        'name' => 'update-content',
+        'code' => 'contents.update',
         'description' => 'Ability to update the content',
         'group' => 'content',
     ],
     'destroy-content' => [
-        'name' =>  'contents.destroy',
-        'code' => 'destroy-content',
+        'name' => 'destroy-content',
+        'code' =>  'contents.destroy',
         'description' => 'Ability to move the content to trash',
         'group' => 'content',
     ],
     'delete-content' => [
-        'name' =>  'contents.delete',
-        'code' => 'delete-content',
+        'name' => 'delete-content',
+        'code' =>  'contents.delete',
         'description' => 'Ability to permanently delete the content',
         'group' => 'content',
     ],
-    'trash-content' => [
-        'name' =>  'contents.trash',
-        'code' => 'trash-content',
-        'description' => 'Ability to view the list of all trashed content',
+    'trashed-contents' => [
+        'name' => 'trashed-contents',
+        'code' =>  'contents.trashed',
+        'description' => 'Ability to view the list of all trashed contents',
         'group' => 'content',
     ],
     'restore-content' => [
-        'name' => 'contents.restore',
-        'code' => 'restore-content',
-        'description' => 'Ability to restore the content',
+        'name' => 'restore-content',
+        'code' => 'contents.restore',
+        'description' => 'Ability to restore the content from trash',
         'group' => 'content',
     ],
 
     // Many
     'destroy-many-content' => [
-        'name' =>  'contents.many.destroy',
-        'code' => 'destroy-many-content',
+        'name' => 'destroy-many-content',
+        'code' => 'contents.many.destroy',
         'description' => 'Ability to destroy many contents',
         'group' => 'content',
     ],
     'delete-many-content' => [
-        'name' =>  'contents.many.delete',
-        'code' => 'delete-many-content',
+        'name' => 'delete-many-content',
+        'code' => 'contents.many.destroy',
         'description' => 'Ability to permanently delete many contents',
         'group' => 'content',
     ],
     'restore-many-content' => [
-        'name' => 'contents.many.restore',
-        'code' => 'restore-many-content',
+        'name' => 'restore-many-content',
+        'code' => 'contents.many.restore',
         'description' => 'Ability to restore many contents',
         'group' => 'content',
     ],
-
-    //
 ];

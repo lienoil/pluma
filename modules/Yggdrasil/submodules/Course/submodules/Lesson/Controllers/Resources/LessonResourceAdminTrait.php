@@ -1,12 +1,10 @@
 <?php
 
-namespace Assignment\Controllers\Resources;
+namespace Lesson\Controllers\Resources;
 
-use Assignment\Models\Assignment;
-use Assignment\Requests\AssignmentRequest;
 use Illuminate\Http\Request;
 
-trait AssignmentResourceAdminTrait
+trait LessonResourceAdminTrait
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ trait AssignmentResourceAdminTrait
      */
     public function index(Request $request)
     {
-        return view("Theme::assingments.index");
+        return view("Theme::lessons.index");
     }
 
     /**
@@ -28,32 +26,32 @@ trait AssignmentResourceAdminTrait
      */
     public function show(Request $request, $id)
     {
-        return view("Theme::assignments.show");
+        return view("Theme::lessons.show");
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form  for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view("Theme::assignments.create");
+        return view("Theme::lessons.create");
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Assignment\Request\AssignmentRequest $request
+     * @param \Lesson\Requests\LessonRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AssignmentRequest $request)
+    public function store(LessonRequest $request)
     {
         return back();
     }
 
     /**
-     * Show the form for editing the specified resources.
+     * Show the form for editing the specified resource.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int  $id
@@ -61,17 +59,17 @@ trait AssignmentResourceAdminTrait
      */
     public function edit(Request $request, $id)
     {
-        return view("Theme::assignments.edit");
+        return view("Theme::lessons.edit");
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Assignment\Request\AssignmentRequest $request
-     * @param  int  $id
+     * @param  \Lesson\Requests\LessonRequest $request
+     * @param  int        $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AssignmentRequest $request, $id)
+    public function update(LessonRequest $request, $id)
     {
         return back();
     }
@@ -80,45 +78,40 @@ trait AssignmentResourceAdminTrait
      * Remove the specified resource from storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        return redirect()->route('assignments.index');
+        return redirect()->route('lessons.index');
     }
 
     /**
-     * Display a listing of the trained resource.
+     * Display a listing of the trashed
      *
      * @return \Illuminate\Http\Response
      */
     public function trash()
     {
-        return view("Theme::assignments.trash");
+        return view("Theme::lessons.trash");
     }
 
     /**
      * Restore the specified resource from storage.
      *
-     * @param \Assignment\Requests\AssignmentRequest $request
-     * @param int $id
+     * @param  \Lesson\Requests\LessonRequest $request
+     * @param  int        $id
      * @return \Illuminate\Http\Response
      */
-    public function restore(AssignmentRequest $request, $id)
+    public function restore(LessonRequest $request, $id)
     {
         return back();
     }
 
-    /**
-     * Delete the specified resource from storage permanently.
-     *
-     * @param  \Assignment\Requests\AssignmentRequest $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(AssignmentRequest $request, $id)
+    public function delete(LessonRequest $request, $id)
     {
-        return redirect()->route('assignments.trash');
+        return redirect()->route('lessons.trash');
     }
+
+
 }

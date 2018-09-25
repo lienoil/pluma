@@ -1,13 +1,13 @@
 <?php
 
-namespace Content\Request;
+namespace Content\Requests;
 
 use Pluma\Requests\FormRequest;
 
 class ContentRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request
+     * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
@@ -16,7 +16,7 @@ class ContentRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 if ($this->user()->can('store-content')) {
-                    return true;
+                    return true ;
                 }
                 break;
 
@@ -26,7 +26,7 @@ class ContentRequest extends FormRequest
                 }
                 break;
 
-            case 'DELETE':
+            case 'DELETE'
                 if ($this->user()->can('destroy-content')) {
                     return true;
                 }
@@ -41,7 +41,7 @@ class ContentRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request
+     * Get the validation rules that apply to the request.
      *
      * @return array
      */
@@ -51,18 +51,11 @@ class ContentRequest extends FormRequest
 
         return [
             'name' => 'required|max:255',
-            'code' => '
-                required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:contents'
-                .$isUpdating,
+            'code' => 'required|regex:/^[\pL\s\-\*\#\(0-9)]+$/u|unique:contents'.$isUpdating,
         ];
     }
 
-    /**
-     * The array of override message to use.
-     *
-     * @return array
-     */
-    public function message()
+    public function messages()
     {
         return [
             'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.'
