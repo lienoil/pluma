@@ -17,13 +17,10 @@ trait UserResourceAdminTrait
      */
     public function index(Request $request)
     {
-        $resources = $this->repository->model()
-            ->search($request->all());
+        $resources = $this->repository
+            ->search($request->all())
+            ->paginate();
 
-        if ($request->input('order')) {
-            $resources = $resources->orderBy($request->input('sort'), $request->input('order'));
-        }
-        $resources = $resources->paginate();
 
         return view('User::admin.index')->with(compact('resources'));
     }
@@ -35,15 +32,14 @@ trait UserResourceAdminTrait
      */
     public function create()
     {
-        $roles = Role::select('name', 'code', 'description', 'id');
-        if (! user()->isRoot()) {
-            $roles = $roles->except(config('auth.rootroles', []));
-        }
-        $roles = $roles->get();
+        $resources = $this->repository;
+        // if (! user()->isRoot()) {
+        //     $roles = $roles->except(config('auth.rootroles', []));
+        // }
+        // $roles = $roles->get();
 
-        $avatars = []; // User::avatars();
-
-        return view("Theme::users.create")->with(compact('roles', 'avatars'));
+        // $avatars = []; // User::avatars();
+        return view('Theme::admin.create')->with(compact('resources', 'avatars'));
     }
 
     /**
@@ -54,6 +50,8 @@ trait UserResourceAdminTrait
      */
     public function store(UserRequest $request)
     {
+        // UserRequest
+        dd($request->all());
         $user = new User();
         $user->prefixname = $request->input('prefixname');
         $user->firstname = $request->input('firstname');
@@ -88,7 +86,7 @@ trait UserResourceAdminTrait
     {
         $resource = $this->repository->find($id);
 
-        return view("Theme::users.show")->with(compact('resource'));
+        return view('Theme::admin.show')->with(compact('resource'));
     }
 
     /**
@@ -100,16 +98,14 @@ trait UserResourceAdminTrait
      */
     public function edit(Request $request, $id)
     {
-        $resource = User::findOrFail($id);
-        $roles = Role::select('name', 'code', 'description', 'id');
-        if (! user()->isRoot()) {
-            $roles = $roles->except(config('auth.rootroles', []));
-        }
-        $roles = $roles->get();
+        $resource = $this->repository->find($id);
+        // $roles = Role::select('name', 'code', 'description', 'id');
+        // if (! user()->isRoot()) {
+        //     $roles = $roles->except(config('auth.rootroles', []));
+        // }
+        // $roles = $roles->get();
 
-        $avatars = []; // User::avatars();
-
-        return view("Theme::users.edit")->with(compact('resource', 'roles', 'avatars'));
+        return view('Theme::admin.edit')->with(compact('resource'));
     }
 
     /**
@@ -154,6 +150,6 @@ trait UserResourceAdminTrait
     {
         $this->repository->destroy($id ?? $request->input('id'));
 
-        return back();
+        return redirect()->route('users.index');
     }
 }

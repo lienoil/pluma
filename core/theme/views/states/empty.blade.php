@@ -1,8 +1,26 @@
 @stack('before-empty')
 
 @section('empty')
-  <section class="text-center justify-center">
-    <h4 class="display-4 text-muted">{{ __('No resource found') }}</h4>
+  <section class="text-center justify-content-center text-muted">
+    <div style="filter: grayscale(0.7);">
+      @include('Theme::icons.man-on-laptop', ['width' => '200px', 'height' => '200px'])
+    </div>
+
+    <div class="text-muted display-6 card-body">
+      @isset($title)
+        {!! $title !!}
+      @else
+        <p><strong>{{ __('No resource found') }}</strong></p>
+      @endisset
+      {!! $text ?? 'This page returned empty results.' !!}
+    </div>
+
+    @if (request()->get('search'))
+      <p>{{ __('Try searching for other keywords') }}</p>
+      <div class="col-12 d-flex mx-auto justify-content-center">
+        @include('Theme::partials.search', ['close' => __('Reload Page')])
+      </div>
+    @endif
   </section>
 @show
 

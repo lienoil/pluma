@@ -105,7 +105,14 @@ class Repository implements RepositoryInterface
      */
     public function delete($id)
     {
-        return $this->model->forceDelete($id);
+        $resources = $this->model
+            ->onlyTrashed()
+            ->whereIn('id', $id)
+            ->get();
+
+        $resources->each(function ($resource) {
+            $resource->forceDelete();
+        });
     }
 
     /**
@@ -121,11 +128,18 @@ class Repository implements RepositoryInterface
     /**
      * Restore model resource.
      *
-     * @param int $id
+     * @param mixed $id
      */
     public function restore($id)
     {
-        return $this->model->restore($id);
+        $resources = $this->model
+            ->onlyTrashed()
+            ->whereIn('id', $id)
+            ->get();
+
+        $resources->each(function ($resource) {
+            $resource->restore();
+        });
     }
 
     /**
@@ -137,5 +151,51 @@ class Repository implements RepositoryInterface
     public function with($relation)
     {
         return $this->model->with($relation);
+    }
+
+    /**
+     * Get the search params.
+     *
+     * @param array $params
+     * @return \Pluma\Models\Model
+     */
+    public function search($params)
+    {
+        $this->model = $this->model->search($params);
+
+        return $this;
+    }
+
+    /**
+     * Retrieve only trashed resources.
+     *
+     * @return \Pluma\Models\Model
+     */
+    public function onlyTrashed()
+    {
+        $this->model = $this->model->onlyTrashed();
+
+        return $this;
+    }
+
+    /**
+     * Get the paginated result.
+     *
+     * @return \Pluma\Models\Model
+     */
+    public function paginate()
+    {
+        if (! request()->get('per_page') || request()->get('per_page') <= 0) {
+            return $this->model->paginate($this->model->count());
+        }
+
+        $perPage = ! request()->get('per_page')
+            ? $this->model->count()
+            : request()->get('per_page');
+
+        $this->model = $this->model->paginate($perPage);
+        $this->model->appends('per_page', $perPage);
+
+        return $this->model;
     }
 }

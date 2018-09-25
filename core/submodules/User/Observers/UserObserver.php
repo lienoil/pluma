@@ -15,8 +15,7 @@ class UserObserver
     public function created(User $resource)
     {
         // save fields
-        session()->flash('title', $resource->name);
-        session()->flash('message', "User successfully created");
+        session()->flash('message', "User successfully added");
         session()->flash('type', 'success');
     }
 
@@ -28,7 +27,6 @@ class UserObserver
      */
     public function updated(User $resource)
     {
-        session()->flash('title', $resource->name);
         session()->flash('message', "User successfully updated");
         session()->flash('type', 'success');
     }
@@ -41,8 +39,7 @@ class UserObserver
      */
     public function deleted(User $resource)
     {
-        session()->flash('title', $resource->name);
-        session()->flash('message', "User successfully removed");
+        session()->flash('message', "User successfully deactivated");
         session()->flash('type', 'success');
     }
 
@@ -54,7 +51,6 @@ class UserObserver
      */
     public function restored(User $resource)
     {
-        session()->flash('title', $resource->name);
         session()->flash('message', "User successfully restored");
         session()->flash('type', 'success');
     }

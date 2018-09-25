@@ -15,9 +15,7 @@
             @include($include)
           @endisset
         </div>
-        <div id="bulk-{{ $id ?? 'modal-id' }}" class="bulk-data">
-          <p class="text-muted text-center">{{ __('No data selected.') }}</p>
-        </div>
+        <div id="bulk-{{ $id ?? 'modal-id' }}" class="bulk-data"></div>
         <div class="modal-footer border-0">
           <button type="submit" class="btn btn-{{ $context }}">{{ $button }}</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>

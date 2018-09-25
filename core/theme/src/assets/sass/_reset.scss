@@ -25,6 +25,17 @@ body.fancy {
   }
 }
 
+noscript {
+  background-color: $primary;
+  color: $white;
+  margin: 0;
+  padding: 2rem;
+  display: block;
+  width: 100vw;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 [role="button"] {
   cursor: pointer;
 }

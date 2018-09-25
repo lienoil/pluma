@@ -33,17 +33,21 @@ trait SearchableTrait
                     $builder->orWhere($column, 'LIKE', "%{$search['search']}%");
                 }
             } else {
+                // unset($search['per_page']);
                 $this->setSearchables($search);
                 foreach ($this->getSearchables() as $column => $value) {
                     $builder->orWhere($column, 'LIKE', "%{$value}%");
                 }
             }
-            return $builder;
+        } else {
+            foreach ($this->getSearchables() as $searchable) {
+                $builder->orWhere($searchable, 'LIKE', "%{$search}%");
+            }
         }
 
-        foreach ($this->getSearchables() as $searchable) {
-            $builder->orWhere($searchable, 'LIKE', "%{$search}%");
-        }
+
+        // Sort & Order
+        $builder = $this->sortAndOrder($builder, $search);
 
         return $builder;
     }
@@ -72,5 +76,21 @@ trait SearchableTrait
     protected function getSearchables()
     {
         return $this->searchables;
+    }
+
+    /**
+     * Sort and order if applicable.
+     *
+     * @param Illuminate\Database\Eloquent\Model $builder
+     * @param array $params
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    protected function sortAndOrder($builder, $params)
+    {
+        if (isset($params['order'])) {
+            $builder = $builder->orderBy($params['sort'], $params['order']);
+        }
+
+        return $builder;
     }
 }

@@ -15,11 +15,12 @@ trait UserResourceSoftDeleteTrait
      */
     public function trashed(Request $request)
     {
-        $resources = User::onlyTrashed()
-                         ->search($request->all())
-                         ->paginate();
+        $resources = $this->repository
+            ->search($request->all())
+            ->onlyTrashed()
+            ->paginate();
 
-        return view("User::users.index")->with(compact('resources'));
+        return view('User::admin.trashed')->with(compact('resources'));
     }
 
     /**
@@ -31,13 +32,9 @@ trait UserResourceSoftDeleteTrait
      */
     public function restore(Request $request, $id = null)
     {
-        $users = User::onlyTrashed()
-                     ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
-                     ->get();
-
-        foreach ($users as $user) {
-            $user->restore();
-        }
+        $this->repository->restore(
+            $request->has('id') ? $request->input('id') : [$id]
+        );
 
         return back();
     }
@@ -49,15 +46,11 @@ trait UserResourceSoftDeleteTrait
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $id = null)
     {
-        $users = User::onlyTrashed()
-                     ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
-                     ->get();
-
-        foreach ($users as $user) {
-            $user->forceDelete();
-        }
+        $this->repository->delete(
+            $request->has('id') ? $request->input('id') : [$id]
+        );
 
         return back();
     }

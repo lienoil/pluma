@@ -19,7 +19,8 @@ class UserController extends GeneralController
         UserResourceSoftDeleteTrait;
 
     /**
-     * Inject the resource model to the model variable.
+     * Inject the resource model to the repository instance.
+     *
      * @param \Pluma\Models\Model $model
      */
     public function __construct(User $model)

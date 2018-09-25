@@ -8,6 +8,11 @@
 		box-shadow: none;
 	}
 
+  &-header, &-footer {
+    // overflow-x: auto;
+    // overflow-y: visible;
+  }
+
 	@media print {
 		box-shadow: none;
 		border: none;

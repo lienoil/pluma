@@ -19,6 +19,10 @@
 	font-size: .875rem;
 	user-select: none;
 
+  &-disabled {
+    filter: grayscale(1);
+  }
+
 	i {
 		font-size: 125%;
 		vertical-align: sub;

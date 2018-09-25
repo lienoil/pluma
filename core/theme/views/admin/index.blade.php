@@ -38,11 +38,6 @@
               </div>
             </div>
           </div>
-          @empty ($resources->items())
-            <div class="card-body">
-              @include('Theme::states.empty')
-            </div>
-          @endempty
           @if ($resources->items())
             @if ($resources->lastPage() > 1)
               <div class="card-header justify-content-end">
@@ -66,18 +61,18 @@
                           @if (request()->get('sort') === $head['column'])
                             @switch (request()->get('order'))
                               @case('asc')
-                                <a href="{{ route("{$text['plural']}.index", ['sort' => $head['column'], 'order' => 'desc']) }}">{{ $head['label'] }} <i class="fa fa-sort-alpha-down"></i></a>
+                                <a href="{{ route("{$text['plural']}.index", url_filter(['sort' => $head['column'], 'order' => 'desc'])) }}">{{ $head['label'] }} <i class="fa fa-sort-alpha-down"></i></a>
                                 @break
 
                               @case('desc')
-                                <a href="{{ route("{$text['plural']}.index") }}">{{ $head['label'] }} <i class="fa fa-sort-alpha-up"></i></a>
+                                <a href="{{ route("{$text['plural']}.index", url_filter(['sort' => '', 'order' => ''])) }}">{{ $head['label'] }} <i class="fa fa-sort-alpha-up"></i></a>
                                 @break
 
                               @default
-                                <a href="{{ route("{$text['plural']}.index", ['sort' => $head['column'], 'order' => 'asc']) }}">{{ $head['label'] }}</a>
+                                <a href="{{ route("{$text['plural']}.index", url_filter(['sort' => $head['column'], 'order' => 'asc'])) }}">{{ $head['label'] }}</a>
                             @endswitch
                           @else
-                            <a href="{{ route("{$text['plural']}.index", ['sort' => $head['column'], 'order' => 'asc']) }}">{{ $head['label'] }}</a>
+                            <a href="{{ route("{$text['plural']}.index", url_filter(['sort' => $head['column'], 'order' => 'asc'])) }}">{{ $head['label'] }}</a>
                           @endif
                         @else
                           <span>{{ $head['label'] }}</span>
@@ -127,6 +122,12 @@
             @endif
           @endif
         </div>
+
+        @empty ($resources->items())
+          <div class="card-body">
+            @include('Theme::states.empty')
+          </div>
+        @endempty
 
       </div>
     </div>

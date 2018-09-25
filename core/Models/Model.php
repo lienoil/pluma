@@ -36,7 +36,10 @@ class Model extends BaseModel
     {
         parent::__construct($attributes);
 
-        $this->perPage = Request::get('per_page') ?? $this->perPage;
+        $this->perPage = (int) request()->get('per_page') > 0
+            ? request()->get('per_page')
+            : $this->perPage;
+
         $this->setPerPage(settings('items_per_page', $this->perPage));
     }
 

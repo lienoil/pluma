@@ -8,7 +8,22 @@
       <div class="col-lg-12">
         <a title="{{ __('Return to all users') }}" role="button" href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="fe fe-arrow-left"></i> {{ __('Back') }}</a>
         <a role="button" href="{{ route('users.edit', $resource->id) }}" class="btn btn-secondary btn-sm"><i class="fe fe-edit-2"></i> {{ __('Edit') }}</a>
-        <a role="button" href="{{ route('users.edit', $resource->id) }}" class="btn btn-secondary btn-sm"><i class="fe fe-edit-2"></i> {{ __('Deactivate') }}</a>
+
+        <button data-modal-toggle type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#delete-single-confirmbox-{{ $resource->id }}" title="{{ __('Move this user to trash') }}">
+          <i class="fe fe-trash-2"></i>
+          {{ __('Deactivate') }}
+        </button>
+        @include('Theme::partials.modal', [
+          'dataset' => false,
+          'id' => 'delete-single-confirmbox-'.$resource->id,
+          'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
+          'lead' => __('You are about to deactivate the selected user.'),
+          'text' => 'If you have selected your account and continued, you will be signed out from the app. Are you sure yout want to continue?',
+          'method' => 'DELETE',
+          'action' => route('users.destroy', $resource->id),
+          'button' => __("Deactivate {$resource->firstname}"),
+          'context' => 'warning',
+        ])
       </div>
     </div>
   </header>
@@ -25,8 +40,7 @@
             <img data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="{{ $resource->photo }}" alt="{{ $resource->alt }}">
           @show
 
-          @section('user.sidemenu')
-          @show
+          @yield('user.sidemenu')
         </div>
       @show
 

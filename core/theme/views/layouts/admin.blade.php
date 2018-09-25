@@ -37,16 +37,16 @@
       @show
 
       @stack('after-content')
+        {{--  @include('Theme::partials.rightsidebar')
+        @include('Theme::partials.dialog') --}}
     </main>
 
+    {{-- Snackbar Alert --}}
+    @include('Theme::partials.snackbar')
+    {{-- Snackbar Alert --}}
     @include('Theme::partials.endnote')
 
   </div>
 @endsection
-
-@push('after-content')
- {{--  @include('Theme::partials.rightsidebar')
-  @include('Theme::partials.dialog') --}}
-@endpush
 
 @section('footer', '')

@@ -5,6 +5,7 @@ namespace User\Repositories;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\Rule;
 use Pluma\Support\Repository\Repository;
+use Role\Models\Role;
 use User\Models\User;
 
 class UserRepository extends Repository
@@ -50,5 +51,15 @@ class UserRepository extends Repository
         return [
             'roles.required' => 'Atleast one role is required.',
         ];
+    }
+
+    /**
+     * Retrieve the roles list.
+     *
+     * @return array
+     */
+    public function roles()
+    {
+        return Role::all();
     }
 }

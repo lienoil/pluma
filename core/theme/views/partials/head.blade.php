@@ -64,3 +64,6 @@
   @stack('after-css')
 </head>
 <body>
+  @push('head.noscript')
+    @include('Theme::partials.noscript')
+  @show
