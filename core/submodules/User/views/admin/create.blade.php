@@ -17,22 +17,6 @@
 
       <div class="row">
 
-        @section('user.sidebar')
-          <div class="col-lg-auto col-sm-12">
-            @section('user.avatar')
-              <div class="card">
-                <div class="card-body">
-                  <img role="button" data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-                  <button class="btn btn-secondary btn-block"><i class="fe fe-upload"></i> {{ __('Upload') }}</button>
-                </div>
-              </div>
-            @show
-
-            @section('user.sidemenu')
-            @show
-          </div>
-        @show
-
         @section('user.main')
           <div class="col-lg col-sm-12">
             <div class="mb-7">
@@ -43,10 +27,15 @@
                       <div class="form-group mb-5">
                         <label class="form-label" for="firstname">{{ __('First name') }}</label>
                         <div class="input-icon">
-                          <span class="input-icon-addon">
-                            <i class="fe fe-user"></i>
-                          </span>
-                          <input id="firstname" type="text" name="firstname" class="form-control" aria-describedby="firstname" value="{{ old('firstname') }}">
+                          @if (! $errors->has('firstname'))
+                            <span class="input-icon-addon">
+                              <i class="fe fe-user"></i>
+                            </span>
+                          @endif
+                          <input id="firstname" type="text" name="firstname" class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" aria-describedby="firstname" value="{{ old('firstname') }}">
+                          @if ($errors->has('firstname'))
+                            <div class="invalid-feedback">{{ __($errors->first('firstname')) }}</div>
+                          @endif
                         </div>
                       </div>
                     </div>
@@ -54,14 +43,20 @@
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="middlename">{{ __('Middle name') }}</label>
-                        <input id="middlename" type="text" name="middlename" class="form-control" aria-describedby="middlename" value="{{ old('middlename') }}">
+                        <input id="middlename" type="text" name="middlename" class="form-control {{ $errors->has('middlename') ? 'is-invalid' : '' }}" aria-describedby="middlename" value="{{ old('middlename') }}">
+                        @if ($errors->has('middlename'))
+                          <div class="invalid-feedback">{{ __($errors->first('middlename')) }}</div>
+                        @endif
                       </div>
                     </div>
 
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="lastname">{{ __('Last name') }}</label>
-                        <input id="lastname" type="text" name="lastname" class="form-control" aria-describedby="lastname" value="{{ old('lastname') }}">
+                        <input id="lastname" type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" aria-describedby="lastname" value="{{ old('lastname') }}">
+                        @if ($errors->has('lastname'))
+                          <div class="invalid-feedback">{{ __($errors->first('lastname')) }}</div>
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -76,11 +71,14 @@
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="roles[]">{{ __('Roles') }}</label>
-                        <select id="roles" data-selectpicker type="text" name="roles[]" class="form-control" aria-describedby="role[]">
+                        <select id="roles" data-selectpicker type="text" name="roles[]" class="form-control {{ $errors->has('roles') ? 'is-invalid' : '' }}" aria-describedby="role[]">
                           @foreach ($resources->roles() as $role)
                             <option value="{{ $role->id }}" data-icon="{{ $role->icon }}">{{ $role->name }}</option>
                           @endforeach
                         </select>
+                        @if ($errors->has('roles'))
+                          <div class="invalid-feedback">{{ __($errors->first('roles')) }}</div>
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -90,17 +88,25 @@
                       <div class="form-group mb-5">
                         <label class="form-label" for="email">{{ __('Email') }}</label>
                         <div class="input-icon">
-                          <span class="input-icon-addon">
-                            <i class="fe fe-mail"></i>
-                          </span>
-                          <input id="email" type="email" name="email" class="form-control" aria-describedby="email" value="{{ old('email') }}">
+                          @if (! $errors->has('email'))
+                            <span class="input-icon-addon">
+                              <i class="fe fe-mail"></i>
+                            </span>
+                          @endif
+                          <input id="email" type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" aria-describedby="email" value="{{ old('email') }}">
+                          @if ($errors->has('email'))
+                            <div class="invalid-feedback">{{ __($errors->first('email')) }}</div>
+                          @endif
                         </div>
                       </div>
                     </div>
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="username">{{ __('Username') }}</label>
-                        <input id="username" type="text" name="username" class="form-control" aria-describedby="username" value="{{ old('username') }}">
+                        <input id="username" type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="username" value="{{ old('username') }}">
+                        @if ($errors->has('username'))
+                          <div class="invalid-feedback">{{ __($errors->first('username')) }}</div>
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -109,14 +115,21 @@
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="password">{{ __('Password') }}</label>
-                        <input id="password" type="password" name="password" class="form-control" aria-describedby="password" value="{{ old('password') }}">
+                        <input id="password" type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" aria-describedby="password" value="{{ old('password') }}">
+                        @if ($errors->has('password'))
+                          <div class="invalid-feedback">{{ __($errors->first('password')) }}</div>
+                        @endif
                       </div>
                     </div>
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="password_confirmation">{{ __('Password Confirmation') }}</label>
-                        <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" aria-describedby="password_confirmation" value="{{ old('password_confirmation') }}">
-                        <div class="feedback text-muted small">{{ __('Retype password') }}</div>
+                        <input id="password_confirmation" type="password" name="password_confirmation" class="form-control  {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" aria-describedby="password_confirmation" value="{{ old('password_confirmation') }}">
+                        @if ($errors->has('password_confirmation'))
+                          <div class="invalid-feedback">{{ __($errors->first('password_confirmation')) }}</div>
+                        @else
+                          <div class="feedback text-muted small">{{ __('Retype password') }}</div>
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -257,6 +270,22 @@
                 </footer>
               </div>
             </div>
+          </div>
+        @show
+
+        @section('user.sidebar')
+          <div class="col-lg-auto col-sm-12">
+            @section('user.avatar')
+              <div class="card">
+                <div class="card-body">
+                  <img role="button" data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                  <button class="btn btn-secondary btn-block"><i class="fe fe-upload"></i> {{ __('Upload') }}</button>
+                </div>
+              </div>
+            @show
+
+            @section('user.sidemenu')
+            @show
           </div>
         @show
 
