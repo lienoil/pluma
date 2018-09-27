@@ -21,7 +21,7 @@
       <v-menu full-width>
         <v-btn slot="activator" icon v-tooltip:left="{ html: 'More Actions' }"><v-icon>more_vert</v-icon></v-btn>
         <v-list>
-        @can('bookmark-course')
+        {{-- @can('bookmark-course') --}}
             @if (! $resource->bookmarked)
                 <v-list-tile avatar ripple @click="$refs.bookmark_form.submit()">
                     <v-list-tile-avatar>
@@ -49,7 +49,7 @@
                     </v-list-tile-title>
                 </v-list-tile>
             @endif
-        @endcan
+        {{-- @endcan --}}
         </v-list>
       </v-menu>
     </v-toolbar>

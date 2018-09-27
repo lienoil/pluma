@@ -2,11 +2,12 @@
 
 return [
     /**
-     * ---------------------------------------------------------
+     * -----------------------------------------------------
      * Courses Menus
-     * ---------------------------------------------------------
+     * -----------------------------------------------------
      *
      * Specify here the menus to appear on the sidebar.
+     *
      *
      */
     'course' => [
@@ -17,14 +18,13 @@ return [
         'icon' => 'collections_bookmark',
         'labels' => [
             'title' => __('Courses'),
-            'description' => __('Manage courses'),
+            'description' => __('Manage Courses'),
         ],
         'children' => [
-
             /**
-             * ----------------------------------------------
+             * --------------------------------------------
              * Administrative Routes for Courses
-             * ----------------------------------------------
+             * --------------------------------------------
              *
              * These routes will be handled by CourseController.
              * This are the typical CRUD menus including index,
@@ -36,7 +36,7 @@ return [
                 'order' => 2,
                 'slug' => route('courses.index'),
                 'routes' => [
-                    'name' => 'courses.index',
+                    'name' => 'view-course',
                     'children' => [
                         'courses.edit',
                         'courses.show',
@@ -74,11 +74,11 @@ return [
             ],
 
             /**
-             * -------------------------------------------------------
+             * --------------------------------------------
              * Public Courses
-             * -------------------------------------------------------
+             * --------------------------------------------
              *
-             * These entry includes routes from routes/pulic.php and serve as
+             * These entry includes routes from routes/public.php and serve as
              * a sidebar shortcut link.
              *
              */
@@ -86,14 +86,14 @@ return [
                 'name' => 'all-course',
                 'order' => 5,
                 'slug' => route('courses.all'),
-                'code' => 'all-course',
+                'code' => 'courses.all',
                 'always_viewable' => false,
                 'exclude_from_root' => true,
                 'routes' => [
-                    'name' => 'courses.all',
+                    'name' => 'all-course',
                     'children' => [
                         'courses.single',
-                    ]
+                    ],
                 ],
                 'labels' => [
                     'title' => __('All Courses'),
@@ -102,16 +102,16 @@ return [
             ],
 
             /**
-             * ---------------------------------------------------
+             * ---------------------------------------------
              * My Courses
-             * ---------------------------------------------------
+             * ---------------------------------------------
              *
              * These routes will be handled by MyCourseController.
-             * They can be found in routes/admin.php # My Courses
+             * They can be found in routes/admin.php # MyCourses
              */
             'my-courses' => [
                 'name' => 'my-courses',
-                'code' => 'my-courses',
+                'code' => 'courses.my',
                 'order' => 6,
                 'slug' => route('courses.my'),
                 'always_viewable' => false,
@@ -124,7 +124,7 @@ return [
 
             'bookmarked-courses' => [
                 'name' => 'bookmarked-courses',
-                'code' => 'bookmarked-courses',
+                'code' => 'courses.bookmarked',
                 'order' => 7,
                 'slug' => route('courses.bookmarked'),
                 'icon' => 'bookmark',

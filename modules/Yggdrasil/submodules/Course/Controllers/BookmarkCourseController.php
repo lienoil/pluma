@@ -64,9 +64,4 @@ class BookmarkCourseController extends AdminController
             return back();
         }
     }
-
-    public function try()
-    {
-        # code...
-    }
 }

@@ -9,7 +9,6 @@ use Content\Support\Traits\ContentMutator;
 use Lesson\Support\Traits\BelongsToLesson;
 use Lesson\Support\Traits\HasCourseThroughLesson;
 use Library\Support\Traits\BelongsToLibrary;
-use Pluma\Models\Model;
 
 class Content extends Model
 {
@@ -33,5 +32,5 @@ class Content extends Model
         'url',
     ];
 
-    protected $searchables = ['title', 'body', 'created_at', 'updated_at'];
+    protected $searchables = ['title', 'body', 'created_at', 'updated_at']
 }

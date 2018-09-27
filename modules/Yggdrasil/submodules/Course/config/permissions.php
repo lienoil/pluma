@@ -86,22 +86,22 @@ return [
      * ------------------------------------------------------------------------------
      */
     'view-enrolled-courses' => [
-        'name' => 'courses.enrolled.index',
-        'code' => 'view-enrolled-courses',
+        'name' => 'view-enrolled-courses',
+        'code' => 'courses.enrolled.index',
         'description' => 'Ability to view enrolled courses',
-        'group' => ['course', 'student'],
+        'group' => 'course',
     ],
     'show-enrolled-courses' => [
-        'name' => 'courses.enrolled.show',
-        'code' => 'show-enrolled-courses',
+        'name' => 'show-enrolled-courses',
+        'code' => 'courses.enrolled.show',
         'description' => 'Ability to view enrolled courses',
-        'group' => ['course', 'student'],
+        'group' => 'course',
     ],
     'enroll-course' => [
-        'name' => 'courses.enroll',
-        'code' => 'enroll-course',
+        'name' => 'enroll-course',
+        'code' => 'courses.enroll',
         'description' => 'Ability to enroll to a course',
-        'group' => ['course', 'student'],
+        'group' => 'course',
     ],
 
     /**
@@ -110,22 +110,22 @@ return [
      * ------------------------------------------------------------------------------
      */
     'all-course' => [
-        'name' => 'courses.all',
-        'code' => 'all-course',
+        'name' => 'all-course',
+        'code' => 'courses.all',
         'description' => 'Ability to view list of courses',
-        'group' => 'student',
+        'group' => 'course',
     ],
     'single-course' => [
-        'name' =>  'courses.single',
-        'code' => 'single-course',
+        'name' =>  'single-course',
+        'code' => 'courses.single',
         'description' => 'Ability to view single course',
-        'group' => 'student',
+        'group' => 'course',
     ],
     'my-courses' => [
-        'name' => 'courses.my',
-        'code' => 'my-courses',
+        'name' => 'my-courses',
+        'code' => 'courses.my',
         'description' => 'Ability to view owned courses',
-        'group' => 'student',
+        'group' => 'course',
     ],
 
     /**
@@ -134,21 +134,21 @@ return [
      * ------------------------------------------------------------------------------
      */
     'bookmarked-courses' => [
-        'name' => 'courses.bookmarked',
-        'code' => 'bookmarked-courses',
+        'name' => 'bookmarked-courses',
+        'code' => 'courses.bookmarked',
         'description' => 'Ability to view list bookmarked courses',
-        'group' => 'student',
+        'group' => 'course',
     ],
     'bookmark-course' => [
-        'name' => 'courses.bookmark',
-        'code' => 'bookmark-course',
+        'name' => 'bookmark-course',
+        'code' => 'courses.bookmark',
         'description' => 'Ability to remove from a course from bookmark list',
-        'group' => 'student',
+        'group' => 'course',
     ],
     'unbookmark-course' => [
-        'name' => 'courses.unbookmark',
-        'code' => 'unbookmark-course',
+        'name' => 'unbookmark-course',
+        'code' => 'courses.unbookmark',
         'description' => 'Ability to remove from a course from bokmarks list',
-        'group' => 'student',
+        'group' => 'course',
     ],
 ];

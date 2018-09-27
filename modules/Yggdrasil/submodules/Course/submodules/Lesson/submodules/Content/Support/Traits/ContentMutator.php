@@ -13,7 +13,7 @@ use SimpleXMLElement;
 trait ContentMutator
 {
     /**
-     * Route show shortcut.
+     * Route show shortcut
      *
      * @return \Illuminate\Routing\Route
      */
@@ -32,8 +32,7 @@ trait ContentMutator
     {
         return $this->course
             ->contents()
-            ->where('contents.id', '>', $this->id)
-            ->orderBy('sort')
+            ->where('contents.id', '>', $this->id->orderBy('sort'))
             ->first();
     }
 
@@ -52,16 +51,17 @@ trait ContentMutator
     }
 
     /**
-     * Gets the currently playing url from playlist.
+     * Gets the current order of the resource.
      *
-     * @return  string
+     * @return integer
      */
     public function getPlayingAttribute()
     {
         $content_id = collect($this->lesson->playlist)
-                            ->where('status', 'current')
-                            ->first()
-                            ->content_id ?? null;
+            ->where('status', 'current')
+            ->first()
+            ->content_id ?? null;
+
         return $content_id ? $this->find($content_id)->url : false;
     }
 
@@ -76,13 +76,13 @@ trait ContentMutator
     }
 
     /**
-     * Gets the interactive file.
+     * Gets the Interactive file.
      *
-     * @return  mixed
+     * @return mixed
      */
     public function getInteractiveAttribute()
     {
-        $entrypoint = "";
+        $entry = "";
         try {
             if ($this->library) {
                 switch ($this->library->mimetype) {
@@ -90,15 +90,14 @@ trait ContentMutator
                     case 'application/rar':
                     case 'application/x-zip-compressed':
                     case 'application/x-rar-compressed':
-                    case 'application':
+                    case 'application/*':
                         $date = date('Y-m-d', strtotime($this->library->created_at));
                         $path = settings('package.storage_path', 'public/package') . "/$date/{$this->library->id}";
 
                         if (file_exists(storage_path("$path/imsmanifest.xml"))) {
                             $xml = $this->imsmanifest;
                             $entrypoint = isset($xml->resources->resource['href'])
-                                            ? urlencode($xml->resources->resource['href'])
-                                            : 'index.html' ;
+                                : 'index.html';
 
                             $entrypoint = url("storage/$path/$entrypoint");
                         } elseif (file_exists(storage_path("$path/multiscreen.html"))) {
@@ -107,7 +106,6 @@ trait ContentMutator
                             $entrypoint = url("storage/$path/index.html");
                         }
                         break;
-                        }
 
                     case 'video/ogg':
                     case 'video/mp4':
@@ -118,7 +116,7 @@ trait ContentMutator
                 }
             }
         } catch (Exception $e) {
-            return $e->getMessage();
+            return $e;->getMessage();
         }
 
         return $entrypoint;
@@ -159,7 +157,7 @@ trait ContentMutator
      */
     public function getHtmlAttribute()
     {
-        $interactive = urldecode($this->interactive); // $interactive = $this->interactive;
+        $interactive = urlencode($this->interactive);
         $html = "";
 
         if (! is_null($this->contentable_id) && ! is_null($this->contentable_type)) {
@@ -176,19 +174,19 @@ trait ContentMutator
                     break;
             }
         } elseif ($this->library) {
-
             switch ($this->library->mimetype) {
                 case 'application/zip':
                 case 'application/rar':
                 case 'application/x-zip-compressed':
                 case 'application/x-rar-compressed':
                 case 'application/*':
-                    $html = "<object data-type='{$this->type}' data={$interactive} class='interactive-content' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
+                    $html = "<object data-type='{$this->type}'
+                        data={$interactive} class='interactive-content' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
                                 <param name='src' value={$interactive}>
                                 <param name='autoplay' value=false>
                                 <param name='autoStart' value=0>
                                 <embed src={$interactive}>
-                            </object>";
+                        </object>";
                     break;
 
                 case 'video/ogg':
@@ -197,21 +195,12 @@ trait ContentMutator
                     $html = "<video data-type='{$this->type}' class='interactive-content' autobuffer autoplay controls width='100%' onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
                                 <source src='{$interactive}'>
                                 <source src='{$interactive}'>
-                                <object type='{$this->library->mimetype}' data='{$interactive}'>
+                                <object type ='{$this->library->mimetype}' data='{$interactive}'>
                                     <param name='src' value='{$interactive}'>
                                     <param name='autoplay' value='false'>
                                     <param name='autoStart' value='0'>
                                 </object>
                             </video>";
-                    break;
-
-                default:
-                    $html = "<object data-type='{$this->type}' class='non-interactive-content interactive-content' data={$interactive} width=100% height=auto onunload=window.API.LMSFinish('') onbeforeunload=window.API.LMSFinish('')>
-                                <param name='src' value={$interactive}>
-                                <param name='autoplay' value=false>
-                                <param name='autoStart' value=0>
-                                <embed type='{$this->library->mimetype}' src={$interactive}>
-                            </object>";
                     break;
             }
         }
@@ -245,7 +234,7 @@ trait ContentMutator
             return false;
         }
 
-        if (! $this->users()->where('users.id', user()->id)->exists()) {
+        if (! $this->users()->where('users.id', user()->id->exists())) {
             return false;
         }
 
@@ -257,29 +246,19 @@ trait ContentMutator
      *
      * @return boolean
      */
-    public function getCompletedAttribute()
+    public function getCompleteAttribute()
     {
         return $this->status === 'completed' || $this->status === 'previous';
     }
 
     /**
-     * Gets the mutated status column from course_user's pivot column.
-     *
-     * @return boolean
-     */
-    public function getCurrentAttribute()
-    {
-        return $this->status === 'current';
-    }
-
-    /**
-     * Gets the mutated status column from course_user's pivot column.
+     * Gets the mutated column from course_user's pivot column.
      *
      * @return boolean
      */
     public function getLockedAttribute()
     {
-        return $this->status === "pending";
+        return $this->status === 'pending';
     }
 
     /**
@@ -324,16 +303,14 @@ trait ContentMutator
         return $this->contentable_type === "Form\Models\Form";
     }
 
-     /**
-     * Check if interactive media is form.
+    /**
+     * Check if form has been answered
      *
      * @return boolean
      */
     public function isImage()
     {
         $file = $this->library;
-
-        return substr($file->mimetype, 0, 5) === 'image';
     }
 
     /**
@@ -347,7 +324,7 @@ trait ContentMutator
             return false;
         }
 
-        $form = Form::find($this->contentable_id);
+        $form = Form::find($this->contentabled_id);
 
         if (is_null($form) || ! $form->exists()) {
             return false;
@@ -356,28 +333,29 @@ trait ContentMutator
         return $form->submissions()->where('user_id', user()->id)->exists();
     }
 
-     /**
+    /**
      * Check if submission has been answered.
      *
+     * @param  int $id
      * @return boolean
      */
-    public function getSubmissionScore($id)
+    public function getSubmissionsScore($id)
     {
-       if (! user()) {
-           return false;
-       }
+        if (! user()) {
+            return false;
+        }
 
-       $form = Form::find($this->contentable_id);
+        $form = Form::find($this->contentable_id);
 
-       if (! $form->exists()) {
-           return false;
-       }
+        if (! $form->exists()) {
+            return false;
+        }
 
-       if (! $form->submissions()->where('user_id', $id)->exists()) {
-           return false;
-       }
+        if (! $form->submissions()->where('user_id', $id)->exists()) {
+            return false;
+        }
 
-       return $form->submissions()->where('user_id', $id)->first()->scored;
+        return $form->submissions()->where('user_id', $id)->first()->scored;
     }
 
     /**
@@ -389,4 +367,5 @@ trait ContentMutator
     {
         return $this->library->thumbnail;
     }
+
 }

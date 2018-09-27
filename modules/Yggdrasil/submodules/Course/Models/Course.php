@@ -6,12 +6,12 @@ use Bookmark\Support\Relations\MorphManyBookmarks;
 use Bookmark\Support\Traits\Bookmarkable;
 use Category\Support\Relations\BelongsToCategory;
 use Comment\Support\Relations\MorphManyComments;
-use Course\Support\Mutators\CourseMutator;
+use Course\Support\Accessors\CourseAccessor;
+use Course\Support\Accessors\EnrolledUserAccessor;
 use Course\Support\Relations\BelongsToManyUsers;
 use Course\Support\Scopes\EnrolledToACourse;
 use Course\Support\Scopes\OnlyBookmarkedByScope;
 use Course\Support\Traits\CourseCommitTrait;
-use Course\Support\Traits\EnrolledUserMutator;
 use Form\Support\Relations\BelongsToManyForms;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Lesson\Support\Traits\HasManyContentsThroughLesson;
@@ -29,9 +29,9 @@ class Course extends Model
         BelongsToUser, // Author of the Course (courses.user_id)
         MorphManyBookmarks,
         CourseCommitTrait,
-        CourseMutator,
+        CourseAccessor,
         EnrolledToACourse,
-        EnrolledUserMutator,
+        EnrolledUserAccessor,
         BelongsToManyForms,
         HasManyContentsThroughLesson,
         HasManyLessons,

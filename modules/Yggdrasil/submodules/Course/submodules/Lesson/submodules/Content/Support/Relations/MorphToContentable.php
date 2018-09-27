@@ -5,7 +5,7 @@ namespace Content\Support\Relations;
 trait MorphToContentable
 {
     /**
-     * Get all of the owning bookmarkable models.
+     * Get all of the owning bookmarkabele models.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
