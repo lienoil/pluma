@@ -2,7 +2,7 @@
 
 namespace Lesson\Support\Traits;
 
-use Lesson\Models\Lesson;
+use Course\Models\Lesson;
 
 trait HasManyLessons
 {

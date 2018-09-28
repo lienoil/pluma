@@ -24,7 +24,8 @@ trait LessonMutator
      */
     public function getContentsCountAttribute()
     {
-        return $this->contents->count() . ' ' . ($this->contents->count() > 1 ? __('Contents') : __('Content'));
+        return $this->contents->count() . ' ' .
+            ($this->contents->count() > 1 ? __('Contents') : __('Content'));
     }
 
     /**
@@ -34,7 +35,7 @@ trait LessonMutator
      */
     public function getProgressAttribute()
     {
-        return (float) number_format((float) (($this->completed * 100) / $this->contents->count()), 2);
+        return (float) number_format((float)(($this->completed * 100) / $this->contents->count()), 2);
     }
 
     /**
@@ -57,7 +58,7 @@ trait LessonMutator
     }
 
     /**
-     * Gets the progress of user in percentage
+     * Gets the progress of user in percentage.
      *
      * @return string
      */

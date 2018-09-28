@@ -6,9 +6,14 @@ use Pluma\Requests\FormRequest;
 
 class LessonRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize()
     {
-        switch ($this->method) {
+        switch ($this->method()) {
             case 'POST':
                 if ($this->user()->can('store-lesson')) {
                     return true;
@@ -42,7 +47,7 @@ class LessonRequest extends FormRequest
      */
     public function rules()
     {
-        $isUpdating = $this->method() === "PUT" ? ",id,$this->id": "";
+        $isUpdating = $this->method() == "PUT" ? ",id,$this->id" : "";
 
         return [
             'name' => 'required|max:255',
@@ -50,11 +55,15 @@ class LessonRequest extends FormRequest
         ];
     }
 
+    /**
+     * The array of override messages to use.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
             'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
         ];
     }
-
 }

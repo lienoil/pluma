@@ -2,6 +2,7 @@
 
 namespace Lesson\Support\Traits;
 
+use Content\Models\Content;
 use Course\Models\Lesson;
 
 trait HasManyContentsThroughLesson
@@ -9,7 +10,7 @@ trait HasManyContentsThroughLesson
     /**
      * Get the lessons for the resource.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return  \Illuminatte\Database\Eloquent\Model
      */
     public function contents()
     {
