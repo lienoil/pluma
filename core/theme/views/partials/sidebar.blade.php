@@ -1,4 +1,4 @@
-<nav id="sidebar" class="sidebar active p-4 pb-2 sidebar-fixed" data-sidebar>
+<nav id="sidebar" class="sidebar sidebar-fixed bg-workspace active p-4 pb-2" data-sidebar>
   <header class="sidebar-header">
     <img width="80px" height="80px" class="sidebar-brand img-fit" src="{{ $application->site->logo }}">
     <h2 class="sidebar-title">{{ $application->site->title }}</h2>
@@ -76,9 +76,8 @@
     </div>
   </div>
   @section('sidebar-footer')
-  <div class="sidebar-footer">
-    <a role="button" class="btn btn-block btn-secondary">{{ __('Create Timesheet') }}</a>
-    {{-- <small class="text-muted text-center d-block">{{ $application->version }}</small> --}}
-  </div>
+    <div class="sidebar-footer">
+      <small class="text-muted text-center d-block">{{ $application->version }}</small>
+    </div>
   @show
 </nav>

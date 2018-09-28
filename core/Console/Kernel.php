@@ -4,6 +4,7 @@ namespace Pluma\Console;
 
 use Pluma\Console\Commands\Scheduling\Schedule;
 use Pluma\Support\Console\Kernel as ConsoleKernel;
+use Symfony\Component\Finder\Finder;
 
 class Kernel extends ConsoleKernel
 {
@@ -36,6 +37,8 @@ class Kernel extends ConsoleKernel
     {
         $this->load(core_path('routes/console.php'));
 
+        $this->loadCommandsFromBlacksmithCommands();
+
         $this->loadCommandsFromCore();
 
         $this->loadCommandsFromModules();
@@ -52,6 +55,30 @@ class Kernel extends ConsoleKernel
     public function load($command)
     {
         require $command;
+    }
+
+    /**
+     * Loads the commands from the commands folder.
+     *
+     * @return void
+     */
+    protected function loadCommandsFromBlacksmithCommands()
+    {
+        $path = blacksmith_path('Console/Commands');
+
+        $files = Finder::create()
+                       ->files()
+                       ->notName('BaseCommand.php')
+                       ->name('*Command.php')
+                       ->in($path);
+
+        foreach ($files as $file) {
+            $command = str_replace($path.DIRECTORY_SEPARATOR, '', $file->getRealPath());
+            $command = str_replace(".php", '', $command);
+            $command = str_replace(DIRECTORY_SEPARATOR, '\\', $command);
+
+            $this->commands[] = "Blacksmith\\Console\\Commands\\{$command}";
+        }
     }
 
     /**

@@ -46,7 +46,7 @@
     @if (settings('is_rtl', false))
       <link rel="preload" href="{{ theme('dist/app.rtl.min.css') }}" as="style">
     @else
-      <link rel="preload" href="{{ theme('dist/app.min.css') }}" as="style">
+      <link rel="preload" href="{{ theme('dist/app.min.css') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}" as="style">
     @endif
     {{--
       This line is only a preload.
@@ -58,7 +58,7 @@
     @if (settings('is_rtl', false))
       <link rel="stylesheet" href="{{ theme('dist/app.rtl.min.css') }}">
     @else
-      <link rel="stylesheet" type="text/css" href="{{ theme('dist/app.min.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ theme('dist/app.min.css') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}">
     @endif
   @show
   @stack('after-css')

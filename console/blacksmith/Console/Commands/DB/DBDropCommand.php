@@ -27,7 +27,7 @@ class DBDropCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Truncate the tables specified';
+    protected $description = 'Drop the tables specified. Also drops all versions of the table.';
 
     /**
      * The migrator instance.
@@ -103,12 +103,11 @@ class DBDropCommand extends Command
                 $this->warn('Another one bites the dust...');
             } else {
                 $this->warn("No table named `$table` found.");
-                break;
+                // break;
             }
 
             // Remove from migrations table
             $className = strtolower($table)."_table";
-            $this->migrator->getRepository()->delete($className);
             DB::table(config('database.migrations'))->where('migration', 'LIKE', '%'.$className)->delete();
         }
     }

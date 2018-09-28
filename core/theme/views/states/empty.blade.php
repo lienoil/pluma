@@ -7,12 +7,12 @@
     </div>
 
     <div class="text-muted display-6 card-body">
-      @isset($title)
-        {!! $title !!}
+      @isset($states['empty']['title'])
+        {!! $states['empty']['title'] !!}
       @else
         <p><strong>{{ __('No resource found') }}</strong></p>
       @endisset
-      {!! $text ?? 'This page returned empty results.' !!}
+      {!! $states['empty']['text'] ?? 'This page returned empty results.' !!}
     </div>
 
     @if (request()->get('search'))

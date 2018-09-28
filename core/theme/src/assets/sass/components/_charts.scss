@@ -49,3 +49,23 @@ $sizes: (
 		font-size: px2rem(15px);
 	}
 }
+
+.chart .c3-target-primary path.c3-shape {
+  stroke: $primary !important;
+  fill: $primary !important;
+}
+
+.chart .c3-target-accent path.c3-shape {
+  stroke: $accent !important;
+  fill: $accent !important;
+}
+
+.chart .c3-target-danger path.c3-shape {
+  stroke: $danger !important;
+  fill: $danger !important;
+}
+
+.chart .c3-target-success path.c3-shape {
+  stroke: $success !important;
+  fill: $success !important;
+}

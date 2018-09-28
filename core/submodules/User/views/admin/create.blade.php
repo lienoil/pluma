@@ -1,19 +1,26 @@
 @extends('Theme::layouts.admin')
 
-@section('page-title', '')
+@section('main-title', '')
 
 @section('page-content')
   <div class="container-fluid">
     <form action="{{ route('users.store') }}" method="POST">
       {{ csrf_field() }}
-      <div class="row mb-6">
-        <div class="col">
-          <h1 class="page-title">Create User</h1>
+      <div data-sticky="#page-header"></div>
+      <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar row">
+        <h1 class="page-title">{{ __('Create User') }}</h1>
+        <button type="submit" class="btn btn-primary btn-lg"><i class="fe fe-save"></i> {{ __('Save') }}</button>
+      </nav>
+      {{-- <div class="row sticky">
+        <div class="card p-3">
+          <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-auto">
+            </div>
+          </div>
         </div>
-        <div class="col-auto">
-          <button type="submit" class="btn btn-primary btn-lg">{{ __('Save') }}</button>
-        </div>
-      </div>
+      </div> --}}
 
       <div class="row">
 
@@ -22,6 +29,12 @@
             <div class="mb-7">
               <div class="card">
                 <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <h6 class="form-label text-uppercase text-muted mb-4">{{ __('Account') }}</h1>
+                    </div>
+                  </div>
+
                   <div class="row">
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
@@ -62,12 +75,6 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-12">
-                      <h1 class="form-label mb-4">{{ __('Account') }}</h1>
-                    </div>
-                  </div>
-
-                  <div class="row">
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="roles[]">{{ __('Roles') }}</label>
@@ -103,7 +110,7 @@
                     <div class="col-lg col-sm-12">
                       <div class="form-group mb-5">
                         <label class="form-label" for="username">{{ __('Username') }}</label>
-                        <input id="username" type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="username" value="{{ old('username') }}">
+                        <input id="username" type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="username" value="{{ old('username') }}" autocomplete="off">
                         @if ($errors->has('username'))
                           <div class="invalid-feedback">{{ __($errors->first('username')) }}</div>
                         @endif
@@ -139,7 +146,7 @@
                 <div class="card-body py-0 border-0">
                   <div class="row">
                     <div class="col-lg-12">
-                      <h1 class="form-label mb-4">{{ __('Additional Background Details') }}</h1>
+                      <h6 class="form-label text-uppercase text-muted mb-4">{{ __('Additional Background Details') }}</h6>
                     </div>
                   </div>
                 </div>
@@ -204,6 +211,7 @@
                     </tr>
 
                     {{-- Old value --}}
+                    {{-- {{ dd(old('details')) }} --}}
                     @if (old('details'))
                       @foreach (collect(old('details'))->except(['address', 'phone', 'birthday']) as $i => $detail)
                         <tr data-dynamic-item data-dynamic-item-number="{{ $i }}">
@@ -211,7 +219,7 @@
                             @include('Theme::fields.select-icons', [
                               'name' => 'details['.$i.'][icon]',
                               'value' => $detail['icon'],
-                              'attr' => 'data-selectpicker',
+                              'attr' => 'data-selectpicker data-live-search="true"',
                             ])
                           </td>
                           <td>
@@ -234,9 +242,12 @@
                     {{-- Old value --}}
 
                     {{-- Dynamic Template --}}
-                    <tr data-dynamic-item-template data-dynamic-item-number="{{ $i ?? 0 }}">
+                    <tr data-dynamic-item-template>
                       <td class="pl-5">
-                        @include('Theme::fields.select-icons')
+                        @include('Theme::fields.select-icons', [
+                          'name' => 'details[#][icon]',
+                          'attr' => 'disabled',
+                        ])
                       </td>
                       <td>
                         <div class="form-group mb-0">
@@ -264,25 +275,27 @@
                   </tbody>
                 </table>
 
-                <footer class="card-footer border-0 d-flex bg-light">
-                  <div class="w-100"></div>
-                  <button type="submit" class="btn btn-primary btn-lg">{{ __('Save') }}</button>
-                </footer>
               </div>
             </div>
           </div>
+
         @show
 
         @section('user.sidebar')
-          <div class="col-lg-auto col-sm-12">
-            @section('user.avatar')
-              <div class="card">
-                <div class="card-body">
-                  <img role="button" data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-                  <button class="btn btn-secondary btn-block"><i class="fe fe-upload"></i> {{ __('Upload') }}</button>
-                </div>
+          <div class="col-lg-3 col-sm-12">
+            <div class="row">
+              <div class="col-sm-12 order-lg-2 order-1">
+                @section('user.avatar')
+                  <div class="card">
+                    <div class="card-body">
+                      <img role="button" data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                      <button type="button" class="btn btn-secondary btn-block"><i class="fe fe-upload"></i> {{ __('Upload') }}</button>
+                    </div>
+                  </div>
+                @show
               </div>
-            @show
+            </div>
+
 
             @section('user.sidemenu')
             @show

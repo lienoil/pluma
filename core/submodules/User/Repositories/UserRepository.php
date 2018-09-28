@@ -62,4 +62,38 @@ class UserRepository extends Repository
     {
         return Role::all();
     }
+
+    /**
+     * Create model resource.
+     *
+     * @param array $data
+     */
+    public function create(array $data)
+    {
+        $user = new User();
+        $user->prefixname = $data['prefixname'] ?? null;
+        $user->firstname = $data['firstname'] ?? null;
+        $user->middlename = $data['middlename'] ?? null;
+        $user->lastname = $data['lastname'] ?? null;
+        $user->username = $data['username'] ?? null;
+        $user->email = $data['email'] ?? null;
+        $user->password = bcrypt($data['password']) ?? null;
+        $user->avatar = $data['avatar'] ?? null;
+        $user->tokenize($data['username']) ?? null;
+        $user->save();
+        $user->roles()->attach(! empty($data['roles']) ? $data['roles'] : []);
+
+        if (isset($data['details'])) {
+            // dd($data['details']);
+            collect($data['details'])->each(function ($detail) use ($user) {
+                $user->details()->create([
+                    'icon' => $detail['icon'],
+                    'key' => $detail['key'],
+                    'value' => $detail['value']
+                ]);
+            });
+        }
+
+        return $user;
+    }
 }

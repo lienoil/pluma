@@ -185,7 +185,13 @@ class Repository implements RepositoryInterface
      */
     public function paginate()
     {
-        if (! request()->get('per_page') || request()->get('per_page') <= 0) {
+        if (is_null(request()->get('per_page')) && is_null(request()->get('page'))) {
+            $this->model = $this->model->paginate();
+            $this->model = $this->model->appends('per_page', $this->model->perPage());
+            return $this->model;
+        }
+
+        if (request()->get('per_page') !== null && request()->get('per_page') <= 0) {
             return $this->model->paginate($this->model->count());
         }
 

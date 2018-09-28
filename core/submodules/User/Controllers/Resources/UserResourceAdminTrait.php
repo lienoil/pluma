@@ -33,13 +33,8 @@ trait UserResourceAdminTrait
     public function create()
     {
         $resources = $this->repository;
-        // if (! user()->isRoot()) {
-        //     $roles = $roles->except(config('auth.rootroles', []));
-        // }
-        // $roles = $roles->get();
 
-        // $avatars = []; // User::avatars();
-        return view('Theme::admin.create')->with(compact('resources', 'avatars'));
+        return view('Theme::admin.create')->with(compact('resources'));
     }
 
     /**
@@ -51,26 +46,7 @@ trait UserResourceAdminTrait
     public function store(UserRequest $request)
     {
         // UserRequest
-        dd($request->all());
-        $user = new User();
-        $user->prefixname = $request->input('prefixname');
-        $user->firstname = $request->input('firstname');
-        $user->middlename = $request->input('middlename');
-        $user->lastname = $request->input('lastname');
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->avatar = $request->input('avatar');
-        $user->tokenize($request->input('username'));
-        $user->save();
-
-        // Role
-        $user->roles()->attach(! empty($request->input('roles')) ? $request->input('roles') : []);
-
-        // Details
-        foreach (($request->input('details') ?? []) as $key => $value) {
-            $user->details()->create(['key' => $key, 'value' => $value]);
-        }
+        $this->repository->create($request->all());
 
         return back();
     }

@@ -5,23 +5,23 @@ namespace Role\Controllers;
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Role\Models\Role;
+use Role\Repositories\RoleRepository;
 use Role\Requests\RoleRequest;
 
 class RoleController extends AdminController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $resources = Role::paginate();
-        $trashed = Role::onlyTrashed()->count();
-        $grants = collect([]);
+    use Resources\RoleResourceAdminTrait;
 
-        return view("Theme::roles.index")->with(compact('resources', 'grants', 'trashed'));
+    /**
+     * Inject the resource model to the repository instance.
+     *
+     * @param \Pluma\Models\Model $model
+     */
+    public function __construct()
+    {
+        $this->repository = new RoleRepository();
+
+        parent::__construct();
     }
 
     /**

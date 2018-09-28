@@ -4,7 +4,7 @@ import 'bootstrap-select/sass/bootstrap-select.scss'
 
 $(document).ready(function () {
   $(document).find('select[data-selectpicker]').selectpicker()
-  $(document).on('DOMNodeInserted load', 'select[data-selectpicker]', function () {
-    // $(document).find('select[data-selectpicker]').selectpicker('refresh')
-  })
+  // $(document).on('dynamic-item-added', function () {
+  //   $(document).find('select').selectpicker('refresh')
+  // })
 })

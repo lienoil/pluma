@@ -3,14 +3,6 @@
 use User\Models\User;
 
 Route::group(['prefix' => 'users'], function () {
-    Route::get('s/s', function () {
-        //
-    });
-
-    Route::get('s/{user}', function (User $user) {
-        dd($user->as('trainer'), $user->permissions);
-    });
-
     /**
      * Roles
      *
@@ -27,26 +19,11 @@ Route::group(['prefix' => 'users'], function () {
     Route::resource('roles', 'RoleController');
 
     /**
-     * Grants
-     *
-     */
-    Route::delete('grants/delete/many', 'GrantManyController@delete')->name('grants.many.delete');
-    Route::delete('grants/delete/{grant}', 'GrantController@delete')->name('grants.delete');
-    Route::delete('grants/destroy/many', 'GrantManyController@destroy')->name('grants.many.destroy');
-    Route::get('grants/refresh', 'GrantRefreshController@index')->name('grants.refresh.index');
-    Route::get('grants/trashed', 'GrantController@trashed')->name('grants.trashed');
-    Route::post('grants/refresh', 'GrantRefreshController@refresh')->name('grants.refresh.refresh');
-    Route::post('grants/restore/many', 'GrantManyController@restore')->name('grants.many.restore');
-    Route::post('grants/{grant}/restore', 'GrantController@restore')->name('grants.restore');
-    Route::resource('grants', 'GrantController');
-
-    /**
      * Permissions
      *
      */
-    Route::get('permissions/refresh', 'PermissionRefreshController@index')->name('permissions.refresh.index');
-    Route::post('permissions/refresh', 'PermissionRefreshController@refresh')->name('permissions.refresh.refresh');
-    Route::post('permissions/reset', 'PermissionRefreshController@reset')->name('permissions.reset.reset');
-    // Route::resource('permissions', 'PermissionController');
+    Route::get('permissions/refresh', 'PermissionController@edit')->name('permissions.edit');
+    Route::post('permissions/refresh', 'PermissionController@refresh')->name('permissions.refresh');
+    Route::post('permissions/reset', 'PermissionController@reset')->name('permissions.reset');
     Route::get('permissions', 'PermissionController@index')->name('permissions.index');
 });

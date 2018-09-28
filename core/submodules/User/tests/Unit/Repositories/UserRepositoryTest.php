@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Repositories;
+namespace Tests\Unit\Repositories;
 
 use Role\Models\Role;
 use Tests\Support\Test\DatabaseMigrations;

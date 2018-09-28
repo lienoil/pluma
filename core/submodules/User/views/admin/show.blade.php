@@ -3,7 +3,8 @@
 @section('head-title', $resource->fullname)
 
 @section('main-title')
-  <header class="container-fluid">
+  <div data-sticky="#page-header"></div>
+  <header id="page-header" data-sticky-class="sticky bg-workspace shadow-sm p-3" class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <a title="{{ __('Return to all users') }}" role="button" href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="fe fe-arrow-left"></i> {{ __('Back') }}</a>
@@ -79,9 +80,8 @@
                 </div>
               @endempty
               @foreach ($resource->info as $detail)
-                <div class="row mb-2">
-                  <div class="col-auto"><i class="{{ $detail->icon }}"></i></div>
-                  <div class="col-auto">{{ __($detail->keyword) }}</div>
+                <div class="row mb-3">
+                  <div class="col-auto"><i class="{{ $detail->icon }} mr-2"></i>{{ __($detail->keyword) }}</div>
                   <div class="col text-left"><em>{{ $detail->value }}</em></div>
                 </div>
               @endforeach

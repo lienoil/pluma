@@ -3,7 +3,7 @@
 use Faker\Generator;
 use Role\Models\Role;
 
-$factory->define(Role::class, function (Faker\Generator $faker) {
+$factory->define(Role::class, function (Generator $faker) {
     return [
         'name' => 'Super Administrator',
         'alias' => 'Superadmin',
@@ -12,7 +12,7 @@ $factory->define(Role::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->state(Role::class, 'superadmin', function (Faker\Generator $faker) {
+$factory->state(Role::class, 'superadmin', function (Generator $faker) {
     return [
         'name' => 'Super Administrator',
         'alias' => 'Superadmin',
@@ -21,7 +21,7 @@ $factory->state(Role::class, 'superadmin', function (Faker\Generator $faker) {
     ];
 });
 
-$factory->state(Role::class, 'admin', function (Faker\Generator $faker) {
+$factory->state(Role::class, 'admin', function (Generator $faker) {
     return [
         'name' => 'Administrator',
         'alias' => 'Admin',

@@ -11,7 +11,7 @@ class Detail extends Model
     use BelongsToUser,
         DetailAccessor;
 
-    protected $fillable = ['user_id', 'key', 'value'];
+    protected $fillable = ['user_id', 'icon', 'key', 'value'];
 
     protected $searchables = ['key', 'value'];
 }

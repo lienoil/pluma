@@ -15,17 +15,12 @@
 
       @section('content')
         @section('main-title')
-          <header class="container-fluid">
-            <div class="row">
-              <div class="col-lg-12 mb-4">
-                <h1 class="page-title">
-                  @section('page-title')
-                    {{ $application->page->title }}
-                  @show
-                </h1>
-              </div>
-            </div>
-          </header>
+          <div data-sticky="#page-header"></div>
+          <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar">
+            @section('page-title')
+              <h1 class="page-title">{{ __( $application->page->title) }}</h1>
+            @show
+          </nav>
         @show
 
 

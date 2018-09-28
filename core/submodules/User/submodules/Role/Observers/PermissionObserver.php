@@ -15,7 +15,6 @@ class PermissionObserver
     public function created(Permission $resource)
     {
         // save fields
-        session()->flash('title', $resource->name);
         session()->flash('message', "Permission successfully created");
         session()->flash('type', 'success');
     }
@@ -28,8 +27,7 @@ class PermissionObserver
      */
     public function updated(Permission $resource)
     {
-        session()->flash('title', $resource->name);
-        session()->flash('message', "Permission successfully updated");
+        session()->flash('message', 'Permission successfully refreshed');
         session()->flash('type', 'success');
     }
 
@@ -41,7 +39,6 @@ class PermissionObserver
      */
     public function deleted(Permission $resource)
     {
-        session()->flash('title', $resource->name);
         session()->flash('message', "Permission successfully removed");
         session()->flash('type', 'success');
     }
@@ -54,7 +51,6 @@ class PermissionObserver
      */
     public function restored(Permission $resource)
     {
-        session()->flash('title', $resource->name);
         session()->flash('message', "Permission successfully restored");
         session()->flash('type', 'success');
     }

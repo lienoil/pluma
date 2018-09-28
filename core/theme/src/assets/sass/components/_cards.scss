@@ -123,9 +123,12 @@
 
 		td,
 		th {
-			&:first-child {
-				padding-left: $card-spacer-x;
-			}
+			padding-left: $card-spacer-x;
+
+   //    &.table-select.show ~ td,
+   //    &.table-select.show ~ th, {
+   //      padding-left: 0;
+			// }
 
 			&:last-child {
 				padding-right: $card-spacer-x;
@@ -227,11 +230,17 @@
 }
 
 .card-chart-bg {
-	height: 4rem;
+	height: auto;
 	margin-top: -1rem;
 	position: relative;
 	z-index: 1;
 	overflow: hidden;
+
+  .chart {
+    padding-top: 0;
+    margin-left: -2px;
+    margin-right: -2px;
+  }
 }
 
 .card-options {

@@ -9,10 +9,9 @@ $(document).ready(function () {
       let $template = $container.find('[data-dynamic-item-template]')
       let $addButton = $container.find('[data-dynamic-add-button]')
       let $clone = $template.clone()
-      let $number = $clone.data('dynamic-item-number') || i
 
-      // Number
-      $number = $number + $container.find('[data-dynamic-item]').length
+      // Number, zero-based
+      let $number = $container.find('[data-dynamic-item]').length
 
       // Template disable
       $template.find(':input').attr('disabled', true)
@@ -22,8 +21,9 @@ $(document).ready(function () {
       $clone.attr('data-dynamic-item', true)
       $clone.attr('data-dynamic-item-number', $number)
       $clone.show().insertBefore($container.find('[data-dynamic-after-items]'))
-      $clone.find('select').selectpicker('refresh')
       $clone.find(':input').attr('disabled', false)
+      $clone.find('select').selectpicker('refresh')
+      $clone.trigger('dynamic-item-added')
 
       // Inputs
       if ($clone.find(':input:not([type=button])')) {
