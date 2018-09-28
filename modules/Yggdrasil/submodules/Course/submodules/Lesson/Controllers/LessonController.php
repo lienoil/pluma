@@ -2,142 +2,24 @@
 
 namespace Lesson\Controllers;
 
-use Frontier\Controllers\AdminController;
+use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 
-class LessonController extends AdminController
+class LessonController extends GeneralController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        //
-
-        return view("Theme::lessons.index");
-    }
+    use Resources\ApiControllerTrait,
+        Resources\PublicControllerTrait,
+        Resources\SoftDeleteControllerTrait,
+        Resources\AdminControllerTrait;
 
     /**
-     * Display the specified resource.
+     * The constructor of the controller.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param DummyFullModelClass $dummyModelClass
+     * @return void
      */
-    public function show(Request $request, $id)
+    public function __contruct()
     {
         //
-
-        return view("Theme::lessons.show");
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-
-        return view("Theme::lessons.create");
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Lesson\Requests\LessonRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(LessonRequest $request)
-    {
-        //
-
-        return back();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, $id)
-    {
-        //
-
-        return view("Theme::lessons.edit");
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Lesson\Requests\LessonRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(LessonRequest $request, $id)
-    {
-        //
-
-        return back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, $id)
-    {
-        //
-
-        return redirect()->route('lessons.index');
-    }
-
-    /**
-     * Display a listing of the trashed resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function trash()
-    {
-        //
-
-        return view("Theme::lessons.trash");
-    }
-
-    /**
-     * Restore the specified resource from storage.
-     *
-     * @param  \Lesson\Requests\LessonRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function restore(LessonRequest $request, $id)
-    {
-        //
-
-        return back();
-    }
-
-    /**
-     * Delete the specified resource from storage permanently.
-     *
-     * @param  \Lesson\Requests\LessonRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(LessonRequest $request, $id)
-    {
-        //
-
-        return redirect()->route('lessons.trash');
     }
 }

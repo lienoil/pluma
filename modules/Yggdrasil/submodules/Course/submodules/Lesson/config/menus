@@ -1,0 +1,58 @@
+<?php
+
+return [
+    /**
+     *--------------------------------------------------------------------------
+     * Lessons Menus
+     *--------------------------------------------------------------------------
+     *
+     * Specify here the menus to appear on the sidebar.
+     *
+     */
+    'lesson' => [
+        'name' => 'lesson',
+        'order' => 51,
+        'slug' => route('lessons.index'),
+        'always_viewable' => false,
+        'icon' => '',
+        'labels' => [
+            'title' => __('Lessons'),
+            'description' => __('Manage lessons'),
+        ],
+        'children' => [
+            'view-lessons' => [
+                'name' => 'view-lessons',
+                'order' => 1,
+                'slug' => route('lessons.index'),
+                'code' => 'lessons.index',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('All Lessons'),
+                    'description' => __('View the list of all lessons'),
+                ],
+            ],
+            'create-lesson' => [
+                'name' => 'create-lesson',
+                'order' => 2,
+                'slug' => route('lessons.create'),
+                'code' => 'lessons.create',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Create Lesson'),
+                    'description' => __('Create a Lesson'),
+                ],
+            ],
+            'trashed-lesson' => [
+                'name' => 'trashed-lesson',
+                'order' => 3,
+                'slug' => route('lessons.trashed'),
+                'code' => 'lessons.trashed',
+                'always_viewable' => false,
+                'labels' => [
+                    'title' => __('Trashed Lessons'),
+                    'description' => __('View list of all lessons moved to trash'),
+                ],
+            ],
+        ],
+    ],
+];
