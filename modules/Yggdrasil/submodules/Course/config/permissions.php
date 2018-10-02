@@ -142,13 +142,25 @@ return [
     'bookmark-course' => [
         'name' => 'bookmark-course',
         'code' => 'courses.bookmark',
-        'description' => 'Ability to remove from a course from bookmark list',
+        'description' => 'Ability to bookmark course',
         'group' => 'course',
     ],
     'unbookmark-course' => [
         'name' => 'unbookmark-course',
         'code' => 'courses.unbookmark',
         'description' => 'Ability to remove from a course from bokmarks list',
+        'group' => 'course',
+    ],
+    'courses-bookmark-unbookmark' => [
+        'name' => 'courses-bookmark-unbookmark',
+        'code' => 'courses.bookmark.unbookmark',
+        'description' => 'Ability to remove from a course from bookmark list',
+        'group' => 'course',
+    ],
+    'courses-bookmark-bookmark' => [
+        'name' => 'courses-bookmark-bookmark',
+        'code' => 'courses.bookmark.bookmark',
+        'description' => 'Ability to bookmark course',
         'group' => 'course',
     ],
 ];

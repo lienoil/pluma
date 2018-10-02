@@ -2,19 +2,8 @@
 
 namespace Course\Controllers;
 
-use Course\Models\Course;
-use Course\Models\Scormvar;
-use Course\Models\User;
-use Course\Support\Traits\StudentResourceSoftDeleteTrait;
-use Frontier\Controllers\AdminController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 class StudentController extends AdminController
 {
-
-    use StudentResourceSoftDeleteTrait;
-
     /**
      * Display a listing of the resource.
      *
@@ -24,16 +13,15 @@ class StudentController extends AdminController
     public function index(Request $request, $slug)
     {
         $resource = Course::whereSlug($slug)
-            ->firstOrFail();
+            ->firstorFail();
 
-        $users = User::notEnrolledToCourse($resource->id)->get();
+        $users = User::notEnrolledToCourse($resource->id->get());
 
         return view("Theme::students.index")->with(compact('resource', 'users'));
     }
 
-
     /**
-     * Stores the students into a resource (e.g. Course).
+     * Stores the students into a resource (e.g Course).
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int  $course_id
@@ -56,42 +44,37 @@ class StudentController extends AdminController
         return redirect()->route('courses.students', $course->slug);
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function drop(Request $request, $id)
     {
-        // punyemas! two lines!, delete nyo to pagnabasa nyo
         $course = Course::find($id);
-        $course->users()->detach($request->input('user_id'));
+        $course->contents()->detach();
 
-        // Then remove content_user
         foreach ($request->input('user_id') as $id) {
             $user = User::find($id);
             $user->contents()->detach();
 
-            // Then remove scormvars
             Scormvar::where('course_id', $course->id)->where('user_id', $id)->delete();
         }
 
         session()->flash('title', "Success");
-        session()->flash('message', "Student successfully dropped");
+        session()->flash('message', "Student successfully droped");
         session()->flash('type', 'success');
 
         return redirect()->route('courses.students', $course->slug);
     }
 
     /**
-     * Remove the specified resource from storage.
      *
-     * @param  Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {

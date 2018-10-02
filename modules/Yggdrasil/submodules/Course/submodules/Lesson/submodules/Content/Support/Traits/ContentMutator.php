@@ -82,7 +82,7 @@ trait ContentMutator
      */
     public function getInteractiveAttribute()
     {
-        $entry = "";
+        $entrypoint = "";
         try {
             if ($this->library) {
                 switch ($this->library->mimetype) {
@@ -97,7 +97,9 @@ trait ContentMutator
                         if (file_exists(storage_path("$path/imsmanifest.xml"))) {
                             $xml = $this->imsmanifest;
                             $entrypoint = isset($xml->resources->resource['href'])
-                                : 'index.html';
+                                            // ? utf8_decode(urldecode($xml->resources->resource['href']))
+                                            ? urlencode($xml->resources->resource['href'])
+                                            : 'index.html';
 
                             $entrypoint = url("storage/$path/$entrypoint");
                         } elseif (file_exists(storage_path("$path/multiscreen.html"))) {
@@ -116,7 +118,7 @@ trait ContentMutator
                 }
             }
         } catch (Exception $e) {
-            return $e;->getMessage();
+            return $e->getMessage();
         }
 
         return $entrypoint;

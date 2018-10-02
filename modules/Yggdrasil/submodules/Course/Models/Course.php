@@ -14,8 +14,8 @@ use Course\Support\Scopes\OnlyBookmarkedByScope;
 use Course\Support\Traits\CourseCommitTrait;
 use Form\Support\Relations\BelongsToManyForms;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use Lesson\Support\Traits\HasManyContentsThroughLesson;
-// use Lesson\Support\Traits\HasManyLessons;
+use Lesson\Support\Traits\HasManyContentsThroughLesson;
+use Lesson\Support\Traits\HasManyLessons;
 use Pluma\Models\Model;
 use Pluma\Support\Database\Scopes\SlugOrFail;
 use Submission\Support\Relations\HasManySubmissions;
@@ -33,8 +33,8 @@ class Course extends Model
         EnrolledToACourse,
         EnrolledUserAccessor,
         BelongsToManyForms,
-        // HasManyContentsThroughLesson,
-        // HasManyLessons,
+        HasManyContentsThroughLesson,
+        HasManyLessons,
         MorphManyComments,
         OnlyBookmarkedByScope,
         HasManySubmissions,

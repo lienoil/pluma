@@ -5,9 +5,6 @@ use Course\Resources\CourseCollection;
 
 // route: /api/v1
 Route::group(['prefix' => 'v1', 'middleware' => 'auth'], function () {
-    // Route::get('courses/all', function () {
-    //     return new CourseCollection(Course::all());
-    // })->name('courses.all');
     Route::get('courses/all', 'CourseController@getAll')->name('courses.all');
     Route::delete('courses/{course}', 'CourseController@deleteDestroy')->name('courses.destroy');
     Route::post('courses/{course}', 'CourseController@postRestore')->name('courses.restore');

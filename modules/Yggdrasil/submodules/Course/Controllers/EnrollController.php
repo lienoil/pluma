@@ -37,13 +37,14 @@ class EnrollController extends AdminController
 
     /**
      * Show the detail form of the course to be enrolled.
+     *
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $slug
+     * @param  int $slug
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $slug)
     {
-        $resource = Course::whereSlug($slug)
+        $resources = Course::whereSlug($slug);
             ->with('lessons.contents')
             ->firstOrFail();
 
@@ -54,7 +55,7 @@ class EnrollController extends AdminController
      * Request for an Enrollment to a given Course.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function request(Request $request, $id)
@@ -63,19 +64,19 @@ class EnrollController extends AdminController
     }
 
     /**
-     * Enrolls the user into a resource (e.g. Course).
+     * Enrolls the user into a resource (e.g. Course)
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int  $course_id
-     * @param  int $user_id
+     * @param  int  $user_id
      * @return \Illuminate\Auth\Access\Response
      */
     public function enroll(Request $request, $course_id, $user_id)
     {
         $course = Course::findOrFail($course_id);
         // $contents = array_column(
-        //     $course->contents()->orderBy('sort')->get()->toArray(),
-        //     'id'
+        //      $course->contents()->orderBy('sort')->get()->toArray(),
+        //      'id'
         // );
 
         $course->users()->attach(User::find($user_id));
@@ -86,6 +87,7 @@ class EnrollController extends AdminController
             ]);
         }
 
-        return redirect()->route('courses.show', $course->slug);
+        return redirect()->route('courses.show', $courses->slug);
+
     }
 }

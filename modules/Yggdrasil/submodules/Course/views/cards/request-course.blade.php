@@ -21,9 +21,9 @@
                         <v-card-text class="pa-5">
                             <p class="headline ma-2 mb-4"><v-icon round class="success--text display-4">✔</v-icon></p>
                             <h2 class="display-1 grey--text text--darken-2 page-title"><strong>{{ __('Request Sent') }}</strong></h2>
-                            <div class="grey--text text--darken-2">
+{{--                             <div class="grey--text text--darken-2">
                                 <span class="mb-3 page-title">{{ __("Your request has been submitted successfully. You will receive an e-mail confirmation from us once our trainer for this course approves the request. We are excited to learn with you!") }}</span>
-                            </div>
+                            </div> --}}
                         </v-card-text>
                         <v-card-actions class="py-4">
                             <v-spacer></v-spacer>
