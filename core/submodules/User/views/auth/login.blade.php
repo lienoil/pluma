@@ -1,14 +1,5 @@
 @extends('Theme::layouts.auth')
 
-@push('after-css')
-  <style>
-    .card {
-      box-shadow: -2px 3px 0 rgba(0,0,0,.05);
-      border: 0;
-    }
-  </style>
-@endpush
-
 @section('content')
   <div class="container">
     <div class="row">
