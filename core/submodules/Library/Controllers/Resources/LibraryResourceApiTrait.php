@@ -113,7 +113,7 @@ trait LibraryResourceApiTrait
      *
      * @param  \Role\Requests\RoleRequest $request
      * @param  int  $id
-     * @return
+     * @return \Illuminate\Http\Response
      */
     public function putUpdate(Request $request, $id)
     {
