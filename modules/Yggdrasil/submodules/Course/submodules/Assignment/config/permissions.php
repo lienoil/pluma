@@ -15,7 +15,7 @@
 return [
     /**
      *--------------------------------------------------------------------------
-     * Assignment Permissions
+     * $name Permissions
      *--------------------------------------------------------------------------
      *
      */
@@ -41,12 +41,6 @@ return [
         'name' => 'store-assignment',
         'code' => 'assignments.store',
         'description' => 'Ability to save the assignment',
-        'group' => 'assignment',
-    ],
-    'edit-assignment' => [
-        'name' => 'assignments.edit',
-        'code' => 'edit-assignment',
-        'description' => 'Ability to show the form to edit assignment',
         'group' => 'assignment',
     ],
     'update-assignment' => [
@@ -77,26 +71,6 @@ return [
         'name' => 'restore-assignment',
         'code' => 'assignments.restore',
         'description' => 'Ability to restore the assignment from trash',
-        'group' => 'assignment',
-    ],
-
-    // Many
-    'destroy-many-assignment' => [
-        'name' => 'assignments.many.destroy',
-        'code' => 'destroy-many-assignment',
-        'description' => 'Ability to permanently delete many assignments',
-        'group' => 'assignment',
-    ],
-    'delete-many-assignment' => [
-        'name' => 'assignments.many.delete',
-        'code' => 'delete-many-assignment',
-        'description' => 'Ability to permanently delete many assignments',
-        'group' => 'assignment',
-    ],
-    'restore-many-assignment' => [
-        'name' => 'assignments.many.restore',
-        'code' => 'restore-many-assignment',
-        'description' => 'Ability to restore many assignments',
         'group' => 'assignment',
     ],
 ];

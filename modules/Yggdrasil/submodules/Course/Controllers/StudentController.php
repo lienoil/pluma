@@ -2,6 +2,9 @@
 
 namespace Course\Controllers;
 
+use Frontier\Controllers\AdminController;
+use Illuminate\Http\Request;
+
 class StudentController extends AdminController
 {
     /**

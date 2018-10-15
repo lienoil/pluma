@@ -9,7 +9,7 @@ trait BelongsToAssignment
     /**
      * Get the assignment that owns the resource.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return  \Illuminate\Database\Eloquent\Model
      */
     public function assignment()
     {

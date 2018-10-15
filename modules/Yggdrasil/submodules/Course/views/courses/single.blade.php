@@ -90,6 +90,35 @@
       </v-flex>
     </v-layout>
   </v-parallax>
+    <v-container grid-list-lg>
+        <v-layout row wrap>
+            <v-flex md xs12 order-lg>
+                <v-card class="mb-3 elevation-1">
+                    <v-toolbar card class="transparent">
+                        <v-toolbar-title class="page-title accent--text">{{ __('Overview') }}</v-toolbar-title>
+                    </v-toolbar>
+                    <v-divider></v-divider>
+                    <v-card-text class="quill-text grey--text text--darken-2 page-content body-1">{!! $resource->body !!}</v-card-text>
+                    <v-card-text class="text-xs-center">
+                        <v-btn
+                            secondary
+                            class="elevation-1"
+                            {{-- href="{{ $resource->first_content }}" --}}
+                            >
+                            {{ __('Start this course') }}
+                        </v-btn>
+                    </v-card-text>
+                </v-card>
+                @includeIf("Badge::widgets.badge")
+            </v-flex>
+
+            <v-flex md3 xs12 order-lg3>
+                {{-- Enrolled Students --}}
+                @include("Course::widgets.students")
+                {{-- Enrolled Students --}}
+            </v-flex>
+        </v-layout>
+    </v-container>
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ assets('course/css/course.css') }}?v={{ app()->version() }}">
