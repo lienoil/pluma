@@ -1,10 +1,10 @@
 <?php
 
-namespace Course\Controllers\Resources;
+namespace Course\Support\Accessors;
 
 use Course\Models\User;
 
-trait EnrolledUserMutator
+trait EnrolledUserAccessor
 {
     /**
      * Alias for BelongsToManyUsers.
@@ -19,24 +19,18 @@ trait EnrolledUserMutator
     /**
      * Get the student currently requesting the course.
      * (Currently logged in)
-     * @return [type] [description]
+     *
+     * @return
      */
     public function getStudentAttribute()
     {
         return $this->users()->where('users.id', user()->id)->first();
     }
 
-    /**
-     * Check if currently logged in user is enrolled
-     * to this course.
-     *
-     * @return boolean
-     */
     public function getEnrolledAttribute()
     {
         return isset(user()->id)
                 ? $this->users()->where('user_id', user()->id)->whereNull('dropped_at')->exists()
                 : false;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Content\Support\Relations;
+namespace Course\Support\Scopes;
 
 use Content\Models\Content;
 
@@ -14,6 +14,6 @@ trait BelongsToManyContents
      */
     public function contents()
     {
-        // return $this->belongsToMany(Content::class)->withPivot('status', 'course_id');
+        return $this->belongsToMany(Content::class)->withPivot('status', 'course_id');
     }
 }

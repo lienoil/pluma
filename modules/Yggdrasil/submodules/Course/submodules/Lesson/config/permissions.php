@@ -1,8 +1,8 @@
 <?php
 /**
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  * Permissions Array
- * -----------------------------------------------------------------------------
+ *------------------------------------------------------------------------------
  *
  * Here we define our permissions that you can attach to roles.
  *
@@ -14,32 +14,32 @@
  */
 return [
     /**
-     * -------------------------------------------------------------------------
-     * Lesson Permissions
-     * -------------------------------------------------------------------------
+     *--------------------------------------------------------------------------
+     * $name Permissions
+     *--------------------------------------------------------------------------
      *
      */
-    'view-lesson' => [
-        'name' =>  'lessons.index',
-        'code' => 'view-lesson',
+    'view-lessons' => [
+        'name' =>  'view-lessons',
+        'code' => 'lessons.index',
         'description' => 'Ability to view list of lessons',
         'group' => 'lesson',
     ],
     'show-lesson' => [
-        'name' => 'lessons.show',
-        'code' => 'show-lesson',
+        'name' => 'show-lesson',
+        'code' => 'lessons.show',
         'description' => 'Ability to show a single lesson',
         'group' => 'lesson',
     ],
     'create-lesson' => [
-        'name' => 'lessons.create',
-        'code' => 'create-lesson',
-        'description' => 'Ability to show the form to create lesson',
+        'name' => 'create-lesson',
+        'code' => 'lessons.create',
+        'description' => 'Ability to create new lesson',
         'group' => 'lesson',
     ],
     'store-lesson' => [
-        'name' => 'lessons.store',
-        'code' => 'store-lesson',
+        'name' => 'store-lesson',
+        'code' => 'lessons.store',
         'description' => 'Ability to save the lesson',
         'group' => 'lesson',
     ],
@@ -50,55 +50,53 @@ return [
         'group' => 'lesson',
     ],
     'update-lesson' => [
-        'name' => 'lessons.update',
-        'code' => 'update-lesson',
+        'name' => 'update-lesson',
+        'code' => 'lessons.update',
         'description' => 'Ability to update the lesson',
         'group' => 'lesson',
     ],
     'destroy-lesson' => [
-        'name' =>  'lessons.destroy',
-        'code' => 'destroy-lesson',
+        'name' => 'destroy-lesson',
+        'code' =>  'lessons.destroy',
         'description' => 'Ability to move the lesson to trash',
         'group' => 'lesson',
     ],
     'delete-lesson' => [
-        'name' =>  'lessons.delete',
-        'code' => 'delete-lesson',
+        'name' => 'delete-lesson',
+        'code' =>  'lessons.delete',
         'description' => 'Ability to permanently delete the lesson',
         'group' => 'lesson',
     ],
-    'trash-lesson' => [
-        'name' =>  'lessons.trash',
-        'code' => 'trash-lesson',
-        'description' => 'Ability to view the list of all trashed lesson',
+    'trashed-lessons' => [
+        'name' => 'trashed-lessons',
+        'code' =>  'lessons.trashed',
+        'description' => 'Ability to view the list of all trashed lessons',
         'group' => 'lesson',
     ],
     'restore-lesson' => [
-        'name' => 'lessons.restore',
-        'code' => 'restore-lesson',
-        'description' => 'Ability to restore the lesson',
+        'name' => 'restore-lesson',
+        'code' => 'lessons.restore',
+        'description' => 'Ability to restore the lesson from trash',
         'group' => 'lesson',
     ],
 
     // Many
     'destroy-many-lesson' => [
-        'name' =>  'lessons.many.destroy',
-        'code' => 'destroy-many-lesson',
-        'description' => 'Ability to destroy many lessons',
+        'name' => 'destroy-many-lesson',
+        'code' => 'lessons.many.destroy',
+        'description' => 'Ability to destroy the lesson',
         'group' => 'lesson',
     ],
     'delete-many-lesson' => [
-        'name' =>  'lessons.many.delete',
-        'code' => 'delete-many-lesson',
+        'name' => 'delete-many-lesson',
+        'code' => 'lessons.many.delete',
         'description' => 'Ability to permanently delete many lessons',
         'group' => 'lesson',
     ],
     'restore-many-lesson' => [
-        'name' => 'lessons.many.restore',
-        'code' => 'restore-many-lesson',
+        'name' => 'restore-many-lesson',
+        'code' => 'lessons.many.restore',
         'description' => 'Ability to restore many lessons',
         'group' => 'lesson',
     ],
-
-    //
 ];

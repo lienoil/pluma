@@ -110,6 +110,24 @@ class ScormvarController extends APIController
      * @param  int $content_id
      * @return Illuminate\Http\Response
      */
+    public function LMSGetValue(Request $request, $course_id, $content_id)
+    {
+        $scormvar = Scormvar::where('course_id', $course_id)
+                            ->where('content_id', $content_id)
+                            ->where('user_id', $request->input('user_id')?$request->input('user_id'):user()->id)
+                            ->get();
+
+        return response()->json($scormvar);
+    }
+
+    /**
+     * Get the resource.
+     *
+     * @param  Request $request
+     * @param  int $course_id
+     * @param  int $content_id
+     * @return Illuminate\Http\Response
+     */
     public function LMSSetValue(Request $request, $course_id, $content_id)
     {
         if (empty($request->input('varname'))) {
