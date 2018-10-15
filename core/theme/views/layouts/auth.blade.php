@@ -2,10 +2,13 @@
 
 @section('root')
   <div id="app" class="page gradient-primary" data-app>
-    <div style="opacity:0.09;position:fixed;width:100vw;height:100vh;background-image: url({{ theme('dist/assets/img/patterns/seigaiha.png?v=2') }})"></div>
+    @stack('auth:before-content')
+
     <main class="page-main page-single mt-3" data-main>
       @yield('content')
     </main>
+
+    @stack('auth:after-content')
   </div>
 @endsection
 

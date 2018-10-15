@@ -21,7 +21,6 @@ trait UserResourceAdminTrait
             ->search($request->all())
             ->paginate();
 
-
         return view('User::admin.index')->with(compact('resources'));
     }
 

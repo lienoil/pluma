@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const path = require('path');
 const WebappWebpackPlugin = require('webapp-webpack-plugin')
+const WebpackOnBuildPlugin = require('on-build-webpack')
 const webpack = require('webpack')
 
 module.exports = {
@@ -79,6 +80,21 @@ module.exports = {
       chunkFilename: "[id].min.css"
     }),
     new OptimizeCSSAssetsPlugin(),
+    new WebpackOnBuildPlugin(function (stats) {
+      const newlyCreatedAssets = stats.compilation.assets;
+      const unlinked = [];
+      fs.readdir(path.resolve(buildDir), (err, files) => {
+        files.forEach(file => {
+          if (!newlyCreatedAssets[file]) {
+            fs.unlink(path.resolve(buildDir + file));
+            unlinked.push(file);
+          }
+        });
+        if (unlinked.length > 0) {
+          console.log('Removed old assets: ', unlinked);
+        }
+      })
+    }),
     // Favicon generator
     new WebappWebpackPlugin({
       logo: path.resolve(__dirname, 'src/assets/images/logo.png'),
