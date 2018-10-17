@@ -1,8 +1,9 @@
 // Sidebar
 $sidebar-width-full: 250px;
 $sidebar-width-min: 50px;
-$sidebar-bg-color: transparent;
-$sidebar-bg-colot-alt: #2b343a;
+$sidebar-bg-color: var(--workspace-bg);
+$sidebar-bg-colot-alt: var(--accent);
+$sidebar-brand-height: 60px;
 
 .sidebar {
   min-width: $sidebar-width-full;
@@ -11,6 +12,7 @@ $sidebar-bg-colot-alt: #2b343a;
   margin-left: -$sidebar-width-full;
   transition: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
   background-color: $sidebar-bg-color;
+  overflow-y: auto;
 
   &.sidebar-bg-colored, &.sidebar-alt {
     background-color: $sidebar-bg-colot-alt;
@@ -50,10 +52,10 @@ $sidebar-bg-colot-alt: #2b343a;
     }
   }
 
-  &-header {
-    align-items: center;
-    display: flex;
-    padding: 0.4rem 1rem;
+  &-header, &-footer {
+    margin: 0 auto;
+    display: block;
+    padding: 1rem;
   }
 
   &-title {
@@ -92,7 +94,7 @@ $sidebar-bg-colot-alt: #2b343a;
         overflow: hidden;
         transition: all 0.3s ease-in;
         border: none;
-        padding-left: 1.2rem;
+        padding-left: 1.5rem;
 
         &.show {
           height: auto;
@@ -103,6 +105,7 @@ $sidebar-bg-colot-alt: #2b343a;
         .sidebar-dropdown-item {
           padding-top: .5rem;
           padding-bottom: .5rem;
+          position: relative;
           &.active {
             background-color: transparent;
             color: $primary;
@@ -114,7 +117,30 @@ $sidebar-bg-colot-alt: #2b343a;
           }
 
           .icon, &-icon {
-            margin-left: -1.5rem;
+            // margin-left: -1.5rem;
+          }
+
+          &:before, &:after {
+            content: '';
+            position: absolute;
+          }
+
+          &:after {
+            border-left: 1px dashed $border-color;
+            top: -50%;
+            left: 0;
+            height: 100%;
+            width: 1px;
+          }
+
+          &:before {
+            border-bottom: 1px dashed $border-color;
+            width: 12px;
+            height: 1px;
+            top: 50%;
+            left: 0;
+            display: block;
+            position: absolute;
           }
         }
       }
@@ -130,9 +156,31 @@ $sidebar-bg-colot-alt: #2b343a;
     }
   }
 
+  &-dark, &.bg-dark {
+    background-color: var(--dark);
+    color: var(--light);
+
+    .sidebar-nav a {
+      color: var(--light) !important;
+    }
+  }
+
   &-brand {
-    height: 60px;
+    height: $sidebar-brand-height;
+    margin: 0 auto;
+    max-width: 130px;
     width: auto;
+
+    .brand-logo > svg,
+    .brand-logo > img {
+      height: $sidebar-brand-height;
+      width: auto;
+    }
+  }
+
+  &-dropdown-divider {
+    border: 1px dashed $border-color;
+    margin: 0;
   }
 
   ~ .workspace {

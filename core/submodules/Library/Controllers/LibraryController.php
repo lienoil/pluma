@@ -11,7 +11,8 @@ use Library\Support\Traits\LibraryResourceApiTrait;
 
 class LibraryController extends AdminController
 {
-    use LibraryResourceApiTrait;
+    use LibraryResourceApiTrait,
+        Resources\LibraryResourceUploadTrait;
 
     /**
      * Display a listing of the resource.

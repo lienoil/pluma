@@ -1,29 +1,19 @@
 @extends('Theme::layouts.admin')
 
-@section('main-title', '')
+@section('head:title', __('Add User'))
+@section('main:title', '')
 
-@section('page-content')
+@section('page:content')
   <div class="container-fluid">
     <form action="{{ route('users.store') }}" method="POST">
       {{ csrf_field() }}
       <div data-sticky="#page-header"></div>
-      <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar row">
-        <h1 class="page-title">{{ __('Create User') }}</h1>
+      <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar row px-3">
+        <h1 class="page-title">{{ __('Add User') }}</h1>
         <button type="submit" class="btn btn-primary btn-lg"><i class="fe fe-save"></i> {{ __('Save') }}</button>
       </nav>
-      {{-- <div class="row sticky">
-        <div class="card p-3">
-          <div class="row">
-            <div class="col">
-            </div>
-            <div class="col-auto">
-            </div>
-          </div>
-        </div>
-      </div> --}}
 
       <div class="row">
-
         @section('user.main')
           <div class="col-lg col-sm-12">
             <div class="mb-7">
@@ -80,7 +70,7 @@
                         <label class="form-label" for="roles[]">{{ __('Roles') }}</label>
                         <select id="roles" data-selectpicker type="text" name="roles[]" class="form-control {{ $errors->has('roles') ? 'is-invalid' : '' }}" aria-describedby="role[]">
                           @foreach ($resources->roles() as $role)
-                            <option value="{{ $role->id }}" data-icon="{{ $role->icon }}">{{ $role->name }}</option>
+                            <option {{ (in_array($role->id, old('roles') ?? []) ? 'selected="selected"' : '') }} value="{{ $role->id }}">{{ $role->name }}</option>
                           @endforeach
                         </select>
                         @if ($errors->has('roles'))
@@ -151,7 +141,7 @@
                   </div>
                 </div>
 
-                <table class="table" data-dynamic-container>
+                <table class="table table-no-border" data-dynamic-container>
                   <tbody>
                     <tr>
                       <td class="pl-5">
@@ -167,7 +157,7 @@
                       </td>
                       <td colspan="3" class="pr-5">
                         <div class="form-group mb-0">
-                          <input type="text" name="details[phone][value]" class="form-control" value="{{ old('detail.phone.value') }}" placeholder="+## ### #######" autocomplete="off" maxlength="19">
+                          <input type="text" name="details[phone][value]" class="form-control" value="{{ old('details.phone.value') }}" placeholder="+## ### #######" autocomplete="off" maxlength="19">
                         </div>
                       </td>
                     </tr>
@@ -186,7 +176,7 @@
                       </td>
                       <td colspan="3" class="pr-5">
                         <div class="form-group mb-0">
-                          <input type="text" name="details[birthday][value]" class="form-control" data-mask="99/99/9999" data-mask-clearifnotmatch="true" placeholder="MM/DD/YYYY" autocomplete="off" maxlength="10">
+                          <input type="text" name="details[birthday][value]" class="form-control" data-mask="99/99/9999" data-mask-clearifnotmatch="true" placeholder="MM/DD/YYYY" autocomplete="off" maxlength="10" value="{{ old('details.birthday.value') }}">
                         </div>
                       </td>
                     </tr>
@@ -205,7 +195,7 @@
                       </td>
                       <td colspan="3" class="pr-5">
                         <div class="form-group mb-0">
-                          <textarea name="details[address][value]" cols="30" rows="1" class="form-control"></textarea>
+                          <textarea name="details[address][value]" cols="30" rows="1" class="form-control">{{ old('details.address.value') }}</textarea>
                         </div>
                       </td>
                     </tr>
@@ -216,20 +206,20 @@
                       @foreach (collect(old('details'))->except(['address', 'phone', 'birthday']) as $i => $detail)
                         <tr data-dynamic-item data-dynamic-item-number="{{ $i }}">
                           <td class="pl-5">
-                            @include('Theme::fields.select-icons', [
+                            @include('Theme::fields.selecticons', [
                               'name' => 'details['.$i.'][icon]',
-                              'value' => $detail['icon'],
+                              'value' => $detail['icon'] ?? '',
                               'attr' => 'data-selectpicker data-live-search="true"',
                             ])
                           </td>
                           <td>
                             <div class="form-group mb-0">
-                              <input type="text" name="details[{{ $i }}][key]" class="form-control" value="{{ $detail['key'] }}" placeholder="{{ __('Key') }}">
+                              <input type="text" name="details[{{ $i }}][key]" class="form-control" value="{{ $detail['key'] ?? '' }}" placeholder="{{ __('Key') }}">
                             </div>
                           </td>
                           <td>
                             <div class="form-group mb-0">
-                              <input type="text" name="details[{{ $i }}][value]" class="form-control" value="{{ $detail['value'] }}" autocomplete="off" placeholder="{{ __('Value') }}">
+                              <input type="text" name="details[{{ $i }}][value]" class="form-control" value="{{ $detail['value'] ?? '' }}" autocomplete="off" placeholder="{{ __('Value') }}">
                             </div>
                           </td>
                           <td class="pr-5 justify-content-end d-flex">
@@ -244,19 +234,19 @@
                     {{-- Dynamic Template --}}
                     <tr data-dynamic-item-template>
                       <td class="pl-5">
-                        @include('Theme::fields.select-icons', [
+                        @include('Theme::fields.selecticons', [
                           'name' => 'details[#][icon]',
-                          'attr' => 'disabled',
+                          'attr' => 'disabled data-live-search="true"',
                         ])
                       </td>
                       <td>
                         <div class="form-group mb-0">
-                          <input type="text" name="details[#][key]" class="form-control" value="{{ old('detail.0.key') }}" placeholder="{{ __('Key') }}">
+                          <input disabled type="text" data-name="details[#][key]" class="form-control" value="" placeholder="{{ __('Key') }}">
                         </div>
                       </td>
                       <td>
                         <div class="form-group mb-0">
-                          <input type="text" name="details[#][value]" class="form-control" value="{{ old('detail.phone.value') }}" autocomplete="off" placeholder="{{ __('Value') }}">
+                          <input disabled type="text" data-name="details[#][value]" class="form-control" value="" autocomplete="off" placeholder="{{ __('Value') }}">
                         </div>
                       </td>
                       <td class="pr-5 justify-content-end d-flex">
@@ -288,8 +278,19 @@
                 @section('user.avatar')
                   <div class="card">
                     <div class="card-body">
-                      <img role="button" data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-                      <button type="button" class="btn btn-secondary btn-block"><i class="fe fe-upload"></i> {{ __('Upload') }}</button>
+                      <div class="form-group mb-3">
+                        @include('Theme::fields.selectavatars', [
+                          'title' => __('Select Avatar'),
+                          'name' => 'avatar',
+                          'attr' => 'data-selectpicker',
+                        ])
+                      </div>
+                      {{-- <img role="button" data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                      <div class="form-group">
+                        <input id="avatar" type="file" name="avatar" value="{{ old('avatar') }}" class="form-control">
+                        <label for="avatar" class="form-label">{{ __('Avatar') }}</label>
+                      </div> --}}
+                      {{-- <button data-dropzone-button type="button" class="btn btn-secondary btn-block"><i class="fe fe-upload"></i> {{ __('Upload') }}</button> --}}
                     </div>
                   </div>
                 @show
@@ -301,7 +302,6 @@
             @show
           </div>
         @show
-
       </div>
     </form>
   </div>

@@ -3,6 +3,7 @@
 namespace User\Repositories;
 
 use Illuminate\Database\QueryException;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
 use Pluma\Support\Repository\Repository;
 use Role\Models\Role;
@@ -16,6 +17,14 @@ class UserRepository extends Repository
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = User::class;
+
+    /**
+     * The User model type.
+     * Used for module specific users.
+     *
+     * @var string
+     */
+    protected $usertype = 'user';
 
     /**
      * Set of rules the model should be validated against when
@@ -54,6 +63,16 @@ class UserRepository extends Repository
     }
 
     /**
+     * Retrieve the full model instance.
+     *
+     * @return \Pluma\Models\Model
+     */
+    public function model()
+    {
+        return $this->model->type($this->usertype);
+    }
+
+    /**
      * Retrieve the roles list.
      *
      * @return array
@@ -80,11 +99,11 @@ class UserRepository extends Repository
         $user->password = bcrypt($data['password']) ?? null;
         $user->avatar = $data['avatar'] ?? null;
         $user->tokenize($data['username']) ?? null;
+        $user->type = $this->usertype;
         $user->save();
         $user->roles()->attach(! empty($data['roles']) ? $data['roles'] : []);
 
         if (isset($data['details'])) {
-            // dd($data['details']);
             collect($data['details'])->each(function ($detail) use ($user) {
                 $user->details()->create([
                     'icon' => $detail['icon'],
@@ -95,5 +114,26 @@ class UserRepository extends Repository
         }
 
         return $user;
+    }
+
+    /**
+     * Upload the specified file as user's avatar.
+     *
+     * @param UploadedFile $file
+     * @return mixed
+     */
+    public function upload(UploadedFile $file)
+    {
+        $folderName = settings('user:avatar_path', 'users/avatars/').date('Y-m-d');
+        $uploadPath = storage_path($folderName);
+        $name = str_slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+        $fileName = $name.'-'.date('YmdHis').'.'.$file->getClientOriginalExtension();
+        $fullFilePath = "$uploadPath/$fileName";
+
+        if ($file->move($uploadPath, $fileName)) {
+            return "$folderName/$fileName";
+        }
+
+        return null;
     }
 }

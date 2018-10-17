@@ -1,51 +1,28 @@
-@extends('Theme::layouts.auth')
+@extends("Theme::layouts.auth")
 
-@section('content')
-  <div class="container">
-    <div class="row">
-      <div class="col-auto">
-        <img src="//source.unsplash.com/600x800" width="300">
-      </div>
-      <div class="col mx-auto">
-        {{-- <div class="text-center mb-2">
-          <img class="brand-img brand-img-shadow img-inverted" src="{{ $application->site->logo }}" alt="{{ $application->site->title }}" width="100" height="auto">
-          <h1 class="text-white brand-title brand-title-shadow">{{ $application->site->title }}</h1>
-        </div> --}}
-        <form class="card" action="{{ route('login.login') }}" method="POST">
-          {{ csrf_field() }}
-          <div class="card-body p-6">
-            <div class="form-group">
-              <label class="form-label">{{ __('Email or username') }}</label>
-              <input type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="{{ __('Type email or username') }}" value="{{ old('username') }}">
-              @if ($errors->has('username'))
-                <div class="invalid-feedback">{{ __($errors->first('username')) }}</div>
-              @endif
-            </div>
-            <div class="form-group">
-              <label class="form-label">
-                {{ __('Password') }}
-              </label>
-              <input type="password" name="password" class="form-control  {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="{{ old('password') }}">
-              @if ($errors->has('password'))
-                <div class="invalid-feedback">{{ __($errors->first('password')) }}</div>
-              @endif
-              <a href="{{ route('password.forgot') }}" class="float-right small">{{ __('Forgot password?') }}</a>
-            </div>
-            <div class="form-footer">
-              <button type="submit" class="btn btn-primary btn-block">{{ __('Sign in') }}</button>
-            </div>
-            <div class="form-group mt-2 mb-5">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" name="remember" checked value="1" class="custom-control-input">
-                <span class="custom-control-label">{{ __('Remember me') }}</span>
-              </label>
-            </div>
-            <div class="text-left text-muted small">
-              <small>{{ __("Don't have account yet?") }} <a href="{{ route('register.show') }}">{{ __('Sign up') }}</a></small>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+@section("main")
+  {{-- @parent --}}
+  <v-jumbotron :gradient="`to top right, #022242 10%, #420224 100%`" height="100%">
+    <v-container fluid fill-height>
+      <v-layout row wrap align-center justify-center>
+        <v-flex lg3 md4 sm8 xs12>
+
+          <v-slide-y-transition mode="in-out">
+            <register-card
+              color="primary"
+              height="100%"
+              logo="{{ $application->site->logo }}"
+              {{-- subtitle="{{ $application->site->tagline }}" --}}
+              title="{{ __('Create an account') }}"
+            ></register-card>
+          </v-slide-y-transition>
+          <p class="white--text body-2 mt-2">
+            {{ __('Already have an account?') }}
+            <a href="{{ route('login.show') }}">{{ __('Login here.') }}</a>
+          </p>
+
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-jumbotron>
 @endsection

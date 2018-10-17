@@ -1,5 +1,8 @@
 .workspace {
   display: block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: var(--main-bg-workspace);
 
   > .footer:last-child {
     padding: 0;
@@ -12,5 +15,5 @@
 }
 
 .bg-workspace {
-  background-color: $body-bg;
+  background-color: var(--main-bg-workspace);
 }

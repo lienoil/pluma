@@ -1,3 +1,5 @@
+@import "../../theme/theme.json";
+
 // Options
 $enable-rounded: true;
 $enable-shadows: false;
@@ -7,10 +9,107 @@ $enable-hover-media-query: false;
 $enable-grid-classes: true;
 $enable-print-styles: true;
 
-//Fonts
-$font-family-base: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-$font-family-monospace: Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-$font-family-primary: 'Domine', serif;
+// Components
+$border-radius: 2px;
+$border-radius-lg: 3px;
+$border-radius-sm: 2px;
+
+// Colors
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$blue: #0C5689;
+$azure: #87ceeb;
+$indigo: #6574cd;
+$purple: #a55eea;
+$pink: #f66d9b;
+$red: #f3483c;
+$orange: #fd9644;
+$yellow: #ffda3e;
+$lime: #7bd235;
+$green: #86d067;
+$teal: #23CCAB;
+$cyan: #17a2b8;
+
+$text-muted: #9aa0ac;
+$text-muted-dark: #6e7687;
+
+$black: #000;
+$white: #fff;
+
+$primary: $_primary;
+$accent: $_accent;
+$secondary: $_secondary; // $gray-600;
+$success: $_success; // $green;
+$info: $_info; // $azure;
+$warning: $_warning; // $yellow;
+$danger: $_danger; // $red;
+$light: $_light; // $gray-100;
+$dark: $_dark; // $gray-800;
+
+$body-bg: #fff; // $body-bg-alt: #f5f7fb;
+$body-color: $gray-700;
+$workspace-bg: #f5f6f8;
+
+$colors: (
+  "blue": $blue,
+  "azure": $azure,
+  "indigo": $indigo,
+  "purple": $purple,
+  "pink": $pink,
+  "red": $red,
+  "orange": $orange,
+  "yellow": $yellow,
+  "lime": $lime,
+  "green": $green,
+  "teal": $teal,
+  "cyan": $cyan,
+  "white": $white,
+  "gray": $gray-600,
+  "gray-dark": $gray-800
+);
+
+$theme-colors: (
+  "primary": $primary,
+  "accent": $accent,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "body-bg": $body-bg,
+  "workspace-bg": $workspace-bg,
+);
+
+$social-colors: (
+  "facebook": #3b5998,
+  "twitter": #1da1f2,
+  "google": #dc4e41,
+  "youtube": #f00,
+  "vimeo": #1ab7ea,
+  "dribbble": #ea4c89,
+  "github": #181717,
+  "instagram": #e4405f,
+  "pinterest": #bd081c,
+  "vk": #6383a8,
+  "rss": #ffa500,
+  "flickr": #0063dc,
+  "bitbucket": #0052cc,
+);
+
+// Fonts
+$font-family-base: 'Varela Round', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+$font-family-monospace: Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+$font-family-primary: 'Varela Round', serif;
 
 $font-size-base: 1rem;
 $font-size-lg: 1.125rem;
@@ -38,93 +137,6 @@ $display2-size: 4rem;
 $display3-size: 3.5rem;
 $display4-size: 3rem;
 
-// Colors
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #868e96;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-
-$blue: #0C5689;
-$azure: #87ceeb;
-$indigo: #6574cd;
-$purple: #a55eea;
-$pink: #f66d9b;
-$red: #f3483c;
-$orange: #fd9644;
-$yellow: #ffda3e;
-$lime: #7bd235;
-$green: #86d067;
-$teal: #23CCAB; // #2bcbba;
-$cyan: #17a2b8;
-
-$text-muted: #9aa0ac;
-$text-muted-dark: #6e7687;
-
-$white: #fff;
-
-$primary: #772953; // $blue;
-$secondary: #F8CCBC; // $gray-600;
-$accent: $teal;
-$success: $green;
-$info: $azure;
-$warning: $yellow;
-$danger: $red;
-$light: $gray-100;
-$dark: $gray-800;
-
-$colors: (
-  "blue": $blue,
-  "azure": $azure,
-  "indigo": $indigo,
-  "purple": $purple,
-  "pink": $pink,
-  "red": $red,
-  "orange": $orange,
-  "yellow": $yellow,
-  "lime": $lime,
-  "green": $green,
-  "teal": $teal,
-  "cyan": $cyan,
-  "white": $white,
-  "gray": $gray-600,
-  "gray-dark": $gray-800
-);
-
-$theme-colors: (
-  "primary": $primary,
-  "secondary": $secondary,
-  "success": $success,
-  "info": $info,
-  "warning": $warning,
-  "danger": $danger,
-  "light": $light,
-  "dark": $dark
-);
-
-$social-colors: (
-  "facebook": #3b5998,
-  "twitter": #1da1f2,
-  "google": #dc4e41,
-  "youtube": #f00,
-  "vimeo": #1ab7ea,
-  "dribbble": #ea4c89,
-  "github": #181717,
-  "instagram": #e4405f,
-  "pinterest": #bd081c,
-  "vk": #6383a8,
-  "rss": #ffa500,
-  "flickr": #0063dc,
-  "bitbucket": #0052cc,
-);
-
-$body-bg: #f5f7fb;
-$body-color: $gray-700;
-
 // Code
 $code-font-size: 85%;
 $code-color: inherit;
@@ -143,6 +155,13 @@ $yiq-text-light: $white;
 $input-line-height: (24/15);
 $btn-line-height: (24/13);
 
+$btn-box-shadow: 0 1px 1px rgba($black, .075) !default;
+$btn-box-shadow-alt: inset 0 1px 0 rgba($white, .1), 0px 1px 5px 0px rgba(27,37,56, 0.1), 0px 2px 2px 0px rgba(27,37,56, 0.07), 0px 3px 1px -2px rgba(27,37,56, 0.06);
+
+$btn-border-radius: $border-radius;
+$btn-border-radius-sm: $border-radius-sm;
+$btn-border-radius-lg: $border-radius-lg;
+
 $input-line-height-sm: (16/14);
 $btn-line-height-sm: (16/12);
 
@@ -160,7 +179,6 @@ $btn-font-size: px2rem(10px);
 
 // Borders
 $border-width: 1px;
-//$border-color: #dee3eb;
 $border-color: rgba(0, 40, 100, .12);
 $border-color-dark: rgba(0, 40, 100, .24);
 
@@ -259,11 +277,6 @@ $zindex-modal-backdrop: 1040;
 $zindex-modal: 1050;
 $zindex-popover: 1060;
 $zindex-tooltip: 1070;
-
-// Components
-$border-radius: 3px;
-$border-radius-lg: 3px;
-$border-radius-sm: 3px;
 
 // Tables
 $table-accent-bg: rgba(0, 0, 0, .02);

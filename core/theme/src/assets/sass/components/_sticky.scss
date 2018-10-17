@@ -10,5 +10,9 @@
     left: 0;
     min-width: 100%;
     z-index: 9996;
+
+    &.shadow-sm, &.sticky-shadow {
+      box-shadow: 0 .245rem .25rem -2px rgba(0,0,0,.075)!important;
+    }
   }
 }

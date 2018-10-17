@@ -131,5 +131,16 @@ class ThemeServiceProvider extends ServiceProvider
                 include_file(themes_path("$activeTheme/routes"), "web.php");
             });
         }
+
+        // Register the core theme routes
+        if (file_exists(core_path('theme/routes/web.php'))) {
+            Route::group([
+                'middleware' => ['web'],
+                'prefix' => config('routes.web.slug', ''),
+            ], function () {
+                include_once core_path('theme/routes/web.php');
+                // include_file(themes_path("$activeTheme/routes"), "web.php");
+            });
+        }
     }
 }

@@ -28,7 +28,11 @@ $(document).ready(function () {
       // Inputs
       if ($clone.find(':input:not([type=button])')) {
         $clone.find(':input:not([type=button])').each(function (l, m) {
-          $(m).attr('name', $(m).attr('name').replace('#', $number))
+          if ($(m).attr('data-name')) {
+            $(m).attr('name', $(m).attr('data-name').replace('#', $number))
+          } else {
+            $(m).attr('name', $(m).attr('name').replace('#', $number))
+          }
         })
       }
 

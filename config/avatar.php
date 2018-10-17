@@ -44,19 +44,16 @@ return [
 
     // Fonts used to render text.
     // If contains more than one fonts, randomly selected based on name supplied
-    'fonts' => ['path/to/OpenSans-Bold.ttf', 'path/to/rockwell.ttf'],
+    'fonts' => [core_path('theme/dist/assets/fonts/OpenSans-Bold.ttf')],
 
     // List of foreground colors to be used, randomly selected based on name supplied
     'foregrounds' => [
-        '#FFFFFF',
+        '#333333',
     ],
 
     // List of background colors to be used, randomly selected based on name supplied
     'backgrounds' => [
-        '#85A0A1',
-        '#BEAAD0',
-        '#185686',
-        '#D3C5B6',
+        '#F1F1F1',
     ],
 
     'border' => [
@@ -67,5 +64,9 @@ return [
         // 'background' (same as background color)
         // or any valid hex ('#aabbcc')
         'color' => 'background'
-    ]
+    ],
+
+    'avatars' => [
+        ['url' => url('logo.png'), 'thumbnail' => url('logo.png'), 'text' => 'Logo'],
+    ],
 ];

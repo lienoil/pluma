@@ -4,6 +4,7 @@ namespace Role\Repositories;
 
 use Illuminate\Database\QueryException;
 use Pluma\Support\Repository\Repository;
+use Role\Models\Permission;
 use Role\Models\Role;
 
 class RoleRepository extends Repository
@@ -38,5 +39,17 @@ class RoleRepository extends Repository
     public static function messages()
     {
         return [];
+    }
+
+    /**
+     * Collection of permissions.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function permissions()
+    {
+        $permissions = Permission::all()->groupBy('group');
+
+        return $permissions;
     }
 }

@@ -17,8 +17,9 @@
 // Route::post('users/refresh', 'UserRefreshController@refresh')->name('users.refresh.refresh');
 // Route::post('users/restore/many', 'UserManyController@restore')->name('users.many.restore');
 
-Route::softDeletes('users', 'UserController', ['trashed' => 'deactivated']);
-
-Route::post('users/export/{user?}', 'UserController@export')->name('users.export');
-
-Route::resource('users', 'UserController', ['middleware' => 'breadcrumbs:\User\Models\User']);
+Route::middleware(['breadcrumbs:\User\Models\User'])->group(function () {
+    Route::softDeletes('users', 'UserController', ['trashed' => 'deactivated']);
+    Route::post('users/export/{user?}', 'UserController@export')->name('users.export');
+    Route::resource('users', 'UserController');
+    Route::post('avatars/upload', 'UserController@upload')->name('avatars.upload');
+});

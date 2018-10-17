@@ -1,6 +1,5 @@
 @import 'functions';
 
-@import 'core';
 @import 'type';
 @import 'grid';
 
@@ -13,7 +12,7 @@
 @import 'utilities';
 
 @import 'nav';
-@import 'button';
+@import 'buttons';
 @import 'alert';
 @import 'close';
 @import 'badge';
@@ -51,6 +50,7 @@
 @import 'forms/custom-switch';
 @import 'forms/custom-imagecheck';
 @import 'forms/custom-colorinput';
+@import 'forms/custom-upload';
 
 @import 'sidebar';
 @import 'workspace';
