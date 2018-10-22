@@ -20,12 +20,7 @@ class DateTimeSettingController extends AdminController
         return view("Setting::settings.datetime");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Setting\Requests\SettingRequest  $request
-     * @return Illuminate\Http\Response
-     */
+
     public function store(SettingRequest $request)
     {
         foreach ($request->except(['_token']) as $key => $value) {

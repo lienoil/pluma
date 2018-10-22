@@ -15,5 +15,5 @@ Route::post('library/{library}/restore', '\Library\API\Controllers\LibraryContro
 Route::get('library/all', '\Library\API\Controllers\LibraryController@all')->name('library.all');
 Route::get('library/search', '\Library\API\Controllers\LibraryController@search')->name('library.search');
 Route::group(['prefix' => 'v1'], function () {
-    //
+
 });

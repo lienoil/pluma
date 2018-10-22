@@ -6,4 +6,6 @@ Route::post('library/restore/many', 'LibraryManyController@restore')->name('libr
 Route::get('library/trash', 'LibraryController@trash')->name('library.trash');
 Route::resource('library', 'LibraryController');
 
+Route::post('library/upload', 'LibraryController@upload')->name('library.upload');
+
 Route::resouce('library', 'LibraryController', ['middleware' => 'breadcrumbs:\User\Models\User'])

@@ -2,48 +2,79 @@
 
 namespace Library\Controllers\Resources;
 
+use Catalogue\Models\Catalogue;
 use Illuminate\Http\Request;
+use Library\Models\Library;
+use Library\Requests\UploadRequest;
 
 trait LibraryResourceUploadTrait
 {
     /**
-     * Upload the resource.
+     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  \Library\Request\LibraryRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function upload(Request $request, $id = null)
+    public function upload(UploadRequest $request)
     {
-        $users = $this->repository->model()->whereIn('id', $request->input('id'))->get();
-        dd($request->all());
-
-        $headers = array(
-            "Content-type" => "application/x-rar-compressed, application/octet-stream, application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip",
-            "Content-Disposition" => "attachment; filename=",
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
-        );
-
-        $columns = array('ReviewID', 'Provider');
-
-        $callback = function() use ($users, $columns)
-        {
-            $file = fopen('php://output', 'w');
-            fputcsv($file, $columns);
-
-            foreach ($users as $user) {
-                fputcsv($file, array($user->id, $user->fullname));
+        try {
+            $file = $request->file('file');
+            if (is_array($file) && $files = $file) {
+                foreach ($files as $file) {
+                    $this->save($request, $file);
+                }
+            } else {
+                $library = $this->save($request, $file);
+                if ($request->input('return')) {
+                    return response()->json($library);
+                }
             }
-            fclose($file);
-        };
+        } catch (\Exception $e) {
+            return response()->json($library);
+        }
 
-        return Response::stream($callback, 200, $headers);
+        return response()->json($this->successResponse);
+    }
 
-        $resources = User::exportOrFail($id, $request->input('format'));
+    /**
+     * Save the library
+     *
+     * @param  File $file
+     * @return boolean
+     */
+    public function save($request, $file)
+    {
+        $originalName = $file->getClientOriginalName();
+        $date = date('Y-m-d');
+        $filePath = storage_path(settings('library.storage_path', 'public/library')) . "/$date";
 
-        return view("");
+        $name = (bool) $request->input('originalname') ? pathinfo($request->input('originalname'), PATHINFO_FILENAME) : pathinfo($originalName, PATHINFO_FILENAME);
 
+        $fileName = str_slug($name);
+        $fileName .= ".".$file->getClientOriginalExtension();
+
+        $fullFilePath = "$filePath/$fileName";
+
+        if ($file->move($filePath, $fileName)) {
+            $library = new Library();
+            $library->name = $name;
+            $library->originalname = $originalName;
+            $library->pathname = $fullFilePath;
+            $library->mimetype = $file->getClientMimeType();
+            $library->thumbnail = settings('library.storage_path', 'public/library') . "/$date/$fileName";
+            $library->size = $file->getClientSize();
+            $library->url = settings('library.storage_path', 'public/library') . "/$date/$fileName";
+            if ((bool) $request->input('catalogue_id')) {
+                $library->catalogue()->associate(Catalogue::find($request->input('catalogue_id')));
+            }
+            $library->save();
+
+            if ($request->input('extract') && Library::isExtractable($library->mimetype)) {
+                $output = storage_path(settings('package.storage_path', 'public/package'))."/$date/{$library->id}";
+                Library::extract($fullFilePath, $output);
+            }
+
+            return $library;
+        }
     }
 }

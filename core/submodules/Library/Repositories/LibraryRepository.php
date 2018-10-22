@@ -2,6 +2,7 @@
 
 namespace Library\Repositories;
 
+use Library\Models\Library;
 use Pluma\Support\Repository\Repository;
 
 class LibraryRepository extends Repository
@@ -21,7 +22,10 @@ class LibraryRepository extends Repository
      */
     public static function rules()
     {
-        return [];
+        return [
+            'name' => 'required|max:255',
+            'originalname' => 'required|max:255',
+        ];
     }
 
     /**

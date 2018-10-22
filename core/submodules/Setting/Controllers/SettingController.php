@@ -2,29 +2,21 @@
 
 namespace Setting\Controllers;
 
-use Frontier\Controllers\AdminController;
-use Illuminate\Http\Request;
-use Setting\Models\General;
-use Setting\Models\Setting;
-use Setting\Requests\SettingRequest;
-
 class SettingController extends AdminController
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
+     * @param  Illuminate\Http\Request
+     * @return Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //
-
         return view("Theme::settings.index");
     }
 
     /**
-     * Display the General Settings Form.
+     * Display the General Setting Form.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -35,7 +27,7 @@ class SettingController extends AdminController
     }
 
     /**
-     * Display the Social Settings Form.
+     * Display the Social Setting Form.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -51,7 +43,7 @@ class SettingController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Setting\Requests\SettingRequest  $request
+     * @param  Setting\Requests\SettingRequest $request
      * @return Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -77,36 +69,30 @@ class SettingController extends AdminController
      */
     public function edit(Request $request, $id)
     {
-        //
-
         return view("Theme::settings.edit");
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Setting\Requests\SettingRequest  $request
-     * @param  int  $id
+     * @param  \Setting\Requests\SettingRequest $request
+     * @param  int         $id
      * @return \Illuminate\Http\Response
      */
     public function update(SettingRequest $request, $id)
     {
-        //
-
         return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        //
-
         return redirect()->route('Setting.index');
     }
 
@@ -117,36 +103,31 @@ class SettingController extends AdminController
      */
     public function trash()
     {
-        //
-
         return view("Theme::settings.trash");
     }
 
     /**
      * Restore the specified resource from storage.
      *
-     * @param  \Setting\Requests\SettingRequest  $request
-     * @param  int  $id
+     * @param  \Setting\Request\SettingRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function restore(SettingRequest $request, $id)
     {
-        //
-
         return back();
     }
 
     /**
      * Delete the specified resource from storage permanently.
      *
-     * @param  \Setting\Requests\SettingRequest  $request
-     * @param  int  $id
+     * @param  \Setting\Requests\SettingRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function delete(SettingRequest $request, $id)
     {
-        //
-
         return redirect()->route('Setting.trash');
     }
+
 }

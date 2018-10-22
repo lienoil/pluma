@@ -13,20 +13,20 @@ class BrandingSettingController extends AdminController
     /**
      * Display the General Settings Form.
      *
-     * @param  Illuminate\Http\Request $request
-     * @return Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $catalogues = Catalogue::mediabox();
 
-        return view("Setting::settings.branding")->with(compact('catalogues'));
+        return view("Setting::setting.branding")->with(compact('catalogues'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Setting\Requests\SettingRequest  $request
+     * @param  Setting\Requests\SettingRequest $request
      * @return Illuminate\Http\Response
      */
     public function store(SettingRequest $request)
@@ -41,9 +41,10 @@ class BrandingSettingController extends AdminController
         }
 
         foreach ($request->except(['_token', 'site_logo']) as $key => $value) {
-            Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value) : $value]);
+            Setting::updateOrCreate(['key' => $key], ['value' => is_array($value) ? serialize($value)])
         }
 
         return back();
+
     }
 }
