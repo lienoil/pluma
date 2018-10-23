@@ -67,6 +67,6 @@ return [
     ],
 
     'avatars' => [
-        ['url' => url('logo.png'), 'thumbnail' => url('logo.png'), 'text' => 'Logo'],
+        ['url' => 'logo.png', 'thumbnail' => 'logo.png', 'text' => 'Logo'],
     ],
 ];
