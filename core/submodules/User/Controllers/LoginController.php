@@ -159,9 +159,9 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        if ($request->ajax()) {
+        if ($request->wantsJson()) {
             return response()->json([
-                $this->username() => [Lang::get('auth.failed')],
+                $this->username() => [Lang::get('auth.failed')]
             ], 422);
         }
 

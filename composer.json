@@ -54,6 +54,7 @@
     "symfony/console": "^4.0",
     "symfony/polyfill-mbstring": "^1.7",
     "symfony/var-dumper": "^3.0",
+    "tymon/jwt-auth": "^0.5.12",
     "vlucas/phpdotenv": "^2.4",
     "wikimedia/composer-merge-plugin": "^1.4"
   },

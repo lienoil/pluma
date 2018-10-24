@@ -28,6 +28,7 @@ class RoleRepository extends Repository
             'name' => 'required|max:255',
             'code' => 'required|max:255',
             'group' => 'sometimes|required',
+            'permissions' => 'required|array',
         ];
     }
 
@@ -38,18 +39,33 @@ class RoleRepository extends Repository
      */
     public static function messages()
     {
-        return [];
+        return [
+            'code.regex' => 'Only letters, numbers, spaces, and hypens are allowed.',
+            'description.regex' => 'Only letters, spaces, and hypens are allowed.',
+        ];
     }
 
     /**
-     * Collection of permissions.
+     * Retrieve the grouped permissions.
      *
      * @return \Illuminate\Support\Collection
      */
     public function permissions()
     {
-        $permissions = Permission::all()->groupBy('group');
+        return Permission::all()->groupBy('group');
+    }
 
-        return $permissions;
+    /**
+     * Create model resource.
+     *
+     * @param array $data
+     * return \Role\Models\Role
+     */
+    public function create(array $data)
+    {
+        $resource = $this->model()->create($data);
+        $resource->permissions()->attach($data['permissions']);
+
+        return $resource;
     }
 }
