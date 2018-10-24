@@ -6,22 +6,24 @@ use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Menu\Models\Menu;
+use Menu\Repositories\MenuRepository;
 use Menu\Requests\MenuRequest;
 use Page\Models\Page;
 
 class MenuController extends AdminController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $locations = Menu::locations();
+    use Resources\MenuResourceAdminTrait;
 
-        return view("Theme::menus.index")->with(compact('locations'));
+    /**
+     * Inject the resource model to the repository instance.
+     *
+     * @param \Pluma\Models\Model $model
+     */
+    public function __construct()
+    {
+        $this->repository = new MenuRepository();
+
+        parent::__construct();
     }
 
     /**
@@ -76,22 +78,5 @@ class MenuController extends AdminController
 
 
         return back();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, $code)
-    {
-        $menus = Menu::menus($code);
-        $pages = Menu::pages();
-        $location = Menu::location($code);
-        $social = Menu::social();
-
-        return view("Theme::menus.edit")->with(compact('menus', 'pages', 'social', 'location'));
     }
 }

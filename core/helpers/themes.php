@@ -11,6 +11,10 @@ if (! function_exists('themes_path')) {
      */
     function themes_path($path = '')
     {
+        if ($path === 'default' || empty($path)) {
+            return core_path('theme');
+        }
+
         $path = ltrim($path, '/');
         if (! function_exists('config')) {
             $themesPath = json_decode(json_encode(require __DIR__.'/../../config/path.php'));

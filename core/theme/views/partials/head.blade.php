@@ -58,6 +58,8 @@
     </style>
   @show
   @stack('after:css')
+    <script src="{{ theme('dist/vendor.min.js') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}"></script>
+  @show
 </head>
 <body>
   @push('noscript')

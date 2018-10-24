@@ -1,9 +1,5 @@
 @extends('Theme::layouts.auth')
 
-@push('before:main')
-  <div style="opacity:0.09;position:fixed;width:100vw;height:100vh;background-image: url({{ theme('dist/assets/img/patterns/seigaiha.png') }})"></div>
-@endpush
-
 @section('content')
   <div class="container">
     <div class="row">
