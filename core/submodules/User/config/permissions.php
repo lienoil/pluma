@@ -43,6 +43,12 @@ return [
         'description' => 'Ability to save the user',
         'group' => 'users',
     ],
+    'edit-user' => [
+        'name' => 'edit-user',
+        'code' => 'users.edit',
+        'description' => 'Ability to view the edit form',
+        'group' => 'users',
+    ],
     'update-user' => [
         'name' => 'update-user',
         'code' => 'users.update',

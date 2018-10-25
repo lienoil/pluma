@@ -31,11 +31,8 @@ trait MenuResourceAdminTrait
     public function edit(Request $request, $code)
     {
         $resource = $this->repository->location($code);
-        $menus = \Menu\Models\Menu::menus($code);
-        $pages = \Menu\Models\Menu::pages();
-        $location = \Menu\Models\Menu::location($code);
-        $social = \Menu\Models\Menu::social();
+        $repository = $this->repository;
 
-        return view('Theme::menus.edit')->with(compact('resource', 'menus', 'pages', 'social', 'location'));
+        return view('Theme::menus.edit')->with(compact('resource', 'repository'));
     }
 }

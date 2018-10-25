@@ -126,7 +126,7 @@ module.exports = {
         background: theme._light,
         theme_color: theme._primary,
       },
-      logo: path.resolve(__dirname, 'src/assets/images/logo.png'),
+      logo: path.resolve(__dirname, 'src/assets/images/favicon.png'),
       prefix: '/favicons/',
     }),
 
