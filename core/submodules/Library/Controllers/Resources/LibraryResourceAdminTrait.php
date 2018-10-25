@@ -47,7 +47,7 @@ trait LibraryResourceAdminTrait
      */
     public function create()
     {
-        return view("Theme::library.create")
+        return view("Theme::library.create");
     }
 
     /**
@@ -86,7 +86,7 @@ trait LibraryResourceAdminTrait
      */
     public function edit(Request $request, $id)
     {
-        return view("Theme::library.edit")
+        return view("Theme::library.edit");
     }
 
     /**

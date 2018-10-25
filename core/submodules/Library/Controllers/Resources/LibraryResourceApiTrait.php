@@ -117,17 +117,19 @@ trait LibraryResourceApiTrait
      */
     public function putUpdate(Request $request, $id)
     {
-        $library = new Library::findOrFail($id);
-        $library->title = $request->input('title');
-        $library->code = $request->input('code');
-        $library->feautre = $request->input('feature');
-        $library->body = $request->input('body');
-        $library->delta = $request->input('delta');
-        $library->template = $request->input('template');
-        $library->user()->associate(User::find($request->input('user_id')));
-        $library->save();
+        // $library = new Library::findOrFail($id);
+        // $library->title = $request->input('title');
+        // $library->code = $request->input('code');
+        // $library->feautre = $request->input('feature');
+        // $library->body = $request->input('body');
+        // $library->delta = $request->input('delta');
+        // $library->template = $request->input('template');
+        // $library->user()->associate(User::find($request->input('user_id')));
+        // $library->save();
 
-        return response()->json($library->id);
+        // return response()->json($library->id);
+
+        return null;
     }
 
     /**
