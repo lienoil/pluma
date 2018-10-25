@@ -2,8 +2,21 @@
 
 namespace Setting\Support\Traits;
 
-trait Themeable
+trait Themable
 {
+    /**
+     * Retrieve the themes from the filesystem.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function files()
+    {
+        return get_themes()
+            ->except('active')
+            ->sortBy('timestamp')
+            ->reverse();
+    }
+
     /**
      * Gets the registered themes.
      *

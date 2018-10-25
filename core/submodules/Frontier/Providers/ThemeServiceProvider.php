@@ -90,6 +90,7 @@ class ThemeServiceProvider extends ServiceProvider
         // Load the default theme in the 'Theme' hint path.
         if (is_dir(core_path('theme'))) {
             $this->loadViewsFrom(core_path('theme/views'), ucfirst($this->basename));
+            $this->loadViewsFrom(core_path('theme/views'), 'Pluma');
         }
 
         // Default is loaded after the themes.
