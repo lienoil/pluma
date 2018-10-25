@@ -1,8 +1,3 @@
 import '@/plugins/bootstrap'
-import '@/plugins/datatables'
 import '@/plugins/selectpicker'
-import '@/plugins/snackbar'
-import '@/plugins/c3js'
-import '@/plugins/inputmask'
-import '@/plugins/confetti'
 import '@/components/index'

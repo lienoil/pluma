@@ -3,13 +3,22 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
+const WebpackOnBuildPlugin = require('on-build-webpack')
+const theme = require('./src/theme/theme.json')
+const jsonImporter = require('node-sass-json-importer')
 
 module.exports = {
+  cache: true,
   mode: 'production',
+  devtool: 'source-map',
   entry: {
-    app: './src/app.js'
+    app: './src/app.js',
+    data: './src/data.js',
+    vendor: './src/vendor.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -21,6 +30,13 @@ module.exports = {
     },
     extensions: ['.js', '.json'],
   },
+  optimization: {
+    minimizer: [new UglifyJsPlugin({
+      cache: true,
+      sourceMap: true,
+      parallel: true,
+    })]
+  },
   module: {
     rules: [
       {
@@ -29,6 +45,8 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader,
         }, {
           loader: 'css-loader', // translates CSS into CommonJS modules
+        }, {
+          loader: 'import-glob-loader',
         }, {
           loader: 'postcss-loader', // Run post css actions
           options: {
@@ -40,7 +58,10 @@ module.exports = {
             }
           }
         }, {
-          loader: 'sass-loader' // compiles Sass to CSS
+          loader: 'sass-loader', // compiles Sass to CSS
+          options: {
+            importer: jsonImporter(),
+          }
         }]
       },
       {
@@ -70,6 +91,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new UglifyJsPlugin({
+      sourceMap: true,
+      extractComments: 'all',
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -79,10 +104,34 @@ module.exports = {
       chunkFilename: "[id].min.css"
     }),
     new OptimizeCSSAssetsPlugin(),
+    // new WebpackOnBuildPlugin(function (stats) {
+    //   const newlyCreatedAssets = stats.compilation.assets;
+    //   const unlinked = [];
+    //   fs.readdir(path.resolve(buildDir), (err, files) => {
+    //     files.forEach(file => {
+    //       if (!newlyCreatedAssets[file]) {
+    //         fs.unlink(path.resolve(buildDir + file));
+    //         unlinked.push(file);
+    //       }
+    //     });
+    //     if (unlinked.length > 0) {
+    //       console.log('Removed old assets: ', unlinked);
+    //     }
+    //   })
+    // }),
     // Favicon generator
     new WebappWebpackPlugin({
+      cache: true,
+      favicons: {
+        background: theme._light,
+        theme_color: theme._primary,
+      },
       logo: path.resolve(__dirname, 'src/assets/images/logo.png'),
-      prefix: 'assets/favicons/',
+      prefix: '/favicons/',
     }),
+
+    new CopyWebpackPlugin([
+      {from:'src/assets/images/logo.png',to:'logo.png'}
+    ])
   ],
 }

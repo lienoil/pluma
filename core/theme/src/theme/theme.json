@@ -1,0 +1,11 @@
+{
+  "_primary": "#0C5689",
+  "_accent": "#abdfa6",
+  "_secondary": "#ffffff",
+  "_success": "#86d067",
+  "_info": "#00B8D6",
+  "_warning": "#ffda3e",
+  "_danger": "#F44336",
+  "_light": "#f8f9fa",
+  "_dark": "#343a40"
+}

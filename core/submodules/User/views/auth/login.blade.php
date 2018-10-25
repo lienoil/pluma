@@ -4,29 +4,22 @@
   <div class="container">
     <div class="row">
       <div class="col col-login mx-auto">
-        <div class="text-center mb-2">
-          <img class="brand-img brand-img-shadow img-inverted" src="{{ $application->site->logo }}" alt="{{ $application->site->title }}" width="100" height="auto">
-          <h1 class="text-white brand-title brand-title-shadow">{{ $application->site->title }}</h1>
-        </div>
-        <form class="card" action="{{ route('login.login') }}" method="POST">
+        <form class="card mt-6" action="{{ route('login.login') }}" method="POST">
           {{ csrf_field() }}
           <div class="card-body p-6">
-            <div class="card-title">{{ __("Sign in with your {$application->site->title} account") }}</div>
+            @include('Theme::partials.brand', ['color' => 'text-primary'])
+            <div class="card-title mt-1">{{ __("Sign in with your {$application->site->title} account") }}</div>
             <div class="form-group">
               <label class="form-label">{{ __('Email or username') }}</label>
               <input type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="{{ __('Type email or username') }}" value="{{ old('username') }}">
-              @if ($errors->has('username'))
-                <div class="invalid-feedback">{{ __($errors->first('username')) }}</div>
-              @endif
+              @include('Theme::errors.span', ['field' => 'username'])
             </div>
             <div class="form-group">
               <label class="form-label">
                 {{ __('Password') }}
               </label>
               <input type="password" name="password" class="form-control  {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="{{ old('password') }}">
-              @if ($errors->has('password'))
-                <div class="invalid-feedback">{{ __($errors->first('password')) }}</div>
-              @endif
+              @include('Theme::errors.span', ['field' => 'password'])
               <a href="{{ route('password.forgot') }}" class="float-right small">{{ __('Forgot password?') }}</a>
             </div>
             <div class="form-footer">

@@ -26,7 +26,7 @@ class CreateActivitiesTable extends Migration
 
         Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->text('subject', 255)->index(255)->nullable();
+            $table->text('subject', 255)->nullable();
             $table->string('url')->nullable();
             $table->string('method')->nullable();
             $table->integer('causer_id')->index()->nullable();

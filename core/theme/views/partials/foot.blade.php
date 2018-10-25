@@ -1,11 +1,11 @@
   @include('Theme::partials.footer')
 
-  @stack("pre-js")
+  @stack('before:js')
 
-  @stack("js")
-    <script src="{{ theme('dist/app.min.js') }}"></script>
+  @section('js')
+    <script src="{{ theme('dist/app.min.js') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}"></script>
   @show
 
-  @stack("post-js")
+  @stack('after:js')
 </body>
 </html>

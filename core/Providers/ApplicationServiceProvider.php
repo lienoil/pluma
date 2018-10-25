@@ -4,6 +4,7 @@ namespace Pluma\Providers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\AggregateServiceProvider;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Pluma\Providers\QueueServiceProvider;
@@ -29,7 +30,10 @@ class ApplicationServiceProvider extends AggregateServiceProvider
         parent::register();
 
         $this->registerRequestValidation();
+
         $this->registerRequestSignatureValidation();
+
+        $this->registerApplicationMacros();
     }
 
     /**
@@ -57,6 +61,23 @@ class ApplicationServiceProvider extends AggregateServiceProvider
     {
         Request::macro('hasValidSignature', function () {
             return URL::hasValidSignature($this);
+        });
+    }
+
+    /**
+     * Register collection macros.
+     *
+     * @return void
+     */
+    public function registerApplicationMacros()
+    {
+        Collection::macro('recurse', function () {
+            return $this->map(function ($value) {
+                if (is_array($value) || is_object($value)) {
+                    return collect($value)->recurse();
+                }
+                return $value;
+            });
         });
     }
 }

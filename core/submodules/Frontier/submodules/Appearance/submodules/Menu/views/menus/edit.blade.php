@@ -1,12 +1,18 @@
-@extends("Theme::layouts.admin")
+@extends('Theme::layouts.admin')
 
-@section("head-title", __("Edit") . " {$location->name}")
+@section('head:title', __("Edit {$resource->name}"))
+@section('page:title', __("Edit {$resource->name}"))
 
-@section("content")
-    <v-toolbar dense dark class="secondary elevation-0">
-        <v-toolbar-title class="subheading">{{ __($location->name) }}</v-toolbar-title>
-    </v-toolbar>
-
-
-    @include("Page::interactive.pages", ['items' => $menus])
+@section('page:content')
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            asd
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection

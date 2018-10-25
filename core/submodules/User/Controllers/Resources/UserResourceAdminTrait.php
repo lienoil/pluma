@@ -34,7 +34,7 @@ trait UserResourceAdminTrait
     {
         $resources = $this->repository;
 
-        return view('Theme::admin.create')->with(compact('resources'));
+        return view('User::admin.create')->with(compact('resources'));
     }
 
     /**
@@ -62,7 +62,7 @@ trait UserResourceAdminTrait
     {
         $resource = $this->repository->find($id);
 
-        return view('Theme::admin.show')->with(compact('resource'));
+        return view('User::admin.show')->with(compact('resource'));
     }
 
     /**
@@ -81,7 +81,7 @@ trait UserResourceAdminTrait
         // }
         // $roles = $roles->get();
 
-        return view('Theme::admin.edit')->with(compact('resource'));
+        return view('User::admin.edit')->with(compact('resource'));
     }
 
     /**

@@ -1,4 +1,8 @@
+@import '~css-vars/css-vars';
 @import 'variables';
 @import 'reset';
 @import '~bootstrap/scss/bootstrap';
+@import 'root';
+@import 'plugins/selectpicker';
+@import 'plugins/dropzone';
 @import 'components/components';

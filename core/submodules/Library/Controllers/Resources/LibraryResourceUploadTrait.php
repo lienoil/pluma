@@ -76,5 +76,6 @@ trait LibraryResourceUploadTrait
 
             return $library;
         }
+
     }
 }

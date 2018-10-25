@@ -1,4 +1,5 @@
 <?php
+
 Route::delete('library/destroy/many', 'LibraryManyController@destroy')->name('library.many.destroy');
 Route::post('library/restore/many', 'LibraryManyController@restore')->name('library.many.restore');
 
