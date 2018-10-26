@@ -15,7 +15,6 @@
     "autoprefixer": "^9.1.5",
     "copy-webpack-plugin": "^4.5.3",
     "css-loader": "^1.0.0",
-    "css-vars": "^2.2.0",
     "exports-loader": "^0.7.0",
     "file-loader": "^2.0.0",
     "import-glob-loader": "^1.1.0",

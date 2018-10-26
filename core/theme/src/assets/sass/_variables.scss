@@ -37,12 +37,11 @@ $lime: #7bd235;
 $green: #86d067;
 $teal: #23CCAB;
 $cyan: #17a2b8;
+$black: #000;
+$white: #fff;
 
 $text-muted: #9aa0ac;
 $text-muted-dark: #6e7687;
-
-$black: #000;
-$white: #fff;
 
 $primary: $_primary;
 $accent: $_accent;
@@ -57,6 +56,7 @@ $dark: $_dark; // $gray-800;
 $body-bg: #fff; // $body-bg-alt: #f5f7fb;
 $body-color: $gray-700;
 $workspace-bg: #f5f6f8;
+$sidebar-bg: #f5f6f8;
 
 $colors: (
   "blue": $blue,
@@ -87,23 +87,24 @@ $theme-colors: (
   "light": $light,
   "dark": $dark,
   "body-bg": $body-bg,
-  "workspace-bg": $workspace-bg,
+  "bg-body": $body-bg,
+  "bg-workspace": $workspace-bg
 );
 
 $social-colors: (
-  "facebook": #3b5998,
-  "twitter": #1da1f2,
-  "google": #dc4e41,
-  "youtube": #f00,
-  "vimeo": #1ab7ea,
+  "bitbucket": #0052cc,
   "dribbble": #ea4c89,
+  "facebook": #3b5998,
+  "flickr": #0063dc,
   "github": #181717,
+  "google": #dc4e41,
   "instagram": #e4405f,
   "pinterest": #bd081c,
-  "vk": #6383a8,
   "rss": #ffa500,
-  "flickr": #0063dc,
-  "bitbucket": #0052cc,
+  "twitter": #1da1f2,
+  "vimeo": #1ab7ea,
+  "vk": #6383a8,
+  "youtube": #f00,
 );
 
 // Fonts

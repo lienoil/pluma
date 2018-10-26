@@ -3,7 +3,7 @@
 
 @include('Theme::admin.index', [
   'resources' => $resources,
-  'actions' => false,
+  'actions' => ['search', 'edit', 'show', 'destroy', 'trashed'],
   'buttons' => [
     'primary' => [
       'icon' => 'fe fe-plus',
@@ -21,7 +21,7 @@
   ],
   'table' => [
     'body' => [
-      'name', 'code', 'description', 'created',
+      'name', 'code', 'description', 'permission_count', 'created',
     ],
     'head' => [
       [
@@ -41,6 +41,13 @@
       [
         'label' => __('Description'),
         'column' => 'description',
+        'class' => '',
+        'colspan' => 1,
+        'sortable' => false,
+      ],
+      [
+        'label' => __('Permissions'),
+        'column' => 'permission_count',
         'class' => '',
         'colspan' => 1,
         'sortable' => false,

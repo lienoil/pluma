@@ -2,7 +2,7 @@
   display: block;
   padding-left: 1rem;
   padding-right: 1rem;
-  background-color: var(--main-bg-workspace);
+  background-color: var(--bg-workspace);
 
   > .footer:last-child {
     padding: 0;
@@ -12,8 +12,4 @@
     padding-top: 0;
     min-height: calc(100% - 202px);
   }
-}
-
-.bg-workspace {
-  background-color: var(--main-bg-workspace);
 }

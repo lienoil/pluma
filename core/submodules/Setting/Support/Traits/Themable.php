@@ -46,12 +46,6 @@ trait Themable
      */
     public static function theme($theme)
     {
-        foreach (self::themes() as $item) {
-            if (strtolower($item->name) === strtolower($theme) && is_dir($item->path)) {
-                return $item;
-            }
-        }
-
-        return self::theme('default', false);
+        return get_themes()->only($theme)->first();
     }
 }

@@ -1,50 +1,30 @@
-@extends("Theme::layouts.admin")
+@extends('Theme::layouts.admin')
 
-@section("head-title", __($resource->name))
+@section('head:title', $resource->name)
+@section('page:title', $resource->name)
 
-@section("page:content")
-  @foreach ($resource->permissions as $permission)
-    <p>{{ $permission->name }}</p>
-  @endforeach
+@section('page:content')
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>{!! $resource->description !!}</p>
+
+        <p class="form-label">{{ __('Permissions') }}</p>
+
+        <div class="row">
+          <div class="col-sm-12 col-lg-4">
+            @include('Theme::fields.treeview', [
+              'label' => null,
+              'actions' => false,
+              'readonly' => true,
+              'icon' => 'mdi mdi-shield-half-full text-green',
+              'items' => $resource->permissions->groupBy('group'),
+              'key' => 'code',
+              'text' => 'description',
+            ])
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
-
-@push('css')
-    <style>
-        .card--flex-toolbar {
-            margin-top: -80px;
-        }
-    </style>
-@endpush
-
-@push('pre-scripts')
-    <script src="{{ assets('frontier/vendors/vue/resource/vue-resource.min.js') }}"></script>
-    <script>
-        mixins.push({
-            data () {
-                return {
-                    resource: {
-                        item: {!! json_encode($resource) !!},
-                        model: false,
-                        dialog: {
-                            model: false,
-                        },
-                    },
-                    urls: {
-                        roles: {
-                            api: {
-                                clone: '{{ route('api.roles.clone', 'null') }}',
-                                destroy: '{{ route('api.roles.destroy', 'null') }}',
-                            },
-                            show: '{{ route('roles.show', 'null') }}',
-                            edit: '{{ route('roles.edit', 'null') }}',
-                            destroy: '{{ route('roles.destroy', 'null') }}',
-                        },
-                    },
-                };
-            },
-            mounted () {
-                let self = this;
-            }
-        })
-    </script>
-@endpush

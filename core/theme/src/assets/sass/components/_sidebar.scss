@@ -11,7 +11,7 @@ $sidebar-brand-height: 60px;
   min-height: 100vh;
   margin-left: -$sidebar-width-full;
   transition: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
-  background-color: $sidebar-bg-color;
+  background-color: var(--bg-sidebar);
   overflow-y: auto;
 
   &.sidebar-bg-colored, &.sidebar-alt {
@@ -108,12 +108,12 @@ $sidebar-brand-height: 60px;
           position: relative;
           &.active {
             background-color: transparent;
-            color: $primary;
+            color: var(--primary);
           }
 
           &:hover, &:active, &:focus {
             background-color: transparent;
-            color: $primary;
+            color: var(--primary);
           }
 
           .icon, &-icon {
@@ -179,7 +179,8 @@ $sidebar-brand-height: 60px;
   }
 
   &-dropdown-divider {
-    border: 1px dashed $border-color;
+    border-top: 1px dashed $border-color;
+    margin-right: 2rem;
     margin: 0;
   }
 
@@ -193,7 +194,7 @@ $sidebar-brand-height: 60px;
     // If sidebar has active class on `md` and down
     // it means it's hidden.
     & {
-      background-color: $sidebar-bg-color;
+      background-color: var(--bg-sidebar);
       margin-left: 0;
       z-index: 999;
       ~ .workspace {

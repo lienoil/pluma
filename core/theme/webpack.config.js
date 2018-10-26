@@ -131,7 +131,8 @@ module.exports = {
     }),
 
     new CopyWebpackPlugin([
-      {from:'src/assets/images/logo.png',to:'logo.png'}
+      {from:'src/assets/images/logo.png', to:'logos/logo.png'},
+      {from:'src/assets/images/logo.svg', to:'logos/logo.svg'},
     ])
   ],
 }

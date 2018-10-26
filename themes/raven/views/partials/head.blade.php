@@ -1,8 +1,10 @@
 @push('after:css')
   <style>
     :root {
-      --primary: #400;
+      --bg-primary: {{ get_active_theme()->colors->_primary }};
+      --bg-workspace: {{ get_active_theme()->colors->_workspace }};
     };
   </style>
 @endpush
-@include('Pluma::partials.head')
+
+@include('Default::partials.head')

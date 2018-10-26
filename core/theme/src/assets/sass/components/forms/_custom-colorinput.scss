@@ -11,6 +11,16 @@
 	margin: 0;
 	position: relative;
 	cursor: pointer;
+
+  &-sm {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+
+  &-lg {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
 }
 
 .colorinput-input {

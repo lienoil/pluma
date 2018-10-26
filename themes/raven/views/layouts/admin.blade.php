@@ -6,7 +6,7 @@
 
 @section('main')
   @section('workspace')
-    <div id="workspace" class="workspace justify-content-start">
+    <div id="workspace" class="workspace text-light justify-content-start">
       @include('Theme::partials.utilitybar')
       @include('Theme::partials.breadcrumbs')
 

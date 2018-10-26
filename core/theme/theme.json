@@ -1,10 +1,11 @@
 {
   "name": "Default",
   "code": "default",
-  "description": "This is the default theme for Pluma CMS.",
+  "description": "This is the default theme for Pluma CMS. <em>Can</em> you dig it?",
   "preview": {
-   "img": "preview.png",
-   "credit": ""
+   "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=",
+   "credit": "",
+   "hintpath": "Default::themes.thumbnail"
   },
   "author": {
     "name": "John Lioneil Dionisio",
