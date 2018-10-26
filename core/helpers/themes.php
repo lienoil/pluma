@@ -11,10 +11,6 @@ if (! function_exists('themes_path')) {
      */
     function themes_path($path = '')
     {
-        if ($path === 'default' || empty($path)) {
-            return core_path('theme');
-        }
-
         $path = ltrim($path, '/');
         if (! function_exists('config')) {
             $themesPath = json_decode(json_encode(require __DIR__.'/../../config/path.php'));
@@ -35,7 +31,7 @@ if (! function_exists('get_active_theme')) {
      */
     function get_active_theme()
     {
-        return Theme::theme(settings('active_theme', settings('default_theme', 'default')));
+        return get_themes()['active'];
     }
 }
 
@@ -47,39 +43,46 @@ if (! function_exists('get_themes')) {
      * @param  string  $identifier
      * @return array
      */
-    function get_themes($path = null, $identifier = 'index.html')
+    function get_themes($path = null, $identifier = 'theme.json')
     {
         $themePath = is_null($path) ? themes_path() : $path;
+        $coreThemePath = core_path('theme');
+        $defaultThemePath = glob("$coreThemePath/$identifier");
         $directories = glob("$themePath/*/$identifier");
+        $directories = array_merge($defaultThemePath, $directories);
+
         $themes = [];
-
         foreach ($directories as $i => $directory) {
-            $themes[$i]['theme'] = [];
-            if (file_exists(dirname($directory).'/theme.json')) {
-                $json = json_decode(file_get_contents(dirname($directory).'/theme.json'));
-                $themes[$i] = [
-                    'name' => isset($json->name) ? $json->name : '',
-                    'hintpath' => isset($json->name) ? ucfirst($json->name) : 'Theme',
-                    'description' => isset($json->description) ? $json->description : '',
-                    'timestamp' => filectime($directory),
-                    'code' => isset($json->code) ? $json->code : strtolower(str_slug($json->name)),
-                    'author' => [
-                        'name' => isset($json->author->name) ? $json->author->name : '',
-                        'email' => isset($json->author->email) ? $json->author->email : '',
-                    ],
-                ];
-            }
+            $json = json_decode(
+                file_get_contents(dirname($directory).'/'.$identifier)
+            );
 
-            $themes[$i]['path'] = dirname($directory);
+            $code = $json->code ?? $json->name ?? $i;
 
-            if (file_exists(dirname($directory)."/preview.jpg")) {
-                $themes[$i]['preview'] = url('anytheme/'.basename(dirname($directory)).'/preview.jpg');
-            } else {
-                $themes[$i]['preview'] = url('anytheme/'.basename(dirname($directory)).'/preview.png');
-            }
+            $themes[$code] = new \StdClass();
+            $themes[$code]->name = $json->name ?? 'Unnamed Theme';
+            $themes[$code]->hintpath = isset($json->name) ? ucfirst($json->name) : 'Theme';
+            $themes[$code]->description = $json->description ?? '';
+            $themes[$code]->timestamp = filectime($directory);
+            $themes[$code]->code = $json->code ?? $json->name ?? date('Ymdhis');
+            $themes[$code]->slug = strtolower(str_slug($json->code ?? $json->name ?? date('Ymdhis')));
+            $themes[$code]->author = [
+                'name' => isset($json->author->name) ? $json->author->name : '',
+                'email' => isset($json->author->email) ? $json->author->email : '',
+            ];
+
+            $themes[$code]->path = dirname($directory);
+            $theme = basename($themes[$code]->path);
+            $theme = $theme === 'theme' ? 'default' : $theme;
+            $themes[$code]->thumbnail = @url('anytheme/'.$theme.'/'.$json->preview->img);
+            $themes[$code]->preview = $json->preview;
+            $themes[$code]->colors = $json->colors ?? [];
+            $themes[$code]->active = settings('active_theme', 'default') === $code;
         }
 
-        return json_decode(json_encode($themes));
+        $themes['active'] = $themes[settings('active_theme', 'default')];
+
+        return collect($themes ?? []);
     }
 }
 

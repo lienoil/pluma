@@ -1,5 +1,10 @@
+.treeview-container {
+  display: block;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
 .treeview-body {
   display: block;
-  max-height: 50vh;
   overflow-y: auto;
 }

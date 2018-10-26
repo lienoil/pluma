@@ -51,15 +51,8 @@
   @stack('css')
     <link rel="stylesheet" type="text/css" href="{{ theme('dist/vendor.min.css') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}">
     <link rel="stylesheet" type="text/css" href="{{ theme('dist/app.min.css') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}">
-    <style>
-      :root {
-        --main-bg-workspace: #fff;
-      };
-    </style>
   @show
   @stack('after:css')
-    <script src="{{ theme('dist/vendor.min.js') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}"></script>
-  @show
 </head>
 <body>
   @push('noscript')

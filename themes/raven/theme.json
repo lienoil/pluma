@@ -1,0 +1,25 @@
+{
+  "name": "Raven Dark",
+  "code": "raven",
+  "description": "A dark theme with a bit of blue.",
+  "preview": {
+    "img": "preview.png",
+    "credit": "Photo by Amarnath Tade on Unsplash",
+    "url": "https://unsplash.com/@amarnathtade"
+  },
+  "author": {
+    "name": "John Lioneil Dionisio",
+    "email": "john.dionisio1@gmail.com"
+  },
+  "colors": {
+    "_primary": "#17324F",
+    "_secondary": "#ffffff",
+    "_accent": "#C7D8F2",
+    "_success": "#86d067",
+    "_info": "#00B8D6",
+    "_warning": "#ffda3e",
+    "_danger": "#F44336",
+    "_light": "#f8f9fa",
+    "_dark": "#0C1823"
+  }
+}

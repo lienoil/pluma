@@ -38,33 +38,37 @@ $(document).ready(function () {
     let $child = $(el)
     let $children = $child.find('input[type=checkbox]').length
     let $checked = $child.find('input[type=checkbox]:checked').length
-    let $parent = $child.parents('[data-tree-child]').parents('[data-tree-item]')
+    let $parent = $child.parents('[data-tree-item]')
 
-    $parent.find('input[type="checkbox"]').prop('indeterminate', false)
+    const $header = $parent.children('[data-tree-header]')
+    $header.find('input[type="checkbox"]').prop('indeterminate', false)
     if ($checked === 0) {
-      $parent.find('input[type="checkbox"]').prop('checked', false)
+      $header.find('input[type="checkbox"]').prop('checked', false)
     } else if ($children === $checked) {
-      $parent.find('input[type="checkbox"]').prop('checked', true)
+      $header.find('input[type="checkbox"]').prop('checked', true)
     } else {
-      $parent.find('input[type="checkbox"]').prop('indeterminate', true)
+      $header.find('input[type="checkbox"]').prop('indeterminate', true)
     }
   })
 })
 
 // Toggle buttons
 $(document).on('click', '[data-tree-toggle]', function (e) {
+  let $parent = $(this).parents('.treeview')
+  let $instance = $parent.find('[data-tree]')
+
   switch ($(this).attr('data-tree-toggle')) {
     case 'collapse':
-      $('[data-tree] [data-tree-child]').fadeOut()
+      $instance.find('[data-tree-child]').fadeOut()
       break
     case 'expand':
-      $('[data-tree] [data-tree-child]').fadeIn()
+      $instance.find('[data-tree-child]').fadeIn()
       break
     case 'check':
-      $('[data-tree] input[type="checkbox"]').prop('checked', true)
+      $instance.find('input[type="checkbox"]').prop('checked', true)
       break
     case 'uncheck':
-      $('[data-tree] input[type="checkbox"]').prop('checked', false)
+      $instance.find('input[type="checkbox"]').prop('checked', false)
       break
     default:
   }

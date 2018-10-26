@@ -27,20 +27,6 @@ class MenuController extends AdminController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string  $code
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $code)
-    {
-        $resource = Menu::location($code);
-
-        return view("Theme::menus.show")->with(compact('resource'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
