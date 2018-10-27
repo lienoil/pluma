@@ -1,11 +1,15 @@
 {
-  "_primary": "#0C5689",
+  "_primary": "#0c5689",
   "_accent": "#abdfa6",
   "_secondary": "#ffffff",
   "_success": "#86d067",
-  "_info": "#00B8D6",
+  "_info": "#00b8d6",
   "_warning": "#ffda3e",
-  "_danger": "#F44336",
+  "_danger": "#f44336",
   "_light": "#f8f9fa",
-  "_dark": "#343a40"
+  "_dark": "#343a40",
+  "_bg-body": "#f2f2f2",
+  "_bg-workspace": "#f5f6f8",
+  "_bg-sidebar": "#f5f6f8",
+  "_bg-card": "#ffffff",
 }

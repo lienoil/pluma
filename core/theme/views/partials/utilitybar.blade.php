@@ -14,7 +14,7 @@
       @include('Theme::partials.search')
     @show --}}
     {{-- <div class="w-100 spacer"></div> --}}
-    @section('utilitybar.user')
+    @section('utilitybar:user')
       <div class="d-flex order-lg-2 ml-auto">
         <div class="dropdown">
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown" aria-expanded="true">
@@ -34,7 +34,7 @@
               <i class="dropdown-icon mdi mdi-power"></i>
               <span>{{ __('Sign out') }}</span>
             </a>
-            {{-- <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{ route('settings:display.index') }}">
               <i class="dropdown-icon fe fe-settings"></i> Settings
             </a>
             <a class="dropdown-item" href="#">
@@ -50,7 +50,7 @@
             </a>
             <a class="dropdown-item" href="#">
               <i class="dropdown-icon fe fe-log-out"></i> Sign out
-            </a> --}}
+            </a>
           </div>
         </div>
       </div>

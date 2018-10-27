@@ -1,8 +1,8 @@
 @push('after:css')
   <style>
     :root {
-      --bg-primary: {{ get_active_theme()->colors->_primary }};
-      --bg-workspace: {{ get_active_theme()->colors->_workspace }};
+      --bg-primary: {{ get_active_theme()->colors->primary }};
+      --bg-workspace: {{ get_active_theme()->colors->workspace }};
     };
   </style>
 @endpush

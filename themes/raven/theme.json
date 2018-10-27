@@ -12,15 +12,15 @@
     "email": "john.dionisio1@gmail.com"
   },
   "colors": {
-    "_primary": "#C7D8F2",
-    "_secondary": "#ffffff",
-    "_accent": "#17324F",
-    "_success": "#86d067",
-    "_info": "#00B8D6",
-    "_warning": "#ffda3e",
-    "_danger": "#F44336",
-    "_light": "#f8f9fa",
-    "_dark": "#1c2a38",
-    "_workspace": "#1c2a38"
+    "primary": "#0C5689",
+    "secondary": "#ffffff",
+    "accent": "#1f3852",
+    "success": "#86d067",
+    "info": "#00B8D6",
+    "warning": "#ffda3e",
+    "danger": "#F44336",
+    "light": "#f8f9fa",
+    "dark": "#1f252d",
+    "workspace": "#1f252d"
   }
 }

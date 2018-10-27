@@ -1,0 +1,9 @@
+@import "../../theme.json";
+
+:root {
+  --primary: $colors.primary;
+  --accent: $colors.accent;
+  --workspace-bg: $colors.workspace;
+  --workspace-bg: $colors.workspace;
+  --card-bg: linear-gradient(180deg, rgb(37, 48, 62) 0%, rgb(38, 43, 51) 20%);
+}

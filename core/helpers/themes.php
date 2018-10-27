@@ -79,7 +79,9 @@ if (! function_exists('get_themes')) {
             $themes[$code]->active = settings('active_theme', 'default') === $code;
         }
 
-        $themes['active'] = $themes[settings('active_theme', 'default')];
+        $themes['active'] = isset($themes[settings('active_theme', 'default')])
+            ? $themes[settings('active_theme', 'default')]
+            : $themes['default'];
 
         return collect($themes ?? []);
     }

@@ -55,9 +55,9 @@
 
       <div class="col d-flex justify-content-end">
         <div>
-          <span title="{{ __('Primary') }}" class="mx-1 colorinput-color colorinput-sm rounded-circle" style="vertical-align:middle;background-color:{{ $resource->colors->_primary }}"></span>
-          <span title="{{ __('Accent') }}" class="mx-1 colorinput-color colorinput-sm rounded-circle" style="vertical-align:middle;background-color:{{ $resource->colors->_accent }}"></span>
-          <span title="{{ __('Secondary') }}" class="mx-1 colorinput-color colorinput-sm rounded-circle" style="vertical-align:middle;background-color:{{ $resource->colors->_secondary }}"></span>
+          <span title="{{ __('Primary') }}" class="mx-1 colorinput-color colorinput-sm rounded-circle" style="vertical-align:middle;background-color:{{ $resource->colors->primary }}"></span>
+          <span title="{{ __('Accent') }}" class="mx-1 colorinput-color colorinput-sm rounded-circle" style="vertical-align:middle;background-color:{{ $resource->colors->accent }}"></span>
+          <span title="{{ __('Secondary') }}" class="mx-1 colorinput-color colorinput-sm rounded-circle" style="vertical-align:middle;background-color:{{ $resource->colors->secondary }}"></span>
         </div>
       </div>
 
