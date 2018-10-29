@@ -1,9 +1,18 @@
-@import "../../theme.json";
-
 :root {
-  --primary: $colors.primary;
-  --accent: $colors.accent;
-  --workspace-bg: $colors.workspace;
-  --workspace-bg: $colors.workspace;
-  --card-bg: linear-gradient(180deg, rgb(37, 48, 62) 0%, rgb(38, 43, 51) 20%);
+  @each $color, $value in $theme-colors {
+    --#{$color}: #{$value};
+  }
+
+  // Body
+  --body-bg: #{$body-color};
+
+  // Sidebar
+  --sidebar-bg: #1f252d;
+
+  // Workspace
+  --workspace-bg: #1f252d;
+
+  // Card
+  --card-bg: linear-gradient(180deg, #213549 0%, rgba(38,43,51,1) 15%);
+  --card-color: #e3e3e3;
 }

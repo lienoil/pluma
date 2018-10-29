@@ -87,6 +87,12 @@ class ThemeServiceProvider extends ServiceProvider
             $this->loadViewsFrom(base_path("$themePath/$activeTheme/views"), $this->basename);
         }
 
+        foreach (get_themes()->except('active') as $theme) {
+            if (is_dir($theme->path.'/views')) {
+                $this->loadViewsFrom($theme->path.'/views', $theme->hintpath);
+            }
+        }
+
         // Load the default theme in the 'Theme' hint path.
         if (is_dir(core_path('theme'))) {
             $this->loadViewsFrom(core_path('theme/views'), ucfirst($this->basename));
