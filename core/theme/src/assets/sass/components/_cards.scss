@@ -13,6 +13,25 @@
     // overflow-y: visible;
   }
 
+  &-theme {
+    max-width: var(--card-theme-width);
+    height: auto;
+    overflow: hidden;
+
+    &-thumbnail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    .card-body, .card-footer {
+      position: relative;
+    }
+  }
+
 	@media print {
 		box-shadow: none;
 		border: none;

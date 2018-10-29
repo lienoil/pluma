@@ -13,8 +13,10 @@
       <p class="text-muted small">{{ $description }}</p>
     @endisset
     <div class="btn-group btn-group-toggle mb-3">
-      <button type="button" data-tree-toggle="collapse" class="btn btn-sm btn-secondary"><i class="mdi mdi-arrow-collapse-vertical">&nbsp;</i>{{ __('Collapse') }}</button>
-      <button type="button" data-tree-toggle="expand" class="btn btn-sm btn-secondary"><i class="mdi mdi-arrow-expand-vertical">&nbsp;</i>{{ __('Expand') }}</button>
+      @if ((isset($actions) && $actions) || ! isset($actions))
+        <button type="button" data-tree-toggle="collapse" class="btn btn-sm btn-secondary"><i class="mdi mdi-arrow-collapse-vertical">&nbsp;</i>{{ __('Collapse') }}</button>
+        <button type="button" data-tree-toggle="expand" class="btn btn-sm btn-secondary"><i class="mdi mdi-arrow-expand-vertical">&nbsp;</i>{{ __('Expand') }}</button>
+      @endif
 
       @if ((isset($readonly) && ! $readonly) || ! isset($readonly))
         <button type="button" data-tree-toggle="check" class="btn btn-sm btn-secondary"><i class="mdi mdi-check-all">&nbsp;</i>{{ __('Check') }}</button>

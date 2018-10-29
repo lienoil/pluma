@@ -1,18 +1,4 @@
-@import "../../theme/theme.json";
-
-// Options
-$enable-rounded: true;
-$enable-shadows: false;
-$enable-gradients: false;
-$enable-transitions: true;
-$enable-hover-media-query: false;
-$enable-grid-classes: true;
-$enable-print-styles: true;
-
-// Components
-$border-radius: 2px;
-$border-radius-lg: 3px;
-$border-radius-sm: 2px;
+@import "../../themes/theme.json";
 
 // Colors
 $gray-100: #f8f9fa;
@@ -25,7 +11,7 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 
-$blue: #0C5689;
+$blue: #007bff;
 $azure: #87ceeb;
 $indigo: #6574cd;
 $purple: #a55eea;
@@ -37,26 +23,26 @@ $lime: #7bd235;
 $green: #86d067;
 $teal: #23CCAB;
 $cyan: #17a2b8;
+$black: #000;
+$white: #fff;
 
 $text-muted: #9aa0ac;
 $text-muted-dark: #6e7687;
 
-$black: #000;
-$white: #fff;
-
-$primary: $_primary;
-$accent: $_accent;
-$secondary: $_secondary; // $gray-600;
-$success: $_success; // $green;
-$info: $_info; // $azure;
-$warning: $_warning; // $yellow;
-$danger: $_danger; // $red;
-$light: $_light; // $gray-100;
-$dark: $_dark; // $gray-800;
+$primary: $colors.primary;
+$accent: $colors.accent;
+$secondary: $colors.secondary; // $gray-600;
+$success: $colors.success; // $green;
+$info: $colors.info; // $azure;
+$warning: $colors.warning; // $yellow;
+$danger: $colors.danger; // $red;
+$light: $colors.light; // $gray-100;
+$dark: $colors.dark; // $gray-800;
 
 $body-bg: #fff; // $body-bg-alt: #f5f7fb;
 $body-color: $gray-700;
 $workspace-bg: #f5f6f8;
+$sidebar-bg: #f5f6f8;
 
 $colors: (
   "blue": $blue,
@@ -87,24 +73,39 @@ $theme-colors: (
   "light": $light,
   "dark": $dark,
   "body-bg": $body-bg,
-  "workspace-bg": $workspace-bg,
+  "bg-body": $body-bg,
+  "bg-workspace": $workspace-bg
 );
 
 $social-colors: (
-  "facebook": #3b5998,
-  "twitter": #1da1f2,
-  "google": #dc4e41,
-  "youtube": #f00,
-  "vimeo": #1ab7ea,
+  "bitbucket": #0052cc,
   "dribbble": #ea4c89,
+  "facebook": #3b5998,
+  "flickr": #0063dc,
   "github": #181717,
+  "google": #dc4e41,
   "instagram": #e4405f,
   "pinterest": #bd081c,
-  "vk": #6383a8,
   "rss": #ffa500,
-  "flickr": #0063dc,
-  "bitbucket": #0052cc,
+  "twitter": #1da1f2,
+  "vimeo": #1ab7ea,
+  "vk": #6383a8,
+  "youtube": #f00,
 );
+
+// Options
+$enable-rounded: true;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-hover-media-query: false;
+$enable-grid-classes: true;
+$enable-print-styles: true;
+
+// Components
+$border-radius: 2px;
+$border-radius-lg: 3px;
+$border-radius-sm: 2px;
 
 // Fonts
 $font-family-base: 'Varela Round', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;

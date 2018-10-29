@@ -12,7 +12,7 @@ Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->
     # General
     Route::group(['prefix' => 'general'], function () {
         // Display
-        Route::get('display', 'DisplaySettingController@index')->name('settings.display');
+        Route::get('display', 'DisplaySettingController@index')->name('settings:display.index');
         Route::post('display', 'DisplaySettingController@store')->name('settings:display.store');
 
         // Date Time

@@ -16,18 +16,12 @@
   // See https://github.com/sass/sass/issues/2383#issuecomment-336349172
   --font-family-sans-serif: #{inspect($font-family-sans-serif)};
   --font-family-monospace: #{inspect($font-family-monospace)};
-}
 
-@include css-vars((
-  --main-primary: $primary,
-  --main-accent: $accent,
-  --main-secondary: $secondary,
-  --main-success: $success,
-  --main-info: $info,
-  --main-warning: $warning,
-  --main-danger: $danger,
-  --main-light: $light,
-  --main-dark: $dark,
-  --main-bg-body: $body-bg,
-  --main-bg-workspace: $workspace-bg,
-));
+  // Overridable variables
+  --card-theme-width: 480px;
+  --card-theme-height: 260px;
+
+  // # Color
+  --bg-overlay: rgba(0,0,0,.4);
+  --bg-sidebar: #{$sidebar-bg};
+}

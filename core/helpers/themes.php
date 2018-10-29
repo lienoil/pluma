@@ -66,21 +66,22 @@ if (! function_exists('get_themes')) {
             $themes[$code]->timestamp = filectime($directory);
             $themes[$code]->code = $json->code ?? $json->name ?? date('Ymdhis');
             $themes[$code]->slug = strtolower(str_slug($json->code ?? $json->name ?? date('Ymdhis')));
-            $themes[$code]->author = [
-                'name' => isset($json->author->name) ? $json->author->name : '',
-                'email' => isset($json->author->email) ? $json->author->email : '',
-            ];
+            $themes[$code]->author = $json->author ?? null;
 
             $themes[$code]->path = dirname($directory);
             $theme = basename($themes[$code]->path);
             $theme = $theme === 'theme' ? 'default' : $theme;
-            $themes[$code]->thumbnail = @url('anytheme/'.$theme.'/'.$json->preview->img);
+            $themes[$code]->thumbnail = @str_contains($json->preview->img, ['data:image/png;base64'])
+                ? $json->preview->img
+                : @url('anytheme/'.$theme.'/'.$json->preview->img);
             $themes[$code]->preview = $json->preview;
             $themes[$code]->colors = $json->colors ?? [];
             $themes[$code]->active = settings('active_theme', 'default') === $code;
         }
 
-        $themes['active'] = $themes[settings('active_theme', 'default')];
+        $themes['active'] = isset($themes[settings('active_theme', 'default')])
+            ? $themes[settings('active_theme', 'default')]
+            : $themes['default'];
 
         return collect($themes ?? []);
     }

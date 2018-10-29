@@ -1,5 +1,5 @@
 @section('brand:logo')
   <div class="brand-logo mb-3 {{ $color ?? '' }}">
-    {!! logo(public_path('logo.svg')) !!}
+    {!! logo(core_path('theme/dist/logos/logo.svg')) !!}
   </div>
 @show

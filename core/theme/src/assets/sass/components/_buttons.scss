@@ -23,7 +23,7 @@
 }
 
 .btn-primary {
-  @include button-variant(var(--main-primary), var(--main-primary));
+  background-color: var(--primary);
 }
 
 .btn-pill {
