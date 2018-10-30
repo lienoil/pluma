@@ -1,10 +1,8 @@
 'use strict';
 
-// https://www.valentinog.com/blog/webpack-tutorial/
-
 const path = require('path');
-const rules = require('./config/rules');
-const plugins = require('./config/plugins');
+const rules = require('./build/rules');
+const plugins = require('./build/plugins');
 
 module.exports = {
   cache: true,
@@ -14,6 +12,8 @@ module.exports = {
   },
   entry: {
     app: './src/app.js',
+    vendor: './src/vendor.js',
+    fonts: './src/sass/fonts.scss',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

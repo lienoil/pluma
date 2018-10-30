@@ -14,13 +14,16 @@
   "colors": {
     "primary": "#1491e7",
     "secondary": "#ffffff",
-    "accent": "#1f3852",
+    "accent": "#213549",
     "success": "#86d067",
     "info": "#00B8D6",
     "warning": "#ffda3e",
     "danger": "#F44336",
     "light": "#f8f9fa",
+    "text": "#f8f9fa",
     "dark": "#1f252d",
+    "card": "#262b33",
+    "sidebar": "#1f252d",
     "workspace": "#1f252d"
   }
 }

@@ -32,6 +32,8 @@ module.exports = [
   {
     test: /\.(sa|sc|c)ss$/,
     use: [{
+      loader: 'style-loader',
+    },{
       loader: MiniCssExtractPlugin.loader,
     }, {
       loader: 'css-loader', // translates CSS into CommonJS modules
@@ -68,6 +70,9 @@ module.exports = [
           danger: theme.colors.danger,
           light: theme.colors.light,
           dark: theme.colors.dark,
+          card: theme.colors.card,
+          sidebar: theme.colors.sidebar,
+          workspace: theme.colors.workspace,
         }
       },
     }]
