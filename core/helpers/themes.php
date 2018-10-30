@@ -61,7 +61,7 @@ if (! function_exists('get_themes')) {
 
             $themes[$code] = new \StdClass();
             $themes[$code]->name = $json->name ?? 'Unnamed Theme';
-            $themes[$code]->hintpath = isset($json->name) ? ucfirst($json->name) : 'Theme';
+            $themes[$code]->hintpath = $json->hintname ?? ucfirst($code) ?? ucfirst(current(explode(' ', $json->name)));
             $themes[$code]->description = $json->description ?? '';
             $themes[$code]->timestamp = filectime($directory);
             $themes[$code]->code = $json->code ?? $json->name ?? date('Ymdhis');

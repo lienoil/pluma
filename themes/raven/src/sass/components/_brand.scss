@@ -1,0 +1,8 @@
+.brand {
+  &-logo {
+    &:hover {
+      // $primary
+      color: lighten($primary, 20%);
+    }
+  }
+}

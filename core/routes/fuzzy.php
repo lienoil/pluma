@@ -38,7 +38,7 @@ Route::get('anytheme/{file?}', function ($file = null) {
     $extension = File::extension($path);
     $contentType = config("mimetypes.$extension", 'txt');
 
-    if (! in_array($extension, config('download.images', []))) {
+    if (! in_array($extension, config('download.assets', []))) {
         return abort(404);
     }
 

@@ -1,10 +1,10 @@
-<div class="card card-theme justify-content-between d-flex mb-3">
+<div id="{{ $resource->code }}" class="card card-theme justify-content-between d-flex mb-3">
   @if ($resource->active)
-    <div class="card-status bg-accent" style="z-index:4"></div>
+    <div class="card-status bg-accent"></div>
   @endif
 
   @isset ($resource->preview->hintpath)
-    @include($resource->preview->hintpath, ['item' => $resource])
+    @include($resource->preview->hintpath, ['theme' => $resource, 'item' => $resource])
   @else
 
     <img src="{{ $resource->thumbnail }}" class="card-theme-thumbnail">
