@@ -30,7 +30,7 @@
               <div id="sidebar-dropdown-{{ $i }}" class="sidebar-dropdown-menu collapse {{ $menu['active'] ? 'show active' : '' }}" data-parent="[data-sidebar-nav]">
                 @foreach ($menu['children'] as $submenu)
                   @if ($submenu['is_divider'])
-                    <div class="sidebar-dropdown-divider dropdown-divider"></div>
+                    <div class="sidebar-dropdown-divider dropdown-divider m-0"></div>
                   @else
                     <a class="dropdown-item sidebar-dropdown-item {{ $submenu['active'] ? 'active' : '' }}" href="{{ $submenu['url'] }}">
                       @isset ($submenu['icon'])

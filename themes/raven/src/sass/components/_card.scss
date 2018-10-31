@@ -3,10 +3,10 @@
 //
 
 .card {
-  background-color: transparent;
+  background-color: var(--card-bg);
   color: var(--card-color);
 
   &-header {
-    background: var(--card-bg);
+    background: var(--card-bg-variant);
   }
 }
