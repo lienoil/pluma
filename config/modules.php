@@ -29,6 +29,6 @@ return [
         'Calendar',
         'Note',
         'Form',
-        'Appearance',
+        // 'Appearance',
     ],
 ];
