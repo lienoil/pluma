@@ -1,0 +1,31 @@
+
+.form {
+  &-control {
+    &.bootstrap-select {
+      outline: none;
+      border: 1px solid $input-border-color;
+      height: auto;
+
+      button {
+        border: none !important;
+      }
+
+      &:focus, &:active, &.show {
+        &, button {
+          background-color: $input-focus-bg;
+          border-color: $input-focus-border-color;
+          box-shadow: $input-focus-box-shadow;
+          color: $input-focus-color;
+          outline: none;
+        }
+      }
+
+      .bs-ok-default:after {
+        border-width: 0 2px 2px 0;
+        height: .75em;
+        width: .25em;
+        margin-top: 7px;
+      }
+    }
+  }
+}

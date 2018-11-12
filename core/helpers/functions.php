@@ -549,25 +549,31 @@ if (! function_exists('get_sidebars')) {
 
 if (! function_exists('get_sidebar')) {
     /**
-     * Get the specified menu from the menus files of every module.
+     * By default, the function will get the current menu (if any) based on
+     * the url.
      *
      * @param  string $name
      * @param  string $key
+     * @param  array $menus
      * @return array|object|mixed
      */
-    function get_sidebar($name, $key = 'slug')
+    function get_sidebar($name = null, $key = 'slug', $menus = null)
     {
-        $menus = get_sidebars();
+        $menus = $menus ?? sidebar();
+        $value = is_null($name) ? url(request()->route()->uri()) : $name;
 
-        foreach ($menus as $menu) {
-            $menu = require_once $menu;
+        foreach ($menus as $i => $menu) {
 
-            if (isset($menu[$key]) && $menu[$key] == $name) {
-                return json_decode(json_encode($menu));
+            if (array_key_exists($key, $menu) && $menu[$key] === $value) {
+                return $menu;
+            }
+
+            if ($menu['has_children']) {
+                $f = get_sidebar($name, $key, $menu['children']);
             }
         }
 
-        return null;
+        return json_decode(json_encode($f ?? null));
     }
 }
 

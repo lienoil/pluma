@@ -7,6 +7,10 @@
   color: var(--card-color);
 
   &-header {
-    background: var(--card-bg-variant);
+    background: var(--card-header-bg);
+  }
+
+  &-footer {
+    background: var(--card-footer-bg);
   }
 }

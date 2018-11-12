@@ -49,7 +49,7 @@ if (! function_exists('navigation')) {
 
 if (! function_exists('sidebar')) {
     /**
-     * Retrieves the sidebar menus
+     * Retrieves the sidebar menus.
      *
      * @param string $command
      * @return array

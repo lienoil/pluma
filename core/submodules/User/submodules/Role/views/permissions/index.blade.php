@@ -34,7 +34,7 @@
             <p>{{ __('Outdated permissions or permissions from uninstalled modules will be removed.') }}</p>
             <form action="{{ route('permissions.refresh') }}" method="POST">
               {{ csrf_field() }}
-              <button type="submit" class="btn btn-success btn-lg">{{ __('Refresh Permissions') }}</button>
+              <button type="submit" class="btn btn-success text-light">{{ __('Refresh Permissions') }}</button>
             </form>
 
             <div class="text-divider text-divider-dashed mt-6 mb-0">
@@ -46,17 +46,17 @@
 
             <h2 class="mb-4">{{ __('Reset List') }}</h2>
             <p>{!! __("Performing this action will completely remove all permissions data from the database before reinstalling them. Users might lose their previous privileges after this action.") !!}</p>
-            <div class="alert alert-warning mt-5 mb-6">
+            <div class="alert alert-warning">
               <div><i class="fe fe-alert-triangle"></i>&nbsp; <strong>{{ __('Warning') }}</strong><br>{{ __("You might need to setup the user roles manually again. If you do not want to upset the order of the Cosmos, then for the love of Talos, do not proceed!") }}</div>
             </div>
 
-            <button data-modal-toggle type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#reset-permissions-confirmbox">
+            <button data-modal-toggle type="button" class="btn btn-danger" data-toggle="modal" data-target="#reset-permissions-confirmbox">
               {{ __('Reset Permissions...') }}
             </button>
             @include('Theme::partials.modal', [
               'dataset' => false,
               'id' => 'reset-permissions-confirmbox',
-              'icon' => 'mdi mdi-skull display-1 icon-border icon-faded d-inline-block',
+              'icon' => 'mdi mdi-skull display-1 icon-faded d-inline-block',
               'lead' => __('WARNING! Read before proceeding.'),
               'text' => __("<p>Resetting the permissions table will break your existing users' established roles. Though the application will try to rebuild the permissions table, there is no guarantee all items will be restored. In fact, any manually added permission will not be recovered. You might need to setup the user roles manually again. If you do not want to upset the order of the Cosmos, then for the love of Talos, do not proceed.</p><p>Are you sure yout want to reset permissions?</p>"),
               'method' => 'POST',

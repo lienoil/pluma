@@ -14,13 +14,18 @@
       </span>
     @endisset
 
-    <input id="{{ $name }}" {{ $attr ?? '' }} type="{{ $type ?? 'text' }}" name="{{ $name }}" class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}" value="{{ $value ?? old($name) }}">
+    <input id="{{ $name }}" {{ $attr ?? '' }} type="{{ $type ?? 'text' }}" name="{{ $name }}" class="form-control {{ $class ?? null }} {{ $errors->has($name) ? 'is-invalid' : '' }}" value="{{ $value ?? old($name) }}">
 
   </div>
-  @isset ($hint)
-    @if (! $errors->has($field ?? $name))
-      @include('Theme::fields.hint', ['text' => $hint])
-    @endif
-  @endisset
-  @include('Theme::errors.span', ['field' => $field ?? $name])
+
+  @if ((($type ?? 'text') !== 'hidden'))
+
+    @isset ($hint)
+      @if (! $errors->has($field ?? $name))
+        @include('Theme::fields.hint', ['text' => $hint])
+      @endif
+    @endisset
+    @include('Theme::errors.span', ['field' => $field ?? $name])
+
+  @endif
 </div>

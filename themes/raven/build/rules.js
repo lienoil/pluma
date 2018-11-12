@@ -70,6 +70,7 @@ module.exports = [
           danger: theme.colors.danger,
           light: theme.colors.light,
           dark: theme.colors.dark,
+          text: theme.colors.text,
           card: theme.colors.card,
           sidebar: theme.colors.sidebar,
           workspace: theme.colors.workspace,

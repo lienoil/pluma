@@ -71,6 +71,8 @@ class MenuRepository extends Repository
         return $pages->map(function ($page) {
             $page['name'] = $page->title;
             $page['description'] = $page->code;
+            $page['url'] = url($page->code);
+
             return $page;
         })->toArray();
     }

@@ -61,7 +61,7 @@ return [
                         'slug' => route('settings:display.index'),
                         'code' => 'settings:display.index',
                         'route' => 'settings:display.index',
-                        'icon' => 'fa-table',
+                        'icon' => 'mdi mdi-table-settings',
                         'order' => 2,
                         'labels' => [
                             'title' => __('Displaying Data'),
@@ -74,7 +74,7 @@ return [
                         'slug' => route('settings.datetime'),
                         'code' => 'settings.datetime',
                         'route' => 'settings.datetime',
-                        'icon' => 'access_time',
+                        'icon' => 'mdi mdi-calendar-clock',
                         'order' => 3,
                         'labels' => [
                             'title' => __('Date &amp; Time'),

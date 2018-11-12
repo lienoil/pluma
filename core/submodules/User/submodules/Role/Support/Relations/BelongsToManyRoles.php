@@ -69,7 +69,7 @@ trait BelongsToManyRoles
      *
      * @return array
      */
-    protected function rootRoles()
+    public function rootRoles()
     {
         return array_merge($this->rootRoles, config('auth.roles', []));
     }

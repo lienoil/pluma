@@ -79,7 +79,11 @@ class UserRepository extends Repository
      */
     public function roles()
     {
-        return Role::all();
+        if (user()->isSuperAdmin()) {
+            return Role::all();
+        }
+
+        return Role::whereNotIn('code', $this->model->rootRoles())->get();
     }
 
     /**

@@ -1,5 +1,6 @@
 import './datatables/datatables.js'
 import './dynamic-data/dynamic-data.js'
+import './dragdrop/dragdrop.js'
 import './file/file.js'
 import './reveal/reveal.js'
 import './modal/modal.js'
