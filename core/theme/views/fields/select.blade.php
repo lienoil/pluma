@@ -15,11 +15,11 @@
 
     @isset ($prepend)
       <span class="input-group-prepend">
-        <span class="input-group-text">{{ $prepend }}</span>
+        <span class="input-group-text">{{ __($prepend) }}</span>
       </span>
     @endisset
 
-    <select id="{{ $name }}" {{ $attr ?? '' }} {{ $isMultiple ? 'multiple' : null }} name="{{ $name ?? 'selection' }}" class="form-control {{ $errors->has($name) ? 'is-invalid' : '' }}" aria-describedby="{{ $name }}">
+    <select id="{{ $name }}" {{ $attr ?? '' }} {{ $isMultiple ? 'multiple' : null }} name="{{ $name ?? 'selection' }}" class="form-control {{ $errors->has($field ?? $name) ? 'is-invalid' : '' }}" aria-describedby="{{ $name }}">
       @foreach ($items as $item)
 
         @if ($isMultiple)

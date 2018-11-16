@@ -562,10 +562,10 @@ if (! function_exists('get_sidebar')) {
         $menus = $menus ?? sidebar();
         $value = is_null($name) ? url(request()->route()->uri()) : $name;
 
-        foreach ($menus as $i => $menu) {
+        foreach ($menus as $i => &$menu) {
 
             if (array_key_exists($key, $menu) && $menu[$key] === $value) {
-                return $menu;
+                return json_decode(json_encode($menu));
             }
 
             if ($menu['has_children']) {
