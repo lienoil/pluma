@@ -14,7 +14,7 @@
       </span>
     @endisset
 
-    <input id="{{ $name }}" {{ $attr ?? '' }} type="{{ $type ?? 'text' }}" name="{{ $name }}" class="form-control {{ $class ?? null }} {{ $errors->has($name) ? 'is-invalid' : '' }}" value="{{ $value ?? old($name) }}">
+    <input id="{{ $name }}" {{ $attr ?? '' }} type="{{ $type ?? 'text' }}" name="{{ $name }}" class="form-control {{ $class ?? null }} {{ $errors->has($field ?? $name) ? 'is-invalid' : '' }}" value="{{ $value ?? old($name) }}">
 
   </div>
 

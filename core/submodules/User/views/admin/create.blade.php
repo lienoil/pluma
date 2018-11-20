@@ -51,9 +51,13 @@
 
                   <div class="row">
                     <div class="col-lg col-sm-12">
+                      {{-- @if (! empty($errors->all()))
+                        {{ dd($errors->all()) }}
+                      @endif --}}
                       @field('select', [
                         'label' => __('Roles'),
                         'name' => 'roles[]',
+                        'field' => 'roles',
                         'attr' => 'data-selectpicker',
                         'old' => old('roles'),
                         'items' => $resources->roles(),

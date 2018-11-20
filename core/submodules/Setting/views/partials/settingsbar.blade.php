@@ -19,7 +19,7 @@
 <div class="sidebar-static">
   <div class="sidebar-nav">
     @foreach (get_sidebar()->children as $menu)
-      <a href="{{ $menu->url ?? "?code={$menu->code}" }}" class="sidebar-item {{ $menu->active ? 'active' : null }}">
+      <a href="{{ $menu->url ?? "?code={$menu->code}" }}" class="px-0 sidebar-item {{ url(request()->route()->uri()) === $menu->url ? 'active' : null }} {{ $menu->active ? 'active' : null }}">
         @isset ($menu->icon)
           <i class="{{ $menu->icon }}">&nbsp;</i>
         @endisset
