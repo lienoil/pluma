@@ -33,7 +33,7 @@ class AppThemeCommand extends Command
 
         $themes = [];
         foreach (Theme::themes() as $theme) {
-            $themes[] = $theme->name;
+            $themes[$theme->code] = $theme->name ?? __('No Name');
         }
 
         $theme = $this->choice("Please select a theme", $themes);
