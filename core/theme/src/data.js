@@ -1,1 +1,1 @@
-import '@/plugins/handsontable'
+import '@/plugins/handsontable';

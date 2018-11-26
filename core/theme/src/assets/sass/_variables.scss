@@ -1,4 +1,4 @@
-@import "../../themes/theme.json";
+@import "../../theme/theme.json";
 
 // Colors
 $gray-100: #f8f9fa;
@@ -29,15 +29,15 @@ $white: #fff;
 $text-muted: #9aa0ac;
 $text-muted-dark: #6e7687;
 
-$primary: $colors.primary;
-$accent: $colors.accent;
-$secondary: $colors.secondary; // $gray-600;
-$success: $colors.success; // $green;
-$info: $colors.info; // $azure;
-$warning: $colors.warning; // $yellow;
-$danger: $colors.danger; // $red;
-$light: $colors.light; // $gray-100;
-$dark: $colors.dark; // $gray-800;
+$primary: #0c5689;
+$accent: #abdfa6;
+$secondary: #ffffff;
+$success: #86d067;
+$info: #00b8d6;
+$warning: #ffda3e;
+$danger: #f44336;
+$light: #f8f9fa;
+$dark: #343a40;
 
 $body-bg: #fff; // $body-bg-alt: #f5f7fb;
 $body-color: $gray-700;

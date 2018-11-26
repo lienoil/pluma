@@ -38,6 +38,7 @@ class UserRepository extends Repository
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
             'password' => 'sometimes|required|min:6|confirmed',
+            'roles' => 'required|array',
             'username' => [
                 'required',
                 Rule::unique('users')->ignore(self::$id),
@@ -79,7 +80,11 @@ class UserRepository extends Repository
      */
     public function roles()
     {
-        return Role::all();
+        if (user()->isSuperAdmin()) {
+            return Role::all();
+        }
+
+        return Role::whereNotIn('code', $this->model->rootRoles())->get();
     }
 
     /**

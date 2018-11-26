@@ -28,7 +28,7 @@
   <div class="treeview-body mb-3">
     <ul data-tree class="list-group list-group-transparent">
       @foreach ($items as $group => $set)
-        <li data-tree-item class="list-group-item">
+        <li data-tree-item class="list-group-item px-0">
           <div data-tree-header>
             <div role="button" data-tree-label class="d-flex justify-content-between">
               @if (isset($readonly) && $readonly)

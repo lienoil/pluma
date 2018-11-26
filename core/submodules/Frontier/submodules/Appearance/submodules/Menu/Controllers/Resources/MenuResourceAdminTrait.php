@@ -35,4 +35,16 @@ trait MenuResourceAdminTrait
 
         return view('Theme::menus.edit')->with(compact('resource', 'repository'));
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Menu\Requests\MenuRequest  $request
+     * @param  string    $code
+     * @return Illuminate\Http\Response
+     */
+    public function update(Request $request, $code)
+    {
+        dd($request->all(), $code);
+    }
 }

@@ -14,6 +14,16 @@
 
           @field('textarea', ['name' => 'body'])
 
+          @field('select', [
+            'key' => 'value',
+            'text' => 'name',
+            'attr' => 'data-selectpicker',
+            'old' => old('template_id'),
+            'name' => 'template_id',
+            'label' => __('Template'),
+            'items' => json_decode(json_encode(\Template\Models\Template::getTemplatesFromFiles())),
+          ])
+
           @submit('Save')
         </form>
 

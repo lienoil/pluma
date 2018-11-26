@@ -3,6 +3,14 @@
 //
 
 .card {
-  background: var(--card-bg);
+  background-color: var(--card-bg);
   color: var(--card-color);
+
+  &-header {
+    background: var(--card-header-bg);
+  }
+
+  &-footer {
+    background: var(--card-footer-bg);
+  }
 }

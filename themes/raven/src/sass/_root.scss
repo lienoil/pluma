@@ -1,18 +1,29 @@
 :root {
-  @each $color, $value in $theme-colors {
-    --#{$color}: #{$value};
-  }
-
   // Body
-  --body-bg: #{$body-color};
-
-  // Sidebar
-  --sidebar-bg: #1f252d;
-
-  // Workspace
-  --workspace-bg: #1f252d;
+  --body-bg: #{$body-bg};
+  --body-color: #{$body-color};
 
   // Card
-  --card-bg: linear-gradient(180deg, #213549 0%, rgba(38,43,51,1) 15%);
-  --card-color: #e3e3e3;
+  --card-bg: #{$card};
+  --card-bg-variant: linear-gradient(180deg, #{$accent} 0%, #{$card} 15%);
+  --card-color: #{$body-color};
+  --card-header-bg: transparent;
+  --card-footer-bg: transparent;
+
+  // Color
+  // Already declared on bootstrap/_variables
+  --text-muted: #{$text-muted};
+  --text-muted-dark: #{$text-muted-dark};
+
+  // Font
+  --font-family-base: #{$font-family-base};
+  --font-family-monospace: #{$font-family-monospace};
+  --font-family-primary: 'Valera Round', #{$font-family-base};
+  --font-family-sans-serif: #{$font-family-sans-serif};
+
+  // Sidebar
+  --sidebar-bg: #{$sidebar};
+
+  // Workspace
+  --workspace-bg: #{$workspace};
 }

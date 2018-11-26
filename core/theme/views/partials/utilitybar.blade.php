@@ -1,11 +1,11 @@
 @stack('before-utilitybar')
 
 @section('utilitybar')
-  <nav class="utilitybar navbar px-0 navbar-expand-lg bg-transparent">
+  <nav class="utilitybar navbar pl-0 navbar-expand-lg bg-transparent">
 
     @section('utilitybar:menu')
-      <button type="button" class="btn btn-icon shadow-none mr-sm-2 py-1" aria-expanded="true" data-sidebar-toggle data-target="[data-sidebar]" aria-controls="sidebar" aria-label="{{ __('Toggle sidebar') }}">
-        <i class="fe fe-menu"></i>
+      <button type="button" class="btn btn-icon shadow-none text-muted mr-sm-2 py-1" aria-expanded="true" data-sidebar-toggle data-target="[data-sidebar]" aria-controls="sidebar" aria-label="{{ __('Toggle sidebar') }}">
+        <i class="mdi mdi-menu"></i>
         <span class="sr-only">{{ __('Toggle Sidebar') }}</span>
       </button>
     @show
@@ -13,11 +13,10 @@
     {{-- @section('utilitysearch')
       @include('Theme::partials.search')
     @show --}}
-    {{-- <div class="w-100 spacer"></div> --}}
     @section('utilitybar:user')
       <div class="d-flex order-lg-2 ml-auto">
         <div class="dropdown">
-          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown" aria-expanded="true">
+          <a href="#" class="d-flex nav-link pr-0 leading-none" data-toggle="dropdown" aria-expanded="true">
             <img class="avatar avatar-fit" src="{{ user()->photo }}"></span>
             <span class="ml-2 d-none d-lg-block">
               <span class="text-default small">{{ user()->displayname }}</span>

@@ -45,6 +45,9 @@ return [
         'css',
         'js',
         'json',
+        'woff',
+        'ttf',
+        'eot',
     ],
 
     /**
