@@ -7,7 +7,7 @@ return [
         'order' => 30,
         'slug' => '#',
         'always_viewable' => false,
-        'icon' => 'mdi mdi-file',
+        'icon' => 'mdi mdi-file-document-outline',
         'labels' => [
             'title' => __('Pages'),
             'description' => __('Manage site pages'),

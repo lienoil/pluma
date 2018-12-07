@@ -11,7 +11,9 @@ class Menu extends Model
 {
     use SlugOrFail, MenuBuilderTrait, BelongsToMenu;
 
-    protected $with = [];
+    public $incrementing = false;
+
+    protected $guarded = [];
 
     protected $searchables = ['created_at', 'updated_at'];
 }

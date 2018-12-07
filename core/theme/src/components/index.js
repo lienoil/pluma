@@ -1,3 +1,4 @@
+import './avatar/avatar-preview.js'
 import './datatables/datatables.js'
 import './dynamic-data/dynamic-data.js'
 import './dragdrop/dragdrop.js'

@@ -1,0 +1,56 @@
+.alert {
+  @extend .alert;
+}
+
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    @include alert-variant(theme-color-level($color, $alert-bg-level), theme-color-level($color, $alert-border-level), theme-color-level($color, $alert-color-level));
+  }
+}
+
+// Dismissible alerts
+//
+// Expand the right padding and account for the close button's positioning.
+
+.alert-dismissible {
+  padding-right: ($close-font-size + $alert-padding-x * 2);
+
+  // Adjust close link position
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: $alert-padding-y $alert-padding-x;
+    color: inherit;
+    height: auto;
+
+    &:before {
+      content: '';
+      font-family: unset;
+    }
+  }
+}
+
+// Icon alerts
+
+.alert-icon {
+	padding-left: 3rem;
+
+	> i {
+		color: inherit !important;
+		font-size: $font-size-base;
+		position: absolute;
+		top: $font-size-base;
+		left: $font-size-base;
+	}
+}
+
+.alert-avatar {
+	padding-left: 3.75rem;
+
+	.avatar {
+		position: absolute;
+		top: .5rem;
+		left: .75rem;
+	}
+}

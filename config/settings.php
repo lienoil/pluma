@@ -10,9 +10,12 @@ return [
      * when installing the app.
      *
      */
-    'active_theme' => 'default',
+    'active_theme' => env('ACTIVE_THEME', 'default'),
     'default_theme' => 'default',
     'social_links' => '',
+
+    // Display
+    'items_per_page' => 15,
 
     // Site Settings
     'site_language' => 'en',

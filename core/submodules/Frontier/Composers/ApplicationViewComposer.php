@@ -68,6 +68,7 @@ class ApplicationViewComposer extends BaseViewComposer
             'model' => $this->model(),
             'site' => $this->site(),
             'token' => csrf_token(),
+            'theme' => $this->theme(),
             'version' => "v" . app()->version(),
             'timestamp' => @settings('site_timestamp', app()->version()),
         ]));
@@ -327,5 +328,15 @@ class ApplicationViewComposer extends BaseViewComposer
         // dd(get_menu($url));
         // $url = (end((explode("/", $url))));
         // return get_menus($url)->icon;
+    }
+
+    /**
+     * Retrieve the application's current theme.
+     *
+     * @return \StdClass
+     */
+    protected function theme()
+    {
+        return get_active_theme();
     }
 }

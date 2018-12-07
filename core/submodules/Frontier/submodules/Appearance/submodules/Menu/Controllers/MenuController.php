@@ -46,7 +46,6 @@ class MenuController extends AdminController
      */
     public function store(MenuRequest $request)
     {
-        dd($request->all());
         Menu::where('location', $request->input('location'))->delete();
 
         foreach ($request->input('menus') as $key => $menus) {

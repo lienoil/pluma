@@ -1,0 +1,14 @@
+// Lists
+
+.list-group-unstyled ul {
+  @extend .list-unstyled;
+  padding-left: 1rem;
+
+  li {
+    padding: .25rem;
+  }
+}
+
+.list-group-unstyled > ul {
+  padding-left: 0;
+}

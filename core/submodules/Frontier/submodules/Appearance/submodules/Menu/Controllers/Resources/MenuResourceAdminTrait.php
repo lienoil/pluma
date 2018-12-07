@@ -3,6 +3,7 @@
 namespace Menu\Controllers\Resources;
 
 use Illuminate\Http\Request;
+use Menu\Requests\MenuRequest;
 
 trait MenuResourceAdminTrait
 {
@@ -43,8 +44,10 @@ trait MenuResourceAdminTrait
      * @param  string    $code
      * @return Illuminate\Http\Response
      */
-    public function update(Request $request, $code)
+    public function update(MenuRequest $request, $code)
     {
-        dd($request->all(), $code);
+        $this->repository->update($request->all(), $code);
+
+        return back();
     }
 }

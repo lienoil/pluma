@@ -54,6 +54,7 @@
             @endempty
 
             @field('dragdrop', ['items' => $resource->menus])
+            @include('Theme::errors.span', ['field' => 'menus'])
 
           </div>
           <div class="card-footer bg-workspace border-0 text-right">

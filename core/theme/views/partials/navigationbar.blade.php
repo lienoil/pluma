@@ -1,4 +1,22 @@
-<header class="header p-0 {{ isset($fixed) ? 'header--fixed' : '' }}">
+<nav class="navbar navbar-expand-lg navbar-{{ @$application->theme->variant }} bg-{{ @$application->theme->variant }}">
+
+  <a class="navbar-brand" href="{{ home() }}">
+    @include('Theme::partials.brand')
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu-location" aria-controls="main-menu-location" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-menu-location">
+
+    @include('Theme::menus.main')
+
+  </div>
+</nav>
+
+<?php /*
+<header class="header w-100 p-0 {{ isset($fixed) ? 'header--fixed' : '' }}">
   <div class="container">
 
     <div class="d-flex">
@@ -41,3 +59,5 @@
     </div>
   </div>
 </div>
+*/
+?>

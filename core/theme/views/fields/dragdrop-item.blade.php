@@ -28,11 +28,9 @@
 
             @field('input', ['attr' => 'data-dragdrop-parent='.$menu->{$code}, 'type' => 'hidden', 'label' => false, 'value' => $menu->{$code}, 'name' => "menus[".$menu->{$code}."][code]"])
 
+            @field('input', ['class' => 'form-control-sm', 'type' => 'hidden', 'label' => false, 'value' => $menu->{$url}, 'name' => "menus[".$menu->{$code}."][url]"])
             <input data-dragdrop-sort type="hidden" name="menus[{{ $menu->{$code} }}][sort]" value="{{ $i }}">
             <input data-dragdrop-parent type="hidden" name="menus[{{ $menu->{$code} }}][parent]" value="{{ $parent ?? null }}">
-          </div>
-          <div class="col-lg-12">
-            @field('input', ['class' => 'form-control-sm', 'label' => __('URL'), 'value' => $menu->{$url}, 'name' => "menus[".$menu->{$code}."][url]"])
           </div>
         </div>
       </div>

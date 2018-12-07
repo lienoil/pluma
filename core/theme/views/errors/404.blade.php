@@ -5,11 +5,15 @@
 @section('page:content')
   <div class="page">
     <div class="page-content">
-      <div class="container text-center">
-        <h1 class="display-1 page-title-primary text-muted">{{ __('404') }}</h1>
-        <h2 class="h2 mb-3">{{ __('Oops.. page not found.') }}</h2>
-        <p class="h4 text-muted font-weight-normal mb-7">{{ __('Either something went wrong or the page does not exist anymore.') }}&hellip;</p>
-        <a role="button" href="{{ home() }}" class="btn btn-large btn-primary">{{ __('Home') }}</a>
+      <div class="container text-left">
+        <h1 class="display-1 page-title-primary mb-3">{{ __('Oops!') }}</h1>
+        <p class="h4 text-muted font-weight-normal">{{ __($error['description']) }}</p>
+        <p class="text-muted">{{ __('Error Code: 404') }}</p>
+        <p>{{ __("Here are some helpful links instead:") }}</p>
+        <p class="mb-0"><a href="{{ home() }}">{{ __('Home') }}</a></p>
+        <p class="mb-0"><a href="{{ route('login.show') }}">{{ __('Sign in') }}</a></p>
+
+        @include('Theme::errors.superadminsonly')
       </div>
     </div>
   </div>

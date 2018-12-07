@@ -9,5 +9,7 @@
  *
  */
 
-Route::get('{slug?}', 'PageController@single')
-     ->where('slug', '.*');
+Route::middleware(['breadcrumbs:\Page\Models\Page'])->group(function () {
+    Route::get('{slug?}', 'PageController@single')
+        ->where('slug', '.*');
+});

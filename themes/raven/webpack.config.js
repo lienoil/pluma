@@ -14,6 +14,15 @@ module.exports = {
     app: './src/app.js',
     vendor: './src/vendor.js',
     fonts: './src/sass/fonts.scss',
+
+    /**
+     *--------------------------------------------------------------------------
+     * Modules List
+     *--------------------------------------------------------------------------
+     *
+     */
+    editor: './src/modules/editor/editor.js',
+
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

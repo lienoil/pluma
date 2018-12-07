@@ -17,7 +17,7 @@
         'name' => 'slug',
         'label' => false,
         'prepend' => '/',
-        'value' => $menu->slug,
+        'value' => $menu->slug ?? $menu->code ?? '',
       ])
     </div>
   </div>

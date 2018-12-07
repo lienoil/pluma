@@ -563,7 +563,6 @@ if (! function_exists('get_sidebar')) {
         $value = is_null($name) ? url(request()->route()->uri()) : $name;
 
         foreach ($menus as $i => $menu) {
-
             if (array_key_exists($key, $menu) && $menu[$key] === $value) {
                 return $menu;
             }

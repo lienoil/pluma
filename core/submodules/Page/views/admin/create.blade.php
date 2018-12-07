@@ -1,5 +1,10 @@
 @extends('Theme::layouts.admin')
 
+@push('after:css')
+  <link rel="stylesheet" href="{{ theme('dist/editor.min.css') }}">
+  <script src="{{ theme('dist/editor.min.js') }}"></script>
+@endpush
+
 @section('page:content')
   <div class="container-fluid">
     <div class="row">
@@ -12,7 +17,7 @@
 
           @field('input', ['name' => 'code', 'type' => 'hidden', 'label' => false])
 
-          @field('textarea', ['name' => 'body'])
+          @field('editor', ['name' => 'body'])
 
           @field('select', [
             'key' => 'value',

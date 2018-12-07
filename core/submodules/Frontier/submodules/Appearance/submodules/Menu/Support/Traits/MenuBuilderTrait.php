@@ -21,6 +21,7 @@ trait MenuBuilderTrait
     /**
      * Gets the specified location.
      *
+     * @param string $code
      * @return mixed
      */
     public static function location($code)
@@ -89,13 +90,12 @@ trait MenuBuilderTrait
             $menu['active'] = false;
 
             if (is_null($menu['type'])) {
-                $menu['is_absolute_slug'] = true;
-                $menu['url'] = $menu['slug'];
+                $menu['is_absolute_url'] = true;
             } else {
-                if (url(Request::path()) === url($menu['slug']) || Request::path() === $menu['slug']) {
+                if (url(Request::path()) === url($menu['url']) || Request::path() === $menu['url']) {
                     $menu['active'] = true;
                 }
-                $menu['url'] = url($menu['slug']);
+                $menu['url'] = url($menu['url']);
             }
         });
 
@@ -147,11 +147,11 @@ trait MenuBuilderTrait
             $menus[$key] = [
                 'name' => $key,
                 'title' => $menu['name'],
-                'slug' => $menu['url'],
+                'url' => $menu['url'],
                 'code' => $menu['url'],
                 'url' => $menu['url'],
                 'icon' => $menu['icon'],
-                'is_absolute_slug' => true,
+                'is_absolute_url' => true,
             ];
         }
 

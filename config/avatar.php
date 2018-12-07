@@ -67,6 +67,13 @@ return [
     ],
 
     'avatars' => [
-        ['url' => 'logo.png', 'thumbnail' => 'logo.png', 'text' => 'Logo'],
+        // ['url' => 'logo.png', 'thumbnail' => 'logo.png', 'text' => 'Logo'],
+        ['url' => 'user/avatars/Ellaine.png', 'thumbnail' => 'user/avatars/Ellaine.png', 'text' => 'Ellaine'],
+        ['url' => 'user/avatars/Jon.png', 'thumbnail' => 'user/avatars/Jon.png', 'text' => 'Jon'],
+        ['url' => 'user/avatars/JonCat.jpg', 'thumbnail' => 'user/avatars/JonCat.jpg', 'text' => 'Jon Cat'],
+        ['url' => 'user/avatars/Kristine.png', 'thumbnail' => 'user/avatars/Kristine.png', 'text' => 'Kristine'],
+        ['url' => 'user/avatars/MasterChen.png', 'thumbnail' => 'user/avatars/MasterChen.png', 'text' => 'Master Chen'],
+        ['url' => 'user/avatars/Meg.png', 'thumbnail' => 'user/avatars/Meg.png', 'text' => 'Meg'],
+        ['url' => 'user/avatars/Sandor.png', 'thumbnail' => 'user/avatars/Sandor.png', 'text' => 'Sandor'],
     ],
 ];

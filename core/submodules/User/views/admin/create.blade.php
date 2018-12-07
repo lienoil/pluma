@@ -248,10 +248,11 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="form-group mb-3">
-                        @include('Theme::fields.selectavatars', [
+                        @field('selectavatars', [
                           'title' => __('Select Avatar'),
                           'name' => 'avatar',
-                          'attr' => 'data-selectpicker',
+                          'attr' => 'data-selectpicker data-live-search=true',
+                          'value' => old('avatar'),
                         ])
                       </div>
                       {{-- <img role="button" data-avatar-img class="avatar-fit rounded-circle mb-4" width="150px" height="150px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">

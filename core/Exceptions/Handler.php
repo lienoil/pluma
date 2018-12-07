@@ -144,6 +144,17 @@ class Handler extends BaseHandler
             ], 403);
         }
 
+        // QueryException
+        if ($exception instanceof \Illuminate\Database\QueryException) {
+            return response()->view('Theme::errors.404', [
+                'error' => [
+                    'code' => 'QueryException',
+                    'message' => $exception->getMessage(),
+                    'description' => config('errors.messages.404'),
+                ]
+            ], 404);
+        }
+
         return parent::render($request, $exception);
     }
 

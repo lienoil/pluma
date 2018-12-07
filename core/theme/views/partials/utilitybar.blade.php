@@ -4,7 +4,7 @@
   <nav class="utilitybar navbar pl-0 navbar-expand-lg bg-transparent">
 
     @section('utilitybar:menu')
-      <button type="button" class="btn btn-icon shadow-none text-muted mr-sm-2 py-1" aria-expanded="true" data-sidebar-toggle data-target="[data-sidebar]" aria-controls="sidebar" aria-label="{{ __('Toggle sidebar') }}">
+      <button data-settings="sidebar:toggle" data-state="true" data-true-value="active" data-false-value="" type="button" class="btn btn-icon shadow-none text-muted mr-sm-2 py-1" aria-expanded="true" data-sidebar-toggle data-target="[data-sidebar]" aria-controls="sidebar" aria-label="{{ __('Toggle sidebar') }}">
         <i class="mdi mdi-menu"></i>
         <span class="sr-only">{{ __('Toggle Sidebar') }}</span>
       </button>
@@ -33,7 +33,7 @@
               <i class="dropdown-icon mdi mdi-power"></i>
               <span>{{ __('Sign out') }}</span>
             </a>
-            <a class="dropdown-item" href="{{ route('settings:display.index') }}">
+            <a class="dropdown-item" href="{{ route('settings.display') }}">
               <i class="dropdown-icon fe fe-settings"></i> Settings
             </a>
             <a class="dropdown-item" href="#">

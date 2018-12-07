@@ -15,6 +15,8 @@ class MenuRepository extends Repository
      */
     protected $model = Menu::class;
 
+    protected $modeltype = 'menu';
+
     /**
      * Set of rules the model should be validated against when
      * storing or updating a resource.
@@ -23,7 +25,9 @@ class MenuRepository extends Repository
      */
     public static function rules()
     {
-        return [];
+        return [
+            'menus' => 'array|required',
+        ];
     }
 
     /**
@@ -93,5 +97,47 @@ class MenuRepository extends Repository
             (array) $this->model->location($location), [
             'menus' => $this->model->menus($location),
         ])));
+    }
+
+    /**
+     * Update model resource.
+     *
+     * @param array  $data
+     * @param string $location
+     */
+    public function update(array $data, $location)
+    {
+        $this->model->where('location', $location)->delete();
+        $menus = collect($data)->get('menus');
+
+        foreach ($menus as $name => $fields) {
+            $menu = new Menu();
+            $menu->title = $fields['title'];
+            $menu->slug = str_slug($fields['slug'] ?? $fields['code'] ?? $name);
+            $menu->code = $fields['parent'].($fields['code'] ?? $name);
+            $menu->key = $fields['parent'].($fields['code'] ?? $name);
+            $menu->sort = $fields['sort'] ?? 0;
+            $menu->icon = $fields['icon'] ?? null;
+            $menu->parent = $fields['parent'];
+            $menu->url = $this->cleanUrl($fields['url']);
+            $menu->location = $location;
+            $menu->type = $this->modeltype;
+            $menu->save();
+        }
+
+        return $this->model->where('location', $location)->get();
+    }
+
+    /**
+     * Clean URL strings.
+     *
+     * @param string $url
+     * @return string
+     */
+    protected function cleanUrl($url): string
+    {
+        $url = str_replace("'", '', $url);
+
+        return $url;
     }
 }

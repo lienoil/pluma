@@ -3,11 +3,11 @@
 @section('page:header')
   @parent
   @if (isset($buttons['primary']))
-    <a role="button" href="{{ $buttons['primary']['url'] }}" class="btn btn-primary btn-lg">
+    <a role="button" href="{{ $buttons['primary']['url'] }}" class="btn btn-primary">
       @isset ($buttons['primary']['icon'])
         <i class="{{ $buttons['primary']['icon'] }}"></i>&nbsp;
       @endisset
-      {{ $buttons['primary']['text'] }}
+      {{ @$buttons['primary']['text'] }}
     </a>
   @endif
 @endsection

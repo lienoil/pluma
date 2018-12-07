@@ -19,6 +19,8 @@ return [
                 'themes.edit',
                 'themes.show',
                 'themes.trash',
+                'documentations.themes',
+                'documentations.show',
             ]
         ],
         'always_viewable' => false,

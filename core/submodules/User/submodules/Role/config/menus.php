@@ -25,7 +25,7 @@ return [
         'parent' => 'user',
         'order' => 10,
         'always_viewable' => false,
-        'icon' => 'fe fe-user-check',
+        'icon' => 'mdi mdi-security-account-outline',
         'labels' => [
             'title' => __('Roles'),
             'description' => __('View the list of all roles'),

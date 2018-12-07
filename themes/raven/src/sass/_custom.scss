@@ -47,7 +47,8 @@ $font-family-base:            $font-family-sans-serif !default;
 
 
 // Input
-$input-border-color: rgba(0,40,100,.12);
+$input-border-radius:         $border-radius !default;
+$input-border-color:          rgba(0,40,100,.12);
 
 
 // Options

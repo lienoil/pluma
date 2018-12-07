@@ -3,6 +3,10 @@
 @section('head:title', __('Edit Role'))
 @section('page:title', __('Edit Role'))
 
+@section('page:back')
+  <a href="{{ route('roles.index') }}" role="button" class="btn btn-icon"><i class="mdi mdi-arrow-left"></i></a>
+@endsection
+
 @section('page:content')
   <div class="container-fluid">
     <div class="row">

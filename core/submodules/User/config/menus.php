@@ -14,7 +14,7 @@ return [
         'order' => 600,
         'slug' => route('users.index'),
         'always_viewable' => false,
-        'icon' => 'fe fe-users',
+        'icon' => 'mdi mdi-account-multiple-outline',
         'labels' => [
             'title' => __('Users'),
             'description' => __("Manage users, roles, and permissions"),

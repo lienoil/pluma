@@ -38,5 +38,4 @@ trait ThemeResourceAdminTrait
 
         return view('Theme::themes.preview')->with(compact('resource'));
     }
-
 }

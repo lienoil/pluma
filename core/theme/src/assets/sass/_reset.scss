@@ -85,3 +85,19 @@ noscript {
     cursor: pointer;
   }
 }
+
+[data-page-body] {
+  :target:before {
+    content: "";
+    display: block;
+    height: 5px;
+    margin: -5px 0 0;
+  }
+}
+
+:target:before {
+  content: "";
+  display: block;
+  height: 70px;
+  margin: -70px 0 0;
+}

@@ -19,6 +19,7 @@
             <nav id="page-header" data-sticky-class="sticky bg-workspace sticky-shadow" class="navbar px-3">
               @section('page:header')
                 <h1 class="page-title">
+                  @yield('page:back')
                   @section('page:title')
                     {{ __($application->page->title) }}
                   @show

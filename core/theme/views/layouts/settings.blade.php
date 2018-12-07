@@ -16,8 +16,7 @@
         @section('content')
 
           @section('main:title')
-            <div data-sticky="#page-header"></div>
-            <nav id="page-header" data-sticky-class="sticky bg-workspace sticky-shadow" class="navbar px-3">
+            <nav id="page-header" class="navbar px-3">
               @section('page:header')
                 <h1 class="page-title">
                   @section('page:title')
@@ -31,13 +30,20 @@
           @section('main:content')
             <div class="container-fluid">
               <div class="row">
-                <div class="col-auto">
+                <div class="col-lg-3">
                   @section('main:sidebar')
                     @include('Theme::partials.settingsbar')
                   @show
                 </div>
-                <div class="col">
-                  @yield('page:content')
+                <div class="col-lg-9">
+                  @section('page:content')
+                    <form action="{{ route('settings.store') }}" method="POST">
+                      @csrf
+                      @yield('form:title')
+                      @yield('form:content')
+                      @yield('form:footer')
+                    </form>
+                  @show
                 </div>
               </div>
             </div>
@@ -51,7 +57,6 @@
 
       @include('Theme::partials.snackbar')
       @include('Theme::partials.endnote')
-
     </div>
   @show
 @endsection

@@ -3,14 +3,17 @@
 //
 
 .card {
+  @extend .card;
   background-color: var(--card-bg);
   color: var(--card-color);
 
   &-header {
     background: var(--card-header-bg);
+    border: var(--card-header-border);
   }
 
   &-footer {
     background: var(--card-footer-bg);
+    border: var(--card-footer-border);
   }
 }

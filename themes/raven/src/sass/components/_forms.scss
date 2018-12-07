@@ -1,6 +1,8 @@
 
 .form {
   &-control {
+    @extend .form-control;
+
     &.bootstrap-select {
       outline: none;
       border: 1px solid $input-border-color;

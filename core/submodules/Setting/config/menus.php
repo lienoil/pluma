@@ -18,8 +18,7 @@ return [
         'routes' => [
             'name' => 'settings',
             'children' => [
-                'settings.general',
-                'settings:display.index',
+                'settings.display',
                 'settings.branding',
                 'settings.email',
                 'settings.social',
@@ -38,8 +37,8 @@ return [
              */
             'general-settings-group' => [
                 'name' => 'general-settings-group',
-                'slug' => route('settings:display.index'),
-                'code' => 'settings:display.index',
+                'slug' => route('settings.display'),
+                'code' => 'settings.general',
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'order' => 1,
@@ -48,19 +47,18 @@ return [
                     'description' => __('Manage time date formats, site modes, and other general site settings.'),
                 ],
                 'routes' => [
-                    'name' => 'settings.general',
+                    'name' => 'settings',
                     'children' => [
-                        'settings.general',
-                        'settings:display.index',
+                        'settings.display',
                         'settings.datetime',
                     ]
                 ],
                 'children' => [
                     'display-settings' => [
                         'name' => 'display-settings',
-                        'slug' => route('settings:display.index'),
-                        'code' => 'settings:display.index',
-                        'route' => 'settings:display.index',
+                        'slug' => route('settings.display'),
+                        'code' => 'settings.display',
+                        'route' => 'settings.display',
                         'icon' => 'mdi mdi-table-settings',
                         'order' => 2,
                         'labels' => [

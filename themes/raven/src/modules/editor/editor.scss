@@ -1,0 +1,49 @@
+@import '~bootstrap/scss/_functions.scss';
+@import '~bootstrap/scss/_variables.scss';
+@import '~bootstrap/scss/_mixins.scss';
+@import '~bootstrap/scss/_forms.scss';
+@import '@/sass/_custom.scss';
+
+:root {
+  --ck-input-border-radius: #{$input-border-radius};
+  --ck-font-size-base: #{$font-size-base};
+  --ck-custom-border: #{$input-border-color};
+  --editor-min-height: 90px;
+  --ck-color-panel-border: #{$input-border-color};
+  --ck-drop-shadow: #{$input-box-shadow};
+  --ck-color-list-button-on-background: #{$primary} !important;
+  --ck-color-list-button-on-background-focus: #{lighten($primary, 10%)} !important;
+  --ck-spacing-standard: 2rem !important;
+}
+
+.editor, .editor.ck-editor__editable_inline {
+  @extend .form-control;
+  border: $input-border-width solid var(--ck-custom-border) !important;
+  border-radius: var(--ck-input-border-radius) !important;
+  height: auto;
+  min-height: var(--editor-min-height);
+
+  // Customize the `:focus` state to imitate native WebKit styles.
+  &.ck-focused {
+    box-shadow: none;
+    @include form-control-focus();
+    color: $input-focus-color !important;
+    background-color: $input-focus-bg !important;
+    border-color: $input-focus-border-color !important;
+    // Avoid using mixin so we can pass custom focus shadow properly
+    @if $enable-shadows {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow !important;
+    } @else {
+      box-shadow: $input-focus-box-shadow !important;
+    }
+  }
+}
+
+.ck-balloon-panel {
+  transform: translateY(-8px);
+  border-radius: var(--ck-input-border-radius) !important;
+}
+
+.ck.ck-button {
+  cursor: pointer !important;
+}

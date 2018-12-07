@@ -1,10 +1,8 @@
 .btn {
   cursor: pointer;
   font-weight: $font-weight-normal;
-  // letter-spacing: .03em;
   font-size: px2rem(15px);
   min-width: px2rem(38px);
-  // box-shadow: $btn-box-shadow;
   border-radius: $border-radius;
 
   &-accent {
@@ -13,5 +11,21 @@
 
   &-secondary {
     @include button-variant($secondary, $input-border-color);
+  }
+
+  &-success {
+    @include button-variant($success, $input-border-color);
+  }
+
+  &-icon, &-link {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-outline-#{$color} {
+    @include button-outline-variant($value);
+    box-shadow: none;
   }
 }

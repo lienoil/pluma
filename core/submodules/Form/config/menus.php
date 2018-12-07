@@ -13,7 +13,7 @@ return [
         'order' => 110,
         'slug' => route('forms.index'),
         'always_viewable' => false,
-        'icon' => 'format_line_spacing',
+        'icon' => 'mdi mdi-format-float-left',
         'labels' => [
             'title' => __('Forms'),
             'description' => __('Manage forms'),
