@@ -1,9 +1,10 @@
 {
-  "name": "Raven Dark",
-  "code": "raven",
+  "name": "Default",
+  "code": "default",
   "description": "A dark theme with a bit of blue.",
   "preview": {
     "img": "preview.png",
+    "hintpath": "Default::themes.thumbnail",
     "credit": "Photo by Amarnath Tade on Unsplash",
     "url": "https://unsplash.com/@amarnathtade"
   },

@@ -1,3 +1,22 @@
+$workspace-padding-y: 1rem;
+$workspace-padding-x: 1rem;
+$workspace-main-min-height: 185px;
+
 .workspace {
   background-color: var(--workspace-bg);
+  display: block;
+  padding-left: $workspace-padding-y;
+  padding-right: $workspace-padding-y;
+  height: 100vh;
+  width:100%;
+  overflow-y: auto;
+
+  > .footer:last-child {
+    padding: 0;
+  }
+
+  > .main {
+    padding-top: 0;
+    min-height: calc(100% - #{$workspace-main-min-height});
+  }
 }

@@ -1,9 +1,9 @@
 'use strict';
 
-const NodeSassJsonImporter = require('node-sass-json-importer');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const NodeSassJsonImporter = require('node-sass-json-importer');
 const theme = require('../theme.json');
 
 module.exports = [
@@ -97,4 +97,33 @@ module.exports = [
     ],
   },
 
+  /**
+   *--------------------------------------------------------------------------
+   * Fonts Loader
+   *--------------------------------------------------------------------------
+   *
+   */
+  {
+    test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+    loader: 'url-loader',
+    options: {
+      limit: 10000,
+      name: 'fonts/[name].[hash:7].[ext]',
+    }
+  },
+
+  /**
+   *--------------------------------------------------------------------------
+   * File Loader
+   *--------------------------------------------------------------------------
+   *
+   */
+  {
+    test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+    loader: 'url-loader',
+    options: {
+      limit: 10000,
+      name: 'assets/img/[name].[hash:7].[ext]',
+    }
+  },
 ];

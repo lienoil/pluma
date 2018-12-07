@@ -1,10 +1,10 @@
 'use strict';
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
+const webpack = require('webpack');
 
 module.exports = [
   /**

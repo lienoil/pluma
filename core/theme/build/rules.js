@@ -1,9 +1,9 @@
 'use strict';
 
-const NodeSassJsonImporter = require('node-sass-json-importer');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const NodeSassJsonImporter = require('node-sass-json-importer');
 const theme = require('../theme.json');
 
 module.exports = [
