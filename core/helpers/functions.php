@@ -564,7 +564,7 @@ if (! function_exists('get_sidebar')) {
 
         foreach ($menus as $i => $menu) {
             if (array_key_exists($key, $menu) && $menu[$key] === $value) {
-                return $menu;
+                return json_decode(json_encode($menu));
             }
 
             if ($menu['has_children']) {

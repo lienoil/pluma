@@ -50,6 +50,7 @@
   @show
   @stack('css')
     <link rel="stylesheet" type="text/css" href="{{ theme('dist/vendor.min.css') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}">
+    <link rel="stylesheet" type="text/css" href="{{ theme('dist/fonts.min.css') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}">
     <link rel="stylesheet" type="text/css" href="{{ theme('dist/app.min.css') }}?v={{ app()->environment() === 'development' ? date('his') : $application->version }}">
   @show
   @stack('after:css')
