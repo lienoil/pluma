@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-12">
 
-        <div data-form-builder='{}'>
+        <div data-form-builder='{"fields":["textarea","input"]}'>
           <div class="sd">d</div>
         </div>
 
