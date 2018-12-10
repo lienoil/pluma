@@ -8,13 +8,13 @@
     </div>
   </div>
   <div class="col-auto col-sm-auto">
-    <button type="submit" class="btn btn-secondary"><i class="fe fe-search"></i></button>
+    <button type="submit" class="btn btn-secondary"><i class="mdi mdi-magnify"></i></button>
     @if (request()->get('search'))
       <a role="button" href="{{ url()->route(request()->route()->getName(), url_filter(['search' => null])) }}" class="btn btn-secondary">
         @isset($close)
           {!! $close !!}
         @else
-          <i class="fe fe-x"></i>
+          <i class="mdi mdi-close"></i>
         @endisset
       </a>
     @endif

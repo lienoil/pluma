@@ -22,7 +22,7 @@ module.exports = {
      *
      */
     editor: './src/modules/editor/editor.js',
-
+    form: './src/modules/form/form.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

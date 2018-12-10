@@ -10,6 +10,7 @@ use Form\Requests\FormRequest;
 use Form\Support\Traits\FormResourceApiTrait;
 use Form\Support\Traits\FormResourcePublicTrait;
 use Form\Support\Traits\FormResourceSoftDeleteTrait;
+use Form\Repositories\FormRepository;
 use Frontier\Controllers\GeneralController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,22 +19,20 @@ use User\Models\User;
 
 class FormController extends GeneralController
 {
-    use FormResourcePublicTrait,
+    use Resources\FormResourceAdminTrait,
+        FormResourcePublicTrait,
         FormResourceSoftDeleteTrait,
         FormResourceApiTrait;
 
     /**
-     * Show list of resources.
+     * Initialize the class contructor.
      *
-     * @param  Request $request
-     * @return Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function __construct()
     {
-        $resources = Form::search($request->all())->paginate();
-        $trashed = Form::onlyTrashed()->count();
+        $this->repository = new FormRepository();
 
-        return view("Form::forms.index")->with(compact('resources', 'trashed'));
+        parent::__construct();
     }
 
     /**
@@ -52,20 +51,6 @@ class FormController extends GeneralController
         // $builder = new \Form\Support\Builder\FormBuilder($form, $form->fields, 'Form::templates.test');
 
         return view("Form::forms.show")->with(compact('resource', 'form'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $templates = Template::getTemplatesFromFiles();
-        $fieldtypes = Fieldtype::all();
-
-        return view("Form::forms.create")->with(compact('fieldtypes', 'templates'));
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('empty')
   <section class="text-center justify-content-center text-muted">
     <div style="filter: grayscale(0.7);">
-      @include('Theme::icons.man-on-laptop', ['width' => '200px', 'height' => '200px'])
+      @include($image ?? 'Theme::icons.man-on-laptop', ['width' => '200px', 'height' => '200px'])
     </div>
 
     <div class="text-muted display-6 card-body">
