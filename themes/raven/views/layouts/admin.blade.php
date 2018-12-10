@@ -10,7 +10,7 @@
       @include('Theme::partials.utilitybar')
       @include('Theme::partials.breadcrumbs')
 
-      <main id="main" class="main justify-content-start" role="main">
+      <main id="main" class="main justify-content-start {{ settings('display.main.grid.class', 'container') }}" role="main">
         @stack('before:content')
 
         @section('content')

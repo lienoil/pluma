@@ -3,7 +3,7 @@
 Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->group(function () {
     # Settings Redirect
     Route::get('/', function () {
-        return redirect()->route('settings:display.index');
+        return redirect()->route('settings.display');
     })->name('settings');
 
     # Save Settings
