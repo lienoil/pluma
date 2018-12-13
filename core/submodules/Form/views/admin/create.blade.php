@@ -1,6 +1,7 @@
 @extends('Theme::layouts.admin')
 
 @push('after:css')
+  <link rel="stylesheet" href="{{ theme('dist/form.min.css') }}">
   <script src="{{ theme('dist/form.min.js') }}"></script>
 @endpush
 

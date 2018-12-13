@@ -24,7 +24,7 @@
                 @endif
 
                 <span class="ml-auto sidebar-toggle-icon">
-                  <i class="fe fe-chevron-down"></i>
+                  <i class="mdi mdi-chevron-down"></i>
                 </span>
               </a>
               <div id="sidebar-dropdown-{{ $i }}" class="sidebar-dropdown-menu collapse {{ $menu['active'] ? 'show active' : '' }}" data-parent="[data-sidebar-nav]">

@@ -14,7 +14,7 @@ return [
         'order' => 1000,
         'slug' => route('settings'),
         'always_viewable' => false,
-        'icon' => 'fe fe-sliders',
+        'icon' => 'mdi mdi-tune',
         'routes' => [
             'name' => 'settings',
             'children' => [

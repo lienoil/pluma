@@ -48,7 +48,7 @@ return [
             ]
         ],
         'always_viewable' => false,
-        'icon' => 'fe fe-check-circle',
+        'icon' => 'mdi mdi-check-circle',
         'labels' => [
             'title' => __('Permissions'),
             'description' => __('View the list of all permissions'),
