@@ -13,6 +13,16 @@ module.exports = {
   entry: {
     app: './src/app.js',
     vendor: './src/vendor.js',
+    fonts: './src/sass/fonts.scss',
+
+    /**
+     *--------------------------------------------------------------------------
+     * Modules List
+     *--------------------------------------------------------------------------
+     *
+     */
+    editor: './src/modules/editor/editor.js',
+    form: './src/modules/form/form.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

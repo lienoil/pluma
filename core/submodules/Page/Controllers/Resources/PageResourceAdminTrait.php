@@ -22,7 +22,7 @@ trait PageResourceAdminTrait
     {
         $resources = Page::search($request->all())->paginate();
 
-        return view("Page::pages.index")->with(compact('resources'));
+        return view('Page::admin.index')->with(compact('resources'));
     }
 
     /**

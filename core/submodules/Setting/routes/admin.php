@@ -26,15 +26,21 @@ Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->
     });
 
     // Branding
-    Route::get('branding', 'BrandingSettingController@index')->name('settings.branding');
-    Route::post('branding', 'BrandingSettingController@store')->name('settings.branding.store');
+    Route::prefix('branding')->group(function () {
+        Route::get('/', function () {
+            return redirect()->route('settings:branding.index');
+        })->name('group:settings.branding');
+        Route::get('general', 'BrandingSettingController@index')->name('settings:branding.index');
+        Route::post('branding', 'BrandingSettingController@store')->name('settings.branding.store');
 
-    // Email
-    Route::get('branding/email', 'EmailSettingController@index')->name('settings.email');
-    Route::post('branding/email', 'EmailSettingController@store')->name('settings.email.store');
+        // Email
+        Route::get('email', 'EmailSettingController@index')->name('settings.email');
+        Route::post('email', 'EmailSettingController@store')->name('settings.email.store');
 
-    // Social
-    Route::get('branding/social', 'SettingController@getSocialForm')->name('settings.social');
+        // Social
+        Route::get('social', 'SettingController@getSocialForm')->name('settings.social');
+    });
+
 
     // Theming
     // Route::get('theming', 'ThemingSettingController@index')->name('settings.theming');

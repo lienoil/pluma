@@ -25,7 +25,7 @@ return [
         'parent' => 'user',
         'order' => 10,
         'always_viewable' => false,
-        'icon' => 'mdi mdi-security-account-outline',
+        'icon' => 'mdi mdi-shield-account-outline',
         'labels' => [
             'title' => __('Roles'),
             'description' => __('View the list of all roles'),
@@ -48,7 +48,7 @@ return [
             ]
         ],
         'always_viewable' => false,
-        'icon' => 'mdi mdi-check-circle',
+        'icon' => 'mdi mdi-check-circle-outline',
         'labels' => [
             'title' => __('Permissions'),
             'description' => __('View the list of all permissions'),

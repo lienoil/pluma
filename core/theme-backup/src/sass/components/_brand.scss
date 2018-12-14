@@ -1,0 +1,13 @@
+.brand {
+  &-logo {
+    &:hover {
+      color: lighten($primary, 20%);
+    }
+
+    svg {
+      max-width: 150px;
+      width: 100%;
+      height: auto;
+    }
+  }
+}

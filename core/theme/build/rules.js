@@ -47,8 +47,8 @@ module.exports = [
             require('precss'),
             require('autoprefixer')
           ];
-        }
-      }
+        },
+      },
     }, {
       loader: 'sass-loader', // compiles Sass to CSS
       options: {
@@ -74,9 +74,9 @@ module.exports = [
           card: theme.colors.card,
           sidebar: theme.colors.sidebar,
           workspace: theme.colors.workspace,
-        }
+        },
       },
-    }]
+    }],
   },
 
   /**
@@ -93,7 +93,7 @@ module.exports = [
       {
         loader: 'html-loader',
         options: { minimize: true },
-      }
+      },
     ],
   },
 
@@ -109,7 +109,7 @@ module.exports = [
     options: {
       limit: 10000,
       name: 'fonts/[name].[hash:7].[ext]',
-    }
+    },
   },
 
   /**
@@ -120,10 +120,10 @@ module.exports = [
    */
   {
     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-    loader: 'url-loader',
+    loader: 'file-loader',
     options: {
       limit: 10000,
-      name: 'assets/img/[name].[hash:7].[ext]',
-    }
+      name: 'assets/img/[name].[ext]',
+    },
   },
 ];

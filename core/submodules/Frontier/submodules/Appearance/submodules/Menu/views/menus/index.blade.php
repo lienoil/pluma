@@ -4,7 +4,7 @@
 @section('page:title', __('Menus'))
 
 @section('page:content')
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
 
       @foreach ($locations as $menu)

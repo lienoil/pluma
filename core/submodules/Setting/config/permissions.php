@@ -95,10 +95,10 @@ return [
     ],
 
     'branding-settings' => [
-        'name' =>  'settings.branding',
+        'name' =>  'settings:branding.index',
         'code' => 'branding-settings',
         'description' => 'Ability to view list of branding settings',
-        'group' => 'setting, appearance',
+        'group' => 'settings',
     ],
 
     'social-media-settings' => [

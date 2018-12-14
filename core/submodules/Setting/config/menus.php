@@ -19,7 +19,7 @@ return [
             'name' => 'settings',
             'children' => [
                 'settings.display',
-                'settings.branding',
+                'settings:branding.index',
                 'settings.email',
                 'settings.social',
             ]
@@ -38,7 +38,7 @@ return [
             'general-settings-group' => [
                 'name' => 'general-settings-group',
                 'slug' => route('settings.display'),
-                'code' => 'settings.general',
+                'code' => 'group:settings.general',
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'order' => 1,
@@ -88,10 +88,11 @@ return [
              *------------------------------------------------------------------
              *
              */
-            'branding-settings-group' => [
-                'name' => 'branding-settings-group',
-                'slug' => route('settings.branding'),
-                'code' => 'settings.branding',
+            'group:settings.branding' => [
+                'name' => 'group:settings.branding',
+                'slug' => route('group:settings.branding'),
+                'code' => 'group:settings.branding',
+                'icon' => 'mdi mdi-leaf',
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'order' => 2,
@@ -100,19 +101,19 @@ return [
                     'description' => __('Manage the branding options for the site.'),
                 ],
                 'routes' => [
-                    'name' => 'settings.branding',
+                    'name' => 'settings:branding.index',
                     'children' => [
-                        'settings.branding',
+                        'settings:branding.index',
                         'settings.email',
                         'settings.social',
                     ]
                 ],
                 'children' => [
-                    'branding-settings' => [
-                        'name' => 'branding-settings',
-                        'slug' => route('settings.branding'),
-                        'code' => 'settings.branding',
-                        'route' => 'settings.branding',
+                    'settings:branding.index' => [
+                        'name' => 'settings:branding.index',
+                        'slug' => route('settings:branding.index'),
+                        'code' => 'settings:branding.index',
+                        'route' => 'settings:branding.index',
                         'icon' => 'fa-leaf',
                         'labels' => [
                             'title' => __('Site Branding'),
@@ -163,7 +164,7 @@ return [
             'system-settings-group' => [
                 'name' => 'system-settings-group',
                 'slug' => route('settings.system'),
-                'icon' => 'settings_applications',
+                'icon' => 'mdi mdi-settings-box',
                 'always_viewable' => false,
                 'order' => 1000,
                 'labels' => [
@@ -176,7 +177,7 @@ return [
                         'slug' => route('settings.system'),
                         'code' => 'settings.system',
                         'route' => 'settings.system',
-                        'icon' => 'settings_applications',
+                        'icon' => 'mdi mdi-settings-box',
                         'always_viewable' => false,
                         'order' => 100,
                         'labels' => [
@@ -190,7 +191,7 @@ return [
                         'slug' => route('settings.system.configuration'),
                         'code' => 'settings.system.configuration',
                         'route' => 'settings.system.configuration',
-                        'icon' => 'build',
+                        'icon' => 'mdi mdi-settings-box',
                         'always_viewable' => false,
                         'order' => 101,
                         'labels' => [

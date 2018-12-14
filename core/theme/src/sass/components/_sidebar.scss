@@ -1,7 +1,7 @@
 $sidebar-dropdown-divider-color: rgba(0,40,100,.12);
 $sidebar-width-full: 250px;
 $sidebar-width-min: 50px;
-$sidebar-brand-height: 60px;
+$sidebar-brand-height: 40px;
 $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
 
 .sidebar {
@@ -18,23 +18,17 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     margin-left: 0;
   }
 
-  &.sidebar-bg-colored, &.sidebar-alt {
-    background-color: var(--accent);
-    color: var(--light);
-
-    .sidebar-item,
-    .list-group-item,
-    .sidebar-dropdown-item {
-      color: var(--light);
-    }
-  }
-
   &--hidden,
   &-hidden {
     margin-left: -$sidebar-width-full;
   }
 
-  &-header, &-footer {
+  &-header {
+    display: block;
+    padding: 1rem;
+  }
+
+  &-footer {
     margin: 0 auto;
     display: block;
     padding: 1rem;
@@ -48,7 +42,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
 
   &-nav {
     @extend .list-group;
-    background-color: transparent;
+    background: transparent;
     margin-bottom: 0;
   }
 
@@ -56,7 +50,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     @extend .list-group-item;
     @include border-radius;
     align-items: center;
-    background-color: transparent;
+    background: transparent;
     border: none;
     color: inherit;
     display: flex;
@@ -68,7 +62,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     }
 
     &.active, &:hover {
-      background-color: transparent;
+      background: transparent;
       color: var(--primary);
     }
   }
@@ -115,12 +109,12 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
           padding-bottom: .5rem;
           position: relative;
           &.active {
-            background-color: transparent;
+            background: transparent;
             color: var(--primary);
           }
 
           &:hover, &:active, &:focus {
-            background-color: transparent;
+            background: transparent;
             color: var(--primary);
           }
 
@@ -195,7 +189,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     @extend .list-group-item;
 
     &.active, &:hover {
-      background-color: transparent;
+      background: transparent;
       color: var(--primary);
     }
   }
@@ -256,6 +250,9 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
   }
 }
 
+
+// Sidebar Fixed
+
 .sidebar {
   &-fixed {
     display: flex;
@@ -277,7 +274,9 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
   }
 }
 
+
 // Brand
+
 .sidebar {
   &-brand {
     height: $sidebar-brand-height;
@@ -294,7 +293,9 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
   }
 }
 
+
 // Color
+
 .sidebar {
   &-dark, &.bg-dark {
     background-color: var(--dark);
@@ -303,5 +304,19 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     .sidebar-nav a {
       color: var(--light) !important;
     }
+  }
+}
+
+
+// Color variants
+
+.sidebar.sidebar-bg-colored, .sidebar.sidebar-alt {
+  background-color: var(--accent);
+  color: var(--light);
+
+  .sidebar-item,
+  .list-group-item,
+  .sidebar-dropdown-item {
+    color: var(--light);
   }
 }

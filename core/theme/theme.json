@@ -1,10 +1,10 @@
 {
   "name": "Default",
   "code": "default",
-  "description": "A dark theme with a bit of blue.",
+  "description": "The default theme for pluma/cms. It's alright.",
   "preview": {
-    "img": "preview.png",
     "hintpath": "Default::themes.thumbnail",
+    "img": "preview.png",
     "credit": "Photo by Amarnath Tade on Unsplash",
     "url": "https://unsplash.com/@amarnathtade"
   },
@@ -14,7 +14,7 @@
   },
   "colors": {
     "primary": "#0c5689",
-    "secondary": "#ffffff",
+    "secondary": "#f9fafb",
     "accent": "#ffffff",
     "success": "#86d067",
     "info": "#00b8d6",

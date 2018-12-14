@@ -10,7 +10,7 @@
       <div data-sticky="#page-header"></div>
       <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar row px-3">
         <h1 class="page-title">{{ __('Add User') }}</h1>
-        <button type="submit" class="btn btn-primary"><i class="fe fe-save">&nbsp;</i>{{ __('Save') }}</button>
+        <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save">&nbsp;</i>{{ __('Save') }}</button>
       </nav>
 
       <div class="row">
@@ -118,10 +118,10 @@
                               <div class="form-group mb-0">
                                 <div class="input-icon">
                                   <span class="input-icon-addon">
-                                    <i class="fe fe-smartphone"></i>
+                                    <i class="mdi mdi-cellphone-android"></i>
                                   </span>
                                   <input type="text" readonly name="details[phone][key]" class="form-control" value="Mobile Phone" placeholder="{{ __('Key') }}">
-                                  <input type="hidden" name="details[phone][icon]" value="fe fe-smartphone">
+                                  <input type="hidden" name="details[phone][icon]" value="mdi mdi-cellphone-android">
                                 </div>
                               </div>
                             </td>
@@ -137,10 +137,10 @@
                               <div class="form-group mb-0">
                                 <div class="input-icon">
                                   <span class="input-icon-addon">
-                                    <i class="fa fa-birthday-cake"></i>
+                                    <i class="mdi mdi-cake"></i>
                                   </span>
                                   <input type="text" readonly name="details[birthday][key]" class="form-control" value="Birthday" placeholder="{{ __('Key') }}">
-                                  <input type="hidden" name="details[birthday][icon]" value="fa fa-birthday-cake">
+                                  <input type="hidden" name="details[birthday][icon]" value="mdi mdi-cake">
                                 </div>
                               </div>
                             </td>
@@ -156,10 +156,10 @@
                               <div class="form-group mb-0">
                                 <div class="input-icon">
                                   <span class="input-icon-addon">
-                                    <i class="fe fe-map-pin"></i>
+                                    <i class="mdi mdi-map-marker"></i>
                                   </span>
                                   <input type="text" readonly name="details[address][key]" class="form-control" value="Billing Address" placeholder="{{ __('Key') }}">
-                                  <input type="hidden" name="details[address][icon]" value="fe fe-map-pin">
+                                  <input type="hidden" name="details[address][icon]" value="mdi mdi-map-marker">
                                 </div>
                               </div>
                             </td>
@@ -194,7 +194,7 @@
                                 </td>
                                 <td class="justify-content-end d-flex">
                                   <div class="w-100"></div>
-                                  <button class="btn btn-secondary" type="button" data-dynamic-remove-button><i class="fe fe-x"></i></button>
+                                  <button class="btn btn-secondary" type="button" data-dynamic-remove-button><i class="mdi mdi-close"></i></button>
                                 </td>
                               </tr>
                             @endforeach
@@ -220,7 +220,7 @@
                               </div>
                             </td>
                             <td class="d-flex justify-content-end">
-                              <button class="btn btn-secondary" type="button" data-dynamic-remove-button><i class="fe fe-x"></i></button>
+                              <button class="btn btn-secondary" type="button" data-dynamic-remove-button><i class="mdi mdi-close"></i></button>
                             </td>
                           </tr>
                           {{-- Dynamic Template --}}

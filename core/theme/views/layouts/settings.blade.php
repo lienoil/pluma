@@ -39,9 +39,27 @@
                   @section('page:content')
                     <form action="{{ route('settings.store') }}" method="POST">
                       @csrf
-                      @yield('form:title')
-                      @yield('form:content')
-                      @yield('form:footer')
+                      <div class="card">
+                        @section('form:header')
+                          <div class="card-header">
+                            <h2 class="card-title">@yield('form:title')</h2>
+                          </div>
+                        @show
+
+                        <div class="card-body">
+
+                          @yield('form:content')
+
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-end">
+
+                          @section('form:footer')
+                            @field('submit', ['label' => __('Save Settings')])
+                          @show
+
+                        </div>
+                      </div>
                     </form>
                   @show
                 </div>

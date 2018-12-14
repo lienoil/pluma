@@ -3,10 +3,10 @@
 
 @include('Theme::admin.index', [
   'resources' => $resources,
-  'actions' => ['search', 'edit', 'show', 'destroy', 'trashed'],
+  'actions' => ['search', 'show', 'destroy', 'trashed'],
   'buttons' => [
     'primary' => [
-      'icon' => 'fe fe-plus',
+      'icon' => 'mdi mdi-plus',
       'text' => __('New Role'),
       'url' => route('roles.create'),
     ],
@@ -21,13 +21,12 @@
   ],
   'table' => [
     'body' => [
-      'name', 'code', 'description', 'permission_count', 'created',
+      ['name' => 'name', 'link' => true], 'code', 'description', 'permission_count', 'created',
     ],
     'head' => [
       [
         'label' => __('Name'),
         'column' => 'name',
-        'class' => 'pl-5',
         'colspan' => 1,
         'sortable' => true,
       ],

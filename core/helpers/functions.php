@@ -560,7 +560,7 @@ if (! function_exists('get_sidebar')) {
     function get_sidebar($name = null, $key = 'slug', $menus = null)
     {
         $menus = $menus ?? sidebar();
-        $value = is_null($name) ? url(request()->route()->uri()) : $name;
+        $value = is_null($name) ? request()->url() : $name;
 
         foreach ($menus as $i => $menu) {
             if (array_key_exists($key, $menu) && $menu[$key] === $value) {
@@ -568,11 +568,11 @@ if (! function_exists('get_sidebar')) {
             }
 
             if ($menu['has_children']) {
-                $f = get_sidebar($name, $key, $menu['children']);
+                $item = get_sidebar($name, $key, $menu['children']);
             }
         }
 
-        return json_decode(json_encode($f ?? null));
+        return json_decode(json_encode($item ?? null));
     }
 }
 

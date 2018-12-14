@@ -31,7 +31,7 @@ $(document).ready(function () {
           if ($(m).attr('data-name')) {
             $(m).attr('name', $(m).attr('data-name').replace('#', $number))
           } else {
-            $(m).attr('name', $(m).attr('name').replace('#', $number))
+            $(m).attr('name', $(m).attr('name') ? $(m).attr('name').replace('#', $number) : $number)
           }
         })
       }

@@ -1,3 +1,4 @@
+// Forms
 
 .form {
   &-group {
@@ -24,6 +25,7 @@
   }
 
   &-control {
+    @extend .form-control;
     height: auto;
 
     &.bootstrap-select {
@@ -41,9 +43,9 @@
         &, button {
           background-color: $input-focus-bg;
           border-color: $input-focus-border-color;
-          box-shadow: $input-focus-box-shadow;
           color: $input-focus-color;
           outline: none;
+          @include box-shadow( $input-focus-box-shadow);
         }
       }
 

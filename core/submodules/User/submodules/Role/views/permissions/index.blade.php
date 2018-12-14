@@ -26,7 +26,7 @@
       </div>
 
       <div class="col-lg-8 col-md-6">
-        <div class="jumbotron mb-2">TODO: Add svg image</div>
+        {{-- <div class="jumbotron mb-2">TODO: Add svg image</div> --}}
         <div class="card border-0 shadow-none bg-transparent">
           <div class="text-wrap">
             <h2 class="mb-4">{{ __('Refresh List') }}</h2>
@@ -37,12 +37,7 @@
               <button type="submit" class="btn btn-success text-light">{{ __('Refresh Permissions') }}</button>
             </form>
 
-            <div class="text-divider text-divider-dashed mt-6 mb-0">
-              <span class="rounded-circle p-2 bg-gray">
-                <i class="mdi mdi-skull text-white"></i>
-              </span>
-            </div>
-            <div class="mx-auto small text-muted text-center">{{ __('Danger Ahead') }}</div>
+            <div class="text-divider text-divider-dashed my-3"><i class="mdi mdi-pencil"></i></div>
 
             <h2 class="mb-4">{{ __('Reset List') }}</h2>
             <p>{!! __("Performing this action will completely remove all permissions data from the database before reinstalling them. Users might lose their previous privileges after this action.") !!}</p>
@@ -56,7 +51,7 @@
             @include('Theme::partials.modal', [
               'dataset' => false,
               'id' => 'reset-permissions-confirmbox',
-              'icon' => 'mdi mdi-skull display-1 icon-faded d-inline-block',
+              'icon' => 'mdi mdi-skull-crossbones display-1 icon-faded d-inline-block',
               'lead' => __('WARNING! Read before proceeding.'),
               'text' => __("<p>Resetting the permissions table will break your existing users' established roles. Though the application will try to rebuild the permissions table, there is no guarantee all items will be restored. In fact, any manually added permission will not be recovered. You might need to setup the user roles manually again. If you do not want to upset the order of the Cosmos, then for the love of Talos, do not proceed.</p><p>Are you sure yout want to reset permissions?</p>"),
               'method' => 'POST',

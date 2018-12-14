@@ -2,7 +2,7 @@
 
 @section('page:header')
   @parent
-  <a role="button" href="{{ route('users.create') }}" class="btn btn-primary"><i class="fe fe-user-plus"></i>&nbsp;{{ __('New User') }}</a>
+  <a role="button" href="{{ route('users.create') }}" class="btn btn-primary"><i class="mdi mdi-account-plus-outline"></i>&nbsp;{{ __('New User') }}</a>
 @endsection
 
 @section('page:content')
@@ -22,14 +22,14 @@
                     {{-- Bulk Commands --}}
                     <div class="btn-toolbar justify-content-lg-end justify-content-between" role="toolbar" aria-label="{{ __('Bulk Commands') }}">
                       <div class="btn-group btn-group-toggle" role="group" data-toggle="buttons">
-                        <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target=".table-select"><i class="fe fe-check-square"></i></button>
+                        <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target=".table-select"><i class="mdi mdi-checkbox-marked-circle-outline"></i></button>
                       </div>
                       <div class="btn-group ml-3" role="group">
                         <button data-modal-toggle type="button" class="btn btn-secondary" disabled data-toggle="modal" data-target="#export-confirmbox" title="{{ __('Select users to export') }}">
-                          <i class="fe fe-download-cloud"></i>
+                          <i class="mdi mdi-download"></i>
                         </button>
                         <button data-modal-toggle type="button" class="btn btn-secondary" disabled data-toggle="modal" data-target="#delete-confirmbox" title="{{ __('Select users to deactivate') }}">
-                          <i class="fe fe-user-x"></i>
+                          <i class="mdi mdi-account-remove-outline"></i>
                         </button>
                       </div>
 
@@ -39,8 +39,8 @@
 
                       <div class="btn-group ml-3" role="group">
                         <a role="button" href="{{ route('users.trashed') }}" class="btn btn-secondary" data-toggle="tooltip" data-html="true" title="{{ __('View deactivated users') }}">
-                          <i class="fa fa-archive"></i>
-                          <i class="fe fe-arrow-right"></i>
+                          <i class="mdi mdi-delete-empty"></i>
+                          <i class="mdi mdi-arrow-right"></i>
                         </a>
                       </div>
                     </div>
@@ -70,11 +70,11 @@
                       @if (request()->get('sort') === 'firstname')
                         @switch (request()->get('order'))
                           @case('asc')
-                            <a href="{{ route('users.index', url_filter(['sort' => 'firstname', 'order' => 'desc'])) }}">{{ __('Account Name') }} <i class="fa fa-sort-alpha-down"></i></a>
+                            <a href="{{ route('users.index', url_filter(['sort' => 'firstname', 'order' => 'desc'])) }}">{{ __('Account Name') }} <i class="mdi mdi-sort-descending"></i></a>
                             @break
 
                           @case('desc')
-                            <a href="{{ route('users.index', url_filter(['sort' => '', 'order' => ''])) }}">{{ __('Account Name') }} <i class="fa fa-sort-alpha-up"></i></a>
+                            <a href="{{ route('users.index', url_filter(['sort' => '', 'order' => ''])) }}">{{ __('Account Name') }} <i class="mdi mdi-sort-ascending"></i></a>
                             @break
 
                           @default
@@ -88,11 +88,11 @@
                       @if (request()->get('sort') === 'email')
                         @switch (request()->get('order'))
                           @case('asc')
-                            <a href="{{ route('users.index', url_filter(['sort' => 'email', 'order' => 'desc'])) }}">{{ __('Email') }} <i class="fa fa-sort-alpha-down"></i></a>
+                            <a href="{{ route('users.index', url_filter(['sort' => 'email', 'order' => 'desc'])) }}">{{ __('Email') }} <i class="mdi mdi-sort-descending"></i></a>
                             @break
 
                           @case('desc')
-                            <a href="{{ route('users.index', url_filter(['sort' => '', 'order' => ''])) }}">{{ __('Email') }} <i class="fa fa-sort-alpha-up"></i></a>
+                            <a href="{{ route('users.index', url_filter(['sort' => '', 'order' => ''])) }}">{{ __('Email') }} <i class="mdi mdi-sort-ascending"></i></a>
                             @break
 
                           @default
@@ -107,11 +107,11 @@
                       @if (request()->get('sort') === 'created_at')
                         @switch (request()->get('order'))
                           @case('asc')
-                            <a href="{{ route('users.index', url_filter(['sort' => 'created_at', 'order' => 'desc'])) }}">{{ __('Date Created') }} <i class="fa fa-sort-numeric-down"></i></a>
+                            <a href="{{ route('users.index', url_filter(['sort' => 'created_at', 'order' => 'desc'])) }}">{{ __('Date Created') }} <i class="mdi mdi-sort-descending"></i></a>
                             @break
 
                           @case('desc')
-                            <a href="{{ route('users.index', url_filter(['sort' => '', 'order' => ''])) }}">{{ __('Date Created') }} <i class="fa fa-sort-numeric-up"></i></a>
+                            <a href="{{ route('users.index', url_filter(['sort' => '', 'order' => ''])) }}">{{ __('Date Created') }} <i class="mdi mdi-sort-ascending"></i></a>
                             @break
 
                           @default
@@ -135,7 +135,7 @@
                       </td>
                       <td class="w-1 pl-5">
                         @if (user()->id === $resource->id)
-                          <div title="{{ __('This is your account') }}"><i class="fe fe-user text-muted"></i></div>
+                          <div title="{{ __('This is your account') }}"><i class="mdi mdi-home-account text-muted"></i></div>
                         @endif
                       </td>
                       <td class="w-1">
@@ -152,15 +152,15 @@
                       <td>{{ $resource->displayrole }}</td>
                       <td title="{{ $resource->created_at }}">{{ $resource->created }}</td>
                       <td class="text-center justify-content-center">
-                        <a title="{{ __('Edit this user') }}" href="{{ route('users.edit', $resource->id) }}" role="button" class="btn btn-secondary btn-sm"><i class="fe fe-edit-2"></i></a>
+                        <a title="{{ __('Edit this user') }}" href="{{ route('users.edit', $resource->id) }}" role="button" class="btn btn-icon btn-sm"><i class="mdi mdi-pencil-outline"></i></a>
 
-                        <button data-modal-toggle type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#delete-single-confirmbox-{{ $resource->id }}" title="{{ __('Move this user to trash') }}">
-                          <i class="fe fe-trash-2"></i>
+                        <button data-modal-toggle type="button" class="btn btn-icon btn-sm" data-toggle="modal" data-target="#delete-single-confirmbox-{{ $resource->id }}" title="{{ __('Move this user to trash') }}">
+                          <i class="mdi mdi-delete-outline"></i>
                         </button>
                         @include('Theme::partials.modal', [
                           'dataset' => false,
                           'id' => 'delete-single-confirmbox-'.$resource->id,
-                          'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
+                          'icon' => 'mdi mdi-account-remove-outline display-1 icon-faded d-inline-block',
                           'lead' => __('You are about to deactivate the selected user.'),
                           'text' => 'If you have selected your account and continued, you will be signed out from the app. Are you sure yout want to continue?',
                           'method' => 'DELETE',
@@ -199,7 +199,7 @@
   {{-- Export --}}
   @include('Theme::partials.modal', [
     'id' => 'export-confirmbox',
-    'icon' => 'fe fe-download-cloud display-1 icon-border icon-faded d-inline-block',
+    'icon' => 'mdi mdi-download display-1 icon-faded d-inline-block',
     'lead' => __('Select format to download.'),
     'text' => __('Export data to a specific file type.'),
     'method' => 'POST',
@@ -212,7 +212,7 @@
   {{-- Move to Trash --}}
   @include('Theme::partials.modal', [
     'id' => 'delete-confirmbox',
-    'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
+    'icon' => 'mdi mdi-account-remove-outline display-1 icon-faded d-inline-block',
     'lead' => __('You are about to deactivate the selected users.'),
     'text' => 'If you have selected your account and continued, you will be signed out from the app. Are you sure yout want to continue?',
     'method' => 'DELETE',

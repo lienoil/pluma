@@ -1,5 +1,5 @@
 <nav id="sidebar" class="sidebar sidebar-fixed active" data-sidebar>
-  <header class="sidebar-header px-0 pb-0">
+  <header class="sidebar-header">
     <div class="sidebar-brand text-primary">
       @include('Theme::partials.brand')
     </div>

@@ -1,9 +1,12 @@
 'use strict';
 
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
 const Visualizer = require('webpack-visualizer-plugin');
+const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = [
@@ -43,6 +46,29 @@ module.exports = [
   }),
 
   // new webpack.optimize.UglifyJsPlugin({ sourcemap: true }),
+
+  /**
+   *--------------------------------------------------------------------------
+   * Favicon Generator
+   *--------------------------------------------------------------------------
+   *
+   */
+  new WebappWebpackPlugin({
+    logo: path.resolve(__dirname, '../src/assets/img/logo.png'),
+    prefix: '../favicons/',
+  }),
+
+  /**
+   *--------------------------------------------------------------------------
+   * Copy Images
+   *--------------------------------------------------------------------------
+   *
+   */
+  new CopyWebpackPlugin([{
+    from: 'src/assets/img/',
+    to: '../dist/img/[name].[ext]',
+    toType: 'template',
+  }]),
 
   /**
    *--------------------------------------------------------------------------

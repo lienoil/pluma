@@ -43,7 +43,6 @@ class SettingController extends AdminController
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         foreach ($request->except(['_token', 'user_id']) as $key => $value) {
             Setting::updateOrCreate([
                 'key' => $key,

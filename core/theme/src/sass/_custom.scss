@@ -1,6 +1,41 @@
+// Options
+$enable-rounded: true;
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-transitions: true;
+$enable-hover-media-query: false;
+$enable-grid-classes: true;
+$enable-print-styles: true;
+
+
 //
 // Color system
 //
+// Colors
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$blue: #007bff;
+$azure: #87ceeb;
+$indigo: #6574cd;
+$purple: #a55eea;
+$pink: #f66d9b;
+$red: #f3483c;
+$orange: #fd9644;
+$yellow: #ffda3e;
+$lime: #7bd235;
+$green: #86d067;
+$teal: #23CCAB;
+$cyan: #17a2b8;
+$black: #000;
+$white: #fff;
 
 // Colors
 $theme-colors: $colors;
@@ -19,6 +54,23 @@ $black:    #000 !default;
 
 $text-muted: rgba(0,0,0,0.5);
 $text-muted-dark: $gray-500;
+
+$social-colors: (
+  "bitbucket": #0052cc,
+  "dribbble": #ea4c89,
+  "facebook": #3b5998,
+  "flickr": #0063dc,
+  "github": #181717,
+  "google": #dc4e41,
+  "instagram": #e4405f,
+  "pinterest": #bd081c,
+  "rss": #ffa500,
+  "twitter": #1da1f2,
+  "vimeo": #1ab7ea,
+  "vk": #6383a8,
+  "youtube": #f00,
+);
+
 
 // Aside
 $aside-width: 22rem;
@@ -48,15 +100,26 @@ $font-family-sans-serif:      "Varela Round", -apple-system, BlinkMacSystemFont,
 $font-family-monospace:       "Ubuntu Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:            $font-family-sans-serif !default;
 
+$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg:                ($font-size-base * 1.25) !default;
+$font-size-sm:                ($font-size-base * .875) !default;
+$font-size-root:              14px;
+
+// Footer
+$footer-bg: #fff;
 
 // Input
-$input-border-color: rgba(0,40,100,.12);
+$input-border-radius:         $border-radius !default;
+$input-border-color:          rgba(0,40,100,.12);
+
+
+// Aside
+
+$aside-width: 22rem;
+
 
 // Header
-$header-bg: $primary;
+
+$header-bg: #0667d0;
 $header-color: #fff;
 $header-height: 4.5rem;
-
-// Options
-$enable-gradients:   false !default;
-$enable-shadows:     true !default;

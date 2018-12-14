@@ -1,5 +1,7 @@
 <?php
 
+use Blacksmith\Support\Facades\Blacksmith;
+
 if (! function_exists('blacksmith_path')) {
     /**
      * The Blacksmith base path.
@@ -74,5 +76,25 @@ if (! function_exists('blacksmith_write_to_env')) {
         file_put_contents($envFile, $newContent);
 
         return true;
+    }
+}
+
+if (! function_exists('console')) {
+    /**
+     * Blacksmith facade helper.
+     * Calls console command for the app.
+     *
+     * @param string $command
+     * @return mixed
+     */
+    function console($command)
+    {
+        try {
+            $string = Blacksmith::call($command);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+        return $string ?? null;
     }
 }

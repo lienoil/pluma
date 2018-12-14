@@ -18,7 +18,7 @@ return [
         'is_group_link' => true,
         'always_viewable' => false,
         // 'display_as_header' => true,
-        'icon' => 'comments',
+        'icon' => 'mdi mdi-comment-text-multiple-outline',
         'labels' => [
             'title' => __('Commenting'),
             'description' => __('Manage the way users comments on you pages.'),
