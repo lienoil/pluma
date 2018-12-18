@@ -3,7 +3,7 @@
 Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->group(function () {
     # Settings Redirect
     Route::get('/', function () {
-        return redirect()->route('settings.display');
+        return redirect()->route('settings:display.index');
     })->name('settings');
 
     # Save Settings
@@ -13,16 +13,16 @@ Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->
     Route::group(['prefix' => 'general'], function () {
         // General
         Route::get('/', function () {
-            return redirect()->route('settings.display');
-        })->name('settings.general');
+            return redirect()->route('settings:display.index');
+        })->name('settings:general.index');
 
         // Display
-        Route::get('display', 'DisplaySettingController@index')->name('settings.display');
-        Route::post('display', 'DisplaySettingController@store')->name('settings.display.store');
+        Route::get('display', 'DisplaySettingController@index')->name('settings:display.index');
+        Route::post('display', 'DisplaySettingController@store')->name('settings:display.store');
 
         // Date Time
-        Route::get('datetime', 'DateTimeSettingController@index')->name('settings.datetime');
-        Route::post('datetime', 'DateTimeSettingController@store')->name('settings.datetime.store');
+        Route::get('datetime', 'DateTimeSettingController@index')->name('settings:datetime.index');
+        Route::post('datetime', 'DateTimeSettingController@store')->name('settings:datetime.store');
     });
 
     // Branding

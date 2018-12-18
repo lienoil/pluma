@@ -4,33 +4,26 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-sm-12 col-login mx-auto">
-        <form class="card card-login mt-6" action="{{ route('login.login') }}" method="POST">
+        <div class="card-login">
+          @include('Theme::partials.brand', ['color' => 'text-primary'])
+        </div>
+        <form class="card card-login" action="{{ route('login.login') }}" method="POST">
           {{ csrf_field() }}
           <div class="card-body p-6">
-            @include('Theme::partials.brand', ['color' => 'text-primary'])
-            <div class="card-title mt-1">{{ __("Sign in with your {$application->site->title} account") }}</div>
-            <div class="form-group">
-              <label class="form-label">{{ __('Email or username') }}</label>
-              <input type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="{{ __('Type email or username') }}" value="{{ old('username') }}">
-              @include('Theme::errors.span', ['field' => 'username'])
-            </div>
-            <div class="form-group">
-              <label class="form-label">
-                {{ __('Password') }}
-              </label>
-              <input type="password" name="password" class="form-control  {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="{{ old('password') }}">
-              @include('Theme::errors.span', ['field' => 'password'])
-              <a href="{{ route('password.forgot') }}" class="float-right small">{{ __('Forgot password?') }}</a>
-            </div>
+            <p class="lead mt-1">{{ __("Sign in with your {$application->site->title} account") }}</p>
+
+            @field('input', ['name' => 'username', 'label' => __('Email or username')])
+
+            @field('input', ['type' => 'password', 'name' => 'password', 'label' => __('Password')])
+
             <div class="form-footer">
-              <button type="submit" class="btn btn-primary btn-block">{{ __('Sign in') }}</button>
+              @field('submit', ['label' => __('Sign in'), 'class' => 'btn btn-primary btn-block'])
             </div>
+
             <div class="form-group mt-2 mb-5">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" name="remember" checked value="1" class="custom-control-input">
-                <span class="custom-control-label">{{ __('Remember me') }}</span>
-              </label>
+              @field('checkbox', ['name' => 'remember', 'checked' => true, 'value' => 1, 'label' => __('Remember me')])
             </div>
+
             <div class="text-left text-muted small">
               <small>{{ __("Don't have account yet?") }} <a href="{{ route('register.show') }}">{{ __('Sign up') }}</a></small>
             </div>

@@ -9,8 +9,7 @@ return [
      */
     'settings' => [
         'name' => 'settings',
-        'is_parent' => true,
-        // 'is_group_link' => true,
+        'is_group_link' => true,
         'order' => 1000,
         'slug' => route('settings'),
         'always_viewable' => false,
@@ -18,10 +17,12 @@ return [
         'routes' => [
             'name' => 'settings',
             'children' => [
-                'settings.display',
+                'settings:display.index',
+                'settings:datetime.index',
                 'settings:branding.index',
                 'settings.email',
                 'settings.social',
+                'group:settings.general',
             ]
         ],
         'labels' => [
@@ -35,9 +36,9 @@ return [
              *------------------------------------------------------------------
              *
              */
-            'general-settings-group' => [
-                'name' => 'general-settings-group',
-                'slug' => route('settings.display'),
+            'group:settings.general' => [
+                'name' => 'group:settings.general',
+                'slug' => route('settings:general.index'),
                 'code' => 'group:settings.general',
                 'is_group_link' => true,
                 'always_viewable' => false,
@@ -49,16 +50,16 @@ return [
                 'routes' => [
                     'name' => 'settings',
                     'children' => [
-                        'settings.display',
-                        'settings.datetime',
+                        'settings:display.index',
+                        'settings:datetime.index',
                     ]
                 ],
                 'children' => [
-                    'display-settings' => [
-                        'name' => 'display-settings',
-                        'slug' => route('settings.display'),
-                        'code' => 'settings.display',
-                        'route' => 'settings.display',
+                    'settings:display.index' => [
+                        'name' => 'settings:display.index',
+                        'slug' => route('settings:display.index'),
+                        'code' => 'settings:display.index',
+                        'route' => 'settings:display.index',
                         'icon' => 'mdi mdi-table-settings',
                         'order' => 2,
                         'labels' => [
@@ -67,11 +68,11 @@ return [
                         ],
                     ],
 
-                    'date-time-settings' => [
-                        'name' => 'date-time-settings',
-                        'slug' => route('settings.datetime'),
-                        'code' => 'settings.datetime',
-                        'route' => 'settings.datetime',
+                    'settings:datetime.index' => [
+                        'name' => 'settings:datetime.index',
+                        'slug' => route('settings:datetime.index'),
+                        'code' => 'settings:datetime.index',
+                        'route' => 'settings:datetime.index',
                         'icon' => 'mdi mdi-calendar-clock',
                         'order' => 3,
                         'labels' => [

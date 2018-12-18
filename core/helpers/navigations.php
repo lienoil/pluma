@@ -1,8 +1,8 @@
 <?php
 
 use Frontier\Composers\NavigationViewComposer;
-use Frontier\Composers\SidebarComposer;
 use Frontier\Support\Breadcrumbs\Composers\BreadcrumbComposer;
+use Frontier\Support\Sidebar\Sidebar;
 use Illuminate\Support\Facades\Request;
 use Pluma\Support\Facades\Route;
 
@@ -54,24 +54,38 @@ if (! function_exists('sidebar')) {
      * @param string $command
      * @return array
      */
-    function sidebar($command = null)
+    function sidebar()
     {
-        $name = "cached::sidebar" . (! user() ?: user()->id);
+        return new Sidebar();
+    }
+}
 
-        switch ($command) {
-            case 'refresh':
-                cache()->forget($name);
-                break;
+if (! function_exists('get_sidebar')) {
+    /**
+     * By default, the function will get the current menu (if any) based on
+     * the url.
+     *
+     * @param  string $name
+     * @param  string $key
+     * @param  array $menus
+     * @return array|object|mixed
+     */
+    function get_sidebar($name = null, $key = 'slug', $menus = null)
+    {
+        $menus = $menus ?? sidebar()->all();
+        $value = is_null($name) ? request()->url() : $name;
 
-            default:
-                //
-                break;
+        foreach ($menus as $i => $menu) {
+            if (array_key_exists($key, $menu) && $menu->{$key} === $value) {
+                return json_decode(json_encode($menu));
+            }
+
+            if ($menu->has_children) {
+                $item = get_sidebar($name, $key, $menu->children);
+            }
         }
 
-        return cache()->remember($name, 120, function () {
-            $composer = new SidebarComposer();
-            return $composer->handle();
-        });
+        return json_decode(json_encode($item ?? null));
     }
 }
 

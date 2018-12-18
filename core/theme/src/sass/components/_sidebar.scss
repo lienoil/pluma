@@ -25,13 +25,13 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
 
   &-header {
     display: block;
-    padding: 1rem;
+    padding: $padding-base ($padding-base * 2);
   }
 
   &-footer {
     margin: 0 auto;
     display: block;
-    padding: 1rem;
+    padding: $padding-base;
   }
 
   &-title {
@@ -68,7 +68,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
   }
 
   &-content {
-    padding: 1rem;
+    padding: $padding-base;
     height: 100%;
 
     .sidebar-nav {
@@ -221,7 +221,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     // If sidebar has active class on `md` and down
     // it means it's hidden.
     & {
-      background-color: var(--bg-sidebar);
+      background-color: var(--sidebar-bg);
       margin-left: 0;
       z-index: 999;
       ~ .workspace {
@@ -281,7 +281,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
   &-brand {
     height: $sidebar-brand-height;
     margin: 0 auto;
-    max-width: 130px;
+    max-width: 100%;
     width: auto;
 
     .brand-logo > svg,

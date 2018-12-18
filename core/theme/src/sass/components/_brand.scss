@@ -9,5 +9,21 @@
       width: 100%;
       height: auto;
     }
+
+    + .brand-title {
+      margin-left: 1rem;
+    }
+  }
+
+  &-title {
+    font-size: $font-size-base * 2;
+  }
+}
+
+// Card Login
+.card-login {
+  .brand-logo {
+    width: 45px;
+    height: 45px;
   }
 }

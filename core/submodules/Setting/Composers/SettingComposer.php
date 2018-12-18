@@ -2,6 +2,7 @@
 
 namespace Setting\Composers;
 
+use Frontier\Support\Sidebar\Sidebar;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Pluma\Support\Composers\BaseViewComposer;
@@ -35,11 +36,8 @@ class SettingComposer extends BaseViewComposer
      */
     public function handle()
     {
-        $routename = request()->route()->getAction('as');
-        // $parent = get_sidebar();
-        // dd(get_sidebar());
-        // dd('route', $routename, get_sidebar(request()->url()));
+        $sidebar = new Sidebar();
 
-        return get_sidebar();
+        return $sidebar->parent();
     }
 }

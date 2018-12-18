@@ -3,6 +3,7 @@
 namespace Frontier\Composers;
 
 use Crowfeather\Traverser\Traverser;
+use Frontier\Support\Sidebar\Sidebar;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -186,48 +187,7 @@ class NavigationViewComposer extends BaseViewComposer
      */
     private function sidebar()
     {
-        $this->menus = $this->unsetForbiddenRoutes($this->menus);
-
-        foreach (($this->menus ?? []) as $i => &$current) {
-            // This will remove all parent where the only child is a header/divider.
-            if (count($current['children']) == 1) {
-                $firstChild = reset($current['children']);
-                if ((isset($firstChild['is_header']) && $firstChild['is_header']) ||
-                    (isset($firstChild['is_divider']) && $firstChild['is_divider'])
-                ) {
-                    unset($this->menus[$i]);
-                }
-            }
-
-            $next = next($this->menus);
-            if (isset($current['is_header'])) {
-                if (! $next) {
-                    unset($this->menus[$i]);
-                }
-
-                if ($next && isset($next['is_header'])) {
-                    unset($this->menus[$i]);
-                }
-            }
-        }
-
-        return json_decode(json_encode([
-            'collect' => collect(json_decode(json_encode($this->menus))),
-            'flat' => collect(json_decode(json_encode($this->flatmenus))),
-        ]));
-    }
-
-    /**
-     * Generate sidebar.
-     *
-     * @param  object $menus
-     * @return html|string
-     */
-    private function generateSidebar($menus)
-    {
-        $depth = $this->depth;
-
-        return view("Frontier::templates.navigations.sidebar")->with(compact('menus', 'depth'))->render();
+        return new Sidebar();
     }
 
     /**

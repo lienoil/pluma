@@ -13,19 +13,20 @@ return [
             'description' => __('Manage site pages'),
         ],
         'children' => [
-            'public-pages' => [
-                'name' => 'public-pages',
-                'code' => 'pages.public',
-                'slug' => route('pages.index'),
+            'pages.owned' => [
+                'name' => 'pages.owned',
+                'code' => 'pages.index',
+                'slug' => route('pages.owned'),
+                'always_viewable' => true,
                 'exclude_from_root' => true,
-                'order' => 1,
+                'order' => 0,
                 'labels' => [
-                    'title' => __('Public Pages'),
-                    'description' => __('Manage site pages'),
+                    'title' => __('My Pages'),
+                    'description' => __('Manage my own pages'),
                 ],
             ],
-            'view-pages' => [
-                'name' => 'view-pages',
+            'pages.index' => [
+                'name' => 'pages.index',
                 'code' => 'pages.index',
                 'slug' => route('pages.index'),
                 'order' => 1,
@@ -41,8 +42,8 @@ return [
                     'description' => __('Manage site pages'),
                 ],
             ],
-            'create-page' => [
-                'name' => 'create-page',
+            'pages.create' => [
+                'name' => 'pages.create',
                 'code' => 'pages.create',
                 'order' => 2,
                 'slug' => route('pages.create'),
@@ -52,8 +53,8 @@ return [
                     'description' => __('Create new page'),
                 ],
             ],
-            'trashed-pages' => [
-                'name' => 'trashed-pages',
+            'pages.trashed' => [
+                'name' => 'pages.trashed',
                 'code' => 'pages.trashed',
                 'order' => 3,
                 'slug' => route('pages.trashed'),

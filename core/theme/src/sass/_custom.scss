@@ -113,13 +113,12 @@ $input-border-radius:         $border-radius !default;
 $input-border-color:          rgba(0,40,100,.12);
 
 
-// Aside
-
-$aside-width: 22rem;
-
-
 // Header
 
 $header-bg: #0667d0;
 $header-color: #fff;
 $header-height: 4.5rem;
+
+// Margins & Paddings
+$padding-base:    1rem;
+$margin-base:     1rem;

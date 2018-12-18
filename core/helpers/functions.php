@@ -520,62 +520,6 @@ if (! function_exists('get_permissions')) {
     }
 }
 
-if (! function_exists('get_sidebars')) {
-    /**
-     * Get all menus from modules.
-     *
-     * @param  array $modules
-     * @return array|object|mixed
-     */
-    function get_sidebars($modules = null)
-    {
-        $menus = [];
-        $modules = is_null($modules) ? get_modules_path() : $modules;
-
-        foreach ($modules as $name => $module) {
-            if (is_array($module)) {
-                $menus = (array) get_sidebars($module);
-                $module = $name;
-            }
-
-            if (file_exists("$module/config/menus.php")) {
-                $menus[] = "$module/config/menus.php";
-            }
-        }
-
-        return $menus;
-    }
-}
-
-if (! function_exists('get_sidebar')) {
-    /**
-     * By default, the function will get the current menu (if any) based on
-     * the url.
-     *
-     * @param  string $name
-     * @param  string $key
-     * @param  array $menus
-     * @return array|object|mixed
-     */
-    function get_sidebar($name = null, $key = 'slug', $menus = null)
-    {
-        $menus = $menus ?? sidebar();
-        $value = is_null($name) ? request()->url() : $name;
-
-        foreach ($menus as $i => $menu) {
-            if (array_key_exists($key, $menu) && $menu[$key] === $value) {
-                return json_decode(json_encode($menu));
-            }
-
-            if ($menu['has_children']) {
-                $item = get_sidebar($name, $key, $menu['children']);
-            }
-        }
-
-        return json_decode(json_encode($item ?? null));
-    }
-}
-
 if (! function_exists('v')) {
     /**
      * Render a Vue.js "{{  }}" marks inside

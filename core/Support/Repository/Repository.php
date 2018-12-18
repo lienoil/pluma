@@ -12,6 +12,13 @@ class Repository implements RepositoryInterface
     protected $model;
 
     /**
+     * The User model instance.
+     *
+     * @var \User\Models\User
+     */
+    protected $user;
+
+    /**
      * The static id of the resource.
      *
      * @var int
@@ -22,10 +29,13 @@ class Repository implements RepositoryInterface
      * Constructor to bind model to a repository.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \User\Models\User $user
      */
-    public function __construct($model = null)
+    public function __construct($model = null, $user = null)
     {
         $this->model = $model ?? new $this->model;
+
+        $this->user = $user ?? user();
     }
 
     /**
@@ -174,6 +184,20 @@ class Repository implements RepositoryInterface
     public function onlyTrashed()
     {
         $this->model = $this->model->onlyTrashed();
+
+        return $this;
+    }
+
+    /**
+     * Retrieve only the owned resources.
+     *
+     * @return \Pluma\Models\Model
+     */
+    public function onlyOwned()
+    {
+        if ($this->user) {
+            $this->model = $this->model->where('user_id', $this->user->id);
+        }
 
         return $this;
     }
