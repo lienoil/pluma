@@ -149,19 +149,19 @@
                         <td class="text-center justify-content-center d-flex">
                           @if (in_array('edit', $actions ?? []))
                             @can($resource->getTable().'.edit')
-                              <a title="{{ __("Edit this {$text['singular']}") }}" href="{{ route("{$text['plural']}.edit", $resource->id) }}" role="button" class="mx-1 btn btn-icon btn-sm"><i class="mdi mdi-pencil-outline"></i></a>
+                              <a title="{{ __("Edit this {$text['singular']}") }}" href="{{ route("{$text['plural']}.edit", $resource->id) }}" role="button" class="mx-1 btn btn-link btn-icon"><i class="mdi mdi-pencil-outline"></i></a>
                             @endcan
                           @endif
 
                           @can($resource->getTable().'.show', $resource)
-                            <a title="{{ __("View this {$text['singular']}") }}" href="{{ route("{$text['plural']}.show", $resource->id) }}" role="button" class="mx-1 btn btn-icon btn-sm"><i class="mdi mdi-eye"></i></a>
+                            <a title="{{ __("View this {$text['singular']}") }}" href="{{ route("{$text['plural']}.show", $resource->id) }}" role="button" class="mx-1 btn btn-link btn-icon"><i class="mdi mdi-eye"></i></a>
                           @endcan
 
                           <form class="d-block mx-1" action="{{ route("{$text['plural']}.destroy", $resource->id) }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <input type="hidden" name="id" value="{{ $resource->id }}">
-                            <button title="{{ __("Move this {$text['singular']} to trash") }}" role="button" type="submit" class="btn btn-icon btn-sm"><i class="mdi mdi-delete-outline"></i></button>
+                            <button title="{{ __("Move this {$text['singular']} to trash") }}" role="button" type="submit" class="btn btn-link btn-icon"><i class="mdi mdi-delete-outline"></i></button>
                           </form>
                         </td>
                       @endif

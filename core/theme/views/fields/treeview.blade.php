@@ -4,7 +4,7 @@
   $text = $text ?? 'text';
 @endphp
 
-<div class="treeview">
+<div class="treeview" id="sidebar-search" data-toggle="search">
   <header class="treeview-header">
     @isset ($label)
       <label class="treeview-label form-label">{{ $label ?? __('Items') }}</label>
@@ -25,10 +25,12 @@
     </div>
   </header>
 
+  <input data-searchbar type="text" class="search form-control mb-3" placeholder="{{ __('Search tree...') }}">
+
   <div class="treeview-body mb-3">
-    <ul data-tree class="list-group list-group-transparent">
+    <ul data-tree class="list list-group list-group-transparent">
       @foreach ($items as $group => $set)
-        <li data-tree-item class="list-group-item px-0 border-0">
+        <li data-name="{{ __($group) }}" data-tree-item class="list-group-item px-0 border-0">
           <div data-tree-header>
             <div role="button" data-tree-label class="d-flex justify-content-between">
               @if (isset($readonly) && $readonly)
@@ -50,7 +52,7 @@
               <i class="mdi mdi-chevron-down"></i>
             </div>
           </div>
-          <ul data-tree-child class="list-group border-0 {{ ($collapsed ?? true) ? 'collapse' : null }}">
+          <ul data-tree-child class="list list-group border-0 {{ ($collapsed ?? true) ? 'collapse' : null }}">
             @foreach ($set as $item)
               <li data-tree-item class="list-group-item border-0">
 

@@ -15,9 +15,9 @@ return [
         'children' => [
             'pages.owned' => [
                 'name' => 'pages.owned',
-                'code' => 'pages.index',
+                'code' => 'pages.owned',
                 'slug' => route('pages.owned'),
-                'always_viewable' => true,
+                'always_viewable' => false,
                 'exclude_from_root' => true,
                 'order' => 0,
                 'labels' => [

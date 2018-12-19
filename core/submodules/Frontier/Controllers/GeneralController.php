@@ -30,6 +30,7 @@ class GeneralController extends Controller implements GenericResourceInterface
         'delete',
         'trashed',
         'restore',
+        'owned',
     ];
 
     /**

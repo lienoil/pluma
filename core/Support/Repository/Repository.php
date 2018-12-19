@@ -195,7 +195,7 @@ class Repository implements RepositoryInterface
      */
     public function onlyOwned()
     {
-        if ($this->user) {
+        if ($this->user && ! $this->user->isSuperAdmin()) {
             $this->model = $this->model->where('user_id', $this->user->id);
         }
 

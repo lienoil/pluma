@@ -18,6 +18,7 @@ trait PageResourceSoftDeleteTrait
         $resources = $this->repository
             ->search($request->all())
             ->onlyTrashed()
+            ->onlyOwned()
             ->paginate();
 
         return view('Page::admin.trashed')->with(compact('resources'));
@@ -32,13 +33,7 @@ trait PageResourceSoftDeleteTrait
      */
     public function restore(Request $request, $id = null)
     {
-        $pages = Page::onlyTrashed()
-                     ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
-                     ->get();
-
-        foreach ($pages as $page) {
-            $page->restore();
-        }
+        $this->repository->restore($request->has('id') ? $request->input('id') : [$id]);
 
         return back();
     }
@@ -52,13 +47,7 @@ trait PageResourceSoftDeleteTrait
      */
     public function delete(Request $request, $id = null)
     {
-        $pages = Page::onlyTrashed()
-                     ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
-                     ->get();
-
-        foreach ($pages as $page) {
-            $page->forceDelete();
-        }
+        $this->repository->delete($request->has('id') ? $request->input('id') : [$id]);
 
         return back();
     }

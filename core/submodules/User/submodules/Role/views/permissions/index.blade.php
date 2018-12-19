@@ -42,7 +42,7 @@
             <h2 class="mb-4">{{ __('Reset List') }}</h2>
             <p>{!! __("Performing this action will completely remove all permissions data from the database before reinstalling them. Users might lose their previous privileges after this action.") !!}</p>
             <div class="alert alert-warning">
-              <div><i class="fe fe-alert-triangle"></i>&nbsp; <strong>{{ __('Warning') }}</strong><br>{{ __("You might need to setup the user roles manually again. If you do not want to upset the order of the Cosmos, then for the love of Talos, do not proceed!") }}</div>
+              <div><i class="mdi mdi-alert"></i>&nbsp;<strong>{{ __('Warning') }}</strong><br>{{ __("You might need to setup the user roles manually again. If you do not want to upset the order of the Cosmos, then for the love of Talos, do not proceed!") }}</div>
             </div>
 
             <button data-modal-toggle type="button" class="btn btn-danger" data-toggle="modal" data-target="#reset-permissions-confirmbox">

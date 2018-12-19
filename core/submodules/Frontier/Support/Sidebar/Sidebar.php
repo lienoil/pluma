@@ -183,66 +183,6 @@ class Sidebar
                 // Header
                 $menu['is_header'] = $menu['is_header'] ?? false;
                 $menu['is_divider'] = $menu['is_divider'] ?? false;
-
-                // Misc
-                $menu['exclude_from_root'] = $menu['exclude_from_root'] ?? false;
-
-                // Set User Visibility
-                $menu['can_be_accessed'] = $menu['can_be_accessed'] ?? $this->userIsRoot();
-
-                $menu['always_viewable'] = $menu['always_viewable']
-                    ?? $menu['name'] === 'root'
-                    ?? false;
-
-                if (($this->userIsNotRoot()
-                        && $this->user->can($menu['permission'] ?? $menu['code'] ?? false)
-                    )
-                    || ($menu['always_viewable'])
-                    || ($menu['is_header'])
-                    || ($menu['name'] === 'root')
-                ) {
-                    $menu['can_be_accessed'] = true;
-                }
-
-                if ($menu['exclude_from_root']) {
-                    if ($this->user && $this->user->isSuperAdmin()) {
-                        $menu['can_be_accessed'] = false;
-                    }
-                }
-
-                // Menu accessibility
-                if (! $menu['can_be_accessed']) {
-                    if (! $menu['is_parent'] && $menu['name'] !== 'root') {
-                        unset($parent['children'][$menu['name']]);
-                    }
-
-                    // Remove any top level menu with `hidden` attribute
-                    if (isset($menu['hidden']) && $menu['hidden'] && is_null($parent)) {
-                        unset($all[$menu['name']]);
-                    }
-                }
-            });
-
-            $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent, &$all) {
-                if ($menu['is_parent'] && $menu['parent'] == 'root' && empty($menu['children'])) {
-                    unset($all[$key]);
-                }
-                if (count($menu['children']) == 1) {
-                    $firstChild = collect($menu['children'])->first();
-                    if ($firstChild['is_header'] || $firstChild['is_divider']) {
-                        unset($all[$key]);
-                    }
-                }
-
-            });
-
-            $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent, &$all) {
-                if ($menu['is_header']) {
-                    $nextMenu = current(array_slice($all, array_search($key, array_keys($all)) + 1, 1));
-                    if ($nextMenu && $nextMenu['is_header']) {
-                        unset($all[$key]);
-                    }
-                }
             });
 
             return $this->menus;
@@ -288,6 +228,66 @@ class Sidebar
                 $parent['active'] = $menu['child']['active'];
                 // This is the main sidebar menu's submenu
                 $menu['active'] = $menu['child']['active'];
+            }
+
+            // Misc
+            $menu['exclude_from_root'] = $menu['exclude_from_root'] ?? false;
+
+            // Set User Visibility
+            $menu['can_be_accessed'] = $menu['can_be_accessed'] ?? $this->userIsRoot();
+
+            $menu['always_viewable'] = $menu['always_viewable']
+                ?? $menu['name'] === 'root'
+                ?? false;
+
+            if (($this->userIsNotRoot()
+                    && $this->user->can($menu['permission'] ?? $menu['code'] ?? false)
+                )
+                || ($menu['always_viewable'])
+                || ($menu['is_header'])
+                || ($menu['name'] === 'root')
+            ) {
+                $menu['can_be_accessed'] = true;
+            }
+
+            if ($menu['exclude_from_root']) {
+                if ($this->user && $this->user->isSuperAdmin()) {
+                    $menu['can_be_accessed'] = false;
+                }
+            }
+
+            // Menu accessibility
+            if (! $menu['can_be_accessed']) {
+                if (! $menu['is_parent'] && $menu['name'] !== 'root') {
+                    unset($parent['children'][$menu['name']]);
+                }
+
+                // Remove any top level menu with `hidden` attribute
+                if (isset($menu['hidden']) && $menu['hidden'] && is_null($parent)) {
+                    unset($all[$menu['name']]);
+                }
+            }
+        });
+
+        $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent, &$all) {
+            if ($menu['is_parent'] && $menu['parent'] == 'root' && empty($menu['children'])) {
+                unset($all[$key]);
+            }
+            if (count($menu['children']) == 1) {
+                $firstChild = collect($menu['children'])->first();
+                if ($firstChild['is_header'] || $firstChild['is_divider']) {
+                    unset($all[$key]);
+                }
+            }
+
+        });
+
+        $this->menus = $traverser->update($this->menus, function ($key, &$menu, &$parent, &$all) {
+            if ($menu['is_header']) {
+                $nextMenu = current(array_slice($all, array_search($key, array_keys($all)) + 1, 1));
+                if ($nextMenu && $nextMenu['is_header']) {
+                    unset($all[$key]);
+                }
             }
         });
     }

@@ -102,4 +102,11 @@ return [
         'description' => 'Ability to edit and delete all pages even if the user is not the creator of the page.',
         'group' => 'pages',
     ],
+
+    'owned-pages' => [
+        'name' => 'owned-pages',
+        'code' => 'pages.owned',
+        'description' => 'Ability to manage only owned pages.',
+        'group' => 'pages',
+    ],
 ];

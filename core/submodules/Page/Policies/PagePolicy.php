@@ -17,7 +17,7 @@ class PagePolicy extends Policy
      */
     public function view(User $user, Page $page)
     {
-        return true;
+        return $this->unrestricted('pages') || $user->id === $page->user->id;
     }
 
     /**

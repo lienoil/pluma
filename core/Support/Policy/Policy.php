@@ -4,6 +4,7 @@ namespace Pluma\Support\Policy;
 
 use Pluma\Support\Auth\User;
 
+// view, create, update, delete, restore, and forceDelete
 class Policy
 {
     /**
