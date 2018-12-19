@@ -44,7 +44,7 @@ class ApplicationViewComposer extends BaseViewComposer
     protected $bannedFirstWords = ['admin', 'administration', 'home'];
 
     /**
-     * List fo single words to determin the correct
+     * List fo single words to determine the correct
      * grammar. E.g. a url of "pages/create" will
      * yield "Create Page" instead of "Create Pages".
      *

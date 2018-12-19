@@ -12,9 +12,8 @@
           @csrf
           @method('PUT')
 
-
-          @field('input', ['value' => $resource->title, 'name' => 'title', 'attr' => 'data-slugger=[name=code]'])
-          <em>by {{ $resource->author }}</em>
+          @field('input', ['value' => $resource->title, 'name' => 'title', 'attr' => 'data-slugger=[name=code]', 'hint' => __('by ').$resource->author])
+          {{-- <em>by {{ $resource->author }}</em> --}}
 
           @field('input', ['value' => $resource->code, 'name' => 'code', 'type' => 'hidden', 'label' => false])
 

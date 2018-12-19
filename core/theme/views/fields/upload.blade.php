@@ -3,7 +3,7 @@
     <div class="fallback">
       <div class="custom-file">
         <input {{ isset($multiple) && $multiple ? 'name='.($name??'file').'[]' : 'name='.($name??'file') }} type="file" class="custom-file-input" {{ isset($multiple) && $multiple ? 'multiple' : null }} {{ isset($options['acceptedFiles']) ? 'accept='.$options['acceptedFiles'] : null }}>
-        <label class="custom-file-label">{{ __('Choose files...') }}</label>
+        <label class="custom-file-label">{{ __($label ?? 'Choose files...') }}</label>
       </div>
     </div>
   </div>

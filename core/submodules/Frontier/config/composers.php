@@ -1,6 +1,7 @@
 <?php
 
-use Frontier\Composers\NavigationViewComposer;
+use Frontier\Composers\ApplicationViewComposer;
+use Frontier\Composers\ClientSideVariableViewComposer;
 use Frontier\Composers\SidebarComposer;
 use Frontier\Support\Breadcrumbs\Composers\BreadcrumbComposer;
 
@@ -14,17 +15,6 @@ return [
     ],
     [
         'appears' => [
-            'Theme::layouts.admin',
-            'Theme::settings.*',
-            'Theme::partials.sidemenu',
-            'Theme::partials.settingsbar',
-            'Setting::partials.settingsbar',
-            'Setting::settings.*',
-        ],
-        'class' => NavigationViewComposer::class
-    ],
-    [
-        'appears' => [
             'Theme::partials.sidebar',
         ],
         'class' => SidebarComposer::class
@@ -33,20 +23,13 @@ return [
         'appears' => [
             '*',
         ],
-        'class' => \Frontier\Composers\ApplicationViewComposer::class
+        'class' => ApplicationViewComposer::class
     ],
     [
         'appears' => [
             '*',
             'Theme::partials.header',
         ],
-        'class' => \Frontier\Composers\ClientSideVariableViewComposer::class
+        'class' => ClientSideVariableViewComposer::class
     ],
-    [
-        'appears' => [
-            'Theme::partials.sidemenu',
-        ],
-        'class' => \Frontier\Composers\SidemenuComposer::class
-    ],
-
 ];

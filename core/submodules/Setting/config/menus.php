@@ -20,7 +20,7 @@ return [
                 'settings:display.index',
                 'settings:datetime.index',
                 'settings:branding.index',
-                'settings.email',
+                'settings:email.index',
                 'settings.social',
                 'group:settings.general',
             ]
@@ -105,7 +105,7 @@ return [
                     'name' => 'settings:branding.index',
                     'children' => [
                         'settings:branding.index',
-                        'settings.email',
+                        'settings:email.index',
                         'settings.social',
                     ]
                 ],
@@ -122,11 +122,11 @@ return [
                         ],
                     ],
 
-                    'email-settings' => [
-                        'name' => 'email-settings',
-                        'slug' => route('settings.email'),
-                        'code' => 'settings.email',
-                        'route' => 'settings.email',
+                    'settings:email.index' => [
+                        'name' => 'settings:email.index',
+                        'slug' => route('settings:email.index'),
+                        'code' => 'settings:email.index',
+                        'route' => 'settings:email.index',
                         'icon' => 'fa-envelope',
                         'labels' => [
                             'title' => __('Email Options'),

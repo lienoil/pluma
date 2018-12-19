@@ -27,6 +27,7 @@ class Breadcrumbs
                 $request->route()->setParameter('breadcrumb', $crumb);
                 // Also store somewhere else in case route requests are not available.
                 config(['breadcrumb:leaf' => $crumb]);
+                session(['breadcrumb:leaf' => $crumb]);
             }
         }
 

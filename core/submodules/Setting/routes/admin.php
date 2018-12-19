@@ -34,8 +34,7 @@ Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->
         Route::post('branding', 'BrandingSettingController@store')->name('settings.branding.store');
 
         // Email
-        Route::get('email', 'EmailSettingController@index')->name('settings.email');
-        Route::post('email', 'EmailSettingController@store')->name('settings.email.store');
+        Route::get('email', 'EmailSettingController@index')->name('settings:email.index');
 
         // Social
         Route::get('social', 'SettingController@getSocialForm')->name('settings.social');

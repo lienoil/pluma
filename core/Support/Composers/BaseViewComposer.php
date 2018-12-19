@@ -185,4 +185,98 @@ class BaseViewComposer
     {
         return get_modules_path();
     }
+
+    /**
+     * Performs a string transformation to
+     * huma-readable word(s).
+     *
+     * @param  string $string
+     * @return string
+     */
+    public function transformStringToHumanPresentable($string)
+    {
+        $string = str_replace('-', " ", $string);
+        $string = str_replace('.', " ", $string);
+        $string = str_replace('_', " ", $string);
+
+        return $c ?? ucwords($string);
+    }
+
+    /**
+     * Utility to convert config files to array.
+     *
+     * @param array $files
+     * @return array
+     */
+    protected function fileToArray(array $files): Array
+    {
+        $items = [];
+        foreach ($files as $path) {
+            if (file_exists($path)) {
+                $items += (array) require $path;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * Try to get the column `code` from the database.
+     *
+     * @param  int $segment
+     * @param  string $url
+     * @return string
+     */
+    public function guessStringFromNumeric($segment, $url)
+    {
+        try {
+            $action = request()->route()->getAction();
+            $controller = class_basename($action['controller']);
+            $table = strtolower(str_plural(explode("Controller", $controller)[0]));
+            $result = \Illuminate\Support\Facades\DB::table($table)->find($segment);
+
+            if (isset($result->title)) {
+                $segment = $result->title;
+            } elseif (isset($result->name)) {
+                $segment = $result->title;
+            } elseif (isset($result->code)) {
+                $segment = $result->code;
+            } else {
+                $segment = $segment;
+            }
+        } catch (\Exception $e) {
+            return $segment;
+        }
+
+        return $segment;
+    }
+
+    /**
+     * Remove all routes the user is
+     * restricted access.
+     *
+     * @param  array $menus
+     * @return void
+     */
+    public function unsetForbiddenRoutes(&$menus = null)
+    {
+        if (user() && user()->isRoot()) {
+            return $menus;
+        }
+
+        $menus = is_null($menus) ? $this->menus : $menus;
+
+        foreach ($menus as $i => &$menu) {
+            if (isset($menu['children']) && ! empty($menu['children'])) {
+                $menu['children'] = $this->unsetForbiddenRoutes($menu['children']);
+            }
+
+            if ((! $menu['can_be_accessed'] && ! $menu['is_parent']) ||
+                (! $menu['can_be_accessed'] && $menu['is_parent'] && empty($menu['children']))) {
+                unset($menus[$i]);
+            }
+        }
+
+        return $menus;
+    }
 }

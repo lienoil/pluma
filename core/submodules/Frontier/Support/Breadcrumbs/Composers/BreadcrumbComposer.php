@@ -2,13 +2,13 @@
 
 namespace Frontier\Support\Breadcrumbs\Composers;
 
-use Frontier\Composers\NavigationViewComposer;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use Pluma\Support\Composers\BaseViewComposer;
 use Pluma\Support\Modules\Traits\ModulerTrait;
 
-class BreadcrumbComposer extends NavigationViewComposer
+class BreadcrumbComposer extends BaseViewComposer
 {
     use ModulerTrait;
 
@@ -65,16 +65,17 @@ class BreadcrumbComposer extends NavigationViewComposer
     {
         $currentUrl = ltrim($currentUrl, '/');
         $url = explode('/', $currentUrl);
-        $old = "";
+        $old = '';
+        $original = '';
         $end = end($url);
 
         foreach ($url as &$segment) {
             if (! empty($segment)) {
+                $original .= '/'.$segment;
                 if (is_numeric($segment)) {
-                    $original = $this->guessStringFromNumeric($segment, $old);
-                    $segment = request()->route('breadcrumb') ?? config('breadcrumb:leaf') ?? $original;
+                    $segment = request()->route('breadcrumb') ?? config('breadcrumb:leaf');
                 }
-                $old .= '/'.($original ?? $segment);
+                $old .= '/'.$segment;
                 $segment = $this->swapWord($segment);
 
                 $segment = [
@@ -83,8 +84,8 @@ class BreadcrumbComposer extends NavigationViewComposer
                     'label' => $this->transformStringToHumanPresentable($segment),
                     'name' => $segment,
                     'slug' => $old,
-                    'url' => $this->hasRouteNameFromUrl(strtolower(url($old)))
-                                ? strtolower(url($old))
+                    'url' => $this->hasRouteNameFromUrl(strtolower(url($original)))
+                                ? url($original)
                                 : '',
                 ];
             }

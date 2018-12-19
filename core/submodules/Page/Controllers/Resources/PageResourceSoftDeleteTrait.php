@@ -15,11 +15,12 @@ trait PageResourceSoftDeleteTrait
      */
     public function trashed(Request $request)
     {
-        $resources = Page::onlyTrashed()
-                         ->search($request->all())
-                         ->paginate();
+        $resources = $this->repository
+            ->search($request->all())
+            ->onlyTrashed()
+            ->paginate();
 
-        return view("Page::pages.trashed")->with(compact('resources'));
+        return view('Page::admin.trashed')->with(compact('resources'));
     }
 
     /**
@@ -49,7 +50,7 @@ trait PageResourceSoftDeleteTrait
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $id = null)
     {
         $pages = Page::onlyTrashed()
                      ->whereIn('id', $request->has('id') ? $request->input('id') : [$id])
