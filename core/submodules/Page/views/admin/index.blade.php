@@ -3,7 +3,7 @@
 
 @include('Theme::admin.index', [
   'resources' => $resources,
-  'actions' => ['search', 'show', 'destroy', 'trashed'],
+  'actions' => ['search', 'show', 'destroy', 'delete', 'trashed'],
   'buttons' => [
     'primary' => [
       'icon' => 'mdi mdi-plus',

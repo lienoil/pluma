@@ -116,7 +116,6 @@ class Repository implements RepositoryInterface
     public function delete($id)
     {
         $resources = $this->model
-            ->onlyTrashed()
             ->whereIn('id', $id)
             ->get();
 

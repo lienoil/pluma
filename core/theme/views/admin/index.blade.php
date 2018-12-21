@@ -46,8 +46,14 @@
                           @endif
 
                           @if (in_array('destroy', $actions ?? []))
-                            <button data-modal-toggle type="button" class="btn btn-secondary" disabled data-toggle="modal" data-target="#delete-confirmbox" title="{{ __('Select '.$text['plural'].' to deactivate') }}">
+                            <button data-modal-toggle type="button" class="btn btn-secondary" disabled data-toggle="modal" data-target="#delete-confirmbox" title="{{ __('Select '.$text['plural'].' to move to trash') }}">
                               <i class="mdi mdi-delete-outline"></i>
+                            </button>
+                          @endif
+
+                          @if (in_array('delete', $actions ?? []))
+                            <button data-modal-toggle type="button" class="btn btn-secondary" disabled data-toggle="modal" data-target="#permadelete-confirmbox" title="{{ __('Select '.$text['plural'].' to permanently delete') }}">
+                              <i class="mdi mdi-delete-forever-outline"></i>
                             </button>
                           @endif
                         </div>
@@ -216,9 +222,22 @@
         'lead' => __("You are about to move to trash the selected {$text['plural']}."),
         'text' => 'To restore the data, got to the Trashed page. Are you sure yout want to continue?',
         'method' => 'DELETE',
-        'action' => route("{$text['plural']}.destroy"),
+        'action' => route("{$text['plural']}.destroy", ''),
         'button' => __('Move to trash'),
         'context' => 'warning',
+      ])
+    @endif
+
+    @if (in_array('delete', $actions ?? []))
+      @include('Theme::partials.modal', [
+        'id' => 'permadelete-confirmbox',
+        'icon' => 'mdi mdi-delete-forever-outline display-1 icon-faded d-inline-block',
+        'lead' => __("You are about to permanently delete the selected {$text['plural']}."),
+        'text' => 'This action cannot be undone. Are you sure yout want to continue?',
+        'method' => 'DELETE',
+        'action' => route("{$text['plural']}.delete", 'false'),
+        'button' => __('Delete Permanently'),
+        'context' => 'danger',
       ])
     @endif
   @endpush
