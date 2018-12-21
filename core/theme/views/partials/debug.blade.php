@@ -1,6 +1,8 @@
 @if (config('debugging.debug'))
-    <v-alert class="ma-0" warning v-show="'true'">
-        {{ __('Application is running APP_DEBUG ON.') }}
-        <a class="white--text" href="{{ route('settings.system.configuration') }}">{{ __('Change settings.') }}</a>
-    </v-alert>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ __('You are in debug mode. Set the environment to `production` and debug to `off` if deployed on a live server.') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 @endif

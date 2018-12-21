@@ -7,17 +7,17 @@
   <header id="page-header" data-sticky-class="sticky bg-workspace shadow-sm p-3" class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
-        <a title="{{ __('Return to all users') }}" role="button" href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="fe fe-arrow-left"></i> {{ __('Back') }}</a>
-        <a role="button" href="{{ route('users.edit', $resource->id) }}" class="btn btn-secondary btn-sm"><i class="fe fe-edit-2"></i> {{ __('Edit') }}</a>
+        <a title="{{ __('Return to all users') }}" role="button" href="{{ route('users.index') }}" class="btn btn-secondary btn-sm"><i class="mdi mdi-arrow-left"></i> {{ __('Back') }}</a>
+        <a role="button" href="{{ route('users.edit', $resource->id) }}" class="btn btn-secondary btn-sm"><i class="mdi mdi-pencil-outline"></i> {{ __('Edit') }}</a>
 
         <button data-modal-toggle type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#delete-single-confirmbox-{{ $resource->id }}" title="{{ __('Move this user to trash') }}">
-          <i class="fe fe-trash-2"></i>
+          <i class="mdi mdi-delete-outline"></i>
           {{ __('Deactivate') }}
         </button>
         @include('Theme::partials.modal', [
           'dataset' => false,
           'id' => 'delete-single-confirmbox-'.$resource->id,
-          'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
+          'icon' => 'mdi mdi-account-remove-outline display-1 icon-faded d-inline-block',
           'lead' => __('You are about to deactivate the selected user.'),
           'text' => 'If you have selected your account and continued, you will be signed out from the app. Are you sure yout want to continue?',
           'method' => 'DELETE',
@@ -31,7 +31,7 @@
 @endsection
 
 @section('page:content')
-  <div class="container-fluid mt-6">
+  <div class="container mt-5">
 
     <div class="row text-center text-lg-left">
 
@@ -48,30 +48,30 @@
       @section('user.main')
         <div class="col-lg col-sm-12">
           <h1 class="display-6">{{ $resource->fullname }}</h1>
-          <div class="mb-7">
+          <div class="mb-5">
             @if ($resource->username)
               <div class="mb-1" title="{{ __('Username') }}">
-                <i class="fe fe-at-sign"></i>
+                <i class="mdi mdi-at"></i>
                 <span>{{ $resource->username }}</span>
               </div>
             @endif
             @if ($resource->email)
               <div class="mb-1" title="{{ __('Email') }}">
-                <i class="fe fe-mail"></i>
+                <i class="mdi mdi-email-outline"></i>
                 <span>{{ $resource->email }}</span>
               </div>
             @endif
             @if ($resource->displayrole)
               <div class="mb-1" title="{{ __('Role group') }}">
-                <i class="fe fe-user"></i>
+                <i class="mdi mdi-account-outline"></i>
                 <span>{{ $resource->displayrole }}</span>
               </div>
             @endif
           </div>
 
           @section('user.about')
-            <div class="mb-7">
-              <div class="mt-6">
+            <div class="mb-5">
+              <div class="mt-5">
                 <h3 class="h4">{{ __('About') }}</h3>
               </div>
               @empty($resource->info->toArray())
@@ -81,16 +81,16 @@
               @endempty
               @foreach ($resource->info as $detail)
                 <div class="row mb-3">
-                  <div class="col-auto"><i class="{{ $detail->icon }} mr-2"></i>{{ __($detail->keyword) }}</div>
-                  <div class="col text-left"><em>{{ $detail->value }}</em></div>
+                  <div class="col-3"><strong><i class="{{ $detail->icon }} mr-2"></i>{{ __($detail->keyword) }}</strong></div>
+                  <div class="col-9 text-left">{!! $detail->text !!}</div>
                 </div>
               @endforeach
             </div>
           @show
 
           @section('user.activity')
-            <div class="mb-7">
-              <div class="mt-6">
+            <div class="mb-5">
+              <div class="mt-5">
                 <h3 class="h4">{{ __('Activity') }}</h3>
               </div>
               {{-- @can('activities.show') --}}
@@ -118,7 +118,7 @@
 @push('after:footer')
   @include('Theme::partials.modal', [
     'id' => 'delete-confirmbox',
-    'icon' => 'fe fe-user-x display-1 icon-border icon-faded d-inline-block',
+    'icon' => 'mdi mdi-account-remove-outline display-1 icon-faded d-inline-block',
     'lead' => __('You are about to deactivate the selected users.'),
     'text' => 'If you have selected your account and continued, you will be signed out from the app. Are you sure yout want to continue?',
     'method' => 'DELETE',

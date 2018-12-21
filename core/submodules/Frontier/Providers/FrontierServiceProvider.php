@@ -118,5 +118,13 @@ class FrontierServiceProvider extends ServiceProvider
         Blade::directive('submit', function ($expression) {
             return "<?php echo view('Theme::fields.submit', ['label' => $expression])->render(); ?>";
         });
+
+        Blade::directive('card', function ($expression) {
+            $expression = explode(',', $expression, 2);
+            $file = str_replace("'", '', $expression[0]);
+            $args = $expression[1] ?? '[]';
+
+            return "<?php echo view('Theme::cards.$file', $args)->render(); ?>";
+        });
     }
 }

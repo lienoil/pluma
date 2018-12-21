@@ -32,7 +32,7 @@
                   @if ($submenu->is_divider)
                     <div class="sidebar-dropdown-divider m-0"></div>
                   @else
-                    <a class="sidebar-dropdown-item {{ $submenu->active ? 'active' : '' }}" href="{{ $submenu->url }}">
+                    <a title="{{ $submenu->labels->description ?? null }}" class="sidebar-dropdown-item {{ $submenu->active ? 'active' : '' }}" href="{{ $submenu->url }}">
                       @isset ($submenu->icon)
                         <span class="mr-1">
                           <i class="{{ $submenu->icon }}"></i>

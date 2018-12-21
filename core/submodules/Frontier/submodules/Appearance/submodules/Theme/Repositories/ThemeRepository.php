@@ -4,6 +4,7 @@ namespace Theme\Repositories;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\HtmlString;
 use Illuminate\Validation\Rule;
@@ -65,15 +66,17 @@ class ThemeRepository extends Repository
      */
     public function docs($docsPath = null): object
     {
-        $files = File::glob($docsPath ?? base_path('docs/Components/*.md'));
+        return Cache::rememberForever('documentations:components', function () use ($docsPath) {
+            $files = File::glob($docsPath ?? base_path('docs/Components/*.md'));
 
-        foreach ($files as $i => $file) {
-            $name = pathinfo(basename($file), PATHINFO_FILENAME);
-            $docs[$name] = new HtmlString($this->parsedown()->text(file_get_contents($file)));
-            $docs[$name]->toc = new HtmlString($this->toc(file_get_contents($file))->toString());
-        }
+            foreach ($files as $i => $file) {
+                $name = pathinfo(basename($file), PATHINFO_FILENAME);
+                $docs[$name] = new HtmlString($this->parsedown()->text(file_get_contents($file)));
+                $docs[$name]->toc = new HtmlString($this->toc(file_get_contents($file))->toString());
+            }
 
-        return collect($docs ?? []);
+            return collect($docs ?? []);
+        });
     }
 
     /**
@@ -94,6 +97,8 @@ class ThemeRepository extends Repository
      */
     protected function toc($file)
     {
-        return new TableOfContents($file);
+        return Cache::rememberForever('documentations:toc', function () use ($file) {
+            return new TableOfContents($file);
+        });
     }
 }

@@ -102,6 +102,7 @@ class ApplicationViewComposer extends BaseViewComposer
             'author' => settings('site_author', env("APP_AUTHOR")),
             'logo' => $this->getBrandLogoUrl(),
             'copyright' => $this->guessCopyright(),
+            'year' => settings('site_year', env('APP_YEAR', date('Y'))),
             'fulltitle' => $this->guessTitle() . " " . $this->guessSubtitle(),
         ]));
     }
@@ -304,16 +305,20 @@ class ApplicationViewComposer extends BaseViewComposer
     {
         $version = app()->version();
 
+        if (file_exists(public_path('logo.svg'))) {
+            return url("logo.svg?v=$version");
+        }
+
+        if (file_exists(public_path('logo.png'))) {
+            return url("logo.png?v=$version");
+        }
+
         if (file_exists(get_active_theme()->path.'/dist/logos/logo.svg')) {
             return theme('dist/logos/logo.svg');
         }
 
         if (file_exists(get_active_theme()->path.'/dist/logos/logo.png')) {
             return theme('dist/logos/logo.png');
-        }
-
-        if (file_exists(public_path('logo.png'))) {
-            return url("logo.png?v=$version");
         }
 
         if (file_exists(public_path('img/logos/main.png'))) {

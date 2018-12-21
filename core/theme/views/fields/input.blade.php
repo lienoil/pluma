@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group {{ $group ?? null }}">
   <label for="{{ $name }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
   <div class="{{ isset($icon) ? 'input-icon' : null }} {{ isset($prepend) ? 'input-group' : null }}">
 
@@ -14,7 +14,7 @@
       </span>
     @endisset
 
-    <input id="{{ $name }}" {{ $attr ?? '' }} type="{{ $type ?? 'text' }}" name="{{ $name }}" class="form-control {{ $class ?? null }} {{ $errors->has($field ?? $name) ? 'is-invalid' : '' }}" value="{{ $value ?? old($name) }}">
+    <input id="{{ $name }}" {{ $attr ?? '' }} type="{{ $type ?? 'text' }}" name="{{ $name }}" class="form-control {{ $class ?? null }} {{ $errors->has($field ?? $name) ? 'is-invalid' : '' }}" value="{{ $value ?? old($name) }}" placeholder="{{ $placeholder ?? null }}">
 
   </div>
 

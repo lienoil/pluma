@@ -25,7 +25,7 @@
     </div>
   </header>
 
-  <input data-searchbar type="text" class="search form-control mb-3" placeholder="{{ __('Search tree...') }}">
+  <input data-searchbar type="text" class="search form-control mb-3" placeholder="{{ __('Search...') }}">
 
   <div class="treeview-body mb-3">
     <ul data-tree class="list list-group list-group-transparent">

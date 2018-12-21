@@ -122,6 +122,43 @@ class UserRepository extends Repository
     }
 
     /**
+     * Create model resource.
+     *
+     * @param array $data
+     * @param int   $id
+     */
+    public function update(array $data, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->prefixname = $data['prefixname'] ?? null;
+        $user->firstname = $data['firstname'] ?? null;
+        $user->middlename = $data['middlename'] ?? null;
+        $user->lastname = $data['lastname'] ?? null;
+        $user->username = $data['username'] ?? null;
+        $user->email = $data['email'] ?? null;
+        // $user->password = bcrypt($data['password']) ?? null;
+        $user->avatar = $data['avatar'] ?? null;
+        $user->tokenize($data['username']) ?? null;
+        $user->type = $this->usertype;
+        $user->save();
+        $user->roles()->sync($data['roles'] ?? []);
+
+        if (isset($data['details'])) {
+            $details = collect($data['details'])->each(function ($detail) use ($user) {
+                return $user->details()->updateOrCreate(['key' => $detail['key']], [
+                    'icon' => $detail['icon'],
+                    'key' => $detail['key'],
+                    'value' => $detail['value'],
+                ]);
+            });
+
+            $user->details()->whereNotIn('key', $details->pluck('key'))->delete();
+        }
+
+        return $user;
+    }
+
+    /**
      * Upload the specified file as user's avatar.
      *
      * @param UploadedFile $file

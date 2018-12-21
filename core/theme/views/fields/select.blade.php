@@ -23,7 +23,7 @@
       @foreach ($items as $item)
 
         @if ($isMultiple)
-          <option {{ (in_array($item->{$key}, $old ?? old($name) ?? []) ? 'selected="selected"' : null) }} value="{{ $item->{$key} }}">{{ $item->{$text} }}</option>
+          <option {{ (in_array($item->{$key}, $value ?? $old ?? old($name) ?? []) ? 'selected="selected"' : null) }} value="{{ $item->{$key} }}">{{ $item->{$text} }}</option>
         @else
           <option {{ ($item->{$key} === ($old ?? old($name)) ? 'selected="selected"' : null) }} value="{{ $item->{$key} }}">{{ $item->{$text} }}</option>
         @endif

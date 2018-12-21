@@ -47,14 +47,16 @@
     <link rel="preload" href="{{ theme('dist/app.min.css') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}" as="style">
     <link rel="preload" href="{{ theme('dist/app.min.js') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}" as="script">
   @show
+  <!-- css -->
   @stack('css')
     <link rel="stylesheet" type="text/css" href="{{ theme('dist/vendor.min.css') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}">
     <link rel="stylesheet" type="text/css" href="{{ theme('dist/fonts.min.css') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}">
     <link rel="stylesheet" type="text/css" href="{{ theme('dist/app.min.css') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}">
   @show
+  <!-- css -->
   @stack('after:css')
 </head>
 <body>
-  @push('noscript')
+  @stack('noscript')
     @include('Theme::partials.noscript')
   @show

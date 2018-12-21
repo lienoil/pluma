@@ -30,12 +30,12 @@
           @section('main:content')
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-sm-12 col-auto">
                   @section('main:sidebar')
                     @include('Theme::partials.settingsbar')
                   @show
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-9 col-sm-12 col">
                   @section('page:content')
                     <form action="{{ route('settings.store') }}" method="POST">
                       @csrf

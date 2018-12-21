@@ -1,8 +1,8 @@
+@import '@/sass/_custom.scss';
 @import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_variables.scss';
 @import '~bootstrap/scss/_mixins.scss';
 @import '~bootstrap/scss/_forms.scss';
-@import '@/sass/_custom.scss';
 
 :root {
   --ck-input-border-radius: #{$input-border-radius};
@@ -17,11 +17,12 @@
 }
 
 .editor, .editor.ck-editor__editable_inline {
-  @extend .form-control;
+  // @extend .form-control;
   border: $input-border-width solid var(--ck-custom-border) !important;
   border-radius: var(--ck-input-border-radius) !important;
   height: auto;
   min-height: var(--editor-min-height);
+  @include box-shadow($input-box-shadow);
 
   // Customize the `:focus` state to imitate native WebKit styles.
   &.ck-focused {

@@ -21,7 +21,6 @@ trait UserResourceAdminTrait
             ->search($request->all())
             ->paginate();
 
-
         return view('User::admin.index')->with(compact('resources'));
     }
 
@@ -32,9 +31,9 @@ trait UserResourceAdminTrait
      */
     public function create()
     {
-        $resources = $this->repository;
+        $roles = $this->repository->roles();
 
-        return view('User::admin.create')->with(compact('resources'));
+        return view('User::admin.create')->with(compact('roles'));
     }
 
     /**
@@ -75,13 +74,14 @@ trait UserResourceAdminTrait
     public function edit(Request $request, $id)
     {
         $resource = $this->repository->find($id);
+        $roles = $this->repository->roles();
         // $roles = Role::select('name', 'code', 'description', 'id');
         // if (! user()->isRoot()) {
         //     $roles = $roles->except(config('auth.rootroles', []));
         // }
         // $roles = $roles->get();
 
-        return view('User::admin.edit')->with(compact('resource'));
+        return view('User::admin.edit')->with(compact('resource', 'roles'));
     }
 
     /**
@@ -93,24 +93,7 @@ trait UserResourceAdminTrait
      */
     public function update(UserRequest $request, $id)
     {
-        // User
-        $user = User::findOrFail($id);
-        $user->prefixname = $request->input('prefixname');
-        $user->firstname = $request->input('firstname');
-        $user->middlename = $request->input('middlename');
-        $user->lastname = $request->input('lastname');
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->avatar = $request->input('avatar');
-        $user->save();
-
-        // Role
-        $user->roles()->sync($request->input('roles'));
-
-        // Detail
-        foreach (($request->input('details') ?? []) as $key => $value) {
-            $user->details()->updateOrCreate(['key' => $key], ['value' => $value]);
-        }
+        $this->repository->update($request->all(), $id);
 
         return back();
     }
