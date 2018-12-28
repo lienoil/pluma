@@ -4,6 +4,7 @@ namespace Theme\Repositories;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\HtmlString;
@@ -62,9 +63,9 @@ class ThemeRepository extends Repository
      * Retrieve the theme documentations.
      *
      * $param  string $docsPath
-     * @return object
+     * @return \Illuminate\Support\Collection
      */
-    public function docs($docsPath = null): object
+    public function docs($docsPath = null): Collection
     {
         return Cache::rememberForever('documentations:components', function () use ($docsPath) {
             $files = File::glob($docsPath ?? base_path('docs/Components/*.md'));
