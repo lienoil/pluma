@@ -3,6 +3,7 @@
 namespace Frontier\Composers;
 
 use Frontier\Support\Breadcrumbs\Accessors\Breadcrumable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
@@ -76,12 +77,14 @@ class ApplicationViewComposer extends BaseViewComposer
 
     private function pluma()
     {
-        return json_decode(json_encode([
-            'title' => 'Pluma CMS',
-            'tagline' => 'Elegant and modular, out-of-the-box',
-            'author' => 'John Lioneil Dionisio <john.dionisio1@gmail.com> | Princess Ellen Alto <princessalto@gmail.com>',
-            'fullcopy' => 'Pluma CMS v' . app()->version(),
-        ]));
+        return Cache::rememberForever('app:pluma-'.app()->version(), function () {
+            return json_decode(json_encode([
+                'title' => 'Pluma CMS',
+                'tagline' => 'Elegant and modular, out-of-the-box',
+                'author' => 'John Lioneil Dionisio <john.dionisio1@gmail.com> | Princess Ellen Alto <princessalto@gmail.com>',
+                'fullcopy' => 'Pluma CMS v' . app()->version(),
+            ]));
+        });
     }
 
     private function model()
