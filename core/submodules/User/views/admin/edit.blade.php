@@ -250,7 +250,7 @@
                                 </td>
                                 <td class="justify-content-end d-flex">
                                   <div class="w-100"></div>
-                                  @field('prompt', [
+                                  @field('contextprompt', [
                                     'text' => __('Are you sure you want to remove this item?'),
                                     'action' => [
                                       'attr' => 'data-dynamic-remove-button',
