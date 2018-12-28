@@ -73,7 +73,7 @@ class ThemeRepository extends Repository
             foreach ($files as $i => $file) {
                 $name = pathinfo(basename($file), PATHINFO_FILENAME);
                 $docs[$name] = new HtmlString($this->parsedown()->text(file_get_contents($file)));
-                $docs[$name]->toc = new HtmlString($this->toc(file_get_contents($file))->toString());
+                $docs[$name]->toc = new HtmlString($this->toc(file_get_contents($file), $name)->toString());
             }
 
             return collect($docs ?? []);
@@ -94,11 +94,12 @@ class ThemeRepository extends Repository
      * The TableOfContents instance.
      *
      * @param  string $file
+     * @param  string $name
      * @return \Parsedown\Extensions\TableOfContents\TableOfContents
      */
-    protected function toc($file)
+    protected function toc($file, $name)
     {
-        return Cache::rememberForever('documentations:toc', function () use ($file) {
+        return Cache::rememberForever('documentations:toc/'.$name, function () use ($file) {
             return new TableOfContents($file);
         });
     }
