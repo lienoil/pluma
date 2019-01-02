@@ -1,2 +1,0 @@
-import 'tether'
-import 'bootstrap'
