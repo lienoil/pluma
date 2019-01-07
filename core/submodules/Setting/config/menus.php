@@ -9,6 +9,7 @@ return [
      */
     'settings' => [
         'name' => 'settings',
+        'code' => 'settings',
         'is_group_link' => true,
         'order' => 1000,
         'slug' => route('settings'),

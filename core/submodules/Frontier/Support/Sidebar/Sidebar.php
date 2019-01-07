@@ -166,7 +166,7 @@ class Sidebar
     {
         $traverser->set($this->menus)->flatten();
         $traverser->prepare();
-        $name = "sidebar:".$this->user->displayrole;
+        $name = 'sidebar:'.$this->user->displayrole;
 
         // Cache
         $this->menus = Cache::rememberForever($name, function () use ($traverser) {

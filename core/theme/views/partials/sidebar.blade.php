@@ -23,9 +23,14 @@
                   {{ __($menu->labels->title) }}
                 @endif
 
-                <span class="ml-auto sidebar-toggle-icon">
-                  <i class="mdi mdi-chevron-down"></i>
-                </span>
+                @if (isset($menu->badge))
+                  <span class="ml-auto badge badge-primary">{{ $menu->badge }}</span>
+                @else
+                  <span class="ml-auto sidebar-toggle-icon">
+                    <i class="mdi mdi-chevron-down"></i>
+                  </span>
+                @endif
+
               </a>
               <div id="sidebar-dropdown-{{ $i }}" class="sidebar-dropdown-menu collapse {{ $menu->active ? 'show active' : '' }}" data-parent="[data-sidebar-nav]">
                 @foreach ($menu->children as $submenu)
@@ -40,6 +45,9 @@
                       @endisset
                       @isset ($submenu->labels)
                         {{ $submenu->labels->title }}
+                      @endisset
+                      @isset($submenu->badge)
+                        <span class="ml-auto badge badge-primary">{{ $submenu->badge }}</span>
                       @endisset
                     </a>
                   @endif
