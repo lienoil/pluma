@@ -17,8 +17,10 @@ trait UserResourceExportTrait
      */
     public function export(Request $request, $id = null)
     {
+        $this->repository->export($id, $request->all());
+
+        return back();
         $users = $this->repository->model()->whereIn('id', $request->input('id'))->get();
-        dd($request->all());
 
         $headers = array(
             "Content-type" => "text/csv",

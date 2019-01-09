@@ -58,12 +58,12 @@ trait MenuBuilderTrait
                         // 'count' => $i->count(),
                         'code' => $name,
                         'module' => basename($module)
-                    ]))->recurse();
+                    ]))->recursive();
                 }
             }
         }
 
-        return collect($locations)->recurse();
+        return collect($locations)->recursive();
     }
 
     /**

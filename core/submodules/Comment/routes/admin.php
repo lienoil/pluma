@@ -10,8 +10,8 @@
  */
 
 // Settings
-Route::get('settings/commenting', 'CommentingSettingController@index')->name('settings.commenting');
-Route::post('settings/commenting', 'CommentingSettingController@store')->name('settings.commenting.store');
+Route::get('settings/commenting', 'CommentingSettingController@index')->name('settings:commenting.index');
+Route::post('settings/commenting', 'CommentingSettingController@store')->name('settings:commenting.index.store');
 
 // Soft Deletes
 Route::softDeletes('comments', 'CommentController');

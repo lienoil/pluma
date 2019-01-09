@@ -1,42 +1,34 @@
-@extends("Theme::layouts.admin")
+@extends('Theme::layouts.admin')
 
-@section("content")
-    <v-toolbar dark class="secondary elevation-1 sticky">
-        <v-icon dark left>widgets</v-icon>
-        <v-toolbar-title>{{ __('Widgets') }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-    </v-toolbar>
+@section('page:content')
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
 
-    <v-container fluid grid-list-lg>
-        <v-layout row wrap>
-            <v-flex sm4>
+        <form action="{{ route('widgets.refresh') }}" method="POST">
+          @csrf
 
-                @include("Widget::cards.widgets")
+          <div class="card">
+            <div class="card-header">
+              <p class="card-title">{{ __('Refresh Widgets') }}</p>
+            </div>
+            <div class="card-body">{{ __('Refreshing will update existing or install new widgets from the modules list.') }}</div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-secondary btn-block">{{ __('Refresh Widgets') }}</button>
+            </div>
+          </div>
+        </form>
 
-            </v-flex>
-            <v-flex sm8>
-
-                <v-card class="mb-3 elevation-1">
-                    <v-toolbar card class="transparent">
-                        <v-toolbar-title class="subheading">{{ __('Available Widgets') }}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                    </v-toolbar>
-                    <v-list>
-                        @foreach ($widgets as $widget)
-                            <v-list-tile ripple target="_blank" href="{{ route('widgets.edit', $widget->id) }}">
-                                <v-list-tile-avatar>
-                                    <v-icon>{{ $widget->icon }}</v-icon>
-                                </v-list-tile-avatar>
-                                <v-list-tile-title>{{ $widget->name }}</v-list-tile-title>
-                                <v-list-tile-action>
-                                    <v-chip>{{ $widget->roles->count() }}</v-chip>
-                                </v-list-tile-action>
-                            </v-list-tile>
-                        @endforeach
-                    </v-list>
-                </v-card>
-
-            </v-flex>
-        </v-layout>
-    </v-container>
+      </div>
+      <div class="col-lg-8">
+        @foreach ($widgets as $widget)
+          <a href="{{ route('widgets.edit', $widget->id) }}">
+            {{ $widget->icon }}
+            <div>{{ $widget->name }}</div>
+            <div>{{ $widget->roles->count() }}</div>
+          </a>
+        @endforeach
+      </div>
+    </div>
+  </div>
 @endsection

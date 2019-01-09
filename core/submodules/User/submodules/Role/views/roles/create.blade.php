@@ -17,6 +17,13 @@
 
             @field('textarea', ['name' => 'description'])
 
+            @field('checkbox', [
+              'label' => __('Throw 404 instead of 403 error'),
+              'text' => __('(Recommended) Show the "Page not Found" page on restricted pages.'),
+              'name' => 'return_404_on_403', 'checked' => 1, 'value' => 1,
+              'hint' => __('Instead of showing the 403 page to a restricted access, show the 404 page instead. This is ideal in hiding the restricted pages.'),
+            ])
+
             @field('treeview', [
               'name' => 'permissions[]',
               'label' => __('Permissions'),

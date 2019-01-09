@@ -9,6 +9,9 @@ Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->
     # Save Settings
     Route::post('store', 'SettingController@store')->name('settings.store');
 
+    # Preferences
+    Route::get('preferences', 'PreferenceSettingController@index')->name('settings:preferences.index');
+
     # General
     Route::group(['prefix' => 'general'], function () {
         // General
@@ -46,7 +49,7 @@ Route::middleware(['breadcrumbs:\Setting\Models\Setting'])->prefix('settings')->
     // Route::post('theming', 'ThemingSettingController@store')->name('settings.theming.store');
 
     // System
-    Route::get('system', 'SystemSettingController@index')->name('settings.system');
+    Route::get('system', 'SystemSettingController@index')->name('settings:system.index');
     Route::post('system', 'SystemSettingController@store')->name('settings.system.store');
 
     Route::get('system/configuration', 'SystemConfigurationSettingController@index')->name('settings.system.configuration');

@@ -2,6 +2,8 @@
 
 namespace Role\Support\Accessors;
 
+use Role\Models\Permission;
+
 trait RoleAccessor
 {
     /**
@@ -11,6 +13,6 @@ trait RoleAccessor
      */
     public function getPermissionCountAttribute()
     {
-        return $this->permissions->count();
+        return $this->permissions->count().' of '.Permission::count();
     }
 }

@@ -44,7 +44,6 @@ trait UserResourceAdminTrait
      */
     public function store(UserRequest $request)
     {
-        // UserRequest
         $this->repository->create($request->all());
 
         return back();
@@ -75,11 +74,6 @@ trait UserResourceAdminTrait
     {
         $resource = $this->repository->find($id);
         $roles = $this->repository->roles();
-        // $roles = Role::select('name', 'code', 'description', 'id');
-        // if (! user()->isRoot()) {
-        //     $roles = $roles->except(config('auth.rootroles', []));
-        // }
-        // $roles = $roles->get();
 
         return view('User::admin.edit')->with(compact('resource', 'roles'));
     }

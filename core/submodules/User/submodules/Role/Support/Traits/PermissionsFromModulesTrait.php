@@ -2,6 +2,7 @@
 
 namespace Role\Support\Traits;
 
+use Illuminate\Support\Facades\Cache;
 use Pluma\Support\Modules\Traits\ModulerTrait;
 
 trait PermissionsFromModulesTrait
@@ -29,11 +30,14 @@ trait PermissionsFromModulesTrait
      */
     public static function seeds()
     {
-        $instance = (new static);
-        $instance->files = $instance->getFileFromModules("config/permissions.php");
-        $instance->permissions = $instance->getPermissionsFromFiles();
+        // 7200 = cache for 5 days.
+        return Cache::remember('permissions:seeds', 7200, function () {
+            $instance = (new static);
+            $instance->files = $instance->getFileFromModules("config/permissions.php");
+            $instance->permissions = $instance->getPermissionsFromFiles();
 
-        return $instance->permissions;
+            return $instance->permissions;
+        });
     }
 
     /**

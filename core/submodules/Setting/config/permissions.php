@@ -26,6 +26,13 @@ return [
      *--------------------------------------------------------------------------
      *
      */
+    'preferences-settings' => [
+        'name' =>  'preferences-settings',
+        'code' => 'settings:preferences.index',
+        'description' => 'Ability to view list of preference settings',
+        'group' => 'settings',
+    ],
+
     'general-settings' => [
         'name' =>  'general-settings',
         'code' => 'settings:general.index',
@@ -37,6 +44,13 @@ return [
         'name' =>  'display-settings',
         'code' => 'settings:display.index',
         'description' => 'Ability to view list of display settings',
+        'group' => 'settings',
+    ],
+
+    'datetime-settings' => [
+        'name' =>  'datetime-settings',
+        'code' => 'settings:datetime.index',
+        'description' => 'Ability to view list of datetime settings',
         'group' => 'settings',
     ],
 
@@ -58,6 +72,13 @@ return [
         'name' =>  'settings.themes',
         'code' => 'settings:themes.index',
         'description' => 'Ability to view list of themes settings',
+        'group' => 'settings',
+    ],
+
+    'system-settings' => [
+        'name' =>  'settings.system',
+        'code' => 'settings:system.index',
+        'description' => 'Ability to view list of system settings',
         'group' => 'settings',
     ],
 ];

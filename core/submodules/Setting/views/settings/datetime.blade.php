@@ -3,13 +3,14 @@
 @section('form:title', __('Date & Time'))
 
 @section('form:content')
-  <p class="form-label">{{ __('Formatting') }}</p>
+<h6 class="form-label text-uppercase text-muted mb-4">{{ __('Formatting') }}</h1>
   @field('input', ['name' => 'date_format', 'value' => settings('date_format'), 'label' => __('Global Date Format')])
 
   @field('input', ['name' => 'items_per_page', 'type' => 'number', 'value' => settings('items_per_page'), 'label' => __('Items per Page')])
 
-  <p class="form-label">{{ __('Grid Display') }}</p>
-  @field('checkbox', ['name' => 'center_main_content', 'label' => __('Center the main content when possible.'), 'checked' => settings('center_main_content'), 'value' => settings('center_main_content', false)])
+  <h6 class="form-label text-uppercase text-muted mt-5 mb-4">{{ __('Imports and Exports') }}</h1>
+  @field('checkbox', ['name' => 'center_main_content', 'text' => __('Center the main content when possible.'), 'checked' => settings('center_main_content'), 'value' => settings('center_main_content', false)])
+  @field('checkbox', ['name' => 'center_main_content', 'text' => __('Center the main content when possible.'), 'checked' => settings('center_main_content'), 'value' => settings('center_main_content', false)])
 @endsection
 
 

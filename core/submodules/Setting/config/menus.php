@@ -10,7 +10,7 @@ return [
     'settings' => [
         'name' => 'settings',
         'code' => 'settings',
-        'is_group_link' => true,
+        'is_group_link' => false,
         'order' => 1000,
         'slug' => route('settings'),
         'always_viewable' => false,
@@ -23,6 +23,7 @@ return [
                 'settings:branding.index',
                 'settings:email.index',
                 'settings.social',
+                'settings:preferences.index',
                 'group:settings.general',
             ]
         ],
@@ -33,6 +34,25 @@ return [
         'children' => [
             /**
              *------------------------------------------------------------------
+             * Preferences Settings
+             *------------------------------------------------------------------
+             *
+             */
+            'settings:preferences.index' => [
+                'name' => 'settings:preferences.index',
+                'slug' => route('settings:preferences.index'),
+                'code' => 'settings:preferences.index',
+                'is_group_link' => false,
+                'icon' => 'mdi mdi-card-bulleted-settings-outline',
+                'order' => 1,
+                'labels' => [
+                    'title' => __('Preferences'),
+                    'description' => __('Change the way you interact with the application.'),
+                ],
+            ],
+
+            /**
+             *------------------------------------------------------------------
              * General Settings
              *------------------------------------------------------------------
              *
@@ -40,7 +60,8 @@ return [
             'group:settings.general' => [
                 'name' => 'group:settings.general',
                 'slug' => route('settings:general.index'),
-                'code' => 'group:settings.general',
+                'code' => 'settings:general.index',
+                'icon' => 'mdi mdi-pencil-circle-outline',
                 'is_group_link' => true,
                 'always_viewable' => false,
                 'order' => 1,
@@ -157,50 +178,24 @@ return [
              */
             'settings-system-divider' => [
                 'name' => 'settings-system-divider',
+                'permission' => 'settings:system.index',
                 'is_header' => true,
                 'is_divider' => true,
                 'parent' => 'settings',
                 'order' => 999,
             ],
 
-            'system-settings-group' => [
-                'name' => 'system-settings-group',
-                'slug' => route('settings.system'),
+            'system-settings' => [
+                'name' => 'system-settings',
+                'slug' => route('settings:system.index'),
+                'code' => 'settings:system.index',
                 'icon' => 'mdi mdi-settings-box',
+                'parent' => 'settings',
                 'always_viewable' => false,
                 'order' => 1000,
                 'labels' => [
                     'title' => __('System'),
                     'description' => __('Review the system settings'),
-                ],
-                'children' => [
-                    'system-settings' => [
-                        'name' => 'system-settings',
-                        'slug' => route('settings.system'),
-                        'code' => 'settings.system',
-                        'route' => 'settings.system',
-                        'icon' => 'mdi mdi-settings-box',
-                        'always_viewable' => false,
-                        'order' => 100,
-                        'labels' => [
-                            'title' => __('System Information'),
-                            'description' => __('Review the system settings'),
-                        ],
-                    ],
-
-                    'system-configuration-settings' => [
-                        'name' => 'system-configuration-settings',
-                        'slug' => route('settings.system.configuration'),
-                        'code' => 'settings.system.configuration',
-                        'route' => 'settings.system.configuration',
-                        'icon' => 'mdi mdi-settings-box',
-                        'always_viewable' => false,
-                        'order' => 101,
-                        'labels' => [
-                            'title' => __('Configuration'),
-                            'description' => __('Some more developer options'),
-                        ],
-                    ],
                 ],
             ],
         ],

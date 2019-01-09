@@ -74,7 +74,7 @@ class AuthenticateUserPermission
             return response()->json(false, 403);
         }
 
-        // Load the 403
+        // Load the 404 or 403
         return abort('403');
     }
 

@@ -16,6 +16,9 @@ return [
     [
         'appears' => [
             'Theme::partials.sidebar',
+            'Theme::layouts.settings',
+            'Theme::layouts.admin',
+            'Setting::partials.settingsbar',
         ],
         'class' => SidebarComposer::class
     ],

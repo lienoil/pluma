@@ -2,13 +2,13 @@
 
 namespace Widget\Controllers;
 
-use Frontier\Controllers\GeneralController;
+use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Role\Models\Role;
 use Widget\Models\Widget;
 use Widget\Requests\WidgetRequest;
 
-class WidgetController extends GeneralController
+class WidgetController extends AdminController
 {
     /**
      * Display a listing of the resource.

@@ -13,3 +13,9 @@
 
 ### Removed
 * Removed unused blacksmith commands
+
+## v3.0.2 | edge
+
+### Added
+* Added Preferences on the sidebar menu
+* Added Themes documentation/preview page

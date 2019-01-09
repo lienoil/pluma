@@ -74,6 +74,19 @@ class UserRepository extends Repository
     }
 
     /**
+     * Get the search params.
+     *
+     * @param array $params
+     * @return \Pluma\Models\Model
+     */
+    public function search($params)
+    {
+        $this->model = $this->model->search($params)->type($this->usertype);
+
+        return $this;
+    }
+
+    /**
      * Retrieve the roles list.
      *
      * @return array
@@ -177,5 +190,29 @@ class UserRepository extends Repository
         }
 
         return null;
+    }
+
+    /**
+     * Export from given format
+     *
+     * @param int $id
+     * @param array $data
+     * @return void
+     */
+    public function export($id, $data)
+    {
+        $user = $this->find($id);
+
+        switch ($data['format']) {
+            case 'xlsx':
+                $this->toSpreadsheet($resource, $data);
+                return;
+                break;
+
+            default:
+            case 'pdf':
+                $this->toPDF($resource, $data);
+                break;
+        }
     }
 }

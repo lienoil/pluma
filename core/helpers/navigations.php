@@ -1,6 +1,7 @@
 <?php
 
 use Frontier\Composers\NavigationViewComposer;
+use Frontier\Composers\SidebarComposer;
 use Frontier\Support\Breadcrumbs\Composers\BreadcrumbComposer;
 use Frontier\Support\Sidebar\Sidebar;
 use Illuminate\Support\Facades\Request;
@@ -56,7 +57,9 @@ if (! function_exists('sidebar')) {
      */
     function sidebar()
     {
-        return new Sidebar();
+        $sidebar = new SidebarComposer();
+
+        return $sidebar->handle();
     }
 }
 

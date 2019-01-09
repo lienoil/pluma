@@ -313,14 +313,12 @@
                 @section('user.avatar')
                   <div class="card">
                     <div class="card-body">
-                      <div class="form-group mb-3">
-                        @field('selectavatars', [
-                          'title' => __('Select Avatar'),
-                          'name' => 'avatar',
-                          'attr' => 'data-selectpicker data-live-search=true',
-                          'value' => $resource->avatar,
-                        ])
-                      </div>
+                      @field('selectavatars', [
+                        'title' => __('Select Avatar'),
+                        'name' => 'avatar',
+                        'attr' => 'data-selectpicker data-live-search=true',
+                        'value' => $resource->avatar,
+                      ])
                     </div>
                   </div>
                 @show
