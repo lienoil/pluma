@@ -1,0 +1,28 @@
+{
+  "name": "Quill",
+  "code": "quill",
+  "description": "The quill theme for pluma/cms.",
+  "preview": {
+    "img": "preview.png",
+    "credit": ""
+  },
+  "author": {
+    "name": "Princess Ellen Alto",
+    "email": "altoprincessellen@gmail.com"
+  },
+  "colors": {
+    "primary": "#0c5689",
+    "secondary": "#f9fafb",
+    "accent": "#ffffff",
+    "success": "#86d067",
+    "info": "#00b8d6",
+    "warning": "#ffda3e",
+    "danger": "#f44336",
+    "light": "#f8f9fa",
+    "dark": "#343a40",
+    "text": "#333333",
+    "card": "#ffffff",
+    "sidebar": "#f7f7f7",
+    "workspace": "#f7f7f7"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "$primary": "#90b990",
+  "$secondary": "#B80080",
+  "$accent": "#00BEDD",
+  "$success": "#30A300",
+  "$warning": "#EAC011",
+  "$error": "#F44336",
+  "$info": "#00B8D6"
+}
