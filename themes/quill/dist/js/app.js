@@ -2283,7 +2283,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 // import { user } from '@/utils/user'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2292,11 +2291,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     utilitybar: 'utilitybar/utilitybar',
     sidebar: 'sidebar/sidebar'
   })),
-  data: function data() {
-    return {
-      user: user()
-    };
-  },
+  // data () {
+  //   return {
+  //     user: user(),
+  //   }
+  // },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     toggle: 'sidebar/toggle'
   }))

@@ -56,7 +56,6 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-
   </v-toolbar>
 </template>
 
@@ -74,11 +73,11 @@ export default {
     }),
   },
 
-  data () {
-    return {
-      user: user(),
-    }
-  },
+  // data () {
+  //   return {
+  //     user: user(),
+  //   }
+  // },
 
   methods: {
     ...mapActions({
