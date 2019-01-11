@@ -39,33 +39,39 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+import user from '@/utils/user/user';
+
 export default {
-    data(){
-        return {
-            email : "",
-            password : ""
-        }
-    },
+  created() {
+    if (user.isLoggedIn()) {
+      // this.$router.push({name: 'dashboard.index'});
+    }
+  },
+  data(){
+    return {
+      email: '',
+      password: '',
+    }
+  },
     methods : {
         handleSubmit(e){
             e.preventDefault()
 
+            axios.post('api/v1/login', {
+                username: this.email,
+                password: this.password
+              })
+              .then(response => {
+                console.log(response)
+                if (response.data.success) {
+                  // this.$router.push({name: 'dashboard.index'});
+                }
+              })
+              .catch(function (error) {
+                console.error(error);
+              });
             if (this.password.length > 0) {
-                axios.post('api/v1/login', {
-                    username: this.email,
-                    password: this.password
-                  })
-                  .then(response => {
-                    localStorage.setItem('user',response.data.user.fullname)
-                    localStorage.setItem('jwt',response.data.token)
-
-                    if (localStorage.getItem('jwt') != null){
-                        this.$router.push({name: 'dashboard.index'})
-                    }
-                  })
-                  .catch(function (error) {
-                    console.error(error);
-                  });
             }
         }
     },

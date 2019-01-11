@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Pluma\Controllers\ApiController;
 use Pluma\Support\Auth\Traits\AuthenticatesUsers;
+use Pluma\Support\Validation\Traits\ValidatesRequests;
 use User\Models\User;
 use User\Resources\User as UserResource;
 
 class LoginApiController extends ApiController
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, ValidatesRequests;
 
     /**
      * Create a new controller instance.
@@ -21,25 +22,6 @@ class LoginApiController extends ApiController
     public function __construct()
     {
         $this->middleware('auth.guest', ['except' => 'logout']);
-    }
-
-    /**
-     * Authenticate the given resource.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function authenticate(Request $request)
-    {
-        $user = User::where('api_token', $request->input('api_token'));
-
-        if (! $user->exists()) {
-            return response()->json(['token' => null, 'user' => null]);
-        }
-
-        $user = $user->first();
-
-        return response()->json(['token' => $user->token, 'user' => new UserResource($user)]);
     }
 
     /**
@@ -53,37 +35,6 @@ class LoginApiController extends ApiController
     }
 
     /**
-     * Handle a login request to the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function login(Request $request)
-    {
-        $this->validateLogin($request);
-
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
-        }
-
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
-        }
-
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        $this->incrementLoginAttempts($request);
-
-        return $this->sendFailedLoginResponse($request);
-    }
-
-    /**
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -92,10 +43,14 @@ class LoginApiController extends ApiController
     protected function sendLoginResponse(Request $request)
     {
         $this->clearLoginAttempts($request);
+        $this->guard()->user()->rollApiToken();
+
+        $user = new UserResource($this->guard()->user());
 
         $credentials = [
-            'user' => $user = new UserResource($this->guard()->user()),
-            'api_token' => $user->token,
+            'success' => 1,
+            'user' => $user,
+            'token' => $user->token,
             'remember_token' => $user->remember_token,
         ];
 
@@ -126,6 +81,7 @@ class LoginApiController extends ApiController
     protected function sendFailedLoginResponse(Request $request)
     {
         return response()->json([
+            'success' => 0,
             $this->username() => [Lang::get('auth.failed')]
         ], 422);
     }

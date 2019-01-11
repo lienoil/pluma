@@ -9,7 +9,7 @@
  *
  */
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['auth:api'])->group(function () {
     Route::get('users/all', 'UserController@getAll')->name('users.all');
     Route::get('users/find', 'UserController@postFind')->name('users.find');
     Route::get('users/search', 'UserController@postFind')->name('users.search');

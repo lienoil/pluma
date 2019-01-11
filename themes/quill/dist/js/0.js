@@ -41,6 +41,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_user_user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/user/user */ "./src/utils/user/user.js");
 //
 //
 //
@@ -81,36 +84,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    if (_utils_user_user__WEBPACK_IMPORTED_MODULE_1__["default"].isLoggedIn()) {// this.$router.push({name: 'dashboard.index'});
+    }
+  },
   data: function data() {
     return {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
   },
   methods: {
     handleSubmit: function handleSubmit(e) {
-      var _this = this;
-
       e.preventDefault();
+      axios.post('api/v1/login', {
+        username: this.email,
+        password: this.password
+      }).then(function (response) {
+        console.log(response);
 
-      if (this.password.length > 0) {
-        axios.post('api/v1/login', {
-          username: this.email,
-          password: this.password
-        }).then(function (response) {
-          localStorage.setItem('user', response.data.user.fullname);
-          localStorage.setItem('jwt', response.data.token);
+        if (response.data.success) {// this.$router.push({name: 'dashboard.index'});
+        }
+      }).catch(function (error) {
+        console.error(error);
+      });
 
-          if (localStorage.getItem('jwt') != null) {
-            _this.$router.push({
-              name: 'dashboard.index'
-            });
-          }
-        }).catch(function (error) {
-          console.error(error);
-        });
-      }
+      if (this.password.length > 0) {}
     }
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {

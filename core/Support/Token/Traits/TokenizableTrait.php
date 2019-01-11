@@ -64,4 +64,17 @@ trait TokenizableTrait
 
         return $key;
     }
+
+    /**
+     * Reroll the API Token effectively ending existing sessions by voiding
+     * the current token.
+     *
+     * @param string $seed
+     * @return void
+     */
+    public function rollApiToken($seed = 'R:A:N:D:O:M')
+    {
+        $this->{$this->apiTokenColumnName} = $this->generateApiToken($seed);
+        $this->save();
+    }
 }

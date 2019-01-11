@@ -11,7 +11,9 @@
 </head>
 <body>
 
-  <div id="app"></div>
+  @section('app')
+    <div id="app"></div>
+  @show
 
   <script src="{{ theme('dist/js/app.js') }}"></script>
 </body>
