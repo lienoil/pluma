@@ -3,18 +3,18 @@
 namespace Pluma\Controllers;
 
 use Frontier\Controllers\GeneralController;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 
 class AppController extends GeneralController
 {
     /**
-     * Renders the javascript application via V8Js.
-     * php-v8js plugin.
+     * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function render()
+    public function index(Request $request)
     {
-
+        return view('Theme::app.index');
     }
 }
