@@ -77,7 +77,7 @@ class ForgeAccountCommand extends Command
      */
     protected function getSelectedRole()
     {
-        $this->role = $this->choice("Specify which role the user will have", Role::pluck('name', 'code')->toArray());
+        $this->role = $this->choice('Specify which role the user will have', Role::pluck('name', 'code')->toArray());
         $this->role = Role::whereCode($this->role)->first();
 
         return $this->role;
@@ -124,7 +124,17 @@ class ForgeAccountCommand extends Command
         $firstname = $this->ask("First name");
         $lastname = $this->ask("Last name");
         $email = $this->ask("Email");
-        $username = $this->ask("User name", $email);
+
+        do {
+            $email = $this->ask('Email already in use. Try new one.');
+        } while ($this->userIsUnique($email, 'email'));
+
+        $username = $this->ask('User name', $email);
+
+        do {
+            $username = $this->ask('User name already exists. Try new one.', snake_case($lastname));
+        } while ($this->userIsUnique($username));
+
         $password = $this->secret("Password (hidden)");
         $this->password = $password;
 
@@ -152,6 +162,18 @@ class ForgeAccountCommand extends Command
         ];
 
         $this->user = $this->generateAccount($params, $role);
+    }
+
+    /**
+     * Check if value already exists.
+     *
+     * @param string $key
+     * @param string $column
+     * @return boolean
+     */
+    protected function userIsUnique($key, $column = 'username')
+    {
+        return User::where($column, '=', $key)->exists();
     }
 
     /**
