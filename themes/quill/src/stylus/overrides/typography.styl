@@ -1,0 +1,44 @@
+.title__text--ellipsis {
+  display: -webkit-box;
+  max-width: 100%;
+  line-height: 1.2 !important;
+  box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+
+.text--ellipsis {
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  box-orient: vertical;
+  display: -webkit-box;
+  line-height: 1.4;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text--lowercase {
+  text-transform: lowercase !important;
+}
+
+.text--uppercase {
+  text-transform: uppercase !important;
+}
+
+.text--capitalize {
+  text-transform: capitalize !important;
+}
+
+.theme--dark {
+  table a,
+  #timeline a,
+  .author,
+  .v-breadcrumbs__item {
+    color: lighten($theme.primary, 40%);
+  }
+}

@@ -1,0 +1,25 @@
+.text-field {
+  &--title input {
+    font-size: $font-size.base * 2em;
+    height: auto;
+  }
+}
+
+.input-group {
+  &--solo {
+    .input-group--text-field__suffix {
+      border: 1px solid;
+      border-radius: 2px;
+      padding: 0 6px;
+      color: rgba($material-theme.text-color, $material-theme.disabledORhints-text-percent);
+    }
+  }
+}
+
+.theme--light, .theme--dark {
+  .input-group--text-field-box {
+    .input-group__input {
+      background-color: hsla(0,0%,0%,.05) !important;
+    }
+  }
+}

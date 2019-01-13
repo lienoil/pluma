@@ -1,0 +1,41 @@
+$text-emphasis-medium = {
+  light: $grey.lighten-4,
+  dark: #30383e,
+}
+
+.theme--dark {
+  .emphasis {
+    &--medium {
+      background-color: $text-emphasis-medium.dark !important;
+    }
+  }
+
+  .text-emphasis {
+    &--medium {
+      color: $text-emphasis-medium.dark !important;
+    }
+  }
+}
+
+.theme--light {
+  .emphasis {
+    &--medium {
+      background-color: $text-emphasis-medium.light !important;
+    }
+  }
+
+  .text-emphasis {
+    &--medium {
+      color: $text-emphasis-medium.light !important;
+    }
+  }
+}
+
+.theme--dark {
+  .primary--text[class*=active],
+  .primary--text[class*=active] .icon,
+  .input-group.primary--text,
+  .breadcrumbs li:not(:last-child) a {
+    color: lighten($theme.primary, 30%) !important;
+  }
+}

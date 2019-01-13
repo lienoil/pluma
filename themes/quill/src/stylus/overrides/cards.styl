@@ -1,0 +1,47 @@
+.v-card {
+
+  &--bordered {
+    border: 1px solid $grey.lighten-2;
+    border-radius: 5px;
+  }
+
+  &--shadow {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1) !important;
+  }
+
+  &__title {
+    font-family: $primary-font-family;
+    font-weight: bold;
+    font-size: $font-size.base;
+  }
+
+  .subheader {
+    // padding: 0 $padding.large;
+  }
+
+  &__title,
+  &__text {
+    // padding: $padding.large;
+  }
+
+  &__actions {
+    flex-wrap: wrap;
+  }
+
+  &__text-actions {
+    // padding: ($padding.large - $padding.mini);
+  }
+
+  &__actions--footer {
+    background-color: rgba($material-theme.fg-color, $material-theme.divider-percent);
+  }
+
+  &--reveal {
+    align-items: center;
+    bottom: 0;
+    justify-content: center;
+    opacity: .5;
+    position: absolute;
+    width: 100%;
+  }
+}

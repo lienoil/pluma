@@ -1,0 +1,121 @@
+[v-cloak] {
+  display: none;
+}
+
+.image-transparent {
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef),
+                    linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+  background-position: 0 0,10px 10px;
+  background-size: 21px 21px;
+  background-repeat: repeat;
+}
+
+.draggable-handle {
+  cursor: move;
+}
+
+.pos-sticky,
+.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 4;
+}
+
+.theme--dark .v-divider {
+  background-color: rgba(255,255,255,0.12) !important;
+}
+
+.theme--light .v-divider {
+  background-color: rgba(0,0,0,0.12) !important;
+}
+
+.divider {
+  &.vertical {
+    display: block;
+    flex: none;
+    height: 60%;
+    width: 1px;
+    border: none;
+    margin: auto 1em;
+  }
+}
+
+aside,
+div:not(.application--wrap) {
+  &::-webkit-scrollbar {
+    background: transparent;
+    overflow: visible;
+    width: 7px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: solid #fff;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  &::-webkit-scrollbar-thumb:horizontal {
+    border-width: 0;
+    min-width: 40px;
+  }
+
+  &::-webkit-scrollbar-thumb:vertical {
+    border-width: 0;
+    min-height: 40px;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #adadad;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,0.10),inset 0 -1px 0 rgba(0,0,0,0.07);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+  }
+}
+
+// Misc
+.ov {
+  &-auto {
+    overflow: auto;
+    position relative;
+    &:after {
+      content: '';
+      height: 200px;
+      bottom: 0;
+      left: 0;
+      background-color red;
+      position absolute;
+    }
+  }
+}
+
+
+.card--overlay {
+  background: rgba(0, 0, 0, 0.60);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.card--overlay-darken-1 {
+  background: rgba(0, 0, 0, 0.77);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
