@@ -16,6 +16,8 @@ import '@/utils';
 import '@/plugins';
 import '@/components';
 
+import '@/stylus/main.styl';
+
 Vue.config.productionTip = false;
 
 new Vue({

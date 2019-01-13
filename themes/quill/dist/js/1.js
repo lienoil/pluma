@@ -72,6 +72,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import EmptyState from './partials/EmptyState'
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Index',
@@ -219,171 +231,196 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-container",
-    { attrs: { fluid: "", "grid-list-lg": "" } },
+    "section",
     [
       _c(
-        "v-layout",
-        { attrs: { row: "", wrap: "" } },
+        "v-toolbar",
+        { staticClass: "primary", attrs: { dark: "" } },
+        [
+          _c("v-toolbar-title", [
+            _vm._v("\n      " + _vm._s(_vm.__("All Announcements")) + "\n    ")
+          ]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-btn", { attrs: { color: "secondary" } }, [
+            _vm._v("\n      " + _vm._s(_vm.__("Create")) + "\n    ")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { attrs: { fluid: "", "grid-list-lg": "" } },
         [
           _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
             [
-              _c("v-data-table", {
-                staticClass: "elevation-1",
-                attrs: {
-                  headers: _vm.headers,
-                  items: _vm.desserts,
-                  pagination: _vm.pagination,
-                  "select-all": "",
-                  "item-key": "name"
-                },
-                on: {
-                  "update:pagination": function($event) {
-                    _vm.pagination = $event
-                  }
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "headers",
-                    fn: function(props) {
-                      return [
-                        _c(
-                          "tr",
-                          [
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c("v-data-table", {
+                    staticClass: "elevation-1",
+                    attrs: {
+                      headers: _vm.headers,
+                      items: _vm.desserts,
+                      pagination: _vm.pagination,
+                      "select-all": "",
+                      "item-key": "name"
+                    },
+                    on: {
+                      "update:pagination": function($event) {
+                        _vm.pagination = $event
+                      }
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "headers",
+                        fn: function(props) {
+                          return [
                             _c(
-                              "th",
+                              "tr",
                               [
-                                _c("v-checkbox", {
-                                  attrs: {
-                                    "input-value": props.all,
-                                    indeterminate: props.indeterminate,
-                                    primary: "",
-                                    "hide-details": ""
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.stopPropagation()
-                                      return _vm.toggleAll($event)
-                                    }
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _vm._l(props.headers, function(header) {
-                              return _c(
-                                "th",
-                                {
-                                  key: header.text,
-                                  class: [
-                                    "column sortable",
-                                    _vm.pagination.descending ? "desc" : "asc",
-                                    header.value === _vm.pagination.sortBy
-                                      ? "active"
-                                      : ""
+                                _c(
+                                  "th",
+                                  [
+                                    _c("v-checkbox", {
+                                      attrs: {
+                                        "input-value": props.all,
+                                        indeterminate: props.indeterminate,
+                                        primary: "",
+                                        "hide-details": ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.stopPropagation()
+                                          return _vm.toggleAll($event)
+                                        }
+                                      }
+                                    })
                                   ],
-                                  on: {
-                                    click: function($event) {
-                                      _vm.changeSort(header.value)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("v-icon", { attrs: { small: "" } }, [
-                                    _vm._v("arrow_upward")
-                                  ]),
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(header.text) +
-                                      "\n            "
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _vm._l(props.headers, function(header) {
+                                  return _c(
+                                    "th",
+                                    {
+                                      key: header.text,
+                                      class: [
+                                        "column sortable",
+                                        _vm.pagination.descending
+                                          ? "desc"
+                                          : "asc",
+                                        header.value === _vm.pagination.sortBy
+                                          ? "active"
+                                          : ""
+                                      ],
+                                      on: {
+                                        click: function($event) {
+                                          _vm.changeSort(header.value)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { small: "" } }, [
+                                        _vm._v("arrow_upward")
+                                      ]),
+                                      _vm._v(
+                                        "\n                " +
+                                          _vm._s(header.text) +
+                                          "\n              "
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              )
-                            })
-                          ],
-                          2
-                        )
-                      ]
-                    }
-                  },
-                  {
-                    key: "items",
-                    fn: function(props) {
-                      return [
-                        _c(
-                          "tr",
-                          {
-                            attrs: { active: props.selected },
-                            on: {
-                              click: function($event) {
-                                props.selected = !props.selected
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "td",
-                              [
-                                _c("v-checkbox", {
-                                  attrs: {
-                                    "input-value": props.selected,
-                                    primary: "",
-                                    "hide-details": ""
-                                  }
                                 })
                               ],
-                              1
+                              2
+                            )
+                          ]
+                        }
+                      },
+                      {
+                        key: "items",
+                        fn: function(props) {
+                          return [
+                            _c(
+                              "tr",
+                              {
+                                attrs: { active: props.selected },
+                                on: {
+                                  click: function($event) {
+                                    props.selected = !props.selected
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "td",
+                                  [
+                                    _c("v-checkbox", {
+                                      attrs: {
+                                        "input-value": props.selected,
+                                        primary: "",
+                                        "hide-details": ""
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(props.item.name))]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-xs-right" }, [
+                                  _vm._v(_vm._s(props.item.calories))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-xs-right" }, [
+                                  _vm._v(_vm._s(props.item.fat))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-xs-right" }, [
+                                  _vm._v(_vm._s(props.item.carbs))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-xs-right" }, [
+                                  _vm._v(_vm._s(props.item.protein))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-xs-right" }, [
+                                  _vm._v(_vm._s(props.item.iron))
+                                ])
+                              ]
                             ),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(props.item.name))]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-xs-right" }, [
-                              _vm._v(_vm._s(props.item.calories))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-xs-right" }, [
-                              _vm._v(_vm._s(props.item.fat))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-xs-right" }, [
-                              _vm._v(_vm._s(props.item.carbs))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-xs-right" }, [
-                              _vm._v(_vm._s(props.item.protein))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-xs-right" }, [
-                              _vm._v(_vm._s(props.item.iron))
+                            _c("tr", [
+                              _c("td", { staticClass: "text-x-right" }, [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(props.item.calories) +
+                                    "\n              "
+                                )
+                              ])
                             ])
                           ]
-                        ),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", { staticClass: "text-x-right" }, [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(props.item.calories) +
-                                "\n            "
-                            )
-                          ])
-                        ])
-                      ]
+                        }
+                      }
+                    ]),
+                    model: {
+                      value: _vm.selected,
+                      callback: function($$v) {
+                        _vm.selected = $$v
+                      },
+                      expression: "selected"
                     }
-                  }
-                ]),
-                model: {
-                  value: _vm.selected,
-                  callback: function($$v) {
-                    _vm.selected = $$v
-                  },
-                  expression: "selected"
-                }
-              })
+                  })
+                ],
+                1
+              )
             ],
             1
           )

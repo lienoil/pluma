@@ -7,7 +7,7 @@
 
     <!-- Utilitybar -->
     <v-slide-y-transition>
-      <!-- <utilitybar></utilitybar> -->
+      <utilitybar></utilitybar>
     </v-slide-y-transition>
     <!-- Utilitybar -->
 

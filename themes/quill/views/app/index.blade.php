@@ -7,6 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Single App</title>
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.min.css">
+  <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900|Material+Icons">
   <link rel="stylesheet" href="{{ theme('dist/css/app.css') }}">
 </head>
 <body>

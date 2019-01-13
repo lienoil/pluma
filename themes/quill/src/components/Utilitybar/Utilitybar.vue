@@ -25,7 +25,8 @@
     <v-menu offset-y left bottom nudge-bottom="12px" nudge-width="200px" min-width="200px">
       <v-btn slot="activator" large flat icon ripple >
         <v-avatar size="40px">
-          <img :src="user.photo" :alt="user.displayname">
+          <!-- <img :src="user.photo" :alt="user.displayname"> -->
+          <v-icon>mdi-account-circle</v-icon>
         </v-avatar>
       </v-btn>
       <v-list dense>
@@ -62,8 +63,11 @@
 <script>
 // import { user } from '@/utils/user'
 import { mapGetters, mapActions } from 'vuex'
+import store from '@/store'
 
 export default {
+  store,
+
   name: 'Utilitybar',
 
   computed: {

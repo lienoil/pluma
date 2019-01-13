@@ -1,0 +1,32 @@
+json('../themes/default.json')
+
+$theme := {
+  primary: $primary,
+  secondary: $secondary,
+  accent: $accent,
+  success: $success,
+  warning: $warning,
+  error: $error,
+  info: $info,
+}
+
+app($component)
+  .application
+    &.theme--light
+      $component($material-light)
+    &.theme--dark
+      $component($material-dark)
+
+theme($component, $name)
+  light($component, $name)
+  dark($component, $name)
+
+light($component, $name)
+  .theme--light .{$name},
+  .application .theme--light.{$name}
+    $component($material-light)
+
+dark($component, $name)
+  .theme--dark .{$name},
+  .application .theme--dark.{$name}
+    $component($material-dark)
