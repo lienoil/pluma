@@ -84,6 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -93,20 +94,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      csrfToken: window.$csrfToken,
       email: '',
       password: ''
     };
   },
   methods: {
     handleSubmit: function handleSubmit(e) {
+      var _this = this;
+
       e.preventDefault();
       axios.post('api/v1/login', {
         username: this.email,
         password: this.password
       }).then(function (response) {
-        console.log(response);
+        console.log(response.data);
 
-        if (response.data.success) {// this.$router.push({name: 'dashboard.index'});
+        if (response.data.success) {
+          _this.$router.push({
+            name: 'dashboard.index'
+          });
         }
       }).catch(function (error) {
         console.error(error);
@@ -210,6 +217,11 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("form", { attrs: { method: "POST", action: "/login" } }, [
+              _c("input", {
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrfToken }
+              }),
+              _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
                 _c(
                   "label",
@@ -233,7 +245,8 @@ var render = function() {
                     staticClass: "form-control",
                     attrs: {
                       id: "email",
-                      type: "email",
+                      type: "text",
+                      name: "username",
                       required: "",
                       autofocus: ""
                     },
@@ -271,7 +284,12 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { id: "password", type: "password", required: "" },
+                    attrs: {
+                      id: "password",
+                      type: "password",
+                      name: "password",
+                      required: ""
+                    },
                     domProps: { value: _vm.password },
                     on: {
                       input: function($event) {

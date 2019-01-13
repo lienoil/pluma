@@ -44,6 +44,8 @@ class Kernel extends ConsoleKernel
         $this->loadCommandsFromModules();
 
         $this->loadCommandRoutesFromModules();
+
+        $this->loadCommandsFromConfig();
     }
 
     /**
@@ -139,5 +141,15 @@ class Kernel extends ConsoleKernel
                 }
             }
         }
+    }
+
+    /**
+     * Load the commands from vendor packages.
+     *
+     * @return void
+     */
+    protected function loadCommandsFromConfig()
+    {
+        $this->commands = array_merge($this->commands, config('commands'));
     }
 }

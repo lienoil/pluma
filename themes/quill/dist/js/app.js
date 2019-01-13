@@ -55066,6 +55066,7 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.$csrfToken = token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -56353,10 +56354,8 @@ var _default_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpac
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixins */ "./src/utils/mixins/index.js");
 /* harmony import */ var _user_user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user/user */ "./src/utils/user/user.js");
-/* harmony import */ var _route_route__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./route/route */ "./src/utils/route/route.js");
 
-
-
+ // import './route/route';
 
 /***/ }),
 
@@ -56406,39 +56405,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
-
-/***/ }),
-
-/***/ "./src/utils/route/route.js":
-/*!**********************************!*\
-  !*** ./src/utils/route/route.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-
-var route = {
-  install: function install(Vue) {
-    Vue.mixin({
-      name: 'trans',
-      methods: {
-        push: function push(param) {
-          this.$router.push(param);
-        },
-        dashboard: function dashboard() {
-          this.$router.push({
-            name: 'dashboard.index'
-          });
-        }
-      }
-    });
-  }
-};
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(route);
-/* harmony default export */ __webpack_exports__["default"] = (route);
 
 /***/ }),
 

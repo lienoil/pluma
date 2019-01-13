@@ -11,12 +11,13 @@ use Role\Support\Relations\BelongsToManyRoles;
 use Role\Support\Relations\HasManyPermissionsThroughRoles;
 use Setting\Support\Relations\HasManySettings;
 use Setting\Support\Traits\WhereSettingTrait;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use User\Support\Accessors\UserAccessor;
 use User\Support\Relations\HasManyDetails;
 use User\Support\Traits\CanResetPasswordTrait;
 use User\Support\Traits\WhereDetailTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use BelongsToManyRoles,
         Breadcrumable,
@@ -57,4 +58,24 @@ class User extends Authenticatable
         'prefixname',
         'email',
     ];
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

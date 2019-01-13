@@ -27,6 +27,7 @@
     23 => 'Pluma\\Support\\Broadcasting\\BroadcastRouteServiceProvider',
     24 => 'Pluma\\Support\\Encryption\\EncryptionServiceProvider',
     25 => 'Blacksmith\\Providers\\ConsoleSupportServiceProvider',
+    26 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
   ),
   'eager' => 
   array (
@@ -44,6 +45,7 @@
     11 => 'Pluma\\Providers\\FormRequestServiceProvider',
     12 => 'Pluma\\Support\\Broadcasting\\BroadcastRouteServiceProvider',
     13 => 'Pluma\\Support\\Encryption\\EncryptionServiceProvider',
+    14 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
   ),
   'deferred' => 
   array (

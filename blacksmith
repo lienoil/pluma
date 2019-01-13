@@ -11,4 +11,4 @@
  * Try running `php blacksmith list` to view all available commands.
  */
 
-require_once __DIR__ . '/console/blacksmith/blacksmith';
+require_once __DIR__ . '/console/blacksmith/console';

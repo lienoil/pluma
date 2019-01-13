@@ -7,12 +7,21 @@ use Illuminate\Support\Facades\Lang;
 use Pluma\Controllers\ApiController;
 use Pluma\Support\Auth\Traits\AuthenticatesUsers;
 use Pluma\Support\Validation\Traits\ValidatesRequests;
+use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use User\Models\User;
 use User\Resources\User as UserResource;
 
 class LoginApiController extends ApiController
 {
     use AuthenticatesUsers, ValidatesRequests;
+
+    /**
+     * The JWT value of the current user.
+     *
+     * @var string
+     */
+    protected $token;
 
     /**
      * Create a new controller instance.
@@ -22,6 +31,8 @@ class LoginApiController extends ApiController
     public function __construct()
     {
         $this->middleware('auth.guest', ['except' => 'logout']);
+
+        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -43,19 +54,18 @@ class LoginApiController extends ApiController
     protected function sendLoginResponse(Request $request)
     {
         $this->clearLoginAttempts($request);
-        $this->guard()->user()->rollApiToken();
+        // $this->guard()->user()->rollApiToken();
 
         $user = new UserResource($this->guard()->user());
 
         $credentials = [
             'success' => 1,
             'user' => $user,
-            'token' => $user->token,
+            'token' => JWTAuth::getToken(),
             'remember_token' => $user->remember_token,
         ];
 
-        return $this->authenticated($request, $user)
-                ?: response()->json($credentials);
+        return response()->json($credentials);
     }
 
     /**
@@ -64,12 +74,31 @@ class LoginApiController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
-    protected function attemptLogin(Request $request)
+    protected function login(Request $request)
     {
-        return $this->guard()->attempt(
-            $this->credentials($request),
-            $request->has('remember')
-        );
+        if (! $token = JWTAuth::attempt($this->credentials($request))) {
+            return response()->json([
+                'error' => 'invalid_credentials'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        return $this->sendLoginResponseWithToken($token);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param string $token
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponseWithToken($token)
+    {
+        return response()->json([
+            'token' => $token,
+            'success' => 1,
+            'user' => $user = new UserResource($this->guard()->user()),
+            'token_type' => 'bearer',
+        ]);
     }
 
     /**

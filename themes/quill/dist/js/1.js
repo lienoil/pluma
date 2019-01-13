@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -19,12 +21,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    var token = window.localStorage.getItem('jwt');
-    window.axios.defaults.headers.common['Content-Type'] = 'application/json';
-    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    window.axios.get('/api/v1/users/all').then(function (response) {
+    window.axios.get('/api/v1/users/all?token=' + js_cookie__WEBPACK_IMPORTED_MODULE_0___default.a.get('user-token')).then(function (response) {
       console.log(response);
     });
   }

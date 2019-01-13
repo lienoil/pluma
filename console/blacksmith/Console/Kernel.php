@@ -27,6 +27,8 @@ class Kernel extends BaseKernel
 
         $this->loadCommandsFromBlacksmithCommands();
 
+        $this->loadCommandsFromVendor();
+
         parent::commands();
     }
 
@@ -74,5 +76,17 @@ class Kernel extends BaseKernel
 
             $this->commands[] = "Blacksmith\\Console\\Commands\\{$command}";
         }
+    }
+
+    /**
+     * Load the commands from vendor packages.
+     *
+     * @return void
+     */
+    protected function loadCommandsFromVendor()
+    {
+        $commands = config('commands');
+
+        $this->commands = array_merge($this->commands, $commands);
     }
 }

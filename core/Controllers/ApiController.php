@@ -39,6 +39,18 @@ class ApiController extends BaseController
      */
     public function __construct()
     {
-        $this->middleware(['auth:api', 'api', 'cors']);
+        $this->middleware(['api', 'cors']);
+
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
+    /**
+     * Authenticate the request.
+     *
+     * @return boolean
+     */
+    public function authenticate()
+    {
+        JWTAuth::parseToken();
     }
 }

@@ -33,7 +33,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Pluma\Middleware\AuthenticateSession::class,
+            // \Pluma\Middleware\AuthenticateSession::class,
             \Pluma\Middleware\EncryptCookies::class,
             \Pluma\Middleware\VerifyCsrfToken::class,
         ],
