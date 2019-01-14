@@ -102,4 +102,11 @@ return [
         'description' => 'Ability to edit and delete all $slug even if the user is not the creator of the $code.',
         'group' => '$code',
     ],
+
+    'owned-$slug' => [
+        'name' => 'owned-$slug',
+        'code' => '$slug.owned',
+        'description' => 'Ability to manage only owned $code.',
+        'group' => '$code',
+    ],
 ];
