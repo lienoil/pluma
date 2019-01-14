@@ -203,7 +203,7 @@ html {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 .application {
-  font-family: Palanquin, Roboto, sans-serif;
+  font-family: Poppins, Roboto, sans-serif;
   line-height: 1.5;
 }
 ::-ms-clear,
@@ -236,7 +236,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Raleway, Roboto, sans-serif;
+  font-family: Poppins, Roboto, sans-serif;
 }
 .font-size-2,
 .content-size-2 {
@@ -524,11 +524,11 @@ h6 {
   -moz-transform-origin: 0 0;
 }
 .title {
-  font-family: Raleway, Roboto, sans-serif;
+  font-family: Poppins, Roboto, sans-serif;
   font-weight: bold;
 }
 .primary-title {
-  font-family: Raleway, Roboto, sans-serif;
+  font-family: Poppins, Roboto, sans-serif;
 }
 .heading,
 .headline {
@@ -618,7 +618,7 @@ html {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 .application {
-  font-family: Palanquin, Roboto, sans-serif;
+  font-family: Poppins, Roboto, sans-serif;
   line-height: 1.5;
 }
 ::-ms-clear,
@@ -634,42 +634,42 @@ ol {
   font-weight: 300;
   line-height: 1 !important;
   letter-spacing: -0.04em !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .display-3 {
   font-size: 56px !important;
   font-weight: 400;
   line-height: 1.35 !important;
   letter-spacing: -0.02em !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .display-2 {
   font-size: 45px !important;
   font-weight: 400;
   line-height: 48px !important;
   letter-spacing: normal !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .display-1 {
   font-size: 34px !important;
   font-weight: 400;
   line-height: 40px !important;
   letter-spacing: normal !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .headline {
   font-size: 24px !important;
   font-weight: 400;
   line-height: 32px !important;
   letter-spacing: normal !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .title {
   font-size: 20px !important;
   font-weight: 500;
   line-height: 1 !important;
   letter-spacing: 0.02em !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .subheading {
   font-size: 16px !important;
@@ -3677,7 +3677,7 @@ html {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 .application {
-  font-family: Palanquin, Roboto, sans-serif;
+  font-family: Poppins, Roboto, sans-serif;
   line-height: 1.5;
 }
 ::-ms-clear,
@@ -3693,42 +3693,42 @@ ol {
   font-weight: 300;
   line-height: 1 !important;
   letter-spacing: -0.04em !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .display-3 {
   font-size: 56px !important;
   font-weight: 400;
   line-height: 1.35 !important;
   letter-spacing: -0.02em !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .display-2 {
   font-size: 45px !important;
   font-weight: 400;
   line-height: 48px !important;
   letter-spacing: normal !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .display-1 {
   font-size: 34px !important;
   font-weight: 400;
   line-height: 40px !important;
   letter-spacing: normal !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .headline {
   font-size: 24px !important;
   font-weight: 400;
   line-height: 32px !important;
   letter-spacing: normal !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .title {
   font-size: 20px !important;
   font-weight: 500;
   line-height: 1 !important;
   letter-spacing: 0.02em !important;
-  font-family: Palanquin, Roboto, sans-serif !important;
+  font-family: Poppins, Roboto, sans-serif !important;
 }
 .subheading {
   font-size: 16px !important;
@@ -11201,7 +11201,7 @@ table.v-table tfoot tr td {
 }
 .v-btn {
   text-transform: capitalize;
-  font-weight: bold;
+  font-weight: 500;
 }
 .v-btn--gradient {
   background: linear-gradient(45deg, #a97af2 0%, #dba1f7 100%);
@@ -11214,7 +11214,7 @@ table.v-table tfoot tr td {
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1) !important;
 }
 .v-card__title {
-  font-family: Raleway, Roboto, sans-serif;
+  font-family: Poppins, Roboto, sans-serif;
   font-weight: bold;
   font-size: 16px;
 }

@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack');
 
 /**
  *------------------------------------------------------------------------------
@@ -19,12 +20,24 @@ mix.webpackConfig({
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': __dirname + '/src'
+      '@': __dirname + '/src',
+      jquery: 'jquery/src/jquery',
     },
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery',
+      'window.jQuery': 'jquery',
+    })
+  ]
 })
 
-mix.js('./src/app.js', './dist/js')
+mix.autoload({
+  jquery: ['$','jQuery', 'window.jQuery'],
+})
+
+mix.js('./src/app.js', './dist/js', './node_modules/jquery/dist/jquery.js')
+   .stylus('./src/stylus/main.styl', './dist/css/app.css')
    // .js('src/vendor.js', 'dist/js')
    // .sass('src/sass/app.scss', 'dist/css');
-   .stylus('./src/stylus/main.styl', './dist/css/app.css')

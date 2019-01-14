@@ -2,7 +2,7 @@
   <section>
     <v-toolbar class="primary" dark>
       <v-toolbar-title>
-        {{ __('All Announcements') }}
+        {{ __('All Anouncements') }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="secondary">
@@ -15,7 +15,7 @@
         <v-flex xs12>
           <v-card>
             <v-card-text>
-              {{ __('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam aut nobis, rerum. Eveniet explicabo doloremque voluptatibus assumenda expedita beatae distinctio voluptatem aliquid! Ratione ipsum, temporibus quis saepe, dolore illum necessitatibus?') }}
+              {{ __('Lorem ipsum dolor') }}
             </v-card-text>
           </v-card>
         </v-flex>
