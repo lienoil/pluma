@@ -57583,7 +57583,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugins_mdi_fonts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugins/mdi/fonts.js */ "./src/plugins/mdi/fonts.js");
 /* harmony import */ var _plugins_axios_axios_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./plugins/axios/axios.js */ "./src/plugins/axios/axios.js");
 /* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/plugins */ "./src/plugins/index.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/router */ "./src/router/index.js");
+/* harmony import */ var _router_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./router/index */ "./src/router/index.js");
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store/index */ "./src/store/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/utils */ "./src/utils/index.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/components */ "./src/components/index.js");
@@ -57608,7 +57608,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].config.productionTip = false;
 new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  router: _router__WEBPACK_IMPORTED_MODULE_8__["default"],
+  router: _router_index__WEBPACK_IMPORTED_MODULE_8__["default"],
   store: _store_index__WEBPACK_IMPORTED_MODULE_9__["default"],
   render: function render(h) {
     return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -58722,6 +58722,18 @@ __webpack_require__.r(__webpack_exports__);
       sort: 6,
       authenticatable: true,
       icon: 'mdi-book-multiple-variant'
+    }
+  }, {
+    path: 'archived',
+    props: true,
+    name: 'announcements.archived',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../Archived.vue */ "./src/modules/Announcement/Archived.vue"));
+    },
+    meta: {
+      title: 'Archived Announcement',
+      authenticatable: true,
+      icon: 'mdi-delete-outline'
     }
   }]
 }]);

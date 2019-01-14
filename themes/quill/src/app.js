@@ -16,7 +16,7 @@ import './plugins/mdi/fonts.js';
 import './plugins/axios/axios.js';
 import '@/plugins';
 
-import router from '@/router';
+import router from './router/index';
 // import store from '@/store';
 import store from './store/index';
 
