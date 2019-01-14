@@ -10,11 +10,18 @@ import './bootstrap';
 import App from './App.vue';
 import Vue from 'vue';
 
+import './plugins/vuetify/vuetify.js';
+import './plugins/vue/vue.js';
+import './plugins/mdi/fonts.js';
+import './plugins/axios/axios.js';
+import '@/plugins';
+
 import router from '@/router';
-import store from '@/store';
+// import store from '@/store';
+import store from './store/index';
+
 
 import '@/utils';
-import '@/plugins';
 
 import '@/components';
 
@@ -22,5 +29,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app');

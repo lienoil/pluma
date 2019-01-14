@@ -55833,11 +55833,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ "./src/App.vue");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/router */ "./src/router/index.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/store */ "./src/store/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/utils */ "./src/utils/index.js");
-/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/plugins */ "./src/plugins/index.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components */ "./src/components/index.js");
+/* harmony import */ var _plugins_vuetify_vuetify_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/vuetify/vuetify.js */ "./src/plugins/vuetify/vuetify.js");
+/* harmony import */ var _plugins_vue_vue_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./plugins/vue/vue.js */ "./src/plugins/vue/vue.js");
+/* harmony import */ var _plugins_mdi_fonts_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugins/mdi/fonts.js */ "./src/plugins/mdi/fonts.js");
+/* harmony import */ var _plugins_axios_axios_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./plugins/axios/axios.js */ "./src/plugins/axios/axios.js");
+/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/plugins */ "./src/plugins/index.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/router */ "./src/router/index.js");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store/index */ "./src/store/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/utils */ "./src/utils/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/components */ "./src/components/index.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -55852,9 +55856,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // import store from '@/store';
+
+
+
+
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].config.productionTip = false;
 new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  router: _router__WEBPACK_IMPORTED_MODULE_3__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_8__["default"],
+  store: _store_index__WEBPACK_IMPORTED_MODULE_9__["default"],
   render: function render(h) {
     return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
   }
@@ -56994,33 +57004,14 @@ window.Vue = vue__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _stylus_main_styl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/stylus/main.styl */ "./src/stylus/main.styl");
-/* harmony import */ var _stylus_main_styl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_stylus_main_styl__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
-/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
+/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _themes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/themes */ "./src/themes/index.js");
 
 
- // import theme from '@/themes';
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuetify__WEBPACK_IMPORTED_MODULE_2___default.a, {
-  theme: {
-    primary: '#0C5689',
-    // _.$primary, // '#0C5689',
-    secondary: '#e56e37',
-    // _.$secondary,
-    accent: '#00BEDD',
-    // _.$accent,
-    success: '#30A300',
-    // _.$success,
-    warning: '#EAC011',
-    // _.$warning,
-    error: '#F44336',
-    // _.$error,
-    info: '#00B8D6' // _.$info
-
-  }
-});
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuetify__WEBPACK_IMPORTED_MODULE_1___default.a, _themes__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 /***/ }),
 
@@ -57246,6 +57237,45 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 
 /***/ }),
 
+/***/ "./src/themes/default.json":
+/*!*********************************!*\
+  !*** ./src/themes/default.json ***!
+  \*********************************/
+/*! exports provided: $primary, $secondary, $accent, $success, $warning, $error, $info, default */
+/***/ (function(module) {
+
+module.exports = {"$primary":"#0C5689","$secondary":"#e56e37","$accent":"#00BEDD","$success":"#30A300","$warning":"#EAC011","$error":"#F44336","$info":"#00B8D6"};
+
+/***/ }),
+
+/***/ "./src/themes/index.js":
+/*!*****************************!*\
+  !*** ./src/themes/index.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _default_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./default.json */ "./src/themes/default.json");
+var _default_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./default.json */ "./src/themes/default.json", 1);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  iconfont: 'md',
+  theme: {
+    primary: _default_json__WEBPACK_IMPORTED_MODULE_0__["$primary"],
+    // '#0C5689',
+    secondary: _default_json__WEBPACK_IMPORTED_MODULE_0__["$secondary"],
+    accent: _default_json__WEBPACK_IMPORTED_MODULE_0__["$accent"],
+    success: _default_json__WEBPACK_IMPORTED_MODULE_0__["$success"],
+    warning: _default_json__WEBPACK_IMPORTED_MODULE_0__["$warning"],
+    error: _default_json__WEBPACK_IMPORTED_MODULE_0__["$error"],
+    info: _default_json__WEBPACK_IMPORTED_MODULE_0__["$info"]
+  }
+});
+
+/***/ }),
+
 /***/ "./src/utils/index.js":
 /*!****************************!*\
   !*** ./src/utils/index.js ***!
@@ -57316,8 +57346,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/princessalto/Projects/pluma/themes/quill/src/app.js */"./src/app.js");
-module.exports = __webpack_require__(/*! /home/princessalto/Projects/pluma/themes/quill/src/stylus/main.styl */"./src/stylus/main.styl");
+__webpack_require__(/*! /home/princess/Projects/pluma/themes/quill/src/app.js */"./src/app.js");
+module.exports = __webpack_require__(/*! /home/princess/Projects/pluma/themes/quill/src/stylus/main.styl */"./src/stylus/main.styl");
 
 
 /***/ })
