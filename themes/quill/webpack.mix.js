@@ -21,9 +21,10 @@ mix.webpackConfig({
       'vue$': 'vue/dist/vue.esm.js',
       '@': __dirname + '/src'
     },
-  }
+  },
 })
 
-mix.js('src/app.js', 'dist/js')
+mix.js('./src/app.js', './dist/js')
    // .js('src/vendor.js', 'dist/js')
-   .sass('src/sass/app.scss', 'dist/css');
+   // .sass('src/sass/app.scss', 'dist/css');
+   .stylus('./src/stylus/main.styl', './dist/css/app.css')

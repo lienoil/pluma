@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue.
  */
+// import '@/stylus/main.styl';
 
 import './bootstrap';
 
@@ -14,9 +15,8 @@ import store from '@/store';
 
 import '@/utils';
 import '@/plugins';
-import '@/components';
 
-import '@/stylus/main.styl';
+import '@/components';
 
 Vue.config.productionTip = false;
 
