@@ -28,4 +28,14 @@ class Controller extends BaseController
     {
         $this->middleware('web');
     }
+
+    /**
+     * Retrieve the Repository instance.
+     *
+     * @return Pluma\Support\Repository\Repository
+     */
+    public function repository()
+    {
+        return $this->repository;
+    }
 }
