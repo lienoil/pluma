@@ -24,9 +24,11 @@ export default {
           this.$router.go({name: 'login.show'})
         })
     }
-    // window.axios.get('/api/v1/users/all?token='+Cookies.get('user-token')).then(response => {
-    //   console.log(response);
-    // });
+  },
+  mounted() {
+    window.axios.get('/api/v1/users/all?token='+Cookies.get('user-token')).then(response => {
+      console.log(response);
+    });
   }
 }
 </script>
