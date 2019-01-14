@@ -58287,6 +58287,64 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/Toolbar/store/modules/toolbar.js":
+/*!*********************************************************!*\
+  !*** ./src/components/Toolbar/store/modules/toolbar.js ***!
+  \*********************************************************/
+/*! exports provided: state, getters, mutations, actions, toolbar */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getters", function() { return getters; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toolbar", function() { return toolbar; });
+var state = function state() {
+  return {
+    toolbar: {
+      model: '',
+      title: '',
+      search: '',
+      searchField: false,
+      searchButton: true,
+      listGridView: true,
+      toggleview: true
+    }
+  };
+};
+var getters = {
+  toolbar: function toolbar(state) {
+    return state.toolbar;
+  }
+};
+var mutations = {
+  emptyState: function emptyState() {
+    this.replaceState({
+      toolbar: null
+    });
+  },
+  'UPDATE': function UPDATE(state, payload) {
+    state.toolbar = Object.assign(state.toolbar, payload);
+  }
+};
+var actions = {
+  update: function update(_ref, payload) {
+    var commit = _ref.commit;
+    commit('UPDATE', payload);
+  }
+};
+var toolbar = {
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+};
+
+/***/ }),
+
 /***/ "./src/components/Utilitybar/Utilitybar.vue":
 /*!**************************************************!*\
   !*** ./src/components/Utilitybar/Utilitybar.vue ***!
@@ -58536,6 +58594,25 @@ webpackContext.id = "./src/modules sync recursive routes\\/admin\\.js$";
 
 /***/ }),
 
+/***/ "./src/modules sync recursive routes\\/public\\.js$":
+/*!**********************************************!*\
+  !*** ./src/modules sync routes\/public\.js$ ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function webpackEmptyContext(req) {
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = "./src/modules sync recursive routes\\/public\\.js$";
+
+/***/ }),
+
 /***/ "./src/modules sync recursive routes\\/web\\.js$":
 /*!*******************************************!*\
   !*** ./src/modules sync routes\/web\.js$ ***!
@@ -58597,6 +58674,16 @@ __webpack_require__.r(__webpack_exports__);
       icon: 'mdi-book-multiple-variant',
       authenticatable: true,
       sort: 5
+    }
+  }, // Archived
+  {
+    code: 'announcements.archived',
+    name: 'announcements.archived',
+    meta: {
+      title: 'Archived Announcements',
+      icon: 'mdi-book-plus',
+      authenticatable: true,
+      sort: 8
     }
   }]
 }]);
@@ -59050,8 +59137,9 @@ router.beforeEach(function (to, from, next) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes_admin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routes/admin */ "./src/router/routes/admin.js");
-/* harmony import */ var _routes_web__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes/web */ "./src/router/routes/web.js");
- // import p from './routes/public'
+/* harmony import */ var _routes_public__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes/public */ "./src/router/routes/public.js");
+/* harmony import */ var _routes_web__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes/web */ "./src/router/routes/web.js");
+
 
  // import e from './routes/error'
 
@@ -59059,8 +59147,7 @@ var routes = [] // Order is important:
 // 1. admin
 // 2. web - static routes outside the admin namespace, e.g. login, register, etc.
 // 3. public - will catch all pages from storage including 404s
-.concat([_routes_admin__WEBPACK_IMPORTED_MODULE_0__["default"]], _routes_web__WEBPACK_IMPORTED_MODULE_1__["default"] // [p],
-// e
+.concat([_routes_admin__WEBPACK_IMPORTED_MODULE_0__["default"]], _routes_web__WEBPACK_IMPORTED_MODULE_2__["default"], [_routes_public__WEBPACK_IMPORTED_MODULE_1__["default"]] // e
 );
 /* harmony default export */ __webpack_exports__["default"] = (routes);
 
@@ -59099,6 +59186,36 @@ requireRoute.keys().forEach(function (route) {
     authenticatable: true
   },
   children: routes
+});
+
+/***/ }),
+
+/***/ "./src/router/routes/public.js":
+/*!*************************************!*\
+  !*** ./src/router/routes/public.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var routes = [];
+
+var requireRoute = __webpack_require__("./src/modules sync recursive routes\\/public\\.js$");
+
+requireRoute.keys().forEach(function (route) {
+  var routeConfig = requireRoute(route);
+  routeConfig.default.forEach(function (route) {
+    routes.push(route);
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  path: '/',
+  // redirect: { name: 'home' },
+  // component: () => import('@/components/Layouts/Public.vue'),
+  children: routes.sort(function (a, b) {
+    return a.meta.sort - b.meta.sort;
+  })
 });
 
 /***/ }),
@@ -59150,11 +59267,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modules", function() { return modules; });
 /* harmony import */ var _components_Sidebar_store_modules_sidebar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/Sidebar/store/modules/sidebar */ "./src/components/Sidebar/store/modules/sidebar.js");
 /* harmony import */ var _components_Utilitybar_store_modules_utilitybar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Utilitybar/store/modules/utilitybar */ "./src/components/Utilitybar/store/modules/utilitybar.js");
+/* harmony import */ var _components_Toolbar_store_modules_toolbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Toolbar/store/modules/toolbar */ "./src/components/Toolbar/store/modules/toolbar.js");
 // import { app } from './app'
 // import { authentication } from './authentication'
 // import { breadcrumbs } from '@/components/Breadcrumbs/store/modules/breadcrumbs'
 // import { dialogbox } from '@/components/Dialog/store/modules/dialogbox'
 // import { progressbar } from '@/components/Progressbar/store/modules/progressbar'
+
 
  // import { footer } from '@/components/Footer/store/modules/footer'
 // import { mainmenu } from '@/components/Navigation/store/modules/mainmenu'
@@ -59165,6 +59284,7 @@ var modules = {
   // breadcrumbs,
   // dialogbox,
   sidebar: _components_Sidebar_store_modules_sidebar__WEBPACK_IMPORTED_MODULE_0__["sidebar"],
+  toolbar: _components_Toolbar_store_modules_toolbar__WEBPACK_IMPORTED_MODULE_2__["toolbar"],
   utilitybar: _components_Utilitybar_store_modules_utilitybar__WEBPACK_IMPORTED_MODULE_1__["utilitybar"] // footer,
   // mainmenu,
   // progressbar,

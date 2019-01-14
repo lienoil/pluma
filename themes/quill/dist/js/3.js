@@ -136,6 +136,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Create',
   data: function data() {
@@ -447,12 +459,36 @@ var render = function() {
                     "v-card",
                     [
                       _c(
-                        "v-flex",
-                        { attrs: { sm6: "", xs12: "" } },
+                        "v-card-text",
                         [
-                          _c("v-text-field", {
-                            attrs: { label: "Lesson", box: "" }
-                          })
+                          _c(
+                            "v-layout",
+                            { attrs: { row: "", wrap: "" } },
+                            [
+                              _c(
+                                "v-flex",
+                                { attrs: { md6: "", xs12: "" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Chapter Number", box: "" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: { label: "Chapter Title", box: "" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: "Chapter Description",
+                                      box: ""
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       )

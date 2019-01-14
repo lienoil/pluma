@@ -167,9 +167,9 @@ __webpack_require__.r(__webpack_exports__);
       toolbar: {
         title: 'All Announcements',
         listGridView: false,
-        createBtn: {
-          name: 'announcements.create'
-        },
+        // createBtn: {
+        //   name: 'announcements.create',
+        // },
         archivedBtn: {
           name: 'announcements.archived'
         }

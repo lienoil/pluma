@@ -10,9 +10,9 @@ export const state = () => ({
   },
 })
 
-// export const getters = {
-//   toolbar: state => state.toolbar
-// }
+export const getters = {
+  toolbar: state => state.toolbar
+}
 
 export const mutations = {
   emptyState () {
@@ -33,7 +33,7 @@ export const actions = {
 export const toolbar = {
   namespaced: true,
   state,
-  // getters,
+  getters,
   mutations,
   actions,
 }

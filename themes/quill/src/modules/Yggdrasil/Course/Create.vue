@@ -96,12 +96,24 @@
 
           <!-- create form -->
           <v-card>
-           <v-flex sm6 xs12>
-              <v-text-field
-                label="Lesson"
-                box
-              ></v-text-field>
-            </v-flex>
+            <v-card-text>
+              <v-layout row wrap>
+                <v-flex md6 xs12>
+                <v-text-field
+                  label="Chapter Number"
+                  box
+                ></v-text-field>
+                <v-text-field
+                  label="Chapter Title"
+                  box
+                ></v-text-field>
+                <v-text-field
+                  label="Chapter Description"
+                  box
+                ></v-text-field>
+              </v-flex>
+              </v-layout>
+            </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>

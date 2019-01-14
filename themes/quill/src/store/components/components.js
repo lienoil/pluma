@@ -5,6 +5,7 @@
 // import { progressbar } from '@/components/Progressbar/store/modules/progressbar'
 import { sidebar } from '@/components/Sidebar/store/modules/sidebar'
 import { utilitybar } from '@/components/Utilitybar/store/modules/utilitybar'
+import { toolbar } from '@/components/Toolbar/store/modules/toolbar'
 // import { footer } from '@/components/Footer/store/modules/footer'
 // import { mainmenu } from '@/components/Navigation/store/modules/mainmenu'
 
@@ -14,6 +15,7 @@ export const modules = {
   // breadcrumbs,
   // dialogbox,
   sidebar,
+  toolbar,
   utilitybar,
   // footer,
   // mainmenu,

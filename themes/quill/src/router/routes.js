@@ -1,5 +1,5 @@
 import a from './routes/admin'
-// import p from './routes/public'
+import p from './routes/public'
 import w from './routes/web'
 // import e from './routes/error'
 
@@ -11,7 +11,7 @@ const routes = []
   .concat(
     [a],
     w,
-    // [p],
+    [p],
     // e
   )
 

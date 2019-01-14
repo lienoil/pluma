@@ -20,6 +20,17 @@ export default [
           sort: 5,
         },
       },
+      // Archived
+      {
+        code: 'announcements.archived',
+        name: 'announcements.archived',
+        meta: {
+          title: 'Archived Announcements',
+          icon: 'mdi-book-plus',
+          authenticatable: true,
+          sort: 8,
+        },
+      },
     ],
   }
 ]

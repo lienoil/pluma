@@ -160,9 +160,9 @@ export default {
       toolbar: {
         title: 'All Announcements',
         listGridView: false,
-        createBtn: {
-          name: 'announcements.create',
-        },
+        // createBtn: {
+        //   name: 'announcements.create',
+        // },
         archivedBtn: {
           name: 'announcements.archived',
         },
