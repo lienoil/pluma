@@ -2,6 +2,7 @@
 
 namespace Pluma\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Pluma\Support\Auth\Access\Traits\AuthorizesRequests;
 use Pluma\Support\Bus\Traits\DispatchesJobs;
@@ -42,15 +43,5 @@ class ApiController extends BaseController
         $this->middleware(['api', 'cors']);
 
         $this->middleware('auth:api', ['except' => ['login']]);
-    }
-
-    /**
-     * Authenticate the request.
-     *
-     * @return boolean
-     */
-    public function authenticate()
-    {
-        JWTAuth::parseToken();
     }
 }

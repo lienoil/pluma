@@ -28,5 +28,6 @@ Route::prefix('v1')->middleware(['auth:api'])->group(function () {
  *
  */
 Route::prefix('v1')->group(function () {
+    Route::post('authenticate', 'LoginApiController@authenticate');
     Route::post('login', 'LoginApiController@login');
 });

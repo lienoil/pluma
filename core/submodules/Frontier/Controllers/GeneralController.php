@@ -70,10 +70,10 @@ class GeneralController extends Controller implements GenericResourceInterface
     {
         parent::__construct();
 
-        $this->middleware('auth.admin')->only($this->methodsAdmin);
+        // $this->middleware('auth.admin')->only($this->methodsAdmin);
 
         // TODO: implement auth.permissions
-        $this->middleware('permissions')->only($this->methodsAdmin);
+        // $this->middleware('permissions')->only($this->methodsAdmin);
 
         // TODO: implement auth:api
         $this->middleware('web')->except($this->methodsApi);

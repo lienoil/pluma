@@ -44,6 +44,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utils_user_user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/user/user */ "./src/utils/user/user.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/store */ "./src/store/index.js");
+/* harmony import */ var _utils_auth_login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/utils/auth/login */ "./src/utils/auth/login.js");
 //
 //
 //
@@ -85,49 +87,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  created: function created() {
-    if (_utils_user_user__WEBPACK_IMPORTED_MODULE_1__["default"].isLoggedIn()) {// this.$router.push({name: 'dashboard.index'});
-    }
-  },
+  store: _store__WEBPACK_IMPORTED_MODULE_2__["default"],
   data: function data() {
     return {
-      csrfToken: window.$csrfToken,
-      email: '',
-      password: ''
+      username: '',
+      password: '',
+      csrfToken: window.$csrfToken
     };
   },
   methods: {
-    handleSubmit: function handleSubmit(e) {
+    login: function login(e) {
       var _this = this;
 
-      e.preventDefault();
-      axios.post('api/v1/login', {
-        username: this.email,
-        password: this.password
-      }).then(function (response) {
-        console.log(response.data);
+      var username = this.username,
+          password = this.password;
 
-        if (response.data.success) {
-          _this.$router.push({
-            name: 'dashboard.index'
-          });
-        }
-      }).catch(function (error) {
-        console.error(error);
+      Object(_utils_auth_login__WEBPACK_IMPORTED_MODULE_3__["default"])({
+        username: username,
+        password: password
+      }).then(function () {
+        _this.$router.go('/admin');
       });
-
-      if (this.password.length > 0) {}
     }
-  },
-  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    if (localStorage.getItem('jwt')) {
-      return next('board');
-    }
-
-    next();
   }
 });
 
@@ -238,8 +224,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.email,
-                        expression: "email"
+                        value: _vm.username,
+                        expression: "username"
                       }
                     ],
                     staticClass: "form-control",
@@ -250,13 +236,13 @@ var render = function() {
                       required: "",
                       autofocus: ""
                     },
-                    domProps: { value: _vm.email },
+                    domProps: { value: _vm.username },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.email = $event.target.value
+                        _vm.username = $event.target.value
                       }
                     }
                   })
@@ -310,7 +296,12 @@ var render = function() {
                     {
                       staticClass: "btn btn-primary",
                       attrs: { type: "submit" },
-                      on: { click: _vm.handleSubmit }
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.login($event)
+                        }
+                      }
                     },
                     [
                       _vm._v(

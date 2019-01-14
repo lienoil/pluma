@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Single App</title>
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="{{ theme('dist/css/app.css') }}">
+  <link rel="stylesheet" href="{{ theme('dist/css/app.css') }}?v={{ date('YHis') }}">
 </head>
 <body>
 
@@ -15,6 +15,6 @@
     <div id="app"></div>
   @show
 
-  <script src="{{ theme('dist/js/app.js') }}"></script>
+  <script src="{{ theme('dist/js/app.js') }}?v={{ date('YHis') }}"></script>
 </body>
 </html>

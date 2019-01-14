@@ -11,6 +11,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store */ "./src/store/index.js");
+//
+//
 //
 //
 //
@@ -22,11 +25,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    window.axios.get('/api/v1/users/all?token=' + js_cookie__WEBPACK_IMPORTED_MODULE_0___default.a.get('user-token')).then(function (response) {
-      console.log(response);
-    });
+  store: _store__WEBPACK_IMPORTED_MODULE_1__["default"],
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      this.$store.dispatch('auth/AUTH_LOGOUT').then(function () {
+        _this.$router.go({
+          name: 'login.show'
+        });
+      });
+    } // window.axios.get('/api/v1/users/all?token='+Cookies.get('user-token')).then(response => {
+    //   console.log(response);
+    // });
+
   }
 });
 
@@ -56,7 +70,21 @@ var render = function() {
         { attrs: { row: "", wrap: "" } },
         [
           _c("v-flex", { attrs: { xs12: "" } }, [
-            _c("p", [_vm._v("Dis the sd dashboard right here")])
+            _c("p", [_vm._v("Dis the sd dashboard right here")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.logout($event)
+                  }
+                }
+              },
+              [_vm._v("Logout")]
+            )
           ])
         ],
         1

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import routes from './routes';
+import { ifAuthenticated } from '@/middlewares/authenticatable'
 
 Vue.use(Router);
 
@@ -30,6 +31,11 @@ router.beforeEach((to, from, next) => {
     if (route.meta.metatags) {
       // TODO: do the metatags
     }
+  }
+
+  if (route.meta.authenticatable) {
+    ifAuthenticated(to, from, next)
+    return
   }
 
   next();

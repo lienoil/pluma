@@ -32,7 +32,25 @@ class LoginApiController extends ApiController
     {
         $this->middleware('auth.guest', ['except' => 'logout']);
 
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'authenticate']]);
+    }
+
+    /**
+     * Authenticate the request.
+     *
+     * @return boolean
+     */
+    public function authenticate(Request $request)
+    {
+        try {
+            $token = JWTAuth::parseToken()->authenticate();
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return $this->sendFailedLoginResponse($request, $e, Response::HTTP_UNAUTHORIZED);
+        } catch (\Exception $e) {
+            return $this->sendFailedLoginResponse($request, $e, Response::HTTP_UNAUTHORIZED);
+        }
+
+        return $this->sendLoginResponseWithToken($request->token);
     }
 
     /**
@@ -43,29 +61,6 @@ class LoginApiController extends ApiController
     public function username()
     {
         return 'username';
-    }
-
-    /**
-     * Send the response after the user was authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    protected function sendLoginResponse(Request $request)
-    {
-        $this->clearLoginAttempts($request);
-        // $this->guard()->user()->rollApiToken();
-
-        $user = new UserResource($this->guard()->user());
-
-        $credentials = [
-            'success' => 1,
-            'user' => $user,
-            'token' => JWTAuth::getToken(),
-            'remember_token' => $user->remember_token,
-        ];
-
-        return response()->json($credentials);
     }
 
     /**
@@ -105,13 +100,15 @@ class LoginApiController extends ApiController
      * Get the failed login response instance.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  Exception|mixed $e
+     * @param  int $code
      * @return \Illuminate\Http\Response
      */
-    protected function sendFailedLoginResponse(Request $request)
+    protected function sendFailedLoginResponse(Request $request, $e, $code)
     {
         return response()->json([
             'success' => 0,
-            $this->username() => [Lang::get('auth.failed')]
-        ], 422);
+            'error' => $e->getMessage(),
+        ], $code);
     }
 }

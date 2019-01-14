@@ -1,3 +1,7 @@
+import { redirectToDashboardIfAuthenticated } from '@/middlewares/authenticatable'
+import Cookies from 'js-cookie'
+import logout from '@/utils/auth/logout'
+
 export default [
   {
     path: '/auth',
@@ -20,14 +24,7 @@ export default [
           sort: 0,
           icon: 'mdi-account-key',
         },
-        beforeEnter: (to, from, next) => {
-          next();
-          // if (user() || false) {
-          //   next({ name: 'admin' })
-          // } else {
-          //   next()
-          // }
-        },
+        beforeEnter: redirectToDashboardIfAuthenticated,
       },
       {
         path: '/logout',
@@ -35,10 +32,6 @@ export default [
         meta: {
           title: 'Signout',
           icon: 'mdi-account-key',
-        },
-        beforeEnter: (to, from, next) => {
-          logout()
-          next({ name: 'login.show' })
         },
       },
 
@@ -80,4 +73,4 @@ export default [
       // },
     ],
   },
-];
+]

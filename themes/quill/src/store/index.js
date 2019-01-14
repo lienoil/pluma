@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { modules } from '@/store/components/components'
+import { components } from '@/store/components'
+import { modules } from '@/store/modules'
 
 Vue.use(Vuex)
 
+const storeModules = Object.assign({}, modules, components)
+
 export default new Vuex.Store({
-  modules,
+  modules: storeModules,
   // Making sure that we're doing
   // everything correctly by enabling
   // strict mode in the dev environment.

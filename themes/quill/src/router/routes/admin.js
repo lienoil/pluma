@@ -21,6 +21,6 @@ export default {
   name: 'admin',
   redirect: { name: 'dashboard.index' },
   component: () => import('@/components/Layouts/Admin.vue'),
-  meta: { title: 'Admin', authenticatable: true },
+  meta: { title: 'Admin', authenticatable: false },
   children: routes,
 }

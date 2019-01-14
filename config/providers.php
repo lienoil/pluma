@@ -53,7 +53,6 @@ return [
         // Console
         Blacksmith\Providers\ConsoleSupportServiceProvider::class,
 
-        // Vendor
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ],
 

@@ -12,7 +12,7 @@
                                 <label for="email" class="col-sm-4 col-form-label text-md-right">E-Mail Address</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="text" class="form-control" v-model="email" name="username" required autofocus>
+                                    <input id="email" type="text" class="form-control" v-model="username" name="username" required autofocus>
                                 </div>
                             </div>
 
@@ -26,7 +26,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
-                                    <button @click="handleSubmit" type="submit" class="btn btn-primary">
+                                    <button @click.prevent="login" type="submit" class="btn btn-primary">
                                         Login
                                     </button>
                                 </div>
@@ -40,49 +40,29 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
-import user from '@/utils/user/user';
+import Cookies from 'js-cookie'
+import user from '@/utils/user/user'
+import store from '@/store'
+import login from '@/utils/auth/login'
 
 export default {
-  created() {
-    if (user.isLoggedIn()) {
-      // this.$router.push({name: 'dashboard.index'});
-    }
-  },
-  data(){
+  store,
+
+  data() {
     return {
-      csrfToken: window.$csrfToken,
-      email: '',
+      username: '',
       password: '',
+      csrfToken: window.$csrfToken,
     }
   },
-    methods : {
-        handleSubmit(e){
-            e.preventDefault()
 
-            axios.post('api/v1/login', {
-                username: this.email,
-                password: this.password
-              })
-              .then(response => {
-                console.log(response.data)
-                if (response.data.success) {
-                  this.$router.push({name: 'dashboard.index'});
-                }
-              })
-              .catch(function (error) {
-                console.error(error);
-              });
-            if (this.password.length > 0) {
-            }
-        }
+  methods: {
+    login: function (e) {
+      const { username, password } = this
+      login({ username, password }).then(() => {
+        this.$router.go('/admin')
+      })
     },
-    beforeRouteEnter (to, from, next) {
-        if (localStorage.getItem('jwt')) {
-            return next('board');
-        }
-
-        next();
-    }
+  }
 }
 </script>
