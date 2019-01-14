@@ -13,14 +13,15 @@
           <v-card class="mb-3">
             <v-layout
               justify-space-between
+              row wrap
               pa-3
               >
               <v-flex md5 xs12>
                 <v-treeview
                   :active.sync="active"
                   :items="items"
-                  :load-children="fetchUsers"
-                  :open.sync="open"
+                  :load-children="fetchPosts"
+                  :open="open"
                   activatable
                   active-class="primary--text"
                   flat
@@ -32,19 +33,30 @@
                     slot="prepend"
                     slot-scope="{ item, active }"
                     :color="active ? 'primary' : ''"
-                  >mdi-account</v-icon>
+                    >
+                    mdi-account
+                  </v-icon>
                 </v-treeview>
+                <v-layout justify-start align-start>
+                  <v-btn flat color="secondary">
+                    <v-icon left>add</v-icon>
+                    {{ __('Add New Chapter') }}
+                  </v-btn>
+                </v-layout>
+
+                <v-layout justify-start align-start>
+
+                </v-layout>
               </v-flex>
-              <v-flex
-                d-flex
-                text-xs-center
-                >
+
+              <!-- view -->
+              <v-flex md7 xs12>
                 <v-scroll-y-transition mode="out-in">
                   <div
                     v-if="!selected"
                     style="align-self: center;"
                     >
-                    Select a User
+                    Select a Course
                   </div>
                   <v-card
                     v-else
@@ -55,44 +67,22 @@
                     >
                     <v-card-text>
                       <h3 class="headline mb-2">
-                        {{ selected.name }}
+                        {{ selected.title }}
                       </h3>
-                      <div class="blue--text mb-2">{{ selected.email }}</div>
-                      <!-- <div class="blue--text subheading font-weight-bold">{{ selected.username }}</div> -->
+                      <div class="blue--text mb-2">{{ selected.body }}</div>
                     </v-card-text>
-                    <v-divider></v-divider>
-                    <v-layout
-                      tag="v-card-text"
-                      text-xs-left
-                      wrap
-                      >
-                      <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Company:</v-flex>
-                      <v-flex>{{ selected.company.name }}</v-flex>
-                      <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Website:</v-flex>
-                      <v-flex>
-                        <a :href="`//${selected.website}`" target="_blank">{{ selected.website }}</a>
-                      </v-flex>
-                      <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Phone:</v-flex>
-                      <v-flex>{{ selected.phone }}</v-flex>
-                    </v-layout>
                   </v-card>
                 </v-scroll-y-transition>
               </v-flex>
             </v-layout>
-            <v-card-actions>
-              <v-btn color="secondary outline">{{ __('Add New Chapter') }}</v-btn>
-            </v-card-actions>
           </v-card>
 
-
           <!-- create form -->
-
           <v-card>
            <v-flex sm6 xs12>
               <v-text-field
                 label="Lesson"
                 box
-                placeholder=""
               ></v-text-field>
             </v-flex>
           </v-card>
@@ -110,8 +100,8 @@ export default {
     return {
       active: [],
       avatar: null,
-      open: [],
-      users: []
+      open: ['Chapter 1'],
+      posts: [],
     }
   },
 
@@ -119,8 +109,8 @@ export default {
     items () {
       return [
         {
-          name: 'Courses',
-          children: this.users
+          name: 'Chapter 1',
+          children: this.posts
         }
       ]
     },
@@ -129,28 +119,28 @@ export default {
 
       const id = this.active[0]
 
-      return this.users.find(user => user.id === id)
+      return this.posts.find(post => post.id === id)
     }
   },
 
-  watch: {
-    selected: 'randomAvatar'
-  },
+  // watch: {
+  //   selected: 'randomAvatar'
+  // },
 
   methods: {
-    async fetchUsers (item) {
+    async fetchPosts (item) {
       // Remove in 6 months and say
       // you've made optimizations! :)
       // await pause(400)
 
-      return fetch('https://jsonplaceholder.typicode.com/users')
+      return fetch('https://jsonplaceholder.typicode.com/posts')
         .then(res => res.json())
         .then(json => (item.children.push(...json)))
         .catch(err => console.warn(err))
     },
-    randomAvatar () {
-      this.avatar = avatars[Math.floor(Math.random() * avatars.length)]
-    }
+    // randomAvatar () {
+    //   this.avatar = avatars[Math.floor(Math.random() * avatars.length)]
+    // }
   }
 }
 </script>
