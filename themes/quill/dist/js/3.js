@@ -119,6 +119,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Create',
   data: function data() {
@@ -261,7 +278,8 @@ var render = function() {
                                   "active-class": "primary--text",
                                   flat: "",
                                   "open-on-click": "",
-                                  transition: ""
+                                  transition: "",
+                                  "prepend-icon": "home"
                                 },
                                 on: {
                                   "update:active": function($event) {
@@ -320,14 +338,7 @@ var render = function() {
                                   )
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
-                              _c("v-layout", {
-                                attrs: {
-                                  "justify-start": "",
-                                  "align-start": ""
-                                }
-                              })
+                              )
                             ],
                             1
                           ),
@@ -350,7 +361,11 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                  Select a Course\n                "
+                                            "\n                  " +
+                                              _vm._s(
+                                                _vm.__("Select a Course")
+                                              ) +
+                                              "\n                "
                                           )
                                         ]
                                       )
@@ -365,31 +380,53 @@ var render = function() {
                                           }
                                         },
                                         [
-                                          _c("v-card-text", [
-                                            _c(
-                                              "h3",
-                                              { staticClass: "headline mb-2" },
-                                              [
-                                                _vm._v(
-                                                  "\n                      " +
-                                                    _vm._s(_vm.selected.title) +
-                                                    "\n                    "
+                                          _c(
+                                            "v-card",
+                                            {
+                                              staticClass:
+                                                "card--emptystate mb-3 text-xs-center grey lighten-4",
+                                              attrs: { flat: "" }
+                                            },
+                                            [
+                                              _c("v-card-text", [
+                                                _c(
+                                                  "h3",
+                                                  {
+                                                    staticClass:
+                                                      "subheading font-weight-normal grey--text"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.__(
+                                                          "Upload Interactive Content"
+                                                        )
+                                                      )
+                                                    )
+                                                  ]
                                                 )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass: "blue--text mb-2"
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(_vm.selected.body)
-                                                )
-                                              ]
-                                            )
-                                          ])
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Part Title",
+                                              box: ""
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-text-field", {
+                                            attrs: { label: "Icon", box: "" }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Part Description",
+                                              box: ""
+                                            }
+                                          })
                                         ],
                                         1
                                       )

@@ -11232,6 +11232,10 @@ table.v-table tfoot tr td {
   position: absolute;
   width: 100%;
 }
+.card--emptystate {
+  border: 1px dashed #d2d2d2 !important;
+  box-shadow: none !important;
+}
 .v-expansion-panel .v-expansion-panel__container .v-expansion-panel__header {
   margin-top: 16px !important;
   margin-bottom: 16px !important;

@@ -27,6 +27,7 @@
                   flat
                   open-on-click
                   transition
+                  prepend-icon="home"
                   >
                   <v-icon
                     v-if="!item.children"
@@ -43,10 +44,6 @@
                     {{ __('Add New Chapter') }}
                   </v-btn>
                 </v-layout>
-
-                <v-layout justify-start align-start>
-
-                </v-layout>
               </v-flex>
 
               <!-- view -->
@@ -56,7 +53,7 @@
                     v-if="!selected"
                     style="align-self: center;"
                     >
-                    Select a Course
+                    {{ __('Select a Course') }}
                   </div>
                   <v-card
                     v-else
@@ -65,12 +62,32 @@
                     flat
                     max-width="400"
                     >
-                    <v-card-text>
-                      <h3 class="headline mb-2">
+                    <!-- <v-card-text>
+                      <h3 class="title mb-3">
                         {{ selected.title }}
                       </h3>
-                      <div class="blue--text mb-2">{{ selected.body }}</div>
-                    </v-card-text>
+                      <p class="mb-3">{{ selected.body }}</p>
+                    </v-card-text> -->
+                    <v-card flat class="card--emptystate mb-3 text-xs-center grey lighten-4">
+                      <v-card-text>
+                        <h3 class="subheading font-weight-normal grey--text">{{ __('Upload Interactive Content') }}</h3>
+                      </v-card-text>
+                    </v-card>
+                    <v-text-field
+                      label="Part Title"
+                      box
+                      >
+                    </v-text-field>
+                    <v-text-field
+                      label="Icon"
+                      box
+                      >
+                    </v-text-field>
+                    <v-text-field
+                      label="Part Description"
+                      box
+                      >
+                    </v-text-field>
                   </v-card>
                 </v-scroll-y-transition>
               </v-flex>

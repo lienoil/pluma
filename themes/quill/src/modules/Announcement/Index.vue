@@ -1,165 +1,189 @@
 <template>
   <section>
-    <v-toolbar class="primary" dark>
-      <v-toolbar-title>
-        {{ __('All Anouncements') }}
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn color="secondary">
-        {{ __('Create') }}
-      </v-btn>
-    </v-toolbar>
+    <template v-if="dataset.loaded">
+      <toolbar-menu :items="toolbar"></toolbar-menu>
+      <v-container fluid grid-list-lg>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-card flat class="mb-3">
+              <v-data-table
+                v-model="resource.selected"
+                :headers="resource.headers"
+                :items="resource.items"
+                :pagination.sync="resource.pagination"
+                select-all
+                item-key="title"
+                class="elevation-1"
+                >
+                <template slot="headerCell" slot-scope="props">
+                  <span>
+                    {{ trans(props.header.text) }}
+                  </span>
+                </template>
+                <template slot="items" slot-scope="props">
+                  <tr :active="props.selected" @click="props.selected = !props.selected">
+                    <td>
+                      <v-checkbox
+                        :input-value="props.selected"
+                        primary
+                        hide-details
+                      ></v-checkbox>
+                    </td>
+                    <td v-html="props.item.id"></td>
+                    <td class="table--ellipsis">
+                      <v-tooltip
+                        max-width="300"
+                        bottom
+                        >
+                        <span slot="activator" v-html="trans(props.item.title)"></span>
+                        <span v-html="trans(props.item.title)"></span>
+                      </v-tooltip>
+                    </td>
+                    <td v-html="props.item.author"></td>
+                    <td v-html="props.item.categoryname"></td>
+                    <td v-html="props.item.created"></td>
+                    <td v-html="props.item.modified"></td>
+                    <td class="layout mx-0 justify-center">
+                      <v-tooltip bottom>
+                        <v-btn
+                          slot="activator"
+                          icon
+                          :to="{
+                            name: 'announcements.show',
+                            params: {
+                              code: props.item.code,
+                              meta: { item: props.item }
+                            },
+                          }"
+                          >
+                          <v-icon
+                            small
+                            class="mx-3"
+                            >
+                            mdi-open-in-new
+                          </v-icon>
+                        </v-btn>
+                        <span>{{ trans('View Details') }}</span>
+                      </v-tooltip>
+                      <v-tooltip bottom>
+                        <v-btn
+                          slot="activator"
+                          icon
+                          :to="{
+                            name: 'announcements.edit',
+                            params: {
+                              code: props.item.code,
+                              meta: { item: props.item }
+                            },
+                          }"
+                          >
+                          <v-icon
+                            small
+                            class="mx-3"
+                            >
+                            mdi-circle-edit-outline
+                          </v-icon>
+                        </v-btn>
+                        <span>{{ trans('Edit') }}</span>
+                      </v-tooltip>
+                      <v-tooltip bottom>
+                        <v-btn slot="activator" icon>
+                          <v-icon
+                            small
+                            class="mx-3"
+                            >
+                            mdi-delete-outline
+                          </v-icon>
+                        </v-btn>
+                        <span>
+                          {{ trans('Move to Archive') }}
+                        </span>
+                      </v-tooltip>
+                    </td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-card>
 
-    <v-container fluid grid-list-lg>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-card>
-            <v-card-text>
-              {{ __('Lorem ipsum dolor') }}
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+            <v-card flat class="mb-3">
+              <!-- <data-table :items="resource"></data-table> -->
+            </v-card>
+
+            <v-card flat class="mb-3">
+              <!-- <data-table :items="resource"></data-table> -->
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </template>
+
+    <template v-else>
+      <v-card flat class="transparent">
+        <v-card-text>
+          <empty-state></empty-state>
+        </v-card-text>
+      </v-card>
+    </template>
   </section>
 </template>
 
 <script>
-// import EmptyState from './partials/EmptyState'
+import store from '@/store'
+// import axios from 'axios'
+import EmptyState from './partials/EmptyState'
 
 export default {
+  store,
+
   name: 'Index',
 
   components: {
-    // EmptyState
+    EmptyState
   },
+
+  // created () {
+  //   axios.get('/api/v1/announcements/all').then(response => {
+  //     this.resource.items = response.data.data
+  //   })
+  // },
 
   data () {
     return {
-      pagination: {
-        sortBy: 'name'
+      dataset: {
+        loaded: true,
       },
-      selected: [],
-      headers: [
-        {
-          text: 'Dessert (100g serving)',
-          align: 'left',
-          value: 'name'
+      bulk: {
+        destroy: {
+          model: false,
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' }
-      ],
-      desserts: [
-        {
-          value: false,
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%'
+      },
+      toolbar: {
+        title: 'All Announcements',
+        listGridView: false,
+        createBtn: {
+          name: 'announcements.create',
         },
-        {
-          value: false,
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%'
+        archivedBtn: {
+          name: 'announcements.archived',
         },
-        {
-          value: false,
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%'
+      },
+      resource: {
+        items: [],
+        data: null,
+        pagination: {
+          sortBy: 'title'
         },
-        {
-          value: false,
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%'
-        },
-        {
-          value: false,
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%'
-        },
-        {
-          value: false,
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%'
-        },
-        {
-          value: false,
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%'
-        },
-        {
-          value: false,
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%'
-        },
-        {
-          value: false,
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%'
-        },
-        {
-          value: false,
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%'
-        }
-      ]
+        headers: [
+          { text: 'ID', align: 'left', value: 'id' },
+          { text: 'Title', align: 'left', value: 'title' },
+          { text: 'Author', align: 'left', value: 'user_id' },
+          { text: 'Category', align: 'left', value: 'category_at' },
+          { text: 'Created', align: 'left', value: 'created_at' },
+          { text: 'Modified', align: 'left', value: 'updated_at' },
+          { text: 'Actions', align: 'center', sortable: false },
+        ],
+      },
     }
   },
-
-  methods: {
-    toggleAll () {
-      if (this.selected.length) this.selected = []
-      else this.selected = this.desserts.slice()
-    },
-    changeSort (column) {
-      if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending
-      } else {
-        this.pagination.sortBy = column
-        this.pagination.descending = false
-      }
-    }
-  }
 }
 </script>
