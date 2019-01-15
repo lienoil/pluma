@@ -149,11 +149,13 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     EmptyState: _partials_EmptyState__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  // created () {
-  //   axios.get('/api/v1/announcements/all').then(response => {
-  //     this.resource.items = response.data.data
-  //   })
-  // },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/v1/users/all').then(function (response) {
+      _this.resource.items = response.data.data;
+    });
+  },
   data: function data() {
     return {
       dataset: {

@@ -134,18 +134,17 @@ import EmptyState from './partials/EmptyState'
 
 export default {
   store,
-
   name: 'Index',
 
   components: {
     EmptyState
   },
 
-  // created () {
-  //   axios.get('/api/v1/announcements/all').then(response => {
-  //     this.resource.items = response.data.data
-  //   })
-  // },
+  created () {
+    axios.get('/api/v1/users/all').then(response => {
+      this.resource.items = response.data.data
+    })
+  },
 
   data () {
     return {
@@ -185,5 +184,16 @@ export default {
       },
     }
   },
+
+  // mounted() {
+  //   let token = window.localStorage.getItem('jwt');
+
+  //   window.axios.defaults.headers.common['Content-Type'] = 'application/json'
+  //   window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+
+  //   window.axios.get('/api/v1/users/all').then(response => {
+  //     console.log(response);
+  //   });
+  // }
 }
 </script>

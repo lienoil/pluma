@@ -58724,6 +58724,42 @@ __webpack_require__.r(__webpack_exports__);
       icon: 'mdi-book-multiple-variant'
     }
   }, {
+    path: 'create',
+    props: true,
+    name: 'announcements.create',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../Create.vue */ "./src/modules/Announcement/Create.vue"));
+    },
+    meta: {
+      title: 'Create Announcement',
+      authenticatable: true,
+      icon: 'mdi-delete-outline'
+    }
+  }, {
+    path: 'show',
+    props: true,
+    name: 'announcements.show',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../Show.vue */ "./src/modules/Announcement/Show.vue"));
+    },
+    meta: {
+      title: 'Show Announcement',
+      authenticatable: true,
+      icon: 'mdi-delete-outline'
+    }
+  }, {
+    path: 'edit',
+    props: true,
+    name: 'announcements.edit',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../Edit.vue */ "./src/modules/Announcement/Edit.vue"));
+    },
+    meta: {
+      title: 'Edit Announcement',
+      authenticatable: true,
+      icon: 'mdi-delete-outline'
+    }
+  }, {
     path: 'archived',
     props: true,
     name: 'announcements.archived',
@@ -58841,7 +58877,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/admin/dashboard',
   name: 'dashboard.index',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../Dashboard.vue */ "./src/modules/Dashboard/Dashboard.vue"));
+    return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../Dashboard.vue */ "./src/modules/Dashboard/Dashboard.vue"));
   },
   meta: {
     title: 'Dashboard',
@@ -58948,7 +58984,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/',
     name: 'courses.index',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../Index.vue */ "./src/modules/Yggdrasil/Course/Index.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../Index.vue */ "./src/modules/Yggdrasil/Course/Index.vue"));
     },
     meta: {
       title: 'Courses',
@@ -58961,7 +58997,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/admin/courses/create',
     name: 'courses.create',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../Create.vue */ "./src/modules/Yggdrasil/Course/Create.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(10), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../Create.vue */ "./src/modules/Yggdrasil/Course/Create.vue"));
     },
     meta: {
       title: 'New Courses',
@@ -58973,7 +59009,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/admin/courses/archived',
     name: 'courses.archived',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../Trashed.vue */ "./src/modules/Yggdrasil/Course/Trashed.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../Trashed.vue */ "./src/modules/Yggdrasil/Course/Trashed.vue"));
     },
     meta: {
       title: 'Archived Courses',
@@ -59451,8 +59487,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/princess/Projects/pluma/themes/quill/src/app.js */"./src/app.js");
-module.exports = __webpack_require__(/*! /home/princess/Projects/pluma/themes/quill/src/stylus/main.styl */"./src/stylus/main.styl");
+__webpack_require__(/*! /home/princess/Projects/pluma_/themes/quill/src/app.js */"./src/app.js");
+module.exports = __webpack_require__(/*! /home/princess/Projects/pluma_/themes/quill/src/stylus/main.styl */"./src/stylus/main.styl");
 
 
 /***/ })
