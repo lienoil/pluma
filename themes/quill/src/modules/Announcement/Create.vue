@@ -8,7 +8,7 @@
             action="/api/v1/users/store"
             @submit.prevent="storeData"
             >
-            <v-text-field
+            <!-- <v-text-field
               label="First Name"
               box
               v-model="dataset.firstname"
@@ -41,16 +41,63 @@
               box
               v-model="dataset.password"
               >
-            </v-text-field>
+            </v-text-field> -->
 
-            <v-textarea
-              name="input-7-1"
-              box
+            <v-text-field
+              :data-vv-as="trans('First Name')"
+              :error-messages="errors.collect('firstname')"
+              v-validate="'required'"
+              outline
+              autofocus
+              label="First Name"
+              name="firstname"
+              v-model="dataset.firstname"
+            ></v-text-field>
+
+            <v-text-field
+              :data-vv-as="trans('Last Name')"
+              :error-messages="errors.collect('lastname')"
+              v-validate="'required'"
+              outline
+              autofocus
+              label="Last Name"
+              name="lastname"
+              v-model="dataset.lastname"
+            ></v-text-field>
+
+            <v-text-field
+              :data-vv-as="trans('Username')"
+              :error-messages="errors.collect('username')"
+              v-validate="'required'"
+              outline
+              autofocus
               label="Username"
+              name="username"
               v-model="dataset.username"
-              auto-grow
-            ></v-textarea>
+            ></v-text-field>
 
+            <v-text-field
+              :data-vv-as="trans('Email Address')"
+              :error-messages="errors.collect('email')"
+              v-validate="'required'"
+              outline
+              autofocus
+              label="Email Address"
+              name="email"
+              v-model="dataset.email"
+            ></v-text-field>
+
+            <v-text-field
+              :data-vv-as="trans('Password')"
+              :error-messages="errors.collect('password')"
+              v-validate="'required'"
+              outline
+              autofocus
+              label="Password"
+              name="password"
+              type="password"
+              v-model="dataset.password"
+            ></v-text-field>
             <v-btn class="secondary" type="submit">{{ __('Create') }}</v-btn>
           </v-form>
         </v-flex>

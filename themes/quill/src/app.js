@@ -14,6 +14,7 @@ import './plugins/vuetify/vuetify.js';
 import './plugins/vue/vue.js';
 import './plugins/mdi/fonts.js';
 import './plugins/axios/axios.js';
+import './plugins/vee-validate/vee-validate.js';
 import '@/plugins';
 
 import router from './router/index';

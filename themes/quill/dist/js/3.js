@@ -71,6 +71,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   $_veeValidate: {
@@ -151,7 +198,22 @@ var render = function() {
                     },
                     [
                       _c("v-text-field", {
-                        attrs: { label: "First Name", box: "" },
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        attrs: {
+                          "data-vv-as": _vm.trans("First Name"),
+                          "error-messages": _vm.errors.collect("firstname"),
+                          outline: "",
+                          autofocus: "",
+                          label: "First Name",
+                          name: "firstname"
+                        },
                         model: {
                           value: _vm.dataset.firstname,
                           callback: function($$v) {
@@ -162,7 +224,22 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { label: "Last Name", box: "" },
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        attrs: {
+                          "data-vv-as": _vm.trans("Last Name"),
+                          "error-messages": _vm.errors.collect("lastname"),
+                          outline: "",
+                          autofocus: "",
+                          label: "Last Name",
+                          name: "lastname"
+                        },
                         model: {
                           value: _vm.dataset.lastname,
                           callback: function($$v) {
@@ -173,7 +250,22 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { label: "Username", box: "" },
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        attrs: {
+                          "data-vv-as": _vm.trans("Username"),
+                          "error-messages": _vm.errors.collect("username"),
+                          outline: "",
+                          autofocus: "",
+                          label: "Username",
+                          name: "username"
+                        },
                         model: {
                           value: _vm.dataset.username,
                           callback: function($$v) {
@@ -184,7 +276,22 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { label: "Email Address", box: "" },
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        attrs: {
+                          "data-vv-as": _vm.trans("Email Address"),
+                          "error-messages": _vm.errors.collect("email"),
+                          outline: "",
+                          autofocus: "",
+                          label: "Email Address",
+                          name: "email"
+                        },
                         model: {
                           value: _vm.dataset.email,
                           callback: function($$v) {
@@ -195,29 +302,29 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { label: "Password", box: "" },
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        attrs: {
+                          "data-vv-as": _vm.trans("Password"),
+                          "error-messages": _vm.errors.collect("password"),
+                          outline: "",
+                          autofocus: "",
+                          label: "Password",
+                          name: "password",
+                          type: "password"
+                        },
                         model: {
                           value: _vm.dataset.password,
                           callback: function($$v) {
                             _vm.$set(_vm.dataset, "password", $$v)
                           },
                           expression: "dataset.password"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-textarea", {
-                        attrs: {
-                          name: "input-7-1",
-                          box: "",
-                          label: "Username",
-                          "auto-grow": ""
-                        },
-                        model: {
-                          value: _vm.dataset.username,
-                          callback: function($$v) {
-                            _vm.$set(_vm.dataset, "username", $$v)
-                          },
-                          expression: "dataset.username"
                         }
                       }),
                       _vm._v(" "),

@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@mdi/font": "^3.3.92",
+    "vee-validate": "^2.1.5",
     "vue-router": "^3.0.2",
     "vuetify": "^1.4.1",
     "vuex": "^3.0.1"
