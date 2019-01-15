@@ -83,12 +83,6 @@ __webpack_require__.r(__webpack_exports__);
       dataset: []
     };
   },
-  // created () {
-  //   console.log(this.categories.items, 'data')
-  //   axios.get('/api/v1/categories/announcements/all').then(response => {
-  //     this.categories.items = response.data.data
-  //   })
-  // },
   methods: {
     beforeFormSubmit: function beforeFormSubmit() {
       var _this = this;
@@ -108,10 +102,6 @@ __webpack_require__.r(__webpack_exports__);
           name: 'users'
         });
       });
-    },
-    remove: function remove(item) {
-      var index = this.categoryModel.indexOf(item.name);
-      if (index >= 0) this.categoryModel.splice(index, 1);
     }
   }
 });
