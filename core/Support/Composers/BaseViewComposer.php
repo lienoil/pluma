@@ -122,11 +122,17 @@ class BaseViewComposer
      */
     public function getRouteNameFromUrl($url)
     {
-        return app('router')
-                ->getRoutes()
-                ->match(
-                    app('request')->create($url)
-                )->getName();
+        try {
+            $app = app('router')
+                    ->getRoutes()
+                    ->match(
+                        app('request')->create($url)
+                    )->getName();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+        return $app ?? '';
     }
 
     /**

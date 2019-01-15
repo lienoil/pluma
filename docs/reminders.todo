@@ -1,0 +1,5 @@
+What o unit test first?
+> Repository classes
+    - model mehthod reutrns model
+    - rules method returns an array and all required fields.
+> Controller classes

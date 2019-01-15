@@ -87,14 +87,25 @@ class ApplicationViewComposer extends BaseViewComposer
         });
     }
 
+    /**
+     * Retrieve the Page model instance of the page if appicable.
+     *
+     * @return mixed
+     */
     private function model()
     {
-        $url = explode("/", $this->getCurrentUrl());
-        $slug = end($url);
+        $table = (new Page)->getTable();
+        if (Schema::hasTable($table)) {
+            $url = explode("/", $this->getCurrentUrl());
+            $slug = end($url);
 
-        return Page::whereCode($slug)->exists()
-            ? Page::whereCode($slug)->first()
-            : false;
+            return Page::whereCode($slug)->exists()
+                ? Page::whereCode($slug)->first()
+                : false;
+
+        }
+
+        return false;
     }
 
     private function site()

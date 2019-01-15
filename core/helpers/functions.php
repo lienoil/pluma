@@ -548,8 +548,12 @@ if (! function_exists('get_menu')) {
      */
     function get_menu($location)
     {
-        $menus = \Menu\Models\Menu::menus($location);
+        $table = (new \Menu\Models\Menu)->getTable();
+        if (Schema::hasTable($table)) {
+            $menus = \Menu\Models\Menu::menus($location);
 
-        return json_decode(json_encode($menus));
+        }
+
+        return json_decode(json_encode($menus ?? []));
     }
 }
