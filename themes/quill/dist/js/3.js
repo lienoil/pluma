@@ -67,8 +67,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  $_veeValidate: {
+    validator: 'new'
+  },
   store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
   name: 'Create',
   data: function data() {
@@ -76,15 +83,35 @@ __webpack_require__.r(__webpack_exports__);
       dataset: []
     };
   },
+  // created () {
+  //   console.log(this.categories.items, 'data')
+  //   axios.get('/api/v1/categories/announcements/all').then(response => {
+  //     this.categories.items = response.data.data
+  //   })
+  // },
   methods: {
-    storeData: function storeData() {
+    beforeFormSubmit: function beforeFormSubmit() {
       var _this = this;
 
+      this.$validator.reset();
+      this.$validator.validateAll().then(function (ok) {
+        if (ok) {
+          _this.storeData();
+        }
+      });
+    },
+    storeData: function storeData() {
+      var _this2 = this;
+
       axios.post('/api/v1/users/store', this.dataset).then(function (response) {
-        _this.$router.push({
+        _this2.$router.push({
           name: 'users'
         });
       });
+    },
+    remove: function remove(item) {
+      var index = this.categoryModel.indexOf(item.name);
+      if (index >= 0) this.categoryModel.splice(index, 1);
     }
   }
 });
@@ -117,98 +144,104 @@ var render = function() {
             "v-layout",
             { attrs: { row: "", wrap: "" } },
             [
-              _c("v-flex", { attrs: { sm6: "", xs12: "" } }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.storeData($event)
+              _c(
+                "v-flex",
+                { attrs: { sm6: "", xs12: "" } },
+                [
+                  _c(
+                    "v-form",
+                    {
+                      attrs: { method: "POST", action: "/api/v1/users/store" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.storeData($event)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("v-text-field", {
-                      attrs: { label: "First Name", box: "" },
-                      model: {
-                        value: _vm.dataset.firstname,
-                        callback: function($$v) {
-                          _vm.$set(_vm.dataset, "firstname", $$v)
+                    },
+                    [
+                      _c("v-text-field", {
+                        attrs: { label: "First Name", box: "" },
+                        model: {
+                          value: _vm.dataset.firstname,
+                          callback: function($$v) {
+                            _vm.$set(_vm.dataset, "firstname", $$v)
+                          },
+                          expression: "dataset.firstname"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { label: "Last Name", box: "" },
+                        model: {
+                          value: _vm.dataset.lastname,
+                          callback: function($$v) {
+                            _vm.$set(_vm.dataset, "lastname", $$v)
+                          },
+                          expression: "dataset.lastname"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { label: "Username", box: "" },
+                        model: {
+                          value: _vm.dataset.username,
+                          callback: function($$v) {
+                            _vm.$set(_vm.dataset, "username", $$v)
+                          },
+                          expression: "dataset.username"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { label: "Email Address", box: "" },
+                        model: {
+                          value: _vm.dataset.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.dataset, "email", $$v)
+                          },
+                          expression: "dataset.email"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { label: "Password", box: "" },
+                        model: {
+                          value: _vm.dataset.password,
+                          callback: function($$v) {
+                            _vm.$set(_vm.dataset, "password", $$v)
+                          },
+                          expression: "dataset.password"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-textarea", {
+                        attrs: {
+                          name: "input-7-1",
+                          box: "",
+                          label: "Username",
+                          "auto-grow": ""
                         },
-                        expression: "dataset.firstname"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: { label: "Last Name", box: "" },
-                      model: {
-                        value: _vm.dataset.lastname,
-                        callback: function($$v) {
-                          _vm.$set(_vm.dataset, "lastname", $$v)
-                        },
-                        expression: "dataset.lastname"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: { label: "Username", box: "" },
-                      model: {
-                        value: _vm.dataset.username,
-                        callback: function($$v) {
-                          _vm.$set(_vm.dataset, "username", $$v)
-                        },
-                        expression: "dataset.username"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: { label: "Email Address", box: "" },
-                      model: {
-                        value: _vm.dataset.email,
-                        callback: function($$v) {
-                          _vm.$set(_vm.dataset, "email", $$v)
-                        },
-                        expression: "dataset.email"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      attrs: { label: "Password", box: "" },
-                      model: {
-                        value: _vm.dataset.password,
-                        callback: function($$v) {
-                          _vm.$set(_vm.dataset, "password", $$v)
-                        },
-                        expression: "dataset.password"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-textarea", {
-                      attrs: {
-                        name: "input-7-1",
-                        box: "",
-                        label: "Username",
-                        "auto-grow": ""
-                      },
-                      model: {
-                        value: _vm.dataset.username,
-                        callback: function($$v) {
-                          _vm.$set(_vm.dataset, "username", $$v)
-                        },
-                        expression: "dataset.username"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "v-btn",
-                      { staticClass: "secondary", attrs: { type: "submit" } },
-                      [_vm._v(_vm._s(_vm.__("Create")))]
-                    )
-                  ],
-                  1
-                )
-              ])
+                        model: {
+                          value: _vm.dataset.username,
+                          callback: function($$v) {
+                            _vm.$set(_vm.dataset, "username", $$v)
+                          },
+                          expression: "dataset.username"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        { staticClass: "secondary", attrs: { type: "submit" } },
+                        [_vm._v(_vm._s(_vm.__("Create")))]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )

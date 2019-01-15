@@ -3,7 +3,11 @@
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <v-flex sm6 xs12>
-          <form @submit.prevent="storeData">
+          <v-form
+            method="POST"
+            action="/api/v1/users/store"
+            @submit.prevent="storeData"
+            >
             <v-text-field
               label="First Name"
               box
@@ -48,7 +52,7 @@
             ></v-textarea>
 
             <v-btn class="secondary" type="submit">{{ __('Create') }}</v-btn>
-          </form>
+          </v-form>
         </v-flex>
       </v-layout>
     </v-container>
@@ -59,21 +63,47 @@
 import store from '@/store'
 
 export default {
+  $_veeValidate: {
+    validator: 'new'
+  },
+
   store,
   name: 'Create',
 
-  data() {
+  data () {
     return {
       dataset: []
     }
   },
 
+  // created () {
+  //   console.log(this.categories.items, 'data')
+  //   axios.get('/api/v1/categories/announcements/all').then(response => {
+  //     this.categories.items = response.data.data
+  //   })
+  // },
+
   methods: {
-    storeData() {
+    beforeFormSubmit () {
+      this.$validator.reset()
+      this.$validator.validateAll()
+        .then(ok => {
+          if (ok) {
+            this.storeData()
+          }
+        })
+    },
+
+    storeData () {
       axios.post('/api/v1/users/store', this.dataset).then((response) => {
         this.$router.push({name: 'users'})
       })
     },
+
+    remove (item) {
+      const index = this.categoryModel.indexOf(item.name)
+      if (index >= 0) this.categoryModel.splice(index, 1)
+    }
   },
 }
 </script>
