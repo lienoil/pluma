@@ -4,6 +4,7 @@ $sidebar-width-full: 250px;
 $sidebar-width-min: 50px;
 $sidebar-brand-height: 40px;
 $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
+
 .sidebar {
   background: var(--sidebar-bg);
   color: var(--sidebar-color);
@@ -57,7 +58,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
     width: 100%;
 
     &:hover {
-      color: rgba(var(--primary), .5);
+      color: rgba(var(--sidebar-color-active), .5);
       text-decoration: none;
     }
 
@@ -115,7 +116,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
 
           &:hover, &:active, &:focus {
             background: transparent;
-            color: var(--primary);
+            color: var(--sidebar-color-active);
           }
 
           .icon, &-icon {
@@ -196,7 +197,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
 
   &-dropdown-item,
   &-item-link {
-    color: var(--body-color);
+    color: var(--sidebar-color);
   }
 
   &-group-separator {

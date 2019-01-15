@@ -1,3 +1,10 @@
-Menu is sub of Page
-
-Appearance remove prefix on submodules
+ ☐ Revisit forge:module
+ ☐ Menu is sub of Page
+ ☐ Appearance remove prefix on submodules
+ ☐ revisit controller commands
+ ☐ add category controller stub
+ ☐ update categoryRequest
+ ☐ fields.input add alias as fields.text
+ ☐ Add repeater field
+ ☐ selectpicker min-width:     min-width: 43px;
+ ☐ Add .form-title class with 2x (twice) font-size or $font-size-lg.

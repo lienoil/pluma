@@ -6,7 +6,7 @@
       <div class="col-lg-3">
         <form class="card" action="{{ $action ?? route('categories.store') }}" method="POST">
           {{ csrf_field() }}
-          <input type="hidden" name="type" value="{{ $repository->type() }}">
+          <input type="hidden" name="type" value="{{ $repository->type() ?? null }}">
           <div class="card-header border-0">
             @section('form:title')
               <h1 class="card-title">{{ __("New Category") }}</h1>
