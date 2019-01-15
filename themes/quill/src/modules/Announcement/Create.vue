@@ -77,6 +77,17 @@
             ></v-text-field>
 
             <v-text-field
+              :data-vv-as="trans('Avatar')"
+              :error-messages="errors.collect('avatar')"
+              outline
+              autofocus
+              label="Avatar"
+              name="avatar"
+              v-model="dataset.avatar"
+              >
+            </v-text-field>
+
+            <v-text-field
               :data-vv-as="trans('Email Address')"
               :error-messages="errors.collect('email')"
               v-validate="'required'"

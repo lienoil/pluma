@@ -118,6 +118,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   $_veeValidate: {
@@ -272,6 +283,24 @@ var render = function() {
                             _vm.$set(_vm.dataset, "username", $$v)
                           },
                           expression: "dataset.username"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          "data-vv-as": _vm.trans("Avatar"),
+                          "error-messages": _vm.errors.collect("avatar"),
+                          outline: "",
+                          autofocus: "",
+                          label: "Avatar",
+                          name: "avatar"
+                        },
+                        model: {
+                          value: _vm.dataset.avatar,
+                          callback: function($$v) {
+                            _vm.$set(_vm.dataset, "avatar", $$v)
+                          },
+                          expression: "dataset.avatar"
                         }
                       }),
                       _vm._v(" "),
