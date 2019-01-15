@@ -28,14 +28,21 @@ class CategoryController extends GeneralController
     protected $type = 'category';
 
     /**
+     * The category folder of the resource views.
+     *
+     * @var string
+     */
+    protected $folder = 'categories';
+
+    /**
      * Inject the resource model to the repository instance.
      *
      */
-    public function __construct()
+    public function __construct(CategoryRepository $repository)
     {
-        $this->repository = new CategoryRepository();
-
         parent::__construct();
+
+        $this->repository = $repository;
     }
 
     /**
@@ -49,9 +56,10 @@ class CategoryController extends GeneralController
     {
         $type = $this->type;
         $hintpath = $this->hintpath;
+        $folder = $this->folder;
         $resource = Category::findOrFail($id);
 
-        return view("{$hintpath}::categories.edit")->with(compact('resource', 'type'));
+        return view("{$hintpath}::{$folder}.edit")->with(compact('resource', 'type'));
     }
 
     /**

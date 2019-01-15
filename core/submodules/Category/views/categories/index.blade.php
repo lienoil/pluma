@@ -8,11 +8,11 @@
           {{ csrf_field() }}
           <input type="hidden" name="type" value="{{ $repository->type() }}">
           <div class="card-header border-0">
-            @section('formcreate:title')
+            @section('form:title')
               <h1 class="card-title">{{ __("New Category") }}</h1>
             @show
           </div>
-          @section('formcreate:body')
+          @section('form:body')
             <div class="card-body">
               <div class="form-group">
                 <label for="form-name" class="form-label">{{ __('Name') }}</label>
@@ -59,11 +59,11 @@
       <div class="col-lg-9">
         <div class="card card-table card-sm">
           <div class="card-header border-x">
-            @section('tablelist:title')
+            @section('table:title')
               <h1 class="card-title">{{ __('All Categories') }}</h1>
             @show
           </div>
-          @section('tablelist:body')
+          @section('table:body')
             <div class="table-responsive">
               <table class="table table-sm table-striped">
                 <thead>

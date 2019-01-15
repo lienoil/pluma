@@ -1,4 +1,6 @@
 What o unit test first?
+> config file
+> menu file
 > Repository classes
     - model mehthod reutrns model
     - rules method returns an array and all required fields.

@@ -1,12 +1,12 @@
-$sidebar-dropdown-divider-color: rgba(0,40,100,.12);
+$sidebar-border-color: rgba(0,40,100,.12);
+$sidebar-dropdown-divider-color: $sidebar-border-color;
 $sidebar-width-full: 250px;
 $sidebar-width-min: 50px;
 $sidebar-brand-height: 40px;
 $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
-
 .sidebar {
   background: var(--sidebar-bg);
-  color: var(--body-color);
+  color: var(--sidebar-color);
   margin-left: -$sidebar-width-full;
   max-width: $sidebar-width-full;
   min-height: 100vh;
@@ -63,7 +63,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
 
     &.active, &:hover {
       background: transparent;
-      color: var(--primary);
+      color: var(--sidebar-color-active);
     }
   }
 
@@ -110,7 +110,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
           position: relative;
           &.active {
             background: transparent;
-            color: var(--primary);
+            color: var(--sidebar-color-active);
           }
 
           &:hover, &:active, &:focus {
@@ -128,7 +128,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
           }
 
           &:after {
-            border-left: 1px dashed $border-color;
+            border-left: 1px dashed $sidebar-border-color;
             top: -50%;
             left: 0;
             height: 100%;
@@ -136,7 +136,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
           }
 
           &:before {
-            border-bottom: 1px dashed $border-color;
+            border-bottom: 1px dashed $sidebar-border-color;
             width: 12px;
             height: 1px;
             top: 50%;
@@ -190,7 +190,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
 
     &.active, &:hover {
       background: transparent;
-      color: var(--primary);
+      color: var(--sidebar-color-active);
     }
   }
 
@@ -206,7 +206,7 @@ $transition-base-alt: all 0.3s cubic-bezier(0.45, 0.1, 0.32, 1);
   }
 
   &-dropdown-divider {
-    border-top: 1px dashed $border-color;
+    border-top: 1px dashed $sidebar-dropdown-divider-color;
     margin-right: 2rem;
     margin: 0;
   }

@@ -32,6 +32,8 @@
 
   // Sidebar
   --sidebar-bg: #{$sidebar};
+  --sidebar-color: #{$body-color};
+  --sidebar-color-active: #{$primary};
 
   // Workspace
   --workspace-bg: #{$workspace};
