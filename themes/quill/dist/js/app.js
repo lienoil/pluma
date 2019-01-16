@@ -67597,7 +67597,7 @@ webpackContext.id = "./src/modules sync recursive config\\/sidebar\\.js$";
 
 var map = {
 	"./Dashboard/routes/admin.js": "./src/modules/Dashboard/routes/admin.js",
-	"./Page/routes/admin.js": "./src/modules/Page/routes/admin.js",
+	"./Page/_routes/admin.js": "./src/modules/Page/_routes/admin.js",
 	"./User/routes/admin.js": "./src/modules/User/routes/admin.js",
 	"./Yggdrasil/Course/routes/admin.js": "./src/modules/Yggdrasil/Course/routes/admin.js"
 };
@@ -67800,71 +67800,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/modules/Page/config/sidebar.js":
-/*!********************************************!*\
-  !*** ./src/modules/Page/config/sidebar.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ([{
-  code: 'pages',
-  name: 'pages',
-  meta: {
-    title: 'Page',
-    icon: 'mdi-note-plus-outline',
-    authenticatable: true,
-    sort: 5
-  },
-  children: [// Admin Page
-  {
-    code: 'pages.index',
-    name: 'pages.index',
-    meta: {
-      title: 'All Pages',
-      icon: 'mdi-home',
-      authenticatable: true,
-      sort: 5
-    }
-  }, // Create
-  {
-    code: 'pages.create',
-    name: 'pages.create',
-    meta: {
-      title: 'Create Page',
-      icon: 'mdi-home',
-      authenticatable: true,
-      sort: 5
-    }
-  }, // Divider
-  {
-    code: 'divider:courses/create.trashed',
-    name: 'divider:courses/create.trashed',
-    meta: {
-      divider: true,
-      sort: 7
-    }
-  }, // Archived
-  {
-    code: 'pages.archived',
-    name: 'pages.archived',
-    meta: {
-      title: 'Archived Pages',
-      icon: 'mdi-book-plus',
-      authenticatable: true,
-      sort: 8
-    }
-  }]
-}]);
-
-/***/ }),
-
-/***/ "./src/modules/Page/routes/admin.js":
-/*!******************************************!*\
-  !*** ./src/modules/Page/routes/admin.js ***!
-  \******************************************/
+/***/ "./src/modules/Page/_routes/admin.js":
+/*!*******************************************!*\
+  !*** ./src/modules/Page/_routes/admin.js ***!
+  \*******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -67955,6 +67894,67 @@ __webpack_require__.r(__webpack_exports__);
       title: 'Archived Page',
       authenticatable: true,
       icon: 'mdi-delete-outline'
+    }
+  }]
+}]);
+
+/***/ }),
+
+/***/ "./src/modules/Page/config/sidebar.js":
+/*!********************************************!*\
+  !*** ./src/modules/Page/config/sidebar.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  code: 'pages',
+  name: 'pages',
+  meta: {
+    title: 'Page',
+    icon: 'mdi-note-plus-outline',
+    authenticatable: true,
+    sort: 5
+  },
+  children: [// Admin Page
+  {
+    code: 'pages.index',
+    name: 'pages.index',
+    meta: {
+      title: 'All Pages',
+      icon: 'mdi-home',
+      authenticatable: true,
+      sort: 5
+    }
+  }, // Create
+  {
+    code: 'pages.create',
+    name: 'pages.create',
+    meta: {
+      title: 'Create Page',
+      icon: 'mdi-home',
+      authenticatable: true,
+      sort: 5
+    }
+  }, // Divider
+  {
+    code: 'divider:courses/create.trashed',
+    name: 'divider:courses/create.trashed',
+    meta: {
+      divider: true,
+      sort: 7
+    }
+  }, // Archived
+  {
+    code: 'pages.archived',
+    name: 'pages.archived',
+    meta: {
+      title: 'Archived Pages',
+      icon: 'mdi-book-plus',
+      authenticatable: true,
+      sort: 8
     }
   }]
 }]);
@@ -68699,8 +68699,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/princess/Projects/pluma-edge-quill/themes/quill/src/app.js */"./src/app.js");
-module.exports = __webpack_require__(/*! /home/princess/Projects/pluma-edge-quill/themes/quill/src/stylus/main.styl */"./src/stylus/main.styl");
+__webpack_require__(/*! /home/princessalto/Projects/pluma/themes/quill/src/app.js */"./src/app.js");
+module.exports = __webpack_require__(/*! /home/princessalto/Projects/pluma/themes/quill/src/stylus/main.styl */"./src/stylus/main.styl");
 
 
 /***/ })
