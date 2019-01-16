@@ -12,8 +12,8 @@
           color="secondary"
           round
           exact
-          :to="{name: 'announcements.create'}">
-          {{ trans('Create New Announcement') }}
+          :to="{name: 'pages.create'}">
+          {{ trans('Create New Page') }}
         </v-btn>
       </v-card>
     </v-layout>

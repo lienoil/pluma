@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[18],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/modules/Page/Create.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************!*\
@@ -91,7 +91,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.post('/api/v1/pages/store', this.dataset).then(function (response) {
-        console.log(_this2.dataset, 'data');
+        console.log(_this2.dataset);
 
         _this2.$router.push({
           name: 'pages'

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/modules/Page/Edit.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************!*\

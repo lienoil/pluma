@@ -41,7 +41,9 @@
                     </td> -->
                     <td v-html="props.item.fullname"></td>
                     <td v-html="props.item.email"></td>
-                    <td v-html="props.item.displayrole"></td>
+                    <td v-html="props.item.role"></td>
+                    <td v-html="props.item.created"></td>
+                    <td v-html="props.item.modified"></td>
                     <td class="layout mx-0 justify-center">
                       <v-tooltip bottom>
                         <v-btn

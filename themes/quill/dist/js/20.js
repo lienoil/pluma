@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/modules/Page/Show.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************!*\
@@ -9,38 +9,14 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/store */ "./src/store/index.js");
 //
 //
 //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
-  name: 'Show',
-  mounted: function mounted() {
-    var _this = this;
-
-    /*eslint-disable*/
-    axios.get('/api/v1/pages/' + this.$route.params.code).then(function (response) {
-      console.log(response, 'wew');
-      _this.item = response.data;
-    });
-  },
-  data: function data() {
-    return {
-      item: {}
-    };
-  }
+  name: 'Show'
 });
 
 /***/ }),
@@ -60,34 +36,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-card",
-        [
-          _vm._v(
-            "\n    " +
-              _vm._s(
-                _vm.__(
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque sint dolorum itaque. Provident voluptate omnis alias laborum eos velit magnam cumque maxime rem quisquam aut deserunt reiciendis, quas ex enim."
-                )
-              ) +
-              "\n    "
-          ),
-          _c("v-card-text", [
-            _c("h1", [_vm._v(_vm._s(_vm.item.body))]),
-            _vm._v(" "),
-            _c("h1", [_vm._v(_vm._s(_vm.item.title))]),
-            _vm._v(" "),
-            _c("h1", [_vm._v(_vm._s(_vm.item.code))])
-          ])
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("div", [_vm._v("\n  test\n")])
 }
 var staticRenderFns = []
 render._withStripped = true

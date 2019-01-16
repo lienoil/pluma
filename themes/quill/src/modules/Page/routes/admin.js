@@ -1,9 +1,9 @@
 export default [
   {
-    path: '/admin/announcements',
+    path: '/admin/pages',
     component: () => import('@/App.vue'),
     meta: {
-      title: 'Announcements',
+      title: 'Pages',
       sort: 6,
       authenticatable: true,
       icon: 'mdi-book-multiple-variant',
@@ -12,10 +12,10 @@ export default [
       {
         path: '',
         props: true,
-        name: 'announcements.index',
+        name: 'pages.index',
         component: () => import('../Index.vue'),
         meta: {
-          title: 'All Announcements',
+          title: 'All Pages',
           sort: 6,
           authenticatable: true,
           icon: 'mdi-book-multiple-variant',
@@ -24,34 +24,47 @@ export default [
       {
         path: 'create',
         props: true,
-        name: 'announcements.create',
+        name: 'pages.create',
         component: () => import('../Create.vue'),
         meta: {
-          title: 'Create Announcement',
+          title: 'Create Page',
           authenticatable: true,
           icon: 'mdi-delete-outline'
 
         }
       },
+      // {
+      //   path: ':code',
+      //   props: true,
+      //   name: 'pages.show',
+      //   component: () => import('../Show.vue'),
+      //   meta: {
+      //     title: 'Show Page',
+      //     authenticatable: true,
+      //     icon: 'mdi-delete-outline'
+      //   }
+      // },
       {
-        path: 'show',
+        path: ':code',
         props: true,
-        name: 'announcements.show',
+        name: 'pages.show',
         component: () => import('../Show.vue'),
         meta: {
-          title: 'Show Announcement',
-          authenticatable: true,
-          icon: 'mdi-delete-outline'
-
-        }
+          title: 'Show Page',
+          sort: 1,
+          external: true,
+          excludeFromRoot: true,
+          authenticatable: false,
+          icon: 'mdi-book-multiple-variant',
+        },
       },
       {
         path: 'edit',
         props: true,
-        name: 'announcements.edit',
+        name: 'pages.edit',
         component: () => import('../Edit.vue'),
         meta: {
-          title: 'Edit Announcement',
+          title: 'Edit Page',
           authenticatable: true,
           icon: 'mdi-delete-outline'
 
@@ -60,10 +73,10 @@ export default [
       {
         path: 'archived',
         props: true,
-        name: 'announcements.archived',
+        name: 'pages.archived',
         component: () => import('../Archived.vue'),
         meta: {
-          title: 'Archived Announcement',
+          title: 'Archived Page',
           authenticatable: true,
           icon: 'mdi-delete-outline'
 

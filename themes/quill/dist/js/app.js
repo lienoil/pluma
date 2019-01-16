@@ -67559,8 +67559,8 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(components);
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./Announcement/config/sidebar.js": "./src/modules/Announcement/config/sidebar.js",
 	"./Dashboard/config/sidebar.js": "./src/modules/Dashboard/config/sidebar.js",
+	"./Page/config/sidebar.js": "./src/modules/Page/config/sidebar.js",
 	"./User/config/sidebar.js": "./src/modules/User/config/sidebar.js",
 	"./Yggdrasil/Course/config/sidebar.js": "./src/modules/Yggdrasil/Course/config/sidebar.js"
 };
@@ -67596,8 +67596,8 @@ webpackContext.id = "./src/modules sync recursive config\\/sidebar\\.js$";
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./Announcement/routes/admin.js": "./src/modules/Announcement/routes/admin.js",
 	"./Dashboard/routes/admin.js": "./src/modules/Dashboard/routes/admin.js",
+	"./Page/routes/admin.js": "./src/modules/Page/routes/admin.js",
 	"./User/routes/admin.js": "./src/modules/User/routes/admin.js",
 	"./Yggdrasil/Course/routes/admin.js": "./src/modules/Yggdrasil/Course/routes/admin.js"
 };
@@ -67675,135 +67675,6 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./src/modules sync recursive routes\\/web\\.js$";
-
-/***/ }),
-
-/***/ "./src/modules/Announcement/config/sidebar.js":
-/*!****************************************************!*\
-  !*** ./src/modules/Announcement/config/sidebar.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ([{
-  code: 'announcements',
-  name: 'announcements',
-  meta: {
-    title: 'Announcement',
-    icon: 'mdi-home',
-    authenticatable: true,
-    sort: 5
-  },
-  children: [// Admin Announcement
-  {
-    code: 'announcements.index',
-    name: 'announcements.index',
-    meta: {
-      title: 'All Announcements',
-      icon: 'mdi-home',
-      authenticatable: true,
-      sort: 5
-    }
-  }, // Archived
-  {
-    code: 'announcements.archived',
-    name: 'announcements.archived',
-    meta: {
-      title: 'Archived Announcements',
-      icon: 'mdi-book-plus',
-      authenticatable: true,
-      sort: 8
-    }
-  }]
-}]);
-
-/***/ }),
-
-/***/ "./src/modules/Announcement/routes/admin.js":
-/*!**************************************************!*\
-  !*** ./src/modules/Announcement/routes/admin.js ***!
-  \**************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ([{
-  path: '/admin/announcements',
-  component: function component() {
-    return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! @/App.vue */ "./src/App.vue"));
-  },
-  meta: {
-    title: 'Announcements',
-    sort: 6,
-    authenticatable: true,
-    icon: 'mdi-book-multiple-variant'
-  },
-  children: [{
-    path: '',
-    props: true,
-    name: 'announcements.index',
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../Index.vue */ "./src/modules/Announcement/Index.vue"));
-    },
-    meta: {
-      title: 'All Announcements',
-      sort: 6,
-      authenticatable: true,
-      icon: 'mdi-book-multiple-variant'
-    }
-  }, {
-    path: 'create',
-    props: true,
-    name: 'announcements.create',
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../Create.vue */ "./src/modules/Announcement/Create.vue"));
-    },
-    meta: {
-      title: 'Create Announcement',
-      authenticatable: true,
-      icon: 'mdi-delete-outline'
-    }
-  }, {
-    path: 'show',
-    props: true,
-    name: 'announcements.show',
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../Show.vue */ "./src/modules/Announcement/Show.vue"));
-    },
-    meta: {
-      title: 'Show Announcement',
-      authenticatable: true,
-      icon: 'mdi-delete-outline'
-    }
-  }, {
-    path: 'edit',
-    props: true,
-    name: 'announcements.edit',
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../Edit.vue */ "./src/modules/Announcement/Edit.vue"));
-    },
-    meta: {
-      title: 'Edit Announcement',
-      authenticatable: true,
-      icon: 'mdi-delete-outline'
-    }
-  }, {
-    path: 'archived',
-    props: true,
-    name: 'announcements.archived',
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../Archived.vue */ "./src/modules/Announcement/Archived.vue"));
-    },
-    meta: {
-      title: 'Archived Announcement',
-      authenticatable: true,
-      icon: 'mdi-delete-outline'
-    }
-  }]
-}]);
 
 /***/ }),
 
@@ -67908,7 +67779,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/admin/dashboard',
   name: 'dashboard.index',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../Dashboard.vue */ "./src/modules/Dashboard/Dashboard.vue"));
+    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../Dashboard.vue */ "./src/modules/Dashboard/Dashboard.vue"));
   },
   meta: {
     title: 'Dashboard',
@@ -67925,6 +67796,167 @@ __webpack_require__.r(__webpack_exports__);
     divider: true,
     height: 2
   }
+}]);
+
+/***/ }),
+
+/***/ "./src/modules/Page/config/sidebar.js":
+/*!********************************************!*\
+  !*** ./src/modules/Page/config/sidebar.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  code: 'pages',
+  name: 'pages',
+  meta: {
+    title: 'Page',
+    icon: 'mdi-note-plus-outline',
+    authenticatable: true,
+    sort: 5
+  },
+  children: [// Admin Page
+  {
+    code: 'pages.index',
+    name: 'pages.index',
+    meta: {
+      title: 'All Pages',
+      icon: 'mdi-home',
+      authenticatable: true,
+      sort: 5
+    }
+  }, // Create
+  {
+    code: 'pages.create',
+    name: 'pages.create',
+    meta: {
+      title: 'Create Page',
+      icon: 'mdi-home',
+      authenticatable: true,
+      sort: 5
+    }
+  }, // Divider
+  {
+    code: 'divider:courses/create.trashed',
+    name: 'divider:courses/create.trashed',
+    meta: {
+      divider: true,
+      sort: 7
+    }
+  }, // Archived
+  {
+    code: 'pages.archived',
+    name: 'pages.archived',
+    meta: {
+      title: 'Archived Pages',
+      icon: 'mdi-book-plus',
+      authenticatable: true,
+      sort: 8
+    }
+  }]
+}]);
+
+/***/ }),
+
+/***/ "./src/modules/Page/routes/admin.js":
+/*!******************************************!*\
+  !*** ./src/modules/Page/routes/admin.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  path: '/admin/pages',
+  component: function component() {
+    return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! @/App.vue */ "./src/App.vue"));
+  },
+  meta: {
+    title: 'Pages',
+    sort: 6,
+    authenticatable: true,
+    icon: 'mdi-book-multiple-variant'
+  },
+  children: [{
+    path: '',
+    props: true,
+    name: 'pages.index',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../Index.vue */ "./src/modules/Page/Index.vue"));
+    },
+    meta: {
+      title: 'All Pages',
+      sort: 6,
+      authenticatable: true,
+      icon: 'mdi-book-multiple-variant'
+    }
+  }, {
+    path: 'create',
+    props: true,
+    name: 'pages.create',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../Create.vue */ "./src/modules/Page/Create.vue"));
+    },
+    meta: {
+      title: 'Create Page',
+      authenticatable: true,
+      icon: 'mdi-delete-outline'
+    }
+  }, // {
+  //   path: ':code',
+  //   props: true,
+  //   name: 'pages.show',
+  //   component: () => import('../Show.vue'),
+  //   meta: {
+  //     title: 'Show Page',
+  //     authenticatable: true,
+  //     icon: 'mdi-delete-outline'
+  //   }
+  // },
+  {
+    path: ':code',
+    props: true,
+    name: 'pages.show',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../Show.vue */ "./src/modules/Page/Show.vue"));
+    },
+    meta: {
+      title: 'Show Page',
+      sort: 1,
+      external: true,
+      excludeFromRoot: true,
+      authenticatable: false,
+      icon: 'mdi-book-multiple-variant'
+    }
+  }, {
+    path: 'edit',
+    props: true,
+    name: 'pages.edit',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../Edit.vue */ "./src/modules/Page/Edit.vue"));
+    },
+    meta: {
+      title: 'Edit Page',
+      authenticatable: true,
+      icon: 'mdi-delete-outline'
+    }
+  }, {
+    path: 'archived',
+    props: true,
+    name: 'pages.archived',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../Archived.vue */ "./src/modules/Page/Archived.vue"));
+    },
+    meta: {
+      title: 'Archived Page',
+      authenticatable: true,
+      icon: 'mdi-delete-outline'
+    }
+  }]
 }]);
 
 /***/ }),

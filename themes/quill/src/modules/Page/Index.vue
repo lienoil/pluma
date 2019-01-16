@@ -39,17 +39,17 @@
                         <span v-html="trans(props.item.title)"></span>
                       </v-tooltip>
                     </td>
+                    <td v-html="props.item.code"></td>
                     <td v-html="props.item.author"></td>
-                    <td v-html="props.item.categoryname"></td>
-                    <td v-html="props.item.created"></td>
-                    <td v-html="props.item.modified"></td>
+                    <td v-html="props.item.created_at"></td>
+                    <td v-html="props.item.updated_at"></td>
                     <td class="layout mx-0 justify-center">
                       <v-tooltip bottom>
                         <v-btn
                           slot="activator"
                           icon
                           :to="{
-                            name: 'announcements.show',
+                            name: 'pages.show',
                             params: {
                               code: props.item.code,
                               meta: { item: props.item }
@@ -70,7 +70,7 @@
                           slot="activator"
                           icon
                           :to="{
-                            name: 'announcements.edit',
+                            name: 'pages.edit',
                             params: {
                               code: props.item.code,
                               meta: { item: props.item }
@@ -132,8 +132,8 @@ export default {
     EmptyState
   },
 
-  created () {
-    axios.get('/api/v1/users/all').then(response => {
+  mounted () {
+    axios.get('/api/v1/pages/all').then(response => {
       this.resource.items = response.data.data
     })
   },
@@ -151,11 +151,11 @@ export default {
       toolbar: {
         title: 'All Announcements',
         listGridView: false,
-        // createBtn: {
-        //   name: 'announcements.create',
-        // },
+        createBtn: {
+          name: 'pages.create',
+        },
         archivedBtn: {
-          name: 'announcements.archived',
+          name: 'pages.archived',
         },
       },
       resource: {
@@ -167,8 +167,8 @@ export default {
         headers: [
           { text: 'ID', align: 'left', value: 'id' },
           { text: 'Title', align: 'left', value: 'title' },
+          { text: 'Code', align: 'left', value: 'code' },
           { text: 'Author', align: 'left', value: 'user_id' },
-          { text: 'Category', align: 'left', value: 'category_at' },
           { text: 'Created', align: 'left', value: 'created_at' },
           { text: 'Modified', align: 'left', value: 'updated_at' },
           { text: 'Actions', align: 'center', sortable: false },
