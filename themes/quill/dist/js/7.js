@@ -23,6 +23,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -32,7 +44,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /*eslint-disable*/
     axios.get('/api/v1/pages/' + this.$route.params.code).then(function (response) {
-      console.log(response, 'wew');
+      // console.log(response, 'data')
       _this.item = response.data;
     });
   },
@@ -64,24 +76,75 @@ var render = function() {
     "div",
     [
       _c(
-        "v-card",
+        "v-container",
+        { attrs: { "grid-list-lg": "" } },
         [
-          _vm._v(
-            "\n    " +
-              _vm._s(
-                _vm.__(
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque sint dolorum itaque. Provident voluptate omnis alias laborum eos velit magnam cumque maxime rem quisquam aut deserunt reiciendis, quas ex enim."
-                )
-              ) +
-              "\n    "
-          ),
-          _c("v-card-text", [
-            _c("h1", [_vm._v(_vm._s(_vm.item.body))]),
-            _vm._v(" "),
-            _c("h1", [_vm._v(_vm._s(_vm.item.title))]),
-            _vm._v(" "),
-            _c("h1", [_vm._v(_vm._s(_vm.item.code))])
-          ])
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            [
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c("h1", {
+                            staticClass: "title font-weight-bold",
+                            domProps: { innerHTML: _vm._s(_vm.item.title) }
+                          }),
+                          _vm._v(" "),
+                          _c("h1", {
+                            staticClass: "title font-weight-bold",
+                            domProps: { innerHTML: _vm._s(_vm.item.author) }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "v-list",
+                            { attrs: { dense: "" } },
+                            [
+                              _c(
+                                "v-list-tile",
+                                [
+                                  _c(
+                                    "v-list-tile-content",
+                                    [
+                                      _c("v-list-tile-title", {
+                                        domProps: {
+                                          innerHTML: _vm._s(_vm.item.author)
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("v-list-tile-sub-title", {
+                                        domProps: {
+                                          innerHTML: _vm._s(_vm.item.created)
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )

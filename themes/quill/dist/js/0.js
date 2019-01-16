@@ -464,7 +464,7 @@ var render = function() {
                                           _c("td", {
                                             domProps: {
                                               innerHTML: _vm._s(
-                                                props.item.created_at
+                                                props.item.created
                                               )
                                             }
                                           }),

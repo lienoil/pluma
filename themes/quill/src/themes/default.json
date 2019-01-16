@@ -1,7 +1,7 @@
 {
   "$primary": "#0C5689",
   "$secondary": "#e56e37",
-  "$accent": "#00BEDD",
+  "$accent": "#e56e37",
 
   "$success": "#30A300",
   "$warning": "#EAC011",

@@ -68597,7 +68597,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 /*! exports provided: $primary, $secondary, $accent, $success, $warning, $error, $info, default */
 /***/ (function(module) {
 
-module.exports = {"$primary":"#0C5689","$secondary":"#e56e37","$accent":"#00BEDD","$success":"#30A300","$warning":"#EAC011","$error":"#F44336","$info":"#00B8D6"};
+module.exports = {"$primary":"#0C5689","$secondary":"#e56e37","$accent":"#e56e37","$success":"#30A300","$warning":"#EAC011","$error":"#F44336","$info":"#00B8D6"};
 
 /***/ }),
 

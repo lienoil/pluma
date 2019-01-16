@@ -41,7 +41,7 @@
                     </td>
                     <td v-html="props.item.code"></td>
                     <td v-html="props.item.author"></td>
-                    <td v-html="props.item.created_at"></td>
+                    <td v-html="props.item.created"></td>
                     <td v-html="props.item.updated_at"></td>
                     <td class="layout mx-0 justify-center">
                       <v-tooltip bottom>

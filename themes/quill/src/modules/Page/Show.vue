@@ -1,13 +1,25 @@
 <template>
   <div>
-    <v-card>
-      {{ __('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque sint dolorum itaque. Provident voluptate omnis alias laborum eos velit magnam cumque maxime rem quisquam aut deserunt reiciendis, quas ex enim.') }}
-      <v-card-text>
-        <h1>{{ item.body }}</h1>
-        <h1>{{ item.title }}</h1>
-        <h1>{{ item.code }}</h1>
-      </v-card-text>
-    </v-card>
+    <v-container grid-list-lg>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <v-card>
+            <v-card-text>
+              <h1 class="title font-weight-bold" v-html="item.title"></h1>
+              <h1 class="title font-weight-bold" v-html="item.author"></h1>
+              <v-list dense>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title v-html="item.author"></v-list-tile-title>
+                    <v-list-tile-sub-title v-html="item.created"></v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -22,7 +34,7 @@ export default {
   mounted () {
     /*eslint-disable*/
     axios.get('/api/v1/pages/' + this.$route.params.code).then(response => {
-        console.log(response, 'wew')
+        // console.log(response, 'data')
         this.item = response.data
       })
   },
