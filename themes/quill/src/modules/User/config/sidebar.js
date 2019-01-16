@@ -1,20 +1,20 @@
 export default [
   {
-    code: 'announcements',
-    name: 'announcements',
+    code: 'users',
+    name: 'users',
     meta: {
-      title: 'Announcement',
+      title: 'User',
       icon: 'mdi-home',
       authenticatable: true,
       sort: 5,
     },
     children: [
-      // Admin Announcement
+      // Admin User
       {
-        code: 'announcements.index',
-        name: 'announcements.index',
+        code: 'users.index',
+        name: 'users.index',
         meta: {
-          title: 'All Announcements',
+          title: 'All Users',
           icon: 'mdi-home',
           authenticatable: true,
           sort: 5,
@@ -22,10 +22,10 @@ export default [
       },
       // Archived
       {
-        code: 'announcements.archived',
-        name: 'announcements.archived',
+        code: 'users.archived',
+        name: 'users.archived',
         meta: {
-          title: 'Archived Announcements',
+          title: 'Archived Users',
           icon: 'mdi-book-plus',
           authenticatable: true,
           sort: 8,

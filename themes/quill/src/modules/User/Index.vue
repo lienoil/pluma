@@ -30,7 +30,7 @@
                       ></v-checkbox>
                     </td>
                     <td v-html="props.item.id"></td>
-                    <td class="table--ellipsis">
+                    <!-- <td class="table--ellipsis">
                       <v-tooltip
                         max-width="300"
                         bottom
@@ -38,18 +38,17 @@
                         <span slot="activator" v-html="trans(props.item.title)"></span>
                         <span v-html="trans(props.item.title)"></span>
                       </v-tooltip>
-                    </td>
-                    <td v-html="props.item.author"></td>
-                    <td v-html="props.item.categoryname"></td>
-                    <td v-html="props.item.created"></td>
-                    <td v-html="props.item.modified"></td>
+                    </td> -->
+                    <td v-html="props.item.fullname"></td>
+                    <td v-html="props.item.email"></td>
+                    <td v-html="props.item.displayrole"></td>
                     <td class="layout mx-0 justify-center">
                       <v-tooltip bottom>
                         <v-btn
                           slot="activator"
                           icon
                           :to="{
-                            name: 'announcements.show',
+                            name: 'users.show',
                             params: {
                               code: props.item.code,
                               meta: { item: props.item }
@@ -70,7 +69,7 @@
                           slot="activator"
                           icon
                           :to="{
-                            name: 'announcements.edit',
+                            name: 'users.edit',
                             params: {
                               code: props.item.code,
                               meta: { item: props.item }
@@ -149,13 +148,13 @@ export default {
         },
       },
       toolbar: {
-        title: 'All Announcements',
+        title: 'All Users',
         listGridView: false,
         // createBtn: {
-        //   name: 'announcements.create',
+        //   name: 'users.create',
         // },
         archivedBtn: {
-          name: 'announcements.archived',
+          name: 'users.archived',
         },
       },
       resource: {
@@ -166,9 +165,9 @@ export default {
         },
         headers: [
           { text: 'ID', align: 'left', value: 'id' },
-          { text: 'Title', align: 'left', value: 'title' },
-          { text: 'Author', align: 'left', value: 'user_id' },
-          { text: 'Category', align: 'left', value: 'category_at' },
+          { text: 'Full Name', align: 'left', value: 'title' },
+          { text: 'Email', align: 'left', value: 'user_id' },
+          { text: 'Role', align: 'left', value: 'category_at' },
           { text: 'Created', align: 'left', value: 'created_at' },
           { text: 'Modified', align: 'left', value: 'updated_at' },
           { text: 'Actions', align: 'center', sortable: false },

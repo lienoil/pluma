@@ -132,14 +132,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
  // import axios from 'axios'
 
 
@@ -337,7 +329,7 @@ var render = function() {
               [
                 _c(
                   "v-layout",
-                  { attrs: { row: "", wrap: "" } },
+                  { attrs: { row: "", column: "" } },
                   [
                     _c(
                       "v-flex",
@@ -661,17 +653,7 @@ var render = function() {
                             })
                           ],
                           1
-                        ),
-                        _vm._v(" "),
-                        _c("v-card", {
-                          staticClass: "mb-3",
-                          attrs: { flat: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("v-card", {
-                          staticClass: "mb-3",
-                          attrs: { flat: "" }
-                        })
+                        )
                       ],
                       1
                     )
