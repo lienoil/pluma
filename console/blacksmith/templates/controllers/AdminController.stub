@@ -4,22 +4,20 @@ namespace DummyNamespace;
 
 use Frontier\Controllers\AdminController;
 use Illuminate\Http\Request;
-use $namespace\Models\$model;
-use $namespace\Requests\$nameRequest;
+use DummyFullModelClass;
+use DummyModuleName\Requests\DummyModuleNameRequest;
 
 class DummyClass extends AdminController
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //
-
-        return view("Theme::$slug.index");
+        return view('DummyModuleName::admin.index');
     }
 
     /**
@@ -33,7 +31,7 @@ class DummyClass extends AdminController
     {
         //
 
-        return view("Theme::$slug.show");
+        return view('DummyModuleName::admin.show');
     }
 
     /**
@@ -45,16 +43,16 @@ class DummyClass extends AdminController
     {
         //
 
-        return view("Theme::$slug.create");
+        return view('DummyModuleName::admin.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \DummyModuleName\Requests\DummyModuleNameRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($nameRequest $request)
+    public function store(DummyModuleNameRequest $request)
     {
         //
 
@@ -72,17 +70,17 @@ class DummyClass extends AdminController
     {
         //
 
-        return view("Theme::$slug.edit");
+        return view('DummyModuleName::admin.edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \DummyModuleName\Requests\DummyModuleNameRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($nameRequest $request, $id)
+    public function update(DummyModuleNameRequest $request, $id)
     {
         //
 
@@ -100,7 +98,7 @@ class DummyClass extends AdminController
     {
         //
 
-        return redirect()->route('$slug.index');
+        return back();
     }
 
     /**
@@ -108,21 +106,21 @@ class DummyClass extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function trash()
+    public function trashed()
     {
         //
 
-        return view("Theme::$slug.trash");
+        return view('DummyModuleName::admin.trashed');
     }
 
     /**
      * Restore the specified resource from storage.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \DummyModuleName\Requests\DummyModuleNameRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function restore($nameRequest $request, $id)
+    public function restore(DummyModuleNameRequest $request, $id)
     {
         //
 
@@ -132,14 +130,14 @@ class DummyClass extends AdminController
     /**
      * Delete the specified resource from storage permanently.
      *
-     * @param  \$namespace\Requests\$nameRequest  $request
+     * @param  \DummyModuleName\Requests\DummyModuleNameRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($nameRequest $request, $id)
+    public function delete(DummyModuleNameRequest $request, $id)
     {
         //
 
-        return redirect()->route('$slug.trash');
+        return back();
     }
 }

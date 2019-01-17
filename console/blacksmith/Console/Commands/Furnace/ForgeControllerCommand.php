@@ -25,7 +25,7 @@ class ForgeControllerCommand extends GeneratorCommand
                            {--p|public : Specify the controller extends the Public Controller.}
                            {--g|general : Specify the controller extends the General purpose Controller.}
                            {--api : Specify the controller extends the Api Controller.}
-                           {--model : Generate a resource controller for the given model.}
+                           {--model= : Generate a resource controller for the given model.}
                            ';
 
     /**
@@ -91,17 +91,15 @@ class ForgeControllerCommand extends GeneratorCommand
      */
     protected function qualifyModule()
     {
-        $module = $this->input->getOption('module');
+        $module = $this->option('module');
 
-        if (! $module || ! $this->isModule($module)) {
-            $module = $this->choice("Specify the module the seeder will belong to.", $this->modules());
+        if (! $this->isModule($module)) {
+            $module = $this->choice('Specify the module the file will belong to.', $this->modules());
         }
 
         $this->module = $this->getModulePath($module);
 
         $this->input->setOption('module', $this->module);
-
-        return $this->module;
     }
 
     /**
@@ -157,6 +155,8 @@ class ForgeControllerCommand extends GeneratorCommand
 
         $replace["use {$controllerNamespace}\Controller;\n"] = '';
 
+        $replace['DummyModuleName'] = $this->rootNamespace();
+
         return str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
         );
@@ -173,12 +173,10 @@ class ForgeControllerCommand extends GeneratorCommand
         $modelClass = $this->parseModel($this->option('model'));
 
         if (! class_exists($modelClass)) {
-            if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
-                $this->call('forge:model', [
-                    'name' => $modelClass,
-                    '--module' => $this->module,
-                ]);
-            }
+            $this->call('forge:model', [
+                'name' => $this->option('model'),
+                '--module' => basename($this->module),
+            ]);
         }
 
         return array_merge($replace, [
@@ -202,11 +200,12 @@ class ForgeControllerCommand extends GeneratorCommand
 
         $model = trim(str_replace('/', '\\Models', $model), '\\');
 
-        if (! Str::startsWith($model, $rootNamespace = $this->rootNamespace())) {
+        $rootNamespace = $this->rootNamespace();
+        if (! Str::startsWith($model, $rootNamespace)) {
             $model = $rootNamespace.$model;
         }
 
-        return $model.'\\Models\\'.$model;
+        return $rootNamespace.'\\Models\\'.$model;
     }
 
     /**

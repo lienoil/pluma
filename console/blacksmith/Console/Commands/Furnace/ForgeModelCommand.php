@@ -2,11 +2,13 @@
 
 namespace Blacksmith\Console\Commands\Furnace;
 
+use Blacksmith\Support\Console\GeneratorCommand;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\File;
-use Pluma\Support\Console\Command;
-use Pluma\Support\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
-class ForgeModelCommand extends Command
+class ForgeModelCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
@@ -14,8 +16,8 @@ class ForgeModelCommand extends Command
      * @var string
      */
     protected $signature = 'forge:model
-                           {name=null : The model to create}
-                           {--m|module=none : Specify the module it belongs to, if applicable}
+                           {name : The model to create}
+                           {--m|module= : Specify the module it belongs to, if applicable}
                            ';
 
     /**
@@ -26,61 +28,195 @@ class ForgeModelCommand extends Command
     protected $description = 'Create a generic model';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = '';
+
+    /**
+     * The Composer instance.
+     *
+     * @var \Illuminate\Support\Composer
+     */
+    protected $composer;
+
+    /**
+     * The module the generated file belongs to.
+     *
+     * @var string
+     */
+    protected $module;
+
+    /**
+     * Create a new command instance.
+     *
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param  \Illuminate\Support\Composer  $composer
+     * @return void
+     */
+    public function __construct(Filesystem $files, Composer $composer)
+    {
+        parent::__construct($files);
+
+        $this->composer = $composer;
+    }
+
+    /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
+    protected function getStub()
+    {
+        return blacksmith_path('templates/models/Model.stub');
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle(Filesystem $filesystem)
+    public function handle()
     {
-        try {
-            $name = studly_case($this->argument('name'));
-            $slug = strtolower(str_slug($name));
-            $option = $this->option();
-            $module = get_module($option['module']);
-            $modules = get_modules_path(true);
+        $this->qualifyModule();
 
-            if ($this->argument('name') === 'null' || is_null($name)) {
-                $name = $this->ask("Please specify the model name: (e.g. Quest)");
-            }
+        $this->line(' - Using path: '.$this->module());
 
-            if ($option['module'] === 'none' || is_null($module)) {
-                $module = get_module($option['module']);
+        parent::handle();
 
-                if (is_null($module)) {
-                    $this->error("Please specify the module this model belongs to.");
-                    $module = $this->choice("What module to put '$name' in?", $modules);
-                    $module = get_module($module);
-                }
+        $this->composer->dumpAutoloads();
+    }
 
-                $this->info("Using path: $module");
-            }
+    /**
+     * Get the module the file belongs to.
+     *
+     * @return string
+     */
+    protected function qualifyModule()
+    {
+        $module = $this->option('module');
 
-            $file = "$module/Models/{$name}.php";
-
-            $namespace = basename($module);
-            $name = $name;
-            $namespace = basename($module);
-            $class = $name;
-            $model = basename($module);
-            $slug = strtolower(str_plural($name));
-            $template = $filesystem->put(
-                blacksmith_path("templates/models/Model.stub"),
-                compact('namespace', 'name', 'class', 'model', 'slug')
-            );
-
-            if ($filesystem->make($file, $template)) {
-                $this->info("File created: $file");
-            }
-
-            exec("composer dump-autoload -o");
-        } catch (\Pluma\Support\Filesystem\FileAlreadyExists $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-        } catch (\Exception $e) {
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
-            $this->error(" ".$e->getMessage()." ");
-            $this->error(" ".str_pad(' ', strlen($e->getMessage()))." ");
+        if (! $this->isModule($module)) {
+            $module = $this->choice('Specify the module the file will belong to.', $this->modules());
         }
+
+        $this->module = $this->getModulePath($module);
+
+        $this->input->setOption('module', $this->module);
+    }
+
+    /**
+     * Get the default namespace for the class.
+     *
+     * @param  string  $rootNamespace
+     * @return string
+     */
+    protected function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace.'\Models';
+    }
+
+    /**
+     * Build the class with the given name.
+     *
+     * Remove the base controller import if we are already in base namespace.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function buildClass($name)
+    {
+        $namespace = $this->getNamespace($name);
+
+        $replace = $this->buildModelReplacements();
+
+        $replace["use {$namespace}\Models;\n"] = '';
+
+        return str_replace(
+            array_keys($replace), array_values($replace), parent::buildClass($name)
+        );
+    }
+
+    /**
+     * Build the model replacement values.
+     *
+     * @return array
+     */
+    protected function buildModelReplacements()
+    {
+        $modelClass = $this->parseModel($this->argument('name'));
+
+        return [
+            'DummyFullModelClass' => $modelClass,
+            'DummyModelClass' => class_basename($modelClass),
+            'DummyModelVariable' => lcfirst(class_basename($modelClass)),
+        ];
+    }
+
+    /**
+     * Get the fully-qualified model class name.
+     *
+     * @param  string  $model
+     * @return string
+     */
+    protected function parseModel($model)
+    {
+        if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
+            throw new \InvalidArgumentException('Model name contains invalid characters.');
+        }
+
+        $model = trim(str_replace('/', '\\Models', $model), '\\');
+
+        $rootNamespace = $this->rootNamespace();
+        if (! Str::startsWith($model, $rootNamespace)) {
+            $model = $rootNamespace.$model;
+        }
+
+        return $rootNamespace.'\\Models\\'.$model;
+    }
+
+    /**
+     * Get the root namespace for the class.
+     *
+     * @return string
+     */
+    protected function rootNamespace()
+    {
+        return basename($this->module);
+    }
+
+    /**
+     * Get the destination class path.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getPath($name)
+    {
+        $name = class_basename($name);
+
+        return module_path($this->rootNamespace()).'Models/'.$name.'.php';
+    }
+
+    /**
+     * Get the full namespace for a given class, without the class name.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getNamespace($name)
+    {
+        return $this->rootNamespace().'\Models';
+    }
+
+    /**
+     * Retrieve the module name.
+     *
+     * @return string
+     */
+    protected function module()
+    {
+        return $this->module;
     }
 }

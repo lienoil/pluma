@@ -1,15 +1,15 @@
 <?php
 
-namespace $namespace\Models;
+namespace DummyNamespace;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Pluma\Models\Model;
 
-class $class extends Model
+class DummyClass extends Model
 {
     use SoftDeletes;
 
-    protected $with = [];
+    protected $guarded = [];
 
     protected $searchables = ['created_at', 'updated_at'];
 }

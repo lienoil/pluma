@@ -19,7 +19,7 @@ class ForgeModuleCommand extends Command
     protected $signature = 'forge:module
                            {name : The name of the module}
                            {--m|module= : The module the submodule belongs to}
-                           {--c|core : Specify the module should be core}
+                           {--l|level= : Specify the module level. Possible values: c = core, m = module, s = submodule }
                            {--standalone : Specify the module should be top level}
                            {--empty : Generate folders only}
                            ';
@@ -44,7 +44,7 @@ class ForgeModuleCommand extends Command
      * @var array
      */
     protected $moduleLevels = [
-        'core' => 'Core',
+        'core' => 'Save in core folder (usually not recommended if upgrading)',
         'module' => 'Save in the modules folder',
         'submodule' => 'Save as a submodule of another module'
     ];
@@ -79,7 +79,7 @@ class ForgeModuleCommand extends Command
      */
     public function __construct(Filesystem $files, Composer $composer)
     {
-        parent::__construct($files);
+        parent::__construct();
 
         $this->files = $files;
 
@@ -95,19 +95,13 @@ class ForgeModuleCommand extends Command
     {
         $this->qualifyModuleLevel();
 
-        if ($this->isSubmoduleLevel()) {
-            $this->qualifyModule();
-        }
+        $this->qualifyModule();
 
         $this->qualifyPath();
 
         $this->generateFolders();
 
-        if (! $this->option('empty')) {
-            $this->generateConfig();
-            $this->generateController();
-            // $this->generateDatabase();
-        }
+        $this->generateFiles();
 
         $this->composer->dumpAutoloads();
     }
@@ -119,34 +113,55 @@ class ForgeModuleCommand extends Command
      */
     protected function qualifyModuleLevel()
     {
-        if ($this->option('standalone')) {
-            $this->level = 'standalone';
-        } elseif ($this->option('core')) {
-            $this->level = 'core';
-        } else {
-            $name = $this->argument('name');
-            $this->level = $this->choice("What type of module do you want create with $name?", $this->moduleLevels);
+        if ($this->option('module')) {
+            return;
+        }
+
+        switch ($this->option('level')) {
+            case 'c':
+            case 'core':
+                $this->level = 'core';
+                break;
+
+            case 'm':
+            case 'module':
+                $this->level = 'module';
+                break;
+
+            case 's':
+            case 'submodule':
+                $this->level = 'submodule';
+                break;
+
+            default:
+                $name = $this->argument('name');
+                $this->level = $this->choice("What type of module is $name?", $this->moduleLevels);
+                break;
         }
     }
 
     /**
      * Get the module the file belongs to.
      *
-     * @return string
+     * @return void
      */
     protected function qualifyModule()
     {
-        $module = $this->input->getOption('module');
+        $this->module = $this->option('module') ?? $this->argument('name');
 
-        if (! $module || ! $this->isModule($module)) {
-            $module = $this->choice("Specify the module the submodule will belong to.", $this->modules());
+        if ($this->isSubmoduleLevel() || $this->option('module')) {
+            $module = $this->option('module');
+
+            if (! $this->isModule($module)) {
+                $this->error("Module [$module] not found!");
+                $module = $this->choice('Specify the module the submodule will belong to.', $this->modules());
+            }
+
+            $this->module = $this->getModulePath($module);
+            $this->level = 'submodule';
         }
 
-        $this->module = $this->getModulePath($module);
-
         $this->input->setOption('module', $this->module);
-
-        return $this->module;
     }
 
     /**
@@ -196,9 +211,9 @@ class ForgeModuleCommand extends Command
         $module = $this->path;
 
         $directories = [
+            "$module/Composers",
             "$module/config",
             "$module/Controllers",
-            "$module/Controllers/Resources",
             "$module/database/factories",
             "$module/database/migrations",
             "$module/database/seeds",
@@ -212,49 +227,51 @@ class ForgeModuleCommand extends Command
             "$module/views",
         ];
 
+        $this->line('');
         foreach ($directories as $directory) {
             $this->files->makeDirectory($directory, 0755, true, true);
-            $this->info("Directory created: $directory");
+            $this->line(' - Directory created at <fg=green>'.$directory.'</>');
         }
+        $this->line('');
     }
 
     /**
-     * Create common config files.
+     * Generate the module files.
      *
      * @return void
      */
-    protected function generateConfig()
+    protected function generateFiles()
     {
+        if ($this->option('empty')) {
+            return;
+        }
+
         $name = $this->argument('name');
         $module = basename($this->path);
 
-        $commands = [
-            'forge:permissions' => [
-                '--module' => $module,
-            ],
+        foreach ([
+            // Generate menus file in config/menus.php
             'forge:menus' => [
                 '--module' => $module,
             ],
-        ];
 
-        foreach ($commands as $command => $options) {
+            // Generate permissions file in config/permissions.php.
+            'forge:permissions' => [
+                '--module' => $module,
+            ],
+
+            // Generate controller file in
+            // Controllers/$nameController.php
+            'forge:controller' => [
+                'name' => $name.'Controller',
+                '--admin' => true,
+                '--model' => $name,
+                '--module' => $module,
+            ],
+
+            //
+        ] as $command => $options) {
             $this->call($command, $options);
         }
-    }
-
-    /**
-     * Create controller file.
-     *
-     * @return void
-     */
-    protected function generateController()
-    {
-        $name = $this->argument('name').'Controller';
-
-        $this->call('forge:controller', [
-            'name' => $name,
-            '--general' => true,
-            '--module' => $this->argument('name'),
-        ]);
     }
 }
