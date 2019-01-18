@@ -3,6 +3,7 @@
 namespace DummyNamespace;
 
 use Pluma\Support\Repository\Repository;
+use DummyFullModelClass;
 
 class DummyClass extends Repository
 {
@@ -11,7 +12,7 @@ class DummyClass extends Repository
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
-    protected $model;
+    protected $model = DummyModelClass::class;
 
     /**
      * Set of rules the model should be validated against when

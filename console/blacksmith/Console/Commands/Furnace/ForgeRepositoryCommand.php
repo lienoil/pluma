@@ -21,7 +21,7 @@ class ForgeRepositoryCommand extends GeneratorCommand
     protected $signature = 'forge:repository
                            {name : The repository to create}
                            {--m|module= : Specify the module it belongs to, if applicable.}
-                           {--model : Generate a resource repository for the given model.}
+                           {--model= : Generate a resource repository for the given model.}
                            ';
 
     /**
@@ -89,8 +89,8 @@ class ForgeRepositoryCommand extends GeneratorCommand
     {
         $module = $this->input->getOption('module');
 
-        if (! $module || ! $this->isModule($module)) {
-            $module = $this->choice("Specify the module the seeder will belong to.", $this->modules());
+        if (! $this->isModule($module)) {
+            $module = $this->choice('Specify the module the seeder will belong to.', $this->modules());
         }
 
         $this->module = $this->getModulePath($module);
@@ -159,12 +159,10 @@ class ForgeRepositoryCommand extends GeneratorCommand
         $modelClass = $this->parseModel($this->option('model'));
 
         if (! class_exists($modelClass)) {
-            if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
-                $this->call('forge:model', [
-                    'name' => $modelClass,
-                    '--module' => $this->module,
-                ]);
-            }
+            $this->call('forge:model', [
+                'name' => $modelClass,
+                '--module' => $this->module,
+            ]);
         }
 
         return array_merge($replace, [
@@ -227,5 +225,15 @@ class ForgeRepositoryCommand extends GeneratorCommand
     protected function getNamespace($name)
     {
         return $this->rootNamespace().'\Repositories';
+    }
+
+    /**
+     * Retrieve the module name.
+     *
+     * @return string
+     */
+    protected function module()
+    {
+        return basename($this->module);
     }
 }
