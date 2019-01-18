@@ -1,5 +1,7 @@
 <div class="form-group {{ $group ?? null }}">
-  <label for="{{ $name }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
+  @if (isset($label) && $label)
+    <label for="{{ $name }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
+  @endif
   <div class="{{ isset($icon) ? 'input-icon' : null }} {{ isset($prepend) ? 'input-group' : null }}">
 
     @isset ($icon)

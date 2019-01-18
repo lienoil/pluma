@@ -68,4 +68,27 @@ class RoleRepository extends Repository
 
         return $resource;
     }
+
+    /**
+     * Import the resources to storage.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function import($data = null)
+    {
+        $modules = get_modules_path();
+        $roles = [];
+
+        foreach ($modules as $module) {
+            if (file_exists("$module/config/roles.php")) {
+                $roles = array_merge($roles, require "$module/config/roles.php");
+            }
+        }
+
+        foreach ($roles as $code => $role) {
+            $role = collect($role)->except(['permissions'])->toArray();
+            $this->model()->updateOrCreate(['code' => $code], $role);
+        }
+    }
 }

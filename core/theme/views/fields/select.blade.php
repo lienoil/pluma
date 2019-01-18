@@ -4,8 +4,10 @@
   $isMultiple = str_contains($name, '[]');
 @endphp
 
-<div class="form-group">
-  <label for="{{ $name }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
+<div class="form-group {{ $group ?? null }}">
+  @if (isset($label) && $label)
+    <label for="{{ $name }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
+  @endif
   <div class="{{ isset($icon) ? 'input-icon' : null }} {{ isset($prepend) ? 'input-group' : null }}">
     @isset ($icon)
       <span class="input-icon-addon">
@@ -19,7 +21,7 @@
       </span>
     @endisset
 
-    <select id="{{ $name }}" {{ $attr ?? '' }} {{ $isMultiple ? 'multiple' : null }} name="{{ $name ?? 'selection' }}" class="form-control {{ $errors->has($field ?? $name) ? 'is-invalid' : '' }}" aria-describedby="{{ $name }}">
+    <select id="{{ $name }}" {{ $attr ?? '' }} {{ $isMultiple ? 'multiple' : null }} name="{{ $name ?? 'selection' }}" title="{{ $title ?? $label ?? null }}" class="form-control {{ $errors->has($field ?? $name) ? 'is-invalid' : '' }}" aria-describedby="{{ $name }}">
       @foreach ($items as $item)
 
         @if ($isMultiple)

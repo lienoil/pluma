@@ -16,6 +16,7 @@ Route::prefix('users')->middleware(['breadcrumbs:\Role\Models\Role'])->group(fun
     // Route::post('roles/restore/many', 'RoleManyController@restore')->name('roles.many.restore');
     // Route::post('roles/{role}/restore', 'RoleController@restore')->name('roles.restore');
     Route::softDeletes('roles', 'RoleController');
+    Route::post('roles/import', 'RoleController@import')->name('roles.import');
     Route::resource('roles', 'RoleController');
 
     /**

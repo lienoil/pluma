@@ -4,8 +4,8 @@
     {{ method_field($method ?? 'POST') }}
     <div class="modal-dialog {{ $class ?? null }}" role="document">
       <div class="modal-content">
+        <div class="m-5 text-center"><i class="text-{{ $context ?? 'primary' }} {{ $icon ?? '' }}"></i></div>
         <div class="modal-body {{ $alignment ?? 'text-center' }}">
-          <div class="m-5"><i class="text-{{ $context ?? 'primary' }} {{ $icon ?? '' }}"></i></div>
           <p class="lead">{!! $lead !!}</p>
           @isset ($text)
             <p>{!! $text !!}</p>

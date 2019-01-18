@@ -64,6 +64,16 @@ class UserRepository extends Repository
     }
 
     /**
+     * Retrieve the usertype.
+     *
+     * @return string
+     */
+    public static function userType()
+    {
+        return (new static)->usertype;
+    }
+
+    /**
      * Retrieve the full model instance.
      *
      * @return \Pluma\Models\Model
@@ -116,7 +126,7 @@ class UserRepository extends Repository
         $user->email = $data['email'] ?? null;
         $user->password = bcrypt($data['password']) ?? null;
         $user->avatar = $data['avatar'] ?? null;
-        $user->tokenize($data['username']) ?? null;
+        $user->tokenize($data['username'] ?? $data['password']);
         $user->type = $this->usertype;
         $user->save();
         $user->roles()->attach(! empty($data['roles']) ? $data['roles'] : []);

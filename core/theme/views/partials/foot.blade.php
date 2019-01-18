@@ -5,7 +5,7 @@
   <!-- end section#before:js -->
 
   <!-- start section#js -->
-  @push('js')
+  @stack('js')
     <script src="{{ theme('dist/vendor.min.js') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}"></script>
     <script src="{{ theme('dist/app.min.js') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}"></script>
   @show

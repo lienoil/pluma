@@ -10,7 +10,8 @@ use Role\Requests\RoleRequest;
 
 class RoleController extends AdminController
 {
-    use Resources\RoleResourceAdminTrait;
+    use Resources\RoleResourceAdminTrait,
+        Resources\RoleImportTrait;
 
     /**
      * Inject the resource model to the repository instance.
