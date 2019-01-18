@@ -161,7 +161,7 @@ class ForgeRepositoryCommand extends GeneratorCommand
         if (! class_exists($modelClass)) {
             $this->call('forge:model', [
                 'name' => $modelClass,
-                '--module' => $this->module,
+                '--module' => $this->module(),
             ]);
         }
 

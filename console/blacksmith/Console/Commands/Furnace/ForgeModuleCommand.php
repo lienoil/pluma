@@ -269,7 +269,13 @@ class ForgeModuleCommand extends Command
                 '--module' => $module,
             ],
 
-            //
+            // Generate repository file in
+            // Repositories/$nameRepository.php
+            'forge:repository' => [
+                'name' => $name.'Repository',
+                '--module' => $module,
+                '--model' => $name,
+            ],
         ] as $command => $options) {
             $this->call($command, $options);
         }
