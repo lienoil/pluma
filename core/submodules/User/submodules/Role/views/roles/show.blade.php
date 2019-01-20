@@ -7,12 +7,12 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
-        <p>{!! $resource->description !!}</p>
-
         <div class="row">
           <div class="col-sm-12 col-lg-4">
             <div class="card">
               <div class="card-body">
+                <p>{!! $resource->description !!}</p>
+
                 @include('Theme::fields.treeview', [
                   'label' => __('Permissions'),
                   'actions' => false,

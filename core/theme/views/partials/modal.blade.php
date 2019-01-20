@@ -1,4 +1,4 @@
-<div id="{{ $id ?? 'modal-id' }}" class="modal fade" aria-hidden="true" role="dialog">
+<div id="{{ $id ?? 'modal-id' }}" class="modal fade" tabindex="-1" aria-hidden="true" role="dialog">
   <form action="{{ $action ?? '' }}" method="POST" {{ ($upload ?? false) ? 'enctype=multipart/form-data' : null }}>
     {{ csrf_field() }}
     {{ method_field($method ?? 'POST') }}

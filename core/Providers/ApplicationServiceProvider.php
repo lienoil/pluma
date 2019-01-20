@@ -74,8 +74,9 @@ class ApplicationServiceProvider extends AggregateServiceProvider
         Collection::macro('recursive', function () {
             return $this->map(function ($value) {
                 if (is_array($value) || is_object($value)) {
-                    return collect($value)->recursive();
+                    return (new Collection($value))->recursive();
                 }
+
                 return $value;
             });
         });

@@ -12,22 +12,27 @@ module.exports = (env, arg) => {
       poll: true
     },
     entry: {
+      /**
+       * JS files
+       */
       app: './src/app.js',
       vendor: './src/vendor.js',
+
+      /**
+       * Sass files
+       */
       fonts: './src/sass/fonts.scss',
 
       /**
-       *--------------------------------------------------------------------------
-       * Modules List
-       *--------------------------------------------------------------------------
-       *
+       * Module files
        */
       editor: './src/modules/editor/editor.js',
       form: './src/modules/form/form.js',
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: arg.mode === 'production' ? '[name].min.js' : '[name].js',
+      filename: 'js/[name].js',
+      sourceMapFilename: '[ext]/[name].[ext]',
     },
     resolve: {
       extensions: ['.js', '.json'],
@@ -39,5 +44,9 @@ module.exports = (env, arg) => {
       rules,
     },
     plugins,
+    stats: {
+      entrypoints: false,
+      modules: false,
+    },
   };
 }

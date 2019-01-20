@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group mt-2 mb-5">
-              @field('checkbox', ['name' => 'remember', 'checked' => true, 'value' => 1, 'label' => __('Remember me')])
+              @field('checkbox', ['label' => false, 'name' => 'remember', 'checked' => true, 'value' => 1, 'text' => __('Remember me')])
             </div>
 
             <div class="text-left text-muted small">

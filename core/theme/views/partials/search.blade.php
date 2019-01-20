@@ -1,11 +1,17 @@
 <!-- start search form -->
 <form class="form-row form-inline my-2" method="GET">
-  {{ csrf_field() }}
+  @csrf
   <div class="col">
-    <div class="form-group mb-0">
-      <label for="page-search" class="sr-only">{{ __('Search') }}</label>
-      <input id="page-search" tabindex="0" type="text" name="search" class="form-control w-100" aria-describedby="search" placeholder="{{ __('Search') }}" value="{{ request()->get('search') }}">
-    </div>
+    @field('input', [
+      'label' => false,
+      'name' => 'search',
+      'group_class' => 'mb-0',
+      'attr' => 'data-hotkey=/ tabindex=0 aria-describedby=search',
+      'class' => 'w-100',
+      'input_class' => 'w-100',
+      'placeholder' => __('Search'),
+      'value' => request()->get('search'),
+    ])
   </div>
   <div class="col-auto col-sm-auto">
     <button type="submit" class="btn btn-secondary"><i class="mdi mdi-magnify"></i></button>

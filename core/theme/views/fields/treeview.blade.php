@@ -30,9 +30,9 @@
   <div class="treeview-body mb-3">
     <ul data-tree class="list list-group list-group-transparent">
       @foreach ($items as $group => $set)
-        <li data-name="{{ __($group) }}" data-tree-item class="list-group-item px-0 border-0">
+        <li data-name="{{ __($group) }}" data-tree-item class="list-group-item border-0">
           <div data-tree-header>
-            <div role="button" data-tree-label class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between">
               @if (isset($readonly) && $readonly)
                 <div class="m-0">
                   @isset ($icon)
@@ -49,7 +49,7 @@
                 </div>
               @endif
 
-              <i class="mdi mdi-chevron-down"></i>
+              <a role="button" href="#" data-tree-label><i class="mdi mdi-chevron-down"></i></a>
             </div>
           </div>
           <ul data-tree-child class="list list-group border-0 {{ ($collapsed ?? true) ? 'collapse' : null }}">
@@ -58,15 +58,15 @@
 
                 @if (isset($readonly) && $readonly)
                   <div class="m-0">
-                    <div><strong>{{ $item->{$key} }}</strong></div>
-                    <em class="text-muted">{{ $item->{$text} }}</em>
+                    <div><strong>{{ $item[$key] }}</strong></div>
+                    <em class="text-muted">{{ $item[$text] }}</em>
                   </div>
                 @else
                   <div class="custom-control custom-checkbox">
-                    <input data-tree-checkbox {{ in_array($item->{$id}, ($value ?? old($old ?? $field ?? $name ?? 'items') ?? [])) ? 'checked=checked' : null }} id="checkbox-{{ $group }}-{{ $item->{$id} }}" type="checkbox" class="custom-control-input" name="{{ $name ?? 'items[]' }}" value="{{ $item->{$id} }}">
-                    <label data-tree-label for="checkbox-{{ $group }}-{{ $item->{$id} }}" role="button" class="custom-control-label">
-                      <strong>{{ $item->{$key} }}</strong>
-                      <p>{{ $item->{$text} }}</p>
+                    <input data-tree-checkbox {{ in_array($item[$id], ($value ?? old($old ?? $field ?? $name ?? 'items') ?? [])) ? 'checked=checked' : null }} id="checkbox-{{ $group }}-{{ $item[$id] }}" type="checkbox" class="custom-control-input" name="{{ $name ?? 'items[]' }}" value="{{ $item[$id] }}">
+                    <label data-tree-label for="checkbox-{{ $group }}-{{ $item[$id] }}" role="button" class="custom-control-label">
+                      <strong>{{ $item[$key] }}</strong>
+                      <p>{{ $item[$text] }}</p>
                     </label>
                   </div>
                 @endif

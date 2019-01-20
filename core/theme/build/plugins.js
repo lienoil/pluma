@@ -1,7 +1,9 @@
 'use strict';
 
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
@@ -27,25 +29,14 @@ module.exports = [
    *--------------------------------------------------------------------------
    *
    */
+  // new FixStyleOnlyEntriesPlugin(),
+
   new MiniCssExtractPlugin({
-    filename: '[name].min.css',
-    chunkFilename: '[id].min.css',
+    filename: 'css/[name].css',
+    chunkFilename: 'css/[id].css',
   }),
 
-  new ExtractTextPlugin({filename: '[id].min.css'}),
-
-  /**
-   *--------------------------------------------------------------------------
-   * Html Plugin
-   *--------------------------------------------------------------------------
-   *
-   */
-  new HtmlWebpackPlugin({
-    template: './views/index.blade.php',
-    filename: '../index.html',
-  }),
-
-  // new webpack.optimize.UglifyJsPlugin({ sourcemap: true }),
+  new ExtractTextPlugin({filename: 'css/[id].css'}),
 
   /**
    *--------------------------------------------------------------------------
@@ -55,7 +46,7 @@ module.exports = [
    */
   new WebappWebpackPlugin({
     logo: path.resolve(__dirname, '../src/assets/img/logo.png'),
-    prefix: '../favicons/',
+    prefix: 'favicons/',
   }),
 
   /**
@@ -66,7 +57,7 @@ module.exports = [
    */
   new CopyWebpackPlugin([{
     from: 'src/assets/img/',
-    to: '../dist/img/[name].[ext]',
+    to: 'img/[name].[ext]',
     toType: 'template',
   }]),
 
@@ -78,16 +69,30 @@ module.exports = [
    */
   new CopyWebpackPlugin([{
     from: 'src/assets/logos/',
-    to: '../dist/logos/[name].[ext]',
+    to: 'logos/[name].[ext]',
     toType: 'template',
   }]),
+
+  /**
+   *--------------------------------------------------------------------------
+   * Browser Sync
+   *--------------------------------------------------------------------------
+   * browse to http://localhost:3000/ during development,
+   * <root>/public directory is being served
+   */
+  new BrowserSyncPlugin({
+    host: 'localhost',
+    port: 3000,
+    // server: { baseDir: ['../../../public'] }
+    proxy: 'http://localhost:8000/',
+  }),
 
   /**
    *--------------------------------------------------------------------------
    * Visualizer Plugin
    *--------------------------------------------------------------------------
    *
-   * It "visualizes" your files.
+   * Stats for nerds.
    * @see  dist/stats.html
    *
    */

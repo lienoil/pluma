@@ -79,6 +79,12 @@ return [
         'description' => 'Ability to restore the role from trash',
         'group' => 'roles',
     ],
+    'import-role' => [
+        'name' => 'import-role',
+        'code' => 'roles.import',
+        'description' => 'Ability to import the role from files',
+        'group' => 'roles',
+    ],
 
     /**
      *--------------------------------------------------------------------------

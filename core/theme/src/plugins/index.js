@@ -1,6 +1,7 @@
-import './highlight/highlight.js';
-import './selectpicker/selectpicker.js';
 import '../components/dynamic-data/dynamic-data.js';
+import './highlight/highlight.js';
+import './hotkeys/hotkeys.js';
+import './daterangepicker/daterangepicker.js';
 import './misc/c3js';
 import './misc/confetti';
 import './misc/datatables';
@@ -10,3 +11,4 @@ import './misc/inputmask';
 import './misc/jquery-scrollintoview';
 import './misc/slugger';
 import './misc/snackbar';
+import './selectpicker/selectpicker.js';

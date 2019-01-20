@@ -6,8 +6,8 @@
 
   <!-- start section#js -->
   @stack('js')
-    <script src="{{ theme('dist/vendor.min.js') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}"></script>
-    <script src="{{ theme('dist/app.min.js') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}"></script>
+    <script src="{{ theme('dist/js/vendor.js') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}"></script>
+    <script src="{{ theme('dist/js/app.js') }}?v={{ app()->environment() === 'development' ? date('hi') : $application->version }}"></script>
   @show
   <!-- end section#js -->
 

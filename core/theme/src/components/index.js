@@ -1,6 +1,7 @@
 import './avatar/avatar-preview.js';
 import './datatables/datatables.js';
 import './dragdrop/dragdrop.js';
+import './dropdown/dropdown.js';
 // import './dynamic-data/dynamic-data.js';
 import './file/file.js';
 import './modal/modal.js';
