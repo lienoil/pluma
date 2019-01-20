@@ -1,7 +1,10 @@
 
 @field('input', [
-  'label' => $label ?? false,
+  'label' => $label ?? $name ?? false,
   'name' => $name,
-  'attr' => 'data-daterangepicker autocomplete=off',
+  'icon' => $icon ?? null,
+  'append' => $append ?? null,
+  'prepend' => $prepend ?? null,
+  'attr' => ($attr ?? null) . ' data-daterangepicker autocomplete=off',
   'class' => $class ?? null,
 ])

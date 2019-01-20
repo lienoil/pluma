@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group {{ $group ?? $group_class ?? null }}">
   <label for="{{ $id ?? $name.'-select' }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
   <div class="d-block mb-4">
     <img id="{{ $id ?? $name.'-preview' }}" class="rounded" src="{{ $value ?? old($name ?? 'avatar') }}" data-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=">

@@ -83,7 +83,10 @@ module.exports = [
   new BrowserSyncPlugin({
     host: 'localhost',
     port: 3000,
-    // server: { baseDir: ['../../../public'] }
+    // server: {
+    //   baseDir: 'app',
+    //   index: 'index.php'
+    // },
     proxy: 'http://localhost:8000/',
   }),
 

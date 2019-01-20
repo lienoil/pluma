@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import './avatar-upload.js';
 
 $(document).ready(function () {
   $(document).on('change', '[data-avatar-preview-target]', function () {

@@ -117,9 +117,4 @@ trait UserAccessor
                ? $this->email
                : 'Private email';
     }
-
-    public function getProfessionAttribute()
-    {
-        return 'User';
-    }
 }

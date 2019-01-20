@@ -117,7 +117,7 @@ class UserRepository extends Repository
      */
     public function create(array $data)
     {
-        $user = new User();
+        $user = $this->model;
         $user->prefixname = $data['prefixname'] ?? null;
         $user->firstname = $data['firstname'] ?? null;
         $user->middlename = $data['middlename'] ?? null;
@@ -125,7 +125,7 @@ class UserRepository extends Repository
         $user->username = $data['username'] ?? null;
         $user->email = $data['email'] ?? null;
         $user->password = bcrypt($data['password']) ?? null;
-        $user->avatar = $data['avatar'] ?? null;
+        $user->avatar = is_file($data['avatar']) ? $this->upload($data['avatar']) : ($data['avatar'] ?? null);
         $user->tokenize($data['username'] ?? $data['password']);
         $user->type = $this->usertype;
         $user->save();
@@ -152,15 +152,15 @@ class UserRepository extends Repository
      */
     public function update(array $data, $id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->model->findOrFail($id);
         $user->prefixname = $data['prefixname'] ?? null;
         $user->firstname = $data['firstname'] ?? null;
         $user->middlename = $data['middlename'] ?? null;
         $user->lastname = $data['lastname'] ?? null;
         $user->username = $data['username'] ?? null;
         $user->email = $data['email'] ?? null;
-        // $user->password = bcrypt($data['password']) ?? null;
-        $user->avatar = $data['avatar'] ?? null;
+        $user->password = bcrypt($data['password']) ?? null;
+        $user->avatar = is_file($data['avatar']) ? $this->upload($data['avatar']) : ($data['avatar'] ?? null);
         $user->tokenize($data['username']) ?? null;
         $user->type = $this->usertype;
         $user->save();
@@ -184,7 +184,7 @@ class UserRepository extends Repository
     /**
      * Upload the specified file as user's avatar.
      *
-     * @param UploadedFile $file
+     * @param \Illuminate\Http\UploadedFile $file
      * @return mixed
      */
     public function upload(UploadedFile $file)
@@ -196,7 +196,7 @@ class UserRepository extends Repository
         $fullFilePath = "$uploadPath/$fileName";
 
         if ($file->move($uploadPath, $fileName)) {
-            return "$folderName/$fileName";
+            return url("storage/$folderName/$fileName");
         }
 
         return null;
@@ -211,7 +211,7 @@ class UserRepository extends Repository
      */
     public function export($id, $data)
     {
-        $user = $this->find($id);
+        $user = $this->model->findOrFail($id);
 
         switch ($data['format']) {
             case 'xlsx':
@@ -222,6 +222,7 @@ class UserRepository extends Repository
             default:
             case 'pdf':
                 $this->toPDF($resource, $data);
+                return;
                 break;
         }
     }

@@ -23,13 +23,13 @@
     @endisset
     <select id="{{ $name }}" {{ $attr ?? '' }} {{ $isMultiple ? 'multiple' : null }} name="{{ $name ?? 'selection' }}" title="{{ $title ?? $label ?? null }}" class="form-control {{ isset($errors) && $errors->has($field ?? $name) ? 'is-invalid' : '' }}" aria-describedby="{{ $name }}">
       @foreach ($items ?? [] as $item)
-        <optgroup label="{{ $item->{$text} }}">
+        <optgroup data-icon="{{ $item->icon ?? null }}" label="{{ $item->{$text} }}">
           @foreach ($item->{$subitems} ?? [] as $subitem)
 
             @if ($isMultiple)
               <option data-tokens="{{ $item->{$text} }} {{ $subitem->{$subtext} }}" {{ (in_array($subitem->{$subkey}, $value ?? $old ?? old($name) ?? []) ? 'selected="selected"' : null) }} value="{{ $subitem->{$subkey} }}">{{ $subitem->{$subtext} }}</option>
             @else
-              <option data-tokens="{{ $item->{$text} }} {{ $subitem->{$subtext} }}" {{ ($subitem->{$subkey} === ($old ?? old($name)) ? 'selected="selected"' : null) }} value="{{ $subitem->{$subkey} }}">{{ $subitem->{$subtext} }}</option>
+              <option data-content='<span class="text-muted">{{ $item->{$text} }}&nbsp;</span>{{ $subitem->{$subtext} }}' data-tokens="{{ $item->{$text} }} {{ $subitem->{$subtext} }}" {{ ($subitem->{$subkey} === ($old ?? old($name)) ? 'selected="selected"' : null) }} value="{{ $subitem->{$subkey} }}">{{ $subitem->{$subtext} }}</option>
             @endif
 
           @endforeach

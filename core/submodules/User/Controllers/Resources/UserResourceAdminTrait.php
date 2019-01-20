@@ -46,7 +46,7 @@ trait UserResourceAdminTrait
     {
         $this->repository->create($request->all());
 
-        return back();
+        return redirect()->route('users.index');
     }
 
     /**

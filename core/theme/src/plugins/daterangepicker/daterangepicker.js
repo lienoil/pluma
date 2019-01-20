@@ -1,19 +1,21 @@
 import $ from 'jquery';
 import moment from 'moment';
 import './daterangepicker.scss';
+import './datetimepicker.scss';
 import 'daterangepicker/daterangepicker.css';
 import 'daterangepicker/daterangepicker.js';
+import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css';
+import 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js';
 
 $(document).ready(function () {
   const drp_options = {
     autoUpdateInput: true,
     locale: { cancelLabel: 'Clear' },
     applyButtonClasses: 'btn-secondary',
-    opens: 'left',
   }
 
-  $('[data-datepicker]').each(function () {
-    const options = $(this).data('daterangepicker');
+  $('[data-datepicker--x]').each(function () {
+    const options = $(this).data('datepicker');
     $(this).daterangepicker(Object.assign(drp_options, {
       singleDatePicker: true,
       autoApply: true,
@@ -23,6 +25,7 @@ $(document).ready(function () {
   $('[data-daterangepicker]').each(function () {
     const options = $(this).data('daterangepicker');
     $(this).daterangepicker(Object.assign(drp_options, {
+      singleDatePicker: false,
       applyButtonClasses: 'btn-secondary',
       alwaysShowCalendars: true,
       showCustomRangeLabel: false,
@@ -39,9 +42,30 @@ $(document).ready(function () {
   });
 
   $('[data-timepicker]').each(function () {
-    const options = $(this).data('daterangepicker');
-    $(this).daterangepicker(Object.assign(drp_options, {
-      timePicker: true,
+    const options = $(this).data('timepicker');
+    $(this).datetimepicker(Object.assign({
+      format: 'LT',
+      keepOpen: true,
+      icons: {
+        previous: 'mdi mdi-chevron-left',
+        next: 'mdi mdi-chevron-right',
+        up: 'mdi mdi-chevron-up',
+        down: 'mdi mdi-chevron-down',
+      },
+    }, options));
+  });
+
+  $('[data-datepicker]').each(function () {
+    const options = $(this).data('datepicker');
+    $(this).datetimepicker(Object.assign({
+      format: 'MM/DD/YYYY',
+      keepOpen: true,
+      icons: {
+        previous: 'mdi mdi-chevron-left',
+        next: 'mdi mdi-chevron-right',
+        up: 'mdi mdi-chevron-up',
+        down: 'mdi mdi-chevron-down',
+      },
     }, options));
   });
 

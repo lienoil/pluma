@@ -35,7 +35,7 @@ module.exports = (env, arg) => {
       sourceMapFilename: '[ext]/[name].[ext]',
     },
     resolve: {
-      extensions: ['.js', '.json'],
+      extensions: ['.js', '.css', '.scss', '.json'],
       alias: {
         '@': path.join(__dirname, 'src'),
       },

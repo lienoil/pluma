@@ -2,6 +2,8 @@
 
 namespace Pluma\Support\Repository;
 
+use Illuminate\Http\UploadedFile;
+
 class Repository implements RepositoryInterface
 {
     /**
@@ -149,6 +151,17 @@ class Repository implements RepositoryInterface
         $resources->each(function ($resource) {
             $resource->restore();
         });
+    }
+
+    /**
+     * Upload the resource to storage.
+     *
+     * @param \Illuminate\Http\UploadedFile $file
+     * @return string
+     */
+    public function upload(UploadedFile $file)
+    {
+        # code...
     }
 
     /**

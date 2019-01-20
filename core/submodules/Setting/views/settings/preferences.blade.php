@@ -11,6 +11,7 @@
           <input type="hidden" name="user_id" value="{{ user()->getKey() }}">
           <div class="card-body">
             <h6 class="form-label text-uppercase text-muted mb-4">{{ __('Account') }}</h1>
+
             @field('input', ['name' => 'date_format', 'value' => settings('date_format'), 'label' => __('Global Date Format')])
 
             @field('input', ['name' => 'items_per_page', 'type' => 'number', 'value' => settings('items_per_page'), 'label' => __('Items per Page')])

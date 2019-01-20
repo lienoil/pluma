@@ -5,7 +5,7 @@
 
 @section('page:content')
   <div class="container-fluid">
-    <form action="{{ route('users.store') }}" method="POST">
+    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div data-sticky="#page-header"></div>
       <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar row px-3">
@@ -232,13 +232,15 @@
               <div class="col-sm-12 order-lg-2 order-1">
                 @section('user.avatar')
                   <div class="card mb-3">
+                    <div class="card-header">{{ __('Photo') }}</div>
                     <div class="card-body">
-                      @field('selectavatars', [
+                      @field('uploadavatar', ['name' => 'avatar'])
+                      {{-- @field('selectavatars', [
                         'title' => __('Select Avatar'),
                         'name' => 'avatar',
                         'attr' => 'data-selectpicker data-live-search=true',
                         'value' => old('avatar'),
-                      ])
+                      ]) --}}
                     </div>
                   </div>
                 @show
