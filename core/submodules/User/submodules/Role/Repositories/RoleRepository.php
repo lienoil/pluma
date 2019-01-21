@@ -91,7 +91,7 @@ class RoleRepository extends Repository
         $role->name = $data['name'];
         $role->code = $data['code'];
         $role->description = $data['description'];
-        $role->alias = $data['alias'];
+        $role->alias = $data['alias'] ?? null;
         $role->save();
         $role->permissions()->sync($data['permissions']);
     }

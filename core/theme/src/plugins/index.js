@@ -1,7 +1,8 @@
 import '../components/dynamic-data/dynamic-data.js';
+import './croppie/croppie.js';
+import './daterangepicker/daterangepicker.js';
 import './highlight/highlight.js';
 import './hotkeys/hotkeys.js';
-import './daterangepicker/daterangepicker.js';
 import './misc/c3js';
 import './misc/confetti';
 import './misc/datatables';

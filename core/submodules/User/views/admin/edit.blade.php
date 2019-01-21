@@ -187,13 +187,9 @@
                               @field('textarea', [
                                 'attr' => 'cols=30 rows=1',
                                 'name' => 'details[address][value]',
-                                'label' => false,
-                                'group' => 'mb-0',
+                                'group_class' => 'mb-0',
                                 'value' => $resource->details()->where('key', 'Home Address')->first()->value ?? null,
                               ])
-                              {{-- <div class="form-group mb-0">
-                                <textarea name="details[address][value]" cols="30" rows="1" class="form-control">{{ old('details.address.value') }}</textarea>
-                              </div> --}}
                             </td>
                           </tr>
 
@@ -202,7 +198,8 @@
                             @foreach (collect(old('details'))->except(['address', 'phone', 'birthday']) as $i => $detail)
                               <tr data-dynamic-item data-dynamic-item-number="{{ $i }}">
                                 <td>
-                                  @include('Theme::fields.selecticons', [
+                                  @field('selecticons', [
+                                    'group_class' => 'mb-0',
                                     'name' => 'details['.$i.'][icon]',
                                     'value' => $detail['icon'] ?? '',
                                     'attr' => 'data-selectpicker data-live-search="true"',
@@ -232,7 +229,8 @@
                             }) as $i => $detail)
                               <tr data-dynamic-item data-dynamic-item-number="{{ $i }}">
                                 <td>
-                                  @include('Theme::fields.selecticons', [
+                                  @field('selecticons', [
+                                    'group_class' => 'mb-0',
                                     'name' => 'details['.$i.'][icon]',
                                     'value' => $detail['icon'] ?? '',
                                     'attr' => 'data-selectpicker data-live-search="true"',
@@ -266,7 +264,8 @@
                           {{-- Dynamic Template --}}
                           <tr data-dynamic-item-template>
                             <td>
-                              @include('Theme::fields.selecticons', [
+                              @field('selecticons', [
+                                'group_class' => 'mb-0',
                                 'name' => 'details[#][icon]',
                                 'attr' => 'disabled data-live-search="true"',
                               ])
@@ -289,7 +288,12 @@
 
                           <tr data-dynamic-after-items>
                             <td colspan="4">
-                              <button data-dynamic-add-button type="button" class="btn btn-secondary btn-sm">{{ __('Add Field') }}</button>
+                              <button data-hotkey="ctrl+a" data-dynamic-add-button type="button" class="btn btn-secondary btn-sm">
+                                {{ __('Add Field') }}
+                                @if (settings('show_shortcut_keys', true))
+                                  <code>ctrl+a</code>
+                                @endif
+                              </button>
                             </td>
                           </tr>
 

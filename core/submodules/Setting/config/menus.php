@@ -1,6 +1,17 @@
 <?php
 
 return [
+    'header:system' => [
+        'name' => 'header:system',
+        'is_header' => true,
+        'always_viewable' => false,
+        'permission' => 'settings:general.index',
+        'order' => 700,
+        'class' => 'separator',
+        'markup' => 'span',
+        'text' => __('System'),
+    ],
+
     /**
      *--------------------------------------------------------------------------
      * Setting

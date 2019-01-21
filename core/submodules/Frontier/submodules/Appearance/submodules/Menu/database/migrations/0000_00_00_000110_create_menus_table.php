@@ -29,6 +29,7 @@ class CreateMenusTable extends Migration
             $table->string('title');
             $table->string('code');
             $table->string('location');
+            $table->string('url');
             $table->string('icon')->nullable();
             $table->string('slug')->nullable()->default('');
             $table->string('key')->unique();
@@ -38,7 +39,7 @@ class CreateMenusTable extends Migration
             $table->integer('lft')->unsigned()->nullable();
             $table->integer('rgt')->unsigned()->nullable();
             $table->timestamps();
-            $table->index(['location', 'type', 'slug', 'icon']);
+            $table->index(['location', 'url', 'type', 'slug', 'icon']);
         });
     }
 

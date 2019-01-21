@@ -1,4 +1,4 @@
-<div class="form-group {{ $group ?? null }}">
+<div class="form-group {{ $group ?? $group_class ?? null }}">
   @isset ($label)
     <label for="selecticon-{{ $name }}" class="form-label">{{ $label }}</label>
   @endisset

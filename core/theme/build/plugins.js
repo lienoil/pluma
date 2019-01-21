@@ -10,6 +10,7 @@ const path = require('path');
 const Visualizer = require('webpack-visualizer-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const webpack = require('webpack');
+const theme = require('../theme.json');
 
 module.exports = [
   /**
@@ -47,6 +48,10 @@ module.exports = [
   new WebappWebpackPlugin({
     logo: path.resolve(__dirname, '../src/assets/img/logo.png'),
     prefix: 'favicons/',
+    favicons: {
+      appName: theme.name,
+      appDescription: theme.description,
+    },
   }),
 
   /**

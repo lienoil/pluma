@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "name": null,
-  "description": null,
+  "name": "Default",
+  "description": "The default theme for pluma/cms. It's alright.",
   "icons": {
     "60": "/favicons/firefox_app_60x60.png",
     "128": "/favicons/firefox_app_128x128.png",

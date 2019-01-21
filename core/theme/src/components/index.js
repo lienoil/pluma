@@ -1,4 +1,5 @@
 import './avatar/avatar-preview.js';
+import './card/card.js';
 import './datatables/datatables.js';
 import './dragdrop/dragdrop.js';
 import './dropdown/dropdown.js';

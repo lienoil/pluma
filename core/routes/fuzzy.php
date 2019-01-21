@@ -52,3 +52,23 @@ Route::get('anytheme/{file?}', function ($file = null) {
 
     return abort(404);
 })->where('file', '.*');
+
+Route::get('favicons/{file?}', function ($file = null) {
+    $activeTheme = settings('active_theme', 'default') ?? 'default';
+    $path = $activeTheme === 'default'
+        ? core_path('theme')
+        : themes_path($activeTheme);
+    $path = $path.'/dist/favicons/'.$file;
+    $extension = File::extension($path);
+    $contentType = config("mimetypes.$extension", 'txt');
+
+    if (in_array($extension, config('download.restricted', []))) {
+        return abort(403);
+    }
+
+    if (File::exists($path) && ! is_dir($path)) {
+        return response()->file($path, array('Content-Type' => $contentType));
+    }
+
+    return abort(404);
+})->where('file', '.*');

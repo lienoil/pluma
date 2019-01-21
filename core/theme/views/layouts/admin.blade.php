@@ -12,7 +12,7 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12 p-0">
             @include('Theme::partials.breadcrumbs')
           </div>
         </div>
@@ -21,7 +21,7 @@
       <main id="main" class="main justify-content-start {{ settings('display.main.grid.class', false) ? 'container' : null }}" role="main">
         <div class="container">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 p-0">
               @stack('before:content')
 
               @section('content')

@@ -10,9 +10,10 @@
       </button>
     @show
 
-    {{-- @section('utilitysearch')
-      @include('Theme::partials.search')
-    @show --}}
+    @section('utility:search')
+      {{-- @include('Theme::partials.search') --}}
+    @show
+
     @section('utilitybar:user')
       <div class="d-flex order-lg-2 ml-auto">
         <div class="dropdown">

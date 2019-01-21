@@ -8,7 +8,7 @@
     <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div data-sticky="#page-header"></div>
-      <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar row px-3">
+      <nav id="page-header" data-sticky-class="sticky bg-workspace shadow-sm" class="navbar row mb-4 px-3">
         <h1 class="page-title">{{ __('Add User') }}</h1>
         <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save">&nbsp;</i>{{ __('Save') }}</button>
       </nav>
@@ -146,9 +146,12 @@
                               </div>
                             </td>
                             <td colspan="3">
-                              <div class="form-group mb-0">
-                                <textarea name="details[address][value]" cols="30" rows="1" class="form-control">{{ old('details.address.value') }}</textarea>
-                              </div>
+                              @field('textarea', [
+                                'attr' => 'cols=30 rows=1',
+                                'name' => 'details[address][value]',
+                                'group_class' => 'mb-0',
+                                'value' => old('details.address.value'),
+                              ])
                             </td>
                           </tr>
 
@@ -158,8 +161,9 @@
                             @foreach (collect(old('details'))->except(['address', 'phone', 'birthday']) as $i => $detail)
                               <tr data-dynamic-item data-dynamic-item-number="{{ $i }}">
                                 <td>
-                                  @include('Theme::fields.selecticons', [
+                                  @field('selecticons', [
                                     'name' => 'details['.$i.'][icon]',
+                                    'group_class' => 'mb-0',
                                     'value' => $detail['icon'] ?? '',
                                     'attr' => 'data-selectpicker data-live-search="true"',
                                   ])
@@ -186,8 +190,9 @@
                           {{-- Dynamic Template --}}
                           <tr data-dynamic-item-template>
                             <td>
-                              @include('Theme::fields.selecticons', [
+                              @field('selecticons', [
                                 'name' => 'details[#][icon]',
+                                'group_class' => 'mb-0',
                                 'attr' => 'disabled data-live-search="true"',
                               ])
                             </td>
@@ -209,7 +214,12 @@
 
                           <tr data-dynamic-after-items>
                             <td colspan="4">
-                              <button data-dynamic-add-button type="button" class="btn btn-secondary btn-sm">{{ __('Add Field') }}</button>
+                              <button data-hotkey="ctrl+a" data-dynamic-add-button type="button" class="btn btn-secondary btn-sm">
+                                {{ __('Add Field') }}
+                                @if (settings('show_shortcut_keys', true))
+                                  <code>ctrl+a</code>
+                                @endif
+                              </button>
                             </td>
                           </tr>
 
@@ -233,7 +243,7 @@
                 @section('user.avatar')
                   <div class="card mb-3">
                     <div class="card-header">{{ __('Photo') }}</div>
-                    <div class="card-body">
+                    <div class="card-body text-center">
                       @field('uploadavatar', ['name' => 'avatar'])
                       {{-- @field('selectavatars', [
                         'title' => __('Select Avatar'),

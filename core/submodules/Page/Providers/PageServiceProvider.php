@@ -46,6 +46,8 @@ class PageServiceProvider extends ServiceProvider
     public function register()
     {
         parent::register();
+
+        $this->registerEloquentFactories();
     }
 
     /**
@@ -60,5 +62,17 @@ class PageServiceProvider extends ServiceProvider
         if (file_exists($path)) {
             $this->composers = require_once realpath($path);
         }
+    }
+
+    /**
+     * Register the Eloquent factory instance in the container.
+     *
+     * @return void
+     */
+    protected function registerEloquentFactories()
+    {
+        $factoryPath = get_module('page').'/'.basename($this->app->databasePath()).'/factories';
+
+        $this->registerEloquentFactoriesFrom($factoryPath);
     }
 }

@@ -6,4 +6,6 @@
   'prepend' => $prepend ?? null,
   'attr' => ($attr ?? null) . ' data-datepicker autocomplete=off',
   'class' => $class ?? null,
+  'hint' => $hint ?? null,
+  'value' => $value ?? null,
 ])

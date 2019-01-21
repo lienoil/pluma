@@ -11,7 +11,7 @@ return [
      */
     'user' => [
         'name' => 'user',
-        'order' => 600,
+        'order' => 720,
         'slug' => route('users.index'),
         'always_viewable' => false,
         'icon' => 'mdi mdi-account-multiple-outline',

@@ -1,7 +1,7 @@
 {
-  "name": null,
-  "short_name": null,
-  "description": null,
+  "name": "Default",
+  "short_name": "Default",
+  "description": "The default theme for pluma/cms. It's alright.",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",

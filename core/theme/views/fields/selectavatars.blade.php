@@ -1,6 +1,8 @@
 <div class="form-group {{ $group ?? $group_class ?? null }}">
-  <label for="{{ $id ?? $name.'-select' }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
-  <div class="d-block mb-4">
+  @isset ($label)
+    <label for="{{ $id ?? $name.'-select' }}" class="form-label">{{ __($label ?? ucfirst($name)) }}</label>
+  @endisset
+  <div class="d-block mb-2">
     <img id="{{ $id ?? $name.'-preview' }}" class="rounded" src="{{ $value ?? old($name ?? 'avatar') }}" data-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=">
   </div>
   <select id="{{ $id ?? $name.'-select' }}" data-avatar-preview-target="#{{ $id ?? $name.'-preview' }}" {{ $attr ?? '' }} title="{{ $title ?? __('Icon') }}" name="{{ $name ?? 'avatar' }}" class="form-control {{ $class ?? '' }}">

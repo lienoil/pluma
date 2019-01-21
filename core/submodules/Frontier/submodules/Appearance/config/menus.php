@@ -10,7 +10,7 @@ return [
      */
     'appearance' => [
         'name' => 'appearance',
-        'order' => 500,
+        'order' => 710,
         'slug' => '#',
         'always_viewable' => false,
         'is_hidden' => false,

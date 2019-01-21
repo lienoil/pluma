@@ -3,7 +3,7 @@
 @section('page:content')
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-12">
 
         <form action="{{ route('widgets.refresh') }}" method="POST">
           @csrf
@@ -20,14 +20,23 @@
         </form>
 
       </div>
-      <div class="col-lg-8">
-        @foreach ($widgets as $widget)
-          <a href="{{ route('widgets.edit', $widget->id) }}">
-            {{ $widget->icon }}
-            <div>{{ $widget->name }}</div>
-            <div>{{ $widget->roles->count() }}</div>
-          </a>
-        @endforeach
+      <div class="col-lg-12">
+        <div class="row">
+          @foreach ($widgets as $widget)
+            <div class="col-md-4">
+              <div class="card mb-3">
+                <div class="card-header">{{ $widget->name }}</div>
+                <div class="card-body">{{ $widget->description }}</div>
+              </div>
+            </div>
+
+            {{-- <a href="{{ route('widgets.edit', $widget->id) }}">
+              {{ $widget->icon }}
+              <div>{{ $widget->name }}</div>
+              <div>{{ $widget->roles->count() }}</div>
+            </a> --}}
+          @endforeach
+        </div>
       </div>
     </div>
   </div>

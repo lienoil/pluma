@@ -18,9 +18,3 @@ function readURL(input) {
 $('[data-avatar-upload]').change(function() {
   readURL(this);
 });
-
-$(document).ready(function () {
-  $('[data-avatar]').cropper({
-    aspectRatio: 16 / 9,
-  })
-});
