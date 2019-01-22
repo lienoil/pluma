@@ -84,4 +84,20 @@ class PermissionRepository extends Repository
 
         return $permission;
     }
+
+    /**
+     * Update the permissions table
+     * from permissions files.
+     *
+     * @return void
+     */
+    public function refresh()
+    {
+        foreach ($this->seeds() as $permission) {
+            $this->model()->updateOrCreate(
+                ['code' => $permission['code']],
+                $permission
+            );
+        }
+    }
 }

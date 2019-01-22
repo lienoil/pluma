@@ -55,7 +55,6 @@ class UserServiceProvider extends AuthServiceProvider
      */
     protected $providers = [
         PasswordServiceProvider::class,
-        \Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ];
 
     /**

@@ -18,7 +18,7 @@ trait PermissionResourceAdminTrait
      */
     public function index(Request $request)
     {
-        $resources = $this->repository->grouped();
+        $resources = $this->repository()->grouped();
 
         return view('Role::permissions.index')->with(compact('resources'));
     }
@@ -32,12 +32,8 @@ trait PermissionResourceAdminTrait
      */
     public function refresh(Request $request)
     {
-        foreach ($this->repository->seeds() as $permission) {
-            $this->repository->model()->updateOrCreate(
-                ['code' => $permission['code']],
-                $permission
-            );
-        }
+        $this->repository()->refresh();
+        Artisan::call('db:seed', ['--class' => 'SuperadminPermissionsSeeder']);
 
         return back();
     }
@@ -52,7 +48,7 @@ trait PermissionResourceAdminTrait
     public function reset(Request $request)
     {
         Schema::disableForeignKeyConstraints();
-        DB::table($this->repository->model()->getTable())->truncate();
+        DB::table($this->repository()->model()->getTable())->truncate();
         Schema::enableForeignKeyConstraints();
 
         // Reseed

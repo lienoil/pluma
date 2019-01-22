@@ -91,7 +91,7 @@ trait RoleAdminTrait
     {
         $this->repository()->update($request->all(), $id);
 
-        return back();
+        return redirect()->route('roles.index');
     }
 
     /**
