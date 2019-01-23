@@ -6,9 +6,9 @@ function readURL(input) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-      $('[data-avatar]').css('background-image', 'url('+e.target.result +')');
-      $('[data-avatar]').hide();
-      $('[data-avatar]').fadeIn(650);
+      $(input).closest('[data-avatar]').find('[data-avatar-preview]').css('background-image', 'url('+e.target.result +')');
+      $(input).closest('[data-avatar]').find('[data-avatar-preview]').hide();
+      $(input).closest('[data-avatar]').find('[data-avatar-preview]').fadeIn(650);
     }
 
     reader.readAsDataURL(input.files[0]);

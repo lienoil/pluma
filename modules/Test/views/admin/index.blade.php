@@ -15,6 +15,7 @@
           <div class="card-header">{{ __('Photo') }}</div>
           <div class="card-body text-center">
             @field('uploadavatar', ['name' => 'avatar'])
+            @field('uploadavatar', ['name' => 'sad'])
           </div>
         </div>
 
